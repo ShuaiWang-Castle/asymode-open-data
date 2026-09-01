@@ -32,6 +32,30 @@ def make_folds(fips: list[str], k: int = 5, seed: int = 0) -> np.ndarray:
     return out
 
 
+def inner_split(fips_rows: "np.ndarray", seed: int = 0, frac: float = 0.15):
+    """Split training rows into a fit set and an early-stopping set, by county.
+
+    The outer folds hold out counties, because generalising to a county the model
+    has never seen is the thing being measured. An inner split that partitions
+    *rows* instead leaves the same counties on both sides of it, so the validation
+    curve it produces cannot see county-level overfitting -- and a model selected
+    on that curve is selected for performance on counties it has already read.
+    The stopping rule has to hold out what the evaluation holds out.
+
+    Returns (fit_rows, val_rows) as positions into `fips_rows`. The seed is offset
+    so an inner split never reproduces the outer partition it sits inside.
+    """
+    uniq = sorted(set(fips_rows.tolist()))
+    k = max(2, round(1.0 / frac))
+    fold = make_folds(uniq, k=k, seed=seed + 1000)
+    val_counties = {c for c, f in zip(uniq, fold) if f == 0}
+    is_val = np.array([f in val_counties for f in fips_rows])
+    if is_val.all() or not is_val.any():        # degenerate on a tiny county set
+        n = max(1, int(frac * len(fips_rows)))
+        return np.arange(n, len(fips_rows)), np.arange(n)
+    return np.where(~is_val)[0], np.where(is_val)[0]
+
+
 @dataclass
 class Task:
     """A forecasting task over one panel.

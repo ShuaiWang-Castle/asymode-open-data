@@ -96,6 +96,11 @@ def derive_channels(ds) -> dict:
     out = {}
     if "u10" in v and "v10" in v:
         out["wind_speed"] = np.hypot(v["u10"], v["v10"])
+        # Components are carried, not just the magnitude: a veering wind loads a
+        # tree from a direction its root plate has not been braced against, and
+        # that needs direction, which the magnitude has thrown away.
+        out["u10"] = v["u10"]
+        out["v10"] = v["v10"]
     for src, dst in (("i10fg", "gust"), ("fg10", "gust"), ("t2m", "t2m"),
                      ("tp", "precip"), ("sf", "snowfall"), ("cape", "cape"),
                      ("swvl1", "soil_moisture"), ("tcc", "cloud"), ("sp", "pressure")):

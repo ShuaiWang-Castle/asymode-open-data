@@ -38,23 +38,41 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from asymode.dynamics import (TwoRateODE, TwoRateConfig, InflowForm,   # noqa: E402
                               calibrate_init)
-from asymode.evalproto import Task, make_folds, to_hourly            # noqa: E402
+from asymode.evalproto import (Task, make_folds, to_hourly,           # noqa: E402
+                               inner_split)
+from asymode import panels as panelset                              # noqa: E402
 
 INTERIM = ROOT / "data" / "interim"
 ARMS = [InflowForm.SUSCEPTIBLE, InflowForm.TRANSMISSION, InflowForm.TRANSMISSION_SEED]
 
 
-def load_pooled(horizon: int, stride: int, min_history: int = 24):
+def origin_range(n: int, horizon: int, stride: int, min_history: int) -> range:
+    """The forecast origins a panel of length `n` contributes.
+
+    Factored out because a second loader that needs to line up with `load_pooled`
+    sample for sample must not restate this: two copies of a loop are two chances
+    to drift, and a misalignment here would silently pair one sample's features
+    with another sample's target.
+    """
+    return range(min_history, n - horizon, stride)
+
+
+def load_pooled(horizon: int, stride: int, min_history: int = 24,
+                panels: list[str] | None = None):
     """Every (county, storm, origin) with drivers, pooled across storms.
 
     Pooling is the point: a county is the unit of held-out evaluation, and a model
     that only works on the storm it was fitted to is not a model of the dynamics.
+
+    `panels` names the set explicitly. Passing `None` pools whatever is on disk,
+    which is only safe when nothing is still downloading -- see `asymode.panels`.
     """
+    keep = set(panels) if panels is not None else None
     Y0, X, YT, M, FIPS, PANEL = [], [], [], [], [], []
     for pf in sorted(INTERIM.glob("panel_*.npz")):
         day = pf.stem.replace("panel_", "")
         df = INTERIM / f"drivers_{day}.npz"
-        if not df.exists():
+        if not df.exists() or (keep is not None and day not in keep):
             continue
         pz, dz = np.load(pf, allow_pickle=True), np.load(df, allow_pickle=True)
         assert pz["fips"].tolist() == dz["fips"].tolist()
@@ -63,12 +81,41 @@ def load_pooled(horizon: int, stride: int, min_history: int = 24):
         n = min(yh.shape[1], Xh.shape[1])
         yh, oh, Xh = yh[:, :n], oh[:, :n], Xh[:, :n]
         yh = np.nan_to_num(yh)
-        for o in range(min_history, n - horizon, stride):
+        for o in origin_range(n, horizon, stride, min_history):
             Y0.append(yh[:, o]); X.append(Xh[:, o + 1:o + 1 + horizon])
             YT.append(yh[:, o + 1:o + 1 + horizon]); M.append(oh[:, o + 1:o + 1 + horizon])
             FIPS.append(np.array(fips)); PANEL.append(np.full(len(fips), day))
     return (np.concatenate(Y0), np.concatenate(X), np.concatenate(YT),
             np.concatenate(M), np.concatenate(FIPS), np.concatenate(PANEL))
+
+
+def load_history(horizon: int, stride: int, lookback: int, min_history: int = 24,
+                 panels: list[str] | None = None) -> np.ndarray:
+    """The `lookback` hours of observed state before each origin, in sample order.
+
+    Walks the panels in the same order, with the same driver requirement and the
+    same origins as `load_pooled`, so row i here is row i there. The caller is
+    expected to assert that, and does.
+
+    This is *more* information than the dynamics receive: they are given the
+    origin state and the drivers, and nothing before the origin. A baseline that
+    reads it is not being handicapped, it is being advantaged, and any arm built
+    on it has to be labelled that way.
+    """
+    keep = set(panels) if panels is not None else None
+    H = []
+    for pf in sorted(INTERIM.glob("panel_*.npz")):
+        day = pf.stem.replace("panel_", "")
+        df = INTERIM / f"drivers_{day}.npz"
+        if not df.exists() or (keep is not None and day not in keep):
+            continue
+        pz, dz = np.load(pf, allow_pickle=True), np.load(df, allow_pickle=True)
+        yh, _ = to_hourly(pz["y"], pz["observed"])
+        n = min(yh.shape[1], dz["X"].shape[1])
+        yh = np.nan_to_num(yh[:, :n])
+        for o in origin_range(n, horizon, stride, min_history):
+            H.append(yh[:, o - lookback + 1:o + 1])
+    return np.concatenate(H)
 
 
 def add_context(X: np.ndarray, y0: np.ndarray, hours: int) -> np.ndarray:
@@ -118,7 +165,7 @@ def run_baseline(name, tr, te, data, args):
 BASELINES = ["zero", "persistence", "damped_persistence"]
 
 
-def run_arm(arm, tr, te, data, args, seed):
+def run_arm(arm, tr, te, data, args, seed, fips):
     y0, X, yt, m = data
     torch.manual_seed(seed); np.random.seed(seed)
     mu = X[tr].reshape(-1, X.shape[-1]).mean(0)
@@ -136,10 +183,12 @@ def run_arm(arm, tr, te, data, args, seed):
     model = TwoRateODE(cfg)
     opt = torch.optim.Adam(model.parameters(), lr=args.lr)
 
-    idx = np.array(tr)
-    n_val = max(1, int(0.15 * len(idx)))
-    rng = np.random.default_rng(seed); rng.shuffle(idx)
-    va, fit = idx[:n_val], idx[n_val:]
+    # Early stopping holds out counties, not rows: see `inner_split`. A row-random
+    # split leaves the same counties on both sides and cannot see the failure the
+    # outer folds exist to measure.
+    fi, vi = inner_split(fips[tr], seed=seed)
+    tr_arr = np.asarray(tr)
+    fit, va = tr_arr[fi], tr_arr[vi]
     Y0, XX, YT, MM = t(y0), t(Xn), t(yt), t(m.astype(np.float32))
 
     def loss_on(ix):
@@ -199,12 +248,16 @@ def main():
     ap.add_argument("--hidden", type=int, default=32)
     ap.add_argument("--cap-u", type=float, default=0.25)
     ap.add_argument("--cap-r", type=float, default=0.25)
+    ap.add_argument("--panels", default=None,
+                    help="panel set: omit for the manifest, 'auto' to pool what "
+                         "is on disk (exploration only), or a path to a JSON file")
     ap.add_argument("--out", default="results/exp05_real_dynamics.json")
     a = ap.parse_args()
 
-    y0, X, yt, m, fips, panel = load_pooled(a.horizon, a.stride)
+    want, panel_digest = panelset.resolve(INTERIM, a.panels)
+    y0, X, yt, m, fips, panel = load_pooled(a.horizon, a.stride, panels=want)
     X = add_context(X, y0, a.horizon)
-    print(f"pooled samples {len(y0):,} over {len(set(panel))} storms, "
+    print(f"pooled samples {len(y0):,} over {len(set(panel))} storms [{panel_digest}], "
           f"{len(set(fips)):,} counties, {X.shape[-1]} driver channels, "
           f"horizon {a.horizon} h")
     print(f"observed targets: {m.mean()*100:.1f}%   mean y0 {y0.mean():.5f}")
@@ -222,7 +275,7 @@ def main():
                              "n_test": len(te), "wall_s": 0.0, **r})
             for arm in ARMS:
                 t0 = time.time()
-                r = run_arm(arm, tr, te, (y0, X, yt, m), a, seed)
+                r = run_arm(arm, tr, te, (y0, X, yt, m), a, seed, fips)
                 wall = round(time.time() - t0, 1)
                 rows.append({"arm": arm.value, "seed": seed, "fold": f,
                              "n_test": len(te), "wall_s": wall, **r})
@@ -232,6 +285,8 @@ def main():
 
     out = ROOT / a.out; out.parent.mkdir(parents=True, exist_ok=True)
     cfg = dict(vars(a)); cfg["out"] = a.out
+    cfg["panels"] = sorted(set(panel.tolist()))
+    cfg["panel_digest"] = panel_digest
     out.write_text(json.dumps({"config": cfg, "rows": rows}, indent=2))
 
     print(f"\n=== pooled over {a.k} folds x {len(a.seeds)} seeds ===")
