@@ -126,12 +126,24 @@ class GatedRate(nn.Module):
     def reset_gate_stats(self) -> None:
         self._g_n = 0
         self._g_sum = 0.0
+        self._g_sq = 0.0
         self._g_closed = 0
         self._g_open = 0
 
     def gate_stats(self) -> dict:
+        """Mean, spread, and the two saturation fractions.
+
+        The spread is the load-bearing one. The gate's *level* is not identified:
+        the rate depends on the product `g * sigmoid(pulse_logit)`, so the pulse's
+        bias can absorb any constant factor in the gate, and a gate sitting at its
+        initial value is therefore not evidence that the gate is doing nothing.
+        Only its variation across inputs distinguishes an active gate from an
+        inert one, and reporting the mean alone cannot tell them apart.
+        """
         n = max(self._g_n, 1)
-        return {"gate_mean": self._g_sum / n,
+        mean = self._g_sum / n
+        var = max(self._g_sq / n - mean * mean, 0.0)
+        return {"gate_mean": mean, "gate_sd": var ** 0.5,
                 "frac_gate_closed": self._g_closed / n,
                 "frac_gate_open": self._g_open / n}
 
@@ -161,6 +173,7 @@ class GatedRate(nn.Module):
         with torch.no_grad():
             self._g_n += g.numel()
             self._g_sum += float(g.sum())
+            self._g_sq += float((g * g).sum())
             self._g_closed += int((g < 0.01).sum())
             self._g_open += int((g > 0.99).sum())
         # a + b - ab, algebraically identical to 1 - (1-a)(1-b) but not

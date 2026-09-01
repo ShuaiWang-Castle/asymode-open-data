@@ -165,7 +165,7 @@ def run_baseline(name, tr, te, data, args):
 BASELINES = ["zero", "persistence", "damped_persistence"]
 
 
-def run_arm(arm, tr, te, data, args, seed, fips):
+def run_arm(arm, tr, te, data, args, seed, fips, fold_id):
     y0, X, yt, m = data
     torch.manual_seed(seed); np.random.seed(seed)
     mu = X[tr].reshape(-1, X.shape[-1]).mean(0)
@@ -186,7 +186,7 @@ def run_arm(arm, tr, te, data, args, seed, fips):
     # Early stopping holds out counties, not rows: see `inner_split`. A row-random
     # split leaves the same counties on both sides and cannot see the failure the
     # outer folds exist to measure.
-    fi, vi = inner_split(fips[tr], seed=seed)
+    fi, vi = inner_split(fips[tr], seed=seed, fold=fold_id)
     tr_arr = np.asarray(tr)
     fit, va = tr_arr[fi], tr_arr[vi]
     Y0, XX, YT, MM = t(y0), t(Xn), t(yt), t(m.astype(np.float32))
@@ -275,7 +275,7 @@ def main():
                              "n_test": len(te), "wall_s": 0.0, **r})
             for arm in ARMS:
                 t0 = time.time()
-                r = run_arm(arm, tr, te, (y0, X, yt, m), a, seed, fips)
+                r = run_arm(arm, tr, te, (y0, X, yt, m), a, seed, fips, f)
                 wall = round(time.time() - t0, 1)
                 rows.append({"arm": arm.value, "seed": seed, "fold": f,
                              "n_test": len(te), "wall_s": wall, **r})
@@ -287,6 +287,8 @@ def main():
     cfg = dict(vars(a)); cfg["out"] = a.out
     cfg["panels"] = sorted(set(panel.tolist()))
     cfg["panel_digest"] = panel_digest
+    cfg["channels"] = panelset.channel_names(INTERIM)
+    cfg["channel_digest"] = panelset.channel_digest(cfg["channels"])
     out.write_text(json.dumps({"config": cfg, "rows": rows}, indent=2))
 
     print(f"\n=== pooled over {a.k} folds x {len(a.seeds)} seeds ===")

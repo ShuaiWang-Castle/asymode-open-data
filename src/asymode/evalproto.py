@@ -32,7 +32,8 @@ def make_folds(fips: list[str], k: int = 5, seed: int = 0) -> np.ndarray:
     return out
 
 
-def inner_split(fips_rows: "np.ndarray", seed: int = 0, frac: float = 0.15):
+def inner_split(fips_rows: "np.ndarray", seed: int = 0, fold: int = 0,
+                frac: float = 0.15):
     """Split training rows into a fit set and an early-stopping set, by county.
 
     The outer folds hold out counties, because generalising to a county the model
@@ -42,13 +43,16 @@ def inner_split(fips_rows: "np.ndarray", seed: int = 0, frac: float = 0.15):
     on that curve is selected for performance on counties it has already read.
     The stopping rule has to hold out what the evaluation holds out.
 
-    Returns (fit_rows, val_rows) as positions into `fips_rows`. The seed is offset
-    so an inner split never reproduces the outer partition it sits inside.
+    Returns (fit_rows, val_rows) as positions into `fips_rows`. The offset keeps
+    the inner split from reproducing the outer partition it sits inside, and
+    varying it with the fold matters for a second reason: `make_folds` hashes the
+    county id, so a fold-independent offset would hold out the *same* counties in
+    every fold and those counties would then never be trained on at all.
     """
     uniq = sorted(set(fips_rows.tolist()))
     k = max(2, round(1.0 / frac))
-    fold = make_folds(uniq, k=k, seed=seed + 1000)
-    val_counties = {c for c, f in zip(uniq, fold) if f == 0}
+    assign = make_folds(uniq, k=k, seed=1000 + 10 * seed + fold)
+    val_counties = {c for c, f in zip(uniq, assign) if f == 0}
     is_val = np.array([f in val_counties for f in fips_rows])
     if is_val.all() or not is_val.any():        # degenerate on a tiny county set
         n = max(1, int(frac * len(fips_rows)))

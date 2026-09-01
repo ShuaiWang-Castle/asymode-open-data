@@ -155,14 +155,6 @@ ARMS: list[Arm] = [
 ]
 
 
-def channel_names() -> list[str]:
-    """Driver channel names, plus the two the context step appends."""
-    for df in sorted(INTERIM.glob("drivers_*.npz")):
-        z = np.load(df, allow_pickle=True)
-        return [str(c) for c in z["channels"]] + ["clock_sin", "clock_cos"]
-    raise FileNotFoundError("no driver files to read channel names from")
-
-
 def resolve(fams: tuple[str, ...] | None, names: list[str]) -> list[int] | None:
     """Family names -> channel indices. `None` (every channel) stays `None`.
 
@@ -225,7 +217,8 @@ def side_evidence(y0: np.ndarray, yt: np.ndarray, m: np.ndarray) -> dict:
     return out
 
 
-def run_arm(arm: Arm, tr, te, data, args, seed: int, names: list[str], fips) -> dict:
+def run_arm(arm: Arm, tr, te, data, args, seed: int, names: list[str],
+            fips, fold_id: int) -> dict:
     """Train one arm. Mirrors the EXP05 recipe exactly except for the two axes."""
     y0, X, yt, m = data
     torch.manual_seed(seed); np.random.seed(seed)
@@ -262,7 +255,7 @@ def run_arm(arm: Arm, tr, te, data, args, seed: int, names: list[str], fips) -> 
     # Early stopping holds out counties, not rows: see `inner_split`. A row-random
     # split leaves the same counties on both sides and cannot see the failure the
     # outer folds exist to measure.
-    fi, vi = inner_split(fips[tr], seed=seed)
+    fi, vi = inner_split(fips[tr], seed=seed, fold=fold_id)
     tr_arr = np.asarray(tr)
     fit, va = tr_arr[fi], tr_arr[vi]
     Y0, XX, YT, MM = t(y0), t(Xn), t(yt), t(m.astype(np.float32))
@@ -352,7 +345,7 @@ def main() -> None:
     want, digest = panelset.resolve(INTERIM, a.panels)
     y0, X, yt, m, fips, panel = load_pooled(a.horizon, a.stride, panels=want)
     X = add_context(X, y0, a.horizon)
-    names = channel_names()
+    names = panelset.channel_names(INTERIM)
     assert len(names) == X.shape[-1], (len(names), X.shape[-1])
 
     panels = sorted(set(panel.tolist()))
@@ -381,7 +374,7 @@ def main() -> None:
                              **side_evidence(y0[te], yt[te], m[te])})
             for arm in arms:
                 t0 = time.time()
-                r = run_arm(arm, tr, te, (y0, X, yt, m), a, seed, names, fips)
+                r = run_arm(arm, tr, te, (y0, X, yt, m), a, seed, names, fips, f)
                 wall = round(time.time() - t0, 1)
                 rows.append({"arm": arm.name, "axis": arm.axis, "seed": seed,
                              "fold": f, "n_test": len(te), "wall_s": wall, **r})
@@ -394,6 +387,7 @@ def main() -> None:
     cfg["panels"] = panels
     cfg["panel_digest"] = digest
     cfg["channels"] = names
+    cfg["channel_digest"] = panelset.channel_digest(names)
     cfg["families"] = {k: list(v) for k, v in FAMILIES.items()}
     cfg["arms"] = [{"name": x.name, "axis": x.axis, "fam_u": x.fam_u, "fam_r": x.fam_r,
                     "hidden_u": x.hidden_u, "hidden_r": x.hidden_r,

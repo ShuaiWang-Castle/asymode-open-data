@@ -146,7 +146,7 @@ def _fit_trees(args, seed, Xf, yf, Xv, yv):
     return final, best_iter, best
 
 
-def run_trees(tr, te, data, hist, args, seed, fips, use_hist=False):
+def run_trees(tr, te, data, hist, args, seed, fips, fold_id, use_hist=False):
     y0, X, yt, m = data
     out = {}
     for h in args.horizons:
@@ -156,7 +156,7 @@ def run_trees(tr, te, data, hist, args, seed, fips, use_hist=False):
         f_te = te[m[te, h - 1]]
         Xtr = tree_features(y0[f_tr], X[f_tr], hist[f_tr] if hist is not None else None, h, use_hist)
         Xte = tree_features(y0[f_te], X[f_te], hist[f_te] if hist is not None else None, h, use_hist)
-        fi, vi = inner_split(fips[f_tr], seed=seed)
+        fi, vi = inner_split(fips[f_tr], seed=seed, fold=fold_id)
         mdl, n_iter, val = _fit_trees(args, seed, Xtr[fi], yt[f_tr, h - 1][fi],
                                       Xtr[vi], yt[f_tr, h - 1][vi])
         out[f"n_iter_h{h}"], out[f"val_h{h}"] = n_iter, val
@@ -180,23 +180,36 @@ class DecompLinear(nn.Module):
     is the addition, and it is a single linear map over the flattened forecast
     window, which is the most flexible thing a linear model can do with it.
 
-    The head is linear, as published. An earlier version squashed it through a
-    sigmoid to keep predictions inside [0, 1], on the reasoning that the dynamics
-    cannot leave that interval and the baseline should not be scored for
-    excursions outside it. That was wrong, and measurably so: at h+1 the right
-    answer is close to the origin state, no linear function of y0 equals
-    logit(y0), and the squashed head was therefore structurally unable to do
-    persistence -- it scored worse at h+1 than at h+6. A baseline crippled by its
-    output layer is not evidence about the model it is compared to.
+    `bounded` selects the output head, and neither choice dominates, which is why
+    both are run rather than argued about.
 
-    Predictions are instead clipped to [0, 1] at scoring time, which is ordinary
+    An unbounded (published) head can express persistence: at h+1 the right answer
+    is close to the origin state, and a linear map reaches it directly. A squashed
+    head cannot, because no linear function of y0 equals logit(y0). Measured on
+    identical folds, the unbounded head is much better at h+1 (0.018 vs 0.027) --
+    and much worse at long horizons (h+48 0.051 vs 0.043), where it is beaten even
+    by predicting zero, because nothing stops it running away.
+
+    Feeding the state in logit space should in principle give both properties at
+    once, since the identity map becomes expressible under a sigmoid. It was tried
+    and it is worse at every horizon: roughly half the origin states are exactly
+    zero, so the transform puts a large point mass at the clipping floor and the
+    linear fit is dominated by it.
+
+    So both heads run as separate arms. Where these baselines are compared against
+    the dynamics, the stronger of the two at each horizon is the one that counts:
+    the point of a baseline is to be hard to beat, and choosing the weaker variant
+    would flatter the model under test.
+
+    Predictions are clipped to [0, 1] at scoring time, which is ordinary
     post-processing and can only help the baseline.
     """
 
     def __init__(self, lookback: int, horizon: int, n_ch: int,
-                 use_hist: bool, use_drivers: bool, kernel: int = 25):
+                 use_hist: bool, use_drivers: bool, bounded: bool = True,
+                 kernel: int = 25):
         super().__init__()
-        self.use_hist, self.use_drivers = use_hist, use_drivers
+        self.use_hist, self.use_drivers, self.bounded = use_hist, use_drivers, bounded
         self.kernel = kernel
         if use_hist:
             self.trend = nn.Linear(lookback, horizon)
@@ -204,8 +217,19 @@ class DecompLinear(nn.Module):
         self.origin = nn.Linear(1, horizon)
         if use_drivers:
             self.drv = nn.Linear(horizon * n_ch, horizon)
-            nn.init.zeros_(self.drv.weight); nn.init.zeros_(self.drv.bias)
         self.bias0 = nn.Parameter(torch.zeros(()))
+        # Every branch starts at zero so the model's initial prediction really is
+        # `bias0`, the training-fold mean. Torch's default initialisation draws
+        # each branch bias from U(-1, 1), which against a target whose mean is
+        # near 1e-2 puts the starting prediction two orders of magnitude too high
+        # and an order of magnitude too spread out; the fit then has to climb back
+        # down before it can begin, and on the history-only arm it does not manage
+        # it. A baseline hobbled by its initialisation is not evidence about the
+        # model it is compared against, which is the same reason the output layer
+        # is linear rather than squashed.
+        for lin in (b for b in (getattr(self, "trend", None), getattr(self, "resid", None),
+                                self.origin, getattr(self, "drv", None)) if b is not None):
+            nn.init.zeros_(lin.weight); nn.init.zeros_(lin.bias)
 
     def _decompose(self, h):
         pad = self.kernel // 2
@@ -221,10 +245,11 @@ class DecompLinear(nn.Module):
             z = z + self.trend(t) + self.resid(r)
         if self.use_drivers:
             z = z + self.drv(X.reshape(X.shape[0], -1))
-        return torch.sigmoid(z)
+        return torch.sigmoid(z) if self.bounded else z
 
 
-def run_linear(tr, te, data, hist, args, seed, fips, use_hist, use_drivers):
+def run_linear(tr, te, data, hist, args, seed, fips, fold_id, use_hist,
+               use_drivers, bounded=True):
     y0, X, yt, m = data
     torch.manual_seed(seed); np.random.seed(seed)
     mu = X[tr].reshape(-1, X.shape[-1]).mean(0)
@@ -243,15 +268,17 @@ def run_linear(tr, te, data, hist, args, seed, fips, use_hist, use_drivers):
     Hn = (((hist - y_mu) / y_sd).astype(np.float32) if hist is not None
           else np.zeros((len(y0), 1), np.float32))
 
-    model = DecompLinear(Hn.shape[1], yt.shape[1], X.shape[-1], use_hist, use_drivers)
+    model = DecompLinear(Hn.shape[1], yt.shape[1], X.shape[-1], use_hist,
+                         use_drivers, bounded=bounded)
     opt = torch.optim.Adam(model.parameters(), lr=args.lr, weight_decay=args.wd)
     # Start from the constant predictor -- the training-fold mean -- rather than
     # from zero. The target's mean is near 1e-2 and its scale is what makes the
     # neural arms in this project fragile; the baseline gets the same courtesy.
+    base = float(yt[tr][m[tr]].mean())
     with torch.no_grad():
-        model.bias0.fill_(float(yt[tr][m[tr]].mean()))
+        model.bias0.fill_(float(np.log(base / (1 - base))) if bounded else base)
 
-    fi, vi = inner_split(fips[tr], seed=seed)
+    fi, vi = inner_split(fips[tr], seed=seed, fold=fold_id)
     tr_arr = np.asarray(tr)
     fit, va = tr_arr[fi], tr_arr[vi]
     Y0, XX, YT, MM, HH = (torch.tensor(y0n), torch.tensor(Xn), torch.tensor(yt),
@@ -309,11 +336,15 @@ def run_linear(tr, te, data, hist, args, seed, fips, use_hist, use_drivers):
 
 
 ARMS = [
-    ("trees_matched",   "trees",  dict(use_hist=False)),
-    ("trees_lookback",  "trees",  dict(use_hist=True)),
-    ("linear_matched",  "linear", dict(use_hist=False, use_drivers=True)),
-    ("linear_lookback", "linear", dict(use_hist=True,  use_drivers=True)),
-    ("linear_histonly", "linear", dict(use_hist=True,  use_drivers=False)),
+    ("trees_matched",    "trees",  dict(use_hist=False)),
+    ("trees_lookback",   "trees",  dict(use_hist=True)),
+    # The three information variants share the bounded head so that the
+    # decomposition across them is not also a decomposition across output layers.
+    ("linear_matched",   "linear", dict(use_hist=False, use_drivers=True)),
+    ("linear_lookback",  "linear", dict(use_hist=True,  use_drivers=True)),
+    ("linear_histonly",  "linear", dict(use_hist=True,  use_drivers=False)),
+    # The head question, asked once, on the matched information set.
+    ("linear_unbounded", "linear", dict(use_hist=False, use_drivers=True, bounded=False)),
 ]
 # Arms that read the pre-origin window see more than the dynamics do. Kept
 # explicit so a summary table cannot quietly present them as like-for-like.
@@ -375,9 +406,9 @@ def main() -> None:
             for name, kind, kw in arms:
                 t0 = time.time()
                 if kind == "trees":
-                    r = run_trees(tr, te, (y0, X, yt, m), hist, a, seed, fips, **kw)
+                    r = run_trees(tr, te, (y0, X, yt, m), hist, a, seed, fips, f, **kw)
                 else:
-                    r = run_linear(tr, te, (y0, X, yt, m), hist, a, seed, fips, **kw)
+                    r = run_linear(tr, te, (y0, X, yt, m), hist, a, seed, fips, f, **kw)
                 wall = round(time.time() - t0, 1)
                 rows.append({"arm": name, "kind": kind, "seed": seed, "fold": f,
                              "advantaged": name in ADVANTAGED,
@@ -390,6 +421,8 @@ def main() -> None:
     cfg = dict(vars(a)); cfg["out"] = a.out
     cfg["panels"] = sorted(set(panel.tolist()))
     cfg["panel_digest"] = digest
+    cfg["channels"] = panelset.channel_names(INTERIM)
+    cfg["channel_digest"] = panelset.channel_digest(cfg["channels"])
     out.write_text(json.dumps({"config": cfg, "rows": rows}, indent=2))
 
     print(f"\n=== pooled over {a.k} folds x {len(a.seeds)} seeds ===")

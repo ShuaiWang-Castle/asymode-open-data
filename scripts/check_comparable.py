@@ -11,7 +11,8 @@ from pathlib import Path
 
 # Constants that change the sample set or the split. Two runs that disagree on
 # any of these are not comparable no matter what their numbers look like.
-KEYS = ["panel_digest", "horizon", "stride", "k", "seeds", "horizons"]
+KEYS = ["panel_digest", "channel_digest", "horizon", "stride", "k",
+        "seeds", "horizons"]
 
 
 def main() -> None:
@@ -25,9 +26,10 @@ def main() -> None:
             raise SystemExit(f"no such result file: {f}")
         c = json.loads(f.read_text()).get("config", {})
         cfgs[f.name] = {k: c.get(k) for k in KEYS}
-        if c.get("panel_digest") is None:
-            print(f"  {f.name}: no panel digest -- written before the panel set "
-                  f"was recorded, so what it scored cannot be established")
+        for k, what in (("panel_digest", "panel set"), ("channel_digest", "channel set")):
+            if c.get(k) is None:
+                print(f"  {f.name}: no {k} -- written before the {what} was "
+                      f"recorded, so what it scored cannot be established")
 
     bad = [k for k in KEYS if len({json.dumps(c[k], sort_keys=True) for c in cfgs.values()}) > 1]
     w = max(len(n) for n in cfgs)

@@ -61,3 +61,28 @@ def resolve(interim: Path, spec: str | None) -> tuple[list[str], str]:
     if missing:
         raise SystemExit(f"panels named but not built: {missing}")
     return sorted(want), digest(want)
+
+
+def channel_names(interim: Path) -> list[str]:
+    """Driver channel names, plus the two the context step appends.
+
+    Read from the files rather than hard-coded: the driver builder is free to
+    reorder or extend, and a positional list would silently mean something else
+    the next time it does.
+    """
+    for df in sorted(interim.glob("drivers_*.npz")):
+        import numpy as np
+        z = np.load(df, allow_pickle=True)
+        return [str(c) for c in z["channels"]] + ["clock_sin", "clock_cos"]
+    raise FileNotFoundError(f"no driver files in {interim}")
+
+
+def channel_digest(names: list[str]) -> str:
+    """Digest of the channel set.
+
+    Recorded alongside the panel digest because the same panels rebuilt with a
+    different set of covariates produce a different experiment, and that is the
+    more insidious of the two: the panel list is visible in a directory listing,
+    the channel list is inside the files.
+    """
+    return hashlib.sha256("|".join(names).encode()).hexdigest()[:12]

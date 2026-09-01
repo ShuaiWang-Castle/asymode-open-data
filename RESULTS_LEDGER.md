@@ -414,6 +414,157 @@ against 73.6% on the convective set, across 14 more storms, four event families
 and six years. Twenty-two storm days now agree in direction without exception.
 **[A]** — denominator-free, same argument as EXP03.
 
+## EXP08 — the input and capacity axes, one at a time
+
+Source: `results/exp08_architecture.json` · script `experiments/exp08_architecture.py`
+Protocol: 9 arms x 5 county-held-out folds x 3 seeds = 135 fits, horizon 48 h,
+stride 12, 24,688 pooled samples over 12 panels, 1,672 counties.
+Panel set `1c2bc7bfdfa6`; driver build carried 10 raw meteorological channels
+plus the diurnal clock.
+
+> **Scope caveat, applies to every number in this section.** The 12 panels are
+> convective-season events in 2021–2022 and 2024, and the driver block was raw
+> meteorology only — no hazard composites, no pre-origin outage history, no
+> neighbouring-county aggregates, no county statics. The drivers have since been
+> rebuilt with two extra channels, so **this run's inputs no longer exist on
+> disk** and it cannot be regenerated. Everything here is superseded by the rerun
+> on the final panel and channel set. Graded accordingly.
+
+### Capacity, H-D — **the registered criterion is not met**
+
+Deltas are paired within each (seed, fold) against the control, which is the
+susceptible arm at full capacity on all channels. Negative favours the variant.
+
+| arm | phi_U / phi_R params | h+1 | h+6 | h+24 | h+48 | folds better, h+48 |
+|---|---|---|---|---|---|---|
+| `cap_r_glm` restoration -> GLM | 1505 / 13 | +0.4% | +0.4% | +1.0% | +0.7% | 3/15 |
+| `cap_u_glm` interruption -> GLM | 13 / 1505 | +1.4% | +0.6% | +1.6% | +1.8% | 3/15 |
+| `cap_both_glm` both -> GLM | 13 / 13 | −0.1% | +0.6% | +2.9% | +3.2% | 0/15 |
+
+The registered condition was that the reduced-capacity **restoration** rate be no
+worse than the full-capacity one, and that equal performance confirms it while
+worse performance kills it. `cap_r_glm` is worse at every horizon, on 12 of 15
+folds at h+48. **H-D fails as registered — [C].**
+
+Two things survive the failure and are worth keeping.
+
+* **Capacity is doing real work — [B].** Removing the hidden layer from *both*
+  rates costs 2.9% at h+24 and 3.2% at h+48, and loses on **15 of 15** folds at
+  both horizons. The model is not over-parameterised, and a fully-GLM version of
+  it is a worse model.
+* **The two capacities contribute close to independently — [C].** At h+24 the
+  single-sided costs sum to 2.6% against 2.9% measured; at h+48, 2.5% against
+  3.2%. Near-additive, so the hidden layers are not substituting for each other.
+
+The mirror arm is what makes the failure readable, and is why it was run. Shrinking
+the interruption rate costs about twice what shrinking the restoration rate costs
+(1.6% vs 1.0% at h+24, 1.8% vs 0.7% at h+48). That ordering is the direction H-D
+predicts. **It is a magnitude difference, not a sign flip, and this project does
+not accept magnitude differences as evidence of asymmetry** — that is the standard
+the pre-registration sets for H-A1, H-A2 and H-B, and applying a weaker one here
+because the result is congenial would be exactly the failure the pre-registration
+exists to prevent. Reportable as "restoration tolerates capacity reduction better
+than interruption does, on this panel set"; **not** reportable as H-D confirmed.
+
+### Ambient meteorology, H-A3 — **null, and the control failed to be a control — [B]**
+
+| removal | h+1 | h+6 | h+24 | h+48 |
+|---|---|---|---|---|
+| from restoration | −0.5% | −0.3% | +0.6% | +0.7% |
+| from interruption | +0.2% | −0.0% | +0.2% | +0.1% |
+| from both | −0.2% | −0.0% | +0.6% | +0.4% |
+
+Every delta is under 0.8% and win counts sit near 8/15 throughout. Removing
+ambient meteorology from either rate, or from both at once, does not measurably
+change anything.
+
+H-A3 was registered as a **negative** case: ambient fields should help *both*
+rates, demonstrating that asymmetry is selective rather than universal. The
+registration anticipated two outcomes — symmetric help, which confirms it, and
+asymmetry, which weakens H-A. The observed outcome is a third one it did not
+enumerate: the family carries no signal at all on this panel set.
+
+**A family with no signal is trivially symmetric, so it cannot serve as the
+control H-A3 was written to be.** The negative case has to be re-run on a family
+that demonstrably helps at least one rate, or the selectivity claim has no
+control behind it. This is a hole in the pre-registration, not a result.
+
+Scope matters here: ambient is `cloud, pressure, rh, t2m_c` after soil moisture
+was reassigned to the hazard family, and these are convective warm-season events.
+Temperature and humidity are more plausibly load-bearing in winter and tropical
+events, none of which is in this panel set.
+
+### Gate machinery, H-C pilot — **[C], machine check only**
+
+Not the registered test: H-C predicts the gate wants county identity and hazard
+composites and not raw weather, and none of those families existed in this driver
+build. Two endpoint widths were run to exercise the mechanism.
+
+| arm | gate width | mean gate | frac closed | frac open | void |
+|---|---|---|---|---|---|
+| `gate_clock` | 2 | 0.510 | 0.00000 | 0.00000 | 0/15 |
+| `gate_all` | 12 | 0.512 | 0.00006 | 0.00095 | 0/15 |
+
+The gate trains without collapsing, which was the thing to establish: the
+composition has a known absorbing state at `g = 0`, since the pulse network's
+gradient is proportional to the gate and the gate's to the pulse. Adding the gate
+changes RMSE by at most 0.3% in either direction.
+
+**The mean is not evidence of an inert gate, and reporting it alone was a
+measurement gap.** The rate depends on the product `g * sigmoid(pulse_logit)`, so
+the pulse bias can absorb any constant factor in the gate: the gate's *level* is
+unidentified and a gate sitting at its initial 0.5 is consistent with both an
+inert gate and an active one. Only the spread across inputs separates them, and
+it was not recorded. `gate_sd` has been added for the registered run.
+
+### How much of this could be initialisation — **[A]**
+
+Every arm is calibrated so its *bias* reproduces the training-fold mean flow, but
+the rest of each network is drawn independently and the architectures differ, so
+the realised initial rate does not match across arms. Measured over 2,048 training
+samples before any training, `init_u_mean` ranges from 6.95e-4 to 1.12e-3 — a
+**1.62x spread**.
+
+The effects above are 0.4%–3.2% of RMSE. These are different quantities and the
+spread does not translate into an RMSE bound, but it does mean the arms are not
+starting from a common point, and the smaller differences in this section should
+not be read as structure without that being said. The 15/15 result for
+`cap_both_glm` is the one least exposed to it.
+
+### Identification leverage on each rate — **[A] derivation, numbers tied to `1c2bc7bfdfa6`**
+
+The state equation exposes the rates only through `dy = u(1-y) - r*y`, so a cell
+carries information about `u` in proportion to `(1-y)` and about `r` in proportion
+to `y`. A cell at `y = 0` carries **no** information about restoration — not
+little, none — and that is a property of the dynamics, not of the units. Two
+summaries per side, over the training folds:
+
+| | leverage mass | Kish ESS |
+|---|---|---|
+| interruption | 923,304 | 934,811 |
+| restoration | 1,737 | 9,648 |
+| ratio | 531 : 1 | **97 : 1** |
+
+**The Kish effective sample size is the quotable one.** Across three different
+panel subsets it stays at 88–97:1 while the leverage-mass ratio swings between
+388:1 and 656:1; a statistic that moves by a factor of two with panel composition
+should not carry a claim.
+
+**The asymmetry is not that restoration is rarely observed.** Decomposing
+`lev_r = P(y>0) * E[y^2 | y>0] * n_cells` gives `P(y > 0 | observed) = 0.545` —
+restoration is identifiable in more than half of all observed cells. The
+asymmetry is entirely magnitude and concentration: `E[y^2 | y>0] = 3.4e-3`, and
+the 9,648 effective cells are concentrated out of roughly 640,000 identifiable
+ones, while the interruption side is nearly uniform (934,811 of 1,174,270).
+
+Per-horizon leverage is flat (`lev_r/n` between 1.78e-3 and 2.06e-3 from h+1 to
+h+48, no trend). **Recorded as a negative result so the story is not proposed
+again: restoration evidence does not arrive late in the forecast window.**
+
+This measures the leverage the *data* offers. It explains why a capacity
+asymmetry might be warranted; it does not test H-D, which is decided by the kill
+condition alone.
+
 ## Pre-registered but not yet run — asymmetry hypotheses
 
 `docs/PREREGISTRATION_asymmetry.md`, written before any of the feature families
