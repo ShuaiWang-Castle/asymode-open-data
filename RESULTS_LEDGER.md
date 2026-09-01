@@ -133,40 +133,47 @@ first thing to test once the panel exists.
 Source: `results/panel_onset_audit.json` · scripts `scripts/build_panel.py`,
 `src/asymode/panel.py` · panels archived at `data/interim/panel_*.npz`
 
-This is the empirical claim the synthetic work could not make. Eight storm days
-with the largest county footprints in 2021-2022, each windowed two days before to
-five days after, counties selected by the public storm catalog and gated at
->= 70% state coverage. For every county the storm later interrupts (peak
-`y >= 0.01`), what was its *typical* state beforehand?
+Twelve storm days with the largest county footprints in 2021, 2022 and 2024, each
+windowed two days before to five days after, counties from the public storm
+catalog gated at >= 70% state coverage. For every county the storm later
+interrupts (peak `y >= 0.01`), what was its *typical* state beforehand?
 
 | storm day | counties | interrupted | median `y_pre` = 0 | < 1e-4 | < 1e-3 |
 |---|---|---|---|---|---|
-| 2022-06-17 | 358 | 311 | 66.0% | 82.8% | 93.5% |
-| 2021-05-04 | 347 | 270 | 83.4% | 93.7% | 99.2% |
-| 2021-12-11 | 261 | 197 | 90.9% | 99.0% | 99.5% |
-| 2021-06-21 | 256 | 201 | 70.1% | 88.1% | 98.5% |
-| 2021-08-11 | 256 | 206 | 58.3% | 84.0% | 97.6% |
-| 2022-04-13 | 210 | 142 | 78.2% | 85.9% | 97.9% |
-| 2022-06-08 | 185 | 127 | 74.8% | 90.6% | 98.4% |
-| 2022-07-23 | 186 | 149 | 67.8% | 88.6% | 100.0% |
-| **mean** | | | **73.7%** | **89.1%** | **98.1%** |
+| 2021-05-04 | 344 | 263 | 82.9% | 94.3% | 99.2% |
+| 2021-06-21 | 256 | 197 | 70.6% | 87.8% | 98.0% |
+| 2021-08-11 | 253 | 198 | 56.6% | 84.3% | 97.0% |
+| 2021-12-11 | 256 | 188 | 91.0% | 99.5% | 99.5% |
+| 2022-04-13 | 207 | 138 | 77.5% | 86.2% | 97.1% |
+| 2022-06-08 | 183 | 115 | 73.9% | 89.6% | 98.3% |
+| 2022-06-17 | 356 | 304 | 66.2% | 83.4% | 93.7% |
+| 2022-07-23 | 186 | 139 | 67.6% | 87.8% | 100.0% |
+| 2024-01-09 | 240 | 205 | 79.0% | 96.1% | 99.0% |
+| 2024-05-08 | 236 | 176 | 75.6% | 94.3% | 100.0% |
+| 2024-05-26 | 339 | 270 | 77.0% | 86.7% | 97.4% |
+| 2024-06-26 | 230 | 178 | 65.7% | 82.0% | 96.1% |
+| **mean** | | | **73.6%** | **89.3%** | **97.9%** |
+
+Denominator: `eaglei_2024_modelled` — the publisher's own per-county customer
+totals, modelled from LandScan population, EIA-861 and HIFLD service territories,
+and described by them as approximate.
 
 **[A] for the headline, and it is denominator-free.** `median y_pre = 0` holds
-exactly when `median customers_out = 0`, so the 73.7% column does not depend on
-the provisional denominator at all. It is a property of the published records.
-The 1e-4 and 1e-3 columns *do* depend on it and are **[C]** until the denominator
-is settled.
+exactly when `median customers_out = 0`, so the 73.6% column is a property of the
+published records, not of any normalisation. Confirmed empirically: run under the
+provisional denominator the same column read 73.7%, and under the publisher's
+modelled one it reads 73.6%. The 1e-4 and 1e-3 columns do depend on the
+denominator and moved by less than half a point.
 
-**Onset is the dominant regime, not an edge case.** Across eight independent
-storm systems, between 58% and 91% of the counties a storm interrupts were
-sitting at exactly zero beforehand. Every day agrees in direction. An inflow
-proportional to `y` is identically zero on all of them.
+**Onset is the dominant regime, not an edge case.** Across twelve independent
+storm systems spanning three years, between 57% and 91% of the counties a storm
+interrupts were at exactly zero beforehand. Twelve days out of twelve agree in
+direction. An inflow proportional to `y` is identically zero on all of them.
 
-Among the minority that do carry a nonzero baseline, the epidemic form is
-suppressed rather than dead, by `1/y_pre`: **360x to 11,000x at the 10th
-percentile** and 1,767x to 20,441x at the 25th, depending on the storm. Since the
-rate is bounded, it cannot be inflated to compensate. **[C]** — depends on the
-provisional denominator.
+Among the minority carrying a nonzero baseline the epidemic form is suppressed
+rather than dead, by a factor `1/y_pre`: hundreds to tens of thousands, depending
+on the storm. The rate is bounded, so it cannot be inflated to compensate. **[C]**
+— denominator-dependent.
 
 ### A measurement correction worth recording
 
@@ -175,15 +182,15 @@ and reported that only 2.3% of counties were at zero. That criterion demands a
 county not log a single outage record in two days, which almost no county
 satisfies — utilities report handfuls of customers out continually. The typical
 state, not the extreme, is what the dynamics see. Scored by the median the figure
-is 73.7%. The maximum-based number is wrong for this question and is recorded
-here only so it is not rediscovered and believed.
+is 73.6%. The maximum-based number is wrong for this question and is recorded here
+only so it is not rediscovered and believed.
 
 ## EXP04 — statistical baselines under the county-held-out protocol
 
 Source: `results/exp04_baselines.json` · script `experiments/exp04_baselines.py` ·
 protocol `src/asymode/evalproto.py`
 
-8 storm panels x 5 county-held-out folds x 3 fold seeds = 120 evaluations per
+12 storm panels x 5 county-held-out folds x 3 fold seeds = 180 evaluations per
 baseline. Hourly resolution, forecast origins every 6 h with >= 24 h of history,
 horizons t+1 / t+6 / t+24 / t+48. Metrics computed over observed cells only;
 unobserved cells are excluded, never imputed. Fold membership is a deterministic
@@ -191,10 +198,14 @@ hash of the county code, fixed before any model was fitted.
 
 | baseline | RMSE h+1 | RMSE h+6 | RMSE h+24 | RMSE h+48 |
 |---|---|---|---|---|
-| all-zero | 0.0383 ± 0.0192 | 0.0388 ± 0.0210 | 0.0394 ± 0.0214 | **0.0305** ± 0.0190 |
-| persistence | 0.0125 ± 0.0057 | 0.0318 ± 0.0143 | 0.0461 ± 0.0220 | 0.0450 ± 0.0222 |
-| damped persistence | **0.0122** ± 0.0055 | **0.0289** ± 0.0134 | **0.0369** ± 0.0189 | 0.0294 ± 0.0176 |
-| hour-of-day climatology | 0.0374 ± 0.0188 | 0.0378 ± 0.0205 | 0.0385 ± 0.0208 | 0.0299 ± 0.0184 |
+| all-zero | 0.0337 ± 0.0207 | 0.0341 ± 0.0218 | 0.0345 ± 0.0223 | 0.0280 ± 0.0211 |
+| persistence | 0.0107 ± 0.0047 | 0.0268 ± 0.0127 | 0.0399 ± 0.0214 | 0.0403 ± 0.0248 |
+| damped persistence | **0.0105** ± 0.0045 | **0.0246** ± 0.0122 | **0.0320** ± 0.0190 | **0.0270** ± 0.0198 |
+| hour-of-day climatology | 0.0328 ± 0.0199 | 0.0331 ± 0.0210 | 0.0335 ± 0.0214 | 0.0273 ± 0.0203 |
+
+12 panels x 5 folds x 3 seeds = 180 evaluations per baseline, on the publisher's
+modelled denominator. The ordering is identical to the run on the provisional
+denominator, which is the robustness check that matters here.
 
 **The bar to beat is damped persistence**, and it is not a soft one: a single
 fitted decay constant with no covariates at all.
@@ -208,13 +219,32 @@ honest. It also means **RMSE alone is a poor headline metric for this target**;
 the paper needs a metric that does not reward predicting nothing, and choosing it
 is an open decision.
 
-The dispersion is large (± 0.019 on all-zero) because it pools eight storms of very
+The dispersion is large (± 0.021 on all-zero) because it pools eight storms of very
 different severity. Per-panel reporting, or normalising by storm severity, is
 needed before these numbers go in a table.
 
-**Grade: [B] for the protocol and the ordering** — county-held-out folds, 3 seeds,
-consistent ranking across all of them. **[C] for the absolute values**, which are
-in units of the provisional denominator and will shift when it is replaced.
+**Grade: [B]** — county-held-out folds, 3 seeds, consistent ranking across all of
+them, on the publisher's own denominator. The absolute values still carry one
+stated caveat: the denominator is a 2024 snapshot applied to 2021 and 2022 as
+well, so county customer drift is folded into the target.
+
+## Denominator — resolved
+
+Source: `data/interim/eaglei_county_customers_2024.parquet` · `scripts/ingest_eaglei.py`
+
+The 2024 release carries `total_customers` in the records: **3,059 counties**, and
+it is constant within the year for 3,059 of 3,061 (99.9%). The publisher documents
+the method — LandScan high-resolution population, EIA-861 utility data, HIFLD
+service territories — and calls the totals approximate. Median county 16,995
+customers, range 5 to 3,799,750. **[A]**, verifiable by re-running the ingest.
+
+How wrong the provisional stand-in was, over 3,051 shared counties: median ratio
+1.17, typical absolute error 23%, log-correlation 0.965, and **8.3% of counties off
+by more than 2x**. Good enough to have built the pipeline on, not good enough to
+have published. **[A]**
+
+Note the release also lists a Figshare mirror, which is an anonymous HTTPS route
+to the same data for anyone reproducing this without a Globus account.
 
 ## Public data acquired — **[A]** (verifiable by re-running the script)
 

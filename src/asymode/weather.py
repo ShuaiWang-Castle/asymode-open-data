@@ -108,4 +108,10 @@ def derive_channels(ds) -> dict:
         out["rh"] = 100 * np.exp(a * dc / (b + dc) - a * tc / (b + tc))
     if "t2m" in out:
         out["t2m_c"] = out.pop("t2m") - 273.15
+    # ERA5 reports accumulations in metres of water equivalent per hour. Millimetres
+    # per hour is the unit anyone reading a rain rate expects, and keeping the raw
+    # metres invites a silent factor of a thousand in a coefficient.
+    for k in ("precip", "snowfall"):
+        if k in out:
+            out[k] = out[k] * 1000.0
     return out

@@ -96,27 +96,30 @@ def cmd_build(args):
     import pyarrow as pa
     import pyarrow.parquet as pq
 
-    zp = find_archive()
     INTERIM.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(zp) as z:
-        members = [m for m in z.infolist()
-                   if not m.is_dir()
-                   and re.search(r"\.csv$", m.filename, re.I)
-                   and "__MACOSX" not in m.filename]
+    archives = sorted(RAW.glob("*.zip")) if args.all_archives else [find_archive()]
+    members = []
+    for zp in archives:
+        with zipfile.ZipFile(zp) as z:
+            members += [(zp, m) for m in z.infolist()
+                        if not m.is_dir()
+                        and re.search(r"\.csv$", m.filename, re.I)
+                        and "__MACOSX" not in m.filename]
+    if True:
 
-        cover = [m for m in members if re.search(r"coverage", m.filename, re.I)]
-        outage = [m for m in members if m not in cover]
+        cover = [(zp, m) for zp, m in members if re.search(r"coverage", m.filename, re.I)]
+        outage = [(zp, m) for zp, m in members if (zp, m) not in cover]
         if args.years:
-            outage = [m for m in outage
+            outage = [(zp, m) for zp, m in outage
                       if any(str(y) in Path(m.filename).stem for y in args.years)]
 
-        for m in cover:
-            df = pd.read_csv(z.open(m), encoding="latin-1", low_memory=False)
+        for zp, m in cover:
+            df = pd.read_csv(zipfile.ZipFile(zp).open(m), encoding="latin-1", low_memory=False)
             dst = INTERIM / f"eaglei_{Path(m.filename).stem}.parquet"
             df.to_parquet(dst, index=False)
             print(f"  {dst.name}  {df.shape}  cols={list(df.columns)}")
 
-        for m in sorted(outage, key=lambda m: m.filename):
+        for zp, m in sorted(outage, key=lambda t: t[1].filename):
             stem = Path(m.filename).stem
             dst = INTERIM / f"{stem}.parquet"
             if dst.exists() and not args.force:
@@ -125,7 +128,7 @@ def cmd_build(args):
             writer, n_rows, n_chunks = None, 0, 0
             tmp = dst.with_suffix(".parquet.tmp")
             try:
-                for ch in pd.read_csv(z.open(m), encoding="latin-1",
+                for ch in pd.read_csv(zipfile.ZipFile(zp).open(m), encoding="latin-1",
                                       chunksize=args.chunk, low_memory=False,
                                       dtype={"fips_code": "string", "county": "string",
                                              "state": "string"},
@@ -145,6 +148,13 @@ def cmd_build(args):
                     ch["customers_out"] = pd.to_numeric(ch["customers_out"],
                                                         errors="coerce").astype("Int64")
                     keep = ["fips", "ts", "customers_out"]
+                    # Later releases carry the modelled county customer total in
+                    # the records themselves. It is the denominator, so keep it.
+                    if "cust" in r:
+                        ch = ch.rename(columns={r["cust"]: "total_customers"})
+                        ch["total_customers"] = pd.to_numeric(ch["total_customers"],
+                                                              errors="coerce").astype("Int64")
+                        keep.append("total_customers")
                     if "state" in r: keep.append(r["state"])
                     if "county" in r: keep.append(r["county"])
                     ch = ch[keep]
@@ -169,6 +179,8 @@ if __name__ == "__main__":
     b = sub.add_parser("build"); b.set_defaults(fn=cmd_build)
     b.add_argument("--chunk", type=int, default=2_000_000)
     b.add_argument("--force", action="store_true")
+    b.add_argument("--all-archives", action="store_true",
+                   help="ingest every zip in data/raw/eaglei, not just the first")
     b.add_argument("--years", type=int, nargs="+", default=None,
                    help="restrict to these years; default all")
     a = ap.parse_args()

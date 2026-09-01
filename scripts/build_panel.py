@@ -37,11 +37,35 @@ STATE_ABBR = {  # coverage_history uses abbreviations; the outage files spell st
 }
 
 
+def modelled_denominator() -> pd.Series:
+    """Per-county customer totals published with the 2024 release.
+
+    Modelled by the data publisher from LandScan population, EIA-861 utility data
+    and HIFLD service territories, and described by them as approximate. It is the
+    right denominator because it shares the numerator's definition of a customer;
+    its cost is that it is a 2024 snapshot applied to earlier years, so county
+    customer drift is folded into the target and must be stated.
+    """
+    f = INTERIM / "eaglei_county_customers_2024.parquet"
+    if not f.exists():
+        return None
+    return pd.read_parquet(f)["customers"]
+
+
 def provisional_denominator(year: int) -> tuple[pd.Series, pd.DataFrame]:
     """State customer totals apportioned to counties by 2020 population share."""
     cov = pd.read_parquet(INTERIM / "eaglei_coverage_history.parquet")
     cov["yr"] = pd.to_datetime(cov["year"], format="%m/%d/%y").dt.year
-    cov = cov[cov["yr"] == year][["state", "total_customers", "max_pct_covered"]]
+    # The coverage file spans 2018-2022 only. For a year outside that range fall
+    # back to the nearest available year and say so: coverage has grown
+    # monotonically over the programme's life, so the latest year is the
+    # conservative choice for later years and the earliest for earlier ones.
+    if year not in set(cov["yr"]):
+        use = int(min(cov["yr"], key=lambda y: abs(y - year)))
+        print(f"  coverage: {year} not in the coverage file, using {use} instead")
+    else:
+        use = year
+    cov = cov[cov["yr"] == use][["state", "total_customers", "max_pct_covered"]]
 
     rucc = pd.read_csv(ROOT / "data/raw/census/rucc2023.csv", encoding="latin-1")
     pop = (rucc[rucc["Attribute"] == "Population_2020"]
@@ -64,6 +88,7 @@ def main():
                     help="fraction out that counts as 'interrupted'")
     ap.add_argument("--event-days", nargs="+", default=None,
                     help="audit several event days; overrides --event-day")
+    ap.add_argument("--force-provisional", action="store_true")
     ap.add_argument("--out", default="results/panel_onset_audit.json")
     a = ap.parse_args()
 
@@ -98,7 +123,12 @@ def audit_day(day, a) -> dict:
     df = pd.read_parquet(INTERIM / f"eaglei_outages_{year}.parquet")
     ced = pd.read_parquet(INTERIM / "county_event_days.parquet")
     hit = sorted(ced[ced["day"] == day]["fips"].unique())
-    denom, meta = provisional_denominator(year)
+    prov, meta = provisional_denominator(year)
+    real = modelled_denominator()
+    if real is not None and not getattr(a, "force_provisional", False):
+        denom, dname = real, "eaglei_2024_modelled"
+    else:
+        denom, dname = prov, "provisional_state_pop_share"
     ok_cov = meta[meta["max_pct_covered"] >= a.min_coverage].index
     fips = [f for f in hit if f in set(denom.index) and f in set(ok_cov)]
     if len(fips) < 20:
@@ -106,7 +136,7 @@ def audit_day(day, a) -> dict:
         return None
 
     p = build_panel(df, t0, t1, fips=fips)
-    p = attach_denominator(p, denom, "provisional_state_pop_share")
+    p = attach_denominator(p, denom, dname)
     y, obs = p["y"], p["observed"]
     lead = pd.Index(p["ts"]) < day
     with np.errstate(all="ignore"):
