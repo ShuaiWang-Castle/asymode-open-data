@@ -33,6 +33,7 @@ from __future__ import annotations
 import enum
 from dataclasses import dataclass, field
 
+import numpy as np
 import torch
 import torch.nn as nn
 
@@ -98,6 +99,12 @@ class TwoRateConfig:
     state_in_r: bool = False
     clip_state: tuple[float, float] = (0.0, 1.0)
     seed_init: float = 1e-3          # initial eps for TRANSMISSION_SEED
+    # Initial rates, in rate units, not logits. A rate network initialised at
+    # cap/2 starts three orders of magnitude above the base rate of this process,
+    # and the susceptible arm then saturates the state before it can learn its way
+    # back down. Callers should set these from the data; see `calibrate_init`.
+    u_init: float | None = None
+    r_init: float | None = None
     tags: dict = field(default_factory=dict)
 
 
@@ -113,6 +120,12 @@ class TwoRateODE(nn.Module):
         self.phi_r = RateNet(d_r, cap=cfg.cap_r, hidden=cfg.hidden_r)
         self.register_buffer("_iu", torch.tensor(cfg.idx_u if cfg.idx_u is not None else [], dtype=torch.long))
         self.register_buffer("_ir", torch.tensor(cfg.idx_r if cfg.idx_r is not None else [], dtype=torch.long))
+        for net, val in ((self.phi_u, cfg.u_init), (self.phi_r, cfg.r_init)):
+            if val is None:
+                continue
+            q = min(max(float(val) / net.cap, 1e-9), 1 - 1e-9)
+            with torch.no_grad():
+                net.net[-1].bias.fill_(float(np.log(q / (1 - q))))
         if cfg.inflow is InflowForm.TRANSMISSION_SEED:
             # softplus keeps the seed non-negative without a clamp, so the
             # gradient survives at eps -> 0.
@@ -168,3 +181,33 @@ def rollout_mse(model: TwoRateODE, y0, drivers, y_true, mask=None) -> torch.Tens
     if mask is not None:
         return (se * mask).sum() / mask.sum().clamp_min(1.0)
     return se.mean()
+
+
+def calibrate_init(y: np.ndarray, mask: np.ndarray, inflow: InflowForm,
+                   seed_init: float = 1e-3) -> tuple[float, float]:
+    """Initial rates matching the observed one-step flows, per arm.
+
+    One rule, applied identically to every arm: set each rate so that the arm's
+    *initial inflow and outflow terms* reproduce the average one-step rise and fall
+    seen in the training data. Because the arms multiply the interruption rate by
+    different factors, the same target flow implies different initial rates -- which
+    is the point. Giving every arm the same initial *rate* would hand an advantage
+    to whichever arm's multiplier happens to be near one, and that is an artefact
+    of parameterisation, not evidence about dynamics.
+    """
+    m = mask[:, :-1] & mask[:, 1:]
+    if not m.any():
+        return 1e-4, 1e-2
+    d = (y[:, 1:] - y[:, :-1])[m]
+    y_bar = float(np.clip(y[mask].mean(), 1e-6, 1.0))
+    up = float(np.clip(np.maximum(d, 0).mean(), 1e-9, None))
+    dn = float(np.clip(np.maximum(-d, 0).mean(), 1e-9, None))
+    # inflow: u*(1-y) ~ u ; u*y*(1-y) ~ u*y_bar ; u*(y+eps)*(1-y) ~ u*(y_bar+eps)
+    if inflow is InflowForm.SUSCEPTIBLE:
+        u0 = up
+    elif inflow is InflowForm.TRANSMISSION:
+        u0 = up / y_bar
+    else:
+        u0 = up / (y_bar + seed_init)
+    r0 = dn / y_bar                      # outflow: r*y ~ r*y_bar, same for all arms
+    return float(u0), float(r0)

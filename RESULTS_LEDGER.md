@@ -14,9 +14,11 @@ quoted, by me or by the writing session.**
   real outages. *(New tier — flagged to the PI for approval.)*
 * **[C]** preliminary — internal discussion only, must not enter the paper
 
-Status as of 2026-09-01: **nothing is [B] yet.** The panel now exists and public
-observations have been *audited*, but no model has been fitted to them, and no
-county-held-out folds have been run.
+Status as of 2026-09-01: the model has now been fitted to public observations
+under the full protocol (EXP05). Its **pre-registered criteria failed 3 of 4**, and
+the surviving evidence is a long-horizon result that has not yet been
+pre-registered. Nothing from EXP05 may enter a paper until it is rerun under
+criteria written for the paired design.
 
 ---
 
@@ -245,6 +247,98 @@ have published. **[A]**
 
 Note the release also lists a Figshare mirror, which is an anonymous HTTPS route
 to the same data for anyone reproducing this without a Globus account.
+
+## EXP05 — the model on public observations, against baselines
+
+Source: `results/exp05_real_dynamics.json` · script `experiments/exp05_real_dynamics.py`
+
+8 storm windows with ERA5 drivers, 16,328 pooled (county, storm, origin) samples,
+1,360 counties, 12 driver channels, 48-hour rollout. 5 county-held-out folds x 3
+seeds = 15 units per arm. All three arms receive identical inputs, capacity,
+optimiser, seeds and initialisation rule, so only the inflow form differs.
+Baselines are recomputed on exactly these samples, not carried over from EXP04.
+
+| method | RMSE h+1 | h+6 | h+24 | h+48 |
+|---|---|---|---|---|
+| all-zero | 0.03847 | 0.03694 | 0.04089 | 0.03628 |
+| persistence | 0.01134 | 0.02789 | 0.04705 | 0.04916 |
+| damped persistence | 0.01102 | **0.02497** | 0.03826 | 0.03528 |
+| **susceptible** *(this work)* | 0.01127 | 0.02533 | **0.03542** | **0.03204** |
+| transmission | **0.01109** | 0.02497 | 0.03821 | 0.03528 |
+| transmission + learnable seed | 0.01134 | 0.02481 | 0.03580 | 0.03259 |
+
+### Pre-registered criteria, adjudicated as written — 3 of 4 FAIL
+
+1. *"beats both epidemic arms at every horizon, in every unit"* — **FAILS**. At
+   h+1 and h+6 the susceptible arm is level with or slightly behind both.
+2. *"beats damped persistence at h+6 and beyond"* — **FAILS at h+6** (+1.4%,
+   7/15). Passes at h+24 and h+48.
+3. *"dies if the seeded epidemic arm matches within one standard deviation at any
+   horizon"* — **DIES**. It matches within one SD at every horizon.
+4. *"no arm beats all-zero at h+24 and h+48"* — **PASSES**; the susceptible arm
+   beats it by 13.4% and 11.7%, 15/15.
+
+Criterion 3 was badly specified and I am recording that rather than quietly
+replacing it: it compares a paired quantity against a *marginal* standard
+deviation, which is dominated by how hard each fold is rather than by the
+difference between arms. The right test on this design is paired. That is a flaw
+in how I wrote the criterion, not grounds for ignoring its verdict — the literal
+verdict stands, and the paired analysis below is **unregistered** and needs its own
+pre-registration before it may be quoted as confirmatory.
+
+### Paired analysis — [C], unregistered
+
+Differences within each (fold, seed) unit, so fold difficulty cancels.
+
+| comparison | h+1 | h+6 | h+24 | h+48 |
+|---|---|---|---|---|
+| vs transmission | +1.7% (3/15) | +1.4% (5/15) | **−7.3% (15/15, t=−20.0)** | **−9.2% (15/15, t=−10.9)** |
+| vs seeded transmission | −0.6% (9/15) | +2.1% (3/15) | −1.1% (11/15, t=−3.0) | −1.7% (10/15, t=−2.9) |
+| vs damped persistence | +2.3% (3/15) | +1.4% (7/15) | **−7.4% (15/15, t=−9.1)** | **−9.2% (15/15, t=−9.5)** |
+| vs all-zero | −70.7% (15/15) | −31.4% (15/15) | −13.4% (15/15) | −11.7% (15/15) |
+
+Read plainly:
+
+* **At 24 and 48 hours the dynamical form matters**, and by roughly the same
+  margin against the epidemic form and against the best statistical baseline:
+  7–9%, every fold, every seed.
+* **At 1 and 6 hours it does not.** Nothing here beats damped persistence at short
+  range, and the susceptible arm is marginally worse. A paper that claims a
+  general accuracy win would be overclaiming; the win is at long horizons.
+* **The steelmanned epidemic arm nearly matches it** — 1–2%, and only 10–11 folds
+  out of 15.
+
+### Why the steelman closes the gap — the actual finding
+
+On synthetic data the seed left a 23x gap on onset. Here it closes to 1–2%. The
+reason is visible in the fitted parameter, and it supports the argument rather
+than undermining it:
+
+* fitted `eps` = **0.00721 ± 0.00088**, 7.2x its initialisation
+* mean observed state `y` = **0.00561** — the seed is *larger than the typical state*
+* 57.4% of observed cells sit at `y = 0` exactly
+* on **83.1%** of observations, `eps` supplies more than 90% of `(y + eps)`
+
+So on five sixths of the data the arm's inflow `u (y + eps)(1 - y)` has degenerated
+to `u · eps · (1 - y)`, a constant multiple of `(1 - y)`. **The epidemic form
+reaches parity only by inflating its seed until it stops being an epidemic form
+and becomes the susceptible one with a rescaled rate.** The arm that cannot do
+that — pure transmission — loses by 7–9% at long horizons on every fold.
+
+This is a sharper claim than the RMSE gap and it is the one the paper should make.
+It needs its own pre-registration and a rerun before it is quoted. **[C]**
+
+### Initialisation, recorded because it nearly produced a false negative
+
+The first real-data run had the susceptible arm losing catastrophically (h+48 RMSE
+0.13 against 0.06). Cause: a rate network initialised at `cap/2` starts at 0.125
+per hour against a base rate near 1e-4, and the susceptible arm saturates the state
+before it can learn its way down, while the epidemic arm is shielded because its
+inflow is multiplied by `y ≈ 0.01`. The fix in `calibrate_init` sets each arm's
+initial rates so its *initial flows* match the observed mean one-step rise and
+fall — one rule, applied identically, calibrated on training folds only. Giving
+every arm the same initial *rate* instead would favour whichever arm's multiplier
+happens to be near one, which is an artefact of parameterisation.
 
 ## Public data acquired — **[A]** (verifiable by re-running the script)
 
