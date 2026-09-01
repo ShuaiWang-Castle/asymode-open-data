@@ -87,45 +87,79 @@ def cmd_inspect(args):
 
 
 def cmd_build(args):
+    """Stream each yearly CSV to parquet without holding a year in memory.
+
+    A single year is up to 1.1 GB of CSV and 25 M rows; read whole, it costs
+    several GB of RAM as a DataFrame. pyarrow's incremental writer keeps the
+    footprint at one chunk.
+    """
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
     zp = find_archive()
     INTERIM.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(zp) as z:
         members = [m for m in z.infolist()
-                   if not m.is_dir() and re.search(r"\.csv$", m.filename, re.I)]
-        outage = [m for m in members if re.search(r"outage|eaglei", m.filename, re.I)
-                  and not re.search(r"coverage|customer", m.filename, re.I)]
-        denom = [m for m in members if re.search(r"customer|mcc", m.filename, re.I)]
+                   if not m.is_dir()
+                   and re.search(r"\.csv$", m.filename, re.I)
+                   and "__MACOSX" not in m.filename]
+
         cover = [m for m in members if re.search(r"coverage", m.filename, re.I)]
+        outage = [m for m in members if m not in cover]
+        if args.years:
+            outage = [m for m in outage
+                      if any(str(y) in Path(m.filename).stem for y in args.years)]
 
-        print(f"outage files: {[m.filename for m in outage]}")
-        print(f"denominator files: {[m.filename for m in denom]}")
-        print(f"coverage files: {[m.filename for m in cover]}")
-        if not denom:
-            print("\nWARNING: no denominator file matched. The target y = out/customers "
-                  "cannot be formed. Stopping rather than guessing.", file=sys.stderr)
-
-        for m in cover + denom:
+        for m in cover:
             df = pd.read_csv(z.open(m), encoding="latin-1", low_memory=False)
-            name = Path(m.filename).stem
-            df.to_parquet(INTERIM / f"eaglei_{name}.parquet", index=False)
-            print(f"  wrote eaglei_{name}.parquet  {df.shape}")
+            dst = INTERIM / f"eaglei_{Path(m.filename).stem}.parquet"
+            df.to_parquet(dst, index=False)
+            print(f"  {dst.name}  {df.shape}  cols={list(df.columns)}")
 
-        for m in outage:
-            name = Path(m.filename).stem
-            dst = INTERIM / f"eaglei_{name}.parquet"
+        for m in sorted(outage, key=lambda m: m.filename):
+            stem = Path(m.filename).stem
+            dst = INTERIM / f"{stem}.parquet"
             if dst.exists() and not args.force:
                 print(f"  skip {dst.name} (exists)")
                 continue
-            chunks = []
-            for i, ch in enumerate(pd.read_csv(z.open(m), encoding="latin-1",
-                                               chunksize=args.chunk, low_memory=False)):
-                if i == 0:
-                    r = resolve(list(ch.columns))
-                    print(f"  {m.filename}: columns {list(ch.columns)} -> {r}")
-                chunks.append(ch)
-            df = pd.concat(chunks, ignore_index=True)
-            df.to_parquet(dst, index=False)
-            print(f"  wrote {dst.name}  {df.shape}")
+            writer, n_rows, n_chunks = None, 0, 0
+            tmp = dst.with_suffix(".parquet.tmp")
+            try:
+                for ch in pd.read_csv(z.open(m), encoding="latin-1",
+                                      chunksize=args.chunk, low_memory=False,
+                                      dtype={"fips_code": "string", "county": "string",
+                                             "state": "string"},
+                                      parse_dates=["run_start_time"]):
+                    if n_chunks == 0:
+                        r = resolve(list(ch.columns))
+                        missing = {"fips", "out", "time"} - set(r)
+                        if missing:
+                            sys.exit(f"{m.filename}: cannot resolve {missing} "
+                                     f"from {list(ch.columns)}")
+                        print(f"  {stem}: {list(ch.columns)} -> {r}")
+                    ch = ch.rename(columns={r["fips"]: "fips", r["out"]: "customers_out",
+                                            r["time"]: "ts"})
+                    # FIPS is a 5-character code; leading zeros are significant and
+                    # any numeric read silently destroys them.
+                    ch["fips"] = ch["fips"].astype("string").str.strip().str.zfill(5)
+                    ch["customers_out"] = pd.to_numeric(ch["customers_out"],
+                                                        errors="coerce").astype("Int64")
+                    keep = ["fips", "ts", "customers_out"]
+                    if "state" in r: keep.append(r["state"])
+                    if "county" in r: keep.append(r["county"])
+                    ch = ch[keep]
+                    tbl = pa.Table.from_pandas(ch, preserve_index=False)
+                    if writer is None:
+                        writer = pq.ParquetWriter(tmp, tbl.schema, compression="zstd")
+                    writer.write_table(tbl)
+                    n_rows += len(ch); n_chunks += 1
+                    print(f"    {stem}: {n_rows:,} rows", end="\r", flush=True)
+            finally:
+                if writer is not None:
+                    writer.close()
+            tmp.rename(dst)
+            mb = dst.stat().st_size / 2**20
+            print(f"  {dst.name}: {n_rows:,} rows, {mb:.0f} MB parquet".ljust(70))
 
 
 if __name__ == "__main__":
@@ -135,5 +169,7 @@ if __name__ == "__main__":
     b = sub.add_parser("build"); b.set_defaults(fn=cmd_build)
     b.add_argument("--chunk", type=int, default=2_000_000)
     b.add_argument("--force", action="store_true")
+    b.add_argument("--years", type=int, nargs="+", default=None,
+                   help="restrict to these years; default all")
     a = ap.parse_args()
     a.fn(a)

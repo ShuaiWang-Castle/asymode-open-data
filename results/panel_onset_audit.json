@@ -1,0 +1,174 @@
+{
+  "config": {
+    "event_day": "2022-06-17",
+    "before": 2,
+    "after": 5,
+    "min_coverage": 0.7,
+    "onset_threshold": 0.01,
+    "event_days": [
+      "2022-06-17",
+      "2021-05-04",
+      "2021-12-11",
+      "2021-06-21",
+      "2021-08-11",
+      "2022-04-13",
+      "2022-06-08",
+      "2022-07-23"
+    ],
+    "out": "results/panel_onset_audit.json"
+  },
+  "days": [
+    {
+      "event_day": "2022-06-17",
+      "window": [
+        "2022-06-15 00:00:00",
+        "2022-06-22 00:00:00"
+      ],
+      "n_counties": 358,
+      "n_steps": 673,
+      "observed_frac": 0.9860335195530726,
+      "denominator": "provisional_state_pop_share",
+      "n_interrupted": 311,
+      "frac_typ_zero": 0.6601941747572816,
+      "frac_lt_1e5": 0.686084142394822,
+      "frac_lt_1e4": 0.8284789644012945,
+      "frac_lt_1e3": 0.9352750809061489,
+      "suppression_p10": 359.8955883948398,
+      "suppression_p25": 1766.688029035406,
+      "peak_y_median": 0.09075639374164353
+    },
+    {
+      "event_day": "2021-05-04",
+      "window": [
+        "2021-05-02 00:00:00",
+        "2021-05-09 00:00:00"
+      ],
+      "n_counties": 347,
+      "n_steps": 673,
+      "observed_frac": 0.979411726922764,
+      "denominator": "provisional_state_pop_share",
+      "n_interrupted": 270,
+      "frac_typ_zero": 0.83399209486166,
+      "frac_lt_1e5": 0.8656126482213439,
+      "frac_lt_1e4": 0.9367588932806324,
+      "frac_lt_1e3": 0.9920948616600791,
+      "suppression_p10": 1394.5627924331486,
+      "suppression_p25": 3913.700965576542,
+      "peak_y_median": 0.08031383090138064
+    },
+    {
+      "event_day": "2021-12-11",
+      "window": [
+        "2021-12-09 00:00:00",
+        "2021-12-16 00:00:00"
+      ],
+      "n_counties": 261,
+      "n_steps": 673,
+      "observed_frac": 0.9529299243394648,
+      "denominator": "provisional_state_pop_share",
+      "n_interrupted": 197,
+      "frac_typ_zero": 0.9086294416243654,
+      "frac_lt_1e5": 0.9390862944162437,
+      "frac_lt_1e4": 0.9898477157360406,
+      "frac_lt_1e3": 0.9949238578680203,
+      "suppression_p10": 11042.040303404903,
+      "suppression_p25": 20440.802179225833,
+      "peak_y_median": 0.05897325982691589
+    },
+    {
+      "event_day": "2021-06-21",
+      "window": [
+        "2021-06-19 00:00:00",
+        "2021-06-26 00:00:00"
+      ],
+      "n_counties": 256,
+      "n_steps": 673,
+      "observed_frac": 0.99609375,
+      "denominator": "provisional_state_pop_share",
+      "n_interrupted": 201,
+      "frac_typ_zero": 0.7014925373134329,
+      "frac_lt_1e5": 0.7164179104477612,
+      "frac_lt_1e4": 0.8805970149253731,
+      "frac_lt_1e3": 0.9850746268656716,
+      "suppression_p10": 2339.5333124801764,
+      "suppression_p25": 3395.7252553760477,
+      "peak_y_median": 0.045366717042877494
+    },
+    {
+      "event_day": "2021-08-11",
+      "window": [
+        "2021-08-09 00:00:00",
+        "2021-08-16 00:00:00"
+      ],
+      "n_counties": 256,
+      "n_steps": 673,
+      "observed_frac": 0.9821403696136701,
+      "denominator": "provisional_state_pop_share",
+      "n_interrupted": 206,
+      "frac_typ_zero": 0.5825242718446602,
+      "frac_lt_1e5": 0.6019417475728155,
+      "frac_lt_1e4": 0.8398058252427184,
+      "frac_lt_1e3": 0.9757281553398058,
+      "suppression_p10": 1907.655285537512,
+      "suppression_p25": 5541.8529211753985,
+      "peak_y_median": 0.06025958711333264
+    },
+    {
+      "event_day": "2022-04-13",
+      "window": [
+        "2022-04-11 00:00:00",
+        "2022-04-18 00:00:00"
+      ],
+      "n_counties": 210,
+      "n_steps": 673,
+      "observed_frac": 0.9625840232080946,
+      "denominator": "provisional_state_pop_share",
+      "n_interrupted": 142,
+      "frac_typ_zero": 0.7816901408450704,
+      "frac_lt_1e5": 0.7816901408450704,
+      "frac_lt_1e4": 0.8591549295774648,
+      "frac_lt_1e3": 0.9788732394366197,
+      "suppression_p10": 1095.7635931071836,
+      "suppression_p25": 2564.9273565375843,
+      "peak_y_median": 0.07187217174332977
+    },
+    {
+      "event_day": "2022-06-08",
+      "window": [
+        "2022-06-06 00:00:00",
+        "2022-06-13 00:00:00"
+      ],
+      "n_counties": 185,
+      "n_steps": 673,
+      "observed_frac": 0.9783703465724268,
+      "denominator": "provisional_state_pop_share",
+      "n_interrupted": 127,
+      "frac_typ_zero": 0.7480314960629921,
+      "frac_lt_1e5": 0.7559055118110236,
+      "frac_lt_1e4": 0.905511811023622,
+      "frac_lt_1e3": 0.984251968503937,
+      "suppression_p10": 2127.2153710730295,
+      "suppression_p25": 3770.076297876619,
+      "peak_y_median": 0.05210933185564747
+    },
+    {
+      "event_day": "2022-07-23",
+      "window": [
+        "2022-07-21 00:00:00",
+        "2022-07-28 00:00:00"
+      ],
+      "n_counties": 186,
+      "n_steps": 673,
+      "observed_frac": 0.9976992762306476,
+      "denominator": "provisional_state_pop_share",
+      "n_interrupted": 149,
+      "frac_typ_zero": 0.6778523489932886,
+      "frac_lt_1e5": 0.7046979865771812,
+      "frac_lt_1e4": 0.8859060402684564,
+      "frac_lt_1e3": 1.0,
+      "suppression_p10": 3024.3204016234054,
+      "suppression_p25": 7116.4425232945805,
+      "peak_y_median": 0.04991116106282627
+    }
+  ]
+}

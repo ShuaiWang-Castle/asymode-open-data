@@ -14,8 +14,9 @@ quoted, by me or by the writing session.**
   real outages. *(New tier — flagged to the PI for approval.)*
 * **[C]** preliminary — internal discussion only, must not enter the paper
 
-Status as of 2026-09-01: **nothing is [B] yet.** No public observations have been
-fitted, because the outage panel is blocked on a Globus account.
+Status as of 2026-09-01: **nothing is [B] yet.** The panel now exists and public
+observations have been *audited*, but no model has been fitted to them, and no
+county-held-out folds have been run.
 
 ---
 
@@ -126,6 +127,56 @@ claim about the world and cannot be settled on synthetic trajectories. It is the
 first thing to test once the panel exists.
 
 ---
+
+## EXP03 — does onset-from-zero actually happen? Public observations say yes
+
+Source: `results/panel_onset_audit.json` · scripts `scripts/build_panel.py`,
+`src/asymode/panel.py` · panels archived at `data/interim/panel_*.npz`
+
+This is the empirical claim the synthetic work could not make. Eight storm days
+with the largest county footprints in 2021-2022, each windowed two days before to
+five days after, counties selected by the public storm catalog and gated at
+>= 70% state coverage. For every county the storm later interrupts (peak
+`y >= 0.01`), what was its *typical* state beforehand?
+
+| storm day | counties | interrupted | median `y_pre` = 0 | < 1e-4 | < 1e-3 |
+|---|---|---|---|---|---|
+| 2022-06-17 | 358 | 311 | 66.0% | 82.8% | 93.5% |
+| 2021-05-04 | 347 | 270 | 83.4% | 93.7% | 99.2% |
+| 2021-12-11 | 261 | 197 | 90.9% | 99.0% | 99.5% |
+| 2021-06-21 | 256 | 201 | 70.1% | 88.1% | 98.5% |
+| 2021-08-11 | 256 | 206 | 58.3% | 84.0% | 97.6% |
+| 2022-04-13 | 210 | 142 | 78.2% | 85.9% | 97.9% |
+| 2022-06-08 | 185 | 127 | 74.8% | 90.6% | 98.4% |
+| 2022-07-23 | 186 | 149 | 67.8% | 88.6% | 100.0% |
+| **mean** | | | **73.7%** | **89.1%** | **98.1%** |
+
+**[A] for the headline, and it is denominator-free.** `median y_pre = 0` holds
+exactly when `median customers_out = 0`, so the 73.7% column does not depend on
+the provisional denominator at all. It is a property of the published records.
+The 1e-4 and 1e-3 columns *do* depend on it and are **[C]** until the denominator
+is settled.
+
+**Onset is the dominant regime, not an edge case.** Across eight independent
+storm systems, between 58% and 91% of the counties a storm interrupts were
+sitting at exactly zero beforehand. Every day agrees in direction. An inflow
+proportional to `y` is identically zero on all of them.
+
+Among the minority that do carry a nonzero baseline, the epidemic form is
+suppressed rather than dead, by `1/y_pre`: **360x to 11,000x at the 10th
+percentile** and 1,767x to 20,441x at the 25th, depending on the storm. Since the
+rate is bounded, it cannot be inflated to compensate. **[C]** — depends on the
+provisional denominator.
+
+### A measurement correction worth recording
+
+A first pass scored the pre-storm state by its *maximum* over the lead-in window
+and reported that only 2.3% of counties were at zero. That criterion demands a
+county not log a single outage record in two days, which almost no county
+satisfies — utilities report handfuls of customers out continually. The typical
+state, not the extreme, is what the dynamics see. Scored by the median the figure
+is 73.7%. The maximum-based number is wrong for this question and is recorded
+here only so it is not rediscovered and believed.
 
 ## Public data acquired — **[A]** (verifiable by re-running the script)
 
