@@ -373,6 +373,18 @@ against 73.6% on the convective set, across 14 more storms, four event families
 and six years. Twenty-two storm days now agree in direction without exception.
 **[A]** — denominator-free, same argument as EXP03.
 
+## Pre-registered but not yet run — asymmetry hypotheses
+
+`docs/PREREGISTRATION_asymmetry.md`, written before any of the feature families
+in it exist in this repository. Four hypotheses with explicit kill conditions:
+directional input asymmetry with a required **sign flip**, level-versus-clearance
+separation from the same source, gate input width, and capacity following
+effective evidence. One family is registered as a negative case on purpose.
+
+**Nothing from it may be quoted until it has been run here.** It is a plan, not a
+result, and it is listed in this ledger only so that it cannot later be presented
+as though it had been decided after seeing the data.
+
 ## Public data acquired — **[A]** (verifiable by re-running the script)
 
 Source: `scripts/build_event_catalog.py`, `data/interim/*.parquet`
