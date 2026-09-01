@@ -80,5 +80,56 @@ def fig_onset():
     print("figures/fig02_onset.png")
 
 
+
+
+def fig_onset_real():
+    """Where counties sit before the storm that interrupts them, on public data."""
+    import numpy as np
+    days = json.loads((ROOT / "results/panel_onset_audit.json").read_text())["days"]
+    fig, ax = plt.subplots(1, 2, figsize=(10, 3.6))
+
+    lab = [d["event_day"] for d in days]
+    z = np.array([d["frac_typ_zero"] for d in days]) * 100
+    e4 = np.array([d["frac_lt_1e4"] for d in days]) * 100
+    order = np.argsort(-z)
+    yy = np.arange(len(days))
+    ax[0].barh(yy, e4[order], color="#cfe3f5", label=r"typical $y<10^{-4}$")
+    ax[0].barh(yy, z[order], color="#c1121f", label=r"typical $y=0$ exactly")
+    ax[0].set_yticks(yy); ax[0].set_yticklabels([lab[i] for i in order], fontsize=8)
+    ax[0].set_xlabel("% of interrupted counties"); ax[0].set_xlim(0, 100)
+    ax[0].axvline(z.mean(), color="k", ls="--", lw=0.8)
+    ax[0].text(z.mean() + 1.5, len(days) - 0.4, f"mean {z.mean():.0f}%", fontsize=8)
+    ax[0].set_title("before the storm, the county is dark", fontsize=10)
+    ax[0].legend(frameon=False, fontsize=8, loc="lower left",
+                 bbox_to_anchor=(0.0, -0.42), ncol=2)
+
+    # What the epidemic form's inflow is multiplied by, county-wise.
+    all_pre = []
+    for d in days:
+        f = ROOT / f"data/interim/panel_{d['event_day']}.npz"
+        if not f.exists():
+            continue
+        z_ = np.load(f, allow_pickle=True)
+        y, obs, ts = z_["y"], z_["observed"], np.array(z_["ts"], dtype="datetime64[ns]")
+        lead = ts < np.datetime64(d["event_day"])
+        with np.errstate(all="ignore"):
+            ever = np.nanmax(np.where(obs, y, np.nan), axis=1)
+            pre = np.nanmedian(np.where(obs[:, lead], y[:, lead], np.nan), axis=1)
+        m = np.nan_to_num(ever, nan=-1) >= 0.01
+        all_pre.append(pre[m][np.isfinite(pre[m])])
+    v = np.concatenate(all_pre)
+    frac0 = (v <= 0).mean() * 100
+    pos = v[v > 0]
+    ax[1].hist(np.log10(pos), bins=40, color="#003049")
+    ax[1].axvline(np.log10(1e-4), color="#c1121f", ls="--", lw=1)
+    ax[1].set_xlabel(r"$\log_{10}$ typical pre-storm $y$   (counties with $y>0$)")
+    ax[1].set_ylabel("counties")
+    ax[1].set_title(f"the remainder is small, not large\n"
+                    f"({frac0:.0f}% of all interrupted counties are at exactly 0, off-scale)",
+                    fontsize=9)
+    for a_ in ax: a_.spines[["top", "right"]].set_visible(False)
+    fig.tight_layout(); fig.savefig(FIG / "fig03_onset_real.png", dpi=200)
+    print("figures/fig03_onset_real.png")
+
 if __name__ == "__main__":
-    fig_identifiability(); fig_onset()
+    fig_identifiability(); fig_onset(); fig_onset_real()
