@@ -311,22 +311,37 @@ Read plainly:
 ### Why the steelman closes the gap — the actual finding
 
 On synthetic data the seed left a 23x gap on onset. Here it closes to 1–2%. The
-reason is visible in the fitted parameter, and it supports the argument rather
-than undermining it:
+reason is visible in the fitted parameter. Measured on **exactly the population
+the model was scored on** — hourly forecast-target cells over the eight panels
+EXP05 actually used, 774,142 cells:
 
 * fitted `eps` = **0.00721 ± 0.00088**, 7.2x its initialisation
-* mean observed state `y` = **0.00561** — the seed is *larger than the typical state*
-* 57.4% of observed cells sit at `y = 0` exactly
-* on **83.1%** of observations, `eps` supplies more than 90% of `(y + eps)`
+* mean scored state `y` = **0.00852**, so `eps` is **0.85x the mean state** —
+  comparable to it, not larger
+* **46.4%** of scored cells sit at `y = 0` exactly
+* on **76.0%** of scored cells, `eps` supplies more than 90% of `(y + eps)`;
+  on 87.4% it supplies more than half
 
-So on five sixths of the data the arm's inflow `u (y + eps)(1 - y)` has degenerated
-to `u · eps · (1 - y)`, a constant multiple of `(1 - y)`. **The epidemic form
-reaches parity only by inflating its seed until it stops being an epidemic form
-and becomes the susceptible one with a rescaled rate.** The arm that cannot do
-that — pure transmission — loses by 7–9% at long horizons on every fold.
+So on three quarters of the cells the arm is scored on, its inflow
+`u (y + eps)(1 - y)` has degenerated to `u · eps · (1 - y)`, a constant multiple
+of `(1 - y)`. **The epidemic form reaches parity only by inflating its seed until
+its inflow stops depending on the state.** The arm that cannot do that — pure
+transmission — loses by 7–9% at long horizons on every fold.
 
-This is a sharper claim than the RMSE gap and it is the one the paper should make.
-It needs its own pre-registration and a rerun before it is quoted. **[C]**
+Needs its own pre-registration and a rerun before it is quoted. **[C]**
+
+#### Correction to an earlier version of this entry
+
+An earlier draft of this section reported 57.4% exact zeros, an `eps` *larger*
+than the typical state, and 90%-dominance on 83.1% of observations. Those figures
+were computed over **15-minute cells across the whole panel window**, which is not
+what the model sees: the model is scored on hourly cells after the forecast
+origin. Hourly averaging removes 4.3 points of exact zeros (an hour containing any
+non-zero sub-step is non-zero), and dropping the quiet pre-storm lead-in removes
+about 6.7 more. On the correct population the direction of the finding holds but
+it is weaker, and the claim that the seed exceeds the typical state was simply
+wrong — it is 0.85x. Recorded rather than silently replaced, because the wrong
+version had already been reported.
 
 ### Initialisation, recorded because it nearly produced a false negative
 
