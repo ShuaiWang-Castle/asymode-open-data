@@ -3,26 +3,45 @@
 I cannot create accounts or accept terms of service. These are blocking or will
 block shortly.
 
-## 1. Globus account -- BLOCKING the outage panel
+## 1. Globus -- IN PROGRESS, archive located
 
-EAGLE-I 2014-2022 is distributed **only through Globus** from the ORNL landing
-page. There is no anonymous HTTPS path; the OSTI and OpenEnergyHub records are
-metadata that point back to the same Globus endpoint.
+EAGLE-I 2014-2022 is distributed only through Globus. The DOI folder resolves to
 
-Steps:
-1. Sign in at <https://app.globus.org> (institutional login -- Duke is a Globus
-   subscriber, so the NetID should work; no separate password needed).
-2. Install Globus Connect Personal on this Mac and name the local endpoint.
-3. From <https://doi.ccs.ornl.gov/dataset/ccec86f0-e144-5de8-aee0-fb26028b26e1>
-   use "Download Dataset on Globus", set the destination to
-   the repository's `data/raw/eaglei/`.
-4. Tell me when the transfer is queued and I will take it from there.
+    Collection: OLCF DOI-DOWNLOADS
+    Path: /gen101/world-shared/doi-data/ORNLNCCS/202305/10.13139_ORNLNCCS_1975202/
 
-**Before transferring everything**, please report what the file listing shows --
-per-year file sizes and whether a modeled-county-customer file and a coverage
-file are present. A full-nation, full-history pull is likely tens of GB and we
-do not need it: the event-day selection is already built, so I can name the exact
-county-year subset once I see the layout.
+and contains exactly two files:
+
+| file | size |
+|---|---|
+| `eaglei_outages.zip` | **1.11 GB** |
+| `READMEdata.txt` | 8.54 KB |
+
+**1.11 GB, not tens of GB.** No subset selection is needed; take the whole archive.
+
+Order of operations:
+
+1. Select `READMEdata.txt` (click the row, not the filename) and use the right
+   panel's **Download**. It is 8 KB and it settles the open question in the data
+   card: whether the modeled county-customer file (the denominator) and the
+   state-by-year coverage file are inside the archive or shipped separately.
+2. Then download `eaglei_outages.zip` the same way, into `data/raw/eaglei/`.
+3. If **Download** is greyed out, the collection has no HTTPS access enabled and
+   Globus Connect Personal is required after all; use **Transfer or Sync to...**
+   with a local endpoint instead.
+
+Once the archive is in place:
+
+    ./.venv/bin/python scripts/ingest_eaglei.py inspect   # table of contents, no unpack
+    ./.venv/bin/python scripts/ingest_eaglei.py build     # parquet panel
+
+`inspect` reads the archive's index and the first lines of each member without
+extracting, so the layout is checked before anything is unpacked. `build` refuses
+to proceed if it cannot find a denominator file, rather than borrowing another
+year's customer counts silently.
+
+Disk: 41 GB free, against ~1.1 GB compressed and an unpacked size to be confirmed
+by `inspect`.
 
 ## 2. Copernicus CDS account -- blocks weather drivers
 
