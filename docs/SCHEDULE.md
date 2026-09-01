@@ -23,9 +23,14 @@ The supplementary material has **no grace week**. Everything ships on Oct 6.
 ## Week 2 — Sep 8 to Sep 14 — baselines and the evaluation harness
 
 * county-held-out 5-fold split, fixed and versioned before any model sees it
-* statistical baselines: persistence, climatology, ARIMAX, Poisson GLM
-* tree baselines: random forest, gradient boosting
-* deep sequence baselines: LSTM, DLinear, PatchTST
+* statistical baselines: all-zero, persistence, damped persistence, hour-of-day
+  climatology — **done**
+* **two** learned baselines only: one tree ensemble, one deep sequence model.
+  Cut down from ten. The three closest papers in this application area use two
+  baselines, none, and two-stage variants respectively, and none of them carries a
+  formal result — the bar in this literature is not baseline count. The
+  load-bearing comparisons here are the ablation arms, not a wide baseline table,
+  and the time saved goes to the ablations and the synthetic study.
 * the proposed model on the same folds, same seeds, same inputs
 * horizons t+1 / t+6 / t+24 / t+48
 
