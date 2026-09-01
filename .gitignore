@@ -1,0 +1,17 @@
+data/
+*.nc
+*.grib
+*.h5
+*.parquet
+*.csv
+!docs/**/*.csv
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+.DS_Store
+*.pt
+*.ckpt
+wandb/
+.cdsapirc
