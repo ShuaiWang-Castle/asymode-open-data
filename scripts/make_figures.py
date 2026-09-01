@@ -32,13 +32,19 @@ def fig_identifiability():
         ax[0].plot(x, m, "o-", color=c, label=lab)
         ax[0].fill_between(x, m - s, m + s, color=c, alpha=0.18)
     ax[0].set_yscale("log"); ax[0].set_xlabel("state spread"); ax[0].set_ylabel("rate recovery nRMSE")
-    ax[0].set_title("recovery improves as the state moves"); ax[0].legend(frameon=False, fontsize=9)
+    ax[0].set_title("recovery improves as the state moves", fontsize=10)
+    ax[0].legend(frameon=False, fontsize=9)
 
     a = agg(rows, "traj_rmse", "pulse_scale")
     m = np.array([a[j][0] for j in sorted(a)]); s = np.array([a[j][1] for j in sorted(a)])
     ax[1].plot(x, m, "s-", color="#7f7f7f"); ax[1].fill_between(x, m - s, m + s, color="#7f7f7f", alpha=0.18)
     ax[1].set_yscale("log"); ax[1].set_xlabel("state spread"); ax[1].set_ylabel("trajectory RMSE")
-    ax[1].set_ylim(ax[0].get_ylim())
+    # Both panels share one decade range so the comparison is read off the page
+    # rather than taken on trust: recovery error spans nearly two decades over
+    # the same sweep in which trajectory error spans a factor of four.
+    lo = min(ax[0].get_ylim()[0], m.min() * 0.5)
+    hi = max(ax[0].get_ylim()[1], m.max() * 2)
+    ax[0].set_ylim(lo, hi); ax[1].set_ylim(lo, hi)
     ax[1].set_title("trajectory fit barely moves\n(same axis as left)", fontsize=10)
 
     a = agg(rows, "err_corr", "pulse_scale")
