@@ -60,13 +60,39 @@ pre-registered: from forcing 0.3 to 4.8, trajectory RMSE improves 1.8x while
 nRMSE(u) improves **11.5x** and nRMSE(r) **5.4x**. Recovery degrades far faster
 than fit. Needs its own pre-registration and a rerun before it may be quoted.
 
-**H2 — "recovery is non-monotone; strong forcing pins y near 1 and loses u" — FAILED.**
-Best recovery is at the top of the sweep for all 3 seeds. The reason is a design
-fault, not a refutation: `frac(y > 0.99) = 0.0000` at **every** forcing level, so
-the sweep never entered the saturation regime it was built to test. With
-`cap_u = 0.30` and `cap_r = 0.15` under pulsed forcing, restoration always pulls
-the state back before it pins. **Fix: sustained rather than pulsed forcing, and a
-larger `cap_u`/`cap_r` ratio. Rerun before the claim is made at all.**
+**H2 — "recovery is non-monotone; strong forcing pins y near 1 and loses u" — VOID, not failed.**
+Best recovery is at the top of the sweep for all 3 seeds, and
+`frac(y > 0.99) = 0.0000` at **every** forcing level: the sweep never entered the
+regime it was built to test. The kill condition was applied to a sweep that could
+not reach the hypothesis, so **the verdict carries no information and H2 must not
+be reported as a negative result.**
+
+> **Correction, superseding the diagnosis this entry first carried — [A].** The
+> original note attributed the failure to pulsed forcing letting restoration pull
+> the state back, and prescribed sustained forcing plus a larger `cap_u`/`cap_r`
+> ratio. The first half of that is wrong and would have produced a second failed
+> run. The state's reachable band does not depend on the forcing *pattern* at all.
+>
+> `y <- y(1 - u - r) + u` is a contraction wherever `u + r < 1`, which holds
+> throughout, so `y` approaches `u/(u + r)` from below and cannot overshoot it.
+> The band is therefore closed-form in the rate constants alone:
+>
+>     floor   = u_min/(u_min + r_max) = 0.0742
+>     ceiling = u_max/(u_max + r_min) = 0.9438
+>
+> Checked against the generator at `pulse_scale` 50 and 200: realised maximum
+> 0.9288, identical at both, i.e. a 4x increase in forcing moves it not at all.
+> **Both** regimes H2 names lie outside the band — the low end too, which the
+> original diagnosis missed: `frac(y < 0.01)` never exceeds 0.004 at any forcing
+> level, because at `b_u = -3.5` no non-negative hazard can drive `u` below
+> `r/99`. Forcing amplitude moves the state *within* the walls; only the rate
+> constants move the walls.
+>
+> Second design registered in `docs/PREREGISTRATION_exp01_h2.md`, implemented in
+> `experiments/exp09_identifiability_state.py`, sweeping the equilibrium directly.
+> Its design-validity check reaches `frac(y < 0.01) = 0.659` and
+> `frac(y > 0.99) = 0.309` at the two ends. **The criteria in the EXP01 docstring
+> are void for that design; nothing in this section may be quoted for H2.**
 
 **H3 — "the two rate errors are positively correlated when badly identified" — PASSED.**
 Error correlation is positive in **all 18 runs**, is +0.78 ± 0.05 at the weakest

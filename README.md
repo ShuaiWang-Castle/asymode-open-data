@@ -60,3 +60,20 @@ No number is quoted anywhere without an archive path and a grade.
     ./.venv/bin/python experiments/exp02_onset.py
 
 Data is not committed. See `docs/ACCESS_TODO.md` for what still needs an account.
+
+## Which panels a run used
+
+Experiments that fit real observations pool a named set of panels, not whatever
+happens to be on disk. The set lives in `data/interim/PANEL_MANIFEST.json` and its
+digest is written into every result file, because the panel directory grows as
+covariate downloads land and two runs a few hours apart can otherwise disagree
+for that reason alone with nothing in either file to say so.
+
+    ./.venv/bin/python scripts/build_panel_manifest.py --generation g1-example
+    ./.venv/bin/python experiments/exp05_real_dynamics.py
+    ./.venv/bin/python scripts/check_comparable.py results/exp05_*.json results/exp08_*.json
+
+Rebuild the manifest when a batch of downloads finishes, and re-run the
+experiments that are meant to be compared -- not one of them. `--panels auto`
+pools the directory for exploration; such a run is not comparable to anything and
+should not be archived.
