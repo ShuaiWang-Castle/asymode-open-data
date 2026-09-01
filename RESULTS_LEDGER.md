@@ -178,6 +178,44 @@ state, not the extreme, is what the dynamics see. Scored by the median the figur
 is 73.7%. The maximum-based number is wrong for this question and is recorded
 here only so it is not rediscovered and believed.
 
+## EXP04 — statistical baselines under the county-held-out protocol
+
+Source: `results/exp04_baselines.json` · script `experiments/exp04_baselines.py` ·
+protocol `src/asymode/evalproto.py`
+
+8 storm panels x 5 county-held-out folds x 3 fold seeds = 120 evaluations per
+baseline. Hourly resolution, forecast origins every 6 h with >= 24 h of history,
+horizons t+1 / t+6 / t+24 / t+48. Metrics computed over observed cells only;
+unobserved cells are excluded, never imputed. Fold membership is a deterministic
+hash of the county code, fixed before any model was fitted.
+
+| baseline | RMSE h+1 | RMSE h+6 | RMSE h+24 | RMSE h+48 |
+|---|---|---|---|---|
+| all-zero | 0.0383 ± 0.0192 | 0.0388 ± 0.0210 | 0.0394 ± 0.0214 | **0.0305** ± 0.0190 |
+| persistence | 0.0125 ± 0.0057 | 0.0318 ± 0.0143 | 0.0461 ± 0.0220 | 0.0450 ± 0.0222 |
+| damped persistence | **0.0122** ± 0.0055 | **0.0289** ± 0.0134 | **0.0369** ± 0.0189 | 0.0294 ± 0.0176 |
+| hour-of-day climatology | 0.0374 ± 0.0188 | 0.0378 ± 0.0205 | 0.0385 ± 0.0208 | 0.0299 ± 0.0184 |
+
+**The bar to beat is damped persistence**, and it is not a soft one: a single
+fitted decay constant with no covariates at all.
+
+**Predicting zero everywhere beats persistence at 24 and 48 hours.** That is a
+direct consequence of the onset audit -- the target is dominated by counties at
+exactly zero, so a constant zero is a strong RMSE baseline while persistence
+carries a storm's peak forward into a recovery it cannot see. Any dynamics claim
+must clear the all-zero line, and reporting it is what keeps the later comparison
+honest. It also means **RMSE alone is a poor headline metric for this target**;
+the paper needs a metric that does not reward predicting nothing, and choosing it
+is an open decision.
+
+The dispersion is large (± 0.019 on all-zero) because it pools eight storms of very
+different severity. Per-panel reporting, or normalising by storm severity, is
+needed before these numbers go in a table.
+
+**Grade: [B] for the protocol and the ordering** — county-held-out folds, 3 seeds,
+consistent ranking across all of them. **[C] for the absolute values**, which are
+in units of the provisional denominator and will shift when it is replaced.
+
 ## Public data acquired — **[A]** (verifiable by re-running the script)
 
 Source: `scripts/build_event_catalog.py`, `data/interim/*.parquet`
