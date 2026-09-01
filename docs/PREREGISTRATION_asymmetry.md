@@ -55,6 +55,25 @@ this panel, and reported whatever they say.
   count; that is a magnitude difference, not asymmetry.
 * H-A3 is confirmed only if the family helps on both sides. If it is asymmetric
   too, H-A is weakened, not strengthened, and that must be said.
+
+  **H-A3 as originally written is VOID, and the reason is a defect in this
+  registration rather than a result.** The family chosen for it -- ambient fields
+  outside the core hazard set -- turned out to carry no signal on *either* rate on
+  the convective panels: all three removals moved the error by less than 0.8%,
+  with win counts near chance. A family with no signal is symmetric trivially, so
+  it cannot serve as the control the hypothesis needs. The test was uninformative
+  about symmetry, exactly as a kill condition applied to an unreachable regime is
+  uninformative about identifiability.
+
+  **H-A3' replaces it, registered here before being run.** The control family
+  becomes precipitation and wind speed. The selection rule is stated so it cannot
+  be tuned afterwards: a control family must have a *documented mechanism on both
+  sides*. Rain and wind damage plant, and they also stop crews from working
+  safely at height. Soil moisture fails this rule and stays with hazard -- it has
+  a damage mechanism and no restoration mechanism, which is why moving it would
+  rig the control. The kill conditions are unchanged: H-A3' is confirmed only if
+  removing the family hurts both sides, and it is void again if it turns out to
+  have no signal on either.
 * H-C requires a monotone or single-peaked relationship between gate input width
   and the failure rate across initialisations. A flat profile kills it.
 * H-D requires the reduced-capacity restoration rate to be no worse than the

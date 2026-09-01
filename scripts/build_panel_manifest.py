@@ -11,7 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from asymode.panels import MANIFEST_NAME, available, digest, read_manifest  # noqa: E402
+from asymode.panels import (MANIFEST_NAME, available, channel_digest,   # noqa: E402
+                            channel_names, digest, read_manifest)
 
 INTERIM = ROOT / "data" / "interim"
 
@@ -21,14 +22,23 @@ def main() -> None:
     ap.add_argument("--generation", required=True,
                     help="a name for this panel set, e.g. 'g1-convective'")
     ap.add_argument("--note", default="")
+    ap.add_argument("--panels", nargs="*", default=None,
+                    help="name the panel days explicitly; default is every panel "
+                         "that has drivers")
     a = ap.parse_args()
 
-    have = available(INTERIM)
-    if not have:
+    built = available(INTERIM)
+    if not built:
         raise SystemExit(f"no built panels in {INTERIM}")
+    have = sorted(a.panels) if a.panels else built
+    missing = sorted(set(have) - set(built))
+    if missing:
+        raise SystemExit(f"named but not built: {missing}")
+    chans = channel_names(INTERIM)
     old = read_manifest(INTERIM)
     new = {"generation": a.generation, "panels": have,
-           "digest": digest(have), "note": a.note}
+           "digest": digest(have), "channels": chans,
+           "channel_digest": channel_digest(chans), "note": a.note}
     (INTERIM / MANIFEST_NAME).write_text(json.dumps(new, indent=2))
 
     if old:
@@ -44,7 +54,11 @@ def main() -> None:
               "incomparable to anything written from here on.")
     else:
         print(f"wrote generation {a.generation!r} [{new['digest']}]")
-    print(f"  {len(have)} panels")
+    if old and old.get("channel_digest") not in (None, new["channel_digest"]):
+        print(f"  channel set also changed: {old.get('channel_digest')} -> "
+              f"{new['channel_digest']} ({len(chans)} channels). Results across "
+              f"that change are not comparable even on identical panels.")
+    print(f"  {len(have)} panels, {len(chans)} channels [{new['channel_digest']}]")
 
 
 if __name__ == "__main__":

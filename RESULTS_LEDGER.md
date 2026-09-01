@@ -419,8 +419,9 @@ and six years. Twenty-two storm days now agree in direction without exception.
 Source: `results/exp08_architecture.json` · script `experiments/exp08_architecture.py`
 Protocol: 9 arms x 5 county-held-out folds x 3 seeds = 135 fits, horizon 48 h,
 stride 12, 24,688 pooled samples over 12 panels, 1,672 counties.
-Panel set `1c2bc7bfdfa6`; driver build carried 10 raw meteorological channels
-plus the diurnal clock.
+Panel set `1c2bc7bfdfa6` (generation `g1-convective-2021-2024`); driver build
+carried 10 raw meteorological channels plus the diurnal clock.
+**Superseded by the rerun on `g2-convective-11` / channels `dec964873cb2`.**
 
 > **Scope caveat, applies to every number in this section.** The 12 panels are
 > convective-season events in 2021–2022 and 2024, and the driver block was raw
@@ -576,6 +577,32 @@ effective evidence. One family is registered as a negative case on purpose.
 **Nothing from it may be quoted until it has been run here.** It is a plan, not a
 result, and it is listed in this ledger only so that it cannot later be presented
 as though it had been decided after seeing the data.
+
+## A review failure worth recording
+
+Two results were reported to me and I accepted them without asking whether they
+had been screened for numerical pathology. Both turned out to be artefacts.
+
+* A history-only linear baseline scoring worse than a constant-zero predictor. I
+  called it "an informative result, not a bug" and said to report it unadjusted.
+  It was a bug: three branches of the model kept a default `U(-1,1)` bias while
+  one was set to the training mean, so the initial prediction sat two orders of
+  magnitude above the target. Zero-initialising them moved the arm from 0.058 to
+  0.0275 at h+6, better than the zero baseline throughout. The conclusion drawn
+  from it -- that a baseline's skill comes almost entirely from the drivers -- is
+  withdrawn.
+* A comparison of bounded and unbounded output heads. I asked for the reasoning
+  to be written into a docstring as a citable instance. The measurement behind it
+  had never run: a string edit had silently failed to match and the bounded head
+  was still in place. Measured properly, neither head dominates -- the unbounded
+  one is better at h+1 and worse than predicting zero at h+48, where 38.5% of its
+  predictions need clipping.
+
+Neither reached this ledger, so no graded number was affected. The process
+failure was mine: an anomalous result is a reason to ask what was checked, not a
+finding to endorse. **Rule going forward: a result that contradicts a strong prior
+gets a pathology screen -- initialisation, gradient flow, output range -- reported
+alongside it, before it is discussed as evidence.**
 
 ## Public data acquired — **[A]** (verifiable by re-running the script)
 
