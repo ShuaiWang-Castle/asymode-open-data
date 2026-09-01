@@ -120,7 +120,19 @@ def audit_day(day, a) -> dict:
     onset case entirely."""
     year = day.year
     t0, t1 = day - pd.Timedelta(days=a.before), day + pd.Timedelta(days=a.after)
-    df = pd.read_parquet(INTERIM / f"eaglei_outages_{year}.parquet")
+    pq = INTERIM / f"eaglei_outages_{year}.parquet"
+    if not pq.exists():
+        print(f"{day.date()}: no outage records ingested for {year}, skipping")
+        return None
+    df = pd.read_parquet(pq)
+    # A release can stop short of its nominal year -- the 2014-2022 archive ends on
+    # 2022-11-12 despite being labelled through 2022. Check the window is actually
+    # covered rather than silently building a panel out of nothing.
+    lo, hi = df["ts"].min(), df["ts"].max()
+    if t0 < lo or t1 > hi:
+        print(f"{day.date()}: window {t0.date()}..{t1.date()} outside available "
+              f"records ({lo.date()}..{hi.date()}), skipping")
+        return None
     ced = pd.read_parquet(INTERIM / "county_event_days.parquet")
     hit = sorted(ced[ced["day"] == day]["fips"].unique())
     prov, meta = provisional_denominator(year)

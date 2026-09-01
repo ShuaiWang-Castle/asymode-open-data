@@ -340,6 +340,39 @@ fall — one rule, applied identically, calibrated on training folds only. Givin
 every arm the same initial *rate* instead would favour whichever arm's multiplier
 happens to be near one, which is an artefact of parameterisation.
 
+## EXP03b — onset across event types, not just convective storms
+
+Source: `results/panel_onset_stratified.json` · `data/interim/event_days_stratified.parquet`
+
+The first onset audit used eight storm days, and every one of them was convective
+(thunderstorm wind dominant in all eight). That is the fastest-onset,
+fastest-recovery category in the record, and sampling only it is a selection
+choice that was never justified. Fourteen further panels, stratified by dominant
+event family and spanning 2018-2024:
+
+| family | storm day | counties | interrupted | median `y_pre` = 0 |
+|---|---|---|---|---|
+| winter | 2018-01-16 | 355 | 97 | 92.8% |
+| winter | 2019-02-20 | 474 | 239 | 91.0% |
+| winter | 2022-01-16 | 556 | 273 | 86.8% |
+| winter | 2022-03-12 | 536 | 262 | 80.2% |
+| winter | 2021-02-15 *(Uri)* | 810 | 405 | 74.9% |
+| winter | 2024-01-12 | 578 | 322 | 62.1% |
+| wind | 2019-02-24 | 688 | 420 | 91.2% |
+| wind | 2019-11-27 | 480 | 272 | 86.0% |
+| wind | 2021-12-15 | 361 | 236 | 85.6% |
+| wind | 2024-09-27 *(Helene)* | 445 | 405 | 64.7% |
+| tropical | 2020-10-29 *(Zeta)* | 240 | 208 | 85.6% |
+| tropical | 2018-10-11 *(Michael)* | 235 | 198 | 81.3% |
+| tropical | 2020-08-04 *(Isaias)* | 213 | 191 | 58.1% |
+| flood | 2020-02-06 | 326 | 183 | 86.9% |
+| **mean** | | | | **80.5%** |
+
+**The onset finding is stronger away from convective storms**, not weaker: 80.5%
+against 73.6% on the convective set, across 14 more storms, four event families
+and six years. Twenty-two storm days now agree in direction without exception.
+**[A]** — denominator-free, same argument as EXP03.
+
 ## Public data acquired — **[A]** (verifiable by re-running the script)
 
 Source: `scripts/build_event_catalog.py`, `data/interim/*.parquet`

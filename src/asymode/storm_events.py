@@ -32,17 +32,54 @@ def _read_one(path: Path) -> pd.DataFrame:
     return df
 
 
-def load_details(paths: list[Path]) -> pd.DataFrame:
-    """Concatenate yearly detail files and derive a county FIPS and UTC window."""
+def load_zone_county(path: Path) -> pd.DataFrame:
+    """NWS forecast zone to county correlation, pipe delimited, no header.
+
+    Needed because tropical cyclones, winter storms and high-wind events are filed
+    against forecast *zones*, not counties. A county-only filter silently discards
+    every hurricane in the record, which is the opposite of what a study of slow
+    outage dynamics wants.
+    """
+    cols = ["state", "zone", "cwa", "name", "state_zone", "county", "fips",
+            "tz", "fe_area", "lat", "lon"]
+    z = pd.read_csv(path, sep="|", names=cols, dtype=str, encoding="latin-1")
+    z["fips"] = z["fips"].str.strip().str.zfill(5)
+    z["state_zone"] = z["state_zone"].str.strip().str.upper()
+    z["state"] = z["state"].str.strip().str.upper()
+    return z[["state_zone", "fips", "state"]].dropna().drop_duplicates()
+
+
+def load_details(paths: list[Path], zone_county: Path | None = None) -> pd.DataFrame:
+    """Concatenate yearly detail files and derive a county FIPS and UTC window.
+
+    County-coded rows (`CZ_TYPE == 'C'`) carry the county directly. Zone-coded rows
+    (`'Z'`) are expanded to every county the zone covers, which duplicates the event
+    across counties -- correct for footprint counting, and flagged in `cz_type` so a
+    downstream user can tell the two apart.
+    """
     frames = [_read_one(p) for p in paths]
     df = pd.concat(frames, ignore_index=True)
+    df["CZ_TYPE"] = df["CZ_TYPE"].astype(str).str.upper()
 
-    # STATE_FIPS/CZ_FIPS are the county code only when CZ_TYPE == 'C'. Zone rows
-    # ('Z') are forecast zones, which do not map one-to-one onto counties and are
-    # dropped rather than approximated.
-    df = df[df["CZ_TYPE"].astype(str).str.upper() == "C"].copy()
-    df["fips"] = (df["STATE_FIPS"].astype("Int64").astype(str).str.zfill(2)
-                  + df["CZ_FIPS"].astype("Int64").astype(str).str.zfill(3))
+    cty = df[df["CZ_TYPE"] == "C"].copy()
+    cty["fips"] = (cty["STATE_FIPS"].astype("Int64").astype(str).str.zfill(2)
+                   + cty["CZ_FIPS"].astype("Int64").astype(str).str.zfill(3))
+
+    if zone_county is not None and Path(zone_county).exists():
+        zc = load_zone_county(Path(zone_county))
+        # Storm Events spells the state out; the zone table abbreviates it. The
+        # zone table's own county FIPS supplies the bridge, so no hard-coded
+        # state list is needed and none can drift.
+        abbr = (zc.assign(sf=zc["fips"].str[:2])
+                  .drop_duplicates("sf").set_index("sf")["state"])
+        zon = df[df["CZ_TYPE"] == "Z"].copy()
+        sf = zon["STATE_FIPS"].astype("Int64").astype(str).str.zfill(2)
+        zon["state_zone"] = (sf.map(abbr).fillna("")
+                             + zon["CZ_FIPS"].astype("Int64").astype(str).str.zfill(3))
+        zon = zon.merge(zc[["state_zone", "fips"]], on="state_zone", how="inner")
+        df = pd.concat([cty, zon], ignore_index=True)
+    else:
+        df = cty
 
     for col, out in (("BEGIN_DATE_TIME", "t_begin"), ("END_DATE_TIME", "t_end")):
         df[out] = pd.to_datetime(df[col], format="%d-%b-%y %H:%M:%S", errors="coerce")
@@ -53,8 +90,9 @@ def load_details(paths: list[Path]) -> pd.DataFrame:
     df["t_begin_utc"] = df["t_begin"] - pd.to_timedelta(off, unit="h")
     df["t_end_utc"] = df["t_end"] - pd.to_timedelta(off, unit="h")
 
+    df = df.rename(columns={"CZ_TYPE": "cz_type"})
     keep = ["EPISODE_ID", "EVENT_ID", "STATE", "fips", "CZ_NAME", "EVENT_TYPE",
-            "t_begin_utc", "t_end_utc", "MAGNITUDE", "MAGNITUDE_TYPE",
+            "cz_type", "t_begin_utc", "t_end_utc", "MAGNITUDE", "MAGNITUDE_TYPE",
             "DEATHS_DIRECT", "INJURIES_DIRECT", "DAMAGE_PROPERTY"]
     return df[[c for c in keep if c in df.columns]].dropna(subset=["t_begin_utc"])
 

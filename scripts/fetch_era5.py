@@ -33,14 +33,19 @@ VARIABLES = [
 
 
 def windows(pad_days: int = 1):
-    """Storm windows from the onset audit, padded so lags have history."""
+    """Storm windows for every archived panel, padded so lags have history.
+
+    Driven by what has actually been built rather than by one audit file, so a
+    panel added later is picked up without editing anything here.
+    """
+    import numpy as np
     import pandas as pd
-    audit = json.loads((ROOT / "results/panel_onset_audit.json").read_text())
     out = []
-    for d in audit["days"]:
-        t0, t1 = pd.Timestamp(d["window"][0]), pd.Timestamp(d["window"][1])
-        out.append((d["event_day"], t0 - pd.Timedelta(days=pad_days),
-                    t1 + pd.Timedelta(days=pad_days)))
+    for f in sorted((ROOT / "data/interim").glob("panel_*.npz")):
+        day = f.stem.replace("panel_", "")
+        ts = pd.to_datetime(np.load(f, allow_pickle=True)["ts"])
+        out.append((day, ts.min() - pd.Timedelta(days=pad_days),
+                    ts.max() + pd.Timedelta(days=pad_days)))
     return out
 
 

@@ -10,8 +10,9 @@ from asymode.storm_events import load_details, rank_episodes, county_event_days
 
 raw = sorted((ROOT / "data" / "raw" / "storm_events").glob("StormEvents_details*.csv.gz"))
 print(f"reading {len(raw)} yearly files")
-df = load_details(raw)
-print(f"county-typed event rows: {len(df):,}  span {df.t_begin_utc.min()} .. {df.t_begin_utc.max()}")
+df = load_details(raw, zone_county=ROOT / "data/raw/nws/zone_county.txt")
+print("rows by coding:", df.cz_type.value_counts().to_dict())
+print(f"county-resolved event rows: {len(df):,}  span {df.t_begin_utc.min()} .. {df.t_begin_utc.max()}")
 
 out = ROOT / "data" / "interim"; out.mkdir(parents=True, exist_ok=True)
 df.to_parquet(out / "storm_events_county.parquet", index=False)

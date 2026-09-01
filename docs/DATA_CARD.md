@@ -97,6 +97,18 @@ not per unit area, but it must be a declared choice, not an implicit one.
 
 Blocked on a Copernicus CDS account -- see `docs/ACCESS_TODO.md`.
 
+## Coverage gaps that are not obvious from the labels
+
+* **The 2014-2022 archive stops on 2022-11-12**, not 2022-12-31, despite the title.
+  The row count matches the published figure exactly, so the file is complete as
+  released; the collection simply ends in mid-November. Winter Storm Elliott
+  (2022-12-22, the largest county footprint in the whole storm catalog at 938
+  counties) is therefore **not obtainable from this release**. Any window must be
+  checked against the actual timestamp range, which `scripts/build_panel.py` now
+  does rather than silently building a panel out of nothing.
+* `coverage_history.csv` spans **2018-2022 only**. Years outside it fall back to
+  the nearest available year, which is stated in the log when it happens.
+
 ## Event selection -- NOAA Storm Events
 
 Bulk CSVs, no account: <https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/>
@@ -112,11 +124,22 @@ Two findings that change how selection has to work:
    state. Episode is therefore the wrong key for a synoptic event. Keying by UTC
    day instead yields 260-369 counties across 16-32 states on the largest days --
    the scale county-held-out evaluation actually needs.
-2. **Tropical cyclones are absent from county-coded rows.** Hurricane and
-   Tropical Storm events are filed as *zone* (`CZ_TYPE == 'Z'`) records, not
-   county records, so the county filter drops every one of them. Any hurricane
-   case study requires the NWS zone-to-county correlation file first. This is an
-   open gap, not a solved step.
+2. **Tropical cyclones are absent from county-coded rows -- fixed.** Hurricane,
+   Tropical Storm, Winter Storm and High Wind events are filed as *zone*
+   (`CZ_TYPE == 'Z'`) records, not county records, so a county-only filter drops
+   every one of them. Expanding zone rows through the NWS zone-to-county
+   correlation file (`data/raw/nws/zone_county.txt`, 4,793 rows) adds 260,544
+   resolved rows on top of 302,029 county-coded ones, and takes tropical cyclone
+   event rows from **0 to 2,758**. Michael, Isaias, Zeta and Helene are visible
+   only after this step. Zone rows are flagged `cz_type == 'Z'` so the two codings
+   stay distinguishable downstream.
+
+3. **Event selection was the real constraint, not data volume.** Ranking days by
+   county footprint across 2018-2025 yields **436 days with at least 150 counties**:
+   194 convective, 185 winter, 43 wind, 10 flood, 4 tropical. The largest events
+   are winter storms, not convective ones -- Uri reaches 842 counties against 474
+   for the largest convective day. A study that samples only convective days is
+   sampling the fastest dynamics in the record and is not representative.
 
 ## Static county covariates -- all public, re-pulled from origin
 
