@@ -15,7 +15,7 @@ Steps:
 2. Install Globus Connect Personal on this Mac and name the local endpoint.
 3. From <https://doi.ccs.ornl.gov/dataset/ccec86f0-e144-5de8-aee0-fb26028b26e1>
    use "Download Dataset on Globus", set the destination to
-   `~/Desktop/DMDA/AsymODE-Public/data/raw/eaglei/`.
+   the repository's `data/raw/eaglei/`.
 4. Tell me when the transfer is queued and I will take it from there.
 
 **Before transferring everything**, please report what the file listing shows --

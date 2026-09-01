@@ -37,3 +37,17 @@ is permitted in any artifact.
 ## When in doubt
 
 Stop and ask the PI. Do not improvise a workaround.
+
+## Pre-release checklist
+
+Before this repository is ever made public or attached to a submission:
+
+1. **Delete this file.** It names the things it forbids, which is useful
+   internally and unhelpful in a released artifact.
+2. Re-run the tracked-file scan for the parent directory name, the excluded
+   index, the excluded data vendor, and any variable dictionary not defined in
+   `docs/DATA_CARD.md`.
+3. Confirm no result file carries an absolute filesystem path. Scripts write
+   repo-relative paths; verify rather than assume.
+4. Confirm the checkout has been moved out of any directory whose name would
+   appear in a path, a log, or a screenshot.

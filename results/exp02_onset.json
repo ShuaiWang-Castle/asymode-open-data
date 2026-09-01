@@ -21,7 +21,7 @@
     "n": 384,
     "T": 96,
     "epochs": 250,
-    "out": "/Users/castlewang/Desktop/DMDA/AsymODE-Public/results/exp02_onset.json"
+    "out": "results/exp02_onset.json"
   },
   "rows": [
     {

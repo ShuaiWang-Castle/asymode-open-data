@@ -73,7 +73,7 @@ def main():
     ap.add_argument("--n", type=int, default=384)
     ap.add_argument("--T", type=int, default=96)
     ap.add_argument("--epochs", type=int, default=250)
-    ap.add_argument("--out", default=str(ROOT / "results" / "exp01_identifiability.json"))
+    ap.add_argument("--out", default=str(Path("results") / "exp01_identifiability.json"))
     a = ap.parse_args()
 
     rows = []
@@ -86,10 +86,16 @@ def main():
                   f"nrmse_r {r['nrmse_r']:.3f} | errcorr {r['err_corr']:+.2f} "
                   f"| {r['wall_s']}s", flush=True)
 
-    out = Path(a.out); out.parent.mkdir(parents=True, exist_ok=True)
+    out = Path(a.out)
+    if not out.is_absolute():
+        out = ROOT / out
+    out.parent.mkdir(parents=True, exist_ok=True)
+    # Config is archived with a repo-relative path so results never carry the
+    # absolute location of the checkout.
+    cfg = dict(vars(a)); cfg["out"] = str(out.relative_to(ROOT))
     payload = {"experiment": "exp01_identifiability",
                "true_rates": TRUE.__dict__,
-               "config": vars(a), "rows": rows}
+               "config": cfg, "rows": rows}
     out.write_text(json.dumps(payload, indent=2))
 
     print("\n=== aggregate over seeds (mean +/- std) ===")
@@ -100,7 +106,7 @@ def main():
         sp, tr, nu, nr, ec = f("state_spread"), f("traj_rmse"), f("nrmse_u"), f("nrmse_r"), f("err_corr")
         print(f"{ps:>6} {sp[0]:>7.3f} {tr[0]:>10.4f}+-{tr[1]:<6.4f} "
               f"{nu[0]:>8.3f}+-{nu[1]:<6.3f} {nr[0]:>8.3f}+-{nr[1]:<6.3f} {ec[0]:>+8.2f}+-{ec[1]:<5.2f}")
-    print(f"\nwritten: {out}")
+    print(f"\nwritten: {out.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

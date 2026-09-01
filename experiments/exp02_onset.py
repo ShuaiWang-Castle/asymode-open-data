@@ -93,7 +93,7 @@ def main():
     ap.add_argument("--n", type=int, default=384)
     ap.add_argument("--T", type=int, default=96)
     ap.add_argument("--epochs", type=int, default=250)
-    ap.add_argument("--out", default=str(ROOT / "results" / "exp02_onset.json"))
+    ap.add_argument("--out", default=str(Path("results") / "exp02_onset.json"))
     a = ap.parse_args()
 
     rows = []
@@ -107,9 +107,15 @@ def main():
                       f"| onset {r['rmse_onset']:.4f} | started {r['rmse_started']:.4f} "
                       f"| eps {eps} | {r['wall_s']}s", flush=True)
 
-    out = Path(a.out); out.parent.mkdir(parents=True, exist_ok=True)
+    out = Path(a.out)
+    if not out.is_absolute():
+        out = ROOT / out
+    out.parent.mkdir(parents=True, exist_ok=True)
+    # Config is archived with a repo-relative path so results never carry the
+    # absolute location of the checkout.
+    cfg = dict(vars(a)); cfg["out"] = str(out.relative_to(ROOT))
     out.write_text(json.dumps({"experiment": "exp02_onset", "true_rates": TRUE.__dict__,
-                               "config": vars(a), "rows": rows}, indent=2))
+                               "config": cfg, "rows": rows}, indent=2))
 
     print("\n=== aggregate over seeds (mean +/- std) ===")
     for kap in a.kappas:
@@ -123,7 +129,7 @@ def main():
             es = f"{np.mean(e):.4f}+-{np.std(e):.4f}" if e else "-"
             print(f"{arm.value:<20}{al[0]:>10.4f}+-{al[1]:<6.4f}{on[0]:>10.4f}+-{on[1]:<6.4f}"
                   f"{st[0]:>10.4f}+-{st[1]:<6.4f}{es:>14}")
-    print(f"\nwritten: {out}")
+    print(f"\nwritten: {out.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

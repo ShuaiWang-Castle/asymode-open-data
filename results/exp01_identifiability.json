@@ -25,7 +25,7 @@
     "n": 384,
     "T": 96,
     "epochs": 250,
-    "out": "/Users/castlewang/Desktop/DMDA/AsymODE-Public/results/exp01_identifiability.json"
+    "out": "results/exp01_identifiability.json"
   },
   "rows": [
     {
