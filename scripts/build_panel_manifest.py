@@ -58,7 +58,17 @@ def main() -> None:
         print(f"  channel set also changed: {old.get('channel_digest')} -> "
               f"{new['channel_digest']} ({len(chans)} channels). Results across "
               f"that change are not comparable even on identical panels.")
-    print(f"  {len(have)} panels, {len(chans)} channels [{new['channel_digest']}]")
+    
+    # A manifest under data/ is not versioned -- data/ is ignored -- and the file
+    # that says which panels a generation contained is exactly the thing that must
+    # survive. Write a second, generation-named copy where git can see it.
+    import shutil
+    cfg = ROOT / "configs" / f"panel_manifest_{args.generation}.json"
+    cfg.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy(dst, cfg)
+    print(f"versioned copy: {cfg.relative_to(ROOT)}")
+
+print(f"  {len(have)} panels, {len(chans)} channels [{new['channel_digest']}]")
 
 
 if __name__ == "__main__":
