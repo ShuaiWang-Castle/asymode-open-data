@@ -122,14 +122,14 @@ def decompose_one(pred, y, mask, origin_id, panel=None):
         lev_sum += lv; within_sum += wn; n_cells += n
         if panel is not None:
             pk = str(panel[sel][0]); acc = per_panel.setdefault(pk, [0.0, 0.0, 0])
-            acc[0] += lv; acc[1] += wn; acc[2] += n
+            acc[0] += float(lv); acc[1] += float(wn); acc[2] += int(n)   # json cannot take numpy scalars
         a, b = pred[sel], y[sel]
         rhos.append(0.0 if (a.std() < 1e-12 or b.std() < 1e-12)
                     else float(np.nan_to_num(spearmanr(a, b).correlation)))
     if n_cells == 0:
         return None
-    return {"level_mse": lev_sum / n_cells, "within_mse": within_sum / n_cells,
-            "total_mse": (lev_sum + within_sum) / n_cells,
+    return {"level_mse": float(lev_sum / n_cells), "within_mse": float(within_sum / n_cells),
+            "total_mse": float((lev_sum + within_sum) / n_cells),
             "mean_rho_per_origin": float(np.mean(rhos)), "n_origins": len(rhos), "n_cells": n_cells,
             "per_panel": {k: {"level_sum": v[0], "within_sum": v[1], "n_cells": v[2]}
                           for k, v in per_panel.items()}}

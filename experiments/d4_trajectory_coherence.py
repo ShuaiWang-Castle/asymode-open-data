@@ -92,7 +92,7 @@ def main():
         full = mask.all(axis=1)
         per_seed = [coherence(z["pred"][si][full], y[full]) for si in range(len(z["seeds"]))]
         s1 = float(np.mean([r[0] for r in per_seed])); s2 = float(np.mean([r[1] for r in per_seed]))
-        out[arm] = {"S1_excess_sign_change": s1, "S2_roughness": s2, "n_samples": int(full.sum()),
+        out[arm] = {"S1_excess_sign_change": s1, "S2_residual_roughness": s2, "n_samples": int(full.sum()),
                     "seeds": len(per_seed)}
         print(f"{arm:<22}{s1:>20.4f}{s2:>16.5f}{int(full.sum()):>8}")
     # the truth's own curvature, for scale only (it is not a residual)
