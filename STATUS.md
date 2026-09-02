@@ -141,6 +141,10 @@ Written at a deliberate pause. Nothing below is a result; results live in
   any change to `src/asymode/*` or `experiments/exp05_*`.
 * `scripts/check_comparable.py` — two result files are comparable only if their
   panel and channel digests match.
+* `scripts/paired_review.py` — the review routine: paired Δ%, fold counts and t
+  per horizon against a reference arm, on shared (seed, fold) units only; refuses
+  (exit 2) any pair `check_comparable` rejects. Use it; do not re-type the
+  comparison. Verified against the hand-computed H-A3 retest table.
 * `check_families()` inside `exp08_architecture.py` — the family map must
   exactly partition the driver block, or the run refuses to start.
 * `scripts/build_panel_manifest.py` — pins the sample set and writes a versioned
