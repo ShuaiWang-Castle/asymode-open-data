@@ -64,6 +64,17 @@ Written at a deliberate pause. Nothing below is a result; results live in
   independent measurement to do so. Interpretive note added to H-E: a tropical
   win can be a ranking win; a convective/winter win is a level win.
 
+* **Severity-matched control run** ([A]): inside matched peak-severity bands,
+  the fall/rise ratio keeps its ordering tropical > {wind, convective} > winter
+  (winter 1.0–1.25 at every severity) — phase separation is not a size effect.
+  The rank ceiling keeps only tropical-vs-rest; the onset share does not order
+  families at all. **"Three independent measurements" is withdrawn**; the count
+  is one ordering measurement plus a tropical-vs-rest ceiling. H-E1 amended:
+  wind and convective are unordered and not scored.
+* **D-3 decomposition script** (`experiments/d3_level_rank_decomp.py`) written
+  before any out-of-fold prediction exists; waits on the lane's `--save-oof`
+  export (`results/oof_<arm>.npz`).
+
 ## Where the study stands
 
 * Scope fixed to **convective-season events** as the main study
