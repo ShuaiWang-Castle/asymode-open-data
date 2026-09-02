@@ -64,10 +64,26 @@ project and were not re-read line by line here.
 **No scientific rerun has been launched.** Per the prompt, none may be until the
 four pending gates pass.
 
-## 5. Open question logged, not guessed
+## 5. Timezone question — resolved from the publisher's own README
 
-Timezone of EAGLE-I `run_start_time` (hence of panel `ts`). Evidence so far: the
-dataset landing page gives resolution (15 min) but no timezone; the driver
-builder aligns panel `ts` directly to ERA5 `valid_time` (UTC), so the pipeline
-already *assumes* UTC. The metadata record is being fetched; until confirmed the
-clock is labelled `utc_hour` with this assumption stated in the definition string.
+The release READMEs shipped with the raw download (`data/raw/eaglei/README.txt`,
+`READMEdata.txt`, ORNL, 2023/2025) define `run_start_time` as "Date and timestamp
+provided in **GMT** … marks the beginning of the collection run", 15-minute
+cadence. Corroborated in-data: on both 2021 DST-transition days every hour has
+exactly four 15-minute stamps (no missing or duplicated hour), which local civil
+time would not give. Panel `ts` is therefore UTC, the ERA5 alignment in the
+driver builder is sound, and the corrected clock is correctly labelled
+`utc_hour`. A crew/daylight reading would need local civil time (county time
+zone + DST); it is not implemented and is not claimed.
+
+## 6. Gate status after wiring (same day)
+
+Tests 9 (fixed split), 10 (timestamp clock), 11 (fail-closed comparability), 12
+(OOF uniqueness) added and passing; suite 1,738. `exp05` carries the corrected
+protocol; a smoke run on two panels (k = 2, one model seed, one epoch, event
+split) wrote a schema-v2 result to the non-archival path `results/smoke/` with
+every required key, a pinned split file under `configs/splits/`, and an OOF
+export in which each panel sits in exactly one fold. **The remaining harnesses
+(exp06/07/08/10) are being wired to the same loader; until then they refuse to
+run (`add_context` raises without a timestamp clock), which is the intended
+fail-closed behaviour.**

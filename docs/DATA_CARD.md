@@ -16,6 +16,9 @@ so the target is the source's own intended use, not a construction of ours.
 
 County-level `customers_out`, 15-minute resolution, collected by ETL from
 utilities' public outage maps.
+`run_start_time` is stated by the release README to be **GMT** ("marks the
+beginning of the collection run"); the in-data check on DST-transition days
+agrees. All panel timestamps are therefore UTC, and so is the clock channel.
 
 | Years | DOI | Notes |
 |---|---|---|

@@ -11,7 +11,8 @@ from pathlib import Path
 
 # Constants that change the sample set or the split. Two runs that disagree on
 # any of these are not comparable no matter what their numbers look like.
-KEYS = ["panel_digest", "channel_digest", "horizon", "stride", "k",
+KEYS = ["panel_digest", "channel_digest", "clock_digest", "split_unit", "outer_split_digest",
+        "mask_digest", "metric_digest", "horizon", "stride", "k",
         "seeds", "horizons"]
 
 

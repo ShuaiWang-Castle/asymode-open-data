@@ -39,6 +39,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from asymode.dynamics import (TwoRateODE, TwoRateConfig, InflowForm,   # noqa: E402
                               calibrate_init)
+from asymode import splits, schema                                   # noqa: E402
 from asymode.evalproto import (Task, make_folds, to_hourly,           # noqa: E402
                                inner_split)
 from asymode import panels as panelset                              # noqa: E402
@@ -89,7 +90,7 @@ def origin_range(n: int, horizon: int, stride: int, min_history: int) -> range:
 
 
 def load_pooled(horizon: int, stride: int, min_history: int = 24,
-                panels: list[str] | None = None):
+                panels: list[str] | None = None, with_time: bool = False):
     """Every (county, storm, origin) with drivers, pooled across storms.
 
     Pooling is the point: a county is the unit of held-out evaluation, and a model
@@ -98,13 +99,18 @@ def load_pooled(horizon: int, stride: int, min_history: int = 24,
     `panels` names the set explicitly. Passing `None` pools whatever is on disk,
     which is only safe when nothing is still downloading -- see `asymode.panels`.
 
+    With `with_time=True` an eighth array is returned: the hour of day (0-23, on
+    the panel timestamp clock, which the driver builder aligns to ERA5 `valid_time`,
+    i.e. UTC) of the *first forecast step* of every sample. The clock channels are
+    built from it, so they follow the calendar and do not restart at every origin.
+
     Returns `(y0, X, y, mask, fips, panel, origin)`. The last is the step index
     each sample's forecast starts from; together with `panel` it names the
     forecast, which is the grouping any within-forecast statistic needs and which
     `fips` and `panel` alone cannot express -- one storm contributes many origins.
     """
     keep = set(panels) if panels is not None else None
-    Y0, X, YT, M, FIPS, PANEL, ORIGIN = [], [], [], [], [], [], []
+    Y0, X, YT, M, FIPS, PANEL, ORIGIN, T0H = [], [], [], [], [], [], [], []
     for pf in sorted(INTERIM.glob("panel_*.npz")):
         day = pf.stem.replace("panel_", "")
         df = INTERIM / f"drivers_{day}.npz"
@@ -113,6 +119,8 @@ def load_pooled(horizon: int, stride: int, min_history: int = 24,
         pz, dz = np.load(pf, allow_pickle=True), np.load(df, allow_pickle=True)
         assert pz["fips"].tolist() == dz["fips"].tolist()
         yh, oh = to_hourly(pz["y"], pz["observed"])
+        # hour of day of every hourly step: hourly step k covers 15-min stamps 4k..4k+3
+        ts15 = pz["ts"]; hours_of_day = np.array([int(str(t)[11:13]) for t in ts15[::4]], dtype=np.int64)
         Xh, fips = dz["X"], pz["fips"].tolist()
         n = min(yh.shape[1], Xh.shape[1])
         yh, oh, Xh = yh[:, :n], oh[:, :n], Xh[:, :n]
@@ -125,9 +133,11 @@ def load_pooled(horizon: int, stride: int, min_history: int = 24,
             # forecast: every county in it shares a driver window and a clock, and
             # the level/ranking decomposition is only meaningful within one.
             ORIGIN.append(np.full(len(fips), o, dtype=np.int32))
-    return (np.concatenate(Y0), np.concatenate(X), np.concatenate(YT),
-            np.concatenate(M), np.concatenate(FIPS), np.concatenate(PANEL),
-            np.concatenate(ORIGIN))
+            T0H.append(np.full(len(fips), hours_of_day[o + 1], dtype=np.int64))
+    out = (np.concatenate(Y0), np.concatenate(X), np.concatenate(YT),
+           np.concatenate(M), np.concatenate(FIPS), np.concatenate(PANEL),
+           np.concatenate(ORIGIN))
+    return out + (np.concatenate(T0H),) if with_time else out
 
 
 def load_history(horizon: int, stride: int, lookback: int, min_history: int = 24,
@@ -159,14 +169,61 @@ def load_history(horizon: int, stride: int, lookback: int, min_history: int = 24
     return np.concatenate(H)
 
 
-def add_context(X: np.ndarray, y0: np.ndarray, hours: int) -> np.ndarray:
-    """Append a diurnal clock. Restoration follows crews, and crews follow the sun."""
+def add_context(X: np.ndarray, y0: np.ndarray, hours: int, t0_hour=None,
+                clock: str = "utc_hour") -> np.ndarray:
+    """Append clock channels.
+
+    `clock="utc_hour"` (default): sin/cos of the hour of day of each forecast step,
+    from `t0_hour` (the hour of the first step, per sample, from the panel
+    timestamps). The phase follows the calendar and differs between two origins
+    of the same storm by their offset.
+
+    `clock="lead_phase_old"`: the legacy channel -- sin/cos of the lead time modulo
+    24 h, identical for every sample. It is *not* an hour of day; it is kept only
+    as a diagnostic arm and is refused by the comparability checker against any
+    other clock. `clock="none"`: no clock channels.
+    """
     n, T, F = X.shape
-    t = np.arange(T)[None, :].repeat(n, 0)
+    if clock == "none":
+        return X.astype(np.float32)
+    if clock == "lead_phase_old":
+        t = np.arange(T)[None, :].repeat(n, 0).astype(np.float64)
+    elif clock == "utc_hour":
+        if t0_hour is None:
+            raise ValueError("clock='utc_hour' needs t0_hour (use load_pooled(with_time=True))")
+        t = (np.asarray(t0_hour, dtype=np.int64)[:, None] + np.arange(T)[None, :]) % 24
+        t = t.astype(np.float64)
+    else:
+        raise ValueError(f"unknown clock {clock!r}")
     out = np.concatenate([X,
                           np.sin(2 * np.pi * t / 24)[..., None],
                           np.cos(2 * np.pi * t / 24)[..., None]], axis=-1)
     return out.astype(np.float32)
+
+
+def outer_assignment(fips: np.ndarray, panel: np.ndarray, split_unit: str, k: int,
+                     outer_split_seed: int):
+    """Fold of every row, from ONE pinned map that depends on the outer split seed only.
+
+    Returns (assign, mapping, digest, unit_ids). `split_unit="event"` holds out whole
+    storm panels (balanced on sample counts); `"county"` holds out counties across
+    all events. Neither sees the model seed.
+    """
+    if split_unit == "event":
+        sizes = {p_: int(c) for p_, c in zip(*np.unique(panel, return_counts=True))}
+        if len(sizes) < k:
+            raise SystemExit(f"event-held-out needs >= {k} panels, have {len(sizes)}")
+        mapping = splits.event_folds(sizes, k=k, outer_split_seed=outer_split_seed)
+        unit_ids = panel
+    elif split_unit == "county":
+        mapping = splits.county_folds(sorted(set(fips.tolist())), k=k, outer_split_seed=outer_split_seed)
+        unit_ids = fips
+    else:
+        raise ValueError(split_unit)
+    assign = splits.assign_rows(unit_ids, mapping)
+    for f in range(k):
+        splits.check_disjoint(unit_ids, assign, f)
+    return assign, mapping, splits.split_digest(mapping), unit_ids
 
 
 def run_baseline(name, tr, te, data, args):
@@ -207,9 +264,15 @@ def run_baseline(name, tr, te, data, args):
 BASELINES = ["zero", "persistence", "damped_persistence"]
 
 
-def run_arm(arm, tr, te, data, args, seed, fips, fold_id):
+def run_arm(arm, tr, te, data, args, seed, fips, fold_id, inner_units=None,
+            inner_split_seed=None):
+    """`seed` is the MODEL seed (initialisation and data order). The early-stopping
+    holdout is drawn by `inner_split_seed` (default: the model seed, legacy) over
+    `inner_units` (default: county codes), never over rows."""
     y0, X, yt, m = data
     torch.manual_seed(seed); np.random.seed(seed)
+    inner_split_seed = seed if inner_split_seed is None else inner_split_seed
+    inner_units = fips if inner_units is None else inner_units
     mu = X[tr].reshape(-1, X.shape[-1]).mean(0)
     sd = X[tr].reshape(-1, X.shape[-1]).std(0) + 1e-6      # training folds only
     Xn = ((X - mu) / sd).astype(np.float32)
@@ -229,7 +292,7 @@ def run_arm(arm, tr, te, data, args, seed, fips, fold_id):
     # Early stopping holds out counties, not rows: see `inner_split`. A row-random
     # split leaves the same counties on both sides and cannot see the failure the
     # outer folds exist to measure.
-    fi, vi = inner_split(fips[tr], seed=seed, fold=fold_id)
+    fi, vi = inner_split(inner_units[tr], seed=inner_split_seed, fold=fold_id)
     tr_arr = np.asarray(tr)
     fit, va = tr_arr[fi], tr_arr[vi]
     Y0, XX, YT, MM = t(y0), t(Xn), t(yt), t(m.astype(np.float32))
@@ -295,6 +358,7 @@ def run_arm(arm, tr, te, data, args, seed, fips, fold_id):
     out["hit_epoch_cap"] = bool(ran >= args.epochs)
     out["u_init"] = u0
     out["r_init"] = r0
+    out["frac_pred_one"] = float((pred >= 1.0).mean())      # clamp activity at the top
     return out
 
 
@@ -337,7 +401,14 @@ def main():
     ap.add_argument("--horizons", type=int, nargs="+", default=[1, 6, 24, 48])
     ap.add_argument("--stride", type=int, default=12)
     ap.add_argument("--k", type=int, default=5)
-    ap.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
+    ap.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2],
+                    help="MODEL seeds (initialisation and data order); alias --model-seeds")
+    ap.add_argument("--model-seeds", dest="seeds", type=int, nargs="+")
+    ap.add_argument("--outer-split-seed", type=int, default=0, help="decides the held-out units; nothing else")
+    ap.add_argument("--inner-split-seed", type=int, default=0, help="decides the early-stopping holdout")
+    ap.add_argument("--split-unit", choices=["event", "county"], default="event",
+                    help="event = PRIMARY (whole storms held out); county = secondary (unseen counties within observed families)")
+    ap.add_argument("--clock", choices=sorted(schema.CLOCKS), default="utc_hour")
     ap.add_argument("--epochs", type=int, default=40)
     ap.add_argument("--patience", type=int, default=8)
     ap.add_argument("--batch", type=int, default=512)
@@ -353,10 +424,17 @@ def main():
     ap.add_argument("--out", default="results/exp05_real_dynamics.json")
     a = ap.parse_args()
 
+    t_launch = time.time()
+    source_at_launch = panelset.source_version(ROOT)
     want, panel_digest = panelset.resolve(INTERIM, a.panels)
-    y0, X, yt, m, fips, panel, origin = load_pooled(
-        a.horizon, a.stride, panels=want)
-    X = add_context(X, y0, a.horizon)
+    y0, X, yt, m, fips, panel, origin, t0h = load_pooled(
+        a.horizon, a.stride, panels=want, with_time=True)
+    X = add_context(X, y0, a.horizon, t0_hour=t0h, clock=a.clock)
+    assign, split_map, split_digest, unit_ids = outer_assignment(
+        fips, panel, a.split_unit, a.k, a.outer_split_seed)
+    split_path = splits.save_split(split_map, a.split_unit, a.k, a.outer_split_seed, ROOT)
+    print(f"split_unit {a.split_unit} · outer_split_seed {a.outer_split_seed} · digest {split_digest} · "
+          f"{split_path.relative_to(ROOT)} · clock {a.clock}")
     print(f"pooled samples {len(y0):,} over {len(set(panel))} storms [{panel_digest}], "
           f"{len(set(fips)):,} counties, {X.shape[-1]} driver channels, "
           f"horizon {a.horizon} h")
@@ -368,10 +446,7 @@ def main():
     # audit -- origin_id is a dense code of (panel, origin_step), never the step.
     oof = {}
     _, origin_id = np.unique(np.array([f"{p_}|{o_}" for p_, o_ in zip(panel, origin)]), return_inverse=True)
-    for seed in a.seeds:
-        fold = make_folds(sorted(set(fips)), k=a.k, seed=seed)
-        fmap = {f: fo for f, fo in zip(sorted(set(fips)), fold)}
-        assign = np.array([fmap[f] for f in fips])
+    for seed in a.seeds:                      # model seeds; the split does not move
         for f in range(a.k):
             te = np.where(assign == f)[0]; tr = np.where(assign != f)[0]
             for b in BASELINES:
@@ -381,7 +456,8 @@ def main():
                              "n_test": len(te), "wall_s": 0.0, **r})
             for arm in ARMS:
                 t0 = time.time()
-                r = run_arm(arm, tr, te, (y0, X, yt, m), a, seed, fips, f)
+                r = run_arm(arm, tr, te, (y0, X, yt, m), a, seed, fips, f,
+                            inner_units=unit_ids, inner_split_seed=a.inner_split_seed)
                 _stash(oof, arm.name, seed, f, te, r.pop("_test_pred"), len(y0), a.seeds, len(a.horizons))
                 wall = round(time.time() - t0, 1)
                 rows.append({"arm": arm.name, "seed": seed, "fold": f,
@@ -397,7 +473,21 @@ def main():
     cfg["panel_digest"] = panel_digest
     cfg["channels"] = panelset.channel_names(INTERIM)
     cfg["channel_digest"] = panelset.channel_digest(cfg["channels"])
-    cfg["source"] = panelset.source_version(ROOT)
+    cfg["source"] = source_at_launch
+    hp = {k: cfg[k] for k in ("epochs", "patience", "batch", "lr", "hidden", "cap_u", "cap_r",
+                              "horizon", "stride", "k", "horizons") if k in cfg}
+    cfg.update(schema.result_header(
+        experiment_id=Path(a.out).stem, source=source_at_launch, panel_ids=cfg["panels"],
+        panel_digest=panel_digest, channel_names=cfg["channels"] + ["clock_sin", "clock_cos"] * (a.clock != "none"),
+        channel_digest=cfg["channel_digest"], clock=a.clock, split_unit=a.split_unit,
+        outer_split_digest=split_digest, outer_split_seed=a.outer_split_seed,
+        inner_split_seed=a.inner_split_seed, model_seeds=a.seeds, hyperparameters=hp))
+    cfg["split_file"] = str(split_path.relative_to(ROOT))
+    cfg["wall_time_s"] = round(time.time() - t_launch, 1)
+    fits = [r for r in rows if "epochs_run" in r]
+    cfg["convergence"] = {"n_fits": len(fits), "n_at_epoch_cap": int(sum(r["hit_epoch_cap"] for r in fits)),
+                          "max_frac_pred_zero": max((r["frac_pred_zero"] for r in fits), default=None),
+                          "max_frac_pred_one": max((r.get("frac_pred_one", 0.0) for r in fits), default=None)}
     for r in rows:
         r.pop("_test_pred", None)
     out.write_text(json.dumps({"config": cfg, "rows": rows}, indent=2))

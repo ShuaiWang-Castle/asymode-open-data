@@ -1,0 +1,10 @@
+{
+ "split_unit": "event",
+ "k": 2,
+ "outer_split_seed": 0,
+ "digest": "6a18856a8f7d",
+ "mapping": {
+  "2021-05-04": 0,
+  "2021-06-21": 1
+ }
+}
