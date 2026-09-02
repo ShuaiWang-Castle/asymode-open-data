@@ -682,7 +682,7 @@ until the registered covariates (hazard composites, statics) are wired in.
 Effects of about 1% sit against this and should not be read as structural. The
 0/15 and 1/15 results above are the ones robust to it.
 
-## EXP07 — learned baselines on identical information. Grade PENDING convergence check.
+## EXP07 — learned baselines on identical information. [B] for the ordering.
 
 Source: `results/exp07_learned_baselines.json` · manifest `g2-convective-11`
 (panels `76a73ed794af`, channels `dec964873cb2`) · `check_comparable` with the
@@ -710,13 +710,24 @@ Checks the experiment lane ran on itself, and I verified:
 * The trees fit one model per horizon; the dynamics fit one rollout. A real
   asymmetry favouring the trees; it cannot plausibly account for 7.9%, but it
   is not quantified. **Control registered below.**
-* **The dynamics' convergence is unverified.** `epochs_run` was not recorded
-  (instrumentation gap, now closed). A 400-epoch / patience-40 control run is in
-  flight against the 60 / 8 used here. **No grade is assigned until it reports.**
-  If 60 epochs underfit, every dynamics number in this table is too pessimistic
-  and the table is rerun.
+* **The dynamics are not under-trained.** `results/exp08_convergence_check.json`
+  — the first result file carrying a clean source fingerprint (`e217ea0`,
+  dirty False) — refits the two-rate `control` on seed 0's five folds with the
+  budget raised from 60 epochs / patience 8 to 400 / 40. It stopped naturally at
+  63, 83, 81, 84 and 102 epochs, **0/5 at the cap**; val loss improved 3.4%.
+  Against the 60-epoch fits: h+1 +1.9%, h+6 +0.7% (slightly worse — mild
+  overfit), h+24 −0.3%, h+48 −1.0%. Net effect near zero and not even
+  consistent in sign; the trees still lead at h+6 / h+24 / h+48 by 4.1% / 7.7% /
+  4.8% after relaxing. **A 7.9% gap is not a training-budget artefact.** Scope:
+  this probe is seed 0 only; `check_comparable` correctly refuses to treat it as
+  a full-protocol peer of g2 (differ on: ['seeds']), and it is not graded as one.
 
-**Provisional reading, conditional on convergence.** The state equation buys a
+**Grade: [B] for the ordering** — 5 county-held-out folds x 3 seeds, 0/15 at
+the two long horizons, and three alternative explanations excluded: collapse
+(no), under-training (no), a cap on the trees (yes, but it favours the trees).
+The one unquantified asymmetry is the model count, controlled below.
+
+**Reading.** The state equation buys a
 lot where the state itself dominates the next value (h+1) and loses where the
 covariate-to-target map dominates (long horizons) to a regressor that can fit
 that map freely. It is consistent with EXP05: the dynamics beat *statistical*
@@ -747,7 +758,12 @@ ever registered.** A metric change now cannot be presented as pre-registered; it
 would be a new registration made after seeing this result, and the paper would
 have to say so.
 
-### Registered control, not run — per-horizon two-rate fits
+### Control, not run — per-horizon two-rate fits. **Result-driven, not pre-registered.**
+
+This control was proposed by the experiment lane *after* seeing EXP07 — it is a
+response to the result, not a plan that preceded it. Quantifying a known
+asymmetry is legitimate, and the paper must say the control was added post hoc.
+The same standard applied to the metric question applies here.
 
 Fit the two-rate model **once per scored horizon** (loss restricted to that
 horizon; four models, same inputs, same folds, same seeds), matching the trees'
@@ -755,6 +771,25 @@ model count. Interpretation fixed now: if the per-horizon dynamics close most of
 the gap, the loss was the single-rollout constraint; if they do not, the
 structure itself loses on covariate-driven horizons. Runs after the convergence
 check and the decisive H-A3 rerun.
+
+### D-4 — trajectory coherence of per-horizon predictors. Registered before predictions exist.
+
+If the per-horizon control closes most of the gap, the honest statement is that
+the two-rate model pays for producing **one coherent trajectory** while the
+trees produce four unrelated point forecasts. That is a claim about the trees'
+output and must be measured, not asserted. Fixed now, on the agreed OOF layout
+(which already carries every arm's predictions at h = 1, 6, 24, 48 per sample):
+
+* For each sample, the four per-horizon predictions form a pseudo-trajectory.
+  Statistic 1: the fraction of samples whose pseudo-trajectory has a sign
+  change in its first difference that the **truth** at the same horizons does
+  not have. Statistic 2: the mean absolute second difference across the four
+  horizons, per arm. The rollout arms are coherent by construction and give the
+  floor; the trees are compared to it.
+* Interpretation fixed: if the trees' pseudo-trajectories are materially less
+  coherent than the truth's, "more accurate per point, not a trajectory" is a
+  measured property; if they are as coherent, that framing is unavailable and
+  the paper does not use it.
 
 ## D-2 — rank ceiling per horizon. [A]
 

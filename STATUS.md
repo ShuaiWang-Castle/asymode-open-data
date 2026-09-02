@@ -129,14 +129,16 @@ Written at a deliberate pause. Nothing below is a result; results live in
 
 Trees on identical information: −7.3% / −6.0% at h+24 / h+48, 0/15 folds for
 the dynamics; dynamics win h+1 by 20.6%. Trees are cap-limited (edge
-understated). **Grade withheld pending the dynamics' convergence check**
-(400 epochs vs the 60 used). Per-horizon two-rate control registered. The
+understated). **Convergence check done: not under-trained** (natural early stop at 63–102
+epochs, 0/5 at cap, net change ≈ 0). **EXP07 graded [B] for the ordering.** Per-horizon two-rate control registered. The
 framing decision (narrow the claim / change metric / accept the negative) is
 the PI's; no alternative metric was ever registered.
 
 ## Waiting on
-* Convergence check on the two-rate control (400 epochs / patience 40).
-* Per-horizon two-rate fits (registered control for the model-count asymmetry).
+* Per-horizon two-rate fits — **runs next** (result-driven control for the
+  model-count asymmetry; paper must say it was added post hoc). Then the
+  decisive H-A3 rerun, then the six-arm run with the OOF export. D-4
+  (trajectory coherence) registered against the OOF layout.
 
 * Decisive H-A3 rerun — g1's 12 panels x 14 channels, three ambient arms;
   lane schedules after exp07; must record the source fingerprint.
