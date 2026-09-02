@@ -104,7 +104,20 @@ def source_version(root: Path) -> dict:
                                   timeout=10).stdout.strip()
         except Exception:
             return ""
+    root = Path(root).resolve()
+    if root in _PINNED:  # captured when this module was imported, i.e. at launch
+        return dict(_PINNED[root])
     head = run("git", "rev-parse", "--short", "HEAD")
     if not head:
         return {"commit": None, "dirty": None}
     return {"commit": head, "dirty": bool(run("git", "status", "--porcelain"))}
+
+
+# The fingerprint is pinned at import time. A long run that writes its result
+# after later commits would otherwise stamp a commit it never ran from (this
+# happened: a run launched at one commit was stamped with a figures-only commit
+# made while it trained). Experiments import this module at launch, so the value
+# recorded is the tree the process actually started from.
+_PINNED: dict = {}
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+_PINNED[_REPO_ROOT] = source_version(_REPO_ROOT)

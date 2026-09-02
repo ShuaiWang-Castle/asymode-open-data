@@ -31,9 +31,13 @@ Written at a deliberate pause. Nothing below is a result; results live in
   an over-reach the other way and is withdrawn — clean ambient removal has
   signal on g2 (both sides same sign; restoration side 13/15 t=3.03 at h+48,
   interruption side 9/15, below the fold bar). g1's clean ablation was null, so
-  the g1/g2 difference is **unexplained**; a decisive rerun (g1's 12 panels x
-  14 channels, three arms) is registered with its interpretation fixed. H-A3'
-  remains the second control. `check_families` hard gate in place.
+  the g1/g2 difference was unexplained; the decisive rerun (g1's 12 panels x
+  14 channels, three arms; `results/exp08_ha3_g1panels_14ch.json`) **landed
+  2026-09-02 and resolves it: signal → the wind components, not the panel set**
+  (g1 panels + 14 channels reproduce the g2-retest table cell for cell). H-A3
+  stays [C]; the restoration-side ~1% h+48 effect now clears the bar on both
+  sample sets, the interruption side fails it on both. H-A3' remains the
+  second control. `check_families` hard gate in place.
 * **External priors registered** — `docs/PREREGISTRATION_external_priors.md`,
   seven items from the controlled channel, each carrying the sender's own
   [directional]/[generic] label. The paper's provenance statement must
@@ -229,10 +233,11 @@ family-level result; the paper reports the null beside it.
 
 ## In flight
 
-* Decisive H-A3 rerun on g1's 12 panels x 14 channels (pin file
-  `configs/panel_manifest_g1-convective-12.json`, reconstructed from the archived
-  g1 config; digest `1c2bc7bfdfa6` matches) — interpretation fixed in the ledger:
-  null → panel set; signal → wind components.
+* Nothing. ~~Decisive H-A3 rerun~~ — landed 2026-09-02, adjudicated under the
+  fixed wording (signal → wind components), recorded in the ledger. Its source
+  fingerprint was stamped at write time (`3445bdc`) although the process started
+  at `5def728`; the commits in between are figures-only. Fingerprints are now
+  pinned at import, i.e. at launch (`src/asymode/panels.py`).
 
 ## Waiting on
 * ~~Per-horizon two-rate fits~~ — done, [B]: closes h+6 fully, not h+24/48;
@@ -244,11 +249,10 @@ family-level result; the paper reports the null beside it.
   decisive H-A3 rerun, then the six-arm run with the OOF export. D-4
   (trajectory coherence) registered against the OOF layout.
 
-* Decisive H-A3 rerun — g1's 12 panels x 14 channels, three ambient arms;
-  lane schedules after exp07; must record the source fingerprint.
+* ~~Decisive H-A3 rerun~~ — landed 2026-09-02 (see ledger).
 
 * exp07 (learned baselines, g2) — experiment lane reports on completion.
-* H-A3 corrected rerun (3 arms, g2) — decides whether the void holds on g2.
+* ~~H-A3 corrected rerun (3 arms, g2)~~ — done (`exp08_ha3_retest.json`, [C]).
 * ~~ERA5 Helene~~ — landed and verified (188 MB, zip clean, both streams readable). **26/26.**
 * **Drivers 26/26 and manifest `g3-all-26` built** (digest `db286b4960a4`,
   14 channels, versioned copy in `configs/`). exp06 (H-E) and the decisive
