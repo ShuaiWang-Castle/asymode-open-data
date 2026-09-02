@@ -175,15 +175,13 @@ changes)** — the "not a trajectory" framing needs the trees measured, which
 requires an EXP07 export (`--save-oof` exists only in exp05). **exp06 (H-E) is
 running on g3.** Decisive H-A3 rerun and the exp07 export queue behind it.
 
-## Uncommitted on purpose (if you are resuming)
+## exp07 export verified and committed
 
-`experiments/exp05_real_dynamics.py` and `experiments/exp07_learned_baselines.py`
-carry the exp07 `--save-oof` export and a relaxed shared-writer hole check. They
-import cleanly (13/13) but are **not committed until the background smoke
-(k=2, two arms, scratchpad) passes the D-3 audit + reconciliation and D-4**.
-If that smoke has failed or never reported, do not commit them blind: rerun
-the smoke first. OOF archives (`results/oof_*.npz`) are regenerable and are no
-longer tracked.
+`--save-oof` in exp07 passed the scratchpad smoke (k=2, two arms): D-3 audit +
+reconciliation 8/8, D-4 runs. The trees' S1 on that smoke was 0.63 — a preview
+under tiny budgets, **not a result**. The full exp07 rerun with export is queued
+behind exp06 for CPU; D-4 on the trees is decided there. OOF archives
+(`results/oof_*.npz`) are regenerable and are not tracked.
 
 ## Waiting on
 * ~~Per-horizon two-rate fits~~ — done, [B]: closes h+6 fully, not h+24/48;

@@ -314,8 +314,12 @@ def _write_oof(oof, out_dir, yt, m, fips, panel, origin, origin_id, a, cfg):
     y = yt[:, [h - 1 for h in H]].astype(np.float32)
     mask = m[:, [h - 1 for h in H]].astype(bool)
     for name, st in oof.items():
-        if (st["fold_of"] < 0).any() or np.isnan(st["pred"]).any():
+        if (st["fold_of"] < 0).any():
             raise SystemExit(f"OOF store for '{name}' has samples never held out; refusing to write")
+        # A per-horizon regressor never predicts unscored cells, so NaN is allowed
+        # exactly where the mask is False and nowhere else.
+        if np.isnan(st["pred"][:, mask]).any():
+            raise SystemExit(f"OOF store for '{name}' has NaN inside the scored mask; refusing to write")
         np.savez_compressed(out_dir / f"oof_{name}.npz", pred=st["pred"], fold_of=st["fold_of"],
                             y=y, mask=mask, origin_id=origin_id.astype(np.int32),
                             origin_step=np.asarray(origin, np.int32), fips=np.asarray(fips, str),

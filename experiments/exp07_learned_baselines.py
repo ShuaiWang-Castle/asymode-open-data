@@ -167,6 +167,11 @@ def run_trees(tr, te, data, hist, args, seed, fips, fold_id, use_hist=False):
                                       Xtr[vi], yt[f_tr, h - 1][vi])
         out[f"n_iter_h{h}"], out[f"val_h{h}"] = n_iter, val
         pred = mdl.predict(Xte)
+        # keep the scored predictions for the out-of-fold export: rows of `te`
+        # inside this horizon's mask get the prediction, the rest stay NaN
+        if "_test_pred" not in out:
+            out["_test_pred"] = np.full((len(te), len(args.horizons)), np.nan, np.float32)
+        out["_test_pred"][np.flatnonzero(m[te, h - 1]), list(args.horizons).index(h)] = pred.astype(np.float32)
         e = pred - yt[f_te, h - 1]
         out[f"rmse_h{h}"] = float(np.sqrt(np.mean(e ** 2))) if e.size else float("nan")
         out[f"n_h{h}"] = int(e.size)
@@ -322,7 +327,7 @@ def run_linear(tr, te, data, hist, args, seed, fips, fold_id, use_hist,
         pred = model(Y0[ti], XX[ti], HH[ti]).numpy()
     raw_lo, raw_hi = float(pred.min()), float(pred.max())
     pred = np.clip(pred, 0.0, 1.0)
-    out = {}
+    out = {"_test_pred": pred[:, [h - 1 for h in args.horizons]].astype(np.float32)}   # scored as-is
     for h in args.horizons:
         e = (pred[:, h - 1] - yt[te][:, h - 1])[m[te][:, h - 1]]
         out[f"rmse_h{h}"] = float(np.sqrt(np.mean(e ** 2))) if e.size else float("nan")
@@ -382,6 +387,8 @@ def main() -> None:
     ap.add_argument("--panels", default=None,
                     help="panel set: omit for the manifest, 'auto' to pool what "
                          "is on disk (exploration only), or a path to a JSON file")
+    ap.add_argument("--save-oof", action="store_true",
+                    help="also write oof_<arm>.npz next to --out, in the audited out-of-fold layout")
     ap.add_argument("--out", default="results/exp07_learned_baselines.json")
     a = ap.parse_args()
 
@@ -404,6 +411,8 @@ def main() -> None:
 
     arms = [x for x in ARMS if a.arms is None or x[0] in a.arms]
     rows = []
+    oof = {}
+    _, origin_id = np.unique(np.array([f"{p_}|{o_}" for p_, o_ in zip(panel, origin)]), return_inverse=True)
     for seed in a.seeds:
         fold = make_folds(sorted(set(fips)), k=a.k, seed=seed)
         fmap = {f: fo for f, fo in zip(sorted(set(fips)), fold)}
@@ -417,6 +426,7 @@ def main() -> None:
                 else:
                     r = run_linear(tr, te, (y0, X, yt, m), hist, a, seed, fips, f, **kw)
                 wall = round(time.time() - t0, 1)
+                exp05._stash(oof, name, seed, f, te, r.pop("_test_pred"), len(y0), a.seeds, len(a.horizons))
                 rows.append({"arm": name, "kind": kind, "seed": seed, "fold": f,
                              "advantaged": name in ADVANTAGED,
                              "n_test": len(te), "wall_s": wall, **r})
@@ -432,6 +442,8 @@ def main() -> None:
     cfg["channel_digest"] = panelset.channel_digest(cfg["channels"])
     cfg["source"] = panelset.source_version(ROOT)
     out.write_text(json.dumps({"config": cfg, "rows": rows}, indent=2))
+    if a.save_oof:
+        exp05._write_oof(oof, out.parent, yt, m, fips, panel, origin, origin_id, a, cfg)
 
     print(f"\n=== pooled over {a.k} folds x {len(a.seeds)} seeds ===")
     print(f"{'arm':<18}{'info':<12}" + "".join(f"{'RMSE h+'+str(h):>19}" for h in a.horizons))
