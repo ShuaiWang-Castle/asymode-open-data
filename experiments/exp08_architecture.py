@@ -85,6 +85,8 @@ FAMILIES: dict[str, tuple[str, ...]] = {
 def check_families(names: list[str]) -> None:
     """Every channel must belong to exactly one family.
 
+    Reviewing an ablation starts with checking what it actually removed.
+
     A channel in no family is not neutral: an arm that names the families it
     keeps drops it silently along with the family under test, so the ablation
     removes more than it claims and the result is attributed to the wrong thing.
@@ -336,7 +338,8 @@ def run_arm(arm: Arm, tr, te, data, args, seed: int, names: list[str],
     out["u_init"], out["r_init"] = u0, r0
     out["init_u_mean"], out["init_r_mean"] = init_u_mean, init_r_mean
     out["n_param_u"] = sum(p.numel() for p in model.phi_u.parameters())
-    out["n_param_r"] = sum(p.numel() for p in model.phi_r.parameters())
+    out["n_param_r"] = (0 if model.phi_r is None else
+                        sum(p.numel() for p in model.phi_r.parameters()))
     if arm.fam_gate is not None:
         # Measured on the test rollout, not over training. A collapsed gate is not
         # a worse arm, it is a void one: the pulse branch stops receiving gradient
@@ -420,6 +423,7 @@ def main() -> None:
     cfg["panel_digest"] = digest
     cfg["channels"] = names
     cfg["channel_digest"] = panelset.channel_digest(names)
+    cfg["source"] = panelset.source_version(ROOT)
     cfg["families"] = {k: list(v) for k, v in FAMILIES.items()}
     cfg["arms"] = [{"name": x.name, "axis": x.axis, "fam_u": x.fam_u, "fam_r": x.fam_r,
                     "hidden_u": x.hidden_u, "hidden_r": x.hidden_r,

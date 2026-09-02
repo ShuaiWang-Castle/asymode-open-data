@@ -260,6 +260,20 @@ def run_arm(arm, tr, te, data, args, seed, fips, fold_id):
         out[f"n_h{h}"] = int(e.size)
     s = model.seed
     out["fitted_seed_eps"] = float(s.detach()) if s is not None else None
+    # Recorded per arm because capacity varies across the single- and two-rate
+    # forms; a structural comparison has to be readable alongside it.
+    out["n_param"] = sum(p.numel() for p in model.parameters())
+    out["hidden"] = hid
+    # Collapse screen. The single-rate forms have an absorbing state the two-rate
+    # forms do not: without the (1 - y) factor a persistently negative net rate
+    # drives the state onto the clip floor and nothing pushes it back, so the arm
+    # can degenerate into the all-zero predictor while still posting a plausible
+    # RMSE against a target that is zero about half the time. An arm that loses
+    # because it degenerated has not lost a structural argument, and the two must
+    # be told apart from the file rather than by noticing a coincidence.
+    out["pred_sd"] = float(pred.std())
+    out["pred_max"] = float(pred.max())
+    out["frac_pred_zero"] = float((pred <= 0.0).mean())
     out["val_loss"] = best
     out["u_init"] = u0
     out["r_init"] = r0
@@ -311,10 +325,6 @@ def main():
                 wall = round(time.time() - t0, 1)
                 rows.append({"arm": arm.name, "seed": seed, "fold": f,
                              "inflow": arm.inflow.value,
-                             "n_param": sum(p.numel() for p in
-                                            __import__("torch").nn.ModuleList(
-                                                [m for m in (r.pop("_model", None),)
-                                                 if m is not None]).parameters()) or r.get("n_param"),
                              "n_test": len(te), "wall_s": wall, **r})
                 print(f"  seed {seed} fold {f} {arm.name:<18} "
                       + " ".join(f"h{h}={r[f'rmse_h{h}']:.5f}" for h in a.horizons)
@@ -326,6 +336,7 @@ def main():
     cfg["panel_digest"] = panel_digest
     cfg["channels"] = panelset.channel_names(INTERIM)
     cfg["channel_digest"] = panelset.channel_digest(cfg["channels"])
+    cfg["source"] = panelset.source_version(ROOT)
     out.write_text(json.dumps({"config": cfg, "rows": rows}, indent=2))
 
     print(f"\n=== pooled over {a.k} folds x {len(a.seeds)} seeds ===")

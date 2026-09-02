@@ -423,6 +423,7 @@ def main() -> None:
     cfg["panel_digest"] = digest
     cfg["channels"] = panelset.channel_names(INTERIM)
     cfg["channel_digest"] = panelset.channel_digest(cfg["channels"])
+    cfg["source"] = panelset.source_version(ROOT)
     out.write_text(json.dumps({"config": cfg, "rows": rows}, indent=2))
 
     print(f"\n=== pooled over {a.k} folds x {len(a.seeds)} seeds ===")

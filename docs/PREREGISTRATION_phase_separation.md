@@ -96,6 +96,41 @@ rung adds exactly one structural element:
 All four rungs are reported for every family. The H-E comparator is
 `net_scaled`.
 
+### Third amendment — degeneracy criterion, written before the six-arm run
+
+A smoke run (3 epochs, machine validation only, not a result) showed the
+unscaled `net` arm predicting exactly zero on 99.7% of cells, with h+24 and h+48
+errors **bit-identical to the all-zero predictor**. The mechanism is structural:
+`y <- clip(y + n, 0, 1)` is **absorbing at y = 0** — a persistently negative net
+rate drives the state to the floor and nothing can push it back. The two-rate
+form has no such state (`u (1-y)` is full at zero), and neither does `net_scaled`
+(a positive flow times `(1-y)` is full at zero). Only the rung without state
+scaling can fall in.
+
+A model that has collapsed to a constant is not an opponent. Beating it says
+nothing about structure — the same lesson as the initialisation bug in the
+history-only baseline, except that here the collapse is a property of the form.
+
+**Rule, fixed now and applied to every arm identically, not only to `net`:**
+
+* An arm whose predictions are exactly zero on more than 90% of scored cells
+  under the full protocol (`frac_pred_zero > 0.9`, recorded per arm per fold in
+  the result JSON) is labelled **degenerate**.
+* A degenerate arm is still run and still reported, as a **mechanism fact** —
+  here, that a net rate without state scaling collapses into the absorbing state
+  on this target — but it **does not enter the quantitative comparison** of how
+  much each rung of the ladder buys. The rung it occupies is reported as "not
+  separable from collapse".
+* The load-bearing comparator for H-E remains `net_scaled`, which is
+  parameter-matched, does not collapse in the smoke run, and can ignite from
+  zero. This finding strengthens that choice; it does not change it.
+* The smoke run is 3 epochs. `net` may climb out under full training. The rule
+  above is conditional on the full-protocol measurement, and if `net` does not
+  degenerate it is simply the first rung as planned.
+
+The data's own share of exact zeros among scored targets is about 0.42; an arm
+predicting zero on roughly that fraction is matching the data, not collapsing.
+
 *Boundary check, recorded because it matters:* `net_scaled` **can ignite from
 `y = 0`** — a positive net flow times `(1 - y)` is the flow itself at zero — so
 it is not disposed of by the algebra that disposes of the epidemic form. It is a
