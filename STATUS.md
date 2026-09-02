@@ -165,6 +165,16 @@ in `exp05_real_dynamics.py` (`--save-oof`), smoke-verified it against the OOF
 audit and the archive reconciliation, and runs the six-arm g2 export itself. The decisive H-A3 rerun, Helene drivers, g3 and exp06 remain
 unowned until a session is assigned.
 
+## Six-arm export landed; diagnostics run; exp06 launched
+
+EXP05-g2 ladder graded (concurrency rung +2.0% at h+48 only, [B]); D-1 confirms
+shrinkage-optimal (no headroom); D-3 shows long-horizon error is within-origin
+for every arm (the "level win" wording is corrected); **D-4 shows our own
+rollout is not coherent across the four scored horizons (23.6% excess sign
+changes)** — the "not a trajectory" framing needs the trees measured, which
+requires an EXP07 export (`--save-oof` exists only in exp05). **exp06 (H-E) is
+running on g3.** Decisive H-A3 rerun and the exp07 export queue behind it.
+
 ## Waiting on
 * ~~Per-horizon two-rate fits~~ — done, [B]: closes h+6 fully, not h+24/48;
   the long-horizon gap is structural (EXP10).

@@ -817,6 +817,87 @@ tonight (bounded output head; logit-state input; single-rollout constraint) whos
 causal chain was correct and whose magnitude was not. Plausibility is not
 evidence; a registered interpretation plus a measurement is.
 
+## EXP05 on g2 — the structural ladder with out-of-fold export. [B] per rung
+
+Source: `results/exp05_g2_sixarm.json` + `results/oof_<arm>.npz` (9 arms) ·
+manifest g2 (`panel_digest 76a73ed794af`, recomputed from the OOF panel list),
+channels `dec964873cb2` · fingerprint `7b673b6`, dirty False · 135 fits, 0 at
+cap · `check_comparable` vs EXP08 exit 0 · **export reconciles with the archive
+on 36/36 (arm, horizon)** (D-3 audit), so the OOF predictions are the scored
+predictions.
+
+Paired against `susceptible` (positive = arm worse):
+
+| rung / arm | h+1 | h+6 | h+24 | h+48 |
+|---|---|---|---|---|
+| `net` (no scaling, no concurrency) | +4.2% 14/15 | +5.3% 15/15 | +6.9% 15/15 | +7.3% 14/15 |
+| `net_scaled` (param-matched; **H-E comparator**) | −1.7% 3/15 t=−3.1 | −1.3% 4/15 t=−2.6 | +0.9% 9/15 t=+2.0 | **+2.0% 12/15 t=+3.4** |
+| `net_scaled_narrow` (width-matched) | −1.7% 5/15 | −1.2% 4/15 | +1.9% 12/15 | +3.1% 14/15 |
+| `transmission` | −1.6% 3/15 | +0.6% 10/15 | +6.3% 15/15 | +9.5% 15/15 |
+| `transmission_seed` (ε = 0.0090) | +1.4% 10/15 | +1.8% 12/15 | +0.0% 8/15 | +0.3% 6/15 |
+| damped persistence | −2.4% 3/15 | +0.8% 9/15 | +5.7% 14/15 | +8.3% 15/15 |
+
+**Degeneracy rule, applied as registered:** `net` has `frac_pred_zero` = 0.859,
+**below** the 0.9 threshold, so it is *not* labelled degenerate. It is noted
+that 0.859 is double the data's own share of exact zeros (0.42–0.45) and that
+the arm is plainly part-collapsed; the rule is applied as written and the
+number is reported beside it.
+
+**Rung by rung.** State scaling (`net` → `net_scaled`) is worth 4–6% at every
+horizon, 15/15. **Concurrency** (`net_scaled` → two rates, parameter-matched)
+is worth **+2.0% at h+48 (12/15, t=3.4) and +0.9% at h+24 (9/15, not
+significant), and costs 1.3–1.7% at h+1 and h+6 (3–4/15).** The two-rate
+model's structural advantage over the best single signed rate is small, real
+only at 48 hours, and reversed at short horizons. Width-matched gives the same
+picture, slightly larger. **[B] for the h+48 concurrency rung (sign gate met);
+[C] for h+24 (fails the fold bar).**
+
+The epidemic arms behave as before: pure transmission loses 6–10% at long
+horizons, 15/15; the seeded arm reaches parity by degenerating — ε = 0.0090,
+0.93x the mean scored state, dominating the inflow on **76.8%** of scored cells
+(consistent with the corrected figure on the earlier run).
+
+## D-1, D-3, D-4 on the real export. [A] each, as diagnostics
+
+**D-1 (oracle shrinkage).** Headroom ≤ 0.01 for every arm at every horizon.
+For the dynamics λ* falls from 1.00 (h+1) to 0.88 (h+48): the oracle wants the
+long-horizon predictions *more* compressed, not less. **The registered prior is
+confirmed: shrinkage is MSE-optimal here, and the peak-weighting family has no
+room.** Under the rule attached to D-1, none of those interventions is attempted.
+
+**D-3 (level vs within-origin).** The level term is a small share of MSE for
+every arm — 0.01–0.04 for the two-rate model at all horizons, 0.11–0.14 for pure
+transmission, 0.13 for all-zero. **Long-horizon error is dominated by the
+within-origin term for every arm**, and the differences between arms live there
+too. *This corrects a sentence in the EXP07 and D-2 entries:* I wrote that a
+long-horizon win or loss where the rank ceiling is low is "a level win/loss".
+It is not — the ceiling being low means within-origin error is large and
+largely irreducible for everyone; arms differ in how much of it they carry, not
+in level. Per-origin Spearman for the two-rate model is 0.29 / 0.22 at h+24 /
+h+48 against a ceiling of 0.34 / 0.29 — near the ceiling; `net_scaled` sits at
+0.35 / 0.28.
+
+**D-4 (trajectory coherence) — a result against this paper's own narrative.**
+The registration took the rollout arms as the coherence floor, "coherent by
+construction." Measured at the four scored horizons, they are not: the two-rate
+rollout shows an excess sign change — a wiggle the truth does not have — in
+**23.6%** of samples (`transmission_seed` 33.9%, `net_scaled` 12.0%); the true
+floor is the monotone baselines at 0.0. Residual roughness is 0.021 for the
+two-rate model against 0.019 for persistence. **Across 1, 6, 24, 48 hours the
+rollout's pseudo-trajectory is not smoother than a constant.** The framing
+"more accurate per point, but not a trajectory" therefore cannot be argued from
+our own coherence; it could only be argued from the trees being *worse* than
+this, and **the trees are unmeasured** — EXP07 was not exported. D-4's
+registered interpretation is void as written (its floor was wrong); the
+statistic stands and the comparison to trees is re-registered below.
+
+*Re-registered:* export EXP07's per-horizon predictions in the same layout and
+run D-4 on them. Interpretation, fixed now: the framing is available only if the
+trees' S1 exceeds the two-rate rollout's 0.236 by a margin that survives
+county-block resampling; if the trees are as coherent or more, the framing is
+unavailable and the paper says the two-rate model's advantage is confined to
+h+1 and a 2% concurrency rung at h+48.
+
 ### D-4 — trajectory coherence of per-horizon predictors. Registered before predictions exist.
 
 If the per-horizon control closes most of the gap, the honest statement is that

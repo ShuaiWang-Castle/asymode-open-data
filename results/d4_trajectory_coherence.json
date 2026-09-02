@@ -1,0 +1,57 @@
+{
+ "damped_persistence": {
+  "S1_excess_sign_change": 0.0,
+  "S2_residual_roughness": 0.019681236396233242,
+  "n_samples": 22534,
+  "seeds": 3
+ },
+ "net": {
+  "S1_excess_sign_change": 0.1513564687435283,
+  "S2_residual_roughness": 0.02361301767329375,
+  "n_samples": 22534,
+  "seeds": 3
+ },
+ "net_scaled": {
+  "S1_excess_sign_change": 0.12017395935031507,
+  "S2_residual_roughness": 0.02108662265042464,
+  "n_samples": 22534,
+  "seeds": 3
+ },
+ "net_scaled_narrow": {
+  "S1_excess_sign_change": 0.10711221561492264,
+  "S2_residual_roughness": 0.020853466043869655,
+  "n_samples": 22534,
+  "seeds": 3
+ },
+ "persistence": {
+  "S1_excess_sign_change": 0.0,
+  "S2_residual_roughness": 0.01894710771739483,
+  "n_samples": 22534,
+  "seeds": 3
+ },
+ "susceptible": {
+  "S1_excess_sign_change": 0.23559953847519302,
+  "S2_residual_roughness": 0.02144322358071804,
+  "n_samples": 22534,
+  "seeds": 3
+ },
+ "transmission": {
+  "S1_excess_sign_change": 0.016168160705304576,
+  "S2_residual_roughness": 0.018953365584214527,
+  "n_samples": 22534,
+  "seeds": 3
+ },
+ "transmission_seed": {
+  "S1_excess_sign_change": 0.3386734120292299,
+  "S2_residual_roughness": 0.021775571008523304,
+  "n_samples": 22534,
+  "seeds": 3
+ },
+ "zero": {
+  "S1_excess_sign_change": 0.0,
+  "S2_residual_roughness": 0.01894710771739483,
+  "n_samples": 22534,
+  "seeds": 3
+ },
+ "_truth_curvature": 0.01894710771739483
+}
