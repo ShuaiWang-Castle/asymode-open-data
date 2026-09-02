@@ -819,6 +819,57 @@ tonight (bounded output head; logit-state input; single-rollout constraint) whos
 causal chain was correct and whose magnitude was not. Plausibility is not
 evidence; a registered interpretation plus a measurement is.
 
+## D-4 decision — the per-point regressors are not trajectories; the rollout is 2.6x closer to one. [B]
+
+Sources: `results/exp07_g2_oof.json` (exp07 rerun on g2 with export, fingerprint
+`c1cd57d` clean, `check_comparable` vs the two-rate export exit 0, D-3
+reconciliation 24/24) · `results/d4_compare_<arm>_vs_susceptible.json` ·
+`results/d4_trajectory_coherence.json` · decision rule fixed in
+`experiments/d4_compare.py` before the trees' export existed: identical samples
+asserted (fips, panel, origin_step, mask), county-block bootstrap B = 2000, the
+framing is available only if every seed's 95% interval of S1(A) − S1(B) is above
+zero.
+
+| arm A (vs two-rate `susceptible`, S1 = 0.232–0.241) | S1(A) | margin | county-block 95% CI, worst seed |
+|---|---|---|---|
+| trees_matched | 0.605–0.609 | +0.37 | [+0.355, +0.376] |
+| trees_lookback | 0.598–0.610 | +0.36 | [+0.347, +0.367] |
+| linear_matched | 0.604–0.633 | +0.37 | [+0.356, +0.380] |
+
+**Decision: framing AVAILABLE**, on every seed, for every per-horizon
+regressor. The trees' four point forecasts carry a reversal the truth does not
+have in 60% of samples; the two-rate rollout's in 23.6%.
+
+Two sentences the paper must keep next to that number:
+
+* **It is a property of per-horizon direct regressors, not of trees.** The
+  linear direct arms are exactly as incoherent (0.60–0.63). What separates the
+  arms is rollout versus direct multi-output, not model class.
+* **The rollout is not coherent either — it is 2.6x closer.** 23.6% is not
+  zero; the monotone baselines sit at 0.0. "Produces a coherent trajectory" is
+  not available; "carries 2.6x fewer excess reversals than a per-point
+  regressor of equal accuracy" is.
+
+**Grade [B]**: 3 seeds, county-block intervals, identical samples, decision
+fixed in advance; 15/15 sign gate not applicable (this is a per-sample
+statistic, not a per-fold one), so the block interval is the sign gate.
+
+### D-3 and D-1 on the trees — where the trees' 7% actually lives. [A]
+
+*D-3.* The trees' level share is 0.01 at every horizon — their advantage is
+entirely inside the within-origin term, as it is for every arm. **But their
+per-origin Spearman is lower than the two-rate model's** (0.25 / 0.17 against
+0.29 / 0.22 at h+24 / h+48): the trees rank counties *worse* and still post a
+lower MSE. Their gain is in per-county magnitude calibration inside an origin,
+not in ordering. That is consistent with the D-2 ceiling (ordering is largely
+unpredictable at these horizons) and with the tree's direct per-horizon
+objective.
+
+*D-1.* The oracle wants the trees *expanded* (λ* = 1.10, a* = 1.27 at h+24 / 48)
+and the dynamics *compressed* (λ* = 0.88), with headroom below 1% for both. The
+two model classes err on opposite sides of the shrinkage optimum by amounts no
+rescaling can recover.
+
 ## EXP06 — H-E: the two-rate advantage tracks phase separation. [B]
 
 Source: `results/exp06_by_family.json` · manifest `g3-all-26` (`db286b4960a4`),

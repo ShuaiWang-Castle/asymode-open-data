@@ -209,9 +209,17 @@ reads any JSON with a `panels` key. `--panels` takes one value; a space list is
 rejected. exp07 with `--save-oof` is running pinned this way so D-4 can compare
 the trees to the two-rate OOF on identical samples.
 
+## D-4 decided — framing available, with two caveats
+
+Trees' S1 0.61 vs rollout 0.24, county-block CI above zero on every seed
+([B]). Caveats: linear direct regressors are equally incoherent (a property of
+per-horizon direct output, not of trees); the rollout is 2.6x closer to a
+trajectory, not a trajectory. D-3: the trees rank counties *worse* than the
+two-rate model and win on per-county magnitude. D-1: trees want expansion,
+dynamics want compression, headroom < 1% either way.
+
 ## In flight
 
-* exp07 on g2 with `--save-oof` (pinned via `configs/panel_manifest_g2-convective-11.json`) — nearly done.
 * Decisive H-A3 rerun on g1's 12 panels x 14 channels (pin file
   `configs/panel_manifest_g1-convective-12.json`, reconstructed from the archived
   g1 config; digest `1c2bc7bfdfa6` matches) — interpretation fixed in the ledger:
