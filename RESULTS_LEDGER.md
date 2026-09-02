@@ -682,6 +682,62 @@ until the registered covariates (hazard composites, statics) are wired in.
 Effects of about 1% sit against this and should not be read as structural. The
 0/15 and 1/15 results above are the ones robust to it.
 
+## EXP07 — learned baselines on identical information. Grade PENDING convergence check.
+
+Source: `results/exp07_learned_baselines.json` · manifest `g2-convective-11`
+(panels `76a73ed794af`, channels `dec964873cb2`) · `check_comparable` with the
+g2 two-rate `control` exits 0 · 15 shared units · reproduced with
+`scripts/paired_review.py`. Positive = baseline worse than the two-rate model.
+
+| baseline | h+1 | h+6 | h+24 | h+48 |
+|---|---|---|---|---|
+| trees_matched (same information set) | +25.9% 15/15 t=+7.5 | **−2.4% 2/15 t=−4.1** | **−7.3% 0/15 t=−9.8** | **−6.0% 0/15 t=−6.3** |
+| trees_lookback (extra lead-in history) | +19.3% 13/15 | −4.4% 1/15 | −7.1% 0/15 | −6.9% 0/15 |
+| linear_matched | +109.7% 15/15 | +17.4% 15/15 | +5.0% 13/15 | +4.2% 14/15 |
+| linear_unbounded | +150.7% 15/15 | +64.5% 15/15 | +29.5% 15/15 | +34.0% 15/15 |
+| linear_histonly | +115.0% 15/15 | +18.2% 15/15 | +7.5% 15/15 | +8.0% 15/15 |
+
+**On identical inputs, histogram gradient boosting beats the two-rate dynamics
+at h+6, h+24 and h+48 — 0/15 folds better for the dynamics at the two long
+horizons. The dynamics win at h+1 by 20.6% (trees +25.9%, 15/15).** Every
+linear baseline loses to the dynamics at every horizon.
+
+Checks the experiment lane ran on itself, and I verified:
+
+* The dynamics did not collapse: pred_sd 0.0249, pred_max 0.836.
+* **The trees are cap-limited** — at h+24, 10/15 folds ran the full 400 rounds
+  (mean 380). Their advantage is therefore *understated*.
+* The trees fit one model per horizon; the dynamics fit one rollout. A real
+  asymmetry favouring the trees; it cannot plausibly account for 7.9%, but it
+  is not quantified. **Control registered below.**
+* **The dynamics' convergence is unverified.** `epochs_run` was not recorded
+  (instrumentation gap, now closed). A 400-epoch / patience-40 control run is in
+  flight against the 60 / 8 used here. **No grade is assigned until it reports.**
+  If 60 epochs underfit, every dynamics number in this table is too pessimistic
+  and the table is rerun.
+
+**Provisional reading, conditional on convergence.** The state equation buys a
+lot where the state itself dominates the next value (h+1) and loses where the
+covariate-to-target map dominates (long horizons) to a regressor that can fit
+that map freely. It is consistent with EXP05: the dynamics beat *statistical*
+baselines at long horizons; against a *learned* baseline that advantage is gone.
+
+**What was on record before this result landed (21:16):** per-horizon reporting
+(registered 20:29–20:32, D-2) and the note from the first evening that RMSE is a
+poor headline metric for this zero-dominated target. **No alternative metric was
+ever registered.** A metric change now cannot be presented as pre-registered; it
+would be a new registration made after seeing this result, and the paper would
+have to say so.
+
+### Registered control, not run — per-horizon two-rate fits
+
+Fit the two-rate model **once per scored horizon** (loss restricted to that
+horizon; four models, same inputs, same folds, same seeds), matching the trees'
+model count. Interpretation fixed now: if the per-horizon dynamics close most of
+the gap, the loss was the single-rollout constraint; if they do not, the
+structure itself loses on covariate-driven horizons. Runs after the convergence
+check and the decisive H-A3 rerun.
+
 ## D-2 — rank ceiling per horizon. [A]
 
 Source: `results/d2_rank_ceiling.json` · `experiments/d2_rank_ceiling.py` ·

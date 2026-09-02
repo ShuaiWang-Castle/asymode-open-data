@@ -125,7 +125,18 @@ Written at a deliberate pause. Nothing below is a result; results live in
 3. The `inner_split` seed scheme (`seed*10 + fold + 1000`) is agreed but
    deferred until the g2 run finishes, to keep that run internally consistent.
 
+## exp07 landed — learned baselines beat the dynamics at h ≥ 6
+
+Trees on identical information: −7.3% / −6.0% at h+24 / h+48, 0/15 folds for
+the dynamics; dynamics win h+1 by 20.6%. Trees are cap-limited (edge
+understated). **Grade withheld pending the dynamics' convergence check**
+(400 epochs vs the 60 used). Per-horizon two-rate control registered. The
+framing decision (narrow the claim / change metric / accept the negative) is
+the PI's; no alternative metric was ever registered.
+
 ## Waiting on
+* Convergence check on the two-rate control (400 epochs / patience 40).
+* Per-horizon two-rate fits (registered control for the model-count asymmetry).
 
 * Decisive H-A3 rerun — g1's 12 panels x 14 channels, three ambient arms;
   lane schedules after exp07; must record the source fingerprint.

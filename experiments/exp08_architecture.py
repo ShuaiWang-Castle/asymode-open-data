@@ -304,8 +304,9 @@ def run_arm(arm: Arm, tr, te, data, args, seed: int, names: list[str],
         se = (pred - YT[ix]) ** 2 * MM[ix]
         return se.sum() / MM[ix].sum().clamp_min(1.0)
 
-    best, best_state, bad = float("inf"), None, 0
+    best, best_state, bad, ran = float("inf"), None, 0, 0
     for ep in range(args.epochs):
+        ran = ep + 1
         model.train()
         perm = np.random.permutation(fit)
         for s in range(0, len(perm), args.batch):
@@ -341,6 +342,12 @@ def run_arm(arm: Arm, tr, te, data, args, seed: int, names: list[str],
     out["pred_max"] = float(pred.max())
     out["frac_pred_below_1e6"] = float((pred < 1e-6).mean())
     out["val_loss"] = best
+    # Whether the fit stopped because it converged or because it ran out of
+    # budget. Without it, a model that lost cannot be distinguished from a
+    # model that was not finished training -- and the standard applied to a
+    # baseline has to be applied to the model under test.
+    out["epochs_run"] = ran
+    out["hit_epoch_cap"] = bool(ran >= args.epochs)
     out["u_init"], out["r_init"] = u0, r0
     out["init_u_mean"], out["init_r_mean"] = init_u_mean, init_r_mean
     out["n_param_u"] = sum(p.numel() for p in model.phi_u.parameters())
