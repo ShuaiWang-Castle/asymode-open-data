@@ -646,6 +646,48 @@ until the registered covariates (hazard composites, statics) are wired in.
 Effects of about 1% sit against this and should not be read as structural. The
 0/15 and 1/15 results above are the ones robust to it.
 
+## D-2 — rank ceiling per horizon. [A]
+
+Source: `results/d2_rank_ceiling.json` · `experiments/d2_rank_ceiling.py` ·
+manifest `g2-convective-11`, 176 forecast origins · zero training, deterministic.
+
+For each origin and horizon, counties are ranked by an **illegal** predictor —
+the truth one step ahead, `y[o+1]` — and that ranking is scored against the truth
+at `y[o+h]` by Spearman ρ. No legal model can rank better than one that has seen
+the future, so this is a ceiling on ranking skill.
+
+| h | ceiling ρ, p50 | p25 | origins with ceiling < 0.3 | < 0.5 |
+|---|---|---|---|---|
+| 6 | 0.543 | 0.412 | 5% | 42% |
+| 24 | 0.343 | 0.177 | **43%** | **75%** |
+| 48 | 0.289 | 0.167 | **51%** | **95%** |
+
+(h+1 is degenerate — the illegal predictor is the target — and is omitted.)
+
+**At 24 and 48 hours, in three quarters to nineteen twentieths of forecast
+origins, even a predictor that has already seen the future cannot rank the
+counties.** Ranking is intrinsically unpredictable there. The MSE-optimal answer
+in those cells is each county's *level*, not its ordering.
+
+Two consequences, one expected and one not:
+
+* *Expected:* model comparison must be reported per horizon, and the paper must
+  say that h+24 and h+48 reward level estimation rather than ordering. The
+  short-horizon null in EXP05 sits where the ceiling is moderate (h+6, 0.54) —
+  there is ranking skill to be had and nothing beat damped persistence at it.
+* *Not expected:* the registered prior (D-2's source) predicted that where the
+  ceiling is low, a model with dynamics is pushed toward a constant and loses
+  to level-estimators such as trees. **Our dynamics win exactly there** — 7–9%
+  over the epidemic form and the best statistical baseline at h+24/h+48, 15/15
+  folds (EXP05). A reading consistent with both: the bounded, mean-reverting
+  state equation is itself a good level estimator, while persistence overshoots
+  and the unbounded forms cannot shrink. **Testable:** decompose RMSE per
+  horizon into a level term and a ranking term. Registered as D-2's follow-up,
+  not run.
+
+Half of all targets are exactly zero at every horizon (p50 0.46–0.51), which is
+the same fact seen from the target side.
+
 ## Pre-registered but not yet run — asymmetry hypotheses
 
 `docs/PREREGISTRATION_asymmetry.md`, written before any of the feature families
