@@ -72,8 +72,12 @@ Written at a deliberate pause. Nothing below is a result; results live in
   is one ordering measurement plus a tropical-vs-rest ceiling. H-E1 amended:
   wind and convective are unordered and not scored.
 * **D-3 decomposition script** (`experiments/d3_level_rank_decomp.py`) written
-  before any out-of-fold prediction exists; waits on the lane's `--save-oof`
-  export (`results/oof_<arm>.npz`).
+  before any out-of-fold prediction exists and **exercised against a synthetic
+  fixture**: fold audit passes and rejects a tampered `fold_of` (non-zero exit),
+  level + within reconciles with archived MSE to 1e-3, identity holds to 1e-11.
+  Per-cell weighting fixed in the docstring. Waits on the lane's `--save-oof`
+  export in the agreed layout (`pred[seed, sample, horizon]` + `fold_of` +
+  `origin_id`).
 
 ## Where the study stands
 
