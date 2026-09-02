@@ -5,6 +5,30 @@
   "n_samples": 22534,
   "seeds": 3
  },
+ "linear_histonly": {
+  "S1_excess_sign_change": 0.07612200822460874,
+  "S2_residual_roughness": 0.019539911299943924,
+  "n_samples": 22534,
+  "seeds": 3
+ },
+ "linear_lookback": {
+  "S1_excess_sign_change": 0.6044347800360936,
+  "S2_residual_roughness": 0.02500738886495431,
+  "n_samples": 22534,
+  "seeds": 3
+ },
+ "linear_matched": {
+  "S1_excess_sign_change": 0.6155291263572084,
+  "S2_residual_roughness": 0.024704110498229664,
+  "n_samples": 22534,
+  "seeds": 3
+ },
+ "linear_unbounded": {
+  "S1_excess_sign_change": 0.5371142865595692,
+  "S2_residual_roughness": 0.04421719287832578,
+  "n_samples": 22534,
+  "seeds": 3
+ },
  "net": {
   "S1_excess_sign_change": 0.1513564687435283,
   "S2_residual_roughness": 0.02361301767329375,
@@ -44,6 +68,18 @@
  "transmission_seed": {
   "S1_excess_sign_change": 0.3386734120292299,
   "S2_residual_roughness": 0.021775571008523304,
+  "n_samples": 22534,
+  "seeds": 3
+ },
+ "trees_lookback": {
+  "S1_excess_sign_change": 0.6045827046537086,
+  "S2_residual_roughness": 0.023365257307887077,
+  "n_samples": 22534,
+  "seeds": 3
+ },
+ "trees_matched": {
+  "S1_excess_sign_change": 0.6068163663796929,
+  "S2_residual_roughness": 0.023230038583278656,
   "n_samples": 22534,
   "seeds": 3
  },
