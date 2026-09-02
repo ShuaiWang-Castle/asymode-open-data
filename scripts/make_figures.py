@@ -194,7 +194,7 @@ def fig_per_horizon():
         ax.bar(np.arange(4) + (i - 1.5) * w, vals, w, color=col, label=lab)
     ax.axhline(0, color="k", lw=0.6); ax.set_xticks(range(4)); ax.set_xticklabels([f"h+{h}" for h in H])
     ax.set_ylabel("paired Δ RMSE vs two-rate model (%)\nnegative = comparator better")
-    ax.set_title("Convective study: the two-rate model wins at 1 h and loses to a per-horizon regressor beyond", fontsize=10)
+    ax.set_title("Convective study: the two-rate model beats gradient boosting at 1 h and loses to it from 6 h on", fontsize=10)
     ax.legend(frameon=False, fontsize=8); ax.spines[["top", "right"]].set_visible(False)
     fig.tight_layout(); fig.savefig(FIG / "fig05_per_horizon.png", dpi=200); print("figures/fig05_per_horizon.png")
 
