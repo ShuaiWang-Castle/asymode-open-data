@@ -772,6 +772,51 @@ the gap, the loss was the single-rollout constraint; if they do not, the
 structure itself loses on covariate-driven horizons. Runs after the convergence
 check and the decisive H-A3 rerun.
 
+### EXP10 — per-horizon two-rate fits: the constraint explains h+6, not h+24/48. [B]
+
+Source: `results/exp10_per_horizon.json` · fingerprint `ef4f0cf`, dirty False ·
+three-way comparable with EXP07 and EXP08 (`check_comparable` exit 0 for both) ·
+60 fits (4 horizons x 15 units), **0/60 at the epoch cap**, pred_sd 0.029, no
+collapse · reproduced with `scripts/paired_review.py` (now merges per-horizon rows
+by unit; regression-checked against the H-A3 retest table).
+
+The same two-rate model, trained once per scored horizon with the loss taken only
+there — everything else identical to the EXP08 control. Paired, negative = the
+per-horizon fit is better:
+
+| | vs single-rollout control | vs trees (positive = trees better) |
+|---|---|---|
+| h+1 | −1.1% (13/15 better) | −21.5%, 0/15 for trees — dynamics win |
+| h+6 | **−2.4% (13/15, t=−4.7)** | **−0.01%, 7/15 — dead even** |
+| h+24 | −0.15% (8/15 better, t=−0.4) | **+7.7%, 15/15, t=+9.4** |
+| h+48 | +0.5% (7/15 better, t=+0.9) | **+6.9%, 15/15, t=+7.7** |
+
+Against the interpretation fixed before the run:
+
+* **h+6 closes completely.** Releasing the single-rollout constraint is worth
+  2.4% there — exactly the trees' whole h+6 advantage. At six hours the model
+  pays for coherence and nothing else.
+* **h+24 and h+48 do not close.** 8/15 and 7/15 — a coin flip — and the gap to
+  the trees stays at 7.7% / 6.9%, 15/15. **The long-horizon gap is structural to
+  the two-rate form on this target, not a cost of producing one trajectory.**
+
+**Grade [B]** for the null at long horizons: 15 county-held-out units, the
+registered kill condition ("does not close") met, three-way comparable, no
+collapse, no cap. Post-hoc control, labelled as such.
+
+*Consequence for the paper.* The path "we lose per point because we produce a
+coherent trajectory" is closed at h+24/48. What remains of that narrative is a
+claim about the *trees' output* — that four independent per-horizon forecasts do
+not form a trajectory — which is D-4's registered measurement, with its
+interpretation already fixed to allow the answer "they do, and the framing is
+unavailable". The long-horizon loss itself is the D-2 prediction fulfilled and
+is reported as such.
+
+*Recorded because it recurs:* this is the third mechanistically plausible story
+tonight (bounded output head; logit-state input; single-rollout constraint) whose
+causal chain was correct and whose magnitude was not. Plausibility is not
+evidence; a registered interpretation plus a measurement is.
+
 ### D-4 — trajectory coherence of per-horizon predictors. Registered before predictions exist.
 
 If the per-horizon control closes most of the gap, the honest statement is that

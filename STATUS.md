@@ -148,7 +148,11 @@ framing decision (narrow the claim / change metric / accept the negative) is
 the PI's; no alternative metric was ever registered.
 
 ## Waiting on
-* Per-horizon two-rate fits — **runs next** (result-driven control for the
+* ~~Per-horizon two-rate fits~~ — done, [B]: closes h+6 fully, not h+24/48;
+  the long-horizon gap is structural (EXP10).
+* **Order now:** OOF export → D-1/D-3/D-4 (this session) → decisive H-A3 rerun
+  → six-arm g2 → Helene drivers → g3 → exp06.
+* Per-horizon two-rate fits — ~~runs next~~ (result-driven control for the
   model-count asymmetry; paper must say it was added post hoc). Then the
   decisive H-A3 rerun, then the six-arm run with the OOF export. D-4
   (trajectory coherence) registered against the OOF layout.
