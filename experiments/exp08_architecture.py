@@ -55,6 +55,12 @@ from asymode import panels as panelset                              # noqa: E402
 _spec = importlib.util.spec_from_file_location(
     "exp05", Path(__file__).resolve().parent / "exp05_real_dynamics.py")
 exp05 = importlib.util.module_from_spec(_spec)
+# Register before executing. `dataclasses` resolves a class's module through
+# `sys.modules` while it processes the decorator, so a module loaded from a spec
+# and never registered raises as soon as it defines a dataclass -- which exp05
+# now does. Loading it this way is deliberate: it guarantees these experiments
+# pool their samples with exactly the code that built exp05's, rather than a copy.
+sys.modules[_spec.name] = exp05
 _spec.loader.exec_module(exp05)
 load_pooled, add_context = exp05.load_pooled, exp05.add_context
 
