@@ -11,7 +11,7 @@ import datetime as _dt
 import hashlib
 import json
 
-__all__ = ["digest_of", "CLOCKS", "MASK_DEFINITION", "METRIC_DEFINITION", "result_header",
+__all__ = ["digest_of", "channel_list", "CLOCKS", "MASK_DEFINITION", "METRIC_DEFINITION", "result_header",
            "REQUIRED_KEYS"]
 
 CLOCKS = {
@@ -69,3 +69,10 @@ def result_header(*, experiment_id: str, source: dict, panel_ids, panel_digest: 
         "wall_time_s": None,
         "convergence": None,
     }
+
+
+def channel_list(names, clock: str) -> list:
+    """Channel names as scored: the driver block plus the two clock channels exactly
+    once (the manifest's `channel_names` already lists them), or none for clock='none'."""
+    base = [n for n in names if not str(n).startswith("clock_")]
+    return base if clock == "none" else base + ["clock_sin", "clock_cos"]

@@ -50,6 +50,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from asymode.dynamics import (TwoRateODE, TwoRateConfig, InflowForm,   # noqa: E402
                               calibrate_init)
 from asymode.evalproto import make_folds, inner_split                 # noqa: E402
+from asymode import splits, schema                                   # noqa: E402
 from asymode import panels as panelset                              # noqa: E402
 
 _spec = importlib.util.spec_from_file_location(
@@ -257,9 +258,11 @@ def side_evidence(y0: np.ndarray, yt: np.ndarray, m: np.ndarray) -> dict:
 
 
 def run_arm(arm: Arm, tr, te, data, args, seed: int, names: list[str],
-            fips, fold_id: int) -> dict:
+            fips, fold_id: int, inner_units=None, inner_split_seed=None) -> dict:
     """Train one arm. Mirrors the EXP05 recipe exactly except for the two axes."""
     y0, X, yt, m = data
+    inner_units = fips if inner_units is None else inner_units
+    inner_split_seed = seed if inner_split_seed is None else inner_split_seed
     torch.manual_seed(seed); np.random.seed(seed)
     mu = X[tr].reshape(-1, X.shape[-1]).mean(0)
     sd = X[tr].reshape(-1, X.shape[-1]).std(0) + 1e-6      # training folds only
@@ -294,7 +297,7 @@ def run_arm(arm: Arm, tr, te, data, args, seed: int, names: list[str],
     # Early stopping holds out counties, not rows: see `inner_split`. A row-random
     # split leaves the same counties on both sides and cannot see the failure the
     # outer folds exist to measure.
-    fi, vi = inner_split(fips[tr], seed=seed, fold=fold_id)
+    fi, vi = inner_split(inner_units[tr], seed=inner_split_seed, fold=fold_id)
     tr_arr = np.asarray(tr)
     fit, va = tr_arr[fi], tr_arr[vi]
     Y0, XX, YT, MM = t(y0), t(Xn), t(yt), t(m.astype(np.float32))
@@ -376,6 +379,11 @@ def main() -> None:
     ap.add_argument("--stride", type=int, default=12)
     ap.add_argument("--k", type=int, default=5)
     ap.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
+    ap.add_argument("--model-seeds", dest="seeds", type=int, nargs="+")
+    ap.add_argument("--outer-split-seed", type=int, default=0)
+    ap.add_argument("--inner-split-seed", type=int, default=0)
+    ap.add_argument("--split-unit", choices=["event", "county"], default="event")
+    ap.add_argument("--clock", choices=sorted(schema.CLOCKS), default="utc_hour")
     ap.add_argument("--epochs", type=int, default=60)
     ap.add_argument("--patience", type=int, default=8)
     ap.add_argument("--batch", type=int, default=512)
@@ -390,11 +398,15 @@ def main() -> None:
     a = ap.parse_args()
 
     want, digest = panelset.resolve(INTERIM, a.panels)
-    y0, X, yt, m, fips, panel, origin = load_pooled(
-        a.horizon, a.stride, panels=want)
-    X = add_context(X, y0, a.horizon)
-    names = panelset.channel_names(INTERIM)
+    t_launch = time.time(); source_at_launch = panelset.source_version(ROOT)
+    y0, X, yt, m, fips, panel, origin, t0h = load_pooled(
+        a.horizon, a.stride, panels=want, with_time=True)
+    X = add_context(X, y0, a.horizon, t0_hour=t0h, clock=a.clock)
+    names = schema.channel_list(panelset.channel_names(INTERIM), a.clock)
     assert len(names) == X.shape[-1], (len(names), X.shape[-1])
+    assign, split_map, split_digest, unit_ids = exp05.outer_assignment(fips, panel, a.split_unit, a.k, a.outer_split_seed)
+    split_path = splits.save_split(split_map, a.split_unit, a.k, a.outer_split_seed, ROOT)
+    print(f"split_unit {a.split_unit} · outer_split_seed {a.outer_split_seed} · digest {split_digest} · clock {a.clock}")
     check_families(names)
 
     panels = sorted(set(panel.tolist()))
@@ -411,10 +423,7 @@ def main() -> None:
 
     rows: list[dict] = []
     evidence: list[dict] = []
-    for seed in a.seeds:
-        fold = make_folds(sorted(set(fips)), k=a.k, seed=seed)
-        fmap = {f: fo for f, fo in zip(sorted(set(fips)), fold)}
-        assign = np.array([fmap[f] for f in fips])
+    for seed in a.seeds:                      # model seeds; the split does not move
         for f in range(a.k):
             te = np.where(assign == f)[0]; tr = np.where(assign != f)[0]
             evidence.append({"seed": seed, "fold": f, "split": "train",
@@ -423,7 +432,8 @@ def main() -> None:
                              **side_evidence(y0[te], yt[te], m[te])})
             for arm in arms:
                 t0 = time.time()
-                r = run_arm(arm, tr, te, (y0, X, yt, m), a, seed, names, fips, f)
+                r = run_arm(arm, tr, te, (y0, X, yt, m), a, seed, names, fips, f,
+                            inner_units=unit_ids, inner_split_seed=a.inner_split_seed)
                 wall = round(time.time() - t0, 1)
                 rows.append({"arm": arm.name, "axis": arm.axis, "seed": seed,
                              "fold": f, "n_test": len(te), "wall_s": wall, **r})
@@ -437,7 +447,17 @@ def main() -> None:
     cfg["panel_digest"] = digest
     cfg["channels"] = names
     cfg["channel_digest"] = panelset.channel_digest(names)
-    cfg["source"] = panelset.source_version(ROOT)
+    cfg["source"] = source_at_launch
+    hp = {k: cfg[k] for k in ("epochs", "patience", "batch", "lr", "hidden", "cap_u", "cap_r", "horizon",
+                              "stride", "k", "horizons", "lookback", "rounds") if k in cfg}
+    cfg.update(schema.result_header(
+        experiment_id=Path(a.out).stem, source=source_at_launch, panel_ids=cfg["panels"],
+        panel_digest=digest, channel_names=schema.channel_list(names, a.clock),
+        channel_digest=cfg["channel_digest"], clock=a.clock, split_unit=a.split_unit,
+        outer_split_digest=split_digest, outer_split_seed=a.outer_split_seed,
+        inner_split_seed=a.inner_split_seed, model_seeds=a.seeds, hyperparameters=hp))
+    cfg["split_file"] = str(split_path.relative_to(ROOT))
+    cfg["wall_time_s"] = round(time.time() - t_launch, 1)
     cfg["families"] = {k: list(v) for k, v in FAMILIES.items()}
     cfg["arms"] = [{"name": x.name, "axis": x.axis, "fam_u": x.fam_u, "fam_r": x.fam_r,
                     "hidden_u": x.hidden_u, "hidden_r": x.hidden_r,

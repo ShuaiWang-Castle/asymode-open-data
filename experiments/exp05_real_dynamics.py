@@ -478,7 +478,7 @@ def main():
                               "horizon", "stride", "k", "horizons") if k in cfg}
     cfg.update(schema.result_header(
         experiment_id=Path(a.out).stem, source=source_at_launch, panel_ids=cfg["panels"],
-        panel_digest=panel_digest, channel_names=cfg["channels"] + ["clock_sin", "clock_cos"] * (a.clock != "none"),
+        panel_digest=panel_digest, channel_names=schema.channel_list(cfg["channels"], a.clock),
         channel_digest=cfg["channel_digest"], clock=a.clock, split_unit=a.split_unit,
         outer_split_digest=split_digest, outer_split_seed=a.outer_split_seed,
         inner_split_seed=a.inner_split_seed, model_seeds=a.seeds, hyperparameters=hp))

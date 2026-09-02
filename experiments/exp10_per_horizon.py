@@ -40,6 +40,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from asymode.dynamics import (TwoRateODE, TwoRateConfig, InflowForm,   # noqa: E402
                               calibrate_init)
 from asymode.evalproto import make_folds, inner_split                  # noqa: E402
+from asymode import splits, schema                                    # noqa: E402
 from asymode import panels as panelset                                 # noqa: E402
 
 _spec = importlib.util.spec_from_file_location(
@@ -77,7 +78,7 @@ def fit_one(target_h, tr, te, data, args, seed, fips, fold_id):
     model = TwoRateODE(cfg)
     opt = torch.optim.Adam(model.parameters(), lr=args.lr)
 
-    fi, vi = inner_split(fips[tr], seed=seed, fold=fold_id)
+    fi, vi = inner_split(getattr(args, "_inner_units", fips)[tr], seed=getattr(args, "inner_split_seed", seed), fold=fold_id)
     tr_arr = np.asarray(tr)
     fit, va = tr_arr[fi], tr_arr[vi]
     j = target_h - 1
@@ -134,6 +135,11 @@ def main() -> None:
     ap.add_argument("--stride", type=int, default=12)
     ap.add_argument("--k", type=int, default=5)
     ap.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
+    ap.add_argument("--model-seeds", dest="seeds", type=int, nargs="+")
+    ap.add_argument("--outer-split-seed", type=int, default=0)
+    ap.add_argument("--inner-split-seed", type=int, default=0)
+    ap.add_argument("--split-unit", choices=["event", "county"], default="event")
+    ap.add_argument("--clock", choices=sorted(schema.CLOCKS), default="utc_hour")
     ap.add_argument("--epochs", type=int, default=60)
     ap.add_argument("--patience", type=int, default=8)
     ap.add_argument("--batch", type=int, default=512)
@@ -146,18 +152,20 @@ def main() -> None:
     a = ap.parse_args()
 
     want, digest = panelset.resolve(INTERIM, a.panels)
-    y0, X, yt, m, fips, panel, origin = load_pooled(
-        a.horizon, a.stride, panels=want)
-    X = add_context(X, y0, a.horizon)
+    t_launch = time.time(); source_at_launch = panelset.source_version(ROOT)
+    y0, X, yt, m, fips, panel, origin, t0h = load_pooled(
+        a.horizon, a.stride, panels=want, with_time=True)
+    X = add_context(X, y0, a.horizon, t0_hour=t0h, clock=a.clock)
     names = panelset.channel_names(INTERIM)
+    assign, split_map, split_digest, unit_ids = exp05.outer_assignment(fips, panel, a.split_unit, a.k, a.outer_split_seed)
+    split_path = splits.save_split(split_map, a.split_unit, a.k, a.outer_split_seed, ROOT)
+    a._inner_units = unit_ids
+    print(f"split_unit {a.split_unit} · outer_split_seed {a.outer_split_seed} · digest {split_digest} · clock {a.clock}")
     print(f"pooled {len(y0):,} samples over {len(set(panel))} panels [{digest}], "
           f"{len(set(fips)):,} counties, {X.shape[-1]} channels")
 
     rows = []
-    for seed in a.seeds:
-        fold = make_folds(sorted(set(fips)), k=a.k, seed=seed)
-        fmap = {f: fo for f, fo in zip(sorted(set(fips)), fold)}
-        assign = np.array([fmap[f] for f in fips])
+    for seed in a.seeds:                      # model seeds; the split does not move
         for f in range(a.k):
             te = np.where(assign == f)[0]; tr = np.where(assign != f)[0]
             for h in a.horizons:
@@ -176,7 +184,18 @@ def main() -> None:
     cfg["panel_digest"] = digest
     cfg["channels"] = names
     cfg["channel_digest"] = panelset.channel_digest(names)
-    cfg["source"] = panelset.source_version(ROOT)
+    cfg["source"] = source_at_launch
+    hp = {k: cfg[k] for k in ("epochs", "patience", "batch", "lr", "hidden", "cap_u", "cap_r", "horizon",
+                              "stride", "k", "horizons", "lookback", "rounds") if k in cfg}
+    cfg.update(schema.result_header(
+        experiment_id=Path(a.out).stem, source=source_at_launch, panel_ids=cfg["panels"],
+        panel_digest=digest, channel_names=schema.channel_list(names, a.clock),
+        channel_digest=cfg["channel_digest"], clock=a.clock, split_unit=a.split_unit,
+        outer_split_digest=split_digest, outer_split_seed=a.outer_split_seed,
+        inner_split_seed=a.inner_split_seed, model_seeds=a.seeds, hyperparameters=hp))
+    cfg["split_file"] = str(split_path.relative_to(ROOT))
+    cfg["wall_time_s"] = round(time.time() - t_launch, 1)
+    cfg.pop("_inner_units", None)
     out.write_text(json.dumps({"config": cfg, "rows": rows}, indent=2))
     print(f"\nwritten: {a.out}")
 

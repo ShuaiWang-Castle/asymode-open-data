@@ -68,6 +68,7 @@ import torch.nn as nn
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from asymode.evalproto import make_folds, inner_split                 # noqa: E402
+from asymode import splits, schema                                   # noqa: E402
 from asymode import panels as panelset                                # noqa: E402
 
 _spec = importlib.util.spec_from_file_location(
@@ -152,8 +153,11 @@ def _fit_trees(args, seed, Xf, yf, Xv, yv):
     return final, best_iter, best
 
 
-def run_trees(tr, te, data, hist, args, seed, fips, fold_id, use_hist=False):
+def run_trees(tr, te, data, hist, args, seed, fips, fold_id, use_hist=False, inner_units=None,
+              inner_split_seed=None):
     y0, X, yt, m = data
+    inner_units = fips if inner_units is None else inner_units
+    inner_split_seed = seed if inner_split_seed is None else inner_split_seed
     out = {}
     for h in args.horizons:
         # Unobserved targets are dropped, never imputed -- from training and from
@@ -162,7 +166,7 @@ def run_trees(tr, te, data, hist, args, seed, fips, fold_id, use_hist=False):
         f_te = te[m[te, h - 1]]
         Xtr = tree_features(y0[f_tr], X[f_tr], hist[f_tr] if hist is not None else None, h, use_hist)
         Xte = tree_features(y0[f_te], X[f_te], hist[f_te] if hist is not None else None, h, use_hist)
-        fi, vi = inner_split(fips[f_tr], seed=seed, fold=fold_id)
+        fi, vi = inner_split(inner_units[f_tr], seed=inner_split_seed, fold=fold_id)
         mdl, n_iter, val = _fit_trees(args, seed, Xtr[fi], yt[f_tr, h - 1][fi],
                                       Xtr[vi], yt[f_tr, h - 1][vi])
         out[f"n_iter_h{h}"], out[f"val_h{h}"] = n_iter, val
@@ -260,8 +264,10 @@ class DecompLinear(nn.Module):
 
 
 def run_linear(tr, te, data, hist, args, seed, fips, fold_id, use_hist,
-               use_drivers, bounded=True):
+               use_drivers, bounded=True, inner_units=None, inner_split_seed=None):
     y0, X, yt, m = data
+    inner_units = fips if inner_units is None else inner_units
+    inner_split_seed = seed if inner_split_seed is None else inner_split_seed
     torch.manual_seed(seed); np.random.seed(seed)
     mu = X[tr].reshape(-1, X.shape[-1]).mean(0)
     sd = X[tr].reshape(-1, X.shape[-1]).std(0) + 1e-6       # training folds only
@@ -289,7 +295,7 @@ def run_linear(tr, te, data, hist, args, seed, fips, fold_id, use_hist,
     with torch.no_grad():
         model.bias0.fill_(float(np.log(base / (1 - base))) if bounded else base)
 
-    fi, vi = inner_split(fips[tr], seed=seed, fold=fold_id)
+    fi, vi = inner_split(inner_units[tr], seed=inner_split_seed, fold=fold_id)
     tr_arr = np.asarray(tr)
     fit, va = tr_arr[fi], tr_arr[vi]
     Y0, XX, YT, MM, HH = (torch.tensor(y0n), torch.tensor(Xn), torch.tensor(yt),
@@ -370,6 +376,11 @@ def main() -> None:
     ap.add_argument("--lookback", type=int, default=24)
     ap.add_argument("--k", type=int, default=5)
     ap.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
+    ap.add_argument("--model-seeds", dest="seeds", type=int, nargs="+")
+    ap.add_argument("--outer-split-seed", type=int, default=0)
+    ap.add_argument("--inner-split-seed", type=int, default=0)
+    ap.add_argument("--split-unit", choices=["event", "county"], default="event")
+    ap.add_argument("--clock", choices=sorted(schema.CLOCKS), default="utc_hour")
     ap.add_argument("--epochs", type=int, default=60)
     ap.add_argument("--patience", type=int, default=8)
     ap.add_argument("--batch", type=int, default=512)
@@ -393,9 +404,13 @@ def main() -> None:
     a = ap.parse_args()
 
     want, digest = panelset.resolve(INTERIM, a.panels)
-    y0, X, yt, m, fips, panel, origin = load_pooled(
-        a.horizon, a.stride, panels=want)
-    X = add_context(X, y0, a.horizon)
+    t_launch = time.time(); source_at_launch = panelset.source_version(ROOT)
+    y0, X, yt, m, fips, panel, origin, t0h = load_pooled(
+        a.horizon, a.stride, panels=want, with_time=True)
+    X = add_context(X, y0, a.horizon, t0_hour=t0h, clock=a.clock)
+    assign, split_map, split_digest, unit_ids = exp05.outer_assignment(fips, panel, a.split_unit, a.k, a.outer_split_seed)
+    split_path = splits.save_split(split_map, a.split_unit, a.k, a.outer_split_seed, ROOT)
+    print(f"split_unit {a.split_unit} · outer_split_seed {a.outer_split_seed} · digest {split_digest} · clock {a.clock}")
     hist = load_history(a.horizon, a.stride, a.lookback, panels=want)
     # Alignment is the whole risk in loading the pre-origin window separately, so
     # it is checked rather than trusted: the last hour of each lookback is the
@@ -413,13 +428,11 @@ def main() -> None:
     rows = []
     oof = {}
     _, origin_id = np.unique(np.array([f"{p_}|{o_}" for p_, o_ in zip(panel, origin)]), return_inverse=True)
-    for seed in a.seeds:
-        fold = make_folds(sorted(set(fips)), k=a.k, seed=seed)
-        fmap = {f: fo for f, fo in zip(sorted(set(fips)), fold)}
-        assign = np.array([fmap[f] for f in fips])
+    for seed in a.seeds:                      # model seeds; the split does not move
         for f in range(a.k):
             te = np.where(assign == f)[0]; tr = np.where(assign != f)[0]
             for name, kind, kw in arms:
+                kw = dict(kw, inner_units=unit_ids, inner_split_seed=a.inner_split_seed)
                 t0 = time.time()
                 if kind == "trees":
                     r = run_trees(tr, te, (y0, X, yt, m), hist, a, seed, fips, f, **kw)
@@ -440,7 +453,17 @@ def main() -> None:
     cfg["panel_digest"] = digest
     cfg["channels"] = panelset.channel_names(INTERIM)
     cfg["channel_digest"] = panelset.channel_digest(cfg["channels"])
-    cfg["source"] = panelset.source_version(ROOT)
+    cfg["source"] = source_at_launch
+    hp = {k: cfg[k] for k in ("epochs", "patience", "batch", "lr", "hidden", "cap_u", "cap_r", "horizon",
+                              "stride", "k", "horizons", "lookback", "rounds") if k in cfg}
+    cfg.update(schema.result_header(
+        experiment_id=Path(a.out).stem, source=source_at_launch, panel_ids=cfg["panels"],
+        panel_digest=digest, channel_names=schema.channel_list(cfg["channels"], a.clock),
+        channel_digest=cfg["channel_digest"], clock=a.clock, split_unit=a.split_unit,
+        outer_split_digest=split_digest, outer_split_seed=a.outer_split_seed,
+        inner_split_seed=a.inner_split_seed, model_seeds=a.seeds, hyperparameters=hp))
+    cfg["split_file"] = str(split_path.relative_to(ROOT))
+    cfg["wall_time_s"] = round(time.time() - t_launch, 1)
     out.write_text(json.dumps({"config": cfg, "rows": rows}, indent=2))
     if a.save_oof:
         exp05._write_oof(oof, out.parent, yt, m, fips, panel, origin, origin_id, a, cfg)

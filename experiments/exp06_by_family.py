@@ -63,6 +63,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from asymode.dynamics import InflowForm                              # noqa: E402
 from asymode.evalproto import make_folds                             # noqa: E402
+from asymode import splits, schema                                   # noqa: E402
+import exp05_real_dynamics as exp05                                  # noqa: E402
 from asymode import panels as panelset                              # noqa: E402
 
 sys.path.insert(0, str(ROOT / "experiments"))
@@ -103,6 +105,11 @@ def main():
     ap.add_argument("--stride", type=int, default=12)
     ap.add_argument("--k", type=int, default=5)
     ap.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
+    ap.add_argument("--model-seeds", dest="seeds", type=int, nargs="+")
+    ap.add_argument("--outer-split-seed", type=int, default=0)
+    ap.add_argument("--inner-split-seed", type=int, default=0)
+    ap.add_argument("--split-unit", choices=["event", "county"], default="event")
+    ap.add_argument("--clock", choices=sorted(schema.CLOCKS), default="utc_hour")
     ap.add_argument("--epochs", type=int, default=60)
     ap.add_argument("--patience", type=int, default=12)
     ap.add_argument("--batch", type=int, default=512)
@@ -123,9 +130,11 @@ def main():
 
     fam = family_of_day()
     want, panel_digest = panelset.resolve(INTERIM, a.panels)
-    y0, X, yt, m, fips, panel, origin = load_pooled(
-        a.horizon, a.stride, panels=want)
-    X = add_context(X, y0, a.horizon)
+    t_launch = time.time(); source_at_launch = panelset.source_version(ROOT)
+    y0, X, yt, m, fips, panel, origin, t0h = load_pooled(
+        a.horizon, a.stride, panels=want, with_time=True)
+    X = add_context(X, y0, a.horizon, t0_hour=t0h, clock=a.clock)
+    split_records = {}
     # Days absent from the stratified catalog are the original convective set.
     famv = np.array([fam.get(p, "convective") for p in panel])
     print(f"pooled {len(y0):,} samples over {len(set(panel))} storms")
@@ -149,13 +158,17 @@ def main():
             continue
         print(f"\n=== {f}: {len(sel):,} samples ===", flush=True)
         sy0, sX, syt, sm = y0[sel], X[sel], yt[sel], m[sel]
-        sf = fips[sel]
-        uniq = sorted(set(sf))
-        for seed in a.seeds:
-            fold = make_folds(uniq, k=a.k, seed=seed)
-            fmap = dict(zip(uniq, fold))
-            assign = np.array([fmap[x] for x in sf])
-            for k in range(a.k):
+        sf = fips[sel]; sp = panel[sel]
+        # One pinned split per family, from the outer split seed only. With the event
+        # unit, k is capped by the number of storms in the family (leave-one-event-out
+        # for the small families); the cap is recorded in the result.
+        k_f = a.k if a.split_unit == "county" else min(a.k, len(set(sp.tolist())))
+        assign, split_map, split_digest, unit_ids = exp05.outer_assignment(sf, sp, a.split_unit, k_f, a.outer_split_seed)
+        split_path = splits.save_split(split_map, f"{a.split_unit}-{f}", k_f, a.outer_split_seed, ROOT)
+        split_records[f] = {"k": k_f, "outer_split_digest": split_digest, "split_file": str(split_path.relative_to(ROOT))}
+        print(f"  split_unit {a.split_unit} k {k_f} digest {split_digest}")
+        for seed in a.seeds:                  # model seeds; the split does not move
+            for k in range(k_f):
                 te = np.where(assign == k)[0]; tr = np.where(assign != k)[0]
                 if len(te) < 20 or len(tr) < 100:
                     skipped.append({"family": f, "seed": seed, "fold": k,
@@ -169,7 +182,8 @@ def main():
                                      "fold": k, "n_test": len(te), **r})
                 for arm in [x for x in ARMS if a.arms is None or x.name in a.arms]:
                     t0 = time.time()
-                    r = run_arm(arm, tr, te, (sy0, sX, syt, sm), a, seed, sf, k)
+                    r = run_arm(arm, tr, te, (sy0, sX, syt, sm), a, seed, sf, k,
+                                inner_units=unit_ids, inner_split_seed=a.inner_split_seed)
                     r.pop("_test_pred", None)
                     out_rows.append({"family": f, "arm": arm.name, "seed": seed,
                                      "inflow": arm.inflow.value,
@@ -183,7 +197,17 @@ def main():
     cfg["panel_digest"] = panel_digest
     cfg["channels"] = panelset.channel_names(INTERIM)
     cfg["channel_digest"] = panelset.channel_digest(cfg["channels"])
-    cfg["source"] = panelset.source_version(ROOT)
+    cfg["source"] = source_at_launch
+    hp = {k: cfg[k] for k in ("epochs", "patience", "batch", "lr", "hidden", "cap_u", "cap_r", "horizon",
+                              "stride", "k", "horizons") if k in cfg}
+    cfg.update(schema.result_header(
+        experiment_id=Path(a.out).stem, source=source_at_launch, panel_ids=cfg["panels"],
+        panel_digest=panel_digest, channel_names=schema.channel_list(cfg["channels"], a.clock),
+        channel_digest=cfg["channel_digest"], clock=a.clock, split_unit=a.split_unit,
+        outer_split_digest="per-family:" + ",".join(f"{k}={v['outer_split_digest']}" for k, v in sorted(split_records.items())),
+        outer_split_seed=a.outer_split_seed, inner_split_seed=a.inner_split_seed, model_seeds=a.seeds, hyperparameters=hp))
+    cfg["splits_by_family"] = split_records
+    cfg["wall_time_s"] = round(time.time() - t_launch, 1)
     dst.write_text(json.dumps({"config": cfg, "rows": out_rows,
                                "skipped": skipped}, indent=2))
     if skipped:
