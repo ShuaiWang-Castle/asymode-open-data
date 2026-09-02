@@ -68,6 +68,7 @@ def main():
     ap.add_argument("--ref", default="control"); ap.add_argument("--arms", nargs="*", default=None)
     ap.add_argument("--horizons", type=int, nargs="+", default=[1, 6, 24, 48])
     ap.add_argument("--json", default=None, help="also write the table here")
+    ap.add_argument("--family", default=None, help="keep only rows whose 'family' field equals this (exp06-style files)")
     a = ap.parse_args()
 
     ref_file = a.against or a.result
@@ -78,6 +79,10 @@ def main():
             print(rc.stdout.strip().splitlines()[-1] if rc.stdout.strip() else "NOT COMPARABLE")
             sys.exit(2)
     rows, cfg = load(a.result); ref_rows, _ = load(ref_file)
+    if a.family is not None:
+        rows = [r for r in rows if r.get('family') == a.family]
+        ref_rows = [r for r in ref_rows if r.get('family') == a.family]
+        if not rows: sys.exit(f"no rows with family={a.family}")
     B = by_unit(ref_rows, a.ref)
     if not B:
         sys.exit(f"reference arm '{a.ref}' not found in {ref_file}")

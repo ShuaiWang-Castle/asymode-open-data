@@ -1,5 +1,7 @@
 # Status snapshot — 2026-09-01, late evening (refreshed)
 
+**Branch `aistats-theory-protocol-repair` (2026-09-02):** soundness repair in progress — read `docs/CC_AUDIT_LOG.md` first; no scientific rerun until its gates pass.
+
 **Start here if resuming:** `docs/EVIDENCE_SUMMARY.md` — every graded result,
 Venue fit and literature to cite: `docs/AISTATS_FIT.md` (2026-09-02).
 Theory plan (propositions, registered checks D-6/S-2): `docs/THEORY_PLAN.md` (2026-09-02).
