@@ -39,6 +39,12 @@ Written at a deliberate pause. Nothing below is a result; results live in
   arm** (`n = cap·tanh(f(x))`), not damped persistence, because the latter's
   difficulty drifts by family in the direction that fakes H-E2. NET arm requested
   from the experiment lane; not yet implemented.
+* **H-E amended twice** (both before any family fit): comparator is
+  `net_scaled` at hidden 48 (parameter-matched, 3,121 vs 3,138); a four-rung
+  ladder `net → net_scaled → sym_in+sym_arch → two-rate` isolates scaling,
+  concurrency, and asymmetry one at a time. Concurrency — both directions active
+  in one step — is its own rung, corrected from an earlier draft that conflated
+  it with input/capacity symmetry.
 * **OOF predictions**: tier-1 export requested (all arms, 4 horizons, ~49 MB) for
   D-1 and the D-2 level/ranking decomposition. After exp07.
 

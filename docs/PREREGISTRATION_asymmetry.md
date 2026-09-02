@@ -50,6 +50,22 @@ GLM with directly readable coefficients — while the interruption rate keeps a
 hidden layer. The effective sample sizes on each side are to be measured here, on
 this panel, and reported whatever they say.
 
+## Where these arms sit in the structural ladder
+
+The input- and capacity-symmetric arms defined here are the **third rung** of a
+four-rung ablation ladder registered in `PREREGISTRATION_phase_separation.md`,
+in which each rung adds exactly one structural element:
+
+    net              one signed rate, no state scaling, no concurrency
+    net_scaled       one signed rate with state scaling — no concurrency
+    sym_in+sym_arch  two non-negative rates, concurrent, shared inputs and width
+    two-rate         concurrent, with input and capacity asymmetry (this work)
+
+The step from `net_scaled` to `sym_in+sym_arch` isolates **concurrency** — both
+directions active in the same step — which is the model's central picture and is
+tested on its own. The step from `sym_in+sym_arch` to the full model isolates
+the asymmetries this file registers. All four rungs are reported for every family.
+
 ## Kill conditions
 
 * Each of H-A1, H-A2, H-B requires a **sign flip** — beneficial on one side,
