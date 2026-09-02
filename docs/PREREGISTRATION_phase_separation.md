@@ -174,6 +174,13 @@ separable from one another. So:
   ranking win**, which is a stronger claim than a level win and must be
   reported as such only if the level/ranking decomposition supports it.
 
+*Added before the family fits landed:* D-4 on the primary export shows the
+two-rate rollout is not itself coherent across the four scored horizons (23.6%
+of samples carry a sign change the truth lacks). **No family result may be
+described as "the coherent-trajectory model" versus a per-point regressor**;
+that framing is unavailable unless a later D-4 on the trees shows them
+materially worse than 23.6%.
+
 H-E1 and H-E2 are unchanged. This note fixes, in advance, how a family's result
 is to be *described* — so that "the two-rate model wins on tropical" cannot be
 upgraded to "ranks counties better" after the fact without the decomposition.

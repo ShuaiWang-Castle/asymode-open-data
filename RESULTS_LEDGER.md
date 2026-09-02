@@ -805,12 +805,14 @@ registered kill condition ("does not close") met, three-way comparable, no
 collapse, no cap. Post-hoc control, labelled as such.
 
 *Consequence for the paper.* The path "we lose per point because we produce a
-coherent trajectory" is closed at h+24/48. What remains of that narrative is a
-claim about the *trees' output* — that four independent per-horizon forecasts do
-not form a trajectory — which is D-4's registered measurement, with its
-interpretation already fixed to allow the answer "they do, and the framing is
-unavailable". The long-horizon loss itself is the D-2 prediction fulfilled and
-is reported as such.
+coherent trajectory" is closed at h+24/48 by this experiment, and **the premise
+behind it is closed by D-4 on the real export**: across the four scored horizons
+the two-rate rollout itself shows excess sign changes in 23.6% of samples, so
+"we produce a coherent trajectory" is not a property the paper can claim at
+this resolution. What remains is a comparison of *the trees'* coherence against
+that 23.6% — D-4's re-registered measurement, with its interpretation fixed to
+allow "the trees are no worse, and the framing is unavailable". The long-horizon
+loss itself is the D-2 prediction fulfilled and is reported as such.
 
 *Recorded because it recurs:* this is the third mechanistically plausible story
 tonight (bounded output head; logit-state input; single-rollout constraint) whose
