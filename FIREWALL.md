@@ -34,6 +34,44 @@ inform experiment design but **must be re-tested on public data**. Only evidence
 inside this repository may enter a paper. No claim of the form "we previously observed"
 is permitted in any artifact.
 
+## Controlled channel — opened by the PI on 2026-09-01
+
+The PI opened a **one-way** channel from a session working on the related
+non-public dataset into this project, and confirmed it directly to that session
+after its own concern about directional leakage was raised. The boundary, as
+executed:
+
+**May cross:** model and architecture updates; training and initialisation
+recipes; numerical-pathology experience; *qualitative* reasoning about data
+characteristics (e.g. that outages arrive as discrete events, that repair may be
+scheduled by shift).
+
+**May not cross:** any number measured on the non-public data — proportions,
+distributions, errors, ranks, ablation magnitudes; county sets; variable
+dictionaries; protocol constants; fold assignments; the excluded severity index
+or anything derived from it; weights, coefficients, normalisation statistics,
+or field-level configuration.
+
+**Test used by both sides:** a sentence that still holds with every number
+removed may cross; one that does not is a data detail.
+
+**How received items are handled here:** each is registered as a hypothesis or
+diagnostic in `docs/PREREGISTRATION_external_priors.md` with kill conditions
+*before* being tested; the sender's own provenance label — *generic* (a
+methodological fact any careful practitioner reaches) or *directional* (specifies
+an exploration path even without numbers) — is preserved; nothing received enters
+the paper as evidence; no artifact says "we previously found".
+
+**The cost, stated so it is not discovered later:** directional items shape
+which architectures were explored. The paper's account of method provenance
+must say that some directions were suggested by prior work on a related,
+non-public dataset and were then tested here from scratch. Removing numbers
+removes quantifiable leakage; it does not remove that. The PI accepted this
+knowingly.
+
+**Reverse direction remains closed.** Nothing from this project is sent to, or
+requested by, the other side.
+
 ## When in doubt
 
 Stop and ask the PI. Do not improvise a workaround.
