@@ -97,9 +97,14 @@ def load_pooled(horizon: int, stride: int, min_history: int = 24,
 
     `panels` names the set explicitly. Passing `None` pools whatever is on disk,
     which is only safe when nothing is still downloading -- see `asymode.panels`.
+
+    Returns `(y0, X, y, mask, fips, panel, origin)`. The last is the step index
+    each sample's forecast starts from; together with `panel` it names the
+    forecast, which is the grouping any within-forecast statistic needs and which
+    `fips` and `panel` alone cannot express -- one storm contributes many origins.
     """
     keep = set(panels) if panels is not None else None
-    Y0, X, YT, M, FIPS, PANEL = [], [], [], [], [], []
+    Y0, X, YT, M, FIPS, PANEL, ORIGIN = [], [], [], [], [], [], []
     for pf in sorted(INTERIM.glob("panel_*.npz")):
         day = pf.stem.replace("panel_", "")
         df = INTERIM / f"drivers_{day}.npz"
@@ -116,8 +121,13 @@ def load_pooled(horizon: int, stride: int, min_history: int = 24,
             Y0.append(yh[:, o]); X.append(Xh[:, o + 1:o + 1 + horizon])
             YT.append(yh[:, o + 1:o + 1 + horizon]); M.append(oh[:, o + 1:o + 1 + horizon])
             FIPS.append(np.array(fips)); PANEL.append(np.full(len(fips), day))
+            # The step this forecast starts from. (panel, origin) identifies one
+            # forecast: every county in it shares a driver window and a clock, and
+            # the level/ranking decomposition is only meaningful within one.
+            ORIGIN.append(np.full(len(fips), o, dtype=np.int32))
     return (np.concatenate(Y0), np.concatenate(X), np.concatenate(YT),
-            np.concatenate(M), np.concatenate(FIPS), np.concatenate(PANEL))
+            np.concatenate(M), np.concatenate(FIPS), np.concatenate(PANEL),
+            np.concatenate(ORIGIN))
 
 
 def load_history(horizon: int, stride: int, lookback: int, min_history: int = 24,
@@ -308,7 +318,8 @@ def main():
     a = ap.parse_args()
 
     want, panel_digest = panelset.resolve(INTERIM, a.panels)
-    y0, X, yt, m, fips, panel = load_pooled(a.horizon, a.stride, panels=want)
+    y0, X, yt, m, fips, panel, origin = load_pooled(
+        a.horizon, a.stride, panels=want)
     X = add_context(X, y0, a.horizon)
     print(f"pooled samples {len(y0):,} over {len(set(panel))} storms [{panel_digest}], "
           f"{len(set(fips)):,} counties, {X.shape[-1]} driver channels, "

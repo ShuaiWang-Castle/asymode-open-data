@@ -390,7 +390,8 @@ def main() -> None:
     a = ap.parse_args()
 
     want, digest = panelset.resolve(INTERIM, a.panels)
-    y0, X, yt, m, fips, panel = load_pooled(a.horizon, a.stride, panels=want)
+    y0, X, yt, m, fips, panel, origin = load_pooled(
+        a.horizon, a.stride, panels=want)
     X = add_context(X, y0, a.horizon)
     names = panelset.channel_names(INTERIM)
     assert len(names) == X.shape[-1], (len(names), X.shape[-1])

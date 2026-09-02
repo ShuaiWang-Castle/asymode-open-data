@@ -121,7 +121,8 @@ def main():
 
     fam = family_of_day()
     want, panel_digest = panelset.resolve(INTERIM, a.panels)
-    y0, X, yt, m, fips, panel = load_pooled(a.horizon, a.stride, panels=want)
+    y0, X, yt, m, fips, panel, origin = load_pooled(
+        a.horizon, a.stride, panels=want)
     X = add_context(X, y0, a.horizon)
     # Days absent from the stratified catalog are the original convective set.
     famv = np.array([fam.get(p, "convective") for p in panel])
