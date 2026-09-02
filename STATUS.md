@@ -53,6 +53,21 @@ Written at a deliberate pause. Nothing below is a result; results live in
   `frac_pred_zero > 0.9` under the full protocol is `degenerate` — reported as a
   mechanism fact, excluded from quantitative comparison. Motivated by the unscaled
   `net` arm collapsing into the absorbing state at y = 0 in a smoke run.
+* **D-1 oracle shrinkage script** (`experiments/d1_oracle_shrinkage.py`)
+  written before any prediction exists and **verified on fixtures whose answer
+  is known by construction**: calibrated high-SNR predictions give
+  λ* = 1.00, a* = 1.00, headroom 0.000; the same predictions doubled give
+  a* = 0.500, headroom 1.000; a tampered `fold_of` is rejected (exit 1);
+  baseline MSE reconciles with the archive. One real bug was fixed (the
+  baseline was computed after clipping, so the "oracle" was measuring the
+  clip). **Two commits landed before the self-test passed** — one masked by a
+  shell exit-code mistake, one by misreading a low-SNR fixture's large headroom
+  as a code fault. Rule: a self-test's exit code is captured directly, never
+  through a pipe.
+  *Reading note for the real run:* the target has median ≈ 0 and ~46% exact
+  zeros, so at long horizons the predictor sits in the low-SNR regime; λ* > 1
+  with non-trivial headroom there is the registered "shrinkage is MSE-optimal"
+  prediction, not a defect.
 * **OOF predictions**: tier-1 export requested (all arms, 4 horizons, ~49 MB) for
   D-1 and the D-2 level/ranking decomposition. After exp07.
 
