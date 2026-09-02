@@ -63,6 +63,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from asymode.dynamics import InflowForm                              # noqa: E402
 from asymode.evalproto import make_folds                             # noqa: E402
+from asymode import panels as panelset                              # noqa: E402
 
 sys.path.insert(0, str(ROOT / "experiments"))
 from exp05_real_dynamics import (load_pooled, add_context, run_arm,   # noqa: E402
@@ -111,11 +112,16 @@ def main():
     ap.add_argument("--cap-r", type=float, default=0.25)
     ap.add_argument("--families", nargs="+",
                     default=["convective", "winter", "tropical", "wind"])
+    ap.add_argument("--panels", default="auto",
+                    help="defaults to every built panel: this experiment needs the "
+                         "families the primary manifest deliberately excludes. Pass "
+                         "a manifest path once the generalisation set is pinned.")
     ap.add_argument("--out", default="results/exp06_by_family.json")
     a = ap.parse_args()
 
     fam = family_of_day()
-    y0, X, yt, m, fips, panel = load_pooled(a.horizon, a.stride)
+    want, panel_digest = panelset.resolve(INTERIM, a.panels)
+    y0, X, yt, m, fips, panel = load_pooled(a.horizon, a.stride, panels=want)
     X = add_context(X, y0, a.horizon)
     # Days absent from the stratified catalog are the original convective set.
     famv = np.array([fam.get(p, "convective") for p in panel])
@@ -125,11 +131,19 @@ def main():
               f"{len(set(panel[famv==f])):>2} storms  "
               f"{len(set(fips[famv==f])):>5} counties")
 
-    out_rows = []
+    # Every family and fold that does not produce a fitted result is recorded.
+    # H-E is void below three families with a complete protocol result, and that
+    # has to be decidable from this file rather than by counting rows and hoping
+    # the absences were all deliberate.
+    out_rows, skipped = [], []
     for f in a.families:
         sel = np.where(famv == f)[0]
         if len(sel) < 500:
-            print(f"\n{f}: only {len(sel)} samples, skipped"); continue
+            print(f"\n{f}: only {len(sel)} samples, skipped")
+            skipped.append({"family": f, "seed": None, "fold": None,
+                            "n_samples": int(len(sel)),
+                            "reason": "family below 500 pooled samples"})
+            continue
         print(f"\n=== {f}: {len(sel):,} samples ===", flush=True)
         sy0, sX, syt, sm = y0[sel], X[sel], yt[sel], m[sel]
         sf = fips[sel]
@@ -141,6 +155,9 @@ def main():
             for k in range(a.k):
                 te = np.where(assign == k)[0]; tr = np.where(assign != k)[0]
                 if len(te) < 20 or len(tr) < 100:
+                    skipped.append({"family": f, "seed": seed, "fold": k,
+                                    "n_test": int(len(te)), "n_train": int(len(tr)),
+                                    "reason": "fold below the 20 test / 100 train floor"})
                     continue
                 for b in BASELINES:
                     r = run_baseline(b, tr, te, (sy0, sX, syt, sm), a)
@@ -148,15 +165,26 @@ def main():
                                      "fold": k, "n_test": len(te), **r})
                 for arm in ARMS:
                     t0 = time.time()
-                    r = run_arm(arm, tr, te, (sy0, sX, syt, sm), a, seed)
-                    out_rows.append({"family": f, "arm": arm.value, "seed": seed,
+                    r = run_arm(arm, tr, te, (sy0, sX, syt, sm), a, seed, sf, k)
+                    out_rows.append({"family": f, "arm": arm.name, "seed": seed,
+                                     "inflow": arm.inflow.value,
                                      "fold": k, "n_test": len(te),
                                      "wall_s": round(time.time() - t0, 1), **r})
                 print(f"  seed {seed} fold {k} done", flush=True)
 
     dst = ROOT / a.out; dst.parent.mkdir(parents=True, exist_ok=True)
     cfg = dict(vars(a)); cfg["out"] = a.out
-    dst.write_text(json.dumps({"config": cfg, "rows": out_rows}, indent=2))
+    cfg["panels"] = sorted(set(panel.tolist()))
+    cfg["panel_digest"] = panel_digest
+    cfg["channels"] = panelset.channel_names(INTERIM)
+    cfg["channel_digest"] = panelset.channel_digest(cfg["channels"])
+    cfg["source"] = panelset.source_version(ROOT)
+    dst.write_text(json.dumps({"config": cfg, "rows": out_rows,
+                               "skipped": skipped}, indent=2))
+    if skipped:
+        print(f"\n{len(skipped)} family/fold combinations produced no fit:")
+        for sk in skipped:
+            print(f"  {sk['family']:<12} seed {sk['seed']} fold {sk['fold']}: {sk['reason']}")
 
     print("\n" + "=" * 78)
     print("PAIRED: susceptible vs comparator, by family. negative = ours better")

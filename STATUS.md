@@ -45,6 +45,14 @@ Written at a deliberate pause. Nothing below is a result; results live in
   concurrency, and asymmetry one at a time. Concurrency — both directions active
   in one step — is its own rung, corrected from an earlier draft that conflated
   it with input/capacity symmetry.
+* **exp06 registration consolidated** with H-E: H2 void (same question as
+  H-E with the drifting comparator); H1's family list corrected (winter is the
+  fastest family, not slow); H3 now tests the dominance share of eps, not
+  eps > mean.
+* **Degeneracy criterion pre-registered** (H-E, third amendment): any arm with
+  `frac_pred_zero > 0.9` under the full protocol is `degenerate` — reported as a
+  mechanism fact, excluded from quantitative comparison. Motivated by the unscaled
+  `net` arm collapsing into the absorbing state at y = 0 in a smoke run.
 * **OOF predictions**: tier-1 export requested (all arms, 4 horizons, ~49 MB) for
   D-1 and the D-2 level/ranking decomposition. After exp07.
 

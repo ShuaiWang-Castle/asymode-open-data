@@ -13,6 +13,14 @@ quoted, by me or by the writing session.**
   It may enter the paper *labelled as a synthetic study*, never as evidence about
   real outages. *(New tier — flagged to the PI for approval.)*
 * **[C]** preliminary — internal discussion only, must not enter the paper
+* **[degenerate]** — an arm whose predictions are exactly zero on more than 90%
+  of scored cells under the full protocol (`frac_pred_zero > 0.9`, per arm per
+  fold in the result JSON). Applied to every arm by the same rule, fixed before
+  the run. Reported as a mechanism fact; **excluded from any quantitative
+  comparison of what structure buys.** Beating a collapsed arm is not evidence.
+* **[void]** — a gate arm that closed (`frac_gate_closed` above threshold), or a
+  test whose kill condition was applied to a regime the design could not reach.
+  Not "worse"; not informative.
 
 Status as of 2026-09-01: the model has now been fitted to public observations
 under the full protocol (EXP05). Its **pre-registered criteria failed 3 of 4**, and
