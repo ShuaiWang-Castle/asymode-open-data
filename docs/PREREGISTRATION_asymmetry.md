@@ -33,6 +33,9 @@ rate proxies county infrastructure fragility and modulates how damage occurs;
 level is present backlog and modulates where restoration resumes.
 
 **H-C — A gate on the interruption rate wants less input, not more.**
+*(Design refined before running — see H-C.1–H-C.3 in
+`PREREGISTRATION_external_priors.md`: every gate arm must carry at least one
+time-varying input, and width is separated from overlap.)*
 If the interruption rate is written as a gated pulse plus an always-on background
 term rather than a single bounded sigmoid, the gate performs better when it reads
 county identity and hazard composites but **not** raw weather and **not** the

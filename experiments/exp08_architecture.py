@@ -75,10 +75,41 @@ INTERIM = ROOT / "data" / "interim"
 # nothing to do with the hypothesis, and under the registered wording that
 # outcome weakens H-A rather than strengthening it.
 FAMILIES: dict[str, tuple[str, ...]] = {
-    "hazard":  ("cape", "gust", "precip", "snowfall", "soil_moisture", "wind_speed"),
+    "hazard":  ("cape", "gust", "precip", "snowfall", "soil_moisture",
+                "u10", "v10", "wind_speed"),
     "ambient": ("cloud", "pressure", "rh", "t2m_c"),
     "clock":   ("clock_sin", "clock_cos"),
 }
+
+
+def check_families(names: list[str]) -> None:
+    """Every channel must belong to exactly one family.
+
+    A channel in no family is not neutral: an arm that names the families it
+    keeps drops it silently along with the family under test, so the ablation
+    removes more than it claims and the result is attributed to the wrong thing.
+    That is not hypothetical -- the wind components arrived in a driver rebuild,
+    landed in no family, and turned an ablation billed as "remove ambient
+    meteorology" into "remove ambient meteorology and two wind channels". The
+    contaminated run reversed the sign of the finding.
+
+    So this raises rather than warns. A blocked run is cheap; a mis-scoped
+    ablation that looks like a result is not.
+    """
+    claimed: dict[str, list[str]] = {}
+    for fam, chans in FAMILIES.items():
+        for c in chans:
+            claimed.setdefault(c, []).append(fam)
+    orphan = [c for c in names if c not in claimed]
+    dupes = {c: f for c, f in claimed.items() if len(f) > 1}
+    missing = [c for c in claimed if c not in names]
+    if orphan or dupes or missing:
+        raise SystemExit(
+            "channel families do not partition the driver block:\n"
+            + (f"  in no family: {orphan}\n" if orphan else "")
+            + (f"  in more than one: {dupes}\n" if dupes else "")
+            + (f"  named by a family but absent from the drivers: {missing}\n" if missing else "")
+            + "  assign every channel before running an input ablation.")
 
 
 @dataclass(frozen=True)
@@ -347,6 +378,7 @@ def main() -> None:
     X = add_context(X, y0, a.horizon)
     names = panelset.channel_names(INTERIM)
     assert len(names) == X.shape[-1], (len(names), X.shape[-1])
+    check_families(names)
 
     panels = sorted(set(panel.tolist()))
     print(f"pooled samples {len(y0):,} over {len(panels)} panels [{digest}], "
