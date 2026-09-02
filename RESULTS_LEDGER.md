@@ -722,6 +722,24 @@ covariate-to-target map dominates (long horizons) to a regressor that can fit
 that map freely. It is consistent with EXP05: the dynamics beat *statistical*
 baselines at long horizons; against a *learned* baseline that advantage is gone.
 
+**A registered prediction that this result fulfils.** D-2 (registered 20:29,
+run 20:32) states, from the sender's generic prior: *where the rank ceiling is
+low, the MSE-optimal answer is each county's level, and a model with dynamics is
+pushed toward a constant and loses to level estimators such as trees.* The
+ceiling is low at h+24 and h+48 (0.34, 0.29) and moderate at h+6 (0.54); the
+trees win at exactly those horizons and lose at h+1, where the ceiling is
+trivially high and the state dominates. The direction of this result was on
+record 44 minutes before the result existed. That does not soften it — it says
+the loss is structural to the metric-and-horizon combination, not an accident —
+but it means the paper can present the horizon split as *predicted*, not as
+discovered after the fact.
+
+*Correction to my own D-2 entry.* There I wrote that the dynamics winning at
+long horizons against statistical baselines suggested "the bounded,
+mean-reverting state equation is itself a good level estimator." EXP07 shows a
+tree is a *better* one. The dynamics are a better level estimator than
+persistence; not than a learned regressor. That reading is withdrawn.
+
 **What was on record before this result landed (21:16):** per-horizon reporting
 (registered 20:29–20:32, D-2) and the note from the first evening that RMSE is a
 poor headline metric for this zero-dominated target. **No alternative metric was
@@ -775,7 +793,8 @@ Two consequences, one expected and one not:
   state equation is itself a good level estimator, while persistence overshoots
   and the unbounded forms cannot shrink. **Testable:** decompose RMSE per
   horizon into a level term and a ranking term. Registered as D-2's follow-up,
-  not run.
+  not run. *(Superseded in part by EXP07: against a learned baseline the
+  dynamics lose at exactly these horizons — see the correction there.)*
 
 Half of all targets are exactly zero at every horizon (p50 0.46–0.51), which is
 the same fact seen from the target side.
