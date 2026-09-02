@@ -66,7 +66,13 @@ Written at a deliberate pause. Nothing below is a result; results live in
   clip). **Two commits landed before the self-test passed** — one masked by a
   shell exit-code mistake, one by misreading a low-SNR fixture's large headroom
   as a code fault. Rule: a self-test's exit code is captured directly, never
-  through a pipe.
+  through a pipe. **Two further instances the same evening:** a verification
+  loop that passed its arguments wrongly (every script exited 2 from argparse
+  before executing) was read as a pass, and a `str.replace` that silently
+  failed to match left a JSON key unrenamed. Mechanical fixes adopted: every
+  scripted `replace` asserts its anchor exists; one `ALL` flag aggregates every
+  check and gates the commit; commands in verification are written out
+  explicitly, never assembled with `set --` / `${@:n}`.
   *Reading note for the real run:* the target has median ≈ 0 and ~46% exact
   zeros, so at long horizons the predictor sits in the low-SNR regime; λ* > 1
   with non-trivial headroom there is the registered "shrinkage is MSE-optimal"
