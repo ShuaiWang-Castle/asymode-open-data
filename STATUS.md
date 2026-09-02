@@ -91,6 +91,17 @@ Written at a deliberate pause. Nothing below is a result; results live in
 * ERA5 `2024-09-27` (Helene) — last of 26; completion watcher armed.
 * NET arm implementation — experiment lane.
 
+## Standing checks (executable, not remembered)
+
+* `scripts/check_imports.py` — every experiment module must import; run after
+  any change to `src/asymode/*` or `experiments/exp05_*`.
+* `scripts/check_comparable.py` — two result files are comparable only if their
+  panel and channel digests match.
+* `check_families()` inside `exp08_architecture.py` — the family map must
+  exactly partition the driver block, or the run refuses to start.
+* `scripts/build_panel_manifest.py` — pins the sample set and writes a versioned
+  copy under `configs/`.
+
 ## Next actions, in order, when work resumes
 
 1. Confirm Helene landed; rebuild its drivers; build `g3` manifest (all 26).
