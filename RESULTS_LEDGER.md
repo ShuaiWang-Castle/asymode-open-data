@@ -566,6 +566,83 @@ This measures the leverage the *data* offers. It explains why a capacity
 asymmetry might be warranted; it does not test H-D, which is decided by the kill
 condition alone.
 
+## EXP08 on g2 — the designated run. Review.
+
+Source: `results/exp08_architecture.json` · manifest `g2-convective-11`
+(panels `76a73ed794af`, channels `dec964873cb2`: 12 drivers incl. wind components
++ 2 clock) · 9 arms x 5 county-held-out folds x 3 seeds = 135 fits · county-held-out
+inner split for early stopping · 22,768 samples, 1,566 counties.
+
+g1 (12 panels, 10 channels, row-split early stopping) is superseded. Where the two
+runs disagree, **g2 is the one that counts** — that was the stated purpose of the
+manifest mechanism — and the disagreement is recorded rather than smoothed over.
+
+Paired against `control`, negative = variant better:
+
+| arm | h+1 | h+6 | h+24 | h+48 |
+|---|---|---|---|---|
+| cap_both_glm | −1.4% (11/15) | +0.3% (7/15) | **+3.7% (0/15, t=+4.7)** | **+4.8% (0/15, t=+5.8)** |
+| cap_r_glm | +0.3% (7/15) | +0.8% (6/15) | +0.8% (6/15) | +1.0% (3/15, t=+2.3) |
+| cap_u_glm | +2.0% (3/15) | +1.0% (3/15) | +1.6% (2/15, t=+4.3) | +1.6% (4/15, t=+3.6) |
+| in_ambient_u_only | −0.2% (9/15) | +0.5% (7/15) | +0.9% (3/15) | +1.1% (2/15) |
+| in_ambient_r_only | +0.3% (6/15) | +1.1% (4/15) | +1.1% (2/15) | +1.1% (4/15) |
+| in_ambient_none | −0.8% (10/15) | +0.8% (5/15) | **+2.3% (1/15, t=+5.1)** | **+2.4% (2/15, t=+4.2)** |
+| gate_clock | −0.2% (11/15) | +0.7% (4/15) | −0.1% (9/15) | −0.1% (10/15) |
+| gate_all | +0.5% (7/15) | +1.1% (4/15) | +0.0% (8/15) | +0.1% (8/15) |
+
+### H-D — DEAD on g2 as well. Consistent with g1.
+
+`cap_r_glm` is worse at h+48 (+1.0%, 12/15 folds worse). The registered condition
+was "no worse". Dead twice, on two sample sets. The mirror shows cutting U costs
+more than cutting R (1.6% vs 1.0% at h+48) — a magnitude difference, not a sign
+flip, and it does not count.
+
+**Capacity is doing work — [B], stronger than on g1.** Both sides reduced to GLMs:
++3.7% at h+24 and +4.8% at h+48, **0/15 folds better**. The model is not
+over-parameterised. This is the most initialisation-robust result in the run.
+
+### H-A3 — CONFIRMED on g2. This reverses the void recorded above.
+
+On g1 the ambient family had no signal on either side and I voided the hypothesis,
+saying a family with no signal cannot serve as a control. **That adjudication was
+made on a run already marked superseded, which I should not have done.** On g2
+the same family, unchanged, behaves exactly as the registered negative case
+requires:
+
+* removing it from the interruption side hurts (+0.9% / +1.1%)
+* removing it from the restoration side hurts by about the same (+1.1% / +1.1%)
+* removing it from both hurts by roughly the sum (+2.3% / +2.4%, 1/15 and 2/15)
+
+Both sides use it, neither side dominates, and the effects add. **The negative
+control works.** The selectivity claim in H-A has its control back.
+
+What changed between runs is not the family; it is the rest of the input (wind
+components added) and the early-stopping split (county-held-out). A plausible
+reading is that with row-split early stopping the fit was selecting on
+within-county idiosyncrasy and ambient's cross-county signal was drowned; that is
+a hypothesis, not a finding, and is noted only so it can be tested.
+
+**Disposition:** H-A3 is **confirmed, [B]** (5 folds x 3 seeds, both removals
+consistent in sign, additive). H-A3' (the precipitation + wind-speed replacement
+registered when H-A3 looked void) is **retained as a second control, not run yet**
+— two controls are better than one, and it was registered before this result was
+seen. The void entry in `docs/PREREGISTRATION_asymmetry.md` is amended to say it
+applied to g1 only.
+
+### H-C pilot — machine validated, no effect at these widths. [C]
+
+`gate_sd` = 0.160 across inputs: the gate **varies with input**, so it is active,
+not inert (the level itself is unidentifiable, as recorded). `frac_gate_closed`
+= 0.0002, no void. Effect on error |Δ| ≤ 1.1% at both widths (2 and 12). The
+gate can be trained and does not collapse; whether width matters is untested
+until the registered covariates (hazard composites, statics) are wired in.
+
+### Initialisation residual — [A]
+
+`init_u_mean` spans 7.00e-4 to 1.29e-3 across arms, **1.84x** (was 1.62x on g1).
+Effects of about 1% sit against this and should not be read as structural. The
+0/15 and 1/15 results above are the ones robust to it.
+
 ## Pre-registered but not yet run — asymmetry hypotheses
 
 `docs/PREREGISTRATION_asymmetry.md`, written before any of the feature families

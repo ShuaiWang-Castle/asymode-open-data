@@ -56,8 +56,13 @@ this panel, and reported whatever they say.
 * H-A3 is confirmed only if the family helps on both sides. If it is asymmetric
   too, H-A is weakened, not strengthened, and that must be said.
 
-  **H-A3 as originally written is VOID, and the reason is a defect in this
-  registration rather than a result.** The family chosen for it -- ambient fields
+  **H-A3 was voided on manifest g1 and is CONFIRMED on manifest g2** (see
+  `RESULTS_LEDGER.md`, EXP08 on g2). The void below was recorded on a superseded
+  run and stands only as history. The amendment that follows it — H-A3', a second
+  control family — is retained because it was registered before the g2 result was
+  seen, and two controls are stronger than one.
+
+  *Original void entry, g1 only:* The family chosen for it -- ambient fields
   outside the core hazard set -- turned out to carry no signal on *either* rate on
   the convective panels: all three removals moved the error by less than 0.8%,
   with win counts near chance. A family with no signal is symmetric trivially, so
