@@ -8,7 +8,7 @@ Accumulated variables need care. ERA5 reports them as a total over the preceding
 hour, so they are already a rate per hour and are used as such -- but they are
 NOT differenced, and treating them as running totals would be wrong.
 """
-import argparse, io, sys, zipfile
+import argparse, io, re, sys, zipfile
 from pathlib import Path
 
 import numpy as np
@@ -47,10 +47,17 @@ def main():
     files = sorted(RAW.glob("era5_*.nc"))
     if not files:
         sys.exit("no ERA5 windows downloaded yet")
-    print(f"{len(files)} ERA5 windows, weight table {len(w):,} pairs")
-
+    # A window that crossed a month boundary is fetched as several archives,
+    # `era5_<day>.m0.nc`, `era5_<day>.m1.nc`, ...  Group every archive by its
+    # storm day so the pieces are merged into one window rather than mistaken
+    # for windows of their own.
+    by_day = {}
     for f in files:
-        day = f.stem.replace("era5_", "")
+        day = re.sub(r"\.m\d+$", "", f.stem.replace("era5_", ""))
+        by_day.setdefault(day, []).append(f)
+    print(f"{len(files)} ERA5 archives -> {len(by_day)} windows, weight table {len(w):,} pairs")
+
+    for day, pieces in sorted(by_day.items()):
         panel_f = INTERIM / f"panel_{day}.npz"
         dst = INTERIM / f"drivers_{day}.npz"
         if not panel_f.exists():
@@ -58,7 +65,10 @@ def main():
         if dst.exists() and not a.force:
             print(f"  {day}: exists, skipped"); continue
 
-        ds = load_window(f)
+        import xarray as xr
+        ds = (load_window(pieces[0]) if len(pieces) == 1
+              else xr.concat([load_window(pc) for pc in pieces], dim="valid_time")
+                     .sortby("valid_time"))
         ch = derive_channels(ds)
         names = sorted(ch)
         times = pd.to_datetime(ds["valid_time"].values)
