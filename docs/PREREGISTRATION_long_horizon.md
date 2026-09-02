@@ -112,9 +112,17 @@ re-read as county-event noise; otherwise the family-level statement stands.
 400 epochs / patience 40 on tropical and winter, all 3 seeds. Interpretation as
 in the amended H-E registration. Turns the h+24 row [B] or leaves it [C].
 
+## E8 — the lean architecture (H-H in `PREREGISTRATION_external_priors.md`)
+
+One shared trunk with two rate heads (parameter count ≤ control), plus the
+noisy-OR event gate on U; the small-magnitude pathway and the persistence gate
+are added only once their mechanism is defined by the PI in public terms.
+Interpretation as fixed in H-H. Runs before E1, because E1's memory inputs go
+on whichever base architecture E8 selects.
+
 ## Order, cost, calendar
 
-E4 (½ day) → E1 with uncapped trees (1 day compute, 1 day analysis) → E2
+E4 (½ day) → E8 lean architecture (1 day) → E1 on the selected base with uncapped trees (1 day compute, 1 day analysis) → E2
 (½ day) → E6 (hours) → E7 (1 day) → E5 (2 days) → E3 only if triggered
 (2 days). Abstract 2026-09-29, paper 2026-10-06, theory freeze 2026-09-15.
 E1's outcome is the one that can change the headline; the framing decision is

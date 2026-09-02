@@ -4,7 +4,7 @@
 Venue fit and literature to cite: `docs/AISTATS_FIT.md` (2026-09-02).
 Theory plan (propositions, registered checks D-6/S-2): `docs/THEORY_PLAN.md` (2026-09-02).
 Paper draft v0.1 (mechanism-led framing, every number graded): `paper/DRAFT.md` (2026-09-02).
-Registered, not run — is the long-horizon loss an experimental insufficiency? E1–E7 with fixed interpretations: `docs/PREREGISTRATION_long_horizon.md` (2026-09-02). Framing decision deferred to E1.
+Registered, not run — is the long-horizon loss an experimental insufficiency? E1–E7 with fixed interpretations: `docs/PREREGISTRATION_long_horizon.md` (2026-09-02). Framing decision deferred to E1. H-H (lean architecture prior from the PI, directional, no numbers) registered; components 3–4 await a public-terms definition.
 its ledger path, and what it supports; the framing decision rests on it.
 
 Written at a deliberate pause. Nothing below is a result; results live in

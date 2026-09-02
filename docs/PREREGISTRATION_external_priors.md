@@ -127,6 +127,52 @@ unless H-G survives.
 
 ---
 
+## H-H — a leaner rate architecture: one trunk, two rate heads, three gates. [directional]
+
+Received from the PI on 2026-09-02, verbally, as an architectural preference
+formed on the related non-public dataset. Recorded here with **every number and
+every model name removed**; what crosses is the mechanism only.
+
+*The prior.* A rate architecture built from **one** network rather than two
+parallel ones, with four components that each carry an independent mechanism:
+(1) a single trunk producing the rate logits; (2) an event gate on the
+interruption rate (already registered as H-C, noisy-OR form, `GatedRate`);
+(3) a **small-magnitude pathway** — a component dedicated to the low-range
+regime of the target; (4) a **persistence gate** — a component that decides
+how much of the current state carries forward. The sender's stated reason is
+parsimony and narrative cleanliness: fewer parameters, no component that
+amounts to averaging two interchangeable networks.
+
+*What it cannot mean here, stated now.* This project's two rate networks are
+not interchangeable and are not averaged: one is the interruption rate acting
+on (1 − y), the other the restoration rate acting on y, and their separation is
+the paper's subject (Prop. 1–2; H-E). "One network" therefore translates to
+**one shared trunk with two rate heads** (logit_U, logit_R from the same hidden
+layer), which halves the parameter count and keeps the two rates. It does not
+translate to one signed rate — that arm exists (`net_scaled`), loses at h+48
+(+2.0%, 12/15) and reverses by family, and re-running it under a new name
+would establish nothing.
+
+*Components (3) and (4) are not yet defined in public terms.* Their mechanism
+must be stated by the PI (or sent through the controlled channel, model-level
+only) before they are implemented; nothing is guessed. Candidate readings,
+listed so the eventual definition can be matched against them rather than
+invented after the fact: a separate low-range output branch active near y ≈ 0
+(small-magnitude pathway); a learned convex combination between the rollout
+step and the carried-forward state, or a gate on the restoration term
+(persistence gate).
+
+*Fixed interpretation.* The lean architecture becomes the main model **only
+if**, on g2 under the full protocol: (a) it is not worse than the two-rate
+control at any horizon by the sign gate (no horizon with ≥ 12/15 units worse)
+and better at ≥ 1 horizon by ≥ 12/15; (b) its parameter count is at most the
+control's; (c) on g3 it reproduces the H-E pattern against its own
+parameter-matched single-rate counterpart (tropical advantage, winter
+reversal) — if the winter reversal disappears, the mechanism claim is
+withdrawn, not the model adopted. Otherwise the two-rate control stays the
+main model and the lean variant is reported as an ablation. **The paper's
+provenance statement must say the direction was suggested.**
+
 ## Methodological practices adopted. [generic]
 
 Not hypotheses. Recorded so they are applied consistently.
