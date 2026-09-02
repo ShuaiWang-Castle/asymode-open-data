@@ -201,6 +201,14 @@ H-E2 survives — the negative control behaves as one. Caveat: many units hit th
 with export (running) → D-4 on the trees → family convergence probe → decisive
 H-A3 rerun.
 
+## Pinning a run to an older panel set
+
+The live manifest is now `g3-all-26`. To rerun anything on g2, pass
+`--panels configs/panel_manifest_g2-convective-11.json` — `panels.resolve`
+reads any JSON with a `panels` key. `--panels` takes one value; a space list is
+rejected. exp07 with `--save-oof` is running pinned this way so D-4 can compare
+the trees to the two-rate OOF on identical samples.
+
 ## Waiting on
 * ~~Per-horizon two-rate fits~~ — done, [B]: closes h+6 fully, not h+24/48;
   the long-horizon gap is structural (EXP10).
