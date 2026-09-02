@@ -196,8 +196,8 @@ must write its JSON before a full run is launched. Relaunched.
 
 Two-rate vs parameter-matched single rate by family (h+48): tropical −5.1%
 (14/15), convective −2.0%, wind ≈ 0, **winter +2.8% (5/15)**. H-E1 passes,
-H-E2 survives — the negative control behaves as one. Caveat: many units hit the
-60-epoch cap; a family convergence probe is registered. **Queue:** exp07 on g2
+H-E2 survives — the negative control behaves as one. Convergence probe (400/40, 0/10 at cap): winter +4.3% (0/5), tropical
+−3.5% at h+48 but −1.7% at h+24 → **[B] at h+48, [C] at h+24.** **Queue:** exp07 on g2
 with export (running) → D-4 on the trees → family convergence probe → decisive
 H-A3 rerun.
 

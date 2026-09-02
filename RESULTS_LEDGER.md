@@ -870,16 +870,31 @@ consistently; the sign gates here (15/15 vs 5/15) are far from their margins.
 Magnitudes may move; the ordering and the winter sign are not expected to. A
 family-level convergence probe is registered below.
 
-**Grade: [B].** 5 county-held-out folds x 3 seeds per family, both hypotheses
-adjudicated as written before the run, kill condition not met, comparator
-parameter-matched, no degenerate arm. Magnitudes to be re-read after the
-convergence probe.
+**Grade: [B] at h+48; [C] at h+24** — see the convergence probe below. 5
+county-held-out folds x 3 seeds per family, both hypotheses adjudicated as
+written before the run, kill condition not met, comparator parameter-matched,
+no degenerate arm.
 
-*Registered, not run — family convergence probe:* refit `susceptible` and
-`net_scaled` on tropical and winter, seed 0, with the cap raised to 400 /
-patience 40. Interpretation fixed: if the tropical advantage stays ≥ 3% and the
-winter sign stays positive, the [B] stands with revised magnitudes; if either
-flips, H-E is regraded [C] and the run repeated at the higher budget.
+*Family convergence probe — run.* `results/exp06_convergence_probe.json`,
+fingerprint `a3d6849` clean, `susceptible` and `net_scaled` on tropical and
+winter, seed 0, 5 folds, cap 400 / patience 40. **0/10 fits hit the cap**
+(epochs 64–388 on tropical, 44–129 on winter), confirming the 60-epoch runs
+above were budget-limited. At full convergence, two-rate vs `net_scaled`:
+
+| family | h+24 | h+48 |
+|---|---|---|
+| tropical | −1.71% 4/5 | **−3.45% 4/5** |
+| winter | **+4.18% 0/5** | **+4.34% 0/5** |
+
+Against the interpretation fixed before it ran: the winter sign stays
+positive — and *grows* (+2.8% → +4.3%): the negative control becomes more
+negative when fully trained, which strengthens H-E2. The tropical advantage
+stays ≥ 3% at h+48 (−3.45%) but shrinks to −1.7% at h+24. Neither sign flips,
+so the "[C] and rerun" clause is not triggered; the "≥ 3%" clause fails at
+h+24 only. **Disposition: the [B] stands at h+48 with magnitudes read from
+this probe (tropical ≈ −3.5%, winter ≈ +4.3%); h+24 is graded [C].** The
+probe is seed 0 only and is not itself a protocol result; the protocol result
+is the 3-seed run above, whose signs it confirms.
 
 ## EXP05 on g2 — the structural ladder with out-of-fold export. [B] per rung
 
