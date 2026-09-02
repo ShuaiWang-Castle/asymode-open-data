@@ -57,11 +57,14 @@ Three routes to a county denominator, in preference order:
    state-level customers across the counties it serves needs an assumption of its
    own. Best kept as a robustness check against route 1.
 
-**Currently in use:** a *provisional* denominator, state `total_customers` from
-`coverage_history.csv` apportioned to counties by 2020 population share. It is
-labelled `provisional_state_pop_share` in every artifact so the caveat cannot be
-separated from the number. It exists to make the pipeline runnable end to end,
-not to support a claim.
+**Resolved — route 1 is in use.** `data/interim/eaglei_county_customers_2024.parquet`
+(built by `scripts/ingest_eaglei.py`): the publisher's own modelled per-county
+totals from the 2024 release — 3,059 counties, constant within the year for
+99.9% of them, median 16,995 customers, range 5 to 3,799,750. Every graded
+number rests on it. The provisional population-share stand-in used while the
+pipeline was being built was off by a median ratio of 1.17, a typical 23%, and
+by more than 2x in 8.3% of counties; it is retained only in the ledger's record
+of the comparison (`RESULTS_LEDGER.md`, "Denominator — resolved").
 
 ### Coverage
 
@@ -85,17 +88,23 @@ observation mask: a timestamp counts as a collection run if any county reports a
 it, a county counts as in service on a day if it reports within a week either
 side, and only a cell that is missing while both hold is filled with zero.
 Everything else stays missing and is excluded from every loss and metric rather
-than imputed. On the eight storm windows built so far the mask marks 95.3-99.8%
-of cells observed.
+than imputed. On the first eight storm windows built the mask marks 95.3-99.8% of cells
+observed; 26 windows are built in total (manifest `g3-all-26`).
 
 ## Drivers -- weather
 
-ERA5 reanalysis (Copernicus CDS) or NOAA URMA. County aggregation is either
-area-weighted or population-weighted; **pick one and state it**. Population
-weighting is the better default here because outages are counted per customer,
-not per unit area, but it must be a declared choice, not an implicit one.
-
-Blocked on a Copernicus CDS account -- see `docs/ACCESS_TODO.md`.
+ERA5 single-levels (Copernicus CDS, `cdsapi`), CONUS at 0.25°, hourly, one
+request per calendar month per storm window (`scripts/fetch_era5.py`), 26/26
+windows acquired. Eleven raw fields (u10, v10, i10fg, t2m, d2m, cape, swvl1,
+tcc, sp, tp, sf) are **area-weighted** onto counties with
+`scripts/build_county_weights.py` (Census cb_2023 county shapes against the
+ERA5 grid) and derived into the driver channels in `src/asymode/weather.py`:
+gust, wind speed, u10/v10, 2-m temperature in °C, relative humidity from dew
+point, CAPE, surface pressure, cloud, soil moisture, precipitation in mm,
+snowfall, plus a diurnal clock — the 14-channel block whose digest
+(`dec964873cb2`) every result file carries. Area weighting is the declared
+choice: it is the one implemented, and population weighting remains an
+untested alternative.
 
 ## Coverage gaps that are not obvious from the labels
 
@@ -162,7 +171,12 @@ Two findings that change how selection has to work:
 | utility service territory, SAIDI/SAIFI | EIA Form 861 |
 | forest / canopy share | USDA FS FIA EVALIDator API, over Census land area |
 
-Downloaded so far: Census adjacency, Census Gazetteer.
+Built (`scripts/build_county_statics.py`): Census Gazetteer (area, centroid),
+Census adjacency (neighbour degree), USDA RUCC 2023, EIA-861 2023 service
+territory, sales and SAIDI/SAIFI, and the EAGLE-I 2024 customer totals. Forest
+canopy share is listed as a source and has not been pulled. No static enters
+any result in the current draft; they exist for the registered input-asymmetry
+hypotheses.
 
 ## Explicitly excluded
 
