@@ -29,6 +29,16 @@ not counted, so the truth's S1 is 0 by construction; the comparison is arm vs
 rollout) is "not a trajectory" in a measured sense; otherwise that framing is
 unavailable and the paper does not use it.
 
+DEPENDENCE BETWEEN FORECASTS, STATED SO NO ONE ATTACHES A TEST TO THE WRONG UNIT:
+with a 48-hour horizon and a 12-hour origin stride, consecutive forecasts in one
+storm share 36 of 48 target hours. The forecasts are therefore not independent
+units -- the effective number of independent units is closer to the number of
+panels than to the number of forecasts. This script reports point estimates
+only. Any uncertainty statement must be block-resampled by PANEL; per-forecast
+standard errors would be badly understated and are not computed here. (The
+paired t statistics elsewhere in this project use (seed, fold) as the unit,
+which is the protocol unit and unaffected.)
+
 INPUT: the agreed `results/oof_<arm>.npz` layout (audited as in D-3).
 """
 import argparse, json, sys

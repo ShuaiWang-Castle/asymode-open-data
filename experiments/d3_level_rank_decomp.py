@@ -32,6 +32,16 @@ each origin -- is by construction a per-origin quantity and is averaged over
 origins with equal weight. It is labelled as such and is bounded above by the
 D-2 ceiling, so it is never read on its own.
 
+DEPENDENCE BETWEEN FORECASTS, STATED SO NO ONE ATTACHES A TEST TO THE WRONG UNIT:
+with a 48-hour horizon and a 12-hour origin stride, consecutive forecasts in one
+storm share 36 of 48 target hours. The forecasts are therefore not independent
+units -- the effective number of independent units is closer to the number of
+panels than to the number of forecasts. This script reports point estimates
+only. Any uncertainty statement must be block-resampled by PANEL; per-forecast
+standard errors would be badly understated and are not computed here. (The
+paired t statistics elsewhere in this project use (seed, fold) as the unit,
+which is the protocol unit and unaffected.)
+
 INPUT LAYOUT (the experiment lane's out-of-fold export, `results/oof_<arm>.npz`):
 
     pred        [n_seeds, n_samples, n_horizons]  float32  each sample predicted by the fold that held it out
@@ -94,16 +104,25 @@ def audit(z, k: int) -> None:
             sys.exit(f"seed {seed}: {mism} samples whose fold_of disagrees with make_folds")
 
 
-def decompose_one(pred, y, mask, origin_id):
-    """One (seed, horizon). Returns per-cell-weighted level/within MSE and per-origin mean rho."""
-    lev_sum = within_sum = 0.0; n_cells = 0; rhos = []
+def decompose_one(pred, y, mask, origin_id, panel=None):
+    """One (seed, horizon). Returns per-cell-weighted level/within MSE and per-origin mean rho.
+
+    Also returns per-panel sums (level_sum, within_sum, n_cells) when `panel` is
+    given, so an uncertainty statement can be block-resampled by panel later
+    without recomputing anything.
+    """
+    lev_sum = within_sum = 0.0; n_cells = 0; rhos = []; per_panel = {}
     for o in np.unique(origin_id):
         sel = (origin_id == o) & mask
         n = int(sel.sum())
         if n < 20:
             continue
         e = pred[sel] - y[sel]; eb = e.mean()
-        lev_sum += n * eb * eb; within_sum += float(((e - eb) ** 2).sum()); n_cells += n
+        lv, wn = n * eb * eb, float(((e - eb) ** 2).sum())
+        lev_sum += lv; within_sum += wn; n_cells += n
+        if panel is not None:
+            pk = str(panel[sel][0]); acc = per_panel.setdefault(pk, [0.0, 0.0, 0])
+            acc[0] += lv; acc[1] += wn; acc[2] += n
         a, b = pred[sel], y[sel]
         rhos.append(0.0 if (a.std() < 1e-12 or b.std() < 1e-12)
                     else float(np.nan_to_num(spearmanr(a, b).correlation)))
@@ -111,7 +130,9 @@ def decompose_one(pred, y, mask, origin_id):
         return None
     return {"level_mse": lev_sum / n_cells, "within_mse": within_sum / n_cells,
             "total_mse": (lev_sum + within_sum) / n_cells,
-            "mean_rho_per_origin": float(np.mean(rhos)), "n_origins": len(rhos), "n_cells": n_cells}
+            "mean_rho_per_origin": float(np.mean(rhos)), "n_origins": len(rhos), "n_cells": n_cells,
+            "per_panel": {k: {"level_sum": v[0], "within_sum": v[1], "n_cells": v[2]}
+                          for k, v in per_panel.items()}}
 
 
 def archived_mse(result_json: Path, arm: str, seed: int, h: int):
@@ -149,7 +170,8 @@ def main():
         for hi, h in enumerate(H):
             per_seed = []
             for si, seed in enumerate(seeds):
-                r = decompose_one(z["pred"][si, :, hi], y[:, hi], mask[:, hi], oid)
+                r = decompose_one(z["pred"][si, :, hi], y[:, hi], mask[:, hi], oid,
+                                  panel=z["panel"] if "panel" in z.files else None)
                 if r is None:
                     continue
                 ref = archived_mse(Path(a.result_json), arm, seed, h)
@@ -161,6 +183,7 @@ def main():
                 continue
             agg = {k: float(np.mean([r[k] for r in per_seed])) for k in
                    ("level_mse", "within_mse", "total_mse", "mean_rho_per_origin")}
+            agg["per_panel_by_seed"] = [r["per_panel"] for r in per_seed]
             agg["level_share"] = agg["level_mse"] / max(agg["total_mse"], 1e-18)
             agg["seeds"] = len(per_seed)
             rec = [r["reconciles"] for r in per_seed if r["reconciles"] is not None]
