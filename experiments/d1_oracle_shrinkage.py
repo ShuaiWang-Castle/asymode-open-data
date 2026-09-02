@@ -32,6 +32,10 @@ WEIGHTING: per scored cell, as in D-3, so MSE(pred) reconciles with the archived
 RMSE^2 and the two diagnostics share one unit.
 
 INPUT: the same `results/oof_<arm>.npz` layout as D-3 (audited the same way).
+`pred` must be the array that was SCORED -- for an arm whose head is unbounded
+and is clipped to [0, 1] at scoring time, export the clipped values. The
+reconciliation check enforces this: an export that does not reproduce the
+archived MSE fails.
 """
 import argparse, json, sys
 from pathlib import Path
@@ -46,10 +50,19 @@ LAMBDAS = np.round(np.concatenate([np.arange(0.30, 1.00, 0.05), np.arange(1.00, 
 
 
 def oracle(pred, y):
-    """Best (a, lambda) on these cells; returns lambda*, a*, mse_before, mse_after."""
-    p = np.clip(pred.astype(np.float64), 0, None); t = y.astype(np.float64)
-    base = float(np.mean((p - t) ** 2))
+    """Best (a, lambda) on these cells; returns lambda*, a*, mse_before, mse_after.
+
+    `base` is the MSE of the prediction EXACTLY AS SCORED -- no clipping, no
+    transform -- so it reconciles with the archive and the identity transform is
+    a genuine member of the candidate family. The power law needs a non-negative
+    input, so the clip lives inside the candidate only. (An earlier version
+    clipped before computing `base`; on a target near zero that clip is itself a
+    large MSE gain, and the "oracle" was mostly measuring it.)
+    """
+    raw = pred.astype(np.float64); t = y.astype(np.float64)
+    base = float(np.mean((raw - t) ** 2))
     best = (1.0, 1.0, base)
+    p = np.clip(raw, 0, None)
     for lam in LAMBDAS:
         q = p ** lam
         den = float(np.dot(q, q))
