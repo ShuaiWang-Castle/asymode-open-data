@@ -16,7 +16,7 @@ Written at a deliberate pause. Nothing below is a result; results live in
 
 ## Since the earlier snapshot
 
-* **Peer session identity.** The experiment lane is `dmda-d5` — the same session
+* **Peer session identity.** The experiment lane is the same session
   as before; this session's own address changed on `--resume`. Verified by
   details only the collaborator could know. It **reports to the PI directly**
   and will not accept a change to that from a peer; the PI must say so to it.
