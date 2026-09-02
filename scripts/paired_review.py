@@ -27,11 +27,30 @@ def load(path):
 
 
 def by_unit(rows, arm):
-    return {(r["seed"], r["fold"]): r for r in rows if r["arm"] == arm}
+    """Rows of one arm keyed by (seed, fold).
+
+    A result file may spread one unit over several rows -- one per horizon,
+    each carrying only its own `rmse_h{h}` key (the per-horizon control does
+    this). Rows sharing (seed, fold) are merged; a key present in two rows with
+    different values is a malformed file and is refused.
+    """
+    out = {}
+    for r in rows:
+        if r["arm"] != arm:
+            continue
+        k = (r["seed"], r["fold"]); u = out.setdefault(k, {})
+        for kk, v in r.items():
+            if kk in u and kk.startswith("rmse_h") and u[kk] != v:
+                sys.exit(f"unit {k} of arm '{arm}': conflicting {kk} across rows")
+            u.setdefault(kk, v)
+    return out
 
 
 def paired(A, B, h):
     ks = sorted(set(A) & set(B))
+    if not ks:
+        return None
+    ks = [k for k in ks if f"rmse_h{h}" in A[k] and f"rmse_h{h}" in B[k]]
     if not ks:
         return None
     d = np.array([A[k][f"rmse_h{h}"] - B[k][f"rmse_h{h}"] for k in ks], float)
