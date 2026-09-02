@@ -2,6 +2,7 @@
 
 **Start here if resuming:** `docs/EVIDENCE_SUMMARY.md` — every graded result,
 Venue fit and literature to cite: `docs/AISTATS_FIT.md` (2026-09-02).
+Theory plan (propositions, registered checks D-6/S-2): `docs/THEORY_PLAN.md` (2026-09-02).
 its ledger path, and what it supports; the framing decision rests on it.
 
 Written at a deliberate pause. Nothing below is a result; results live in
