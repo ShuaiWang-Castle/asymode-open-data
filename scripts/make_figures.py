@@ -131,5 +131,72 @@ def fig_onset_real():
     fig.tight_layout(); fig.savefig(FIG / "fig03_onset_real.png", dpi=200)
     print("figures/fig03_onset_real.png")
 
+
+
+def _paired(rows, a, b, h):
+    A = {(r["seed"], r["fold"]): r for r in rows if r["arm"] == a}
+    B = {(r["seed"], r["fold"]): r for r in rows if r["arm"] == b}
+    ks = sorted(set(A) & set(B))
+    d = np.array([A[k][f"rmse_h{h}"] - B[k][f"rmse_h{h}"] for k in ks])
+    ref = np.mean([B[k][f"rmse_h{h}"] for k in ks])
+    return 100 * d.mean() / ref, int((d < 0).sum()), len(ks)
+
+
+def fig_he_by_family():
+    """H-E: two-rate advantage over the parameter-matched single rate, by family."""
+    d = json.loads((ROOT / "results/exp06_by_family.json").read_text())["rows"]
+    probe = json.loads((ROOT / "results/exp06_convergence_probe.json").read_text())["rows"]
+    fams = ["tropical", "wind", "convective", "winter"]; ratio = {"tropical": 4.0, "wind": 2.1, "convective": 1.7, "winter": 1.0}
+    fig, ax = plt.subplots(1, 2, figsize=(10, 3.8), sharey=True)
+    for j, h in enumerate((24, 48)):
+        vals, wins = [], []
+        for f in fams:
+            fr = [r for r in d if r["family"] == f]
+            rel, w, n = _paired(fr, "susceptible", "net_scaled", h); vals.append(rel); wins.append(f"{w}/{n}")
+        cols = ["#c1121f" if v < 0 else "#7f7f7f" for v in vals]
+        ax[j].bar(range(4), vals, color=cols, width=0.6)
+        for i, (v, wt) in enumerate(zip(vals, wins)):
+            ax[j].text(i, v + (0.25 if v >= 0 else -0.25), wt, ha="center", va="bottom" if v >= 0 else "top", fontsize=8)
+        for i, f in enumerate(("tropical", "winter")):
+            fr = [r for r in probe if r["family"] == f]
+            if fr:
+                rel, w, n = _paired(fr, "susceptible", "net_scaled", h)
+                ax[j].plot([fams.index(f)], [rel], marker="D", color="k", ms=6, ls="none",
+                           label="converged probe (400 ep, seed 0)" if (j == 0 and i == 0) else None)
+        ax[j].axhline(0, color="k", lw=0.6)
+        ax[j].set_xticks(range(4)); ax[j].set_xticklabels([f"{f}\nfall/rise {ratio[f]:.1f}" for f in fams], fontsize=8)
+        ax[j].set_title(f"h+{h}: two-rate vs parameter-matched single rate", fontsize=10)
+        ax[j].spines[["top", "right"]].set_visible(False)
+    ax[0].set_ylabel("paired Δ RMSE (%)   negative = two-rate better")
+    ax[0].legend(frameon=False, fontsize=8, loc="lower left")
+    fig.suptitle("The two-rate advantage follows phase separation and reverses on winter", fontsize=11)
+    fig.tight_layout(); fig.savefig(FIG / "fig04_he_by_family.png", dpi=200); print("figures/fig04_he_by_family.png")
+
+
+def fig_per_horizon():
+    """Per horizon: who beats whom on the primary (convective, g2) study."""
+    e5 = json.loads((ROOT / "results/exp05_g2_sixarm.json").read_text())["rows"]
+    e7 = json.loads((ROOT / "results/exp07_g2_oof.json").read_text())["rows"]
+    e10 = json.loads((ROOT / "results/exp10_per_horizon.json").read_text())["rows"]
+    # merge per-horizon rows of exp10 into unit rows
+    u = {}
+    for r in e10:
+        k = (r["seed"], r["fold"]); u.setdefault(k, {"arm": "per_horizon", "seed": r["seed"], "fold": r["fold"]}).update({kk: v for kk, v in r.items() if kk.startswith("rmse_h")})
+    e10u = list(u.values())
+    ref = [r for r in e5 if r["arm"] == "susceptible"]
+    series = [("gradient boosting (same inputs)", e7, "trees_matched", "#003049"),
+              ("two-rate, one model per horizon", e10u, "per_horizon", "#2a9d8f"),
+              ("single signed rate, param-matched", e5, "net_scaled", "#7f7f7f"),
+              ("damped persistence", e5, "damped_persistence", "#cfcfcf")]
+    H = [1, 6, 24, 48]; fig, ax = plt.subplots(figsize=(8.5, 3.8)); w = 0.2
+    for i, (lab, rows, arm, col) in enumerate(series):
+        vals = [_paired(rows + ref, arm, "susceptible", h)[0] for h in H]
+        ax.bar(np.arange(4) + (i - 1.5) * w, vals, w, color=col, label=lab)
+    ax.axhline(0, color="k", lw=0.6); ax.set_xticks(range(4)); ax.set_xticklabels([f"h+{h}" for h in H])
+    ax.set_ylabel("paired Δ RMSE vs two-rate model (%)\nnegative = comparator better")
+    ax.set_title("Convective study: the two-rate model wins at 1 h and loses to a per-horizon regressor beyond", fontsize=10)
+    ax.legend(frameon=False, fontsize=8); ax.spines[["top", "right"]].set_visible(False)
+    fig.tight_layout(); fig.savefig(FIG / "fig05_per_horizon.png", dpi=200); print("figures/fig05_per_horizon.png")
+
 if __name__ == "__main__":
-    fig_identifiability(); fig_onset(); fig_onset_real()
+    fig_identifiability(); fig_onset(); fig_onset_real(); fig_he_by_family(); fig_per_horizon()
