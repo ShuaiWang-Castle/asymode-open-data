@@ -609,36 +609,60 @@ flip, and it does not count.
 +3.7% at h+24 and +4.8% at h+48, **0/15 folds better**. The model is not
 over-parameterised. This is the most initialisation-robust result in the run.
 
-### H-A3 on g2 — RETRACTED. Mis-scoped ablation, not a confirmation.
+### H-A3 on g2 — the [B] confirmation is retracted; the void is NOT reinstated. [C]
 
-An earlier version of this entry graded H-A3 **[B] confirmed** on g2. That grade
-is withdrawn. The experiment lane found, and I verified against git history, that
-`exp08_architecture.py`'s family map at the time g2 ran declared 12 channels
-while the g2 driver block carried 14: the wind components `u10` and `v10` I had
-added were in no family. The H-A3 arms are built by naming the families to
-*keep*, and everything unnamed is dropped — so "remove ambient" removed six
-channels, the four ambient fields **plus both wind components**. Wind components
-are uncontroversial damage drivers. An ablation that removes them will hurt both
-sides and add across sides, which is exactly what was seen and exactly what I
-misread as the negative control working.
+Sources: `results/exp08_architecture.json` (g2, ambient arms mis-scoped) and
+`results/exp08_ha3_retest.json` (same panels `76a73ed794af`, same channels
+`dec964873cb2`, same 15 units; `check_comparable` exit 0; family map verified to
+partition all 14 channels with `ambient = {cloud, pressure, rh, t2m_c}`).
 
-The clean test is g1: 12 channels, no wind components, removal equal to the
-ambient family. Its result was null (|Δ| < 0.8%, win counts near 8/15). **That
-null stands. H-A3's original void — a family with no signal cannot serve as a
-control — is reinstated.** H-A3' (precipitation + wind speed) remains the
-registered replacement. The three H-A3 arms are being rerun on g2 with the
-family map corrected; if they return null, the void is confirmed on both sample
-sets. If they show an effect, this retraction is itself wrong and will say so.
+**What was wrong with the first g2 entry.** The ablation arms are built by naming
+the families to keep; the two wind components I had added were in no family and
+were dropped along with ambient, so "remove ambient" removed six channels. The
+retest removes exactly four. Paired against the same `control`
+(positive = variant worse):
 
-Two things I got wrong in sequence: adjudicating on a superseded run, then
-reversing on a run whose ablation I had not checked channel-by-channel. **A
-review of an ablation begins with what it actually removed.** The experiment lane
-has added a hard gate (`check_families`) that refuses to run when the family map
-does not exactly partition the driver block; it would have caught this.
+| removal | h | mis-scoped (6 ch) | clean (4 ch) |
+|---|---|---|---|
+| from restoration | 24 | +0.89% 12/15 t=2.20 | +0.60% 10/15 t=1.78 |
+| from restoration | 48 | +1.14% 13/15 t=2.37 | **+1.12% 13/15 t=3.03** |
+| from interruption | 24 | +1.05% 13/15 t=2.99 | +0.47% 10/15 t=1.03 |
+| from interruption | 48 | +1.09% 11/15 t=2.49 | +0.84% 9/15 t=1.80 |
+| from both | 24 | +2.34% 14/15 t=5.12 | **+1.17% 12/15 t=2.73** |
+| from both | 48 | +2.38% 13/15 t=4.15 | **+1.19% 10/15 t=2.20** |
 
-My hypothesis that county-split early stopping explained the reversal is also
-withdrawn: that split was already in place for g1, so it cannot distinguish the
-two runs.
+**Half of the long-horizon effect was the wind components.** The [B] grade
+rested on the inflated numbers and stays retracted.
+
+**But the void is withdrawn too.** I wrote above that "the clean test is g1, its
+null stands, the void is reinstated." That inferred the retest's outcome before
+it ran — the same over-reach, in the opposite direction, as adjudicating on a
+superseded run. On the clean g2 ablation ambient **has signal**: both-removal
+hurts at h+24 and h+48 with t = 2.7 and 2.2.
+
+**Adjudication against the registered condition ("hurts both sides").**
+Removing from the restoration side clears the fold bar (13/15, t = 3.03 at
+h+48). Removing from the interruption side does not (9/15 and 10/15,
+t ≤ 1.80). Same sign on both sides; additive at h+24 (1.06% vs 1.17%), not at
+h+48 (1.96% vs 1.19% — the two sides use ambient redundantly). **Grade: [C].**
+Not confirmed as a symmetric control; not void. H-A3' (precipitation + wind
+speed) remains the registered second control.
+
+**An unexplained discrepancy, stated as such.** The g1 run (12 panels, 10
+drivers + clock) was *also* a clean four-channel ablation — its family map had
+no orphans — and it was null (|Δ| < 0.8%). The explanation I accepted for the
+g1→g2 reversal (contamination) is therefore wrong. Two candidates remain:
+the panel set (g1 includes `2024-01-09`), or the presence of the wind components
+in *both* arms changing ambient's marginal value. Neither is established.
+
+*Registered, not run:* rerun the three ambient arms on g1's 12-panel set with
+the 14-channel driver block. Null → the difference is the panel set; signal →
+it is the wind components. Interpretation fixed now so the outcome cannot be
+narrated after the fact.
+
+*Note:* the retest's config carries `source: None`; the fingerprint had not
+propagated to that entry point. Digests match, so comparability is established
+by the manifest; the rerun above must record the fingerprint.
 
 ### H-C pilot — machine validated, no effect at these widths. [C]
 

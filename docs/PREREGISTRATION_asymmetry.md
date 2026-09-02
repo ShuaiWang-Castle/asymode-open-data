@@ -75,10 +75,11 @@ the asymmetries this file registers. All four rungs are reported for every famil
 * H-A3 is confirmed only if the family helps on both sides. If it is asymmetric
   too, H-A is weakened, not strengthened, and that must be said.
 
-  **Status: VOID on g1 (clean ablation, null). The g2 "confirmation" was a
-  mis-scoped ablation and is retracted** (`RESULTS_LEDGER.md`, EXP08 on g2).
-  A corrected rerun of the g2 arms is pending. H-A3' below stands as the
-  replacement control.
+  **Status: [C].** Null on g1 (clean ablation). On g2 the first "confirmation"
+  was a mis-scoped ablation and is retracted; the clean g2 rerun shows signal on
+  both sides but the interruption side does not clear the fold bar. Neither
+  confirmed nor void. The g1/g2 difference is unexplained and a decisive rerun is
+  registered in `RESULTS_LEDGER.md`. H-A3' below stands as the second control.
 
   *Void entry:* The family chosen for it -- ambient fields
   outside the core hazard set -- turned out to carry no signal on *either* rate on
