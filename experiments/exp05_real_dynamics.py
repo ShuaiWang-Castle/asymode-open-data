@@ -200,6 +200,7 @@ def run_baseline(name, tr, te, data, args):
         out[f"rmse_h{h}"] = float(np.sqrt(np.mean(e ** 2))) if e.size else float("nan")
         out[f"n_h{h}"] = int(e.size)
     out["fitted_seed_eps"] = None
+    out["_test_pred"] = np.asarray(pred)[:, [h - 1 for h in args.horizons]].astype(np.float32)
     return out
 
 
@@ -264,7 +265,7 @@ def run_arm(arm, tr, te, data, args, seed, fips, fold_id):
     with torch.no_grad():
         ti = torch.tensor(te, dtype=torch.long)
         pred = model(Y0[ti], XX[ti]).numpy()
-    out = {}
+    out = {"_test_pred": pred[:, [h - 1 for h in args.horizons]].astype(np.float32)}   # scored as-is
     for h in args.horizons:
         e = (pred[:, h - 1] - yt[te][:, h - 1])[m[te][:, h - 1]]
         out[f"rmse_h{h}"] = float(np.sqrt(np.mean(e ** 2))) if e.size else float("nan")
@@ -297,6 +298,35 @@ def run_arm(arm, tr, te, data, args, seed, fips, fold_id):
     return out
 
 
+def _stash(oof, name, seed, fold, te, pred_te, n, seeds, n_h):
+    """Place one fold's held-out predictions into the per-arm OOF arrays."""
+    if name not in oof:
+        oof[name] = {"pred": np.full((len(seeds), n, n_h), np.nan, np.float32),
+                     "fold_of": np.full((len(seeds), n), -1, np.int8)}
+    si = list(seeds).index(seed)
+    oof[name]["pred"][si, te] = pred_te
+    oof[name]["fold_of"][si, te] = fold
+
+
+def _write_oof(oof, out_dir, yt, m, fips, panel, origin, origin_id, a, cfg):
+    """One npz per arm in the audited layout. Refuses a store with holes."""
+    H = [int(h) for h in a.horizons]
+    y = yt[:, [h - 1 for h in H]].astype(np.float32)
+    mask = m[:, [h - 1 for h in H]].astype(bool)
+    for name, st in oof.items():
+        if (st["fold_of"] < 0).any() or np.isnan(st["pred"]).any():
+            raise SystemExit(f"OOF store for '{name}' has samples never held out; refusing to write")
+        np.savez_compressed(out_dir / f"oof_{name}.npz", pred=st["pred"], fold_of=st["fold_of"],
+                            y=y, mask=mask, origin_id=origin_id.astype(np.int32),
+                            origin_step=np.asarray(origin, np.int32), fips=np.asarray(fips, str),
+                            panel=np.asarray(panel, str), horizons=np.array(H, np.int32),
+                            seeds=np.array(list(a.seeds), np.int32),
+                            panel_digest=str(cfg.get("digest") or cfg.get("panel_digest") or ""),
+                            channel_digest=str(cfg.get("channel_digest") or ""),
+                            source=str(cfg.get("source") or ""))
+        print(f"  oof_{name}.npz written", flush=True)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--horizon", type=int, default=48)
@@ -314,6 +344,8 @@ def main():
     ap.add_argument("--panels", default=None,
                     help="panel set: omit for the manifest, 'auto' to pool what "
                          "is on disk (exploration only), or a path to a JSON file")
+    ap.add_argument("--save-oof", action="store_true",
+                    help="also write oof_<arm>.npz next to --out, in the audited out-of-fold layout")
     ap.add_argument("--out", default="results/exp05_real_dynamics.json")
     a = ap.parse_args()
 
@@ -327,6 +359,11 @@ def main():
     print(f"observed targets: {m.mean()*100:.1f}%   mean y0 {y0.mean():.5f}")
 
     rows = []
+    # Out-of-fold store: each sample predicted once per seed by the fold that
+    # held it out. Written only with --save-oof, in the layout the diagnostics
+    # audit -- origin_id is a dense code of (panel, origin_step), never the step.
+    oof = {}
+    _, origin_id = np.unique(np.array([f"{p_}|{o_}" for p_, o_ in zip(panel, origin)]), return_inverse=True)
     for seed in a.seeds:
         fold = make_folds(sorted(set(fips)), k=a.k, seed=seed)
         fmap = {f: fo for f, fo in zip(sorted(set(fips)), fold)}
@@ -335,11 +372,13 @@ def main():
             te = np.where(assign == f)[0]; tr = np.where(assign != f)[0]
             for b in BASELINES:
                 r = run_baseline(b, tr, te, (y0, X, yt, m), a)
+                _stash(oof, b, seed, f, te, r.pop("_test_pred"), len(y0), a.seeds, len(a.horizons))
                 rows.append({"arm": b, "seed": seed, "fold": f,
                              "n_test": len(te), "wall_s": 0.0, **r})
             for arm in ARMS:
                 t0 = time.time()
                 r = run_arm(arm, tr, te, (y0, X, yt, m), a, seed, fips, f)
+                _stash(oof, arm.name, seed, f, te, r.pop("_test_pred"), len(y0), a.seeds, len(a.horizons))
                 wall = round(time.time() - t0, 1)
                 rows.append({"arm": arm.name, "seed": seed, "fold": f,
                              "inflow": arm.inflow.value,
@@ -355,7 +394,11 @@ def main():
     cfg["channels"] = panelset.channel_names(INTERIM)
     cfg["channel_digest"] = panelset.channel_digest(cfg["channels"])
     cfg["source"] = panelset.source_version(ROOT)
+    for r in rows:
+        r.pop("_test_pred", None)
     out.write_text(json.dumps({"config": cfg, "rows": rows}, indent=2))
+    if a.save_oof:
+        _write_oof(oof, out.parent, yt, m, fips, panel, origin, origin_id, a, cfg)
 
     print(f"\n=== pooled over {a.k} folds x {len(a.seeds)} seeds ===")
     print(f"{'arm':<22}" + "".join(f"{'RMSE h+'+str(h):>19}" for h in a.horizons))

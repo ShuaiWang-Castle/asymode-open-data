@@ -147,6 +147,15 @@ epochs, 0/5 at cap, net change ≈ 0). **EXP07 graded [B] for the ordering.** Pe
 framing decision (narrow the claim / change metric / accept the negative) is
 the PI's; no alternative metric was ever registered.
 
+## Experiment lane gone (second time tonight)
+
+Its socket died after exp10; an identity probe found only competition-side
+sessions. **All of its work is committed** (workspace clean). The OOF export it
+was to write (`--save-oof`) had not been started; this session implemented it
+in `exp05_real_dynamics.py` (`--save-oof`), smoke-verified it against the OOF
+audit and the archive reconciliation, and runs the six-arm g2 export itself. The decisive H-A3 rerun, Helene drivers, g3 and exp06 remain
+unowned until a session is assigned.
+
 ## Waiting on
 * ~~Per-horizon two-rate fits~~ — done, [B]: closes h+6 fully, not h+24/48;
   the long-horizon gap is structural (EXP10).
