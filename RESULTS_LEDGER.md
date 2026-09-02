@@ -660,6 +660,10 @@ the 14-channel driver block. Null â†’ the difference is the panel set; signal â†
 it is the wind components. Interpretation fixed now so the outcome cannot be
 narrated after the fact.
 
+*Side evidence:* the leverage/ESS figures were **bit-reproduced in the retest**
+(Kish ESS U:R 93:1, `P(y>0 | observed) = 0.5408`), confirming they depend on the
+panel and mask only, not on any arm's configuration. [A]
+
 *Note:* the retest's config carries `source: None`; the fingerprint had not
 propagated to that entry point. Digests match, so comparability is established
 by the manifest; the rerun above must record the fingerprint.

@@ -22,12 +22,15 @@ Written at a deliberate pause. Nothing below is a result; results live in
   and will not accept a change to that from a peer; the PI must say so to it.
   It also **does not commit on a peer's request**; this session's `git add -A`
   carries its changes.
-* **H-A3 on g2: RETRACTED.** The ablation removed six channels, not four — the
-  wind components I added were in no family. g1 (clean removal) was null; the
-  void stands; H-A3' is the replacement. A corrected g2 rerun of the three arms
-  is in flight. Hard gate `check_families` now refuses a run whose family map
-  does not partition the driver block. **Audit from the archive alone:** compare
-  `config.channels` against `config.families` in any result JSON.
+* **H-A3 on g2: graded [C]** after the decisive retest (`results/exp08_ha3_retest.json`,
+  same digests, ambient = exactly four channels). The first [B] was inflated ~2x
+  by two orphaned wind components and stays retracted; the void I then wrote was
+  an over-reach the other way and is withdrawn — clean ambient removal has
+  signal on g2 (both sides same sign; restoration side 13/15 t=3.03 at h+48,
+  interruption side 9/15, below the fold bar). g1's clean ablation was null, so
+  the g1/g2 difference is **unexplained**; a decisive rerun (g1's 12 panels x
+  14 channels, three arms) is registered with its interpretation fixed. H-A3'
+  remains the second control. `check_families` hard gate in place.
 * **External priors registered** — `docs/PREREGISTRATION_external_priors.md`,
   seven items from the controlled channel, each carrying the sender's own
   [directional]/[generic] label. The paper's provenance statement must
@@ -123,6 +126,9 @@ Written at a deliberate pause. Nothing below is a result; results live in
    deferred until the g2 run finishes, to keep that run internally consistent.
 
 ## Waiting on
+
+* Decisive H-A3 rerun — g1's 12 panels x 14 channels, three ambient arms;
+  lane schedules after exp07; must record the source fingerprint.
 
 * exp07 (learned baselines, g2) — experiment lane reports on completion.
 * H-A3 corrected rerun (3 arms, g2) — decides whether the void holds on g2.
