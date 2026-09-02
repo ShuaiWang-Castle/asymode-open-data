@@ -162,11 +162,13 @@ def main():
                     continue
                 for b in BASELINES:
                     r = run_baseline(b, tr, te, (sy0, sX, syt, sm), a)
+                    r.pop("_test_pred", None)      # per-sample predictions are for the OOF export, not the JSON
                     out_rows.append({"family": f, "arm": b, "seed": seed,
                                      "fold": k, "n_test": len(te), **r})
                 for arm in ARMS:
                     t0 = time.time()
                     r = run_arm(arm, tr, te, (sy0, sX, syt, sm), a, seed, sf, k)
+                    r.pop("_test_pred", None)
                     out_rows.append({"family": f, "arm": arm.name, "seed": seed,
                                      "inflow": arm.inflow.value,
                                      "fold": k, "n_test": len(te),

@@ -183,6 +183,15 @@ under tiny budgets, **not a result**. The full exp07 rerun with export is queued
 behind exp06 for CPU; D-4 on the trees is decided there. OOF archives
 (`results/oof_*.npz`) are regenerable and are not tracked.
 
+## exp06 first attempt lost (2026-09-02, ~00:35)
+
+The two-hour family run finished every fit and died writing its JSON:
+`run_arm`/`run_baseline` now return a per-sample `_test_pred` array for the OOF
+export, exp05 and exp07 pop it before writing, **exp06 imported the same
+functions and did not** — my change, my omission. Fixed (popped for both row
+types), and exp06 now has an end-to-end smoke (one family, k=2, 2 epochs) that
+must write its JSON before a full run is launched. Relaunched.
+
 ## Waiting on
 * ~~Per-horizon two-rate fits~~ — done, [B]: closes h+6 fully, not h+24/48;
   the long-horizon gap is structural (EXP10).
