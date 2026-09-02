@@ -29,6 +29,7 @@ the all-zero predictor at h+24 and h+48.
 from __future__ import annotations
 
 import argparse, json, sys, time
+from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
@@ -43,7 +44,37 @@ from asymode.evalproto import (Task, make_folds, to_hourly,           # noqa: E4
 from asymode import panels as panelset                              # noqa: E402
 
 INTERIM = ROOT / "data" / "interim"
-ARMS = [InflowForm.SUSCEPTIBLE, InflowForm.TRANSMISSION, InflowForm.TRANSMISSION_SEED]
+@dataclass(frozen=True)
+class Arm:
+    """One dynamical form, with the capacity it is given.
+
+    Capacity is per-arm because the single-rate forms use one network where the
+    two-rate forms use two. Left at a common width they would carry half the
+    parameters, and "two rates beat one" would be readable as "3,138 parameters
+    beat 1,569" -- a difference in capacity wearing the costume of a difference in
+    structure. `hidden=48` puts one network at 3,121 parameters against the
+    two-rate arms' 3,138. Neither matching is uniquely right, so the width-matched
+    variant is run alongside and both are reported.
+    """
+    name: str
+    inflow: InflowForm
+    hidden: int | None = None      # None -> the shared --hidden
+
+
+ARMS = [
+    Arm("susceptible", InflowForm.SUSCEPTIBLE),
+    Arm("transmission", InflowForm.TRANSMISSION),
+    Arm("transmission_seed", InflowForm.TRANSMISSION_SEED),
+    # The single-rate ladder. Each step adds exactly one structure:
+    #   net -> net_scaled          adds state-dependent scaling
+    #   net_scaled -> two rates    adds concurrency: two non-negative rates are
+    #                              both live every step, so a county can lose and
+    #                              regain customers at once, where one signed rate
+    #                              forces the two directions to exclude each other.
+    Arm("net", InflowForm.NET, hidden=48),
+    Arm("net_scaled", InflowForm.NET_SCALED, hidden=48),
+    Arm("net_scaled_narrow", InflowForm.NET_SCALED, hidden=32),
+]
 
 
 def origin_range(n: int, horizon: int, stride: int, min_history: int) -> range:
@@ -176,9 +207,10 @@ def run_arm(arm, tr, te, data, args, seed, fips, fold_id):
     # Calibrated on training folds only, by the same rule for every arm.
     ytr = np.concatenate([y0[tr][:, None], yt[tr]], axis=1)
     mtr = np.concatenate([np.ones((len(tr), 1), bool), m[tr]], axis=1)
-    u0, r0 = calibrate_init(ytr, mtr, arm)
+    u0, r0 = calibrate_init(ytr, mtr, arm.inflow)
+    hid = args.hidden if arm.hidden is None else arm.hidden
     cfg = TwoRateConfig(d_in=Xn.shape[-1], cap_u=args.cap_u, cap_r=args.cap_r,
-                        hidden_u=args.hidden, hidden_r=args.hidden, inflow=arm,
+                        hidden_u=hid, hidden_r=hid, inflow=arm.inflow,
                         u_init=u0, r_init=r0)
     model = TwoRateODE(cfg)
     opt = torch.optim.Adam(model.parameters(), lr=args.lr)
@@ -277,9 +309,14 @@ def main():
                 t0 = time.time()
                 r = run_arm(arm, tr, te, (y0, X, yt, m), a, seed, fips, f)
                 wall = round(time.time() - t0, 1)
-                rows.append({"arm": arm.value, "seed": seed, "fold": f,
+                rows.append({"arm": arm.name, "seed": seed, "fold": f,
+                             "inflow": arm.inflow.value,
+                             "n_param": sum(p.numel() for p in
+                                            __import__("torch").nn.ModuleList(
+                                                [m for m in (r.pop("_model", None),)
+                                                 if m is not None]).parameters()) or r.get("n_param"),
                              "n_test": len(te), "wall_s": wall, **r})
-                print(f"  seed {seed} fold {f} {arm.value:<18} "
+                print(f"  seed {seed} fold {f} {arm.name:<18} "
                       + " ".join(f"h{h}={r[f'rmse_h{h}']:.5f}" for h in a.horizons)
                       + f"  {wall}s", flush=True)
 
@@ -293,7 +330,7 @@ def main():
 
     print(f"\n=== pooled over {a.k} folds x {len(a.seeds)} seeds ===")
     print(f"{'arm':<22}" + "".join(f"{'RMSE h+'+str(h):>19}" for h in a.horizons))
-    for name in BASELINES + [x.value for x in ARMS]:
+    for name in BASELINES + [x.name for x in ARMS]:
         g = [r for r in rows if r["arm"] == name]
         line = f"{name:<22}"
         for h in a.horizons:

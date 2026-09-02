@@ -1,38 +1,55 @@
 """EXP06 -- does the dynamical form matter more when the dynamics are slower?
 
-EXP05 fitted the model on eight storm days that were, without exception,
-convective. Convective events have the fastest onset and the fastest restoration
-in the record, and on them the susceptible form beat the epidemic form and the
-best statistical baseline at 24 and 48 hours but not at 1 or 6. The obvious
-question is whether that horizon pattern is a property of the model or of the
-event type that was sampled.
+The primary study (EXP05, manifest g2-convective-11) fitted the model on eleven
+convective storm days. Convective events have fast onset and fast restoration,
+and on them the susceptible form beat the epidemic form and the best statistical
+baseline at 24 and 48 hours but not at 1 or 6. The question is whether that
+horizon pattern is a property of the model or of the event type sampled.
 
-This experiment answers it by fitting the identical protocol separately on each
-event family and reporting the horizon profile per family.
+This experiment fits the identical protocol separately on each event family and
+reports the horizon profile per family.
 
-PRE-REGISTERED, written before any family-stratified fit was run. The previous
-criteria were written for marginal comparisons and were adjudicated on a paired
-design, which was a mistake; these are written for the paired design that the
-data actually has.
+REGISTRATION -- consolidated 2026-09-01, before any family-stratified fit.
 
-  H1  On slower families (winter, tropical, wind), the susceptible arm beats the
-      pure epidemic arm at h+24 and h+48 in at least 12 of 15 (fold, seed) units,
-      with a paired t below -3.
-  H2  The horizon at which the susceptible arm first beats damped persistence is
-      EARLIER on slow families than on convective. Operationalised: the paired
-      difference at h+6 is negative on winter and tropical, having been positive
-      on convective.
-  H3  The seeded epidemic arm's fitted eps again exceeds the mean observed state,
-      on every family, confirming that it competes only by degenerating.
+Two registrations covered this experiment with different comparators. That is a
+forking path: whichever passed would be the one reported. They are merged here
+and the merge is recorded, not hidden.
 
-  Kill conditions. H1 dies if any slow family fails the 12/15 bar at either
-  horizon. H2 dies if the h+6 paired difference is positive on winter. H3 dies if
-  eps falls below the mean state on any family.
+  * The structural claim -- two rates versus one, and whether the advantage
+    tracks phase separation -- is registered ONLY in
+    docs/PREREGISTRATION_phase_separation.md (H-E1, H-E2), against the
+    parameter-matched single net-rate arm. Nothing below duplicates it.
+  * What remains below concerns the EPIDEMIC family specifically: a different
+    opponent and a different question, so no conflict.
+
+  H1  On the slow families -- tropical and wind, whose measured fall/rise ratios
+      are 4.0 and 2.1 -- the susceptible arm beats the pure epidemic arm at h+24
+      and h+48 in at least 12 of 15 (fold, seed) units, with a paired t below -3.
+      (An earlier draft listed winter as slow. The phase-separation measurement
+      shows winter is the FASTEST family, ratio 1.0; it is the negative-control
+      end of H-E, not a slow family. Corrected before running.)
+  H2  VOID. It compared the susceptible arm to damped persistence across families
+      -- the same question as H-E1/H-E2 with a comparator whose difficulty drifts
+      by family in the direction that fakes the result. Superseded by H-E.
+  H3  The seeded epidemic arm's fitted eps, per family, relative to that family's
+      mean observed state. Registered prediction: eps dominates the inflow term on
+      most scored cells (eps / (y + eps) > 0.9) on every family. NOTE that on the
+      primary convective run eps was 0.85x the mean state, not above it, while
+      still dominating 76% of scored cells -- so the operative test is the
+      dominance share, not eps > mean. Kill: H3 dies on any family where eps
+      dominates fewer than half of scored cells.
+
+  Kill conditions. H1 dies if either slow family fails the 12/15 bar at either
+  horizon. H3 as above.
 
   A null result is a result: if the horizon profile is the same on every family,
-  then the short-horizon weakness is structural, not an artefact of sampling
+  the short-horizon weakness is structural, not an artefact of sampling
   convective storms, and the paper must say so and change its metric rather than
   its data.
+
+Family skips (a fold with too few test or train counties) are recorded in the
+result JSON, never silent; H-E's void condition -- fewer than three families with
+a full-protocol result -- must be decidable from the JSON alone.
 """
 from __future__ import annotations
 

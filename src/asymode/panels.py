@@ -86,3 +86,25 @@ def channel_digest(names: list[str]) -> str:
     the channel list is inside the files.
     """
     return hashlib.sha256("|".join(names).encode()).hexdigest()[:12]
+
+
+def source_version(root: Path) -> dict:
+    """The commit a run was produced from, and whether the tree was dirty.
+
+    A result file names its panels and its channels; this names the code. Without
+    it, reproducing an archived number means guessing which revision produced it,
+    and `dirty` is the honest part -- a run from an uncommitted tree cannot be
+    reproduced from the history at all, and should say so rather than imply a
+    commit that does not contain it.
+    """
+    import subprocess
+    def run(*a):
+        try:
+            return subprocess.run(a, cwd=root, capture_output=True, text=True,
+                                  timeout=10).stdout.strip()
+        except Exception:
+            return ""
+    head = run("git", "rev-parse", "--short", "HEAD")
+    if not head:
+        return {"commit": None, "dirty": None}
+    return {"commit": head, "dirty": bool(run("git", "status", "--porcelain"))}
