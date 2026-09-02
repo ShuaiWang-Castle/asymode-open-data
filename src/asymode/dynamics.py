@@ -50,6 +50,20 @@ class InflowForm(str, enum.Enum):
     # arm is then under: eps large enough to ignite from zero also swamps the
     # y-dependence that makes the form epidemic in the first place.
     TRANSMISSION_SEED = "transmission_seed"
+    # One signed net rate from a single network: n = cap * tanh(f(x)), y <- y + n.
+    # This is the fully unstructured end of the comparison. It drops *two* things
+    # at once -- the separate parameterisation of the two directions, and the
+    # state-dependent scaling -- so it cannot on its own attribute a difference to
+    # either. NET_SCALED is the intermediate that isolates the first: one signed
+    # network, but the inflow still acts on the served pool and the outflow on the
+    # interrupted one.
+    #
+    # The structural commitment the single-rate forms give up is concurrency. Two
+    # non-negative rates are both active at every step, so a county can be losing
+    # customers and restoring them at the same time; one signed rate forces the
+    # two directions to be mutually exclusive. That is the claim these arms test.
+    NET = "net"
+    NET_SCALED = "net_scaled"
 
 
 class RateNet(nn.Module):
@@ -77,6 +91,33 @@ class RateNet(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.cap * torch.sigmoid(self.logit(x))
+
+
+class NetRate(nn.Module):
+    """A signed rate in (-cap, cap), from one network.
+
+    `tanh` rather than a pair of sigmoids: the whole point of the arm is that a
+    single function has to serve both directions, so it must be able to change
+    sign. Bounded by construction like the two-rate form, and for the same reason
+    -- an unbounded net rate would differ from the arms it is compared against in
+    a second way that has nothing to do with structure.
+    """
+
+    def __init__(self, d_in: int, cap: float, hidden: int = 32, depth: int = 2):
+        super().__init__()
+        self.inner = RateNet(d_in, cap=1.0, hidden=hidden, depth=depth)
+        self.cap = float(cap)
+
+    def logit(self, x: torch.Tensor) -> torch.Tensor:
+        return self.inner.logit(x)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.cap * torch.tanh(self.inner.logit(x))
+
+    def calibrate(self, n_init: float) -> None:
+        q = float(np.clip(n_init / self.cap, -0.999, 0.999))
+        with torch.no_grad():
+            self.inner.net[-1].bias.fill_(float(np.arctanh(q)))
 
 
 class GatedRate(nn.Module):
@@ -230,23 +271,30 @@ class TwoRateODE(nn.Module):
         d_u = (len(cfg.idx_u) if cfg.idx_u is not None else cfg.d_in) + int(cfg.state_in_u)
         d_r = (len(cfg.idx_r) if cfg.idx_r is not None else cfg.d_in) + int(cfg.state_in_r)
         d_g = len(cfg.idx_gate) if cfg.idx_gate is not None else cfg.d_in
-        if cfg.gate_u:
+        self.is_net = cfg.inflow in (InflowForm.NET, InflowForm.NET_SCALED)
+        if self.is_net:
+            self.phi_u = NetRate(d_u, cap=cfg.cap_u, hidden=cfg.hidden_u)
+            self.phi_r = None            # one network, by construction
+        elif cfg.gate_u:
             self.phi_u = GatedRate(d_u, d_g, cap=cfg.cap_u, hidden=cfg.hidden_u,
                                    hidden_gate=cfg.hidden_gate)
         else:
             self.phi_u = RateNet(d_u, cap=cfg.cap_u, hidden=cfg.hidden_u)
-        self.phi_r = RateNet(d_r, cap=cfg.cap_r, hidden=cfg.hidden_r)
+        if not self.is_net:
+            self.phi_r = RateNet(d_r, cap=cfg.cap_r, hidden=cfg.hidden_r)
         self.register_buffer("_iu", torch.tensor(cfg.idx_u if cfg.idx_u is not None else [], dtype=torch.long))
         self.register_buffer("_ir", torch.tensor(cfg.idx_r if cfg.idx_r is not None else [], dtype=torch.long))
         self.register_buffer("_ig", torch.tensor(cfg.idx_gate if cfg.idx_gate is not None else [], dtype=torch.long))
-        if cfg.u_init is not None:
+        if cfg.u_init is not None and self.is_net:
+            self.phi_u.calibrate(cfg.u_init)
+        elif cfg.u_init is not None:
             if cfg.gate_u:
                 self.phi_u.calibrate(cfg.u_init, cfg.gate_pulse_share)
             else:
                 q = min(max(float(cfg.u_init) / self.phi_u.cap, 1e-9), 1 - 1e-9)
                 with torch.no_grad():
                     self.phi_u.net[-1].bias.fill_(float(np.log(q / (1 - q))))
-        if cfg.r_init is not None:
+        if cfg.r_init is not None and not self.is_net:
             q = min(max(float(cfg.r_init) / self.phi_r.cap, 1e-9), 1 - 1e-9)
             with torch.no_grad():
                 self.phi_r.net[-1].bias.fill_(float(np.log(q / (1 - q))))
@@ -274,6 +322,9 @@ class TwoRateODE(nn.Module):
             xu = torch.cat([xu, y_t.unsqueeze(-1)], dim=-1)
         if cfg.state_in_r:
             xr = torch.cat([xr, y_t.unsqueeze(-1)], dim=-1)
+        if self.is_net:
+            n = self.phi_u(xu)
+            return n, torch.zeros_like(n)
         if cfg.gate_u:
             xg = self._slice(x_t, self._ig, cfg.idx_gate is not None)
             return self.phi_u(xu, xg), self.phi_r(xr)
@@ -286,6 +337,15 @@ class TwoRateODE(nn.Module):
         out = []
         for t in range(drivers.shape[1]):
             u, r = self.rates(drivers[:, t], y)
+            if self.is_net:
+                if self.cfg.inflow is InflowForm.NET_SCALED:
+                    # positive net flow acts on the served pool, negative on the
+                    # interrupted one -- the scaling the two-rate form has, without
+                    # the separate parameterisation.
+                    u = torch.where(u > 0, u * (1.0 - y), u * y)
+                y = torch.clamp(y + u, lo, hi)
+                out.append(y)
+                continue
             if self.cfg.inflow is InflowForm.TRANSMISSION:
                 u = u * y
             elif self.cfg.inflow is InflowForm.TRANSMISSION_SEED:
@@ -330,6 +390,15 @@ def calibrate_init(y: np.ndarray, mask: np.ndarray, inflow: InflowForm,
     up = float(np.clip(np.maximum(d, 0).mean(), 1e-9, None))
     dn = float(np.clip(np.maximum(-d, 0).mean(), 1e-9, None))
     # inflow: u*(1-y) ~ u ; u*y*(1-y) ~ u*y_bar ; u*(y+eps)*(1-y) ~ u*(y_bar+eps)
+    if inflow in (InflowForm.NET, InflowForm.NET_SCALED):
+        # A single signed rate cannot reproduce the mean rise *and* the mean fall
+        # -- that inability is the arm's defining property, not a defect in its
+        # initialisation. The same rule still applies as far as it can: match the
+        # arm's initial *net* flow to the observed mean one-step change.
+        net = up - dn
+        if inflow is InflowForm.NET_SCALED and net < 0:
+            net = net / y_bar            # the negative branch acts on y, not (1-y)
+        return float(net), 0.0
     if inflow is InflowForm.SUSCEPTIBLE:
         u0 = up
     elif inflow is InflowForm.TRANSMISSION:

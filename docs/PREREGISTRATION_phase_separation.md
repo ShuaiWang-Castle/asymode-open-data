@@ -60,12 +60,51 @@ Same inputs, same width, same optimiser, same seeds, same initialisation rule
 (`calibrate_init` sets the net rate to the observed mean one-step net change).
 "Two rates versus one" becomes the only difference between the arms.
 
-*What the net-rate arm does not control for:* it also drops the state-dependent
-scaling — `u` by `(1-y)`, `r` by `y`. So it differs from the two-rate arm on two
-axes, not one. The separate-network-versus-shared-network axis with the scaling
-kept is already covered by the input- and capacity-symmetric arms in
-`PREREGISTRATION_asymmetry.md`; the net-rate arm is the "no structure at all"
-end. Both are reported.
+### Second amendment, same evening, still before any family fit
+
+**Two further confounds in the net-rate comparator, both raised by the
+experiment lane on implementing it, both adopted.**
+
+*Parameter count.* One hidden-32 network has 1,569 parameters; the two-rate arm
+has 3,138. "Two rates beat one" would then also read "twice the parameters beat
+half" — the same class of confound as the one that prompted the first amendment,
+and again in the direction that favours this paper. A single network of hidden
+width 48 has 3,121 parameters, within 0.5%. Two alignments are possible and
+neither is uniquely right, so **both are run and reported**:
+
+* `net_scaled`, hidden 48 — **parameter-matched. This is the load-bearing
+  comparator for H-E.**
+* `net_scaled_narrow`, hidden 32 — width-matched; appendix, to show the
+  conclusion does not hinge on the alignment chosen.
+* `net`, hidden 48 — no state scaling either; the "no structure at all" end.
+
+*Concurrency.* An earlier draft of this file said a single network with the
+state scaling kept was "essentially" the input- and capacity-symmetric arms of
+`PREREGISTRATION_asymmetry.md`. That was wrong. Those arms still carry **two
+non-negative rates that are both active at every step**; a single signed rate
+forces damage and restoration to be **mutually exclusive** within a step. That
+is a distinct structural commitment — and it is the one closest to the paper's
+central picture, that interruption and restoration run concurrently. It is
+therefore tested on its own, and the ablation becomes a ladder in which each
+rung adds exactly one structural element:
+
+    net            no state scaling, no concurrency            (one signed rate)
+    net_scaled     state scaling, no concurrency               (one signed rate x (1-y) or y)
+    sym_in+sym_arch  scaling + concurrency, shared inputs and width (two non-negative rates)
+    two-rate       scaling + concurrency + input and capacity asymmetry
+
+All four rungs are reported for every family. The H-E comparator is
+`net_scaled`.
+
+*Boundary check, recorded because it matters:* `net_scaled` **can ignite from
+`y = 0`** — a positive net flow times `(1 - y)` is the flow itself at zero — so
+it is not disposed of by the algebra that disposes of the epidemic form. It is a
+real opponent, which is the point.
+
+Initialisation for the single-rate arms follows `calibrate_init` as far as it
+can: the net rate is set to the observed mean one-step net change. A single
+signed rate cannot reproduce both the mean rise and the mean fall at once; that
+is the arm's defining property, not a defect of the rule.
 
 Damped persistence is still reported for every family, **as a lower bound, not
 as the comparator for the mechanism claim.**
@@ -85,8 +124,8 @@ Recording that in advance is the point of writing this down.
 
 * H-E1 dies if the ordering is violated at either horizon by more than one
   adjacent swap, across 3 seeds.
-* H-E2 dies if the two-rate arm beats the single net-rate arm on winter by more
-  than 3% at either horizon with a paired t below −3. If that happens, the
+* H-E2 dies if the two-rate arm beats `net_scaled` (parameter-matched) on winter
+  by more than 3% at either horizon with a paired t below −3. If that happens, the
   mechanism story is wrong and must be withdrawn, whatever the primary result
   says.
 * If the net-rate arm cannot be run under the full protocol, H-E falls back to
