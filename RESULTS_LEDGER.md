@@ -601,33 +601,36 @@ flip, and it does not count.
 +3.7% at h+24 and +4.8% at h+48, **0/15 folds better**. The model is not
 over-parameterised. This is the most initialisation-robust result in the run.
 
-### H-A3 — CONFIRMED on g2. This reverses the void recorded above.
+### H-A3 on g2 — RETRACTED. Mis-scoped ablation, not a confirmation.
 
-On g1 the ambient family had no signal on either side and I voided the hypothesis,
-saying a family with no signal cannot serve as a control. **That adjudication was
-made on a run already marked superseded, which I should not have done.** On g2
-the same family, unchanged, behaves exactly as the registered negative case
-requires:
+An earlier version of this entry graded H-A3 **[B] confirmed** on g2. That grade
+is withdrawn. The experiment lane found, and I verified against git history, that
+`exp08_architecture.py`'s family map at the time g2 ran declared 12 channels
+while the g2 driver block carried 14: the wind components `u10` and `v10` I had
+added were in no family. The H-A3 arms are built by naming the families to
+*keep*, and everything unnamed is dropped — so "remove ambient" removed six
+channels, the four ambient fields **plus both wind components**. Wind components
+are uncontroversial damage drivers. An ablation that removes them will hurt both
+sides and add across sides, which is exactly what was seen and exactly what I
+misread as the negative control working.
 
-* removing it from the interruption side hurts (+0.9% / +1.1%)
-* removing it from the restoration side hurts by about the same (+1.1% / +1.1%)
-* removing it from both hurts by roughly the sum (+2.3% / +2.4%, 1/15 and 2/15)
+The clean test is g1: 12 channels, no wind components, removal equal to the
+ambient family. Its result was null (|Δ| < 0.8%, win counts near 8/15). **That
+null stands. H-A3's original void — a family with no signal cannot serve as a
+control — is reinstated.** H-A3' (precipitation + wind speed) remains the
+registered replacement. The three H-A3 arms are being rerun on g2 with the
+family map corrected; if they return null, the void is confirmed on both sample
+sets. If they show an effect, this retraction is itself wrong and will say so.
 
-Both sides use it, neither side dominates, and the effects add. **The negative
-control works.** The selectivity claim in H-A has its control back.
+Two things I got wrong in sequence: adjudicating on a superseded run, then
+reversing on a run whose ablation I had not checked channel-by-channel. **A
+review of an ablation begins with what it actually removed.** The experiment lane
+has added a hard gate (`check_families`) that refuses to run when the family map
+does not exactly partition the driver block; it would have caught this.
 
-What changed between runs is not the family; it is the rest of the input (wind
-components added) and the early-stopping split (county-held-out). A plausible
-reading is that with row-split early stopping the fit was selecting on
-within-county idiosyncrasy and ambient's cross-county signal was drowned; that is
-a hypothesis, not a finding, and is noted only so it can be tested.
-
-**Disposition:** H-A3 is **confirmed, [B]** (5 folds x 3 seeds, both removals
-consistent in sign, additive). H-A3' (the precipitation + wind-speed replacement
-registered when H-A3 looked void) is **retained as a second control, not run yet**
-— two controls are better than one, and it was registered before this result was
-seen. The void entry in `docs/PREREGISTRATION_asymmetry.md` is amended to say it
-applied to g1 only.
+My hypothesis that county-split early stopping explained the reversal is also
+withdrawn: that split was already in place for g1, so it cannot distinguish the
+two runs.
 
 ### H-C pilot — machine validated, no effect at these widths. [C]
 

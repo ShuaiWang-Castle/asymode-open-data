@@ -59,13 +59,12 @@ this panel, and reported whatever they say.
 * H-A3 is confirmed only if the family helps on both sides. If it is asymmetric
   too, H-A is weakened, not strengthened, and that must be said.
 
-  **H-A3 was voided on manifest g1 and is CONFIRMED on manifest g2** (see
-  `RESULTS_LEDGER.md`, EXP08 on g2). The void below was recorded on a superseded
-  run and stands only as history. The amendment that follows it — H-A3', a second
-  control family — is retained because it was registered before the g2 result was
-  seen, and two controls are stronger than one.
+  **Status: VOID on g1 (clean ablation, null). The g2 "confirmation" was a
+  mis-scoped ablation and is retracted** (`RESULTS_LEDGER.md`, EXP08 on g2).
+  A corrected rerun of the g2 arms is pending. H-A3' below stands as the
+  replacement control.
 
-  *Original void entry, g1 only:* The family chosen for it -- ambient fields
+  *Void entry:* The family chosen for it -- ambient fields
   outside the core hazard set -- turned out to carry no signal on *either* rate on
   the convective panels: all three removals moved the error by less than 0.8%,
   with win counts near chance. A family with no signal is symmetric trivially, so
