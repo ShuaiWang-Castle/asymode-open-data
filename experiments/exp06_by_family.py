@@ -110,6 +110,8 @@ def main():
     ap.add_argument("--hidden", type=int, default=32)
     ap.add_argument("--cap-u", type=float, default=0.25)
     ap.add_argument("--cap-r", type=float, default=0.25)
+    ap.add_argument("--arms", nargs="*", default=None,
+                    help="restrict the dynamics arms by name (baselines always run); default all")
     ap.add_argument("--families", nargs="+",
                     default=["convective", "winter", "tropical", "wind"])
     ap.add_argument("--panels", default="auto",
@@ -165,7 +167,7 @@ def main():
                     r.pop("_test_pred", None)      # per-sample predictions are for the OOF export, not the JSON
                     out_rows.append({"family": f, "arm": b, "seed": seed,
                                      "fold": k, "n_test": len(te), **r})
-                for arm in ARMS:
+                for arm in [x for x in ARMS if a.arms is None or x.name in a.arms]:
                     t0 = time.time()
                     r = run_arm(arm, tr, te, (sy0, sX, syt, sm), a, seed, sf, k)
                     r.pop("_test_pred", None)
