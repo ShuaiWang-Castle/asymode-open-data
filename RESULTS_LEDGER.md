@@ -819,6 +819,68 @@ tonight (bounded output head; logit-state input; single-rollout constraint) whos
 causal chain was correct and whose magnitude was not. Plausibility is not
 evidence; a registered interpretation plus a measurement is.
 
+## EXP06 — H-E: the two-rate advantage tracks phase separation. [B]
+
+Source: `results/exp06_by_family.json` · manifest `g3-all-26` (`db286b4960a4`),
+channels `dec964873cb2` · fingerprint `0f5d56a`, dirty False · 540 rows = 4
+families x 9 arms x 15 county-held-out units (folds drawn *within* family) ·
+no family skipped; flood not run (1 panel) · adjudicated against the
+registration in `docs/PREREGISTRATION_phase_separation.md` as amended before
+this run, comparator `net_scaled` (parameter-matched single signed rate).
+
+Paired advantage of the two-rate model over `net_scaled`, negative = two-rate
+better:
+
+| family | fall/rise p50 | h+24 | h+48 | width-matched h+48 |
+|---|---|---|---|---|
+| **tropical** | 4.0 | **−3.9% 15/15 t=−3.9** | **−5.1% 14/15 t=−3.9** | −6.1% 14/15 |
+| convective | 1.7 | −0.9% 9/15 t=−2.0 | −2.0% 12/15 t=−3.4 | −3.0% 14/15 |
+| wind | 2.1 | +0.0% 8/15 t=+0.1 | −0.1% 8/15 t=−0.3 | −0.3% 11/15 |
+| **winter** | 1.0 | **+2.5% 5/15 t=+2.5** | **+2.8% 5/15 t=+2.4** | +2.3% 5/15 |
+
+**H-E1 — PASS at both horizons.** Tropical is above both wind and convective;
+winter is below both. Wind and convective were left unordered by the amendment
+and are not scored; they come out as convective > wind here.
+
+**H-E2 — SURVIVES.** On winter the two-rate model does not beat the single
+net-rate arm; it is *worse* by 2.5–2.8% (5/15). The kill condition (a > 3% win
+with t < −3 on winter) is nowhere near. This is the load-bearing result: the
+place where the mechanism says the structure should not help is the place
+where it does not — and slightly hurts.
+
+Read with the phase-separation ratio, the advantage is monotone across the
+families the registration orders: 4.0 → −5.1%, 1.7 → −2.0%, 1.0 → +2.8%
+(h+48). The structure pays where damage and restoration separate in time, and
+costs a little where they coincide.
+
+**exp06-H1 (susceptible vs pure epidemic on slow families) — PASS.** Tropical
+−13.0% / −14.8%, wind −5.9% / −6.0%, all 15/15, t ≤ −10. **H3 (seed
+dominance) — PASS on all four families**, weakest on tropical (54.7% of scored
+cells), where the mean state is 0.048 and ε is 0.09x it: on tropical the seeded
+arm is much less degenerate, and it still loses to the two-rate model by
+7.5–7.9% at long horizons (15/15).
+
+Damped persistence, reported as the lower bound: the two-rate model beats it on
+every family at h+24/48 except at h+1, by 5–15% (13–15/15).
+
+**Caveat that bounds the grade.** `hit_epoch_cap` is high: tropical 53/90
+units, convective 47/90, winter 31/90, wind 19/90 stopped at the 60-epoch cap.
+The earlier single-arm convergence probe on g2 moved results by ≤ 2% and not
+consistently; the sign gates here (15/15 vs 5/15) are far from their margins.
+Magnitudes may move; the ordering and the winter sign are not expected to. A
+family-level convergence probe is registered below.
+
+**Grade: [B].** 5 county-held-out folds x 3 seeds per family, both hypotheses
+adjudicated as written before the run, kill condition not met, comparator
+parameter-matched, no degenerate arm. Magnitudes to be re-read after the
+convergence probe.
+
+*Registered, not run — family convergence probe:* refit `susceptible` and
+`net_scaled` on tropical and winter, seed 0, with the cap raised to 400 /
+patience 40. Interpretation fixed: if the tropical advantage stays ≥ 3% and the
+winter sign stays positive, the [B] stands with revised magnitudes; if either
+flips, H-E is regraded [C] and the run repeated at the higher budget.
+
 ## EXP05 on g2 — the structural ladder with out-of-fold export. [B] per rung
 
 Source: `results/exp05_g2_sixarm.json` + `results/oof_<arm>.npz` (9 arms) ·

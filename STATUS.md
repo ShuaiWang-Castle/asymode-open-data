@@ -192,6 +192,15 @@ functions and did not** — my change, my omission. Fixed (popped for both row
 types), and exp06 now has an end-to-end smoke (one family, k=2, 2 epochs) that
 must write its JSON before a full run is launched. Relaunched.
 
+## H-E landed — [B]
+
+Two-rate vs parameter-matched single rate by family (h+48): tropical −5.1%
+(14/15), convective −2.0%, wind ≈ 0, **winter +2.8% (5/15)**. H-E1 passes,
+H-E2 survives — the negative control behaves as one. Caveat: many units hit the
+60-epoch cap; a family convergence probe is registered. **Queue:** exp07 on g2
+with export (running) → D-4 on the trees → family convergence probe → decisive
+H-A3 rerun.
+
 ## Waiting on
 * ~~Per-horizon two-rate fits~~ — done, [B]: closes h+6 fully, not h+24/48;
   the long-horizon gap is structural (EXP10).
