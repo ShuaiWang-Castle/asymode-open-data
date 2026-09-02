@@ -1,5 +1,8 @@
 # Status snapshot — 2026-09-01, late evening (refreshed)
 
+**Start here if resuming:** `docs/EVIDENCE_SUMMARY.md` — every graded result,
+its ledger path, and what it supports; the framing decision rests on it.
+
 Written at a deliberate pause. Nothing below is a result; results live in
 `RESULTS_LEDGER.md` with paths and grades.
 
