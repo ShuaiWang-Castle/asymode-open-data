@@ -109,6 +109,17 @@ Blocked on a Copernicus CDS account -- see `docs/ACCESS_TODO.md`.
 * `coverage_history.csv` spans **2018-2022 only**. Years outside it fall back to
   the nearest available year, which is stated in the log when it happens.
 
+## ERA5 request gotcha — cross-month windows are inflated
+
+A CDS request lists `year`, `month` and `day` as sets and returns their **cross
+product**. A ten-day window that crosses a month boundary therefore returns
+twenty days (e.g. Sep 24–30 plus Oct 1–3 becomes Sep 1–3, Sep 24–30, Oct 1–3,
+Oct 24–30). Five of the 26 windows were affected; the Helene window returned 480
+hourly steps instead of 240 and took 45 minutes. **Correctness is unaffected** —
+`scripts/build_drivers.py` reindexes every field onto the panel's own hour grid
+and the surplus days are dropped — but bandwidth and queue time roughly double.
+`scripts/fetch_era5.py` now issues one request per calendar month.
+
 ## Event selection -- NOAA Storm Events
 
 Bulk CSVs, no account: <https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/>

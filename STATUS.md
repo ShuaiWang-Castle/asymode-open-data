@@ -56,6 +56,14 @@ Written at a deliberate pause. Nothing below is a result; results live in
 * **OOF predictions**: tier-1 export requested (all arms, 4 horizons, ~49 MB) for
   D-1 and the D-2 level/ranking decomposition. After exp07.
 
+* **ERA5 complete, 26/26**, 2.9 GB. Drivers for Helene not yet built; g3
+  manifest not yet generated — both are the experiment lane's call, after its
+  current runs finish.
+* **D-2 per family** ([A]): the rank ceiling at h+48 is 0.59 on tropical, 0.36
+  wind, 0.29 convective, 0.28 winter — tracks phase separation, third
+  independent measurement to do so. Interpretive note added to H-E: a tropical
+  win can be a ranking win; a convective/winter win is a level win.
+
 ## Where the study stands
 
 * Scope fixed to **convective-season events** as the main study
@@ -88,7 +96,7 @@ Written at a deliberate pause. Nothing below is a result; results live in
 
 * exp07 (learned baselines, g2) — experiment lane reports on completion.
 * H-A3 corrected rerun (3 arms, g2) — decides whether the void holds on g2.
-* ERA5 `2024-09-27` (Helene) — last of 26; completion watcher armed.
+* ~~ERA5 Helene~~ — landed and verified (188 MB, zip clean, both streams readable). **26/26.**
 * NET arm implementation — experiment lane.
 
 ## Standing checks (executable, not remembered)

@@ -91,19 +91,35 @@ def fetch(pad_days: int, force: bool):
         if dst.exists() and not force:
             print(f"skip {dst.name} ({dst.stat().st_size/2**20:.0f} MB)"); continue
         days = [d for d in _daterange(t0, t1)]
-        req = {
-            "product_type": ["reanalysis"], "variable": VARIABLES,
-            "year": sorted({d[:4] for d in days}),
-            "month": sorted({d[5:7] for d in days}),
-            "day": sorted({d[8:10] for d in days}),
-            "time": [f"{h:02d}:00" for h in range(24)],
-            "area": AREA, "data_format": "netcdf", "download_format": "unarchived",
-        }
+        # CDS takes the cross product of year x month x day. A window that
+        # crosses a month boundary would otherwise return twice the days it
+        # asked for, so issue one request per calendar month and merge on read.
+        by_month = {}
+        for d in days:
+            by_month.setdefault((d[:4], d[5:7]), []).append(d[8:10])
         print(f"\n{day}: {t0.date()} .. {t1.date()}  ({len(days)} days x 24 h x "
-              f"{len(VARIABLES)} vars)")
+              f"{len(VARIABLES)} vars, {len(by_month)} request(s))")
         t = time.time()
-        c.retrieve("reanalysis-era5-single-levels", req, str(dst))
-        print(f"  -> {dst.name}  {dst.stat().st_size/2**20:.0f} MB  "
+        parts = []
+        for (yy, mm), dd in sorted(by_month.items()):
+            req = {
+                "product_type": ["reanalysis"], "variable": VARIABLES,
+                "year": [yy], "month": [mm], "day": sorted(dd),
+                "time": [f"{h:02d}:00" for h in range(24)],
+                "area": AREA, "data_format": "netcdf", "download_format": "unarchived",
+            }
+            part = dst.with_name(f"{dst.stem}_{yy}{mm}.part")
+            c.retrieve("reanalysis-era5-single-levels", req, str(part))
+            parts.append(part)
+        if len(parts) == 1:
+            parts[0].rename(dst)
+        else:
+            # Keep the month pieces side by side; build_drivers merges any
+            # number of archives that share a grid.
+            for i, part in enumerate(parts):
+                part.rename(dst.with_name(f"{dst.stem}.m{i}.nc"))
+        print(f"  -> {dst.name}  "
+              f"{sum(p.stat().st_size for p in dst.parent.glob(dst.stem + '*'))/2**20:.0f} MB  "
               f"{time.time()-t:.0f}s")
 
 

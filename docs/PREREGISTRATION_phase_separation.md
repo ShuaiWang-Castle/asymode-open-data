@@ -155,6 +155,23 @@ win there would be evidence *against* the stated mechanism rather than for it.
 **A win on winter is therefore a bad outcome for this paper, not a good one.**
 Recording that in advance is the point of writing this down.
 
+## Interpretive note added before any family fit — what a win means per family
+
+The rank-ceiling diagnostic (D-2, `RESULTS_LEDGER.md`) run per family shows the
+ceiling on county ordering at h+48 is 0.59 on tropical, 0.36 on wind, and about
+0.29 on both convective and winter. So:
+
+* On **convective and winter**, ordering is essentially unpredictable at long
+  horizons. A win there is a **level** win. This is the regime of the primary
+  study.
+* On **tropical**, ordering remains predictable at h+48. A win there **can be a
+  ranking win**, which is a stronger claim than a level win and must be
+  reported as such only if the level/ranking decomposition supports it.
+
+H-E1 and H-E2 are unchanged. This note fixes, in advance, how a family's result
+is to be *described* — so that "the two-rate model wins on tropical" cannot be
+upgraded to "ranks counties better" after the fact without the decomposition.
+
 ## Kill conditions
 
 * H-E1 dies if the ordering is violated at either horizon by more than one

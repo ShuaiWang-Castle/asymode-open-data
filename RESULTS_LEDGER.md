@@ -696,6 +696,36 @@ Two consequences, one expected and one not:
 Half of all targets are exactly zero at every horizon (p50 0.46–0.51), which is
 the same fact seen from the target side.
 
+## D-2 by event family — the rank ceiling tracks phase separation. [A]
+
+Source: `results/d2_rank_ceiling_by_family.json` · all 26 panels · zero training.
+Same illegal predictor (truth at origin+1), scored per family.
+
+| family | fall/rise p50 | ceiling h+6 | h+24 | h+48 | origins |
+|---|---|---|---|---|---|
+| tropical | 4.0 | **0.82** | **0.74** | **0.59** | 48 |
+| wind | 2.1 | 0.74 | 0.50 | 0.36 | 64 |
+| convective | 1.7 | 0.54 | 0.34 | 0.29 | 176 |
+| winter | 1.0 | 0.53 | 0.33 | 0.28 | 112 |
+| flood | — | 0.57 | 0.35 | 0.21 | 16 (too few) |
+
+**A third independent measurement separates the families in the same order as
+the first two** (the fall/rise ratio and the onset audit). On tropical events the
+county ordering stays predictable out to 48 hours (ceiling 0.59); on convective
+and winter it is essentially gone by 24 hours (0.34, 0.33), and the two are
+indistinguishable from each other.
+
+*Consequence for H-E, recorded before any family fit:* what a long-horizon win
+**means** differs by family. On convective the ceiling is low, so a win is a
+level-estimation win. On tropical there is ranking skill available at h+48, so a
+win there **can be a ranking win** — a different and stronger claim, and one the
+level/ranking decomposition (D-2 follow-up, needs OOF predictions) can test.
+Written into the H-E registration as an interpretive note.
+
+Winter and convective having the same ceiling profile is consistent with both
+being fast, phase-symmetric regimes, and is one more reason winter is the
+negative-control end rather than a "slow" family.
+
 ## Pre-registered but not yet run — asymmetry hypotheses
 
 `docs/PREREGISTRATION_asymmetry.md`, written before any of the feature families
