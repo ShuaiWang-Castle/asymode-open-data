@@ -149,7 +149,7 @@ the PI's; no alternative metric was ever registered.
 
 ## Experiment lane gone (second time tonight)
 
-Its socket died after exp10; an identity probe found only competition-side
+Its socket died after exp10; an identity probe found only other projects'
 sessions. **All of its work is committed** (workspace clean). The OOF export it
 was to write (`--save-oof`) had not been started; this session implemented it
 in `exp05_real_dynamics.py` (`--save-oof`), smoke-verified it against the OOF

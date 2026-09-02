@@ -62,13 +62,15 @@ def main() -> None:
     # A manifest under data/ is not versioned -- data/ is ignored -- and the file
     # that says which panels a generation contained is exactly the thing that must
     # survive. Write a second, generation-named copy where git can see it.
+    print(f"  {len(have)} panels, {len(chans)} channels [{new['channel_digest']}]")
+    # A manifest under data/ is not versioned -- data/ is ignored -- and the file
+    # that says which panels a generation contained is exactly the thing that must
+    # survive. Write a second, generation-named copy where git can see it.
     import shutil
-    cfg = ROOT / "configs" / f"panel_manifest_{args.generation}.json"
+    cfg = ROOT / "configs" / f"panel_manifest_{a.generation}.json"
     cfg.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy(dst, cfg)
+    shutil.copy(INTERIM / MANIFEST_NAME, cfg)
     print(f"versioned copy: {cfg.relative_to(ROOT)}")
-
-print(f"  {len(have)} panels, {len(chans)} channels [{new['channel_digest']}]")
 
 
 if __name__ == "__main__":
