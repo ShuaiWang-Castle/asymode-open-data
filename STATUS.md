@@ -218,6 +218,12 @@ trajectory, not a trajectory. D-3: the trees rank counties *worse* than the
 two-rate model and win on per-county magnitude. D-1: trees want expansion,
 dynamics want compression, headroom < 1% either way.
 
+## D-5 null — the family-level mechanism does not resolve at county-event grain
+
+Within convective, the two-rate advantage is flat across quartiles of the
+county-event's own fall/rise ratio (KILL as registered). H-E stays a
+family-level result; the paper reports the null beside it.
+
 ## In flight
 
 * Decisive H-A3 rerun on g1's 12 panels x 14 channels (pin file

@@ -210,7 +210,9 @@ upgraded to "ranks counties better" after the fact without the decomposition.
   better test would stratify county-events directly by their own fall/rise ratio,
   within family, and that is the follow-up if H-E survives. It is not the primary
   test here only because within-family stratification cuts the per-cell sample
-  further.
+  further. *(Run after H-E survived: D-5, `RESULTS_LEDGER.md`. Null — within
+  convective the advantage is flat across county-event ratio quartiles. H-E is
+  therefore stated as a family-level finding with this null beside it.)*
 * **The ratio is measured on the same panels the models are fitted to.** It is a
   property of the data, not of a fit, so this is not leakage in the usual sense —
   but the family assignment was chosen before any model was fitted, and must stay

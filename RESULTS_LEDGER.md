@@ -819,6 +819,40 @@ tonight (bounded output head; logit-state input; single-rollout constraint) whos
 causal chain was correct and whose magnitude was not. Plausibility is not
 evidence; a registered interpretation plus a measurement is.
 
+## D-5 — within convective, the advantage does NOT track the county-event's own phase ratio. KILL, [B] as a null
+
+Source: `results/d5_within_family_ratio.json` · `experiments/d5_within_family_ratio.py`
+(rule fixed in the docstring before computing) · two-rate vs `net_scaled` at
+h+48 on the g2 exports, 12,952 scored samples with a county-event ratio, county-
+block bootstrap B = 2000, 3 seeds.
+
+County-events binned by their own fall/rise ratio (quartile edges 0.58 / 1.67 /
+4.67; the top quartile reaches 72). Δ MSE = SE(net_scaled) − SE(two-rate),
+positive = two-rate better:
+
+| quartile | ratio | n | Δ MSE | county-block 95% CI |
+|---|---|---|---|---|
+| 1 | [0.01, 0.58] | 3,232 | −2.8e−6 | [−6.7e−5, +5.9e−5] |
+| 2 | [0.58, 1.67] | 3,152 | +2.2e−4 | [+4.9e−5, +4.3e−4] |
+| 3 | [1.67, 4.67] | 3,296 | +6.7e−5 | [−6.3e−5, +2.3e−4] |
+| 4 | [4.67, 72] | 3,272 | +1.2e−4 | [−7.7e−5, +3.4e−4] |
+
+The profile is flat within noise; the top quartile's interval touches zero.
+**Decision as registered: KILL.** Against the trees the two-rate model is worse
+in every quartile (contrast column), consistent with EXP07.
+
+What this does and does not say. H-E — the family-level result — stands: the
+advantage orders the families by their median ratio and reverses on winter,
+with between-family ratios spanning 1.0 to 4.0. **It does not resolve at
+county-event grain inside one family**, where the same ratio spans 0.6 to 4.7
+and the total advantage to be split is only 2%. Readings compatible with both,
+none asserted: the family effect may ride on storm-system properties correlated
+with family but not captured by a single county's rise/fall (synchrony across
+counties, the driver regime); the per-event ratio is a noisy 15-minute
+statistic behind a 0.01 threshold; and a 2% effect split four ways has little
+to show. **The paper states H-E as a family-level finding and reports this null
+beside it.** [B] for the null: rule fixed first, 3 seeds, block intervals.
+
 ## D-4 decision — the per-point regressors are not trajectories; the rollout is 2.6x closer to one. [B]
 
 Sources: `results/exp07_g2_oof.json` (exp07 rerun on g2 with export, fingerprint
