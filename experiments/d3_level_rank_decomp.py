@@ -38,7 +38,8 @@ INPUT LAYOUT (the experiment lane's out-of-fold export, `results/oof_<arm>.npz`)
     fold_of     [n_seeds, n_samples]              int8     which fold held it out (audited below)
     y           [n_samples, n_horizons]           float32
     mask        [n_samples, n_horizons]           bool
-    origin_id   [n_samples]                       int32    dense code of (panel, origin step)
+    origin_id   [n_samples]                       int32    dense code of (panel, origin_step) -- audited
+    origin_step [n_samples]                       int32    the raw step, so origin_id can be checked
     fips        [n_samples]                       str
     panel       [n_samples]                       str
     horizons    [n_horizons]                      int32
@@ -61,6 +62,26 @@ from asymode.evalproto import make_folds   # noqa: E402
 
 
 def audit(z, k: int) -> None:
+    """Refuse an export whose folds or origin ids cannot be trusted.
+
+    `origin_id` must be a bijection of (panel, origin_step). `load_pooled`
+    returns the raw step; a step alone is NOT an origin -- the same step in two
+    storms is two origins -- and an export that wrote `origin_id = step` would
+    make every per-origin quantity here a cross-storm average, silently.
+    """
+    if "panel" in z.files and "origin_step" in z.files:
+        pairs = list(zip(z["panel"].astype(str).tolist(), z["origin_step"].astype(int).tolist()))
+        oid = z["origin_id"].astype(int)
+        n_pairs, n_ids = len(set(pairs)), len(set(oid.tolist()))
+        if n_pairs != n_ids:
+            sys.exit(f"origin_id is not a bijection of (panel, origin_step): "
+                     f"{n_pairs} distinct pairs but {n_ids} distinct ids")
+        seen = {}
+        for pr, i in zip(pairs, oid.tolist()):
+            if seen.setdefault(pr, i) != i:
+                sys.exit(f"origin_id inconsistent for pair {pr}")
+    elif "origin_step" not in z.files:
+        print("  warning: export carries no origin_step; origin_id cannot be audited against (panel, step)")
     fips = z["fips"].astype(str); seeds = z["seeds"]; fold_of = z["fold_of"]
     uniq = sorted(set(fips))
     for si, seed in enumerate(seeds):
