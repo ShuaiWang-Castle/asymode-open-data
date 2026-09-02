@@ -12,8 +12,13 @@ p = (p_1, p_6, p_24, p_48); the truth gives y = (y_1, y_6, y_24, y_48).
   S1  excess sign changes -- share of samples where sign(diff(p)) changes at a
       step where sign(diff(y)) does NOT (a wiggle the truth does not have).
       Steps where |diff| < tol (1e-4 on the fraction scale) count as flat.
-  S2  roughness -- mean absolute second difference of p across the four
-      horizons, per arm, in the target's units. The rollout arms give the floor.
+  S2  residual roughness -- mean absolute second difference of (p - y) across
+      the four horizons, per arm, in the target's units. A coherent arm's
+      residual is smooth noise; an incoherent arm's residual is jagged. The
+      rollout arms give the floor. (An earlier version used the second
+      difference of p itself; on a rise-then-decay target that measures
+      curvature, and a scrambled trajectory can be *flatter* than a coherent
+      one -- the fixture showed exactly that, so it was replaced.)
 
 Both are computed over cells scored at all four horizons (mask true at every
 horizon), per seed, then averaged. Weighting is per sample, fixed now.
@@ -52,7 +57,7 @@ def coherence(pred4, y4):
     ch_y = (sy[:, :-1] * sy[:, 1:]) < 0
     excess = np.any(ch_p & ~ch_y, axis=1)
     s1 = float(excess.mean())
-    s2 = float(np.mean(np.abs(np.diff(pred4, n=2, axis=1))))
+    s2 = float(np.mean(np.abs(np.diff(pred4 - y4, n=2, axis=1))))
     return s1, s2
 
 
@@ -66,7 +71,7 @@ def main():
     if not files:
         sys.exit("no out-of-fold prediction files (results/oof_*.npz); nothing to measure")
     out = {}
-    print(f"{'arm':<22}{'S1 excess sign chg':>20}{'S2 roughness':>14}{'n':>8}")
+    print(f"{'arm':<22}{'S1 excess sign chg':>20}{'S2 resid rough':>16}{'n':>8}")
     for f in files:
         z = np.load(f, allow_pickle=True); arm = f.stem.replace("oof_", "")
         audit(z, a.k)
@@ -79,11 +84,11 @@ def main():
         s1 = float(np.mean([r[0] for r in per_seed])); s2 = float(np.mean([r[1] for r in per_seed]))
         out[arm] = {"S1_excess_sign_change": s1, "S2_roughness": s2, "n_samples": int(full.sum()),
                     "seeds": len(per_seed)}
-        print(f"{arm:<22}{s1:>20.4f}{s2:>14.5f}{int(full.sum()):>8}")
-    # the truth's own roughness, for scale
+        print(f"{arm:<22}{s1:>20.4f}{s2:>16.5f}{int(full.sum()):>8}")
+    # the truth's own curvature, for scale only (it is not a residual)
     z = np.load(files[0], allow_pickle=True); y = z["y"]; full = z["mask"].astype(bool).all(axis=1)
-    out["_truth"] = {"S2_roughness": float(np.mean(np.abs(np.diff(y[full], n=2, axis=1))))}
-    print(f"{'(truth)':<22}{'—':>20}{out['_truth']['S2_roughness']:>14.5f}")
+    out["_truth_curvature"] = float(np.mean(np.abs(np.diff(y[full], n=2, axis=1))))
+    print(f"{'(truth curvature)':<22}{'—':>20}{out['_truth_curvature']:>16.5f}")
     (ROOT / a.out).write_text(json.dumps(out, indent=1)); print(f"\nwritten: {a.out}")
 
 

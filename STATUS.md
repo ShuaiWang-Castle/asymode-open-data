@@ -71,6 +71,13 @@ Written at a deliberate pause. Nothing below is a result; results live in
   zeros, so at long horizons the predictor sits in the low-SNR regime; λ* > 1
   with non-trivial headroom there is the registered "shrinkage is MSE-optimal"
   prediction, not a defect.
+* **D-4 trajectory-coherence script** (`experiments/d4_trajectory_coherence.py`)
+  written before any prediction exists; verified on a coherent fixture (S1
+  0.0004) and a per-sample-shuffled one (S1 0.66). Its S2 was first defined as
+  raw curvature and **committed before the fixture showed that was wrong**
+  (a scrambled trajectory can be flatter than a coherent peaked one); redefined
+  as residual roughness `(p − y)` and re-verified. Same lesson as D-1: read the
+  fixture before committing.
 * **OOF predictions**: tier-1 export requested (all arms, 4 horizons, ~49 MB) for
   D-1 and the D-2 level/ranking decomposition. After exp07.
 
