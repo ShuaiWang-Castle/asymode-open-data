@@ -87,3 +87,15 @@ export in which each panel sits in exactly one fold. **The remaining harnesses
 (exp06/07/08/10) are being wired to the same loader; until then they refuse to
 run (`add_context` raises without a timestamp clock), which is the intended
 fail-closed behaviour.**
+
+## 7. Phase C started; stage 3 launched
+
+D-6 run on g2 and g3 (`results/d6_information_geometry_{g2,g3}.json`; per-cell
+sidecars gitignored). Findings in `docs/CC_RESULT_INTERPRETATION.md` §2: identities
+hold on the data; local information tiny; county decomposition only partly
+estimable (rows per county ≈ 1 at small k); cross-county share 0.78–0.84 at
+k = 200; **family ordering by local information does not match H-E** — the
+identifiability theorem is not the mechanism of the family result.
+Stage 3 of E2 (exp05, g2, event-held-out, one model seed, 60 epochs) launched
+after all gates passed; output `results/v2/exp05_g2_event_seed0.json`.
+

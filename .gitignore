@@ -17,3 +17,4 @@ wandb/
 .cdsapirc
 results/*.npz
 results/smoke/
+results/d6_cells_*.json.gz
