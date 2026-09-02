@@ -72,7 +72,16 @@ Written at a deliberate pause. Nothing below is a result; results live in
   failed to match left a JSON key unrenamed. Mechanical fixes adopted: every
   scripted `replace` asserts its anchor exists; one `ALL` flag aggregates every
   check and gates the commit; commands in verification are written out
-  explicitly, never assembled with `set --` / `${@:n}`.
+  explicitly, never assembled with `set --` / `${@:n}`. **A fourth instance:** the
+  `configs/` copy I added to `build_panel_manifest.py` on the first evening was
+  inserted by `rfind("print(")`, which orphaned the script's summary print at
+  module scope and referenced a variable name I had guessed; the script was
+  broken from that commit until now (g2 was built before it). Repairing it took
+  five attempts because each fix was guarded by a check that was itself wrong
+  (a regex that missed a parenthesised expression; a "module-level" test that
+  missed an import) and one zsh trap (`$VAR` does not word-split). Rule: never
+  locate an insertion point by searching for a generic token; anchor on a unique
+  full line and assert its count is 1.
   *Reading note for the real run:* the target has median ≈ 0 and ~46% exact
   zeros, so at long horizons the predictor sits in the low-SNR regime; λ* > 1
   with non-trivial headroom there is the registered "shrinkage is MSE-optimal"
@@ -172,6 +181,11 @@ unowned until a session is assigned.
 * exp07 (learned baselines, g2) — experiment lane reports on completion.
 * H-A3 corrected rerun (3 arms, g2) — decides whether the void holds on g2.
 * ~~ERA5 Helene~~ — landed and verified (188 MB, zip clean, both streams readable). **26/26.**
+* **Drivers 26/26 and manifest `g3-all-26` built** (digest `db286b4960a4`,
+  14 channels, versioned copy in `configs/`). exp06 (H-E) and the decisive
+  H-A3 rerun are now runnable; both wait for the six-arm export to release the
+  CPU. **The six-arm run loaded g2 at startup and is unaffected; its result must
+  show digest `76a73ed794af`, to be verified on landing.**
 * NET arm implementation — experiment lane.
 
 ## Standing checks (executable, not remembered)
