@@ -33,7 +33,12 @@ over a **single net-rate arm** at h+24 and h+48, and regress it on the family's
 median fall/rise ratio.
 
 * **H-E1** The ordering of the advantage matches the ordering of the ratio:
-  tropical > wind > convective > winter.
+  **tropical > {wind, convective} > winter**, with wind and convective
+  *unordered*. (Amended after the severity-matched control in
+  `RESULTS_LEDGER.md`: within matched severity bands wind and convective have the
+  same fall/rise ratio, so no ordering between them is predicted and a swap there
+  is expected rather than tolerated. Tropical above both, and winter below both,
+  is the prediction.)
 * **H-E2** On winter, the advantage is not distinguishable from zero — the
   two-rate arm and the single net-rate arm are level.
 
@@ -157,9 +162,10 @@ Recording that in advance is the point of writing this down.
 
 ## Interpretive note added before any family fit — what a win means per family
 
-The rank-ceiling diagnostic (D-2, `RESULTS_LEDGER.md`) run per family shows the
-ceiling on county ordering at h+48 is 0.59 on tropical, 0.36 on wind, and about
-0.29 on both convective and winter. So:
+The rank-ceiling diagnostic (D-2, `RESULTS_LEDGER.md`), **after matching on
+severity**, shows the ceiling on county ordering at h+48 is 0.40–0.66 on tropical
+and 0.20–0.42 on every other family, with wind, convective and winter not
+separable from one another. So:
 
 * On **convective and winter**, ordering is essentially unpredictable at long
   horizons. A win there is a **level** win. This is the regime of the primary
@@ -174,8 +180,9 @@ upgraded to "ranks counties better" after the fact without the decomposition.
 
 ## Kill conditions
 
-* H-E1 dies if the ordering is violated at either horizon by more than one
-  adjacent swap, across 3 seeds.
+* H-E1 dies if tropical is not above both wind and convective, or winter is not
+  below both, at either horizon, across 3 seeds. The wind/convective order is
+  not scored.
 * H-E2 dies if the two-rate arm beats `net_scaled` (parameter-matched) on winter
   by more than 3% at either horizon with a paired t below −3. If that happens, the
   mechanism story is wrong and must be withdrawn, whatever the primary result

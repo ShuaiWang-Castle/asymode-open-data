@@ -696,35 +696,52 @@ Two consequences, one expected and one not:
 Half of all targets are exactly zero at every horizon (p50 0.46–0.51), which is
 the same fact seen from the target side.
 
-## D-2 by event family — the rank ceiling tracks phase separation. [A]
+## D-2 by event family, and a severity-matched control. [A]
 
-Source: `results/d2_rank_ceiling_by_family.json` · all 26 panels · zero training.
-Same illegal predictor (truth at origin+1), scored per family.
+Sources: `results/d2_rank_ceiling_by_family.json`,
+`results/d2_severity_matched.json` · all 26 panels · zero training.
 
-| family | fall/rise p50 | ceiling h+6 | h+24 | h+48 | origins |
+Per family, the rank ceiling (illegal predictor = truth at origin+1) at h+48:
+tropical 0.59, wind 0.36, convective 0.29, winter 0.28. An earlier version of
+this entry called this "a third independent measurement separating the families
+in the same order" as the fall/rise ratio and the onset audit. **That sentence is
+withdrawn.** The experiment lane pointed out that tropical events are also
+larger, longer and more spatially uneven, so a higher ceiling could be nothing
+but higher target variance — and that the other two measurements might track
+size the same way. The control: recompute all three inside matched severity
+bands (county-event peak `y` in [0.02, 0.05), [0.05, 0.15), [0.15, 1]).
+
+| band | measure | tropical | wind | convective | winter |
 |---|---|---|---|---|---|
-| tropical | 4.0 | **0.82** | **0.74** | **0.59** | 48 |
-| wind | 2.1 | 0.74 | 0.50 | 0.36 | 64 |
-| convective | 1.7 | 0.54 | 0.34 | 0.29 | 176 |
-| winter | 1.0 | 0.53 | 0.33 | 0.28 | 112 |
-| flood | — | 0.57 | 0.35 | 0.21 | 16 (too few) |
+| mid | fall/rise p50 | **2.94** | 2.00 | 1.86 | **1.00** |
+| high | fall/rise p50 | **7.36** | 3.79 | 3.67 | **1.25** |
+| mid | ceiling h+48 | **0.40** | 0.21 | 0.20 | 0.23 |
+| high | ceiling h+48 | **0.66** | 0.42 | 0.34 | 0.40 |
+| mid | onset share (pre-storm median y = 0) | 0.73 | 0.77 | 0.67 | 0.76 |
+| high | onset share | 0.68 | 0.70 | 0.70 | 0.62 |
 
-**A third independent measurement separates the families in the same order as
-the first two** (the fall/rise ratio and the onset audit). On tropical events the
-county ordering stays predictable out to 48 hours (ceiling 0.59); on convective
-and winter it is essentially gone by 24 hours (0.34, 0.33), and the two are
-indistinguishable from each other.
+What survives matching, and what does not:
 
-*Consequence for H-E, recorded before any family fit:* what a long-horizon win
-**means** differs by family. On convective the ceiling is low, so a win is a
-level-estimation win. On tropical there is ranking skill available at h+48, so a
-win there **can be a ranking win** — a different and stronger claim, and one the
-level/ranking decomposition (D-2 follow-up, needs OOF predictions) can test.
-Written into the H-E registration as an interpretive note.
+* **Phase separation is not a size effect.** The fall/rise ordering
+  tropical > (wind, convective) > winter holds in every band, and winter sits at
+  1.0–1.25 at every severity. This is the mechanism variable H-E rests on, and
+  it is the one that survives. **But wind and convective are not separable once
+  severity is matched** (2.00 vs 1.86; 3.79 vs 3.67): the cross-family
+  wind > convective gap was size. H-E1's ordering is amended accordingly.
+* **The rank ceiling is partly a size effect.** Tropical's ceiling stays highest
+  within bands (0.40 mid, 0.66 high), so the tropical-versus-rest separation is
+  real; the wind / convective / winter differences collapse (0.20–0.23 mid).
+  The interpretive note in H-E — a tropical win can be a ranking win — stands on
+  the matched numbers; nothing else about the ceiling ordering does.
+* **The onset share does not order by family at all.** Within bands it runs
+  0.62–0.78 with winter often highest. It was never evidence for phase
+  separation and should not have been listed alongside the other two. The
+  onset finding (EXP03) is untouched — it is a claim about *all* families, not
+  an ordering among them.
 
-Winter and convective having the same ceiling profile is consistent with both
-being fast, phase-symmetric regimes, and is one more reason winter is the
-negative-control end rather than a "slow" family.
+The honest count is therefore **one** measurement that orders the families by
+phase separation independently of severity, plus a rank ceiling that separates
+tropical from the rest. Not three.
 
 ## Pre-registered but not yet run — asymmetry hypotheses
 
