@@ -209,6 +209,14 @@ reads any JSON with a `panels` key. `--panels` takes one value; a space list is
 rejected. exp07 with `--save-oof` is running pinned this way so D-4 can compare
 the trees to the two-rate OOF on identical samples.
 
+## In flight
+
+* exp07 on g2 with `--save-oof` (pinned via `configs/panel_manifest_g2-convective-11.json`) — nearly done.
+* Decisive H-A3 rerun on g1's 12 panels x 14 channels (pin file
+  `configs/panel_manifest_g1-convective-12.json`, reconstructed from the archived
+  g1 config; digest `1c2bc7bfdfa6` matches) — interpretation fixed in the ledger:
+  null → panel set; signal → wind components.
+
 ## Waiting on
 * ~~Per-horizon two-rate fits~~ — done, [B]: closes h+6 fully, not h+24/48;
   the long-horizon gap is structural (EXP10).
@@ -246,6 +254,12 @@ the trees to the two-rate OOF on identical samples.
   exactly partition the driver block, or the run refuses to start.
 * `scripts/build_panel_manifest.py` — pins the sample set and writes a versioned
   copy under `configs/`.
+* `experiments/d4_compare.py A B` — the D-4 decision: county-block bootstrap of
+  S1(A) − S1(B) on identical samples; the "not a trajectory" framing is
+  available only if every seed's 95% interval is above zero. Fixed and
+  fixture-verified before the trees' export existed. Run
+  `trees_matched susceptible` (and `trees_lookback`, `linear_matched`) once
+  `results/oof_trees_matched.npz` lands.
 
 ## Next actions, in order, when work resumes
 
