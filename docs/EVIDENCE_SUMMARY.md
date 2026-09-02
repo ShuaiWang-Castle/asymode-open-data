@@ -22,7 +22,7 @@ Every line points into `RESULTS_LEDGER.md`; nothing here is new. Grades:
 | 13 | Trees win on per-county magnitude, not ordering: their per-origin Spearman is lower than the two-rate model's; level term is ≤ 0.04 of MSE for every arm at long horizons (D-3) | [A] | mechanistic account of the trees' win | "level win/loss" wording (corrected) |
 | 14 | Shrinkage is MSE-optimal: oracle λ* < 1 for the dynamics, > 1 for the trees, headroom < 1% either way (D-1) | [A] | closes the peak-weighting family | — |
 | 15 | Capacity is doing work: both rates as GLMs lose 3.7–4.8%, 0/15 (EXP08) | [B] | model is not over-parameterised | — |
-| 16 | Capacity asymmetry (H-D) dead on both sample sets; input asymmetry (H-A3) [C] — signal on both sides, one side below the fold bar; decisive g1-vs-g2 rerun **pending** | dead / [C] | — | the "three asymmetries" story as originally framed |
+| 16 | Capacity asymmetry (H-D) dead on both sample sets; input asymmetry (H-A3) [C] — ambient carries ~1% of h+48 skill through the restoration rate (bar cleared on both sample sets), interruption side below the bar twice; the g1/g2 discrepancy is **resolved: the wind components, not the panel set** (`results/exp08_ha3_g1panels_14ch.json`) | dead / [C] | ledger "H-A3 decisive rerun" | the "three asymmetries" story as originally framed |
 
 ## What the three framing paths now rest on
 
@@ -32,5 +32,5 @@ Every line points into `RESULTS_LEDGER.md`; nothing here is new. Grades:
 
 ## Not yet in evidence
 
-* Decisive H-A3 rerun (g1 panels × 14 channels) — running; decides whether the g1/g2 ambient discrepancy is the panel set or the wind components.
+* Decisive H-A3 rerun (g1 panels × 14 channels) — **landed 2026-09-02**: signal, so the g1/g2 ambient discrepancy is the wind components (interaction), not the panel set. Nothing is running.
 * Nothing else registered remains unrun.

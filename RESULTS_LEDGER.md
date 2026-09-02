@@ -660,6 +660,8 @@ the 14-channel driver block. Null → the difference is the panel set; signal �
 it is the wind components. Interpretation fixed now so the outcome cannot be
 narrated after the fact.
 
+*Run 2026-09-02 — adjudicated under this wording in "EXP08 — H-A3 decisive rerun" below: signal; wind components.*
+
 *Side evidence:* the leverage/ESS figures were **bit-reproduced in the retest**
 (Kish ESS U:R 93:1, `P(y>0 | observed) = 0.5408`), confirming they depend on the
 panel and mask only, not on any arm's configuration. [A]
@@ -1227,3 +1229,49 @@ Two facts that change the data plan, both **[A]**:
 2. Tropical cyclones are filed as **zone** records, not county records, so a
    county filter drops every hurricane. Ida, Ian and Beryl are currently
    invisible. Requires the NWS zone-to-county correlation file. **Open gap.**
+
+### EXP08 — H-A3 decisive rerun: the g1/g2 discrepancy is the wind components, not the panel set. Discrepancy resolved [B]; H-A3 itself stays [C].
+
+Source: `results/exp08_ha3_g1panels_14ch.json` · panels `1c2bc7bfdfa6` (g1, 12
+panels, includes `2024-01-09`) · channels `dec964873cb2` (the same 14-channel
+block as the g2 retest) · 60 rows, 15 units, 3 seeds × 5 folds · reproduced with
+`scripts/paired_review.py --ref control`. Fingerprint `3445bdc`, dirty False —
+**stamped at write time, not at launch**: the process started at `5def728`, and
+the only commits in between (`31a8fd9`, `3445bdc`) touch `scripts/make_figures.py`
+and PNGs, nothing on the experiment's import path. Recorded because the
+fingerprint mechanism let it happen; fixed in the same commit series (fingerprint
+is now captured once at process start).
+
+The registered test (previous entry) held the panel set at g1 and changed only the
+driver block from 10 + clock to the 14 channels. Paired against the same-file
+`control`, positive = removal worse:
+
+| removal | h | g1 original (10 ch + clock) | **g1 panels, 14 ch (this run)** | g2 retest (14 ch) |
+|---|---|---|---|---|
+| from restoration | 24 | +0.6% (~8/15) | +0.73% 11/15 t=3.55 | +0.60% 10/15 t=1.78 |
+| from restoration | 48 | +0.7% (~8/15) | **+1.24% 13/15 t=5.53** | **+1.12% 13/15 t=3.03** |
+| from interruption | 24 | +0.2% | +0.68% 10/15 t=1.67 | +0.47% 10/15 t=1.03 |
+| from interruption | 48 | +0.1% | +1.04% 9/15 t=1.70 | +0.84% 9/15 t=1.80 |
+| from both | 24 | +0.6% | +1.06% 11/15 t=2.70 | +1.17% 12/15 t=2.73 |
+| from both | 48 | +0.4% | +1.14% 10/15 t=1.75 | +1.19% 10/15 t=2.20 |
+
+**Verdict under the fixed wording: signal → the wind components.** With the panel
+set held at g1, the 14-channel block reproduces the g2-retest pattern cell for
+cell (every delta within 0.2 points; the same arm clears the fold bar at the same
+horizon; the same arms fail it). The g1-original null was a property of the
+10-channel block, not of the 12 panels. The mechanism is an interaction:
+ambient's marginal value exists only when the wind components are present in both
+arms. (g1 and g2 share 11 of 12 panels, so agreement between them was expected
+once the channel block matched; this run is not an independent replication and is
+not graded as one.)
+
+**What this does and does not change for H-A3.** The registered condition for
+the symmetric control — ambient hurts *both* rates when removed — is unmet on both
+sample sets: restoration-side removal clears the bar at h+48 twice (13/15, t = 3.0
+and 5.5); interruption-side removal fails it twice (9/15, t ≤ 1.8). Same sign on
+both sides, effect ~1%, sub-additive at h+48. **H-A3 stays [C].** What is
+established at full protocol, twice, is the narrower statement: on convective
+panels with the 14-channel block, ambient meteorology carries ~1% of h+48 skill
+through the restoration rate. H-A3' (precipitation + wind speed) remains the
+registered replacement control; the "three asymmetries" framing stays retired.
+
