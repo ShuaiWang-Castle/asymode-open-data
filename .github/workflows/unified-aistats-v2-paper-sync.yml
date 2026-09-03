@@ -1,0 +1,60 @@
+name: unified-aistats-v2-paper-sync
+
+on:
+  push:
+    branches:
+      - gpt-unified-aistats-v2-20260903
+    paths:
+      - "results/unified_aistats_v2_seed0.md"
+      - ".github/workflows/unified-aistats-v2-paper-sync.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Require locked pilot result
+        run: test -f results/unified_aistats_v2_seed0.json
+      - name: Write paper addendum and status
+        shell: bash
+        run: |
+          cp results/unified_aistats_v2_seed0.md paper/PILOT_RESULTS_UNIFIED_V2.md
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('results/unified_aistats_v2_seed0.json').read_text())
+          s=d['summary']
+          c=s['comparisons']['two_rate_vs_net_scaled']
+          a=s['comparisons']['joint_vs_rollout_only']
+          ep=s['by_arm']['two_rate_v2']['best_epoch']
+          lines=['# Unified AISTATS v2 status','',
+                 'The theory, model, data cohort, horizon, objective, validation map, and authorized ablations are locked in `docs/UNIFIED_AISTATS_V2_PROTOCOL.md`.','',
+                 '## Seed-0 execution pilot','',
+                 f"- two-rate median selected epoch: {ep['median']:.1f} (range {ep['min']}–{ep['max']}).",
+                 f"- two-rate vs net-scaled at h+6: {c['h6']['equal_event_mean_pct']:+.3f}% mean, {c['h6']['n_positive']}/{c['h6']['n_events']} events.",
+                 f"- two-rate vs net-scaled at h+24: {c['h24']['equal_event_mean_pct']:+.3f}% mean, {c['h24']['n_positive']}/{c['h24']['n_events']} events.",
+                 f"- joint objective vs rollout-only at h+6: {a['h6']['equal_event_mean_pct']:+.3f}% mean, {a['h6']['n_positive']}/{a['h6']['n_events']} events.",
+                 f"- joint objective vs rollout-only at h+24: {a['h24']['equal_event_mean_pct']:+.3f}% mean, {a['h24']['n_positive']}/{a['h24']['n_events']} events.",
+                 '',
+                 'This one-seed run is not a paper-level uncertainty estimate. Its sign is not used to redesign the protocol. The next authorized run is the same eleven folds with seeds 0, 1, and 2, followed by HGB and damped-persistence evaluation on the same h+6/h+24 endpoints.','']
+          Path('STATUS_UNIFIED_AISTATS_V2.md').write_text('\n'.join(lines))
+          PY
+      - name: Commit synchronized paper files
+        shell: bash
+        run: |
+          git config user.name "OpenAI GPT-5.6 Pro"
+          git config user.email "actions@users.noreply.github.com"
+          git add paper/PILOT_RESULTS_UNIFIED_V2.md STATUS_UNIFIED_AISTATS_V2.md
+          if git diff --cached --quiet; then
+            echo "No paper sync changes"
+          else
+            git commit -m "Sync unified AISTATS v2 pilot into paper status"
+            git push origin HEAD:gpt-unified-aistats-v2-20260903
+          fi
