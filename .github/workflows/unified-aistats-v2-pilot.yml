@@ -1,0 +1,68 @@
+name: unified-aistats-v2-pilot
+
+on:
+  push:
+    branches:
+      - gpt-unified-aistats-v2-20260903
+    paths:
+      - "experiments/unified_aistats_v2.py"
+      - "configs/event_split_map_g2_two_validation.json"
+      - "docs/UNIFIED_AISTATS_V2_PROTOCOL.md"
+      - ".github/workflows/unified-aistats-v2-pilot.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore published data files from main when absent
+        shell: bash
+        run: |
+          if ! ls data/interim/panel_*.npz >/dev/null 2>&1; then
+            git fetch origin main
+            git checkout origin/main -- data/interim
+          fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip numpy
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - name: Compile and audit configuration
+        shell: bash
+        run: |
+          python -m py_compile experiments/unified_aistats_v2.py
+          python - <<'PY'
+          import json
+          p=json.load(open('configs/event_split_map_g2_two_validation.json'))
+          assert len(p['events']) == 11
+          assert len(p['folds']) == 11
+          for f in p['folds']:
+              assert len(f['test']) == 1 and len(f['validation']) == 2
+              assert not (set(f['test']) & set(f['validation']))
+          print('split-map audit passed')
+          PY
+      - name: Run the locked seed-0 eleven-event pilot
+        shell: bash
+        run: |
+          PYTHONPATH=src:experiments python experiments/unified_aistats_v2.py \
+            --seeds 0 \
+            --arms two_rate_v2 net_scaled_v2 two_rate_rollout_only \
+            --out results/unified_aistats_v2_seed0.json \
+            --pred-dir results/unified_aistats_v2_seed0_predictions
+      - name: Upload pilot output
+        uses: actions/upload-artifact@v4
+        with:
+          name: unified-aistats-v2-seed0
+          path: |
+            results/unified_aistats_v2_seed0.json
+          if-no-files-found: error
