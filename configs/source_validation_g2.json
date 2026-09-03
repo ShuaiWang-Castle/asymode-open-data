@@ -1,0 +1,11 @@
+{
+  "protocol": "leave-one-event-out with within-source-event validation",
+  "outer_test_unit": "one complete event",
+  "source_events_per_fold": 10,
+  "validation_unit": "county within each source event",
+  "validation_fraction": 0.2,
+  "hash_seed": 20260903,
+  "rule": "For each outer fold, the held-out event is never used for training, normalization, validation, or checkpoint selection. Within each of the ten remaining source events, all rows of a county are assigned together by a deterministic SHA256 hash of (seed,event,FIPS); the lowest 20 percent of counties form that event's validation subset and the remaining counties form its training subset. Training and validation objectives are averaged equally over the ten source events.",
+  "outcome_blind": true,
+  "model_result_blind": true
+}
