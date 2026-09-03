@@ -1,0 +1,96 @@
+name: unified-aistats-v2-locked
+
+on:
+  push:
+    branches:
+      - gpt-unified-aistats-v2-20260903
+    paths:
+      - ".github/workflows/unified-aistats-v2-locked.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  locked-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore published data files from main when absent
+        shell: bash
+        run: |
+          if ! ls data/interim/panel_*.npz >/dev/null 2>&1; then
+            git fetch origin main
+            git checkout origin/main -- data/interim
+          fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip numpy
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - name: Run locked experiment
+        shell: bash
+        run: |
+          python -m py_compile experiments/unified_aistats_v2.py
+          PYTHONPATH=src:experiments python experiments/unified_aistats_v2.py \
+            --seeds 0 \
+            --arms two_rate_v2 net_scaled_v2 two_rate_rollout_only \
+            --out results/unified_aistats_v2_seed0.json
+      - name: Write human-readable pilot report
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('results/unified_aistats_v2_seed0.json')
+          d=json.loads(p.read_text())
+          s=d['summary']
+          lines=['# Unified AISTATS v2 seed-0 pilot','',
+                 'Protocol: `docs/UNIFIED_AISTATS_V2_PROTOCOL.md`. This is an execution and direction pilot, not the final three-seed table.','']
+          lines += ['## Equal-event RMSE','', '| arm | h+1 | h+6 | h+24 | median best epoch |','|---|---:|---:|---:|---:|']
+          for arm, x in s['by_arm'].items():
+              lines.append(f"| {arm} | {x['rmse_h1']['equal_event_mean']:.6f} | {x['rmse_h6']['equal_event_mean']:.6f} | {x['rmse_h24']['equal_event_mean']:.6f} | {x['best_epoch']['median']:.1f} |")
+          lines += ['', '## Paired event gains', '', 'Positive means the first-named proposed model is better.','']
+          for label, hs in s['comparisons'].items():
+              lines.append(f'### {label}')
+              lines.append('')
+              lines.append('| horizon | mean gain % | median % | positive events |')
+              lines.append('|---|---:|---:|---:|')
+              for h in (1,6,24):
+                  z=hs[f'h{h}']
+                  lines.append(f"| h+{h} | {z['equal_event_mean_pct']:+.3f} | {z['median_pct']:+.3f} | {z['n_positive']}/{z['n_events']} |")
+              lines.append('')
+          b=s['by_arm']['two_rate_v2']['best_epoch']
+          execution_ok=(b['median']>1 and all(r['frac_pred_zero']<0.9 for r in d['rows']))
+          lines += ['## Protocol decision','',
+                    f"- Integrity/execution gate: **{'PASS' if execution_ok else 'FAIL'}**.",
+                    '- The protocol is not changed according to the sign of this pilot.',
+                    '- A full three-seed run is authorized only after code review confirms the event-balanced gradient and teacher-forced mask implementation.','']
+          Path('results/unified_aistats_v2_seed0.md').write_text('\n'.join(lines))
+          print('\n'.join(lines))
+          PY
+      - name: Commit reproducible pilot outputs
+        shell: bash
+        run: |
+          git config user.name "OpenAI GPT-5.6 Pro"
+          git config user.email "actions@users.noreply.github.com"
+          git add results/unified_aistats_v2_seed0.json results/unified_aistats_v2_seed0.md
+          if git diff --cached --quiet; then
+            echo "No new result files to commit"
+          else
+            git commit -m "Record locked unified AISTATS v2 seed-0 pilot"
+            git push origin HEAD:gpt-unified-aistats-v2-20260903
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: unified-aistats-v2-locked
+          path: |
+            results/unified_aistats_v2_seed0.json
+            results/unified_aistats_v2_seed0.md
+          if-no-files-found: error
