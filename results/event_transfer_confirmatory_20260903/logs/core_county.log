@@ -1,0 +1,36 @@
+protocol county · 5 folds · split digest f5a428dfa590 · 22,768 samples · 11 events · panels 76a73ed794af
+  fold 0 test=county-fold-0 n_tr=16,072 n_va=2,904 n_te=3,792
+    two_rate         seed 0 ep  35 (best  23) h1=0.01306 h6=0.02488 h24=0.04443 h48=0.04085  20.6s
+    two_rate         seed 1 ep  36 (best  24) h1=0.01316 h6=0.02500 h24=0.04322 h48=0.03864  19.1s
+    two_rate         seed 2 ep  27 (best  15) h1=0.01315 h6=0.02536 h24=0.04424 h48=0.04009  17.0s
+    net_scaled       seed 0 ep  60 (best  53) h1=0.01328 h6=0.02428 h24=0.04366 h48=0.03884  59.7s
+    net_scaled       seed 1 ep  60 (best  60) h1=0.01358 h6=0.02401 h24=0.04310 h48=0.03717  76.6s
+    net_scaled       seed 2 ep  35 (best  23) h1=0.01291 h6=0.02372 h24=0.04370 h48=0.03884  49.7s
+  fold 1 test=county-fold-1 n_tr=15,680 n_va=2,656 n_te=4,432
+    two_rate         seed 0 ep  30 (best  18) h1=0.01077 h6=0.02664 h24=0.03796 h48=0.03587  49.4s
+    two_rate         seed 1 ep  54 (best  42) h1=0.01080 h6=0.02628 h24=0.03697 h48=0.03355  90.2s
+    two_rate         seed 2 ep  60 (best  49) h1=0.01072 h6=0.02590 h24=0.03746 h48=0.03521  97.4s
+    net_scaled       seed 0 ep  54 (best  42) h1=0.01062 h6=0.02408 h24=0.03672 h48=0.03418  58.3s
+    net_scaled       seed 1 ep  60 (best  52) h1=0.01142 h6=0.02453 h24=0.03686 h48=0.03397  70.4s
+    net_scaled       seed 2 ep  44 (best  32) h1=0.01071 h6=0.02534 h24=0.03745 h48=0.03455  56.5s
+  fold 2 test=county-fold-2 n_tr=15,256 n_va=2,296 n_te=5,216
+    two_rate         seed 0 ep  34 (best  22) h1=0.01298 h6=0.02755 h24=0.03896 h48=0.03569  54.5s
+    two_rate         seed 1 ep  43 (best  31) h1=0.01336 h6=0.02724 h24=0.03965 h48=0.03604  77.9s
+    two_rate         seed 2 ep  45 (best  33) h1=0.01405 h6=0.02930 h24=0.04148 h48=0.03849  87.8s
+    net_scaled       seed 0 ep  43 (best  31) h1=0.01290 h6=0.02845 h24=0.04071 h48=0.03834  54.6s
+    net_scaled       seed 1 ep  39 (best  27) h1=0.01279 h6=0.02721 h24=0.04036 h48=0.03784  51.7s
+    net_scaled       seed 2 ep  57 (best  45) h1=0.01326 h6=0.02824 h24=0.03930 h48=0.03675  72.4s
+  fold 3 test=county-fold-3 n_tr=15,136 n_va=2,896 n_te=4,736
+    two_rate         seed 0 ep  18 (best   6) h1=0.01082 h6=0.02753 h24=0.03438 h48=0.03350  32.1s
+    two_rate         seed 1 ep  20 (best   8) h1=0.01092 h6=0.02760 h24=0.03460 h48=0.03351  33.7s
+    two_rate         seed 2 ep  26 (best  14) h1=0.01081 h6=0.02859 h24=0.03528 h48=0.03341  42.3s
+    net_scaled       seed 0 ep  50 (best  38) h1=0.01098 h6=0.02860 h24=0.03460 h48=0.03335  64.8s
+    net_scaled       seed 1 ep  37 (best  25) h1=0.01130 h6=0.02811 h24=0.03453 h48=0.03306  46.6s
+    net_scaled       seed 2 ep  41 (best  29) h1=0.01105 h6=0.02977 h24=0.03478 h48=0.03312  51.8s
+  fold 4 test=county-fold-4 n_tr=15,480 n_va=2,696 n_te=4,592
+    two_rate         seed 0 ep  52 (best  40) h1=0.01182 h6=0.03102 h24=0.04614 h48=0.04337  85.6s
+    two_rate         seed 1 ep  52 (best  40) h1=0.01190 h6=0.03174 h24=0.04574 h48=0.04331  77.6s
+    two_rate         seed 2 ep  60 (best  50) h1=0.01205 h6=0.03080 h24=0.04429 h48=0.04126  87.7s
+    net_scaled       seed 0 ep  60 (best  48) h1=0.01206 h6=0.03230 h24=0.04394 h48=0.04134  67.1s
+    net_scaled       seed 1 ep  49 (best  37) h1=0.01187 h6=0.03214 h24=0.04537 h48=0.04257  53.2s
+    net_scaled       seed 2 ep  49 (best  37) h1=0.01159 h6=0.03183 h24=0.04537 h48=0.04307  52.9s

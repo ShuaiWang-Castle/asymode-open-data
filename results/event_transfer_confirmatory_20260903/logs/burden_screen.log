@@ -1,0 +1,13 @@
+protocol event · 3 folds · split digest aea2acb10037 · 22,768 samples · 11 events · panels 76a73ed794af
+  fold 2 test=2021-08-11 n_tr=18,696 n_va=2,048 n_te=2,024
+    recovery_burden  seed 0 ep  13 (best   1) h1=0.01175 h6=0.04414 h24=0.06118 h48=0.06048  24.6s
+    recovery_burden  seed 1 ep  13 (best   1) h1=0.01142 h6=0.04290 h24=0.05419 h48=0.05448  25.1s
+    recovery_burden  seed 2 ep  16 (best   4) h1=0.01252 h6=0.04585 h24=0.06331 h48=0.06175  30.4s
+  fold 5 test=2022-06-08 n_tr=18,456 n_va=2,848 n_te=1,464
+    recovery_burden  seed 0 ep  13 (best   1) h1=0.01323 h6=0.01086 h24=0.02713 h48=0.01569  25.3s
+    recovery_burden  seed 1 ep  13 (best   1) h1=0.01323 h6=0.01119 h24=0.02731 h48=0.01694  24.9s
+    recovery_burden  seed 2 ep  13 (best   1) h1=0.01319 h6=0.01077 h24=0.02692 h48=0.01599  24.9s
+  fold 9 test=2024-05-26 n_tr=18,216 n_va=1,840 n_te=2,712
+    recovery_burden  seed 0 ep  19 (best   7) h1=0.01740 h6=0.04778 h24=0.07584 h48=0.07532  34.8s
+    recovery_burden  seed 1 ep  22 (best  10) h1=0.01757 h6=0.04897 h24=0.07606 h48=0.07559  39.7s
+    recovery_burden  seed 2 ep  14 (best   2) h1=0.01733 h6=0.04770 h24=0.07533 h48=0.07475  25.4s

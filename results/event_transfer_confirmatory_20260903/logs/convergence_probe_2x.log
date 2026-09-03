@@ -1,0 +1,15 @@
+protocol event · 2 folds · split digest aea2acb10037 · 22,768 samples · 11 events · panels 76a73ed794af
+  fold 4 test=2022-04-13 n_tr=19,648 n_va=1,464 n_te=1,656
+    two_rate         seed 0 ep  31 (best   7) h1=0.01183 h6=0.01964 h24=0.03234 h48=0.02188  50.2s
+    two_rate         seed 1 ep  31 (best   7) h1=0.01218 h6=0.01721 h24=0.02101 h48=0.01488  51.2s
+    two_rate         seed 2 ep  35 (best  11) h1=0.01207 h6=0.01978 h24=0.03446 h48=0.01891  58.0s
+    net_scaled       seed 0 ep  30 (best   6) h1=0.01304 h6=0.02554 h24=0.04340 h48=0.02525  38.1s
+    net_scaled       seed 1 ep  47 (best  23) h1=0.01314 h6=0.01700 h24=0.02843 h48=0.01898  60.0s
+    net_scaled       seed 2 ep  50 (best  26) h1=0.01278 h6=0.02143 h24=0.03285 h48=0.02203  62.6s
+  fold 8 test=2024-05-08 n_tr=18,168 n_va=2,712 n_te=1,888
+    two_rate         seed 0 ep  26 (best   2) h1=0.00880 h6=0.01686 h24=0.01963 h48=0.01842  41.2s
+    two_rate         seed 1 ep  29 (best   5) h1=0.00888 h6=0.01806 h24=0.02207 h48=0.02100  45.3s
+    two_rate         seed 2 ep  27 (best   3) h1=0.00875 h6=0.01600 h24=0.01929 h48=0.01793  42.6s
+    net_scaled       seed 0 ep  46 (best  22) h1=0.00929 h6=0.02005 h24=0.02735 h48=0.02676  55.9s
+    net_scaled       seed 1 ep  40 (best  16) h1=0.00924 h6=0.01857 h24=0.03041 h48=0.03084  49.0s
+    net_scaled       seed 2 ep  40 (best  16) h1=0.00888 h6=0.01794 h24=0.02065 h48=0.01827  48.8s

@@ -70,8 +70,10 @@ def main() -> None:
     smap = json.loads((ROOT / "configs/event_split_map_g2.json").read_text())
     split_digest = splits.split_digest({f["test"][0]: f["fold"] for f in smap["folds"]})
 
+    # every field exp07._fit_trees reads; `patience` counts early-stopping evaluations,
+    # not epochs, so 8 evaluations at a 25-round step is 200 rounds without improvement
     targs = types.SimpleNamespace(horizons=list(HORIZONS), trees=a.trees, tree_lr=0.05,
-                                  leaves=31, tree_step=25, tree_lib="sklearn")
+                                  leaves=31, tree_step=25, tree_lib="sklearn", patience=8)
     rows, preds = [], {}
     n_h = len(HORIZONS)
     for f in smap["folds"]:
