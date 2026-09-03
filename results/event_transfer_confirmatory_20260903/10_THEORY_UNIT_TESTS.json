@@ -1,0 +1,54 @@
+{
+ "n_draws": 10000,
+ "skipped_near_degenerate": 2,
+ "interruption_identity": {
+  "max_rel_err": 7.366042677598719e-13,
+  "median_rel_err": 1.511845154133313e-16,
+  "pass": true
+ },
+ "restoration_identity": {
+  "max_rel_err": 2.67958801333686e-13,
+  "median_rel_err": 1.4391653971984015e-16,
+  "pass": true
+ },
+ "projection_is_the_minimiser": {
+  "interruption_max_score": 2.2985159350805996e-13,
+  "restoration_max_score": 2.589175745978329e-14,
+  "n_draws_checked": 500,
+  "pass": true,
+  "note": "score 0 means the numerical derivative of the risk vanishes at the closed-form projection and both neighbours are worse; 1 is assigned if a neighbour is better"
+ },
+ "boundary": {
+  "R_zero_interruption_risk": {
+   "value": 0.0,
+   "pass": true
+  },
+  "U_zero_restoration_risk": {
+   "value": 0.0,
+   "pass": true
+  },
+  "vQ_zero_reduces_to_shift": {
+   "vQ": -1.3877787807814457e-17,
+   "lhs": 0.00017814989233381757,
+   "rhs": 0.00017814989233381784,
+   "pass": true
+  },
+  "P_equals_Q_no_shift": {
+   "lhs": 0.0007087866108786611,
+   "rhs": 0.0007087866108786611,
+   "pass": true
+  },
+  "two_rate_oracle_risk_zero": {
+   "value": 0.0,
+   "pass": true,
+   "note": "m(y) is in the two-rate class by construction; risk is identically zero at (U,R)"
+  }
+ },
+ "nonnegative_projection": {
+  "share_of_draws_with_negative_unconstrained_projection": 0.1145,
+  "clipping_never_lowers_target_risk_below_the_free_projection": false,
+  "median_extra_target_risk_from_clipping": 0.00031966792603858266,
+  "note": "max(0, a*) is a different estimator; the closed-form identity is stated for the unconstrained L2 projection and is reported separately from the clipped one"
+ },
+ "verdict": "PASS"
+}
