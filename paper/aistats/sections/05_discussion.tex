@@ -1,0 +1,17 @@
+\section{Discussion}
+
+The decision between one flow and two is governed by a product, not by identifiability alone. The information factor $I_{\tau,n}$ determines whether total turnover is distinguishable; the coactivity factor $\kappa_n$ determines the representation cost of suppressing one direction. Their product $\Gamma_n$ must then exceed the effective estimation and misspecification cost of the richer estimator. This organization accommodates the real-data result without weakening the theorem: a positive oracle gap can coexist with weak or heterogeneous predictive gains.
+
+Three limitations are central. First, much of the observed state dispersion is cross-county. If unobserved county heterogeneity changes with state, the pooled affine conditional mean is misspecified and the two learned components need not correspond to common interruption and restoration functions. Second, the fixed-design formulas treat the current state as measured without error and the residual as homoskedastic; reporting noise and errors in the current state can attenuate the turnover direction. Third, all central theory is one-step. Along a fixed driver path, the rollout error satisfies
+\begin{equation}
+e_H=\sum_{k=0}^{H-1}\delta_k
+\prod_{j=k+1}^{H-1}(1-\widehat\tau_j),
+\label{eq:rollout_bridge}
+\end{equation}
+where $\delta_k$ is the fitted one-step drift error evaluated on the reference trajectory. Errors may cancel or reinforce. A geometric saturation bound requires a uniform positive lower bound on $\widehat\tau_j$; without it, near-linear accumulation is possible.
+
+The supplied solvable case should be read as an exact calibration of the local benchmark, not as a surrogate for the outage data. The public panels occupy a different state geometry and require broad function sharing across counties and driver neighborhoods. A cross-fitted empirical $\widehat\Gamma$ could eventually be tested as a model selector, but no such predictive claim is made here. The next scientifically clean test would evaluate that selector on storms not used to construct the present analysis, rather than revise endpoints or losses on the same eleven events.
+
+\section{Conclusion}
+
+Separating interruption from restoration is valuable only when two conditions hold jointly: the data contain information about total turnover, and suppressing one active direction creates enough approximation error to repay the second function. The exact one-flow gap, the orthogonal information geometry, and the index $\Gamma_n$ make this distinction explicit. The solvable case verifies the crossover in closed form. On public storm data, the two-flow neural class shows a positive but heterogeneous 24-hour structural advantage over a parameter-matched one-flow class, while the stronger practical baselines expose the remaining limits of the model. This combination of positive and negative evidence is the intended conclusion: two flows are a testable inductive bias, not a guarantee of superior forecasting.
