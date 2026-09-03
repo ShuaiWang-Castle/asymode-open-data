@@ -1,21 +1,17 @@
 # Current paper draft
 
-The current Claude-reviewed AISTATS manuscript is:
+The canonical AISTATS manuscript is:
 
 `paper/aistats/main.tex`
 
-`paper/aistats/main_reviewed.tex` is an identical review snapshot retained for provenance.
+on branch:
 
-The only authorized real-data experiment is:
+`gpt-aistats-gamma-rewrite-20260903`
 
-`docs/MAIN_REAL_STORM_EXPERIMENT_LOCK.md`
+The paper is organized around the single flow-selection index `Gamma = turnover information x coactivity`. The user-supplied exactly solvable case is in the main text and the completed 24/48-hour leave-one-event-out experiment is the primary empirical study.
 
-The bounded CC execution prompt is:
+The governing scope and result lock is:
 
-`docs/CC_MAIN_REAL_STORM_ONLY_PROMPT.md`
+`docs/GAMMA_REWRITE_AND_MAIN_EXPERIMENT_LOCK.md`
 
-The theory-scope response is:
-
-`docs/CLAUDE_THEORY_REVIEW_RESPONSE.md`
-
-Earlier drafts, family analyses, event-shift campaigns, mixed-loss proposals, memory modules, and broad experiment plans remain only as provenance. They do not define the current contribution hierarchy or authorize new experiments.
+Earlier drafts remain only as provenance and do not define the current contribution hierarchy or authorize new experiments.
