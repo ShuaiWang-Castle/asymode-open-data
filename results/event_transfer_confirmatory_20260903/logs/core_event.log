@@ -1,0 +1,78 @@
+protocol event · 11 folds · split digest aea2acb10037 · 22,768 samples · 11 events · panels 76a73ed794af
+  fold 0 test=2021-05-04 n_tr=17,968 n_va=2,048 n_te=2,752
+    two_rate         seed 0 ep  23 (best  11) h1=0.01050 h6=0.02626 h24=0.04951 h48=0.04509  43.3s
+    two_rate         seed 1 ep  15 (best   3) h1=0.00975 h6=0.02340 h24=0.04964 h48=0.04504  35.8s
+    two_rate         seed 2 ep  26 (best  14) h1=0.01092 h6=0.02507 h24=0.04982 h48=0.04628  68.8s
+    net_scaled       seed 0 ep  27 (best  15) h1=0.00998 h6=0.03037 h24=0.05162 h48=0.04608  50.0s
+    net_scaled       seed 1 ep  27 (best  15) h1=0.01038 h6=0.02689 h24=0.04952 h48=0.04564  53.8s
+    net_scaled       seed 2 ep  14 (best   2) h1=0.00967 h6=0.02252 h24=0.05080 h48=0.04813  25.0s
+  fold 1 test=2021-06-21 n_tr=18,696 n_va=2,024 n_te=2,048
+    two_rate         seed 0 ep  27 (best  15) h1=0.00457 h6=0.01252 h24=0.02208 h48=0.01680  64.7s
+    two_rate         seed 1 ep  17 (best   5) h1=0.00452 h6=0.01277 h24=0.02257 h48=0.01594  39.2s
+    two_rate         seed 2 ep  13 (best   1) h1=0.00459 h6=0.01387 h24=0.02319 h48=0.01758  32.1s
+    net_scaled       seed 0 ep  19 (best   7) h1=0.00451 h6=0.01405 h24=0.02355 h48=0.01672  46.6s
+    net_scaled       seed 1 ep  17 (best   5) h1=0.00452 h6=0.01243 h24=0.02349 h48=0.01657  41.1s
+    net_scaled       seed 2 ep  19 (best   7) h1=0.00451 h6=0.01278 h24=0.02348 h48=0.01647  48.2s
+  fold 2 test=2021-08-11 n_tr=18,696 n_va=2,048 n_te=2,024
+    two_rate         seed 0 ep  13 (best   1) h1=0.01178 h6=0.04403 h24=0.06116 h48=0.06084  36.4s
+    two_rate         seed 1 ep  13 (best   1) h1=0.01144 h6=0.04304 h24=0.05478 h48=0.05485  39.9s
+    two_rate         seed 2 ep  16 (best   4) h1=0.01259 h6=0.04586 h24=0.06273 h48=0.06127  62.3s
+    net_scaled       seed 0 ep  31 (best  19) h1=0.01217 h6=0.04510 h24=0.05582 h48=0.05632  79.4s
+    net_scaled       seed 1 ep  15 (best   3) h1=0.01213 h6=0.04532 h24=0.05470 h48=0.05541  47.3s
+    net_scaled       seed 2 ep  17 (best   5) h1=0.01203 h6=0.04391 h24=0.06347 h48=0.06522  40.6s
+  fold 3 test=2021-12-11 n_tr=19,064 n_va=1,656 n_te=2,048
+    two_rate         seed 0 ep  13 (best   1) h1=0.00799 h6=0.02768 h24=0.03447 h48=0.02834  39.7s
+    two_rate         seed 1 ep  14 (best   2) h1=0.00793 h6=0.02672 h24=0.03379 h48=0.02826  54.6s
+    two_rate         seed 2 ep  13 (best   1) h1=0.00801 h6=0.02719 h24=0.03421 h48=0.02866  43.8s
+    net_scaled       seed 0 ep  14 (best   2) h1=0.00773 h6=0.02800 h24=0.03581 h48=0.02903  35.6s
+    net_scaled       seed 1 ep  13 (best   1) h1=0.00788 h6=0.02757 h24=0.03574 h48=0.02902  24.9s
+    net_scaled       seed 2 ep  18 (best   6) h1=0.00803 h6=0.02776 h24=0.03634 h48=0.02934  31.4s
+  fold 4 test=2022-04-13 n_tr=19,648 n_va=1,464 n_te=1,656
+    two_rate         seed 0 ep  19 (best   7) h1=0.01183 h6=0.01964 h24=0.03234 h48=0.02188  41.1s
+    two_rate         seed 1 ep  19 (best   7) h1=0.01218 h6=0.01721 h24=0.02101 h48=0.01488  40.8s
+    two_rate         seed 2 ep  23 (best  11) h1=0.01207 h6=0.01978 h24=0.03446 h48=0.01891  40.9s
+    net_scaled       seed 0 ep  18 (best   6) h1=0.01304 h6=0.02554 h24=0.04340 h48=0.02525  24.1s
+    net_scaled       seed 1 ep  35 (best  23) h1=0.01314 h6=0.01700 h24=0.02843 h48=0.01898  46.3s
+    net_scaled       seed 2 ep  38 (best  26) h1=0.01278 h6=0.02143 h24=0.03285 h48=0.02203  53.1s
+  fold 5 test=2022-06-08 n_tr=18,456 n_va=2,848 n_te=1,464
+    two_rate         seed 0 ep  13 (best   1) h1=0.01323 h6=0.01109 h24=0.02717 h48=0.01572  24.6s
+    two_rate         seed 1 ep  13 (best   1) h1=0.01322 h6=0.01104 h24=0.02731 h48=0.01708  25.3s
+    two_rate         seed 2 ep  13 (best   1) h1=0.01322 h6=0.01107 h24=0.02717 h48=0.01626  25.8s
+    net_scaled       seed 0 ep  18 (best   6) h1=0.01297 h6=0.01030 h24=0.02711 h48=0.01493  26.3s
+    net_scaled       seed 1 ep  26 (best  14) h1=0.01298 h6=0.01018 h24=0.02705 h48=0.01460  36.7s
+    net_scaled       seed 2 ep  31 (best  19) h1=0.01291 h6=0.01275 h24=0.02735 h48=0.01556  46.7s
+  fold 6 test=2022-06-17 n_tr=18,432 n_va=1,488 n_te=2,848
+    two_rate         seed 0 ep  16 (best   4) h1=0.01449 h6=0.02704 h24=0.04024 h48=0.03729  31.4s
+    two_rate         seed 1 ep  18 (best   6) h1=0.01450 h6=0.02734 h24=0.04027 h48=0.03747  38.5s
+    two_rate         seed 2 ep  15 (best   3) h1=0.01451 h6=0.02709 h24=0.04000 h48=0.03701  27.7s
+    net_scaled       seed 0 ep  13 (best   1) h1=0.01450 h6=0.02719 h24=0.04099 h48=0.03851  17.7s
+    net_scaled       seed 1 ep  13 (best   1) h1=0.01459 h6=0.02747 h24=0.04098 h48=0.03852  17.9s
+    net_scaled       seed 2 ep  13 (best   1) h1=0.01461 h6=0.02724 h24=0.04101 h48=0.03864  17.9s
+  fold 7 test=2022-07-23 n_tr=19,392 n_va=1,888 n_te=1,488
+    two_rate         seed 0 ep  29 (best  17) h1=0.01181 h6=0.01890 h24=0.03178 h48=0.03148  56.2s
+    two_rate         seed 1 ep  19 (best   7) h1=0.01186 h6=0.01858 h24=0.03172 h48=0.03098  37.2s
+    two_rate         seed 2 ep  14 (best   2) h1=0.01195 h6=0.01873 h24=0.03154 h48=0.03090  27.4s
+    net_scaled       seed 0 ep  15 (best   3) h1=0.01188 h6=0.01807 h24=0.03114 h48=0.03081  19.1s
+    net_scaled       seed 1 ep  14 (best   2) h1=0.01186 h6=0.01789 h24=0.03084 h48=0.03073  20.5s
+    net_scaled       seed 2 ep  14 (best   2) h1=0.01194 h6=0.01849 h24=0.03110 h48=0.03082  19.1s
+  fold 8 test=2024-05-08 n_tr=18,168 n_va=2,712 n_te=1,888
+    two_rate         seed 0 ep  14 (best   2) h1=0.00880 h6=0.01686 h24=0.01963 h48=0.01842  24.9s
+    two_rate         seed 1 ep  17 (best   5) h1=0.00888 h6=0.01806 h24=0.02207 h48=0.02100  35.0s
+    two_rate         seed 2 ep  15 (best   3) h1=0.00875 h6=0.01600 h24=0.01929 h48=0.01793  28.1s
+    net_scaled       seed 0 ep  34 (best  22) h1=0.00929 h6=0.02005 h24=0.02735 h48=0.02676  54.6s
+    net_scaled       seed 1 ep  28 (best  16) h1=0.00924 h6=0.01857 h24=0.03041 h48=0.03084  29.2s
+    net_scaled       seed 2 ep  28 (best  16) h1=0.00888 h6=0.01794 h24=0.02065 h48=0.01827  15.7s
+  fold 9 test=2024-05-26 n_tr=18,216 n_va=1,840 n_te=2,712
+    two_rate         seed 0 ep  25 (best  13) h1=0.01765 h6=0.04929 h24=0.07622 h48=0.07537  29.4s
+    two_rate         seed 1 ep  23 (best  11) h1=0.01783 h6=0.05093 h24=0.07777 h48=0.07557  23.1s
+    two_rate         seed 2 ep  16 (best   4) h1=0.01733 h6=0.04870 h24=0.07576 h48=0.07504  12.4s
+    net_scaled       seed 0 ep  18 (best   6) h1=0.01751 h6=0.04949 h24=0.07946 h48=0.07840  10.0s
+    net_scaled       seed 1 ep  18 (best   6) h1=0.01740 h6=0.04839 h24=0.07847 h48=0.07822  9.4s
+    net_scaled       seed 2 ep  15 (best   3) h1=0.01871 h6=0.05184 h24=0.07879 h48=0.07792  8.2s
+  fold 10 test=2024-06-26 n_tr=18,176 n_va=2,752 n_te=1,840
+    two_rate         seed 0 ep  13 (best   1) h1=0.00943 h6=0.01883 h24=0.01860 h48=0.01792  11.7s
+    two_rate         seed 1 ep  14 (best   2) h1=0.00948 h6=0.01899 h24=0.01856 h48=0.01792  13.1s
+    two_rate         seed 2 ep  13 (best   1) h1=0.00948 h6=0.01908 h24=0.01867 h48=0.01776  10.2s
+    net_scaled       seed 0 ep  33 (best  21) h1=0.00951 h6=0.01948 h24=0.01876 h48=0.01765  17.6s
+    net_scaled       seed 1 ep  27 (best  15) h1=0.00952 h6=0.01970 h24=0.01882 h48=0.01772  15.3s
+    net_scaled       seed 2 ep  32 (best  20) h1=0.00953 h6=0.01966 h24=0.01878 h48=0.01798  17.8s

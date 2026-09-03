@@ -1,0 +1,4 @@
+protocol event · 1 folds · split digest aea2acb10037 · 22,768 samples · 11 events · panels 76a73ed794af
+  fold 0 test=2021-05-04 n_tr=17,968 n_va=2,048 n_te=2,752
+    two_rate         seed 0 ep  23 (best  11) h1=0.01050 h6=0.02626 h24=0.04951 h48=0.04509  48.2s
+    net_scaled       seed 0 ep  27 (best  15) h1=0.00998 h6=0.03037 h24=0.05162 h48=0.04608  40.7s
