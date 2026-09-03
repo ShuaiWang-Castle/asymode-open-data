@@ -1,10 +1,10 @@
-# AISTATS theory-first manuscript
+# AISTATS manuscript: one flow versus two opposing flows
 
-This directory contains the paper-level LaTeX source for the one-flow-versus-two-flow study.
+This directory contains the canonical LaTeX source for the Gamma-centered paper.
 
 ## Template status
 
-AISTATS 2027 has not released its author kit as of 2026-09-03. The source therefore uses the latest official AISTATS style, `aistats2026.sty`, without modifying the style file. The build script downloads the official 2026 paper pack at compile time. When the 2027 kit is released, replace the package name and checklist only after diffing the new official instructions.
+AISTATS 2027 had not released its author kit when this version was compiled. The source therefore uses the latest official AISTATS style, `aistats2026.sty`, without modifying the style file. The package name and checklist should be replaced only after the 2027 author kit is released and diffed against the current instructions.
 
 ## Build
 
@@ -12,10 +12,25 @@ AISTATS 2027 has not released its author kit as of 2026-09-03. The source theref
 ./build.sh
 ```
 
-The script downloads the official AISTATS 2026 paper pack when necessary, runs `latexmk`, rejects unresolved citations/references and Type 3 fonts, and writes `main.pdf`.
+The build does four things in order:
+
+1. regenerates `figures/flow_selection_solvable_case.pdf` from the supplied Monte Carlo CSV;
+2. downloads the official AISTATS 2026 paper pack when the style file is absent;
+3. runs `latexmk` with BibTeX and fails on unresolved references or citations;
+4. audits page size and rejects Type 3 fonts.
+
+Python requirements for the figure are `numpy`, `pandas`, and `matplotlib`.
+
+## Paper structure
+
+- `main.tex`: canonical driver;
+- `sections/01_introduction.tex`: one question and three linked contributions;
+- `sections/02_setup.tex`: pooled model and orthogonal identification geometry;
+- `sections/03_value.tex`: exact one-flow gap, the unique boxed Gamma criterion, and the exactly solvable case;
+- `sections/04_experiments.tex`: completed 24/48-hour leave-one-event-out experiment and local information audit;
+- `sections/05_discussion.tex`: limitations, rollout bridge, and conclusion;
+- `sections/appendix.tex`: complete proofs and event-level results.
 
 ## Scientific status
 
-The population oracle-gap theorem and identification theorem are submission-grade with the assumptions and boundary cases retained in `main.tex`. The finite-sample `Gamma_n=1` result is intentionally an oracle-selected, span-relaxed fixed-design benchmark; it is not the exact decision boundary for the constrained neural networks. The event-shift result additionally requires structural invariance of the two conditional flow functions.
-
-Real-data result cells remain `TBD` until the locked event-held-out experiment is complete. The compiled manuscript is therefore a rigorous theory-first working paper, not yet a final empirical submission.
+The exact population gap and orthogonal information results are submission-grade under their stated pooled conditional-mean assumption. `Gamma_n=1` is an oracle-selected, span-relaxed fixed-design Gaussian benchmark, not a universal neural-network threshold. The completed event-held-out experiment is reported without changing its endpoints or objective: the 24-hour average structural gain is positive but fails the original strict confirmation gate, the 48-hour result is uncertain, and HGB and damped persistence remain stronger in mean long-horizon RMSE.
