@@ -1,0 +1,131 @@
+\section{The value of the second flow}
+\label{sec:value}
+
+\subsection{Representation gain}
+
+\begin{theorem}[Exact loss from suppressing one flow]
+\label{thm:gap}
+Under Assumption~\ref{ass:mean}, define
+\begin{equation}
+G(x)=\inf_{g\in\cF_1(x)}\E[(m_0(x,Y)-g(Y))^2\mid X=x].
+\label{eq:gap_definition}
+\end{equation}
+If $v(x)=0$, then $G(x)=0$. If $v(x)>0$, then
+\begin{equation}
+G(x)=v(x)\min\left\{\frac{R_0(x)^2}{A(x)},\frac{U_0(x)^2}{B(x)}\right\}.
+\label{eq:gap_result}
+\end{equation}
+Therefore $G(x)>0$ if and only if $v(x)>0$, $U_0(x)>0$, and $R_0(x)>0$.
+\end{theorem}
+
+The theorem gives a complete population answer for the comparator in Equation~\eqref{eq:f1}. One flow is exact when the conditional state is degenerate or one conditional-mean component is absent. Otherwise the two-flow class has a strict representation advantage. Let
+\begin{equation}
+\kappa(x)=\min\left\{\frac{R_0(x)^2}{A(x)},\frac{U_0(x)^2}{B(x)}\right\};
+\label{eq:kappa}
+\end{equation}
+then $G(x)=v(x)\kappa(x)$. State dispersion supplies distinguishability, while $\kappa(x)$ measures coactivity: the cost of forcing one active direction to zero.
+
+\subsection{Estimation cost and a single selection index}
+
+To expose the additional estimation cost, fix states $y_1,\ldots,y_n$ and observe $Z=m+\varepsilon$ with $\varepsilon\sim\mathcal N(0,\sigma_\varepsilon^2 I_n)$. Let $P_2$ project onto the span of $(1-y_i)_{i=1}^n$ and $(-y_i)_{i=1}^n$. An oracle selects the better of the two one-dimensional spans, with projector $P_1$. Let $G_n=n^{-1}\|(I-P_1)m\|_2^2$.
+
+\begin{proposition}[One additional degree of freedom]
+\label{prop:benchmark}
+If the two-column design has rank two, then
+\begin{align}
+\E\left[n^{-1}\|P_2Z-m\|_2^2\right]&=\frac{2\sigma_\varepsilon^2}{n},\nonumber\\
+\E\left[n^{-1}\|P_1Z-m\|_2^2\right]&=G_n+\frac{\sigma_\varepsilon^2}{n},
+\label{eq:benchmark_risks}
+\end{align}
+and
+\begin{equation}
+n^{-1}\{\|P_1Z-m\|_2^2-\|P_2Z-m\|_2^2\}
+\overset{d}{=}G_n-\frac{\sigma_\varepsilon^2}{n}\chi_1^2.
+\label{eq:benchmark_distribution}
+\end{equation}
+\end{proposition}
+
+In the interior case, $G_n=\widehat v\min\{R_0^2/\widehat A,U_0^2/\widehat B\}$. The preceding theorem and proposition therefore meet in one dimensionless index:
+\begin{equation}
+\boxed{\begin{aligned}
+\Gamma_n&:=\frac{nG_n}{\sigma_\varepsilon^2}=I_{\tau,n}\,\kappa_n,\\
+I_{\tau,n}&:=\frac{n\widehat v}{\sigma_\varepsilon^2},\qquad
+\kappa_n:=\min\left\{\frac{R_0^2}{\widehat A},\frac{U_0^2}{\widehat B}\right\}.
+\end{aligned}}
+\label{eq:gamma}
+\end{equation}
+Here $I_{\tau,n}$ is information in the turnover direction and $\kappa_n$ is coactivity. In the oracle-selected, span-relaxed Gaussian benchmark, the two-flow fit has lower expected fitted-mean error exactly when $\Gamma_n>1$, and
+\begin{equation}
+\Pp(\operatorname{Err}_2<\operatorname{Err}_1)=F_{\chi_1^2}(\Gamma_n).
+\label{eq:win_probability}
+\end{equation}
+This is the classical one-extra-degree-of-freedom bias--variance calculation specialized to the opposing-flow basis \citep{mallows1973}. It is a calibrated local benchmark, not an exact threshold for bounded neural networks, heteroskedastic count fractions, or a dynamic panel. Its purpose is to identify the two quantities that any practical selection rule must balance.
+
+\subsection{An exactly solvable case}
+\label{sec:toy}
+
+The supplied solvable case isolates the dispersion axis without changing the rates or noise level. At one driver value, let
+\begin{align}
+Y&\in\left\{\frac12-\delta,\frac12+\delta\right\},\nonumber\\
+\Pp\left(Y=\frac12-\delta\right)
+&=\Pp\left(Y=\frac12+\delta\right)=\frac12.
+\label{eq:two_state_design}
+\end{align}
+with $U\ge R>0$. Then $A=B=1/4+\delta^2$, $C=1/4-\delta^2$, $v=\delta^2$, and
+\begin{equation}
+G(\delta)=\frac{4R^2\delta^2}{1+4\delta^2},
+\qquad
+\Gamma(\delta)=\frac{4nR^2\delta^2}{\sigma_\varepsilon^2(1+4\delta^2)}.
+\label{eq:toy_closed_form}
+\end{equation}
+For an even balanced sample,
+\begin{equation}
+\E[\operatorname{Err}_1-\operatorname{Err}_2]
+=\frac{4R^2\delta^2}{1+4\delta^2}-\frac{\sigma_\varepsilon^2}{n},
+\label{eq:toy_risk_difference}
+\end{equation}
+so the expected-risk crossover is
+\begin{equation}
+\delta_c=\frac{\sigma_\varepsilon}{2\sqrt{nR^2-\sigma_\varepsilon^2}},
+\label{eq:delta_critical}
+\end{equation}
+whenever the right-hand side lies in $(0,1/2)$. For $U=0.20$, $R=0.12$, $n=40$, and $\sigma_\varepsilon=0.15$, Equation~\eqref{eq:delta_critical} gives $\delta_c=0.1008$. Fifty thousand Gaussian replications at each grid point reproduce the closed-form risks. The case deliberately isolates dispersion and attains the upper endpoint $\lambda_{\min}(Q)=2v$; the real outage design in Section~\ref{sec:real_geometry} lies close to the lower endpoint $\lambda_{\min}(Q)=v$. Panel~(c) of Figure~\ref{fig:toy} adds the complementary coactivity slice: at fixed dispersion, the gap vanishes when either component is absent.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.98\textwidth]{figures/flow_selection_solvable_case.pdf}
+\caption{Exactly solvable flow-selection case. The first two panels reproduce the supplied dispersion experiment and its finite-sample crossover; the third isolates the coactivity factor. In panels (a)--(b), the vertical line marks $\Gamma=1$, equivalently $\delta=0.1008$ under the stated parameters; panel (c) marks the one-flow branch switch at $R/U=1$.}
+\label{fig:toy}
+\end{figure*}
+
+\begin{table}[t]
+\centering
+\caption{Selected points from the exactly solvable case. Risks are expected fitted-mean MSE.}
+\label{tab:toy}
+\small
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+$\delta$ & $\Gamma$ & One flow & Two flows & Lower risk\\
+\midrule
+0.0494 & 0.247 & 0.000702 & 0.001125 & One\\
+0.1008 & 1.000 & 0.001125 & 0.001125 & Tie\\
+0.1963 & 3.417 & 0.002485 & 0.001125 & Two\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The same criterion under event shift}
+
+The best one-flow projection depends on the conditional state distribution. Let $P$ and $Q$ denote source and target environments, and suppose locally that $U_0(x)$ and $R_0(x)$ are invariant while the law of $Y\mid X=x$ changes. For the interruption-only branch, the source population coefficient is $a_P^*=U_0-R_0C_P/A_P$. If the source and target optima are interior, its target approximation risk is
+\begin{equation}
+\cR_Q^U(a_P^*)=R_0^2\frac{v_Q}{A_Q}
++R_0^2A_Q\left(\frac{C_P}{A_P}-\frac{C_Q}{A_Q}\right)^2.
+\label{eq:projection_shift}
+\end{equation}
+The second term is a projection-shift penalty. Under the same local homoskedastic benchmark, estimating two flows from $n_P$ source observations incurs expected target excess risk
+\begin{equation}
+\frac{\sigma_\varepsilon^2}{n_P}
+\left[1+\frac{v_Q+(\mu_Q-\mu_P)^2}{v_P}\right].
+\label{eq:two_transfer_cost}
+\end{equation}
+Thus event transfer modifies both sides of the same comparison: one-flow approximation gains a shift penalty, whereas turnover estimation gains a leverage penalty. When $P=Q$, the comparison reduces to $\Gamma_n>1$. We do not use a plug-in transfer score as an empirical selector because its predictive validity has not yet been established.
