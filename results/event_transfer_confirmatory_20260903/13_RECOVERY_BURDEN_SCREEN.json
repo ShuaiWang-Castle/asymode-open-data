@@ -1,0 +1,20 @@
+{
+ "improving_horizon": 24,
+ "mean_delta_pct": {
+  "24": -0.49084312600239777,
+  "48": -0.3973097259504596
+ },
+ "gate1_at_least_1pct_improvement": false,
+ "gate2_other_horizon_not_worse_than_1pct": true,
+ "gate3_seeds": true,
+ "gate3_n_seeds": 3,
+ "gate4_no_event_degrades_over_3pct": true,
+ "rho_range": [
+  0.9703174829483032,
+  0.9728502035140991
+ ],
+ "rho_init": 0.9715319411536059,
+ "parameter_increment": 33,
+ "burden_uses_future_truth": false,
+ "VERDICT": "SCREEN FAILED"
+}

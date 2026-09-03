@@ -1,0 +1,36 @@
+{
+ "parameter_counts": {
+  "two_rate": 3138,
+  "net_scaled": 3121,
+  "recovery_burden": 3171
+ },
+ "net_scaled_vs_two_rate_pct": -0.542,
+ "within_1_percent": true,
+ "recovery_burden_increment": 33,
+ "shared_budget": {
+  "epochs": 60,
+  "patience": 12,
+  "batch": 512,
+  "lr": 0.003,
+  "cap_u": 0.25,
+  "cap_r": 0.25
+ },
+ "shared_training_path": "every arm goes through cc_event_transfer.fit_arm; the only arm-dependent statements are the model factory and the burden state",
+ "identical_between_arms": [
+  "input channels",
+  "forecast origins and history",
+  "optimiser (Adam) and lr",
+  "epoch cap and early-stopping rule",
+  "model seeds",
+  "train/validation/test rows",
+  "loss and observation mask",
+  "calibrated initial-flow rule"
+ ],
+ "normalisation": "mean/sd estimated on training-event rows only, applied unchanged to validation and test",
+ "hgb_seed_determinism": "HistGradientBoosting is deterministic at this sample size; its three seeds are one fit repeated, and are reported as one deterministic fit, not three replicates",
+ "unit_tests": {
+  "file": "tests/test_cc_fairness.py",
+  "returncode": 0,
+  "summary": "6 passed in 1.84s"
+ }
+}

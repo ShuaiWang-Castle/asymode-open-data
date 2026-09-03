@@ -1,0 +1,60 @@
+{
+ "per_horizon": {
+  "1": {
+   "vs_hgb": {
+    "mean": 11.417313720645915,
+    "median": 12.420533891246789,
+    "n_positive": 9
+   },
+   "vs_damped": {
+    "mean": -0.7195815191221642,
+    "median": -0.32471926738488555,
+    "n_positive": 4
+   }
+  },
+  "6": {
+   "vs_hgb": {
+    "mean": 1.8896737614850656,
+    "median": 0.8256955596251553,
+    "n_positive": 7
+   },
+   "vs_damped": {
+    "mean": -0.511352888317318,
+    "median": 1.261624560382874,
+    "n_positive": 6
+   }
+  },
+  "24": {
+   "vs_hgb": {
+    "mean": -3.290864516069088,
+    "median": 0.7630337388704352,
+    "n_positive": 6
+   },
+   "vs_damped": {
+    "mean": -2.9868556572048615,
+    "median": 2.2923853758619526,
+    "n_positive": 7
+   }
+  },
+  "48": {
+   "vs_hgb": {
+    "mean": -1.0239547238003537,
+    "median": 1.098016135122967,
+    "n_positive": 6
+   },
+   "vs_damped": {
+    "mean": -2.3827532457460525,
+    "median": -0.6899690914836737,
+    "n_positive": 4
+   }
+  }
+ },
+ "hgb_rounds_range": [
+  25,
+  225
+ ],
+ "hgb_cap": 2000,
+ "hgb_hit_cap": 0,
+ "hgb_across_seed_sd": 0.0,
+ "note": "HGB is deterministic at this sample size; three seeds are one fit repeated"
+}
