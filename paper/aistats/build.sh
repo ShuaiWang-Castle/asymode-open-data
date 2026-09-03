@@ -2,6 +2,8 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+python3 make_solvable_figure.py
+
 if [[ ! -f aistats2026.sty ]]; then
   tmp="$(mktemp -d)"
   trap 'rm -rf "$tmp"' EXIT
