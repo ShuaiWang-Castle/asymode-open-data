@@ -5,6 +5,14 @@ Read `docs/CC_AUDIT_LOG.md` §8 for the exact stopping state, `docs/CC_SOUNDNESS
 verified defects, `docs/CC_RESULT_INTERPRETATION.md` for what the corrected runs showed so far, and
 `docs/CC_EXPERIMENT_MATRIX.md` for the next commands in priority order. Gates all pass
 (`./.venv/bin/python -m pytest -q tests`, 1,738). No graded number and no ledger entry was changed.
+**Open data published 2026-09-02, PRIVATE:** `ShuaiWang-Castle/asymode-open-data`
+(remote `open-data`, branch `open-data-clean` -> its `main`). Orphan branch, history
+depth 1, data + rebuild/verify scripts only — no paper, ledger, experiments or audit
+docs, so double-blind is intact. **The PI makes it public when ready**; nothing in
+this session does. 84 files, 59 MB, checksums in `data/SHA256SUMS.txt`;
+`scripts/verify_open_data.py` reproduces the archived onset audit 12/12 from a fresh
+clone.
+
 One graded diagnostic was added after the halt at the PI's request: **D-7 target shape**
 (`results/d7_target_shape_g3.json`, `figures/fig06_target_shape.png`, ledger entry "D-7"). Zero training.
 
