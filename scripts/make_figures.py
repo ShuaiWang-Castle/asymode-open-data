@@ -198,5 +198,99 @@ def fig_per_horizon():
     ax.legend(frameon=False, fontsize=8); ax.spines[["top", "right"]].set_visible(False)
     fig.tight_layout(); fig.savefig(FIG / "fig05_per_horizon.png", dpi=200); print("figures/fig05_per_horizon.png")
 
+
+
+def fig_target_shape():
+    """D-7: what the public target looks like — zeros, concentration, waves, feature coordinate."""
+    d = json.loads((ROOT / "results/d7_target_shape_g3.json").read_text())
+    FAMC = {"convective": "#c1121f", "winter": "#0077b6", "wind": "#2a9d8f", "tropical": "#e07a00", "flood": "#7f7f7f"}
+    fig = plt.figure(figsize=(13.5, 8.4))
+    gs = fig.add_gridspec(2, 3, hspace=0.42, wspace=0.28)
+
+    # (a) zero inflation on the scored support
+    ax = fig.add_subplot(gs[0, 0])
+    H = [1, 6, 24, 48]; w = 0.26
+    for i, (k, lab, c) in enumerate([("exact_zero", "y = 0 exactly", "#03045e"),
+                                     ("le_1e4", "y ≤ 1e-4", "#0077b6"), ("le_1e3", "y ≤ 1e-3", "#90e0ef")]):
+        ax.bar(np.arange(4) + (i - 1) * w, [100 * d["zero_by_horizon"][str(h)][k] for h in H], w, color=c, label=lab)
+    ax.set_xticks(range(4)); ax.set_xticklabels([f"h+{h}" for h in H]); ax.set_ylim(0, 100)
+    ax.set_ylabel("share of scored cells (%)"); ax.legend(frameon=False, fontsize=8, loc="upper left")
+    ax.set_title("(a) Zero inflation is flat across horizons", fontsize=10, loc="left")
+    ax.spines[["top", "right"]].set_visible(False)
+
+    # (b) Lorenz curves of squared target energy, exact
+    ax = fig.add_subplot(gs[0, 1])
+    for p in d["per_panel"]:
+        ax.plot(p["lorenz_grid"], p["lorenz"], color=FAMC[p["family"]], lw=1.1, alpha=0.6)
+    ax.plot([0, 1], [0, 1], "k--", lw=0.9, label="all counties equal")
+    top3 = np.median([p["top3_share"] for p in d["per_panel"]])
+    ax.set_xlim(0, 1); ax.set_ylim(0, 1.02)
+    ax.set_xlabel("counties, ranked by their squared energy")
+    ax.set_ylabel("cumulative share of squared target energy")
+    ax.set_title(f"(b) A handful of counties carry the energy\n(one line per storm; Gini median 0.92)", fontsize=10, loc="left")
+    ax.legend(frameon=False, fontsize=8, loc="lower right"); ax.spines[["top", "right"]].set_visible(False)
+    ax.text(0.42, 0.30, f"top 3 counties hold\na median {top3*100:.0f}% of the energy", transform=ax.transAxes, fontsize=8.5, color="#333")
+
+    # (c) daily squared energy over the panel window, per family
+    ax = fig.add_subplot(gs[0, 2])
+    days = sorted({int(k) for p in d["per_panel"] for k in p["daily_share"]})
+    for fam in FAMC:
+        rows = [p for p in d["per_panel"] if p["family"] == fam]
+        if not rows: continue
+        v = np.array([[p["daily_share"].get(str(dd), 0.0) for dd in days] for p in rows])
+        ax.plot(days, 100 * v.mean(0), marker="o", ms=3.5, color=FAMC[fam], label=f"{fam} ({len(rows)})")
+    ax.axvline(0, color="k", lw=0.6, ls=":")
+    ax.set_xlabel("day relative to the storm day"); ax.set_ylabel("share of the panel's squared energy (%)")
+    ax.set_title("(c) Energy is spread over days, not\nspent on one wave", fontsize=10, loc="left")
+    ax.legend(frameon=False, fontsize=7.5); ax.spines[["top", "right"]].set_visible(False)
+
+    # (d) multiwave share and second-wave size, by family
+    ax = fig.add_subplot(gs[1, 0])
+    fams = [f for f in FAMC if any(p["family"] == f for p in d["per_panel"])]
+    for i, fam in enumerate(fams):
+        rows = [p for p in d["per_panel"] if p["family"] == fam]
+        v = [100 * p["multiwave_share"] for p in rows]
+        ax.scatter(np.full(len(v), i) + np.linspace(-0.16, 0.16, len(v)), v, s=22, color=FAMC[fam], zorder=3)
+        ax.plot([i - 0.28, i + 0.28], [np.median(v)] * 2, color="k", lw=1.6, zorder=4)
+    ax.set_xticks(range(len(fams))); ax.set_xticklabels(fams, fontsize=8.5)
+    ax.set_ylabel("interrupted counties with ≥ 2 waves (%)"); ax.set_ylim(0, 60)
+    ax.set_title("(d) A third of interrupted counties are hit twice", fontsize=10, loc="left")
+    ax.spines[["top", "right"]].set_visible(False)
+
+    # (e) second wave size relative to the first, on a ratio (log2) axis
+    ax = fig.add_subplot(gs[1, 1])
+    r = np.array([x["peak2"] / x["peak1"] for x in d["feature_coordinate_at_wave2"] if x["peak1"] > 0])
+    lr = np.log2(np.clip(r, 2 ** -6, 2 ** 6))
+    ax.hist(lr, bins=np.linspace(-6, 6, 61), color="#457b9d")
+    ax.axvline(0, color="k", lw=0.9, ls="--")
+    ax.axvline(np.log2(np.median(r)), color="#c1121f", lw=1.6, label=f"median {np.median(r):.2f}x")
+    ax.set_xticks([-6, -4, -2, 0, 2, 4, 6]); ax.set_xticklabels(["1/64", "1/16", "1/4", "1x", "4x", "16x", "64x"])
+    ax.set_xlabel("peak of wave 2 ÷ peak of wave 1"); ax.set_ylabel("county-events")
+    ax.set_title(f"(e) The second wave is as large as the first\nin {(r >= 1).mean()*100:.0f}% of {len(r):,} county-events", fontsize=10, loc="left")
+    ax.legend(frameon=False, fontsize=8); ax.spines[["top", "right"]].set_visible(False)
+
+    # (f) what the cumulative features say at the onset of wave 2
+    ax = fig.add_subplot(gs[1, 2])
+    F = d["feature_coordinate_at_wave2"]
+    own = np.array([x["own_gust_max_w2"] for x in F]); run = np.array([x["running_max_at_w2"] for x in F])
+    cols = [FAMC[x["family"]] for x in F]
+    ax.scatter(own, run, s=7, c=cols, alpha=0.45, linewidths=0)
+    lim = [0, max(own.max(), run.max()) * 1.02]
+    ax.plot(lim, lim, "k--", lw=0.9)
+    frac = float((run > own + 1e-6).mean())
+    ax.set_xlim(lim); ax.set_ylim(lim)
+    ax.set_xlabel("this wave's own gust maximum (m/s)")
+    ax.set_ylabel("path_gust_max the model sees")
+    ax.set_title(f"(f) At the onset of wave 2 the running maximum\nis stuck on wave 1 in {frac*100:.0f}% of cases", fontsize=10, loc="left")
+    ax.spines[["top", "right"]].set_visible(False)
+    hs = np.median([x["hours_since_peak_at_w2"] for x in F])
+    ax.text(0.97, 0.06, f"median path_hours_since_peak = {hs:.0f} h", transform=ax.transAxes,
+            ha="right", fontsize=8, color="#444")
+
+    fig.suptitle("Shape of the public outage target across 26 storms: zeros, a few dominant counties, and repeat waves the path features cannot see",
+                 fontsize=11.5, y=0.985)
+    fig.savefig(FIG / "fig06_target_shape.png", dpi=200, bbox_inches="tight")
+    print("figures/fig06_target_shape.png")
+
 if __name__ == "__main__":
-    fig_identifiability(); fig_onset(); fig_onset_real(); fig_he_by_family(); fig_per_horizon()
+    fig_identifiability(); fig_onset(); fig_onset_real(); fig_he_by_family(); fig_per_horizon(); fig_target_shape()

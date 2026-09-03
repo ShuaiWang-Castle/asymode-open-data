@@ -5,6 +5,8 @@ Read `docs/CC_AUDIT_LOG.md` §8 for the exact stopping state, `docs/CC_SOUNDNESS
 verified defects, `docs/CC_RESULT_INTERPRETATION.md` for what the corrected runs showed so far, and
 `docs/CC_EXPERIMENT_MATRIX.md` for the next commands in priority order. Gates all pass
 (`./.venv/bin/python -m pytest -q tests`, 1,738). No graded number and no ledger entry was changed.
+One graded diagnostic was added after the halt at the PI's request: **D-7 target shape**
+(`results/d7_target_shape_g3.json`, `figures/fig06_target_shape.png`, ledger entry "D-7"). Zero training.
 
 **Start here if resuming:** `docs/EVIDENCE_SUMMARY.md` — every graded result,
 Venue fit and literature to cite: `docs/AISTATS_FIT.md` (2026-09-02).

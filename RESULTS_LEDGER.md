@@ -1275,3 +1275,61 @@ panels with the 14-channel block, ambient meteorology carries ~1% of h+48 skill
 through the restoration rate. H-A3' (precipitation + wind speed) remains the
 registered replacement control; the "three asymmetries" framing stays retired.
 
+## D-7 — shape of the public target: what the external prior H-I does and does not survive. [A], descriptive
+
+Source: `results/d7_target_shape_g3.json` · `experiments/d7_target_shape.py`
+(rules fixed in the docstring before the run: threshold 0.01, waves separated by
+>= 6 h below it, protocol origins and horizons) · all 26 panels
+(`db286b4960a4`) · zero training, verifiable by re-running the script ·
+figure `figures/fig06_target_shape.png`.
+
+Registered as H-I in `docs/PREREGISTRATION_external_priors.md` [directional].
+Three claims arrived from the controlled channel with every number stripped;
+measured here from scratch:
+
+**H-I.1 zero inflation and extreme-county dominance — CONFIRMED, and stronger
+than the prior suggested.** On our scored support the target is exactly zero in
+**52.9-54.3%** of cells and below 1e-4 in **65.5-67.1%**, and — unlike the
+prior's description — the share is **flat across horizons** (h+1 53.8%, h+48
+54.1%), not rising. Squared target energy is extremely concentrated across
+counties: Gini median **0.92** over the 26 storms, top-3 counties holding a
+median **32%** of a storm's squared energy (range 7-83%). The concentration of a
+fitted arm's *squared error* is lower but still severe (two-rate: top-3 10-11%,
+top-10 23-28%, Gini 0.88-0.91; trees the same within a point except 20% at h+1).
+**Consequence for this paper:** pooled RMSE is a few-county statistic, and the
+event-level review is the right unit — a per-county-average metric answers a
+different question. This supports reporting the frozen secondary metrics of
+`docs/CC_PROTOCOL_V2.md` beside the primary one.
+
+**H-I.2 first-wave dominance — NOT CONFIRMED on public data.** Squared energy
+over the panel window peaks on the storm day and the day after and decays
+(mean over 26 panels: day 0 **35.3%**, day +1 **37.7%**, day +2 12.6%, day +3
+4.7%, day +4 6.4%); within the 48 h forecast window the two halves carry
+**47% / 53%**. There is no regime here in which the first day holds the great
+majority of the gradient. Repeat waves are common: **19-55% of interrupted
+counties per storm (median 36%)** carry two or more waves — 2,010 county-events
+with a second wave, 515 with a third or more — and **the second wave's peak is
+at least as large as the first's in 49% of them** (median ratio 0.99). So on
+this data the later waves are not small corrections; a model that spends its
+capacity on the first wave is giving up about half the energy.
+
+**H-I.3 the cumulative path features cannot express a new shock — CONFIRMED,
+structurally and empirically.** `features.hazard_path` is built from
+`np.maximum.accumulate` and `np.cumsum` since the window start, so it is monotone
+by construction and never resets (provable from the code, [A]). Measured at the
+onset of the 2,010 second waves: the running maximum the model sees is **already
+above that wave's own gust maximum in 57%** of cases, `path_hours_since_peak` has
+a median of **45 h**, and the median gap between waves is **28 h**. A second
+storm therefore enters the feature space as "a long time after the first peak,
+with a large cumulative sum" rather than as a new event beginning.
+
+*What follows, and what does not.* This diagnostic trains nothing and makes no
+claim about model behaviour; the observed blind spot in the prior's source is not
+evidence here. What it does establish is that **an event-segmented or decayed
+hazard coordinate is worth registering as a feature hypothesis** (E1 of
+`docs/PREREGISTRATION_long_horizon.md` already carries exponentially discounted
+accumulations at two decay rates; H-I.3 says the *reset* is the missing piece and
+that a decay half-life must be shorter than the 28 h median inter-wave gap to
+separate waves at all). That hypothesis must be registered with its kill
+condition and given to the trees at the same time, before it is fitted.
+

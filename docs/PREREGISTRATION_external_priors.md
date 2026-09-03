@@ -173,6 +173,45 @@ withdrawn, not the model adopted. Otherwise the two-rate control stays the
 main model and the lean variant is reported as an ablation. **The paper's
 provenance statement must say the direction was suggested.**
 
+## H-I — target shape: zero inflation, extreme-county dominance, first-wave dominance, and non-resetting path features. [directional]
+
+Received from the PI on 2026-09-02, formed on the related non-public dataset.
+**Every number, target definition, county count and model name from that source
+is stripped**; what crosses is three structural claims, each of which must be
+measured here from scratch or not used at all.
+
+* **H-I.1 — the target is zero-inflated *and* its pooled squared error is carried
+  by a few extreme counties.** Consequence claimed: a model that improves the
+  average county need not improve pooled RMSE, and a hurdle/zero-inflation
+  treatment can win a county-macro metric while losing the pooled one.
+  *Measured here as:* the exactly-zero and near-zero share on our own scored
+  support by horizon, and the concentration of squared target energy (and of a
+  fitted arm's squared error) across counties within an event.
+* **H-I.2 — the first weather wave dominates the squared energy, so plain MSE
+  training buys the first wave and sells later waves.** *Measured here as:* the
+  distribution of squared target energy over the days of the panel window and
+  over the two halves of the 48 h forecast window; the share of county-events
+  carrying two or more waves; and the ratio of the second wave's peak to the
+  first's.
+* **H-I.3 — cumulative path features cannot express "a new shock is starting"**
+  because they are running maxima and running sums since the window start: after
+  the first wave, `path_gust_max` is pinned at the first peak and
+  `path_hours_since_peak` measures distance from that peak, so a second wave
+  appears as the tail of the first rather than as a new event.
+  *Measured here as:* a structural check of our own `features.hazard_path` (it
+  uses `np.maximum.accumulate` and `np.cumsum`, so it is monotone by
+  construction — provable, not measured), plus, at the onset of second waves,
+  how far the running maximum sits above that wave's own gust maximum and how
+  large `path_hours_since_peak` already is.
+
+*Status.* H-I.1–I.3 are **descriptions of the data and of our feature code**, not
+model results; the diagnostic that measures them (`experiments/d7_target_shape.py`)
+trains nothing. They may inform feature design (a decayed or event-segmented
+hazard coordinate, registered separately before it is fitted), and the paper's
+provenance statement must record that the direction was suggested. **No claim
+about model behaviour follows from this diagnostic**; the wave-detection
+thresholds below are fixed in the script's docstring before it was run.
+
 ## Methodological practices adopted. [generic]
 
 Not hypotheses. Recorded so they are applied consistently.
