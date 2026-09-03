@@ -1,0 +1,74 @@
+\section{Setup and identification geometry}
+\label{sec:setup}
+
+Let $Z_t=Y_{t+1}-Y_t$ and let all conditional statements hold for $P_X$-almost every $x$.
+
+\begin{assumption}[Pooled conditional-mean model]
+\label{ass:mean}
+The state satisfies $Y_t\in[0,1]$. There exist measurable bounded functions $U_0,R_0:\cX\to[0,\infty)$ such that
+\begin{equation}
+\E[Z_t\mid X_t=x,Y_t=y]=U_0(x)(1-y)-R_0(x)y,
+\label{eq:mean_model}
+\end{equation}
+and the residual has conditional mean zero and finite conditional variance.
+\end{assumption}
+
+Assumption~\ref{ass:mean} is predictive, not causal. When observations from multiple counties are pooled, it additionally requires that the two conditional-mean functions are common after conditioning on $X$, or that $X$ contains sufficient unit-level modifiers. If unobserved county composition changes with $Y$, the pooled conditional mean need not remain affine in $y$; the fitted components are then projections rather than physical rates.
+
+At a fixed $x$, the two-flow class and the signed one-flow class are
+\begin{align}
+\cF_2(x)&=\{u(1-y)-ry:u,r\ge0\},\label{eq:f2}\\
+\cF_1(x)&=\{a(1-y):a\ge0\}\cup\{-by:b\ge0\}.\label{eq:f1}
+\end{align}
+Define
+\begin{align}
+A(x)&=\E[(1-Y)^2\mid X=x],\nonumber\\
+B(x)&=\E[Y^2\mid X=x],\nonumber\\
+C(x)&=\E[Y(1-Y)\mid X=x],\nonumber\\
+v(x)&=\Var(Y\mid X=x).
+\label{eq:moments}
+\end{align}
+Writing $\mu(x)=\E[Y\mid X=x]$ gives $A=1-2\mu+\E[Y^2]$, $B=\E[Y^2]$, and $C=\mu-\E[Y^2]$, hence
+\begin{equation}
+A(x)B(x)-C(x)^2=v(x).
+\label{eq:moment_identity}
+\end{equation}
+
+The natural coordinates are net drift at the conditional mean state and total turnover,
+\begin{align}
+\alpha(x)&=(1-\mu(x))U_0(x)-\mu(x)R_0(x),\nonumber\\
+\tau(x)&=U_0(x)+R_0(x).
+\label{eq:alpha_tau}
+\end{align}
+Then
+\begin{equation}
+m_0(x,y)=\alpha(x)+\tau(x)\{\mu(x)-y\}.
+\label{eq:orthogonal_mean}
+\end{equation}
+The inverse transformation is $U_0=\alpha+\mu\tau$ and $R_0=(1-\mu)\tau-\alpha$.
+
+\begin{proposition}[Orthogonal identification geometry]
+\label{prop:geometry}
+Let $\psi_x(Y)=(1,\mu(x)-Y)^\top$. Then
+\begin{equation}
+\E[\psi_x(Y)\psi_x(Y)^\top\mid X=x]
+=\begin{bmatrix}1&0\\0&v(x)\end{bmatrix}.
+\label{eq:orthogonal_information}
+\end{equation}
+Equivalently, for $\varphi(Y)=(1-Y,-Y)^\top$ and $Q(x)=\E[\varphi(Y)\varphi(Y)^\top\mid X=x]$,
+\begin{align}
+\det Q(x)&=v(x),\nonumber\\
+v(x)&\le\lambda_{\min}(Q(x))\le2v(x).
+\label{eq:eigen_bounds}
+\end{align}
+with $1/2\le\lambda_{\max}(Q(x))\le1$. Consequently, the two conditional-mean components are separately identified if and only if $v(x)>0$.
+\end{proposition}
+
+The proposition separates a well-identified net drift from a potentially weak turnover direction. In a centered homoskedastic fixed design with $n$ observations,
+\begin{align}
+\Var(\widehat\alpha\mid Y)&=\frac{\sigma_\varepsilon^2}{n},\nonumber\\
+\Var(\widehat\tau\mid Y)&=\frac{\sigma_\varepsilon^2}{n\widehat v},\nonumber\\
+\Cov(\widehat\alpha,\widehat\tau\mid Y)&=0.
+\label{eq:alpha_tau_variance}
+\end{align}
+Thus accurate prediction of net drift can coexist with unstable recovery of interruption and restoration. Proposition~\ref{prop:geometry} is a population identification statement; continuous drivers require function sharing across nearby $x$, and Equation~\eqref{eq:alpha_tau_variance} is a fixed-design benchmark rather than a finite-sample theorem for the dynamic neural panel.
