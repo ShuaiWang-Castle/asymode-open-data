@@ -1,0 +1,32 @@
+{
+  "protocol": "leave-one-event-out-two-validation",
+  "manifest": "g2-convective-11",
+  "selection_rule": "For each held-out test event, choose two validation events using only weather, geographic footprint, and observation-coverage features. The pair approximates the physical-feature centroid of the remaining source events and, where possible, spans distinct physical clusters. Outage outcomes and model performance are not used.",
+  "events": [
+    "2021-05-04",
+    "2021-06-21",
+    "2021-08-11",
+    "2021-12-11",
+    "2022-04-13",
+    "2022-06-08",
+    "2022-06-17",
+    "2022-07-23",
+    "2024-05-08",
+    "2024-05-26",
+    "2024-06-26"
+  ],
+  "folds": [
+    {"fold": 0, "test": ["2021-05-04"], "validation": ["2022-07-23", "2024-05-26"]},
+    {"fold": 1, "test": ["2021-06-21"], "validation": ["2021-05-04", "2022-07-23"]},
+    {"fold": 2, "test": ["2021-08-11"], "validation": ["2021-05-04", "2021-06-21"]},
+    {"fold": 3, "test": ["2021-12-11"], "validation": ["2021-05-04", "2022-07-23"]},
+    {"fold": 4, "test": ["2022-04-13"], "validation": ["2021-05-04", "2022-07-23"]},
+    {"fold": 5, "test": ["2022-06-08"], "validation": ["2021-05-04", "2021-06-21"]},
+    {"fold": 6, "test": ["2022-06-17"], "validation": ["2021-05-04", "2022-07-23"]},
+    {"fold": 7, "test": ["2022-07-23"], "validation": ["2021-05-04", "2021-06-21"]},
+    {"fold": 8, "test": ["2024-05-08"], "validation": ["2021-05-04", "2022-07-23"]},
+    {"fold": 9, "test": ["2024-05-26"], "validation": ["2021-05-04", "2022-07-23"]},
+    {"fold": 10, "test": ["2024-06-26"], "validation": ["2021-05-04", "2022-07-23"]}
+  ],
+  "training_rule": "For every fold, train on the eight events that are neither test nor validation."
+}
