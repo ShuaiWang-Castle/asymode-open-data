@@ -1,0 +1,75 @@
+name: unified-aistats-v2-baselines
+
+on:
+  push:
+    branches:
+      - gpt-unified-aistats-v2-20260903
+    paths:
+      - "experiments/unified_aistats_v2_baselines.py"
+      - ".github/workflows/unified-aistats-v2-baselines.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  baselines:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore published data files from main when absent
+        shell: bash
+        run: |
+          if ! ls data/interim/panel_*.npz >/dev/null 2>&1; then
+            git fetch origin main
+            git checkout origin/main -- data/interim
+          fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip numpy scikit-learn
+      - name: Run locked baselines
+        shell: bash
+        run: |
+          PYTHONPATH=src:experiments python -m py_compile experiments/unified_aistats_v2_baselines.py
+          PYTHONPATH=src:experiments python experiments/unified_aistats_v2_baselines.py \
+            --out results/unified_aistats_v2_baselines.json
+      - name: Write baseline report
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('results/unified_aistats_v2_baselines.json').read_text())
+          lines=['# Unified AISTATS v2 external baselines','',
+                 '| arm | h+6 equal-event RMSE | h+24 equal-event RMSE |',
+                 '|---|---:|---:|']
+          for arm,x in d['summary'].items():
+              lines.append(f"| {arm} | {x['h6']['equal_event_mean_rmse']:.6f} | {x['h24']['equal_event_mean_rmse']:.6f} |")
+          lines += ['', 'HGB sees `y0` and only the weather/clock path available through the evaluated horizon. Its tree count is selected from the fixed set {50,150,300} by equal-event loss on the same two validation events. Damped persistence is fit by training-only event-balanced weighted least squares.','']
+          Path('results/unified_aistats_v2_baselines.md').write_text('\n'.join(lines))
+          print('\n'.join(lines))
+          PY
+      - name: Commit baseline outputs
+        shell: bash
+        run: |
+          git config user.name "OpenAI GPT-5.6 Pro"
+          git config user.email "actions@users.noreply.github.com"
+          git add results/unified_aistats_v2_baselines.json results/unified_aistats_v2_baselines.md
+          if git diff --cached --quiet; then
+            echo "No new baseline output"
+          else
+            git commit -m "Record unified AISTATS v2 external baselines"
+            git push origin HEAD:gpt-unified-aistats-v2-20260903
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: unified-aistats-v2-baselines
+          path: |
+            results/unified_aistats_v2_baselines.json
+            results/unified_aistats_v2_baselines.md
+          if-no-files-found: error
