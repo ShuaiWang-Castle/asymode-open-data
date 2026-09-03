@@ -1,0 +1,33 @@
+name: unified-aistats-v2-tests
+
+on:
+  push:
+    branches:
+      - gpt-unified-aistats-v2-20260903
+    paths:
+      - "experiments/unified_aistats_v2.py"
+      - "tests/test_unified_aistats_v2.py"
+      - "configs/event_split_map_g2_two_validation.json"
+      - ".github/workflows/unified-aistats-v2-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install test dependencies
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip numpy pytest
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - name: Run focused tests
+        shell: bash
+        run: PYTHONPATH=src:experiments pytest -q tests/test_unified_aistats_v2.py
