@@ -1,0 +1,87 @@
+\section{Empirical study}
+\label{sec:experiments}
+
+\subsection{Question, data, and protocol}
+
+The empirical study asks one question: does the ability to maintain positive interruption and restoration components under the same drivers improve prediction relative to a parameter-matched signed one-flow network? The primary evidence is the completed leave-one-event-out comparison at 24 and 48 hours. This section treats that completed protocol as primary rather than replacing it post hoc with different horizons, losses, events, or models.
+
+The public release contains 26 severe-weather panels built from EAGLE-I county outage records \citep{brelsford2024,tansakul2023}, ERA5 hourly reanalysis \citep{hersbach2020}, and a storm-event catalogue. The confirmatory comparison uses the fixed \texttt{g2-convective-11} manifest: eleven convective-season events from 2021, 2022, and 2024. Each fold removes one entire event, uses the next chronological event for validation, and trains on the remaining nine. The analysis uses hourly states, forecast origins every 12 hours with 24 hours of history, and a 48-hour forecast path. Unobserved target cells are excluded from training and evaluation. Weather over the forecast horizon is reanalysis, so the experiment isolates the state-transition model rather than end-to-end weather-forecast uncertainty.
+
+The two-flow neural model uses separate two-layer ReLU networks of width 32,
+\begin{align}
+U_\theta(x)&=0.25\,\sigm(f_U(x)),\nonumber\\
+R_\theta(x)&=0.25\,\sigm(f_R(x)),
+\label{eq:neural_rates}
+\end{align}
+and rolls out Equation~\eqref{eq:intro_transition} without process noise. The one-flow comparator uses one width-48 signed network $s_\eta(x)$,
+\begin{equation}
+\widehat Y_{t+1}=\widehat Y_t+
+\pos{s_\eta(X_t)}(1-\widehat Y_t)-
+\pos{-s_\eta(X_t)}\widehat Y_t.
+\label{eq:one_flow_nn}
+\end{equation}
+The parameter counts are 3,138 and 3,121. Since the two rate caps sum to 0.5, the model-generated affine update preserves the unit interval in exact arithmetic; clipping is only a numerical guard. Both models use the same 14 weather/clock channels, training-only normalization, flow-matched initialization, 48-hour masked rollout MSE, Adam with learning rate $3\times10^{-3}$, batch size 512, an epoch cap of 60, patience 12, and three neural seeds. The event is the inferential unit; seeds are averaged within event.
+
+Histogram gradient boosting is fit directly for each horizon using the same horizon-available weather path and initial state. Damped persistence fits one training-only decay coefficient. These baselines provide practical context; only the two-flow versus one-flow contrast tests the representation restriction in Theorem~\ref{thm:gap}.
+
+\subsection{The information geometry in the public panels}
+\label{sec:real_geometry}
+
+Before interpreting prediction differences, we measured the design quantities in 200-nearest-neighbor driver cells over all 26 panels. Table~\ref{tab:geometry} reports family medians. The ratio $A/B$ is the fixed-design variance ratio $\Var(\widehat R)/\Var(\widehat U)$ under homoskedastic noise; it is not a precision ratio.
+
+\begin{table}[t]
+\centering
+\caption{Local design geometry at $k=200$. $Nv$ measures turnover information up to the noise scale.}
+\label{tab:geometry}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Family & $Nv$ & $A/B$ & Cross-county\\
+\midrule
+Convective & 0.258 & $7.1\times10^2$ & 0.94\\
+Winter & 0.012 & $1.6\times10^4$ & 0.80\\
+Tropical & 0.007 & $2.7\times10^4$ & 0.52\\
+Flood & 0.006 & $3.1\times10^4$ & 0.53\\
+Wind & 0.003 & $6.0\times10^4$ & 0.60\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Across these cells, $\lambda_{\min}(Q)$ differs from $v$ by only about one to two percent, placing the real design near the lower endpoint of Proposition~\ref{prop:geometry}. Restoration is therefore far less precisely determined than interruption in a local unregularized regression. A separate decomposition estimates an overall cross-county share of 0.78, with event-cluster 95\% interval $[0.75,0.82]$. This makes the pooled-homogeneity condition in Assumption~\ref{ass:mean} load bearing rather than automatic.
+
+The diagnostic also refutes an earlier interpretation: local information orders the event families approximately as convective $\gg$ winter $>$ tropical/flood $>$ wind, whereas the exploratory family ordering of two-flow gains was nearly reversed. Conditional state variance is consequently retained as a learnability quantity, not as a claimed explanation of family-level forecast performance.
+
+\subsection{Main leave-one-event-out result}
+
+Table~\ref{tab:main} reports the completed experiment. Equal-event mean RMSE is shown for readability. The structural inference uses, for each event, the seed-averaged relative RMSE gain of two flows over one flow, followed by an exact paired label-swap test and an event bootstrap. The pre-registered confirmatory gate additionally required at least nine of eleven event signs to favor two flows and a positive mean after removing any one event.
+
+\begin{table*}[t]
+\centering
+\caption{Leave-one-event-out forecasting results. Positive relative gain means that the one-flow model has larger RMSE. The confirmatory decision follows the complete pre-registered gate, not any single $p$-value.}
+\label{tab:main}
+\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+& 24 hours & 48 hours\\
+\midrule
+Two-flow neural RMSE & 0.03726 & 0.03320\\
+One-flow neural RMSE & 0.03873 & 0.03446\\
+Histogram gradient boosting RMSE & \textbf{0.03630} & \textbf{0.03276}\\
+Damped persistence RMSE & 0.03659 & 0.03302\\
+\midrule
+Two-flow relative gain over one flow & $+4.55\%$ & $+3.71\%$\\
+Median event gain & $+2.00\%$ & $+2.44\%$\\
+Events favoring two flows & 8/11 & 6/11\\
+Event-bootstrap 95\% interval & $[+0.74,+9.25]\%$ & $[-0.84,+9.20]\%$\\
+Exact paired label-swap $p$ & 0.041 & 0.246\\
+Pre-registered decision & Not confirmed & Not confirmed\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+At 24 hours, the two-flow model has lower average RMSE than the one-flow comparator, the bootstrap interval excludes zero, and the exact paired test gives $p=0.041$. The strict claim nevertheless remains unconfirmed because only eight of eleven event signs are positive, below the pre-specified nine-event threshold. At 48 hours, the uncertainty interval includes zero and the exact paired test is not significant. At both horizons, removing any single event leaves the average structural gain positive, but two events account for a substantial share of its magnitude.
+
+The external baselines delimit the claim. Histogram gradient boosting and damped persistence have lower equal-event mean RMSE than the two-flow neural model at both primary horizons. Hence the empirical contribution is not a state-of-the-art forecasting claim. It is evidence that suppressing one directional component can matter within a controlled neural comparison, together with evidence that the present memoryless flow class does not yet dominate simple or flexible alternatives.
+
+A separate projection diagnostic supports Equation~\eqref{eq:projection_shift}: at fixed neighborhood choices, event-held-out one-flow projections move substantially more than random splits that preserve the event mixture. However, the direct test that event holdout strengthens the two-flow forecasting advantage is not significant. The transfer identity is therefore supported as a geometric statement, not as a dominance theorem.
