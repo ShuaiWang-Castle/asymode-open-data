@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   bootstrap-build:
+    if: contains(github.event.head_commit.message, 'Trigger AISTATS theory manuscript bootstrap')
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
@@ -25,14 +26,16 @@ jobs:
           base64 -d /tmp/aistats_bundle.b64 > /tmp/aistats_bundle.tar.gz
           tar -xzf /tmp/aistats_bundle.tar.gz -C .
           rm -rf .bootstrap
-          rm -f .github/workflows/bootstrap-aistats-theory-paper.yml
+          # The GitHub Actions runtime token may not create another workflow.
+          # The permanent build workflow is added separately through the GitHub API.
+          rm -f .github/workflows/aistats-theory-paper-build.yml
       - name: Commit paper sources
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Add rigorous AISTATS theory manuscript and verified build"
+          git commit -m "[skip ci] Add rigorous AISTATS theory manuscript and verified sources"
           git push origin HEAD:gpt-aistats-theory-paper-20260903
       - name: Install TeX and audit dependencies
         shell: bash
