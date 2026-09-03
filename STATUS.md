@@ -1,6 +1,10 @@
 # Status snapshot — 2026-09-01, late evening (refreshed)
 
-**Branch `aistats-theory-protocol-repair` (2026-09-02):** soundness repair in progress — read `docs/CC_AUDIT_LOG.md` first; no scientific rerun until its gates pass.
+**Branch `aistats-theory-protocol-repair` (2026-09-02): HALTED BY THE PI, nothing running.**
+Read `docs/CC_AUDIT_LOG.md` §8 for the exact stopping state, `docs/CC_SOUNDNESS_FINDINGS.md` for the
+verified defects, `docs/CC_RESULT_INTERPRETATION.md` for what the corrected runs showed so far, and
+`docs/CC_EXPERIMENT_MATRIX.md` for the next commands in priority order. Gates all pass
+(`./.venv/bin/python -m pytest -q tests`, 1,738). No graded number and no ledger entry was changed.
 
 **Start here if resuming:** `docs/EVIDENCE_SUMMARY.md` — every graded result,
 Venue fit and literature to cite: `docs/AISTATS_FIT.md` (2026-09-02).

@@ -67,8 +67,13 @@ def main():
     hs = A["horizons"].tolist(); seeds = A["seeds"].tolist()
     meta = {k: str(A[k]) for k in ("panel_digest", "channel_digest") if k in A}
     meta.update({k: str(A[k]) for k in ("split_unit", "outer_split_digest", "clock_digest") if k in A})
-    if "outer_split_digest" not in A:
+    if "outer_split_digest" not in A or not str(A.get("outer_split_digest", "")):
         meta["protocol"] = "LEGACY export (county folds keyed on the model seed; no clock/split digest) -- descriptive only"
+    else:
+        for k in ("split_unit", "outer_split_digest", "clock_digest"):
+            if str(A[k]) != str(Bx[k]):
+                sys.exit(f"the two exports disagree on {k}: {A[k]} vs {Bx[k]}")
+        meta["protocol"] = f"protocol v{int(A.get('schema_version', 2))}, split_unit={A['split_unit']}"
     print(f"{Path(x.a).name} vs {Path(x.b).name} · events {len(np.unique(A['panel']))} · seeds {seeds} · {meta}")
     print("positive = first arm worse\n")
     table = {"meta": meta, "horizons": {}}

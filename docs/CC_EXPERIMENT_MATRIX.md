@@ -10,8 +10,8 @@ overwritten. Every command is run from the repository root with
 | G1 | smokes (non-archival) | `experiments/exp0{5,6,7,8,10}… --panels <2 panels> --k 2 --model-seeds 0 --epochs 1 --split-unit event --out results/smoke/…` | pass ×5 |
 | D6-g2 | local information geometry, primary set | `experiments/d6_information_geometry.py --panels configs/panel_manifest_g2-convective-11.json --out results/d6_information_geometry_g2.json` | done |
 | D6-g3 | same, all families | `… --panels configs/panel_manifest_g3-all-26.json --out results/d6_information_geometry_g3.json` | done |
-| S2 | CRLB tracking, unconfounded synthetic sweep + negative control | `experiments/s2_crlb_tracking.py --out results/s2_crlb_tracking.json` | to run |
-| V2-05a | stage 3: exp05 on g2, **event-held-out**, one model seed | `experiments/exp05_real_dynamics.py --panels configs/panel_manifest_g2-convective-11.json --split-unit event --model-seeds 0 --epochs 60 --patience 12 --save-oof --out results/v2/exp05_g2_event_seed0.json` | running |
+| S2 | **halted mid-sweep** — CRLB tracking, unconfounded synthetic sweep + negative control | `experiments/s2_crlb_tracking.py --out results/s2_crlb_tracking.json` | to run |
+| V2-05a | stage 3: exp05 on g2, **event-held-out**, one model seed (JSON done; exports need regenerating — audit log §8) | `experiments/exp05_real_dynamics.py --panels configs/panel_manifest_g2-convective-11.json --split-unit event --model-seeds 0 --epochs 60 --patience 12 --save-oof --out results/v2/exp05_g2_event_seed0.json` | **halted** — rerun to regenerate exports |
 | V2-05 | stage 5: same, three model seeds | `… --model-seeds 0 1 2 --out results/v2/exp05_g2_event.json` | after V2-05a inspection |
 | V2-07 | trees, same split, cap 2,000 | `experiments/exp07_learned_baselines.py --panels configs/panel_manifest_g2-convective-11.json --split-unit event --model-seeds 0 1 2 --rounds 2000 --arms trees_matched --save-oof --out results/v2/exp07_g2_event.json` | after V2-05 |
 | V2-05c | secondary protocol: county-held-out, fixed map | `… --split-unit county --model-seeds 0 1 2 --save-oof --out results/v2/exp05_g2_county.json` | after V2-07 |

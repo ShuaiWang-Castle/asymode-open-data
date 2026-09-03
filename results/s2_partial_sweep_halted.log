@@ -1,0 +1,10 @@
+launch 20:19:49 HEAD 60c8a4c
+/Users/castlewang/Desktop/DMDA/AsymODE-Public/src/asymode/fit.py:58: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:837.)
+  tot += float(loss); nb += 1
+  sweep    s=0.0   scale=1.0  seed=0  N*var nan  oracle mse/crlb u nan r nan  neural rmse_u 0.0254 rmse_r 0.0061 corr +0.86  250ep 30.2s
+  sweep    s=0.0   scale=1.0  seed=1  N*var nan  oracle mse/crlb u nan r nan  neural rmse_u 0.0255 rmse_r 0.0059 corr +0.86  250ep 27.4s
+  sweep    s=0.02  scale=1.0  seed=0  N*var 0.0000  oracle mse/crlb u 0.94 r 1.25  neural rmse_u 0.0256 rmse_r 0.0062 corr +0.87  250ep 31.5s
+  sweep    s=0.02  scale=1.0  seed=1  N*var 0.0000  oracle mse/crlb u 1.00 r 1.13  neural rmse_u 0.0259 rmse_r 0.0061 corr +0.86  250ep 27.8s
+  sweep    s=0.05  scale=1.0  seed=0  N*var 0.0001  oracle mse/crlb u 0.85 r 1.01  neural rmse_u 0.0255 rmse_r 0.0062 corr +0.86  250ep 28.6s
+  sweep    s=0.05  scale=1.0  seed=1  N*var 0.0001  oracle mse/crlb u 0.82 r 1.01  neural rmse_u 0.0259 rmse_r 0.0061 corr +0.85  250ep 31.8s

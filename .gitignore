@@ -18,3 +18,4 @@ wandb/
 results/*.npz
 results/smoke/
 results/d6_cells_*.json.gz
+results/v2/*.npz

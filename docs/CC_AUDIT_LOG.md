@@ -99,3 +99,30 @@ identifiability theorem is not the mechanism of the family result.
 Stage 3 of E2 (exp05, g2, event-held-out, one model seed, 60 epochs) launched
 after all gates passed; output `results/v2/exp05_g2_event_seed0.json`.
 
+## 8. Halted by the PI, 2026-09-02 evening — exact state
+
+Both background runs were stopped on instruction. Nothing is running.
+
+**Stage 3 (exp05, g2, event-held-out, model seed 0).** The FIRST run completed
+(exit 0) and its result stands: `results/v2/exp05_g2_event_seed0.json`, split
+digest `4e1d966b2d7e`, 30 fits, 0 at the epoch cap, wall 304 s. Its event-level
+reviews are archived beside it. **Its OOF exports no longer exist**: they were
+deleted deliberately to relaunch under a writer fix (the exports had not carried
+the v2 protocol fields, so `event_level_review.py` mislabelled corrected exports
+as "LEGACY"). The relaunch was halted at seed 0 / fold 1. **To resume, re-run the
+same command; the JSON will be identical and the exports will carry the fields.**
+
+**S-2 (synthetic CRLB tracking).** Halted mid-sweep, no result file written;
+console output preserved at `results/s2_partial_sweep_halted.log`. Partial
+readings (not graded, sweep incomplete): the oracle layer's realised MSE / exact
+Gauss-Markov CRLB ratio sits at 0.82-1.13 across cells, i.e. **Theorem 2's
+covariance formula is numerically exact on this design**; and at small state
+dispersion the two rate errors are strongly positively correlated (err_corr
++0.85 to +0.86), which is the ridge Prop. 1 predicts, now seen under a design
+that holds forcing, noise and sample size fixed. The neural layer's recovery
+error had not yet moved across the sweep when it was halted.
+
+**Nothing in the ledger or the paper was changed on this branch.** All findings
+live in `docs/CC_RESULT_INTERPRETATION.md` and are marked descriptive or
+single-seed. `main` is untouched; this branch is `aistats-theory-protocol-repair`.
+
