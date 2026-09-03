@@ -89,12 +89,12 @@ so the expected-risk crossover is
 \delta_c=\frac{\sigma_\varepsilon}{2\sqrt{nR^2-\sigma_\varepsilon^2}},
 \label{eq:delta_critical}
 \end{equation}
-whenever the right-hand side lies in $(0,1/2)$. For $U=0.20$, $R=0.12$, $n=40$, and $\sigma_\varepsilon=0.15$, Equation~\eqref{eq:delta_critical} gives $\delta_c=0.1008$. Fifty thousand Gaussian replications at each grid point reproduce the closed-form risks. The case deliberately isolates dispersion and attains the upper endpoint $\lambda_{\min}(Q)=2v$; the real outage design in Section~\ref{sec:real_geometry} lies close to the lower endpoint $\lambda_{\min}(Q)=v$. Panel~(c) of Figure~\ref{fig:toy} adds the complementary coactivity slice: at fixed dispersion, the gap vanishes when either component is absent.
+whenever the right-hand side lies in $(0,1/2)$. For $U=0.20$, $R=0.12$, $n=40$, and $\sigma_\varepsilon=0.15$, Equation~\eqref{eq:delta_critical} gives $\delta_c=0.1008$. Fifty thousand Gaussian replications at each grid point reproduce the closed-form risks. Figure~\ref{fig:toy} reparameterizes the supplied Monte Carlo points by $\Gamma$: the standardized expected-risk difference collapses to $\Gamma-1$, and the pairwise win probability follows $F_{\chi_1^2}(\Gamma)$. The center panel supplies the complementary coactivity axis by varying $R/U$ at fixed dispersion. The balanced case attains the upper endpoint $\lambda_{\min}(Q)=2v$; Section~\ref{sec:real_geometry} shows that the outage panels lie near the lower endpoint $\lambda_{\min}(Q)=v$.
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=0.98\textwidth]{figures/flow_selection_solvable_case.pdf}
-\caption{Exactly solvable flow-selection case. The first two panels reproduce the supplied dispersion experiment and its finite-sample crossover; the third isolates the coactivity factor. In panels (a)--(b), the vertical line marks $\Gamma=1$, equivalently $\delta=0.1008$ under the stated parameters; panel (c) marks the one-flow branch switch at $R/U=1$.}
+\caption{Exactly solvable flow-selection case. Panels (a) and (c) express the supplied dispersion experiment in the single index $\Gamma$; points use 50,000 replications. Panel (b) varies $R/U$ at $\delta=0.15$ and marks the one-flow branch switch.}
 \label{fig:toy}
 \end{figure*}
 
