@@ -1,0 +1,52 @@
+name: compile-aistats-gamma-rewrite
+
+on:
+  push:
+    branches:
+      - gpt-aistats-gamma-rewrite-20260903
+    paths:
+      - "paper/aistats/**"
+      - ".github/workflows/compile-aistats-gamma-rewrite.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install TeX and figure dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended texlive-bibtex-extra latexmk \
+            poppler-utils curl unzip python3-pip
+          python3 -m pip install --break-system-packages numpy pandas matplotlib
+      - name: Compile manuscript and regenerate solvable case
+        working-directory: paper/aistats
+        run: ./build.sh
+      - name: Audit source and output
+        working-directory: paper/aistats
+        run: |
+          test "$(grep -R '\\boxed' -n main.tex sections | wc -l)" -eq 1
+          grep -q "An exactly solvable case" sections/03_value.tex
+          grep -q "4.55" sections/04_experiments.tex
+          ! grep -R "TBD\|pending" -n main.tex sections
+          ! grep -Eqi "undefined references|Citation .* undefined|There were undefined" main.log
+          pdfinfo main.pdf | tee gamma_pdfinfo.txt
+          pdffonts main.pdf | tee gamma_pdffonts.txt
+      - name: Upload compiled manuscript
+        uses: actions/upload-artifact@v4
+        with:
+          name: aistats-gamma-rewrite
+          path: |
+            paper/aistats/main.pdf
+            paper/aistats/main.log
+            paper/aistats/gamma_pdfinfo.txt
+            paper/aistats/gamma_pdffonts.txt
+            paper/aistats/figures/flow_selection_solvable_case.pdf
+          if-no-files-found: error
