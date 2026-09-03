@@ -1,0 +1,62 @@
+name: bootstrap-aistats-theory-paper
+
+on:
+  push:
+    branches:
+      - gpt-aistats-theory-paper-20260903
+    paths:
+      - ".bootstrap/aistats/READY"
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reconstruct and unpack source bundle
+        shell: bash
+        run: |
+          cat .bootstrap/aistats/chunk_* > /tmp/aistats_bundle.b64
+          base64 -d /tmp/aistats_bundle.b64 > /tmp/aistats_bundle.tar.gz
+          tar -xzf /tmp/aistats_bundle.tar.gz -C .
+          rm -rf .bootstrap
+          rm -f .github/workflows/bootstrap-aistats-theory-paper.yml
+      - name: Commit paper sources
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Add rigorous AISTATS theory manuscript and verified build"
+          git push origin HEAD:gpt-aistats-theory-paper-20260903
+      - name: Install TeX and audit dependencies
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended texlive-bibtex-extra latexmk \
+            poppler-utils curl unzip python3-pip
+          python3 -m pip install --user numpy
+      - name: Run theory checks and compile with official AISTATS style
+        working-directory: paper/aistats
+        shell: bash
+        run: |
+          python3 theory_checks.py
+          ./build.sh
+      - name: Upload compiled manuscript
+        uses: actions/upload-artifact@v4
+        with:
+          name: aistats-theory-paper
+          path: |
+            paper/aistats/main.pdf
+            paper/aistats/main.log
+            paper/aistats/pdfinfo.txt
+            paper/aistats/pdffonts.txt
+            paper/aistats/THEORY_CHECKS.json
+          if-no-files-found: error
