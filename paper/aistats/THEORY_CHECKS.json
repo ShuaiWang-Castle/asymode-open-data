@@ -1,0 +1,29 @@
+{
+  "seed": 20260903,
+  "population": {
+    "trials": 100000,
+    "max_abs_moment_identity_error": 1.1102230246251565e-16,
+    "max_abs_constrained_gap_error": 1.0408340855860843e-17,
+    "max_eigen_bound_violation": 0.0
+  },
+  "finite_design": {
+    "trials": 20000,
+    "max_abs_determinant_error": 1.0231815394945443e-12
+  },
+  "oracle_span_monte_carlo": {
+    "replicates_per_cell": 50000,
+    "cells": 16,
+    "max_abs_mc_mean_risk_error": 3.1441151980537963e-06,
+    "max_abs_mc_mean_difference_error": 2.0098078061600176e-06
+  },
+  "event_shift": {
+    "trials": 50000,
+    "interior_cases": 26505,
+    "max_abs_interior_shift_error": 2.0816681711721685e-17,
+    "max_abs_boundary_identity_error": 1.734723475976807e-17
+  },
+  "state_map": {
+    "trials": 100000,
+    "max_interval_violation": 0.0
+  }
+}
