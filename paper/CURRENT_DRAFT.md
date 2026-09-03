@@ -1,11 +1,15 @@
 # Current paper draft
 
-The current unified draft is:
+The current Claude-reviewed AISTATS manuscript is:
 
-`paper/DRAFT_UNIFIED_V2.md`
+`paper/aistats/main_reviewed.tex`
 
-The study protocol that governs all new experiments is:
+The only authorized real-data experiment is:
 
-`docs/UNIFIED_AISTATS_V2_PROTOCOL.md`
+`docs/MAIN_REAL_STORM_EXPERIMENT_LOCK.md`
 
-Earlier drafts and experiment ledgers remain in the repository as provenance, but they no longer define the paper's contribution hierarchy or primary experiment.
+The theory-scope response is:
+
+`docs/CLAUDE_THEORY_REVIEW_RESPONSE.md`
+
+Earlier drafts, family analyses, event-shift campaigns, mixed-loss proposals, memory modules, and broad experiment plans remain only as provenance. They do not define the current contribution hierarchy or authorize new experiments.
