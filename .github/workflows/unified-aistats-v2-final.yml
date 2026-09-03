@@ -1,0 +1,87 @@
+name: unified-aistats-v2-final
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  final-main-experiment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gpt-unified-aistats-v2-20260903
+          fetch-depth: 0
+      - name: Restore published data files from main when absent
+        shell: bash
+        run: |
+          if ! ls data/interim/panel_*.npz >/dev/null 2>&1; then
+            git fetch origin main
+            git checkout origin/main -- data/interim
+          fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip numpy scipy scikit-learn pytest
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - name: Run theory and implementation gates
+        shell: bash
+        run: |
+          PYTHONPATH=src:experiments pytest -q \
+            tests/test_core_theory_v2.py \
+            tests/test_unified_aistats_v2.py
+      - name: Run the one neural experiment
+        shell: bash
+        run: |
+          PYTHONPATH=src:experiments python experiments/unified_aistats_v2.py \
+            --seeds 0 1 2 \
+            --arms two_rate_v2 net_scaled_v2 two_rate_rollout_only \
+            --out results/unified_aistats_v2_final_neural.json
+      - name: Run the two external baselines
+        shell: bash
+        run: |
+          PYTHONPATH=src:experiments python experiments/unified_aistats_v2_baselines.py \
+            --out results/unified_aistats_v2_final_baselines.json
+      - name: Assemble the theorem-aligned report
+        shell: bash
+        run: |
+          python experiments/unified_aistats_v2_report.py \
+            --neural results/unified_aistats_v2_final_neural.json \
+            --baselines results/unified_aistats_v2_final_baselines.json \
+            --out-json results/unified_aistats_v2_main_report.json \
+            --out-md results/unified_aistats_v2_main_report.md
+      - name: Commit exact outputs without racing earlier workflow commits
+        shell: bash
+        run: |
+          mkdir -p /tmp/v2-output
+          cp results/unified_aistats_v2_final_neural.json /tmp/v2-output/
+          cp results/unified_aistats_v2_final_baselines.json /tmp/v2-output/
+          cp results/unified_aistats_v2_main_report.json /tmp/v2-output/
+          cp results/unified_aistats_v2_main_report.md /tmp/v2-output/
+          git fetch origin gpt-unified-aistats-v2-20260903
+          git reset --hard origin/gpt-unified-aistats-v2-20260903
+          cp /tmp/v2-output/* results/
+          git config user.name "OpenAI GPT-5.6 Pro"
+          git config user.email "actions@users.noreply.github.com"
+          git add \
+            results/unified_aistats_v2_final_neural.json \
+            results/unified_aistats_v2_final_baselines.json \
+            results/unified_aistats_v2_main_report.json \
+            results/unified_aistats_v2_main_report.md
+          git commit -m "Record unified AISTATS v2 final main experiment"
+          git push origin HEAD:gpt-unified-aistats-v2-20260903
+      - uses: actions/upload-artifact@v4
+        with:
+          name: unified-aistats-v2-final
+          path: |
+            results/unified_aistats_v2_final_neural.json
+            results/unified_aistats_v2_final_baselines.json
+            results/unified_aistats_v2_main_report.json
+            results/unified_aistats_v2_main_report.md
+          if-no-files-found: error
