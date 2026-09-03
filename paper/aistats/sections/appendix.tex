@@ -1,0 +1,80 @@
+\section{Proofs}
+
+\subsection{Proof of Proposition~\ref{prop:geometry}}
+Equation~\eqref{eq:orthogonal_information} follows from $\E[Y-\mu\mid X=x]=0$ and $\E[(Y-\mu)^2\mid X=x]=v$. In the original coordinates,
+\[
+Q=\begin{bmatrix}A&-C\\-C&B\end{bmatrix},
+\]
+so Equation~\eqref{eq:moment_identity} gives $\det Q=v$. Since $(1-Y)^2+Y^2\le1$, $\lambda_{\max}(Q)\le1$. For $q=(1,-1)^\top/\sqrt2$, $q^\top Qq=1/2$, so $\lambda_{\max}(Q)\ge1/2$. For $v>0$, $\lambda_{\min}=v/\lambda_{\max}\in[v,2v]$; the singular case follows by continuity. Full rank is equivalent to $v>0$.
+
+\subsection{Proof of Theorem~\ref{thm:gap}}
+Fix $x$ and abbreviate $U_0(x),R_0(x)$ by $U,R$. If $v=0$, then $Y=\mu$ almost surely and one of the two rays matches the scalar mean exactly. Suppose $v>0$, so $A,B>0$. On the interruption ray,
+\[
+L_U(a)=A(U-a)^2-2CR(U-a)+BR^2,
+\]
+whose unconstrained minimizer is $a^*=U-RC/A$ and whose interior minimum is $R^2(B-C^2/A)=R^2v/A$. On the restoration ray, the corresponding coefficient is $b^*=R-UC/B$ and the interior minimum is $U^2v/B$.
+
+The two unconstrained coefficients cannot both be negative: multiplying $UA<RC$ and $RB<UC$ would contradict $AB>C^2$. If $a^*<0$, then $U/R<C/A<\sqrt{B/A}$, implying $U^2/B<R^2/A$, while $b^*>0$; hence the feasible restoration ray attains the smaller displayed risk. The symmetric argument applies when $b^*<0$. Therefore the minimum over the union of nonnegative rays is Equation~\eqref{eq:gap_result}. Strict positivity follows exactly when $v,U,R$ are positive.
+
+\subsection{Proof of Proposition~\ref{prop:benchmark}}
+Since $m$ belongs to the two-dimensional span, $P_2Z-m=P_2\varepsilon$ and its expected squared norm is $2\sigma_\varepsilon^2$. The one-flow error is $P_1\varepsilon-(I-P_1)m$; the two terms are orthogonal, so its expected squared norm is $\sigma_\varepsilon^2+nG_n$. Because the selected one-dimensional span is nested in the two-dimensional span, $P_2-P_1$ is a rank-one orthogonal projector. Consequently,
+\[
+\|P_1Z-m\|_2^2-\|P_2Z-m\|_2^2
+=nG_n-\|(P_2-P_1)\varepsilon\|_2^2,
+\]
+and the last norm divided by $\sigma_\varepsilon^2$ is $\chi_1^2$.
+
+\subsection{Projection shift and target estimation cost}
+Completing the target interruption-ray risk gives
+\[
+\cR_Q^U(a)=R_0^2\frac{v_Q}{A_Q}+A_Q(a-a_Q^*)^2,
+\qquad a_Q^*=U_0-R_0C_Q/A_Q.
+\]
+Substituting $a_P^*$ yields Equation~\eqref{eq:projection_shift}. For the two-flow target estimation cost, express the source design in the source-centered basis $(1,\mu_P-Y)$. The source information matrix is $\operatorname{diag}(1,v_P)$, while the target second moment is
+\[
+\begin{bmatrix}
+1&\mu_P-\mu_Q\\
+\mu_P-\mu_Q&v_Q+(\mu_Q-\mu_P)^2
+\end{bmatrix}.
+\]
+Taking the trace of the target second moment times the inverse source information yields Equation~\eqref{eq:two_transfer_cost}.
+
+\subsection{Rollout-error recursion}
+Let the reference and fitted conditional-mean maps be $F_t(y)=U_t+(1-U_t-R_t)y$ and $\widehat F_t(y)=\widehat U_t+(1-\widehat U_t-\widehat R_t)y$. If $e_t=\widehat y_t-\bar y_t$, subtraction gives
+\[
+e_{t+1}=(1-\widehat\tau_t)e_t+
+(1-\bar y_t)(\widehat U_t-U_t)-\bar y_t(\widehat R_t-R_t).
+\]
+Iterating from $e_0=0$ gives Equation~\eqref{eq:rollout_bridge}. If $0\le\widehat\tau_t\le1$, then $|e_H|\le\sum_{k<H}|\delta_k|$. A geometric saturation bound additionally requires $\widehat\tau_t\ge\tau_{\min}>0$.
+
+\section{Experimental details}
+
+\subsection{Primary event manifest}
+The eleven leave-one-event-out test events are 2021-05-04, 2021-06-21, 2021-08-11, 2021-12-11, 2022-04-13, 2022-06-08, 2022-06-17, 2022-07-23, 2024-05-08, 2024-05-26, and 2024-06-26. The manifest digest is recorded with every result file.
+
+\subsection{Event-level structural gains}
+\begin{table}[h]
+\centering
+\caption{Seed-averaged relative RMSE gain of two flows over one flow. Positive values favor two flows.}
+\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Event & 24 hours & 48 hours\\
+\midrule
+2021-05-04 & 1.95 & 2.46\\
+2021-06-21 & 3.80 & -1.14\\
+2021-08-11 & -2.69 & -0.01\\
+2021-12-11 & 5.02 & 2.44\\
+2022-04-13 & 16.11 & 15.99\\
+2022-06-08 & -0.17 & -8.82\\
+2022-06-17 & 2.00 & 3.38\\
+2022-07-23 & -2.09 & -1.08\\
+2024-05-08 & 22.21 & 24.42\\
+2024-05-26 & 2.95 & 3.65\\
+2024-06-26 & 0.94 & -0.47\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Scope of the fixed-design benchmark}
+The dynamic-panel experiment differs from Proposition~\ref{prop:benchmark} in several respects: the current state is predetermined rather than externally fixed, the response is a reported fraction with heteroskedastic and measurement error, the branch is learned rather than selected by an oracle, and the neural functions share information across driver values. These differences are why the paper reports $\Gamma_n$ as an organizing benchmark rather than a plug-in theorem for neural generalization.
