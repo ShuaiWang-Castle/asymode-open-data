@@ -1,0 +1,35 @@
+{
+  "generation": "g2-convective-11",
+  "panels": [
+    "2021-05-04",
+    "2021-06-21",
+    "2021-08-11",
+    "2021-12-11",
+    "2022-04-13",
+    "2022-06-08",
+    "2022-06-17",
+    "2022-07-23",
+    "2024-05-08",
+    "2024-05-26",
+    "2024-06-26"
+  ],
+  "digest": "76a73ed794af",
+  "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed",
+    "clock_sin",
+    "clock_cos"
+  ],
+  "channel_digest": "dec964873cb2",
+  "note": "main experiment: convective-season events; other event families are a separate generalisation manifest"
+}

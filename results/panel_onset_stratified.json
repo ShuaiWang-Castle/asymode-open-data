@@ -1,0 +1,295 @@
+{
+  "config": {
+    "event_day": "2022-06-17",
+    "before": 2,
+    "after": 5,
+    "min_coverage": 0.7,
+    "onset_threshold": 0.01,
+    "event_days": [
+      "2021-02-15",
+      "2024-01-12",
+      "2022-01-16",
+      "2022-03-12",
+      "2019-02-20",
+      "2018-01-16",
+      "2020-10-29",
+      "2018-10-11",
+      "2020-08-04",
+      "2019-02-24",
+      "2019-11-27",
+      "2021-12-15",
+      "2024-09-27",
+      "2020-02-06"
+    ],
+    "force_provisional": false,
+    "out": "results/panel_onset_stratified.json"
+  },
+  "days": [
+    {
+      "event_day": "2021-02-15",
+      "window": [
+        "2021-02-13 00:00:00",
+        "2021-02-20 00:00:00"
+      ],
+      "n_counties": 810,
+      "n_steps": 673,
+      "observed_frac": 0.9838974189642837,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 405,
+      "frac_typ_zero": 0.7487562189054726,
+      "frac_lt_1e5": 0.7562189054726368,
+      "frac_lt_1e4": 0.8333333333333334,
+      "frac_lt_1e3": 0.8756218905472637,
+      "suppression_p10": 11.84589823468328,
+      "suppression_p25": 79.44927536231884,
+      "peak_y_median": 0.11330049261083744
+    },
+    {
+      "event_day": "2024-01-12",
+      "window": [
+        "2024-01-10 00:00:00",
+        "2024-01-17 00:00:00"
+      ],
+      "n_counties": 578,
+      "n_steps": 673,
+      "observed_frac": 0.9733055008560544,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 322,
+      "frac_typ_zero": 0.6211180124223602,
+      "frac_lt_1e5": 0.639751552795031,
+      "frac_lt_1e4": 0.7049689440993789,
+      "frac_lt_1e3": 0.8819875776397516,
+      "suppression_p10": 144.8451922825526,
+      "suppression_p25": 583.9242146106667,
+      "peak_y_median": 0.0470641406571056
+    },
+    {
+      "event_day": "2022-01-16",
+      "window": [
+        "2022-01-14 00:00:00",
+        "2022-01-21 00:00:00"
+      ],
+      "n_counties": 556,
+      "n_steps": 673,
+      "observed_frac": 0.9817524880541332,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 273,
+      "frac_typ_zero": 0.8681318681318682,
+      "frac_lt_1e5": 0.8974358974358975,
+      "frac_lt_1e4": 0.9816849816849816,
+      "frac_lt_1e3": 1.0,
+      "suppression_p10": 8788.066259233821,
+      "suppression_p25": 20497.28197952889,
+      "peak_y_median": 0.03601989220425626
+    },
+    {
+      "event_day": "2022-03-12",
+      "window": [
+        "2022-03-10 00:00:00",
+        "2022-03-17 00:00:00"
+      ],
+      "n_counties": 536,
+      "n_steps": 673,
+      "observed_frac": 0.9773430396309685,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 262,
+      "frac_typ_zero": 0.8015267175572519,
+      "frac_lt_1e5": 0.8206106870229007,
+      "frac_lt_1e4": 0.9618320610687023,
+      "frac_lt_1e3": 0.9961832061068703,
+      "suppression_p10": 4145.884669941269,
+      "suppression_p25": 13084.682390804504,
+      "peak_y_median": 0.029286738900695934
+    },
+    {
+      "event_day": "2019-02-20",
+      "window": [
+        "2019-02-18 00:00:00",
+        "2019-02-25 00:00:00"
+      ],
+      "n_counties": 474,
+      "n_steps": 673,
+      "observed_frac": 0.9566021529645582,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 239,
+      "frac_typ_zero": 0.9102564102564102,
+      "frac_lt_1e5": 0.9188034188034188,
+      "frac_lt_1e4": 0.9700854700854701,
+      "frac_lt_1e3": 0.9957264957264957,
+      "suppression_p10": 4335.75,
+      "suppression_p25": 8160.0,
+      "peak_y_median": 0.04962261120925004
+    },
+    {
+      "event_day": "2018-01-16",
+      "window": [
+        "2018-01-14 00:00:00",
+        "2018-01-21 00:00:00"
+      ],
+      "n_counties": 355,
+      "n_steps": 673,
+      "observed_frac": 0.947186237783312,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 97,
+      "frac_typ_zero": 0.9278350515463918,
+      "frac_lt_1e5": 0.9381443298969072,
+      "frac_lt_1e4": 0.9896907216494846,
+      "frac_lt_1e3": 1.0,
+      "suppression_p10": 7576.4373438925995,
+      "suppression_p25": 12756.126471303309,
+      "peak_y_median": 0.03016532920816011
+    },
+    {
+      "event_day": "2020-10-29",
+      "window": [
+        "2020-10-27 00:00:00",
+        "2020-11-03 00:00:00"
+      ],
+      "n_counties": 240,
+      "n_steps": 673,
+      "observed_frac": 0.9985141158989599,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 208,
+      "frac_typ_zero": 0.8557692307692307,
+      "frac_lt_1e5": 0.8701923076923077,
+      "frac_lt_1e4": 0.9807692307692307,
+      "frac_lt_1e3": 1.0,
+      "suppression_p10": 7774.163640429812,
+      "suppression_p25": 16476.66276262157,
+      "peak_y_median": 0.12867200035104565
+    },
+    {
+      "event_day": "2018-10-11",
+      "window": [
+        "2018-10-09 00:00:00",
+        "2018-10-16 00:00:00"
+      ],
+      "n_counties": 235,
+      "n_steps": 673,
+      "observed_frac": 0.9768834371344567,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 198,
+      "frac_typ_zero": 0.8131313131313131,
+      "frac_lt_1e5": 0.8484848484848485,
+      "frac_lt_1e4": 0.9545454545454546,
+      "frac_lt_1e3": 1.0,
+      "suppression_p10": 6862.716616326482,
+      "suppression_p25": 12989.0,
+      "peak_y_median": 0.11917589178833612
+    },
+    {
+      "event_day": "2020-08-04",
+      "window": [
+        "2020-08-02 00:00:00",
+        "2020-08-09 00:00:00"
+      ],
+      "n_counties": 213,
+      "n_steps": 673,
+      "observed_frac": 0.9966515287863885,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 191,
+      "frac_typ_zero": 0.581151832460733,
+      "frac_lt_1e5": 0.6335078534031413,
+      "frac_lt_1e4": 0.9319371727748691,
+      "frac_lt_1e3": 1.0,
+      "suppression_p10": 7632.689452582545,
+      "suppression_p25": 14301.776160745709,
+      "peak_y_median": 0.16605148601005884
+    },
+    {
+      "event_day": "2019-02-24",
+      "window": [
+        "2019-02-22 00:00:00",
+        "2019-03-01 00:00:00"
+      ],
+      "n_counties": 688,
+      "n_steps": 673,
+      "observed_frac": 0.95493754103459,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 420,
+      "frac_typ_zero": 0.9119047619047619,
+      "frac_lt_1e5": 0.9238095238095239,
+      "frac_lt_1e4": 0.9547619047619048,
+      "frac_lt_1e3": 0.9928571428571429,
+      "suppression_p10": 1072.8464837816102,
+      "suppression_p25": 3555.6428571428573,
+      "peak_y_median": 0.054591347071263376
+    },
+    {
+      "event_day": "2019-11-27",
+      "window": [
+        "2019-11-25 00:00:00",
+        "2019-12-02 00:00:00"
+      ],
+      "n_counties": 480,
+      "n_steps": 673,
+      "observed_frac": 0.9904655770183259,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 272,
+      "frac_typ_zero": 0.8602941176470589,
+      "frac_lt_1e5": 0.8786764705882353,
+      "frac_lt_1e4": 0.9522058823529411,
+      "frac_lt_1e3": 1.0,
+      "suppression_p10": 2697.749201365548,
+      "suppression_p25": 6969.897568756354,
+      "peak_y_median": 0.03076578386485356
+    },
+    {
+      "event_day": "2021-12-15",
+      "window": [
+        "2021-12-13 00:00:00",
+        "2021-12-20 00:00:00"
+      ],
+      "n_counties": 361,
+      "n_steps": 673,
+      "observed_frac": 0.9469732828983384,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 236,
+      "frac_typ_zero": 0.8559322033898306,
+      "frac_lt_1e5": 0.8898305084745762,
+      "frac_lt_1e4": 0.9364406779661016,
+      "frac_lt_1e3": 0.9788135593220338,
+      "suppression_p10": 357.4590440730444,
+      "suppression_p25": 1743.1085074394732,
+      "peak_y_median": 0.08669402313438082
+    },
+    {
+      "event_day": "2024-09-27",
+      "window": [
+        "2024-09-25 00:00:00",
+        "2024-10-02 00:00:00"
+      ],
+      "n_counties": 445,
+      "n_steps": 673,
+      "observed_frac": 0.9971150474982052,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 405,
+      "frac_typ_zero": 0.6469135802469136,
+      "frac_lt_1e5": 0.6617283950617284,
+      "frac_lt_1e4": 0.782716049382716,
+      "frac_lt_1e3": 0.9358024691358025,
+      "suppression_p10": 438.78434128207454,
+      "suppression_p25": 1495.416513833704,
+      "peak_y_median": 0.20144685587089595
+    },
+    {
+      "event_day": "2020-02-06",
+      "window": [
+        "2020-02-04 00:00:00",
+        "2020-02-11 00:00:00"
+      ],
+      "n_counties": 326,
+      "n_steps": 673,
+      "observed_frac": 0.9780854884730034,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 183,
+      "frac_typ_zero": 0.8688524590163934,
+      "frac_lt_1e5": 0.912568306010929,
+      "frac_lt_1e4": 0.9508196721311475,
+      "frac_lt_1e3": 1.0,
+      "suppression_p10": 2970.1861482718346,
+      "suppression_p25": 5438.035547815397,
+      "peak_y_median": 0.035579345088161206
+    }
+  ]
+}

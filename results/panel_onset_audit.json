@@ -1,0 +1,255 @@
+{
+  "config": {
+    "event_day": "2022-06-17",
+    "before": 2,
+    "after": 5,
+    "min_coverage": 0.7,
+    "onset_threshold": 0.01,
+    "event_days": [
+      "2022-06-17",
+      "2021-05-04",
+      "2021-12-11",
+      "2021-06-21",
+      "2021-08-11",
+      "2022-04-13",
+      "2022-06-08",
+      "2022-07-23",
+      "2024-05-26",
+      "2024-06-26",
+      "2024-05-08",
+      "2024-01-09"
+    ],
+    "force_provisional": false,
+    "out": "results/panel_onset_audit.json"
+  },
+  "days": [
+    {
+      "event_day": "2022-06-17",
+      "window": [
+        "2022-06-15 00:00:00",
+        "2022-06-22 00:00:00"
+      ],
+      "n_counties": 356,
+      "n_steps": 673,
+      "observed_frac": 0.9915730337078652,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 304,
+      "frac_typ_zero": 0.6622516556291391,
+      "frac_lt_1e5": 0.6920529801324503,
+      "frac_lt_1e4": 0.8344370860927153,
+      "frac_lt_1e3": 0.9370860927152318,
+      "suppression_p10": 396.82567409224004,
+      "suppression_p25": 1485.1109699366766,
+      "peak_y_median": 0.07704463691913545
+    },
+    {
+      "event_day": "2021-05-04",
+      "window": [
+        "2021-05-02 00:00:00",
+        "2021-05-09 00:00:00"
+      ],
+      "n_counties": 344,
+      "n_steps": 673,
+      "observed_frac": 0.9879531082622067,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 263,
+      "frac_typ_zero": 0.8292682926829268,
+      "frac_lt_1e5": 0.8617886178861789,
+      "frac_lt_1e4": 0.943089430894309,
+      "frac_lt_1e3": 0.991869918699187,
+      "suppression_p10": 2067.6142777205937,
+      "suppression_p25": 4392.213542829086,
+      "peak_y_median": 0.06459888952709171
+    },
+    {
+      "event_day": "2021-12-11",
+      "window": [
+        "2021-12-09 00:00:00",
+        "2021-12-16 00:00:00"
+      ],
+      "n_counties": 256,
+      "n_steps": 673,
+      "observed_frac": 0.9715418369242199,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 188,
+      "frac_typ_zero": 0.9095744680851063,
+      "frac_lt_1e5": 0.9414893617021277,
+      "frac_lt_1e4": 0.9946808510638298,
+      "frac_lt_1e3": 0.9946808510638298,
+      "suppression_p10": 12348.180225176173,
+      "suppression_p25": 19189.0,
+      "peak_y_median": 0.054775686916733665
+    },
+    {
+      "event_day": "2021-06-21",
+      "window": [
+        "2021-06-19 00:00:00",
+        "2021-06-26 00:00:00"
+      ],
+      "n_counties": 256,
+      "n_steps": 673,
+      "observed_frac": 0.99609375,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 197,
+      "frac_typ_zero": 0.7055837563451777,
+      "frac_lt_1e5": 0.7208121827411168,
+      "frac_lt_1e4": 0.8781725888324873,
+      "frac_lt_1e3": 0.9796954314720813,
+      "suppression_p10": 1844.0067531497434,
+      "suppression_p25": 4010.1845581269317,
+      "peak_y_median": 0.04253558424362794
+    },
+    {
+      "event_day": "2021-08-11",
+      "window": [
+        "2021-08-09 00:00:00",
+        "2021-08-16 00:00:00"
+      ],
+      "n_counties": 253,
+      "n_steps": 673,
+      "observed_frac": 0.9937863028501959,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 198,
+      "frac_typ_zero": 0.5656565656565656,
+      "frac_lt_1e5": 0.5808080808080808,
+      "frac_lt_1e4": 0.8434343434343434,
+      "frac_lt_1e3": 0.9696969696969697,
+      "suppression_p10": 2316.744343882593,
+      "suppression_p25": 5848.932306027689,
+      "peak_y_median": 0.051774120133452756
+    },
+    {
+      "event_day": "2022-04-13",
+      "window": [
+        "2022-04-11 00:00:00",
+        "2022-04-18 00:00:00"
+      ],
+      "n_counties": 207,
+      "n_steps": 673,
+      "observed_frac": 0.9765345162980669,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 138,
+      "frac_typ_zero": 0.7753623188405797,
+      "frac_lt_1e5": 0.7753623188405797,
+      "frac_lt_1e4": 0.8623188405797102,
+      "frac_lt_1e3": 0.9710144927536232,
+      "suppression_p10": 999.3024911032029,
+      "suppression_p25": 3013.6580811947547,
+      "peak_y_median": 0.06854490754195006
+    },
+    {
+      "event_day": "2022-06-08",
+      "window": [
+        "2022-06-06 00:00:00",
+        "2022-06-13 00:00:00"
+      ],
+      "n_counties": 183,
+      "n_steps": 673,
+      "observed_frac": 0.9890629186661145,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 115,
+      "frac_typ_zero": 0.7391304347826086,
+      "frac_lt_1e5": 0.7391304347826086,
+      "frac_lt_1e4": 0.8956521739130435,
+      "frac_lt_1e3": 0.9826086956521739,
+      "suppression_p10": 2038.9495723488137,
+      "suppression_p25": 3884.3846811238113,
+      "peak_y_median": 0.052931741222598465
+    },
+    {
+      "event_day": "2022-07-23",
+      "window": [
+        "2022-07-21 00:00:00",
+        "2022-07-28 00:00:00"
+      ],
+      "n_counties": 186,
+      "n_steps": 673,
+      "observed_frac": 0.9976992762306476,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 139,
+      "frac_typ_zero": 0.6762589928057554,
+      "frac_lt_1e5": 0.697841726618705,
+      "frac_lt_1e4": 0.8776978417266187,
+      "frac_lt_1e3": 1.0,
+      "suppression_p10": 3625.799055412159,
+      "suppression_p25": 7687.000000000001,
+      "peak_y_median": 0.05250239081925406
+    },
+    {
+      "event_day": "2024-05-26",
+      "window": [
+        "2024-05-24 00:00:00",
+        "2024-05-31 00:00:00"
+      ],
+      "n_counties": 339,
+      "n_steps": 673,
+      "observed_frac": 0.9437161128570615,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 270,
+      "frac_typ_zero": 0.7703703703703704,
+      "frac_lt_1e5": 0.7814814814814814,
+      "frac_lt_1e4": 0.8666666666666667,
+      "frac_lt_1e3": 0.9740740740740741,
+      "suppression_p10": 493.75410258990615,
+      "suppression_p25": 3183.8990108478824,
+      "peak_y_median": 0.09989376680664111
+    },
+    {
+      "event_day": "2024-06-26",
+      "window": [
+        "2024-06-24 00:00:00",
+        "2024-07-01 00:00:00"
+      ],
+      "n_counties": 230,
+      "n_steps": 673,
+      "observed_frac": 0.9956521739130435,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 178,
+      "frac_typ_zero": 0.6573033707865169,
+      "frac_lt_1e5": 0.6797752808988764,
+      "frac_lt_1e4": 0.8202247191011236,
+      "frac_lt_1e3": 0.9606741573033708,
+      "suppression_p10": 919.9389312977099,
+      "suppression_p25": 3308.0,
+      "peak_y_median": 0.046529759626427414
+    },
+    {
+      "event_day": "2024-05-08",
+      "window": [
+        "2024-05-06 00:00:00",
+        "2024-05-13 00:00:00"
+      ],
+      "n_counties": 236,
+      "n_steps": 673,
+      "observed_frac": 0.9993892764499962,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 176,
+      "frac_typ_zero": 0.7556818181818182,
+      "frac_lt_1e5": 0.7840909090909091,
+      "frac_lt_1e4": 0.9431818181818182,
+      "frac_lt_1e3": 1.0,
+      "suppression_p10": 4223.9396113541425,
+      "suppression_p25": 11374.76401037317,
+      "peak_y_median": 0.03936535440376796
+    },
+    {
+      "event_day": "2024-01-09",
+      "window": [
+        "2024-01-07 00:00:00",
+        "2024-01-14 00:00:00"
+      ],
+      "n_counties": 240,
+      "n_steps": 673,
+      "observed_frac": 0.9964338781575037,
+      "denominator": "eaglei_2024_modelled",
+      "n_interrupted": 205,
+      "frac_typ_zero": 0.7902439024390244,
+      "frac_lt_1e5": 0.8292682926829268,
+      "frac_lt_1e4": 0.9609756097560975,
+      "frac_lt_1e3": 0.9902439024390244,
+      "suppression_p10": 3535.0097619775133,
+      "suppression_p25": 16705.32569079845,
+      "peak_y_median": 0.05005989073592568
+    }
+  ]
+}
