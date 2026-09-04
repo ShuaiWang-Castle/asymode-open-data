@@ -6,6 +6,7 @@ on:
       - open-audit-20260904
     paths:
       - "analysis/post_pilot_root_cause_20260904/root_cause_audit.py"
+      - "analysis/post_pilot_root_cause_20260904/transition_data_audit.py"
       - ".github/workflows/post-pilot-root-cause-audit.yml"
   workflow_dispatch:
 
@@ -15,7 +16,7 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,13 +25,18 @@ jobs:
       - name: Install audit dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install numpy pandas tabulate
+          python -m pip install numpy pandas pyarrow tabulate
           python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
       - name: Run committed-code and committed-result audit
         env:
           PYTHONPATH: src:experiments
         run: |
           python analysis/post_pilot_root_cause_20260904/root_cause_audit.py
+      - name: Run transition, mask, origin and weighting audit
+        env:
+          PYTHONPATH: src:experiments
+        run: |
+          python analysis/post_pilot_root_cause_20260904/transition_data_audit.py
       - name: Upload generated audit
         uses: actions/upload-artifact@v4
         with:
@@ -38,4 +44,7 @@ jobs:
           path: |
             analysis/post_pilot_root_cause_20260904/ROOT_CAUSE_AUDIT_GENERATED.md
             analysis/post_pilot_root_cause_20260904/ROOT_CAUSE_AUDIT.json
+            analysis/post_pilot_root_cause_20260904/TRANSITION_DATA_AUDIT_GENERATED.md
+            analysis/post_pilot_root_cause_20260904/TRANSITION_DATA_AUDIT.json
+            analysis/post_pilot_root_cause_20260904/TRANSITION_EVENT_AUDIT.csv
           if-no-files-found: error
