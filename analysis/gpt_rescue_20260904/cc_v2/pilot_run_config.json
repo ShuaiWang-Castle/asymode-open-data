@@ -1,0 +1,24 @@
+{
+ "pilot_events": [
+  "2024-05-08",
+  "2022-03-12",
+  "2018-10-11"
+ ],
+ "seed": 0,
+ "panel_digest": "db286b4960a4",
+ "fold_digest": "beb00a6762ba",
+ "caps": {
+  "C_U_main": 0.25,
+  "C_U_background": 0.015,
+  "C_R": 0.25
+ },
+ "budget": {
+  "stage_a": 1600,
+  "stage_b": 3200,
+  "val_every": 200,
+  "stage_b_min": 1600,
+  "patience_checks": 6,
+  "lr": 0.003
+ },
+ "wall_time_s": 1067.9
+}

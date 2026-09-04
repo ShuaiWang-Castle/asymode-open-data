@@ -1,0 +1,1536 @@
+[
+ {
+  "event": "2018-01-16",
+  "status": "ok",
+  "n_noaa_rows": 418,
+  "noaa_begin": "2018-01-14 00:00:00",
+  "noaa_end": "2018-01-18 19:45:00",
+  "noaa_mid": "2018-01-16 09:52:30",
+  "panel_start": "2018-01-14 00:00:00",
+  "panel_end": "2018-01-20 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2018-01-13 18:00:00",
+    "nearest_index": 0,
+    "nearest_time": "2018-01-14 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2018-01-16 09:52:30",
+    "nearest_index": 58,
+    "nearest_time": "2018-01-16 10:00:00",
+    "clipped_to": 58,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2018-01-19 01:45:00",
+    "nearest_index": 122,
+    "nearest_time": "2018-01-19 02:00:00",
+    "clipped_to": 122,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   58,
+   122
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2018-10-11",
+  "status": "ok",
+  "n_noaa_rows": 493,
+  "noaa_begin": "2018-10-10 06:00:00",
+  "noaa_end": "2018-10-15 23:00:00",
+  "noaa_mid": "2018-10-13 02:30:00",
+  "panel_start": "2018-10-09 00:00:00",
+  "panel_end": "2018-10-15 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2018-10-10 00:00:00",
+    "nearest_index": 24,
+    "nearest_time": "2018-10-10 00:00:00",
+    "clipped_to": 24,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2018-10-13 02:30:00",
+    "nearest_index": 98,
+    "nearest_time": "2018-10-13 02:00:00",
+    "clipped_to": 98,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2018-10-16 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2018-10-15 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   98,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2019-02-20",
+  "status": "ok",
+  "n_noaa_rows": 1086,
+  "noaa_begin": "2019-02-18 01:00:00",
+  "noaa_end": "2019-02-24 23:00:00",
+  "noaa_mid": "2019-02-21 12:00:00",
+  "panel_start": "2019-02-18 00:00:00",
+  "panel_end": "2019-02-24 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2019-02-17 19:00:00",
+    "nearest_index": 0,
+    "nearest_time": "2019-02-18 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2019-02-21 12:00:00",
+    "nearest_index": 84,
+    "nearest_time": "2019-02-21 12:00:00",
+    "clipped_to": 84,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2019-02-25 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2019-02-24 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   84,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2019-02-24",
+  "status": "ok",
+  "n_noaa_rows": 1060,
+  "noaa_begin": "2019-02-22 02:00:00",
+  "noaa_end": "2019-02-28 23:00:00",
+  "noaa_mid": "2019-02-25 12:30:00",
+  "panel_start": "2019-02-22 00:00:00",
+  "panel_end": "2019-02-28 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2019-02-21 20:00:00",
+    "nearest_index": 0,
+    "nearest_time": "2019-02-22 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2019-02-25 12:30:00",
+    "nearest_index": 84,
+    "nearest_time": "2019-02-25 12:00:00",
+    "clipped_to": 84,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2019-03-01 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2019-02-28 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   84,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2019-11-27",
+  "status": "ok",
+  "n_noaa_rows": 843,
+  "noaa_begin": "2019-11-25 17:56:00",
+  "noaa_end": "2019-12-01 23:00:00",
+  "noaa_mid": "2019-11-28 20:28:00",
+  "panel_start": "2019-11-25 00:00:00",
+  "panel_end": "2019-12-01 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2019-11-25 11:56:00",
+    "nearest_index": 12,
+    "nearest_time": "2019-11-25 12:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2019-11-28 20:28:00",
+    "nearest_index": 92,
+    "nearest_time": "2019-11-28 20:00:00",
+    "clipped_to": 92,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2019-12-02 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2019-12-01 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   92,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2020-02-06",
+  "status": "ok",
+  "n_noaa_rows": 931,
+  "noaa_begin": "2020-02-04 20:00:00",
+  "noaa_end": "2020-02-10 23:00:00",
+  "noaa_mid": "2020-02-07 21:30:00",
+  "panel_start": "2020-02-04 00:00:00",
+  "panel_end": "2020-02-10 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2020-02-04 14:00:00",
+    "nearest_index": 14,
+    "nearest_time": "2020-02-04 14:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2020-02-07 21:30:00",
+    "nearest_index": 93,
+    "nearest_time": "2020-02-07 21:00:00",
+    "clipped_to": 93,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2020-02-11 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2020-02-10 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   93,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2020-08-04",
+  "status": "ok",
+  "n_noaa_rows": 808,
+  "noaa_begin": "2020-08-02 09:00:00",
+  "noaa_end": "2020-08-08 16:06:00",
+  "noaa_mid": "2020-08-05 12:33:00",
+  "panel_start": "2020-08-02 00:00:00",
+  "panel_end": "2020-08-08 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2020-08-02 03:00:00",
+    "nearest_index": 3,
+    "nearest_time": "2020-08-02 03:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2020-08-05 12:33:00",
+    "nearest_index": 85,
+    "nearest_time": "2020-08-05 13:00:00",
+    "clipped_to": 85,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2020-08-08 22:06:00",
+    "nearest_index": 166,
+    "nearest_time": "2020-08-08 22:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   85,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2020-10-29",
+  "status": "ok",
+  "n_noaa_rows": 358,
+  "noaa_begin": "2020-10-27 05:00:00",
+  "noaa_end": "2020-11-02 23:00:00",
+  "noaa_mid": "2020-10-30 14:00:00",
+  "panel_start": "2020-10-27 00:00:00",
+  "panel_end": "2020-11-02 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2020-10-26 23:00:00",
+    "nearest_index": 0,
+    "nearest_time": "2020-10-27 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2020-10-30 14:00:00",
+    "nearest_index": 86,
+    "nearest_time": "2020-10-30 14:00:00",
+    "clipped_to": 86,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2020-11-03 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2020-11-02 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   86,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2021-02-15",
+  "status": "ok",
+  "n_noaa_rows": 1746,
+  "noaa_begin": "2021-02-13 02:00:00",
+  "noaa_end": "2021-02-19 23:00:00",
+  "noaa_mid": "2021-02-16 12:30:00",
+  "panel_start": "2021-02-13 00:00:00",
+  "panel_end": "2021-02-19 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2021-02-12 20:00:00",
+    "nearest_index": 0,
+    "nearest_time": "2021-02-13 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2021-02-16 12:30:00",
+    "nearest_index": 84,
+    "nearest_time": "2021-02-16 12:00:00",
+    "clipped_to": 84,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2021-02-20 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2021-02-19 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   84,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2021-05-04",
+  "status": "ok",
+  "n_noaa_rows": 1009,
+  "noaa_begin": "2021-05-02 20:45:00",
+  "noaa_end": "2021-05-08 23:00:00",
+  "noaa_mid": "2021-05-05 21:52:30",
+  "panel_start": "2021-05-02 00:00:00",
+  "panel_end": "2021-05-08 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2021-05-02 14:45:00",
+    "nearest_index": 15,
+    "nearest_time": "2021-05-02 15:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2021-05-05 21:52:30",
+    "nearest_index": 94,
+    "nearest_time": "2021-05-05 22:00:00",
+    "clipped_to": 94,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2021-05-09 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2021-05-08 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   94,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2021-06-21",
+  "status": "ok",
+  "n_noaa_rows": 777,
+  "noaa_begin": "2021-06-19 03:36:00",
+  "noaa_end": "2021-06-25 23:00:00",
+  "noaa_mid": "2021-06-22 13:18:00",
+  "panel_start": "2021-06-19 00:00:00",
+  "panel_end": "2021-06-25 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2021-06-18 21:36:00",
+    "nearest_index": 0,
+    "nearest_time": "2021-06-19 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2021-06-22 13:18:00",
+    "nearest_index": 85,
+    "nearest_time": "2021-06-22 13:00:00",
+    "clipped_to": 85,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2021-06-26 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2021-06-25 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   85,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2021-08-11",
+  "status": "ok",
+  "n_noaa_rows": 1112,
+  "noaa_begin": "2021-08-09 00:50:00",
+  "noaa_end": "2021-08-15 23:00:00",
+  "noaa_mid": "2021-08-12 11:55:00",
+  "panel_start": "2021-08-09 00:00:00",
+  "panel_end": "2021-08-15 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2021-08-08 18:50:00",
+    "nearest_index": 0,
+    "nearest_time": "2021-08-09 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2021-08-12 11:55:00",
+    "nearest_index": 84,
+    "nearest_time": "2021-08-12 12:00:00",
+    "clipped_to": 84,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2021-08-16 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2021-08-15 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   84,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2021-12-11",
+  "status": "ok",
+  "n_noaa_rows": 525,
+  "noaa_begin": "2021-12-09 06:00:00",
+  "noaa_end": "2021-12-15 23:00:00",
+  "noaa_mid": "2021-12-12 14:30:00",
+  "panel_start": "2021-12-09 00:00:00",
+  "panel_end": "2021-12-15 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2021-12-09 00:00:00",
+    "nearest_index": 0,
+    "nearest_time": "2021-12-09 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2021-12-12 14:30:00",
+    "nearest_index": 86,
+    "nearest_time": "2021-12-12 14:00:00",
+    "clipped_to": 86,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2021-12-16 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2021-12-15 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   86,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2021-12-15",
+  "status": "ok",
+  "n_noaa_rows": 1231,
+  "noaa_begin": "2021-12-13 05:00:00",
+  "noaa_end": "2021-12-19 23:00:00",
+  "noaa_mid": "2021-12-16 14:00:00",
+  "panel_start": "2021-12-13 00:00:00",
+  "panel_end": "2021-12-19 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2021-12-12 23:00:00",
+    "nearest_index": 0,
+    "nearest_time": "2021-12-13 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2021-12-16 14:00:00",
+    "nearest_index": 86,
+    "nearest_time": "2021-12-16 14:00:00",
+    "clipped_to": 86,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2021-12-20 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2021-12-19 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   86,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2022-01-16",
+  "status": "ok",
+  "n_noaa_rows": 679,
+  "noaa_begin": "2022-01-15 12:30:00",
+  "noaa_end": "2022-01-20 23:00:00",
+  "noaa_mid": "2022-01-18 05:45:00",
+  "panel_start": "2022-01-14 00:00:00",
+  "panel_end": "2022-01-20 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2022-01-15 06:30:00",
+    "nearest_index": 30,
+    "nearest_time": "2022-01-15 06:00:00",
+    "clipped_to": 30,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2022-01-18 05:45:00",
+    "nearest_index": 102,
+    "nearest_time": "2022-01-18 06:00:00",
+    "clipped_to": 102,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2022-01-21 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2022-01-20 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   30,
+   102,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2022-03-12",
+  "status": "ok",
+  "n_noaa_rows": 700,
+  "noaa_begin": "2022-03-10 07:00:00",
+  "noaa_end": "2022-03-16 23:00:00",
+  "noaa_mid": "2022-03-13 15:00:00",
+  "panel_start": "2022-03-10 00:00:00",
+  "panel_end": "2022-03-16 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2022-03-10 01:00:00",
+    "nearest_index": 1,
+    "nearest_time": "2022-03-10 01:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2022-03-13 15:00:00",
+    "nearest_index": 87,
+    "nearest_time": "2022-03-13 15:00:00",
+    "clipped_to": 87,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2022-03-17 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2022-03-16 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   87,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2022-04-13",
+  "status": "ok",
+  "n_noaa_rows": 672,
+  "noaa_begin": "2022-04-11 08:05:00",
+  "noaa_end": "2022-04-17 23:00:00",
+  "noaa_mid": "2022-04-14 15:32:30",
+  "panel_start": "2022-04-11 00:00:00",
+  "panel_end": "2022-04-17 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2022-04-11 02:05:00",
+    "nearest_index": 2,
+    "nearest_time": "2022-04-11 02:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2022-04-14 15:32:30",
+    "nearest_index": 88,
+    "nearest_time": "2022-04-14 16:00:00",
+    "clipped_to": 88,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2022-04-18 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2022-04-17 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   88,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2022-06-08",
+  "status": "ok",
+  "n_noaa_rows": 538,
+  "noaa_begin": "2022-06-06 00:38:00",
+  "noaa_end": "2022-06-12 23:00:00",
+  "noaa_mid": "2022-06-09 11:49:00",
+  "panel_start": "2022-06-06 00:00:00",
+  "panel_end": "2022-06-12 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2022-06-05 18:38:00",
+    "nearest_index": 0,
+    "nearest_time": "2022-06-06 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2022-06-09 11:49:00",
+    "nearest_index": 84,
+    "nearest_time": "2022-06-09 12:00:00",
+    "clipped_to": 84,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2022-06-13 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2022-06-12 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   84,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2022-06-17",
+  "status": "ok",
+  "n_noaa_rows": 1007,
+  "noaa_begin": "2022-06-15 17:00:00",
+  "noaa_end": "2022-06-21 23:00:00",
+  "noaa_mid": "2022-06-18 20:00:00",
+  "panel_start": "2022-06-15 00:00:00",
+  "panel_end": "2022-06-21 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2022-06-15 11:00:00",
+    "nearest_index": 11,
+    "nearest_time": "2022-06-15 11:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2022-06-18 20:00:00",
+    "nearest_index": 92,
+    "nearest_time": "2022-06-18 20:00:00",
+    "clipped_to": 92,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2022-06-22 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2022-06-21 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   92,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2022-07-23",
+  "status": "ok",
+  "n_noaa_rows": 559,
+  "noaa_begin": "2022-07-21 00:43:00",
+  "noaa_end": "2022-07-27 23:00:00",
+  "noaa_mid": "2022-07-24 11:51:30",
+  "panel_start": "2022-07-21 00:00:00",
+  "panel_end": "2022-07-27 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2022-07-20 18:43:00",
+    "nearest_index": 0,
+    "nearest_time": "2022-07-21 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2022-07-24 11:51:30",
+    "nearest_index": 84,
+    "nearest_time": "2022-07-24 12:00:00",
+    "clipped_to": 84,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2022-07-28 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2022-07-27 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   84,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2024-01-09",
+  "status": "ok",
+  "n_noaa_rows": 900,
+  "noaa_begin": "2024-01-08 12:00:00",
+  "noaa_end": "2024-01-13 23:00:00",
+  "noaa_mid": "2024-01-11 05:30:00",
+  "panel_start": "2024-01-07 00:00:00",
+  "panel_end": "2024-01-13 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2024-01-08 06:00:00",
+    "nearest_index": 30,
+    "nearest_time": "2024-01-08 06:00:00",
+    "clipped_to": 30,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2024-01-11 05:30:00",
+    "nearest_index": 101,
+    "nearest_time": "2024-01-11 05:00:00",
+    "clipped_to": 101,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2024-01-14 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2024-01-13 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   30,
+   101,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2024-01-12",
+  "status": "ok",
+  "n_noaa_rows": 1589,
+  "noaa_begin": "2024-01-10 00:00:00",
+  "noaa_end": "2024-01-16 23:00:00",
+  "noaa_mid": "2024-01-13 11:30:00",
+  "panel_start": "2024-01-10 00:00:00",
+  "panel_end": "2024-01-16 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2024-01-09 18:00:00",
+    "nearest_index": 0,
+    "nearest_time": "2024-01-10 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2024-01-13 11:30:00",
+    "nearest_index": 83,
+    "nearest_time": "2024-01-13 11:00:00",
+    "clipped_to": 83,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2024-01-17 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2024-01-16 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   83,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2024-05-08",
+  "status": "ok",
+  "n_noaa_rows": 884,
+  "noaa_begin": "2024-05-06 01:00:00",
+  "noaa_end": "2024-05-12 23:00:00",
+  "noaa_mid": "2024-05-09 12:00:00",
+  "panel_start": "2024-05-06 00:00:00",
+  "panel_end": "2024-05-12 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2024-05-05 19:00:00",
+    "nearest_index": 0,
+    "nearest_time": "2024-05-06 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2024-05-09 12:00:00",
+    "nearest_index": 84,
+    "nearest_time": "2024-05-09 12:00:00",
+    "clipped_to": 84,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2024-05-13 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2024-05-12 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   84,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2024-05-26",
+  "status": "ok",
+  "n_noaa_rows": 1250,
+  "noaa_begin": "2024-05-24 00:15:00",
+  "noaa_end": "2024-05-30 23:00:00",
+  "noaa_mid": "2024-05-27 11:37:30",
+  "panel_start": "2024-05-24 00:00:00",
+  "panel_end": "2024-05-30 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2024-05-23 18:15:00",
+    "nearest_index": 0,
+    "nearest_time": "2024-05-24 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2024-05-27 11:37:30",
+    "nearest_index": 84,
+    "nearest_time": "2024-05-27 12:00:00",
+    "clipped_to": 84,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2024-05-31 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2024-05-30 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   84,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2024-06-26",
+  "status": "ok",
+  "n_noaa_rows": 778,
+  "noaa_begin": "2024-06-24 07:00:00",
+  "noaa_end": "2024-06-30 23:00:00",
+  "noaa_mid": "2024-06-27 15:00:00",
+  "panel_start": "2024-06-24 00:00:00",
+  "panel_end": "2024-06-30 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2024-06-24 01:00:00",
+    "nearest_index": 1,
+    "nearest_time": "2024-06-24 01:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2024-06-27 15:00:00",
+    "nearest_index": 87,
+    "nearest_time": "2024-06-27 15:00:00",
+    "clipped_to": 87,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2024-07-01 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2024-06-30 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   87,
+   143
+  ],
+  "dropped_duplicates": []
+ },
+ {
+  "event": "2024-09-27",
+  "status": "ok",
+  "n_noaa_rows": 854,
+  "noaa_begin": "2024-09-25 00:01:00",
+  "noaa_end": "2024-10-01 23:00:00",
+  "noaa_mid": "2024-09-28 11:30:30",
+  "panel_start": "2024-09-25 00:00:00",
+  "panel_end": "2024-10-01 23:00:00",
+  "legal_origin_range": [
+   24,
+   143
+  ],
+  "n_valid_origins": 120,
+  "anchors": [
+   {
+    "anchor": "pre",
+    "requested": "2024-09-24 18:01:00",
+    "nearest_index": 0,
+    "nearest_time": "2024-09-25 00:00:00",
+    "clipped_to": 24,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "mid",
+    "requested": "2024-09-28 11:30:30",
+    "nearest_index": 84,
+    "nearest_time": "2024-09-28 12:00:00",
+    "clipped_to": 84,
+    "clipped": false,
+    "legal_range": [
+     24,
+     143
+    ]
+   },
+   {
+    "anchor": "post",
+    "requested": "2024-10-02 05:00:00",
+    "nearest_index": 167,
+    "nearest_time": "2024-10-01 23:00:00",
+    "clipped_to": 143,
+    "clipped": true,
+    "legal_range": [
+     24,
+     143
+    ]
+   }
+  ],
+  "kept_indices": [
+   24,
+   84,
+   143
+  ],
+  "dropped_duplicates": []
+ }
+]
