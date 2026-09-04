@@ -18,9 +18,10 @@ Before doing any work, report the checked-out branch, commit SHA, and worktree s
 4. `analysis/gpt_rescue_20260904/08_EVIDENCE_STATUS_AND_COMPETITION_LESSONS.md`
 5. `analysis/gpt_rescue_20260904/09_LOCKED_CC_PLAN_V2.md`
 6. `analysis/gpt_rescue_20260904/10_CC_EXECUTION_PROMPT_V2.md`
-7. `docs/MODEL_HEALTH_AUDIT.md`
-8. `docs/DATA_CARD.md`
-9. `paper/aistats/main.tex`
+7. `analysis/gpt_rescue_20260904/11_IMPLEMENTATION_AMENDMENT.md`
+8. `docs/MODEL_HEALTH_AUDIT.md`
+9. `docs/DATA_CARD.md`
+10. `paper/aistats/main.tex`
 
 `RESULTS_LEDGER.md` is consulted only to verify an archived claim and must not be rewritten to reverse prior evidence during the pilot.
 
@@ -36,6 +37,12 @@ Implement and run only the V2 pilot specified in:
 
 ```text
 analysis/gpt_rescue_20260904/10_CC_EXECUTION_PROMPT_V2.md
+```
+
+Apply the fixed caps, exact modular initialization, and importance-corrected Stage-A sampler in:
+
+```text
+analysis/gpt_rescue_20260904/11_IMPLEMENTATION_AMENDMENT.md
 ```
 
 The pilot uses all-26 event design work, exact class initialization, sufficient update-based training, three outcome-blind pilot events, and nine optimization jobs. Stop after the pilot deliverables are written under:
