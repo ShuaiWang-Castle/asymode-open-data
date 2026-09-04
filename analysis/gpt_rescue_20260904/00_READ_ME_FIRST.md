@@ -1,49 +1,70 @@
-# Independent rescue audit: read this first
+# Independent audit and adjudication plan: read this first
 
-**Branch audited:** `open-audit-20260904`  
-**Audit basis:** committed source code, committed experiment outputs, `docs/MODEL_HEALTH_AUDIT.md`, the data card, and the model genealogy in `DMDA_DataChallege`. No uncommitted raw data were available to this audit.
+**Active branch:** `open-audit-20260904`  
+**Current task:** preserve the earlier evidence, integrate the final competition-model lessons, and run one controlled implementation pilot before changing the paper.
 
-## Decision
+## Scientific status
 
-The current experiment does **not** establish that concurrent interruption and restoration flows improve forecasting. The mathematical class-comparison results remain valid, but the empirical contrast is contaminated by a comparator-initialization defect, a boundary-degenerate one-flow implementation, unstable checkpoint selection, an unrepresentative eleven-event cohort, and a zero-dominated forecasting task.
+The mathematical one-flow/two-flow theory remains intact. The archived event-held-out result also remains a reproduced empirical result under its original protocol. The code, optimization, boundary, and data audits identify issues that a cleaner experiment must adjudicate; they do **not**, by themselves, prove that the prior positive conclusion is false.
 
-The project is not scientifically dead. Its defensible core is narrower:
+Accordingly:
 
-> A two-flow conditional-mean class is a strict extension of a one-flow class. Whether that extension helps depends on state dispersion, coactivity, estimation cost, omitted context, and rollout error. The current implementation does not yet isolate those factors.
+- do not retract or overwrite the earlier result;
+- do not promote the undertrained unified-v2 output to paper evidence;
+- do not state that initialization, clipping, occupancy, or cohort composition has already explained away the earlier gain;
+- do not edit the manuscript conclusion before the adjudicating run is reviewed.
 
-## Four load-bearing findings
+The correct current statement is:
 
-1. **The confirmatory one-flow initialization is semantically wrong.** `cc_event_transfer.py` first calibrates susceptible-flow rates `(u0,r0)` and then initializes the signed `net_scaled` head with `u0-r0`. These quantities multiply different exposure pools, `(1-y)` and `y`, so subtracting the rates is not a net-flow calibration. The committed folds have `u0≈8.3e-4--9.7e-4` and `r0≈0.091--0.107`, which initializes the signed head near `-0.09` in every fold. At `y=0`, a negative signed rate contributes exactly zero gradient and zero state change. This is the most important implementation defect.
+> A positive structural result has been reproduced, several plausible validity threats have been identified, and a controlled experiment is required to determine which interpretation survives.
 
-2. **The apparent two-flow gain is concentrated at the boundary, not in the active interior.** The branch audit reports positive gains for `y0=0` and `0<y0≤0.01`, but losses for `y0>0.01`. The one-flow model emits exact zero on roughly 41--43% of masked cells, whereas the two-flow model almost never does. This evidence supports an onset/directional-decoupling interpretation, not a claim that simultaneously active physical flows improve prediction.
+## Why the selected model path changed
 
-3. **The training protocol is not stable enough to compare model classes.** A single chronological validation event selects many checkpoints at epoch 1--2. The later event-balanced implementation is even less informative because it performs only one optimizer step per training event per epoch. Neither protocol includes the untrained checkpoint as a candidate. The model-class effect is therefore mixed with optimization and checkpoint noise.
+The first rescue proposal used one small shared weather encoder and nested heads. That design was clean, but it discarded an important empirical lesson from the completed data challenge: the strongest model used a highly nonlinear and temporally structured interruption side together with a much simpler recovery side. The occurrence gate, background path, first-order hold, dual interruption heads, recovery GLM, and adequate optimization were not interchangeable decorations; several were load-bearing in the competition study.
 
-4. **`g2-convective-11` cannot support a general storm claim.** It is an explicitly convective-season convenience cohort. The data card records 436 large-footprint candidate days: 194 convective, 185 winter, 43 wind, 10 flood, and 4 tropical, and explicitly notes that convective-only sampling selects the fastest dynamics. The available `g3-all-26` cohort is a better development sample, although it is still purposive rather than a probability sample.
+The new plan therefore distinguishes:
 
-## Selected rescue path
+1. **dynamical asymmetry:** `U(1-Y)-RY`;
+2. **flow separation:** one signed flow versus two nonnegative flows;
+3. **representation asymmetry:** different inputs, temporal treatment, and capacity for interruption and restoration.
 
-Do not launch another broad architecture sweep. The next work is one controlled rescue sequence:
+The adjudicating experiment tests flow separation while holding the other two forms of asymmetry fixed.
 
-1. replace the independent-head comparison by a **nested shared-backbone model**;
-2. correct initialization with the same constrained least-squares objective used by the theory;
-3. use one small shared causal weather-history encoder for both arms, because onset timing is the dominant diagnosed forecast error;
-4. train by fixed optimizer updates with event-balanced minibatches, source-event validation, and update-0 checkpointing;
-5. use all 26 available events in fixed event-stratified folds;
-6. make held-out one-step transition MSE the theorem-aligned primary endpoint and 24-hour rollout MSE the forecasting endpoint;
-7. report boundary and active-state strata from the same predictions;
-8. permit no further model mechanism until the six-fit implementation pilot is reviewed.
+## Canonical files for new work
 
-## Directory index
+Read in this order:
 
-- `01_CODE_AND_ALGORITHM_AUDIT.md` — source-level defects and the nested replacement;
-- `02_DATA_REPRESENTATIVENESS_AUDIT.md` — cohort, event construction, masks, denominators, weather aggregation, and target-population issues;
-- `03_THEORY_IMPLICATIONS.md` — what remains proved, what the present experiment cannot establish, and the required interpretation;
-- `04_LOCKED_RESCUE_EXPERIMENT.md` — one controlled real-data experiment, fit count, metrics, and decision table;
-- `05_MODEL_V3_REFERENCE.py` — executable reference for exact constant initialization and nested neural heads;
-- `06_STATIC_RESULT_AUDIT.py` — reproducible parser for the committed confirmatory result;
-- `STATIC_RESULT_AUDIT.md/.json` — generated evidence from that parser;
-- `MODEL_V3_SELF_TEST.txt` — successful reference-model self-test;
-- `07_CC_NEXT_STEP.md` — a six-fit, stop-after-pilot Claude Code handoff.
+1. `08_EVIDENCE_STATUS_AND_COMPETITION_LESSONS.md` — evidence-preservation rule and the competition-derived architectural invariants;
+2. `09_LOCKED_CC_PLAN_V2.md` — authoritative data, model, training, endpoint, and fit-count specification;
+3. `10_CC_EXECUTION_PROMPT_V2.md` — executable Claude Code handoff.
 
-The reference implementation and static result audit were executed successfully in GitHub Actions before their generated outputs were committed. The temporary workflow was removed after verification.
+These files supersede the action instructions in:
+
+```text
+04_LOCKED_RESCUE_EXPERIMENT.md
+07_CC_NEXT_STEP.md
+```
+
+The older files remain for audit history only. `05_MODEL_V3_REFERENCE.py` is a tested mathematical prototype, not the selected paper architecture.
+
+## Evidence and diagnostic files retained
+
+- `01_CODE_AND_ALGORITHM_AUDIT.md` — source-level questions that the new comparison must control;
+- `02_DATA_REPRESENTATIVENESS_AUDIT.md` — cohort, origin, mask, denominator, and weather-aggregation concerns;
+- `03_THEORY_IMPLICATIONS.md` — scope limits and one-step/rollout distinction;
+- `06_STATIC_RESULT_AUDIT.py` and `STATIC_RESULT_AUDIT.*` — reproducible calculations on one archived result;
+- `MODEL_V3_SELF_TEST.txt` — self-test of the earlier nested prototype.
+
+Treat conclusions in these diagnostic files as hypotheses or protocol requirements whenever the V2 files state that adjudication is still open.
+
+## Immediate authorization
+
+Claude Code is authorized to:
+
+- build the 26-panel event-design table and fixed folds;
+- implement the clean competition-informed asymmetric scaffold;
+- implement exact class-specific initialization and update-0 checkpointing;
+- run the nine-job, three-event implementation pilot;
+- write all outputs under `analysis/gpt_rescue_20260904/cc_v2/`.
+
+Claude Code is **not** authorized to run the full main campaign, alter paper result macros, select a favorable event subset, add new mechanisms, or reverse prior claims. It must stop after the pilot report.
