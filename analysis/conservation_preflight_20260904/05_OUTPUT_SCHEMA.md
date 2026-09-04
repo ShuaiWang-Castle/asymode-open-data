@@ -26,4 +26,18 @@ Exact run configuration and verified public-file hashes.
 
 ## `EXECUTION_REPORT.md`
 
-Independent human-readable audit written after checking the generated tables. It must classify the result as `LOW_INFORMATION_DESIGN`, `ROOM_REMAINS_AFTER_WINDOWING`, or `INDETERMINATE_BECAUSE_ASSUMPTIONS_FAIL`, while preserving the hard stop on training.
+Independent human-readable audit written after checking the generated tables. It must distinguish exact algebra, measured empirical assumptions, descriptive design findings, and claims that still require an estimator experiment.
+
+The report must end with exactly one execution status:
+
+```text
+PREFLIGHT_COMPLETE_AWAITING_SHUAI_DECISION
+```
+
+or, if any required integrity/data/algebra/output gate failed:
+
+```text
+BLOCKED_<short_reason>
+```
+
+It must not assign a scientific promotion/rejection label automatically. Whether the measured design is sufficiently informative for another estimator experiment is a decision reserved for Shuai after reviewing the full tables.
