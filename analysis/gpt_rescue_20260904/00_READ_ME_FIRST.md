@@ -21,16 +21,29 @@ The project is not scientifically dead. Its defensible core is narrower:
 
 4. **`g2-convective-11` cannot support a general storm claim.** It is an explicitly convective-season convenience cohort. The data card records 436 large-footprint candidate days: 194 convective, 185 winter, 43 wind, 10 flood, and 4 tropical, and explicitly notes that convective-only sampling selects the fastest dynamics. The available `g3-all-26` cohort is a better development sample, although it is still purposive rather than a probability sample.
 
-## What to do next
+## Selected rescue path
 
 Do not launch another broad architecture sweep. The next work is one controlled rescue sequence:
 
 1. replace the independent-head comparison by a **nested shared-backbone model**;
 2. correct initialization with the same constrained least-squares objective used by the theory;
-3. train by fixed optimizer updates with event-balanced minibatches, source-event validation, and epoch-0 checkpointing;
-4. use all 26 available events in fixed event-stratified folds;
-5. make held-out one-step transition MSE the theorem-aligned primary endpoint and 24-hour rollout MSE the forecasting endpoint;
-6. report boundary and active-state strata from the same predictions;
-7. add one temporal weather encoder only if the repaired model still fails to beat the no-weather affine transition baseline.
+3. use one small shared causal weather-history encoder for both arms, because onset timing is the dominant diagnosed forecast error;
+4. train by fixed optimizer updates with event-balanced minibatches, source-event validation, and update-0 checkpointing;
+5. use all 26 available events in fixed event-stratified folds;
+6. make held-out one-step transition MSE the theorem-aligned primary endpoint and 24-hour rollout MSE the forecasting endpoint;
+7. report boundary and active-state strata from the same predictions;
+8. permit no further model mechanism until the six-fit implementation pilot is reviewed.
 
-The detailed code audit, data audit, theoretical implications, model specification, and locked experiment are in the remaining files in this directory.
+## Directory index
+
+- `01_CODE_AND_ALGORITHM_AUDIT.md` — source-level defects and the nested replacement;
+- `02_DATA_REPRESENTATIVENESS_AUDIT.md` — cohort, event construction, masks, denominators, weather aggregation, and target-population issues;
+- `03_THEORY_IMPLICATIONS.md` — what remains proved, what the present experiment cannot establish, and the required interpretation;
+- `04_LOCKED_RESCUE_EXPERIMENT.md` — one controlled real-data experiment, fit count, metrics, and decision table;
+- `05_MODEL_V3_REFERENCE.py` — executable reference for exact constant initialization and nested neural heads;
+- `06_STATIC_RESULT_AUDIT.py` — reproducible parser for the committed confirmatory result;
+- `STATIC_RESULT_AUDIT.md/.json` — generated evidence from that parser;
+- `MODEL_V3_SELF_TEST.txt` — successful reference-model self-test;
+- `07_CC_NEXT_STEP.md` — a six-fit, stop-after-pilot Claude Code handoff.
+
+The reference implementation and static result audit were executed successfully in GitHub Actions before their generated outputs were committed. The temporary workflow was removed after verification.
