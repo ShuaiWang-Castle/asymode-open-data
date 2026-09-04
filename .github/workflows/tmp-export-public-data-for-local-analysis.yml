@@ -28,12 +28,17 @@ jobs:
           ref: 8dd47c5ccd829611f27b69a3d64c274a0a24c400
           path: public-data
           fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install parquet reader for CSV views
+        run: python -m pip install --quiet pandas==2.2.3 pyarrow==18.1.0
       - name: Verify pinned public data
         working-directory: public-data
         shell: bash
         run: |
           set -euo pipefail
-          echo "export-trigger-v3"
+          echo "export-trigger-v4"
           sha256sum -c data/SHA256SUMS.txt
           python - <<'PY'
           import hashlib, json
@@ -44,7 +49,7 @@ jobs:
           print('manifest', m['digest'], len(m['panels']))
           print('sha256sums', hashlib.sha256(Path('data/SHA256SUMS.txt').read_bytes()).hexdigest())
           PY
-      - name: Stage exact analysis-ready inputs
+      - name: Stage exact analysis-ready inputs and CSV views
         shell: bash
         run: |
           set -euo pipefail
@@ -57,6 +62,16 @@ jobs:
           cp public-data/data/interim/event_days_stratified.parquet export/data/interim/
           cp public-data/configs/panel_manifest_g3-all-26.json export/configs/
           cp code/analysis/gpt_rescue_20260904/cc_v2/event_folds_v2.json export/analysis/gpt_rescue_20260904/cc_v2/
+          python - <<'PY'
+          import pandas as pd
+          from pathlib import Path
+          src=Path('public-data/data/interim')
+          dst=Path('export/data/interim')
+          for name in ['county_statics','event_days_stratified','storm_events_county']:
+              df=pd.read_parquet(src/f'{name}.parquet')
+              df.to_csv(dst/f'{name}.csv', index=False)
+              print(name, df.shape, list(df.columns))
+          PY
           printf '%s\n' 'data_commit=8dd47c5ccd829611f27b69a3d64c274a0a24c400' > export/EXPORT_PROVENANCE.txt
           printf '%s\n' 'analysis_commit=5f3ff3aa616fac7540eae45415089127816f3199' >> export/EXPORT_PROVENANCE.txt
           find export -type f -print0 | sort -z | xargs -0 sha256sum > export/EXPORTED_SHA256SUMS.txt
@@ -64,7 +79,7 @@ jobs:
       - name: Upload exact public-data bundle
         uses: actions/upload-artifact@v4
         with:
-          name: asymode-public-data-pinned-8dd47c5
+          name: asymode-public-data-pinned-8dd47c5-with-csv
           path: export/
           compression-level: 6
           retention-days: 2
