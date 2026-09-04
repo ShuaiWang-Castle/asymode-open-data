@@ -1,0 +1,52 @@
+{
+  "stage": "development",
+  "manifest_digest": "db286b4960a4",
+  "K": 8,
+  "source_events": [
+    "2018-01-16",
+    "2018-10-11",
+    "2019-02-20",
+    "2019-02-24",
+    "2019-11-27",
+    "2020-02-06",
+    "2020-08-04",
+    "2020-10-29"
+  ],
+  "target_events": [
+    "2021-02-15",
+    "2021-05-04",
+    "2021-06-21",
+    "2021-08-11",
+    "2021-12-11",
+    "2021-12-15"
+  ],
+  "feature_names": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed",
+    "gust_max6",
+    "wind_speed_max6",
+    "cape_max6",
+    "precip_sum12",
+    "snowfall_sum12",
+    "phase_peak_24",
+    "clock_sin",
+    "clock_cos",
+    "log_area",
+    "n_neighbours",
+    "lat",
+    "lon"
+  ],
+  "random_state": 0,
+  "runtime_seconds": 19.47,
+  "data_root_provenance": "data_commit=8dd47c5ccd829611f27b69a3d64c274a0a24c400\nanalysis_commit=5f3ff3aa616fac7540eae45415089127816f3199"
+}
