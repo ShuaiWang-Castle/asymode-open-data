@@ -1,0 +1,66 @@
+name: compile-aistats-exemplar-rewrite
+
+on:
+  push:
+    branches:
+      - gpt-aistats-exemplar-rewrite-20260903
+    paths:
+      - "tools/aistats_exemplar_payload/**"
+      - "tools/hydrate_aistats_exemplar_rewrite.py"
+      - "paper/aistats_exemplar_rewrite/main.tex"
+      - ".github/workflows/compile-aistats-exemplar-rewrite.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Materialize source
+        run: python tools/hydrate_aistats_exemplar_rewrite.py
+      - name: Install figure and TeX dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas matplotlib scipy
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended texlive-bibtex-extra latexmk poppler-utils curl unzip
+      - name: Fetch the latest official AISTATS style and compile
+        working-directory: paper/aistats_exemplar_rewrite
+        run: |
+          curl -fsSL https://aistats.org/aistats2026/AISTATS2026PaperPack.zip -o /tmp/aistats.zip \
+            || curl -fsSL https://raw.githubusercontent.com/aistats/aistats2026/gh-pages/AISTATS2026PaperPack.zip -o /tmp/aistats.zip
+          unzip -q /tmp/aistats.zip -d /tmp/aistats-pack
+          cp "$(find /tmp/aistats-pack -name aistats2026.sty -print -quit)" ./aistats2026.sty
+          ./build.sh
+      - name: Run source and submission preflight
+        working-directory: paper/aistats_exemplar_rewrite
+        run: |
+          ./pre_submission_check.sh || test $? -eq 2
+          ! grep -Eqi "undefined references|Citation .* undefined|There were undefined" main.log
+          pdfinfo main.pdf
+          pdffonts main.pdf
+      - name: Upload manuscript source and PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: aistats-exemplar-rewrite
+          path: |
+            paper/aistats_exemplar_rewrite/main.pdf
+            paper/aistats_exemplar_rewrite/main.tex
+            paper/aistats_exemplar_rewrite/sections
+            paper/aistats_exemplar_rewrite/appendices
+            paper/aistats_exemplar_rewrite/references.bib
+            paper/aistats_exemplar_rewrite/results_placeholders.tex
+            paper/aistats_exemplar_rewrite/docs
+            paper/aistats_exemplar_rewrite/main.log
+            paper/aistats_exemplar_rewrite/pdfinfo.txt
+            paper/aistats_exemplar_rewrite/pdffonts.txt
+          if-no-files-found: error
