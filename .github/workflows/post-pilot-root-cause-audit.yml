@@ -46,12 +46,23 @@ jobs:
           PYTHONPATH: src:experiments
         run: |
           python analysis/post_pilot_root_cause_20260904/root_cause_audit.py
-      - name: Run transition, mask, origin and weighting audit
+      - name: Run transition, mask, origin and weighting audit when panel bytes are mounted
         env:
           PYTHONPATH: src:experiments
         run: |
-          python analysis/post_pilot_root_cause_20260904/transition_data_audit.py
+          if ls data/interim/panel_*.npz >/dev/null 2>&1; then
+            python analysis/post_pilot_root_cause_20260904/transition_data_audit.py
+          else
+            cat > analysis/post_pilot_root_cause_20260904/TRANSITION_DATA_AUDIT_GENERATED.md <<'EOF'
+          # Transition/data-path audit blocked
+
+          The branch checkout used by GitHub Actions does not contain the raw/interim `panel_*.npz` bytes. The source-level mask defect is established by `experiments/paper_v2_pilot.py`, but its contaminated-row share cannot be recomputed from committed bytes in this workflow. Run `transition_data_audit.py` in the same mounted environment that produced the pilot before the next fit.
+          EOF
+            printf '{"status":"BLOCKED","reason":"panel_*.npz absent from branch checkout"}\n' > analysis/post_pilot_root_cause_20260904/TRANSITION_DATA_AUDIT.json
+            printf 'status,reason\nBLOCKED,panel bytes absent\n' > analysis/post_pilot_root_cause_20260904/TRANSITION_EVENT_AUDIT.csv
+          fi
       - name: Upload generated audit
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: post-pilot-root-cause-audit
