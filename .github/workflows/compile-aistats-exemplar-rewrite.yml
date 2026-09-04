@@ -40,12 +40,20 @@ jobs:
             || curl -fsSL https://raw.githubusercontent.com/aistats/aistats2026/gh-pages/AISTATS2026PaperPack.zip -o /tmp/aistats.zip
           unzip -q /tmp/aistats.zip -d /tmp/aistats-pack
           cp "$(find /tmp/aistats-pack -name aistats2026.sty -print -quit)" ./aistats2026.sty
-          ./build.sh
+          python make_gamma_fig.py
+          latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+          ! grep -Eqi "undefined references|Citation .* undefined|There were undefined" main.log
+          pdfinfo main.pdf | tee pdfinfo.txt
+          pdffonts main.pdf | tee pdffonts.txt
+          grep -q 'Page size:.*612 x 792 pts' pdfinfo.txt
+          if awk 'NR>2 && $2=="Type" && $3=="3" {found=1} END {exit found?0:1}' pdffonts.txt; then
+            echo "Type 3 fonts detected" >&2
+            exit 1
+          fi
       - name: Run source and submission preflight
         working-directory: paper/aistats_exemplar_rewrite
         run: |
           ./pre_submission_check.sh || test $? -eq 2
-          ! grep -Eqi "undefined references|Citation .* undefined|There were undefined" main.log
           pdfinfo main.pdf
           pdffonts main.pdf
       - name: Upload manuscript source and PDF
