@@ -37,15 +37,15 @@ by zero weights and zero bias. Initialize the hold gate with zero weights and bi
 Split the desired interruption flow deterministically in proportion to the two pathway caps:
 
 ```text
-b0 = U0 * C_U_background / (C_U_main + C_U_background)
-p0 = U0 - b0
+u_bkg0   = U0 * C_U_background / (C_U_main + C_U_background)
+u_pulse0 = U0 - u_bkg0
 ```
 
 Then set:
 
 ```text
-background_bias = logit(b0 / C_U_background)
-raw_U_bias      = logit(p0 / (g0 * C_U_main))
+background_bias = logit(u_bkg0 / C_U_background)
+raw_U_bias      = logit(u_pulse0 / (g0 * C_U_main))
 ```
 
 and use the same `raw_U_bias` for both interruption MLP heads. Clip only the probability arguments to `[1e-8, 1-1e-8]` for numerical initialization; record the resulting approximation error.
@@ -61,11 +61,11 @@ with the same numerical clipping rule. An update-0 model passes only if its maxi
 For the two fixed one-flow starts:
 
 ```text
-interruption start: U0 = a0, R0 = 0
-restoration start:  U0 = 0,  R0 = b0
+interruption start: U0 = a_ray, R0 = 0
+restoration start:  U0 = 0,     R0 = b_ray
 ```
 
-where `a0` and `b0` are the exact ray optima. Do not initialize a signed quantity with `U0-R0` from the two-flow fit.
+where `a_ray` and `b_ray` are the exact interruption-ray and restoration-ray optima. Do not initialize a signed quantity with `U0-R0` from the two-flow fit.
 
 ## 3. State-stratified sampling must not silently change the objective
 
