@@ -24,6 +24,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          echo "export-trigger-v2"
           sha256sum -c data/SHA256SUMS.txt
           python - <<'PY'
           import hashlib, json
