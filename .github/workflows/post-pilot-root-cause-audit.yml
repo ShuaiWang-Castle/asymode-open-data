@@ -27,6 +27,20 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install numpy pandas pyarrow tabulate
           python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - name: Add the frozen fold id to the ephemeral event table
+        run: |
+          python - <<'PY'
+          import json
+          import pandas as pd
+          from pathlib import Path
+          root = Path('analysis/gpt_rescue_20260904/cc_v2')
+          p = root / 'event_design_table.csv'
+          d = pd.read_csv(p)
+          f = json.loads((root / 'event_folds_v2.json').read_text())
+          fold_of = {e: int(k) for k, events in f['folds'].items() for e in events}
+          d['fold'] = d['event'].map(fold_of)
+          d.to_csv(p, index=False)
+          PY
       - name: Run committed-code and committed-result audit
         env:
           PYTHONPATH: src:experiments
