@@ -23,12 +23,13 @@ The earlier event-held-out positive result remains reproduced legacy evidence un
 3. `analysis/post_pilot_root_cause_20260904/00_READ_ME_FIRST.md`
 4. `analysis/post_pilot_root_cause_20260904/ROOT_CAUSE_AUDIT_GENERATED.md`
 5. `analysis/post_pilot_root_cause_20260904/01_ROOT_CAUSE_ANALYSIS.md`
-6. `analysis/post_pilot_root_cause_20260904/02_MINIMAL_REPAIR_GATE.md`
-7. `analysis/post_pilot_root_cause_20260904/TRANSITION_DATA_AUDIT_STATUS.md`
-8. `analysis/post_pilot_root_cause_20260904/03_CC_REPAIR_ONLY_PROMPT.md`
-9. `analysis/gpt_rescue_20260904/cc_v2/PILOT_REPORT.md`
-10. `docs/MODEL_HEALTH_AUDIT.md`
-11. `paper/aistats/main.tex`
+6. `analysis/post_pilot_root_cause_20260904/04_TRAINING_OBJECTIVE_AND_CONTEXT_AUDIT.md`
+7. `analysis/post_pilot_root_cause_20260904/02_MINIMAL_REPAIR_GATE.md`
+8. `analysis/post_pilot_root_cause_20260904/TRANSITION_DATA_AUDIT_STATUS.md`
+9. `analysis/post_pilot_root_cause_20260904/03_CC_REPAIR_ONLY_PROMPT.md`
+10. `analysis/gpt_rescue_20260904/cc_v2/PILOT_REPORT.md`
+11. `docs/MODEL_HEALTH_AUDIT.md`
+12. `paper/aistats/main.tex`
 
 Use `RESULTS_LEDGER.md` only to verify provenance. Do not change evidence labels during the repair task.
 
