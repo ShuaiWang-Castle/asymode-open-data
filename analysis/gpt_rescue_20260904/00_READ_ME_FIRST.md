@@ -36,7 +36,8 @@ Read in this order:
 
 1. `08_EVIDENCE_STATUS_AND_COMPETITION_LESSONS.md` — evidence-preservation rule and the competition-derived architectural invariants;
 2. `09_LOCKED_CC_PLAN_V2.md` — authoritative data, model, training, endpoint, and fit-count specification;
-3. `10_CC_EXECUTION_PROMPT_V2.md` — executable Claude Code handoff.
+3. `10_CC_EXECUTION_PROMPT_V2.md` — executable Claude Code handoff;
+4. `11_IMPLEMENTATION_AMENDMENT.md` — fixed rate caps, exact modular initialization, and an importance-corrected Stage-A sampler.
 
 These files supersede the action instructions in:
 
