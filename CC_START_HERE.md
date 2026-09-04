@@ -1,4 +1,4 @@
-# Claude Code: start here for `open-audit-20260904`
+# Claude Code / Codex: start here for `open-audit-20260904`
 
 ## Authorized branch
 
@@ -8,46 +8,62 @@ Use only:
 open-audit-20260904
 ```
 
-Before doing any work, report the checked-out branch, commit SHA, and worktree status.
+Before any work, report the checked-out branch, commit SHA, and worktree status.
 
 ## Current status
 
-The V2 three-event pilot has completed. Do **not** rerun it and do not launch the full campaign. An independent no-retraining audit found P0 implementation and data-path defects that prevent the pilot from adjudicating the one-flow/two-flow scientific question.
+The completed V2 pilot remains **non-adjudicating**. The earlier event-held-out positive result remains reproduced legacy evidence under its original protocol. Neither result is relabelled in the current task.
 
-The earlier event-held-out positive result remains reproduced legacy evidence under its original protocol. The completed V2 pilot is recorded as non-adjudicating; it does not authorize a positive or negative manuscript conclusion.
+A post-pilot conservation observation changes the order of work. For an unconstrained or interior weighted constant least-squares fit,
+
+```text
+U_hat * (1 - mu_hat) - R_hat * mu_hat = mean(Delta Y).
+```
+
+Under an empirically closed window this yields `U_hat/R_hat = mu_hat/(1-mu_hat)` and may force the full-window constant common component to be small in a low-occupancy corpus. The algebra is important, but stronger claims about pointwise neural rates, boundary-constrained fits, the entire 26-event cohort, or the earlier percentage MSE gap require measurement rather than inference.
+
+## Immediate task: zero-training conservation preflight
+
+Execute only:
+
+```text
+analysis/conservation_preflight_20260904/04_CODEX_GPT_WORK_PROMPT.md
+```
+
+This task:
+
+- starts from two clean GitHub clones;
+- obtains public data from pinned `main` commit `8dd47c5ccd829611f27b69a3d64c274a0a24c400`;
+- verifies the published SHA-256 manifest;
+- uses the correct adjacent-observation mask;
+- measures event-, source-fold-, and local-`k=200` conservation and Gamma geometry;
+- compares the full panel with one fixed exogenous 48-hour storm window;
+- performs no neural repair or training;
+- stops after committing the audit results.
 
 ## Required read order
 
 1. `CC_START_HERE.md`
 2. `FIREWALL.md`
-3. `analysis/post_pilot_root_cause_20260904/00_READ_ME_FIRST.md`
-4. `analysis/post_pilot_root_cause_20260904/ROOT_CAUSE_AUDIT_GENERATED.md`
-5. `analysis/post_pilot_root_cause_20260904/01_ROOT_CAUSE_ANALYSIS.md`
-6. `analysis/post_pilot_root_cause_20260904/04_TRAINING_OBJECTIVE_AND_CONTEXT_AUDIT.md`
-7. `analysis/post_pilot_root_cause_20260904/02_MINIMAL_REPAIR_GATE.md`
-8. `analysis/post_pilot_root_cause_20260904/TRANSITION_DATA_AUDIT_STATUS.md`
-9. `analysis/post_pilot_root_cause_20260904/03_CC_REPAIR_ONLY_PROMPT.md`
-10. `analysis/gpt_rescue_20260904/cc_v2/PILOT_REPORT.md`
-11. `docs/MODEL_HEALTH_AUDIT.md`
-12. `paper/aistats/main.tex`
+3. `analysis/conservation_preflight_20260904/00_READ_ME_FIRST.md`
+4. `analysis/conservation_preflight_20260904/01_CLAUDE_CLAIM_ADJUDICATION.md`
+5. `analysis/conservation_preflight_20260904/02_CONSERVATION_THEORY_NOTE.md`
+6. `analysis/conservation_preflight_20260904/03_GITHUB_ONLY_PROTOCOL.md`
+7. `analysis/conservation_preflight_20260904/04_CODEX_GPT_WORK_PROMPT.md`
+8. `analysis/conservation_preflight_20260904/05_OUTPUT_SCHEMA.md`
+9. `analysis/gpt_rescue_20260904/cc_v2/PILOT_REPORT.md`
+10. `analysis/post_pilot_root_cause_20260904/01_ROOT_CAUSE_ANALYSIS.md`
+11. `data/README.md` and `data/SHA256SUMS.txt` from the pinned public-data clone
+12. `configs/panel_manifest_g3-all-26.json` from the pinned public-data clone
 
-Use `RESULTS_LEDGER.md` only to verify provenance. Do not change evidence labels during the repair task.
+## Deferred—not erased
 
-## Immediate task
+The dead interruption weights, reset/inert hold, incorrect teacher-forced mask, dead one-flow start, duplicate training fold, degenerate old anchor rule, and missing treatment-dose traces remain documented defects. The previous repair-only task is deferred until the conservation preflight is reviewed; it is not declared unnecessary.
 
-Execute only:
+Do not execute these files in the current task:
 
 ```text
 analysis/post_pilot_root_cause_20260904/03_CC_REPAIR_ONLY_PROMPT.md
-```
-
-This task runs the raw-panel transition audit, repairs deterministic implementation/data-path defects, writes tests and audits, and **stops before any new accuracy training**.
-
-## Superseded execution files
-
-The following files remain as historical records and must not be executed:
-
-```text
 analysis/gpt_rescue_20260904/04_LOCKED_RESCUE_EXPERIMENT.md
 analysis/gpt_rescue_20260904/07_CC_NEXT_STEP.md
 analysis/gpt_rescue_20260904/09_LOCKED_CC_PLAN_V2.md
@@ -57,12 +73,14 @@ analysis/gpt_rescue_20260904/11_IMPLEMENTATION_AMENDMENT.md
 
 ## Hard restrictions
 
-- Do not rerun the completed V2 pilot before the repair gates pass.
-- Do not launch the five-fold, three-seed main campaign.
-- Do not edit the manuscript abstract, result macros, conclusion, or legacy evidence labels.
-- Do not add a new model family, memory state, gate, transformer, semi-parametric term, or hyperparameter sweep.
-- Do not select events or origins using prior gains or residuals.
-- Do not infer transition-audit numbers when the raw/interim panel bytes are absent.
-- Treat event as the inferential unit; starts and seeds quantify optimization only.
+- no neural training or model repair;
+- no full campaign;
+- no event, row, horizon, metric, or comparator selection using outcomes or prior gains;
+- no row-level filtering by outage state;
+- no manuscript, abstract, conclusion, result macro, or `RESULTS_LEDGER.md` edit;
+- no claim that global closure fixes pointwise `U(x)/R(x)`;
+- no claim that a boundary-constrained fit obeys the unconstrained normal-equation identity;
+- no claim that a descriptive plug-in Gamma is an exact neural-network selector;
+- no use of pre-existing local data, checkpoints, caches, or files outside the two clean GitHub clones.
 
-Any blocker must be documented and the task stopped rather than silently replacing the protocol.
+Any failed integrity, provenance, algebra, or data-path gate must be reported and the task stopped rather than silently repaired.
