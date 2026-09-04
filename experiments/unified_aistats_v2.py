@@ -415,9 +415,22 @@ def main() -> None:
         default=["two_rate_v2", "net_scaled_v2", "two_rate_rollout_only"],
     )
     ap.add_argument("--test-events", nargs="*", default=None)
+    # Budget overrides for a convergence probe. The locked budget stays the
+    # default; these exist so that "was the fit stopped too early?" can be tested
+    # instead of argued. Note that the epoch cap alone does not bind: every fit
+    # in the locked run terminated on patience, none at the cap, so a probe that
+    # raises only --epochs changes nothing and must raise --patience too.
+    ap.add_argument("--epochs", type=int, default=None,
+                    help="override the locked epoch cap (convergence probe only)")
+    ap.add_argument("--patience", type=int, default=None,
+                    help="override the locked patience (convergence probe only)")
     ap.add_argument("--out", required=True)
     ap.add_argument("--pred-dir", default=None)
     args = ap.parse_args()
+    if args.epochs is not None:
+        BUDGET["epochs"] = args.epochs
+    if args.patience is not None:
+        BUDGET["patience"] = args.patience
 
     source = panelset.source_version(ROOT)
     wanted, panel_digest = panelset.resolve(INTERIM, str(MANIFEST))

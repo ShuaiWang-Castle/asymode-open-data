@@ -72,12 +72,34 @@ def test_minimax_interruption_regret_formula():
         a_mm = (np.sqrt(ap)*a_p + np.sqrt(aq)*a_q)/(np.sqrt(ap)+np.sqrt(aq))
         observed = max(ap*(a_mm-a_p)**2, aq*(a_mm-a_q)**2)
         assert np.isclose(observed, theory, rtol=1e-10, atol=1e-12)
-        # Dense numerical grid cannot improve it beyond discretization tolerance.
+        # A dense grid must not beat the closed form, and its minimiser must sit
+        # at the closed-form minimax point.
+        #
+        # The value-side upper bound this check used to carry was a fixed
+        # constant. That constant is not a property of the theory; it is a
+        # property of the grid. The objective is a maximum of two upward
+        # parabolas, so it has a *kink* at a_mm and a grid approaches the optimum
+        # linearly in the spacing rather than quadratically. The admissible gap
+        # therefore scales with (a_q - a_p), and at seed 17 the draw with range
+        # 0.416 produced a gap of 3.8e-7 from a perfectly correct grid, failing
+        # the constant. Replacing it by a derived slope bound does not work
+        # either: at the crossing the two branches have equal *values*, not equal
+        # slopes (their ratio is sqrt(ap/aq)), so the adversarial node split
+        # balances values, and a bound of that form is loose or wrong on some
+        # draw -- measured, 71 of 1000 draws violated it.
+        #
+        # The location check below carries the same content with no
+        # scale-dependent constant: over all 1000 draws the argmin never sits
+        # more than 0.67 spacings from a_mm, and the grid never dips below the
+        # closed form.
         lo, hi = sorted((a_p, a_q))
-        grid = np.linspace(lo, hi, 10001)
-        numeric = np.min(np.maximum(ap*(grid-a_p)**2, aq*(grid-a_q)**2))
+        n_grid = 10001
+        grid = np.linspace(lo, hi, n_grid)
+        values = np.maximum(ap*(grid-a_p)**2, aq*(grid-a_q)**2)
+        numeric = np.min(values)
+        spacing = (hi-lo)/(n_grid-1)
         assert numeric >= theory-1e-10
-        assert numeric <= theory+1e-7
+        assert abs(grid[int(np.argmin(values))]-a_mm) <= spacing
 
 
 def test_zero_shift_and_zero_omitted_rate_boundaries():
