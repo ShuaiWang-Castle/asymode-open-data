@@ -1,0 +1,89 @@
+\documentclass[twoside]{article}
+
+% AISTATS 2027 had not released an author kit when this working draft was
+% assembled. We use the latest official AISTATS style without modification.
+\usepackage{aistats2026}
+
+\usepackage[round,authoryear]{natbib}
+\bibliographystyle{apalike}
+\renewcommand{\bibname}{References}
+\renewcommand{\bibsection}{\subsubsection*{\bibname}}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{booktabs,array,multirow,graphicx,tabularx}
+\usepackage{placeins}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+
+\input{results_placeholders}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pp}{\mathbb{P}}
+\newcommand{\Rr}{\mathbb{R}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\1}{\mathbf{1}}
+\newcommand{\pos}[1]{[#1]_{+}}
+\newcommand{\dif}{\mathop{}\!\mathrm{d}}
+\newcommand{\Normal}{\mathcal{N}}
+\newcommand{\Err}{\operatorname{Err}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\begin{document}
+
+\runningtitle{When Is One Flow Enough?}
+\runningauthor{Anonymous Authors}
+
+\twocolumn[
+\aistatstitle{When Is One Flow Enough?\\
+Identifiability and Model Selection for Opposing-Flow Dynamics}
+\aistatsauthor{Anonymous Authors}
+\aistatsaddress{Anonymous Institution}
+]
+
+\begin{abstract}
+Many observed transitions are net effects of two opposing processes. We ask when a signed one-flow model is sufficient and when the processes should be represented by two nonnegative conditional flows. For the drift $m_0(x,y)=U_0(x)(1-y)-R_0(x)y$, separate identification holds if and only if the conditional state variance is positive. The exact population loss from suppressing one flow is $G(x)=v(x)\kappa(x)$, where $v(x)$ measures state dispersion and $\kappa(x)$ measures coactivity. In a local Gaussian benchmark, these factors combine into $\Gamma_n=nG_n/\sigma_\varepsilon^2$; the two-flow fit has lower expected prediction error precisely when $\Gamma_n>1$. An exactly solvable two-state design displays the crossover and separates identification from model-selection value. We instantiate both classes with parameter-matched neural dynamics and evaluate them on complete held-out storm events. On complete held-out storm events, the two-flow model reduces one-step error by \MainStepGain\ and 24-hour forecast error by \MainForecastGain, with the largest gains where turnover information and coactivity are jointly high. The conclusion is conditional: separating opposing flows is useful when its representation benefit exceeds the statistical cost of estimating the additional component.
+\end{abstract}
+
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_setup}
+\input{sections/04_theory}
+\input{sections/05_experiments}
+\input{sections/06_discussion}
+
+\bibliography{references}
+
+\clearpage
+\input{sections/07_checklist}
+
+\clearpage
+\appendix
+\onecolumn
+\aistatstitle{When Is One Flow Enough?\\Supplementary Material}
+\input{appendices/A_proofs}
+\input{appendices/B_finite_sample}
+\input{appendices/C_transfer_rollout}
+\input{appendices/D_experimental_protocol}
+\input{appendices/E_supplementary_results}
+\input{appendices/F_numerical_audit}
+
+\end{document}
