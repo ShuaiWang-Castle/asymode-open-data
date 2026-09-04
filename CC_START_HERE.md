@@ -1,42 +1,58 @@
-# Claude Code: start here
+# Claude Code: start here for `open-audit-20260904`
 
-## Canonical branch
+## Authorized branch
 
-Use **only** this branch for the current AISTATS project:
+Use only:
 
 ```text
-aistats-current
+open-audit-20260904
 ```
 
-`main` is retained as the immutable public-data/source baseline. It is **not** the current paper-development branch. All other historical working branches are obsolete and must not be used as evidence, implementation guidance, or experiment specifications.
+Before doing any work, report the checked-out branch, commit SHA, and worktree status.
 
 ## Required read order
 
 1. `CC_START_HERE.md`
-2. `docs/AISTATS_MANUSCRIPT_AND_EXPERIMENT_LOCK_V3.md`
-3. `paper/aistats/main.tex`
-4. `paper/aistats/sections/` in numerical order
-5. `paper/aistats/MANUSCRIPT_PREFLIGHT.md`
-6. `FIREWALL.md`
-7. `RESULTS_LEDGER.md` only when a claim or archived result needs source verification
+2. `FIREWALL.md`
+3. `analysis/gpt_rescue_20260904/00_READ_ME_FIRST.md`
+4. `analysis/gpt_rescue_20260904/08_EVIDENCE_STATUS_AND_COMPETITION_LESSONS.md`
+5. `analysis/gpt_rescue_20260904/09_LOCKED_CC_PLAN_V2.md`
+6. `analysis/gpt_rescue_20260904/10_CC_EXECUTION_PROMPT_V2.md`
+7. `docs/MODEL_HEALTH_AUDIT.md`
+8. `docs/DATA_CARD.md`
+9. `paper/aistats/main.tex`
 
-## Current scientific state
+`RESULTS_LEDGER.md` is consulted only to verify an archived claim and must not be rewritten to reverse prior evidence during the pilot.
 
-The canonical manuscript asks when a single signed flow is sufficient and when interruption and restoration should be modeled as two nonnegative flows. The theory is organized around the exact one-flow representation gap, the identification geometry, and the finite-sample selection index. The exactly solvable case belongs in the main paper. The real-storm experiment section contains the locked design and result placeholders for the formal run.
+## Current scientific position
 
-## Hard instructions
+The prior event-held-out structural result remains reproduced evidence under its original protocol. The audit identified plausible implementation, optimization, boundary, and data-design issues that require adjudication; it did not by itself establish that the earlier conclusion was false.
 
-- Do not recover protocols, prose, claims, or experimental targets from deleted historical branches.
-- Do not replace the canonical manuscript with an older `main.tex`, `DRAFT.md`, or prior experiment prompt.
-- Do not add memory, semi-parametric terms, gates, secondary-damage heads, new event subsets, or broad sweeps unless Shuai explicitly changes the locked study.
-- Treat storm event as the inferential unit; neural seeds measure optimization variability only.
-- Preserve the one-flow versus two-flow structural comparison as the main empirical contrast.
-- Before changing the paper or running experiments, report the checked-out branch and current commit SHA.
+The final data-challenge model also supplies important prior information: interruption and restoration benefited from strongly different representations and capacities. The selected pilot therefore preserves a competition-informed asymmetric interruption/recovery scaffold in both arms and changes only whether two simultaneous nonnegative components are retained or collapsed to one signed flow.
 
-## Canonical paper entry point
+## Immediate task
+
+Implement and run only the V2 pilot specified in:
 
 ```text
-paper/aistats/main.tex
+analysis/gpt_rescue_20260904/10_CC_EXECUTION_PROMPT_V2.md
 ```
 
-Any future handoff should cite `aistats-current` rather than a dated GPT/CC branch name.
+The pilot uses all-26 event design work, exact class initialization, sufficient update-based training, three outcome-blind pilot events, and nine optimization jobs. Stop after the pilot deliverables are written under:
+
+```text
+analysis/gpt_rescue_20260904/cc_v2/
+```
+
+## Hard restrictions
+
+- Do not execute `04_LOCKED_RESCUE_EXPERIMENT.md` or `07_CC_NEXT_STEP.md`; they are superseded.
+- Do not use `05_MODEL_V3_REFERENCE.py` as the final architecture; it is a historical prototype.
+- Do not edit manuscript result macros, abstract, or conclusion.
+- Do not label prior results refuted, withdrawn, or invalid during the pilot.
+- Do not choose events, origins, horizons, or metrics using prior model gains.
+- Do not add a GRU, Transformer, recovery burden, secondary-damage state, new gate, semi-parametric term, family-specific model, or hyperparameter sweep.
+- Do not run the full five-fold three-seed campaign.
+- Treat event as the inferential unit; starts and seeds quantify optimization variability only.
+
+Any blocker must be documented and the run stopped rather than silently replacing the protocol.
