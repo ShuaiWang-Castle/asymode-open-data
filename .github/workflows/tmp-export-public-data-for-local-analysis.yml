@@ -16,15 +16,24 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout analysis branch at audited result commit
+        uses: actions/checkout@v4
         with:
           ref: 5f3ff3aa616fac7540eae45415089127816f3199
+          path: code
+          fetch-depth: 1
+      - name: Checkout pinned public-data commit separately
+        uses: actions/checkout@v4
+        with:
+          ref: 8dd47c5ccd829611f27b69a3d64c274a0a24c400
+          path: public-data
           fetch-depth: 1
       - name: Verify pinned public data
+        working-directory: public-data
         shell: bash
         run: |
           set -euo pipefail
-          echo "export-trigger-v2"
+          echo "export-trigger-v3"
           sha256sum -c data/SHA256SUMS.txt
           python - <<'PY'
           import hashlib, json
@@ -40,16 +49,16 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p export/data/interim export/configs export/analysis/gpt_rescue_20260904/cc_v2
-          cp data/README.md data/SHA256SUMS.txt export/data/
-          cp data/interim/panel_*.npz export/data/interim/
-          cp data/interim/drivers_*.npz export/data/interim/
-          cp data/interim/county_statics.parquet export/data/interim/
-          cp data/interim/storm_events_county.parquet export/data/interim/
-          cp data/interim/event_days_stratified.parquet export/data/interim/
-          cp configs/panel_manifest_g3-all-26.json export/configs/
-          cp analysis/gpt_rescue_20260904/cc_v2/event_folds_v2.json export/analysis/gpt_rescue_20260904/cc_v2/
+          cp public-data/data/README.md public-data/data/SHA256SUMS.txt export/data/
+          cp public-data/data/interim/panel_*.npz export/data/interim/
+          cp public-data/data/interim/drivers_*.npz export/data/interim/
+          cp public-data/data/interim/county_statics.parquet export/data/interim/
+          cp public-data/data/interim/storm_events_county.parquet export/data/interim/
+          cp public-data/data/interim/event_days_stratified.parquet export/data/interim/
+          cp public-data/configs/panel_manifest_g3-all-26.json export/configs/
+          cp code/analysis/gpt_rescue_20260904/cc_v2/event_folds_v2.json export/analysis/gpt_rescue_20260904/cc_v2/
           printf '%s\n' 'data_commit=8dd47c5ccd829611f27b69a3d64c274a0a24c400' > export/EXPORT_PROVENANCE.txt
-          printf '%s\n' 'source_result_commit=5f3ff3aa616fac7540eae45415089127816f3199' >> export/EXPORT_PROVENANCE.txt
+          printf '%s\n' 'analysis_commit=5f3ff3aa616fac7540eae45415089127816f3199' >> export/EXPORT_PROVENANCE.txt
           find export -type f -print0 | sort -z | xargs -0 sha256sum > export/EXPORTED_SHA256SUMS.txt
           du -sh export
       - name: Upload exact public-data bundle
