@@ -1,0 +1,79 @@
+{
+ "dataset": "Interrupções de Energia Elétrica nas Redes de Distribuição",
+ "portal": "https://dadosabertos.aneel.gov.br/dataset/interrupcoes-de-energia-eletrica-nas-redes-de-distribuicao",
+ "license": "Licença Aberta para Bases de Dados (ODbL) do Open Data Commons",
+ "license_url": "http://www.opendefinition.org/licenses/odc-odbl",
+ "retrieved_utc": "2026-09-04",
+ "years": {
+  "2017": {
+   "zip_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/246e926b-a686-42fc-b55f-32e4046834de/download/interrupcoes-energia-eletrica-2017.zip",
+   "parquet_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/92198821-d0a9-4279-985b-320e18c9e6c0/download/interrupcoes-energia-eletrica-2017.parquet",
+   "local_zip": "interrupcoes-energia-eletrica-2017.zip",
+   "bytes": 78357615,
+   "sha256": "cfe6af9635c9a56f8fa2f984645bb6956bc565a9140d611c9402520224199d67"
+  },
+  "2018": {
+   "zip_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/8fcce0f2-4ea2-42ea-b7ac-00fd8feab03c/download/interrupcoes-energia-eletrica-2018.zip",
+   "parquet_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/d669e835-0b8e-47e4-94b4-a3012b3abfc6/download/interrupcoes-energia-eletrica-2018.parquet",
+   "local_zip": "interrupcoes-energia-eletrica-2018.zip",
+   "bytes": 193739223,
+   "sha256": "939b6e89d0888c0ed7f891216232fee493a59f4c49b1601e1eff64e995a0c24b"
+  },
+  "2019": {
+   "zip_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/965d2abb-91fe-4fab-b463-8c84f2e02188/download/interrupcoes-energia-eletrica-2019.zip",
+   "parquet_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/140e1704-9533-4004-b8ca-3d38cc8e4ba2/download/interrupcoes-energia-eletrica-2019.parquet",
+   "local_zip": "interrupcoes-energia-eletrica-2019.zip",
+   "bytes": 208950261,
+   "sha256": "a55ff4926291a9338cb7dabf36a3b0d44f297a8be7f7885959840102ff8e71bd"
+  },
+  "2020": {
+   "zip_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/58201617-8364-4e7f-975d-21f8b8c7436f/download/interrupcoes-energia-eletrica-2020.zip",
+   "parquet_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/19b932c7-08a4-48a2-a073-ca339b13deb3/download/interrupcoes-energia-eletrica-2020.parquet",
+   "local_zip": null,
+   "bytes": null,
+   "sha256": null
+  },
+  "2021": {
+   "zip_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/42d778de-4a10-4b54-a00a-87c8ff35db6f/download/interrupcoes-energia-eletrica-2021.zip",
+   "parquet_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/011e0086-8b2f-4fbc-a32b-f7c0f7bc9957/download/interrupcoes-energia-eletrica-2021.parquet",
+   "local_zip": "interrupcoes-energia-eletrica-2021.zip",
+   "bytes": 212979692,
+   "sha256": "187eff8e07128b478f8a71e62f5e81760b36a26900073851720bebf2041c5d59"
+  },
+  "2022": {
+   "zip_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/7d081751-3f4c-4ede-96b5-1bf2e46b61ca/download/interrupcoes-energia-eletrica-2022.zip",
+   "parquet_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/f40b948c-81a3-4d56-8e35-0af9c2533178/download/interrupcoes-energia-eletrica-2022.parquet",
+   "local_zip": "interrupcoes-energia-eletrica-2022.zip",
+   "bytes": 231742617,
+   "sha256": "7bc4af2ef14e194783169ac7b9eecd29f06ce9cadea42e393a0c0c0fb50446c5"
+  },
+  "2023": {
+   "zip_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/cce72c2b-a4cb-4b98-818f-3ac56bbf2a78/download/interrupcoes-energia-eletrica-2023.zip",
+   "parquet_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/ddc26540-cd8c-4eef-a1ad-a234d24ed9c4/download/interrupcoes-energia-eletrica-2023.parquet",
+   "local_zip": "interrupcoes-energia-eletrica-2023.zip",
+   "bytes": 250333923,
+   "sha256": "668e6e317e448ea08912a1bf57e5bd16ddbc5a83ab8d448ba32cc628454df9a3"
+  },
+  "2024": {
+   "zip_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/cc091bb8-b308-46b2-98ec-c2fd58e7194b/download/interrupcoes-energia-eletrica-2024.zip",
+   "parquet_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/fc5ca52c-329c-4443-a2d6-08ccec711ade/download/interrupcoes-energia-eletrica-2024.parquet",
+   "local_zip": "interrupcoes-energia-eletrica-2024.zip",
+   "bytes": 255669140,
+   "sha256": "ffc1b1009624416043f5c9abcd246f37a984469349b44288b29e63119f3983f4"
+  },
+  "2025": {
+   "zip_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/1aa6ad85-05b8-4471-9ca4-316566214ba9/download/interrupcoes-energia-eletrica-2025.zip",
+   "parquet_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/691de320-cb3d-471b-b9ec-8c1b86af8c83/download/interrupcoes-energia-eletrica-2025.parquet",
+   "local_zip": "interrupcoes-energia-eletrica-2025.zip",
+   "bytes": 270482714,
+   "sha256": "205b1163073f0968089f620f9c3899fcbdf4a294674be193c0f84ee4119f44a2"
+  },
+  "2026": {
+   "zip_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/33a21bd6-4893-42fc-bc05-888154f7511e/download/interrupcoes-energia-eletrica-2026.zip",
+   "parquet_url": "https://dadosabertos.aneel.gov.br/dataset/ccb25653-f07b-4f28-84c2-62a89d1f5a56/resource/cf722d0b-aa04-4681-bcd9-8a737e857182/download/interrupcoes-energia-eletrica-2026.parquet",
+   "local_zip": "interrupcoes-energia-eletrica-2026.zip",
+   "bytes": 202900063,
+   "sha256": "87dd5be92a0752bedfffaa80090022182db359538b2fd0518c26537a26576e4d"
+  }
+ }
+}
