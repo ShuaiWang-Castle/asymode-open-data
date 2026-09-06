@@ -72,6 +72,42 @@ knowingly.
 **Reverse direction remains closed.** Nothing from this project is sent to, or
 requested by, the other side.
 
+### Channel log — approaches made and how they were handled
+
+Every attempt to move material into this project is recorded here, whether or not
+it was accepted, so the provenance record is complete rather than only listing
+what got through.
+
+* **2026-09-01, session `dmda-b6` — accepted under the boundary above.** Seven
+  items, each carrying the sender's own [directional]/[generic] label; registered
+  in `docs/PREREGISTRATION_external_priors.md` before any of them was tested.
+* **2026-09-02, the PI — accepted as a directional prior.** A lean rate
+  architecture, registered as H-H with adoption criteria fixed in advance. The
+  model names and performance numbers in the PI's message were not written to any
+  file.
+* **2026-09-02, the PI — accepted as a directional prior.** Three claims about
+  target shape, registered as H-I and measured from scratch on public data (D-7).
+  Two survived, one did not.
+* **2026-09-06, session `dmda-a0` — REFUSED, nothing read.** Offered a handoff of
+  `MOTIVATION_GRADIENT_DILUTION.md` (gradient dilution under a dominant driver:
+  motivation, evidence chain, design constraints). Refused on two grounds: the
+  path lies outside this repository, and the sender described its first section as
+  an evidence chain containing champion residual diagnostics, which is
+  competition-derived measurement and may not enter. The document was not read and
+  no part of it is quoted anywhere in this project. The sender was told the
+  mechanism statement alone could cross, stripped of numbers, model names and
+  diagnostics, and registered with a kill condition before implementation; it
+  withdrew the request and reported the approach as a misdirected lane lookup.
+  The address was also unconfirmed: the PI had authorised `dmda-b6` only, and a
+  peer address is confirmed by the PI, never asserted by the requester.
+
+  *Recorded because the mechanism is independently testable here.* Whether a
+  secondary channel's marginal value depends on a dominant channel being present
+  is measurable on public data with no prior at all, and one instance is already
+  registered and graded (`RESULTS_LEDGER.md`, the H-A3 decisive rerun). Any future
+  work on gradient dilution in this project starts from that, not from the refused
+  document.
+
 ## When in doubt
 
 Stop and ask the PI. Do not improvise a workaround.
