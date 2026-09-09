@@ -1,0 +1,9 @@
+{
+  "status": "BLOCKED_DATA",
+  "searched_roots": [
+    "$D"
+  ],
+  "attempts": [],
+  "next_action": "Inspect local directories or write only a deterministic data adapter; do not request the deleted ZIP or change the cohort.",
+  "supported": "canonical stock NPZ; complete pilot_records_g*.npz; legacy 18-column annual CSV/ZIP"
+}

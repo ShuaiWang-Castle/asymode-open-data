@@ -1,0 +1,1 @@
+python3.11 $W/run_campaign.py --data-manifest $W/data_resolution/DATA_MANIFEST.json --protocol $W/_package/ASYMODE_CC_STANDALONE_20260909/CONFIG_LOCK.json --work $W --phase main --package-code $W/_package/ASYMODE_CC_STANDALONE_20260909/code --preflight $W/preflight

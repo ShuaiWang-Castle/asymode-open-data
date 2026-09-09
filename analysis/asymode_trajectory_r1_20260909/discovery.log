@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "schema_version": 1,
+  "mode": "REBUILT_LEGACY_CSV",
+  "original_handoff_required": false,
+  "data_roots": [
+    "$D",
+    "$A"
+  ],
+  "ledger_path": "$W/data_resolution/rebuilt_selected_ledgers.npz",
+  "ledger_sha256": "bc51d2f326ef3f18b13f0da60523385c9ffbe7b085e661061ef03ed3794e39dc",
+  "canonical_container_identical": false,
+  "canonical_stock_arrays": 48,
+  "checked_array_count": 192,
+  "gross_audit_status": "PASS",
+  "balance_pairs_checked": 48,
+  "max_balance_error": 1.1904539853890839e-16,
+  "identity_basis": "exact per-array canonical float64 little-endian hashes",
+  "raw_sources": [
+    {
+      "year": 2018,
+      "path": "$A/interrupcoes-energia-eletrica-2018.zip",
+      "sha256": "939b6e89d0888c0ed7f891216232fee493a59f4c49b1601e1eff64e995a0c24b"
+    },
+    {
+      "year": 2019,
+      "path": "$A/interrupcoes-energia-eletrica-2019.zip",
+      "sha256": "a55ff4926291a9338cb7dabf36a3b0d44f297a8be7f7885959840102ff8e71bd"
+    }
+  ],
+  "selection_path": "$W/_package/ASYMODE_CC_STANDALONE_20260909/metadata/unit_selection.csv",
+  "selection_sha256": "2b7b2cb3eed8aad0169d798272b154fb49a53b3b93b141831449aadeacb0b1dd",
+  "reference_sha256": "264a538d16ef2e464ae1774b8396a51a59df712217508a5e623c1ebcbe22df1b",
+  "stock_feature_only": true,
+  "target_year_status": "REUSED_2019_RETROSPECTIVE_EVALUATION",
+  "earlier_attempts": []
+}

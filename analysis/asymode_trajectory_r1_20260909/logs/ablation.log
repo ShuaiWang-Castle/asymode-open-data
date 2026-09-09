@@ -1,0 +1,25 @@
+[ablation] sets=24 companies=16 device=cpu
+  A1 SR init-0.05 seed4101 fold_A best=1.015450e-04
+  A1 SR init-0.05 seed4101 fold_B best=1.670355e-04
+  A1 SR init-0.05 seed4102 fold_A best=1.013211e-04
+  A1 SR init-0.05 seed4102 fold_B best=1.684212e-04
+  A1 SR init-0.05 seed4103 fold_A best=1.011861e-04
+  A1 SR init-0.05 seed4103 fold_B best=1.680327e-04
+  A1 SR init+0.05 seed4101 fold_A best=1.019424e-04
+  A1 SR init+0.05 seed4101 fold_B best=1.679872e-04
+  A1 SR init+0.05 seed4102 fold_A best=1.017090e-04
+  A1 SR init+0.05 seed4102 fold_B best=1.703266e-04
+  A1 SR init+0.05 seed4103 fold_A best=1.010350e-04
+  A1 SR init+0.05 seed4103 fold_B best=1.677999e-04
+  A SR              seed5101 2019 path=2.041002e-04
+  A SR              seed5102 2019 path=1.770778e-04
+  A SR              seed5103 2019 path=1.774948e-04
+  A SR              seed5104 2019 path=1.787133e-04
+  A SR              seed5105 2019 path=1.768775e-04
+  A ASYM_STEP_ONLY  seed5101 2019 path=1.691601e-04
+  A ASYM_STEP_ONLY  seed5102 2019 path=1.687538e-04
+  A ASYM_STEP_ONLY  seed5103 2019 path=1.689235e-04
+  A ASYM_STEP_ONLY  seed5104 2019 path=1.691310e-04
+  A ASYM_STEP_ONLY  seed5105 2019 path=1.691487e-04
+[ablation] done in 888.0s
+EXIT=0

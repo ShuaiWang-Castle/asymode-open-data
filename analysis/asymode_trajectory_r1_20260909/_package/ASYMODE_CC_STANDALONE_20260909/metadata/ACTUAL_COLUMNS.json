@@ -1,0 +1,20 @@
+[
+  "DatGeracaoConjuntoDados",
+  "IdeConjuntoUnidadeConsumidora",
+  "DscConjuntoUnidadeConsumidora",
+  "DscAlimentadorSubestacao",
+  "DscSubestacaoDistribuicao",
+  "NumOrdemInterrupcao",
+  "DscTipoInterrupcao",
+  "IdeMotivoInterrupcao",
+  "DatInicioInterrupcao",
+  "DatFimInterrupcao",
+  "DscFatoGeradorInterrupcao",
+  "NumNivelTensao",
+  "NumUnidadeConsumidora",
+  "NumConsumidorConjunto",
+  "NumAno",
+  "NomAgenteRegulado",
+  "SigAgente",
+  "NumCPFCNPJ"
+]

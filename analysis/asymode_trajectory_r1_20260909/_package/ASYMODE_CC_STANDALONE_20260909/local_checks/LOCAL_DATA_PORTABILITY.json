@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "requires_original_handoff_directory": false,
+  "requires_PATH_ALIASES_json": false,
+  "moved_renamed_npz": {
+    "status": "PASS",
+    "arrays_checked": 192
+  },
+  "recompressed_reordered_npz": {
+    "status": "PASS",
+    "arrays_checked": 192,
+    "container_hash_changed": true
+  },
+  "selected_records_only": {
+    "status": "PASS",
+    "arrays_checked": 192
+  },
+  "canonical_stock_only": {
+    "status": "PASS",
+    "arrays_checked": 48,
+    "gross_audit": "PARTIAL_OR_NOT_AVAILABLE"
+  },
+  "altered_stock_rejected": true,
+  "full_national_csv_rebuild_run": false,
+  "cuda_or_formal_training_run": false,
+  "source_dataset_bundled": false
+}

@@ -1,0 +1,57 @@
+{
+  "protocol_id": "ASYMODE_TRAJECTORY_MAINLINE_R1_20260909",
+  "stage1_trials": 36,
+  "stage2_trials": 24,
+  "top2_per_arm": {
+    "DIRECT": [
+      "p32768_lr0.0003",
+      "p32768_lr0.001"
+    ],
+    "NET": [
+      "p32768_lr0.0003",
+      "p8192_lr0.0003"
+    ],
+    "ASYM": [
+      "p32768_lr0.001",
+      "p8192_lr0.001"
+    ]
+  },
+  "selected_config": {
+    "DIRECT": "p32768_lr0.0003",
+    "NET": "p32768_lr0.0003",
+    "ASYM": "p8192_lr0.0003"
+  },
+  "final_steps": {
+    "DIRECT": 3500,
+    "NET": 3500,
+    "ASYM": 2750
+  },
+  "selection_metric": "company-equal path MSE on fold validation, exact all-origin",
+  "dev_seeds": [
+    4101,
+    4102,
+    4103
+  ],
+  "final_seeds": [
+    5101,
+    5102,
+    5103,
+    5104,
+    5105
+  ],
+  "fold_stats": {
+    "fold_A_fit": {
+      "state_scale": 0.018871417918737487,
+      "source_mean": 0.003022984057704312
+    },
+    "fold_B_fit": {
+      "state_scale": 0.016475858531262894,
+      "source_mean": 0.002517923018037332
+    },
+    "full_2018": {
+      "state_scale": 0.01583193910674288,
+      "source_mean": 0.002751396186592465
+    }
+  },
+  "written_utc": "2026-09-09T21:34:21Z"
+}

@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "scope": "CPU primitives and CSV fixture only",
+  "paired_sampling_and_resume": true,
+  "company_equal_scoring": true,
+  "controlled_formula_and_reproducibility": true,
+  "model_network_calls": {
+    "DIRECT": 1,
+    "NET": 24,
+    "ASYM": 1,
+    "SR": 1
+  },
+  "last_horizon_backprop_finite": true,
+  "legacy_csv_full_row_dedup_fixture": true,
+  "full_national_csv_reconstruction_tested": false,
+  "formal_training_run": false
+}

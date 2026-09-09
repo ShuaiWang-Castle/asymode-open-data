@@ -1,0 +1,80 @@
+[main] sets=24 companies=16 device=cpu
+  s1 DIRECT  p8192_lr0.0003 fold_A best=1.006717e-04@2500 (24.77s)
+  s1 DIRECT  p8192_lr0.0003 fold_B best=1.593714e-04@3000 (16.9s)
+  s1 DIRECT  p8192_lr0.001  fold_A best=1.011807e-04@3000 (16.79s)
+  s1 DIRECT  p8192_lr0.001  fold_B best=1.583788e-04@2250 (18.4s)
+  s1 DIRECT  p8192_lr0.003  fold_A best=1.016723e-04@2500 (17.51s)
+  s1 DIRECT  p8192_lr0.003  fold_B best=1.588826e-04@1250 (17.85s)
+  s1 DIRECT  p32768_lr0.0003 fold_A best=1.006801e-04@2500 (18.89s)
+  s1 DIRECT  p32768_lr0.0003 fold_B best=1.581765e-04@2250 (19.54s)
+  s1 DIRECT  p32768_lr0.001 fold_A best=1.010796e-04@2500 (20.55s)
+  s1 DIRECT  p32768_lr0.001 fold_B best=1.582692e-04@1250 (26.66s)
+  s1 DIRECT  p32768_lr0.003 fold_A best=1.020868e-04@2250 (24.31s)
+  s1 DIRECT  p32768_lr0.003 fold_B best=1.600996e-04@1250 (19.23s)
+  s1 NET     p8192_lr0.0003 fold_A best=9.975881e-05@1250 (58.86s)
+  s1 NET     p8192_lr0.0003 fold_B best=1.584761e-04@2250 (57.8s)
+  s1 NET     p8192_lr0.001  fold_A best=1.002195e-04@2500 (59.66s)
+  s1 NET     p8192_lr0.001  fold_B best=1.587024e-04@2250 (59.36s)
+  s1 NET     p8192_lr0.003  fold_A best=1.004333e-04@2250 (60.03s)
+  s1 NET     p8192_lr0.003  fold_B best=1.609232e-04@500 (59.12s)
+  s1 NET     p32768_lr0.0003 fold_A best=9.987804e-05@2250 (94.39s)
+  s1 NET     p32768_lr0.0003 fold_B best=1.579094e-04@2250 (97.78s)
+  s1 NET     p32768_lr0.001 fold_A best=9.970009e-05@3000 (132.14s)
+  s1 NET     p32768_lr0.001 fold_B best=1.586429e-04@2250 (130.63s)
+  s1 NET     p32768_lr0.003 fold_A best=1.001227e-04@2250 (157.66s)
+  s1 NET     p32768_lr0.003 fold_B best=1.598568e-04@500 (136.17s)
+  s1 ASYM    p8192_lr0.0003 fold_A best=9.924151e-05@750 (65.88s)
+  s1 ASYM    p8192_lr0.0003 fold_B best=1.585452e-04@3000 (49.12s)
+  s1 ASYM    p8192_lr0.001  fold_A best=9.896616e-05@500 (48.15s)
+  s1 ASYM    p8192_lr0.001  fold_B best=1.584559e-04@500 (55.28s)
+  s1 ASYM    p8192_lr0.003  fold_A best=9.888099e-05@1250 (82.98s)
+  s1 ASYM    p8192_lr0.003  fold_B best=1.599346e-04@500 (61.32s)
+  s1 ASYM    p32768_lr0.0003 fold_A best=9.912356e-05@500 (78.55s)
+  s1 ASYM    p32768_lr0.0003 fold_B best=1.588101e-04@2750 (94.87s)
+  s1 ASYM    p32768_lr0.001 fold_A best=9.939259e-05@1250 (64.28s)
+  s1 ASYM    p32768_lr0.001 fold_B best=1.579629e-04@500 (65.68s)
+  s1 ASYM    p32768_lr0.003 fold_A best=9.894766e-05@500 (64.07s)
+  s1 ASYM    p32768_lr0.003 fold_B best=1.610214e-04@500 (65.34s)
+  s2 DIRECT  p32768_lr0.0003 seed4102 fold_A best=1.008996e-04@1250
+  s2 DIRECT  p32768_lr0.0003 seed4102 fold_B best=1.586451e-04@3000
+  s2 DIRECT  p32768_lr0.0003 seed4103 fold_A best=1.010079e-04@2750
+  s2 DIRECT  p32768_lr0.0003 seed4103 fold_B best=1.590786e-04@2250
+  s2 DIRECT  p32768_lr0.001 seed4102 fold_A best=1.011991e-04@750
+  s2 DIRECT  p32768_lr0.001 seed4102 fold_B best=1.588769e-04@2250
+  s2 DIRECT  p32768_lr0.001 seed4103 fold_A best=1.013149e-04@1250
+  s2 DIRECT  p32768_lr0.001 seed4103 fold_B best=1.587411e-04@2000
+  s2 NET     p32768_lr0.0003 seed4102 fold_A best=1.000066e-04@2750
+  s2 NET     p32768_lr0.0003 seed4102 fold_B best=1.589045e-04@3000
+  s2 NET     p32768_lr0.0003 seed4103 fold_A best=9.961947e-05@1250
+  s2 NET     p32768_lr0.0003 seed4103 fold_B best=1.583687e-04@2250
+  s2 NET     p8192_lr0.0003 seed4102 fold_A best=9.998558e-05@1250
+  s2 NET     p8192_lr0.0003 seed4102 fold_B best=1.584960e-04@3000
+  s2 NET     p8192_lr0.0003 seed4103 fold_A best=9.960119e-05@750
+  s2 NET     p8192_lr0.0003 seed4103 fold_B best=1.585294e-04@2250
+  s2 ASYM    p32768_lr0.001 seed4102 fold_A best=9.929403e-05@1000
+  s2 ASYM    p32768_lr0.001 seed4102 fold_B best=1.593117e-04@1250
+  s2 ASYM    p32768_lr0.001 seed4103 fold_A best=9.907949e-05@1500
+  s2 ASYM    p32768_lr0.001 seed4103 fold_B best=1.588588e-04@500
+  s2 ASYM    p8192_lr0.001  seed4102 fold_A best=9.947629e-05@500
+  s2 ASYM    p8192_lr0.001  seed4102 fold_B best=1.591509e-04@750
+  s2 ASYM    p8192_lr0.001  seed4103 fold_A best=9.872938e-05@2250
+  s2 ASYM    p8192_lr0.001  seed4103 fold_B best=1.585825e-04@1500
+
+selection_lock.json written: {"DIRECT": "p32768_lr0.0003", "NET": "p32768_lr0.0003", "ASYM": "p8192_lr0.0003"} {'DIRECT': 3500, 'NET': 3500, 'ASYM': 2750}
+  final DIRECT  seed5101 steps=3500 2019 path=1.696495e-04 oob=1.477e-01
+  final DIRECT  seed5102 steps=3500 2019 path=1.695349e-04 oob=4.746e-02
+  final DIRECT  seed5103 steps=3500 2019 path=1.696146e-04 oob=3.108e-02
+  final DIRECT  seed5104 steps=3500 2019 path=1.698511e-04 oob=4.158e-02
+  final DIRECT  seed5105 steps=3500 2019 path=1.694587e-04 oob=6.902e-02
+  final NET     seed5101 steps=3500 2019 path=1.695038e-04 oob=9.256e-02
+  final NET     seed5102 steps=3500 2019 path=1.691059e-04 oob=2.743e-02
+  final NET     seed5103 steps=3500 2019 path=1.696169e-04 oob=2.601e-02
+  final NET     seed5104 steps=3500 2019 path=1.696471e-04 oob=5.224e-02
+  final NET     seed5105 steps=3500 2019 path=1.690345e-04 oob=4.522e-02
+  final ASYM    seed5101 steps=2750 2019 path=1.689587e-04 oob=0.000e+00
+  final ASYM    seed5102 steps=2750 2019 path=1.688444e-04 oob=0.000e+00
+  final ASYM    seed5103 steps=2750 2019 path=1.694491e-04 oob=0.000e+00
+  final ASYM    seed5104 steps=2750 2019 path=1.692352e-04 oob=0.000e+00
+  final ASYM    seed5105 steps=2750 2019 path=1.687003e-04 oob=0.000e+00
+[main] done in 4339.1s
+EXIT=0

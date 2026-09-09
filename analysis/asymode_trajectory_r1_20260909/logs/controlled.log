@@ -1,0 +1,36 @@
+[controlled] sets=24 companies=16 device=cpu
+  E2 sel DIRECT  p8192_lr0.0003 val=6.642575e-07
+  E2 sel DIRECT  p8192_lr0.001  val=1.251504e-07
+  E2 sel DIRECT  p8192_lr0.003  val=1.049317e-07
+  E2 sel DIRECT  p32768_lr0.0003 val=1.692260e-07
+  E2 sel DIRECT  p32768_lr0.001 val=1.145510e-07
+  E2 sel DIRECT  p32768_lr0.003 val=1.734090e-07
+  E2 sel NET     p8192_lr0.0003 val=1.505292e-08
+  E2 sel NET     p8192_lr0.001  val=1.445329e-08
+  E2 sel NET     p8192_lr0.003  val=3.527628e-08
+  E2 sel NET     p32768_lr0.0003 val=2.091363e-08
+  E2 sel NET     p32768_lr0.001 val=1.733682e-08
+  E2 sel NET     p32768_lr0.003 val=3.110892e-08
+  E2 sel ASYM    p8192_lr0.0003 val=5.060130e-06
+  E2 sel ASYM    p8192_lr0.001  val=2.368578e-07
+  E2 sel ASYM    p8192_lr0.003  val=3.176980e-07
+  E2 sel ASYM    p32768_lr0.0003 val=4.213806e-07
+  E2 sel ASYM    p32768_lr0.001 val=5.004530e-08
+  E2 sel ASYM    p32768_lr0.003 val=2.582475e-08
+  E2 DIRECT  seed5101 src=2.0421e-07 high=1.2652e-05
+  E2 NET     seed5101 src=2.7695e-08 high=9.3531e-08
+  E2 ASYM    seed5101 src=5.9730e-08 high=1.1095e-07
+  E2 DIRECT  seed5102 src=1.7239e-07 high=2.4074e-05
+  E2 NET     seed5102 src=5.6153e-08 high=2.2895e-06
+  E2 ASYM    seed5102 src=2.1985e-08 high=4.3393e-08
+  E2 DIRECT  seed5103 src=1.3883e-07 high=5.0949e-06
+  E2 NET     seed5103 src=1.0822e-08 high=4.5510e-07
+  E2 ASYM    seed5103 src=1.9577e-07 high=4.1081e-07
+  E2 DIRECT  seed5104 src=1.1922e-07 high=2.2969e-05
+  E2 NET     seed5104 src=4.1136e-08 high=1.6385e-07
+  E2 ASYM    seed5104 src=5.9536e-08 high=1.5261e-07
+  E2 DIRECT  seed5105 src=1.2997e-07 high=8.8581e-06
+  E2 NET     seed5105 src=2.3261e-08 high=1.8392e-07
+  E2 ASYM    seed5105 src=1.2175e-07 high=1.7251e-07
+[controlled] done in 1096.1s
+EXIT=0

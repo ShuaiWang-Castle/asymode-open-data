@@ -1,0 +1,19 @@
+{
+  "block_hours": 168,
+  "n_blocks": 52,
+  "resamples": 2000,
+  "basis": "seed-averaged predictions; blocks shared across companies to retain common shocks",
+  "interpretation": "descriptive dependence sensitivity only; not a confirmatory test; five paired seeds are not five independent field samples",
+  "mean_company_relative_gain_vs_DIRECT": {
+    "NET": {
+      "p2.5": 0.002435842445672175,
+      "p50": 0.005049890059094408,
+      "p97.5": 0.008156826200635849
+    },
+    "ASYM": {
+      "p2.5": 0.0028536374664420877,
+      "p50": 0.006958158118655673,
+      "p97.5": 0.01239763222958023
+    }
+  }
+}

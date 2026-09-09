@@ -1,0 +1,14 @@
+{
+  "python": "3.11.6",
+  "torch": "2.8.0",
+  "numpy": "1.26.4",
+  "pandas": "2.3.2",
+  "platform": "macOS-13.7.3-arm64-arm-64bit",
+  "machine": "arm64",
+  "device": "cpu",
+  "cuda_available": false,
+  "mps_available": true,
+  "fp32": true,
+  "amp": false,
+  "torch_compile": false
+}

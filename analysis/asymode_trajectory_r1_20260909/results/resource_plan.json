@@ -1,0 +1,18 @@
+{
+  "ceiling_aggregate_gpu_hours": 24,
+  "device": "cpu (Apple M2, no CUDA)",
+  "profile_basis": "60-step timed profile per (arm, parameter target) plus full-origin validation pass timing",
+  "projected_primary_hours": 1.62,
+  "projected_over_ceiling": 0.0677,
+  "eighty_percent_rule_triggered": false,
+  "development_steps_T": 3000,
+  "final_steps_cap": 6000,
+  "reduction_applied": "none - full locked schedule retained",
+  "measured_wall_seconds": {
+    "main": 4339.1,
+    "ablation": 888.0,
+    "controlled": 1096.1
+  },
+  "measured_total_hours": 1.756,
+  "note": "no new paid resource, no CUDA upgrade, no repository push"
+}

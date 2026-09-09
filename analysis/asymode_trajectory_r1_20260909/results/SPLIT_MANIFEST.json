@@ -1,0 +1,83 @@
+{
+  "partitions": [
+    {
+      "partition": "fold_A_fit",
+      "year": 2018,
+      "history": 24,
+      "horizon": 24,
+      "n_per_group": 3745,
+      "n_total": 89880,
+      "first_hour": 48,
+      "last_hour": 4272,
+      "sha256": "2517aa89404305bb0fd0f8d114ef2a69d0ba5b67a483ad01796b00d716b0af3d"
+    },
+    {
+      "partition": "fold_A_val",
+      "year": 2018,
+      "history": 24,
+      "horizon": 24,
+      "n_per_group": 1920,
+      "n_total": 46080,
+      "first_hour": 4392,
+      "last_hour": 6503,
+      "sha256": "33f697facbccfb635fbed925cad79911d363347bba3afd1e46c5054303db4b1f"
+    },
+    {
+      "partition": "fold_B_fit",
+      "year": 2018,
+      "history": 24,
+      "horizon": 24,
+      "n_per_group": 5665,
+      "n_total": 135960,
+      "first_hour": 48,
+      "last_hour": 6480,
+      "sha256": "b23ff3fa08feb385dd2af06af9098afbb7b7cae960e578eb61b58796022af66a"
+    },
+    {
+      "partition": "fold_B_val",
+      "year": 2018,
+      "history": 24,
+      "horizon": 24,
+      "n_per_group": 1920,
+      "n_total": 46080,
+      "first_hour": 6600,
+      "last_hour": 8711,
+      "sha256": "90b68ca96a5928bb82eb6aee3b52b8e8af873cb65caf8a6d009adc82b721004f"
+    },
+    {
+      "partition": "full_2018",
+      "year": 2018,
+      "history": 24,
+      "horizon": 24,
+      "n_per_group": 7608,
+      "n_total": 182592,
+      "first_hour": 48,
+      "last_hour": 8711,
+      "sha256": "5162e0fe6555ff598efaa76ae0b0d7f890d2dad0a3b4c19068cef1fd8a946daf"
+    },
+    {
+      "partition": "reused_2019",
+      "year": 2019,
+      "history": 24,
+      "horizon": 24,
+      "n_per_group": 7608,
+      "n_total": 182592,
+      "first_hour": 48,
+      "last_hour": 8711,
+      "sha256": "5162e0fe6555ff598efaa76ae0b0d7f890d2dad0a3b4c19068cef1fd8a946daf"
+    }
+  ],
+  "origin_id_definition": "(group, origin_hour) with origin_hour an index into the year hourly grid",
+  "origin_hours_file": "preflight/origin_hours_L24_H24.npz",
+  "origin_hours_sha256": "d4d7944f8f5dda5208c525696ea0145df869a7728fa837907e3c1725087cb90a",
+  "per_partition_origin_sha256": {
+    "fold_A_fit": "2517aa89404305bb0fd0f8d114ef2a69d0ba5b67a483ad01796b00d716b0af3d",
+    "fold_A_val": "33f697facbccfb635fbed925cad79911d363347bba3afd1e46c5054303db4b1f",
+    "fold_B_fit": "b23ff3fa08feb385dd2af06af9098afbb7b7cae960e578eb61b58796022af66a",
+    "fold_B_val": "90b68ca96a5928bb82eb6aee3b52b8e8af873cb65caf8a6d009adc82b721004f",
+    "full_2018": "5162e0fe6555ff598efaa76ae0b0d7f890d2dad0a3b4c19068cef1fd8a946daf",
+    "reused_2019": "5162e0fe6555ff598efaa76ae0b0d7f890d2dad0a3b4c19068cef1fd8a946daf"
+  },
+  "fit_target_cap_rule": "fit last target <= validation nominal start - 48h",
+  "note": "history and all 24 targets lie inside the month-interior mask and the partition"
+}

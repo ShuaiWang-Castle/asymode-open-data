@@ -1,0 +1,11 @@
+{
+  "rows_compared": 15,
+  "max_abs_difference": {
+    "mse_path": 1.796335703883184e-13,
+    "mse_1h": 2.724489741885022e-13,
+    "mse_6h": 1.4422274138836677e-13,
+    "mse_24h": 1.7232951719271805e-13
+  },
+  "tolerance": 1e-12,
+  "pass": true
+}

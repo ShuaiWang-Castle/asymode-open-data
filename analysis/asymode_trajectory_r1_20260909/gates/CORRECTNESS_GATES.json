@@ -1,0 +1,94 @@
+{
+  "g1_forward_has_no_target": {
+    "params": [
+      "c",
+      "known_clock",
+      "y0"
+    ],
+    "pass": true
+  },
+  "per_model": {
+    "DIRECT": {
+      "g3_output_shape": [
+        96,
+        24
+      ],
+      "g3_pass": true,
+      "g2_label_permutation_delta": 0.0,
+      "g2_pass": true,
+      "g4_grad_from_final_step_only": 56.80655267899103,
+      "g4_pass": true,
+      "g6_net_calls_for_24_outputs": 1,
+      "g6_pass": true,
+      "g8_forward_atol": 2.9075075347329005e-08,
+      "g8_forward_rtol": 1.0475267682111263e-07,
+      "g8_forward_pass": true,
+      "g8_grad_max_rel_err": 6.171495933062155e-08,
+      "g8_grad_pass": true,
+      "pass": true
+    },
+    "NET": {
+      "g3_output_shape": [
+        96,
+        24
+      ],
+      "g3_pass": true,
+      "g2_label_permutation_delta": 0.0,
+      "g2_pass": true,
+      "g4_grad_from_final_step_only": 1468.2978956701984,
+      "g4_pass": true,
+      "g7_y0_perturbation_step1": 0.049999264390068465,
+      "g7_y0_perturbation_step24": 0.04998247659170824,
+      "g7_pass": true,
+      "g8_forward_atol": 1.2254244929899016e-07,
+      "g8_forward_rtol": 4.231686124855863e-07,
+      "g8_forward_pass": true,
+      "g8_grad_max_rel_err": 1.4083146360272483e-07,
+      "g8_grad_pass": true,
+      "pass": true
+    },
+    "ASYM": {
+      "g3_output_shape": [
+        96,
+        24
+      ],
+      "g3_pass": true,
+      "g2_label_permutation_delta": 0.0,
+      "g2_pass": true,
+      "g4_grad_from_final_step_only": 136.32402229833207,
+      "g4_pass": true,
+      "g5_min": 0.005987159158449773,
+      "g5_max": 0.28222290045857845,
+      "g5_pass": true,
+      "g8_forward_atol": 5.5841230667263986e-08,
+      "g8_forward_rtol": 4.961235120648906e-07,
+      "g8_forward_pass": true,
+      "g8_grad_max_rel_err": 2.1645358288734963e-07,
+      "g8_grad_pass": true,
+      "pass": true
+    },
+    "SR": {
+      "g3_output_shape": [
+        96,
+        24
+      ],
+      "g3_pass": true,
+      "g2_label_permutation_delta": 0.0,
+      "g2_pass": true,
+      "g4_grad_from_final_step_only": 2689.3156061402615,
+      "g4_pass": true,
+      "g5_min": 0.00391910914978229,
+      "g5_max": 0.2820315122626569,
+      "g5_pass": true,
+      "g8_forward_atol": 3.155569294754912e-08,
+      "g8_forward_rtol": 3.312608074607591e-07,
+      "g8_forward_pass": true,
+      "g8_grad_max_rel_err": 1.387000055513882e-07,
+      "g8_grad_pass": true,
+      "pass": true
+    }
+  },
+  "cuda_available": false,
+  "reference_note": "No CUDA device on this host; FP32 compute dtype compared against an FP64 CPU reference of the identical model.",
+  "all_pass": true
+}

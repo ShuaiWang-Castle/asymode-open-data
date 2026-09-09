@@ -1,0 +1,126 @@
+{
+  "protocol_id": "ASYMODE_TRAJECTORY_MAINLINE_R1_20260909",
+  "status": "DESIGN_LOCK_WITH_CPU_CORE_CHECKS_NOT_FORMAL_RESULTS",
+  "priority": "This standalone trajectory protocol overrides local historical SR-first / PROJ-first scripts.",
+  "primary_question": "Does source-pool asymmetric structure improve trajectory forecasting over general direct trajectory and general net-dynamics models at matched information and path objective?",
+  "main_arms": [
+    "DIRECT",
+    "NET",
+    "ASYM"
+  ],
+  "reference": [
+    "PERSISTENCE"
+  ],
+  "secondary_real_ablations": [
+    "SR (two source-selected sign initializations, conditional matched configuration)",
+    "ASYM_STEP_ONLY"
+  ],
+  "no_new_campaign_arms": [
+    "DN_READ",
+    "DN_PROJ",
+    "AFF",
+    "direction_supervision",
+    "source_log_correction",
+    "weather_components",
+    "intervention"
+  ],
+  "history_hours": 24,
+  "horizon_hours": 24,
+  "common_endpoints": [
+    1,
+    6,
+    24
+  ],
+  "main_loss": "company -> group -> origin -> horizon equal-weight raw-state path MSE; a fit-only common positive scale may normalize optimizer loss",
+  "input_allowlist": [
+    "past 24 hourly stocks, strictly before t",
+    "current stock Y_t",
+    "set one-hot",
+    "known calendar for t..t+23"
+  ],
+  "rate_input_rule": "context excludes Y_t; rates receive history/context and known calendar; raw Y enters only source factors; no rolling re-encoding within forecast",
+  "direct_rule": "one residual MLP call outputs all 24 states, includes learned linear skip and persistence skip; not a collection of single-step models",
+  "optimizer": {
+    "name": "AdamW",
+    "weight_decay": 0.0001,
+    "clip_grad_norm": 1.0,
+    "batch_size": 512,
+    "dropout": 0.0,
+    "scheduler": "none"
+  },
+  "search": {
+    "parameter_targets": [
+      8192,
+      32768
+    ],
+    "learning_rates": [
+      0.0003,
+      0.001,
+      0.003
+    ],
+    "candidate_count": 6,
+    "first_seed": 4101,
+    "confirmation_seeds": [
+      4102,
+      4103
+    ],
+    "confirmation_candidates_per_arm": 2,
+    "max_steps_per_development_run": 3000,
+    "validation_every_steps": 250,
+    "final_seeds": [
+      5101,
+      5102,
+      5103,
+      5104,
+      5105
+    ],
+    "max_final_steps": 6000
+  },
+  "split_rule": "2018 forward folds; all L+H+1 states valid inside partition; fit target cap 48h before nominal validation start",
+  "target_year": "reused 2019 retrospective development evaluation; not fresh holdout",
+  "budget": "Use already available resources only; ceiling 24 aggregate GPU-hours or a smaller existing allocation, whichever is lower. Profile and symmetrically reduce before formal trials.",
+  "synthetic_core": {
+    "driver": "x~Uniform[-1,1], constant across 24 steps",
+    "U": ".005+.035*(x+1)/2",
+    "R": 0.2,
+    "source_Y0": [
+      0.25,
+      0.45
+    ],
+    "shifted_Y0": [
+      0.55,
+      0.75
+    ],
+    "n_fit": 2048,
+    "n_validation": 1024,
+    "n_eval_each": 4096,
+    "observation_noise_sd": 0.005,
+    "history": 0,
+    "horizon": 24,
+    "main_arms": [
+      "DIRECT",
+      "NET",
+      "ASYM"
+    ],
+    "note": "separate known-driver controlled task; all its arms have identical no-history information; never a field-benefit substitute"
+  },
+  "claim_guard": [
+    "TR only beating SR is not enough",
+    "Projection counterevidence remains disclosed",
+    "No physical hazard claim from net-only rates",
+    "No universal two-head or SR-vs-DT theorem"
+  ],
+  "delivery_id": "ASYMODE_CC_STANDALONE_20260909",
+  "local_data": {
+    "data_root_default": "executor current working directory, recursively searched",
+    "requires_original_handoff_zip": false,
+    "requires_PATH_ALIASES_json": false,
+    "cohort_file": "metadata/unit_selection.csv",
+    "reference_file": "metadata/LEDGER_REFERENCE.json",
+    "selection_sha256": "2b7b2cb3eed8aad0169d798272b154fb49a53b3b93b141831449aadeacb0b1dd",
+    "ledger_canonical_sha256": "03392a7f94bf9fbef6cf59c127afbd0ca829db27bcde0843fcaad666d5184e06",
+    "accept_recompressed_arrays": true,
+    "y_only_ledger_allowed": "48 canonical stock arrays, all per-array fingerprints must match; gross audit marked NOT_AVAILABLE",
+    "unsupported_schema_policy": "only deterministic adapter preserving frozen cohort, denominator, hour boundaries; no model/data-split redesign; fail closed if identity cannot be established"
+  }
+}

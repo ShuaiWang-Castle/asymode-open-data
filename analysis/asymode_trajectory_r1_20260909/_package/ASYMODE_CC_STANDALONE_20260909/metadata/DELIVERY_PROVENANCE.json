@@ -1,0 +1,21 @@
+{
+  "delivery_id": "ASYMODE_CC_STANDALONE_20260909",
+  "science_protocol_id": "ASYMODE_TRAJECTORY_MAINLINE_R1_20260909",
+  "original_archive_required_at_execution": false,
+  "large_datasets_included": false,
+  "unchanged_model_core_sha256": "defca0c6f7165a16017f02e2eb645ccdbe913bf2e5f2f694445d71f1364bb0e4",
+  "new_delivery_changes": [
+    "local data discovery/verification manifest replaces handoff path aliases",
+    "fixed cohort and canonical array fingerprints copied into this ZIP",
+    "record/legacy-CSV ledger rebuild with identity gate",
+    "independent sampling/scoring and controlled-data primitives",
+    "standalone instructions and historical negative evidence"
+  ],
+  "local_check_scope": "CPU and data preparation only; no new formal training or target-year model evaluation",
+  "bundled_historical_csv_hashes": {
+    "OLD_REAL_REPLAYED_COMPARISONS.csv": "c07fa8e1f24092bf2f3e870bb88b23fca59f0997bf86d5f0c7197058d0828647",
+    "prediction_summary.csv": "748eb6de4cea2e1be1260a3ae5cf408c04539d25381172559e06d02908bbcd3d",
+    "projection_by_seed.csv": "580ed356898b772f99d3b33ae8b7049f2d034d06ed6d9ac6173da7b5becd7ab8",
+    "projection_summary.csv": "22b1e21a0b7611aaa2b3ac5a7f67319dec4405cf28580255c7aaea7431f3e574"
+  }
+}

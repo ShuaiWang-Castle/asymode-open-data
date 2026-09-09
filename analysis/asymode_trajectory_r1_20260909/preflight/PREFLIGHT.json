@@ -1,0 +1,111 @@
+{
+  "status": "PASS",
+  "scope": "CPU primitives and 12-step gradient smoke tests, not formal experiments",
+  "real_tuning_run": false,
+  "cuda_available": false,
+  "cuda_checks_run": false,
+  "target_year_model_evaluation_run": false,
+  "torch_version": "2.8.0",
+  "history": 24,
+  "horizon": 24,
+  "context_dim": 168,
+  "fit_A_statistics": {
+    "state_scale": 0.018871417918737487,
+    "source_mean": 0.003022984057704312
+  },
+  "model_checks": [
+    {
+      "model": "DIRECT",
+      "finite_forward_backward_steps": 12,
+      "initial_batch_loss": 0.4893293079395406,
+      "final_batch_loss": 0.4269916945010536,
+      "prediction_shape": [
+        64,
+        24
+      ]
+    },
+    {
+      "model": "NET",
+      "finite_forward_backward_steps": 12,
+      "initial_batch_loss": 0.4901901668958783,
+      "final_batch_loss": 0.34660248217573675,
+      "prediction_shape": [
+        64,
+        24
+      ]
+    },
+    {
+      "model": "ASYM",
+      "finite_forward_backward_steps": 12,
+      "initial_batch_loss": 0.3599554160171376,
+      "final_batch_loss": 0.3422286219575586,
+      "prediction_shape": [
+        64,
+        24
+      ]
+    },
+    {
+      "model": "SR",
+      "finite_forward_backward_steps": 12,
+      "initial_batch_loss": 0.36189895177124803,
+      "final_batch_loss": 0.34042456457549913,
+      "prediction_shape": [
+        64,
+        24
+      ]
+    }
+  ],
+  "capacity_checks": [
+    {
+      "model": "DIRECT",
+      "budget": 8192,
+      "parameters": 8146,
+      "width": 19
+    },
+    {
+      "model": "DIRECT",
+      "budget": 32768,
+      "parameters": 32794,
+      "width": 98
+    },
+    {
+      "model": "NET",
+      "budget": 8192,
+      "parameters": 8093,
+      "width": 37
+    },
+    {
+      "model": "NET",
+      "budget": 32768,
+      "parameters": 32945,
+      "width": 113
+    },
+    {
+      "model": "ASYM",
+      "budget": 8192,
+      "parameters": 8266,
+      "width": 37
+    },
+    {
+      "model": "ASYM",
+      "budget": 32768,
+      "parameters": 32716,
+      "width": 112
+    },
+    {
+      "model": "SR",
+      "budget": 8192,
+      "parameters": 8306,
+      "width": 38
+    },
+    {
+      "model": "SR",
+      "budget": 32768,
+      "parameters": 32831,
+      "width": 113
+    }
+  ],
+  "closed_form_max_abs_error": 5.551115123125783e-17,
+  "time_varying_error_identity_checked": true,
+  "limitation": "Target-independence smoke check complements interface/code review; not a proof against all loader leakage."
+}
