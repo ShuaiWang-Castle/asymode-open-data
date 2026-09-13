@@ -17,6 +17,13 @@
    "reason": "100-update throughput profiles completed",
    "scope": "resource numbers and worker layout only; no scientific parameter changed",
    "evaluation_results_touched": false
+  },
+  {
+   "utc": "2026-09-13T00:45:20+00:00",
+   "reason": "development runs measured 3-8x slower than profiled: the host is shared with other sessions' long jobs (not started or signalled by this round), and this round's workers ran uncapped OpenMP/BLAS pools (10-17 threads per process)",
+   "action": "stopped only this round's development workers; relaunched with OMP/OPENBLAS/VECLIB/MKL caps equal to the torch thread count (US 2, synthetic 1); completed trials kept, in-flight trials rerun from scratch",
+   "scope": "execution environment only; no candidate, seed, update budget, split, loss or selection rule changed",
+   "evaluation_results_touched": false
   }
  ],
  "profiled_utc": "2026-09-13T00:28:34+00:00",

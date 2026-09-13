@@ -1,0 +1,160 @@
+{
+ "task": "synthetic",
+ "environment": {
+  "law": 1,
+  "n_per_scene": 128,
+  "gamma": 0.04
+ },
+ "rule": "mean over DEV seeds of best scene-equal validation path MSE against realized events; ties -> smaller target, then smaller lr",
+ "final_update_rule": "median best_update over DEV seeds, nearest 250, clamp [250, 3000]",
+ "models": {
+  "NET": {
+   "selected_config": "p32768_lr0.003",
+   "parameter_target": 32768,
+   "lr": 0.003,
+   "final_updates": 2500,
+   "ranking": [
+    {
+     "config_id": "p32768_lr0.003",
+     "parameter_target": 32768,
+     "lr": 0.003,
+     "mean_best_val": 0.00038873445553464213,
+     "best_updates": [
+      1250,
+      2500,
+      3000
+     ]
+    },
+    {
+     "config_id": "p32768_lr0.001",
+     "parameter_target": 32768,
+     "lr": 0.001,
+     "mean_best_val": 0.0003888847303285023,
+     "best_updates": [
+      2750,
+      1250,
+      3000
+     ]
+    },
+    {
+     "config_id": "p8192_lr0.003",
+     "parameter_target": 8192,
+     "lr": 0.003,
+     "mean_best_val": 0.00038910524187777757,
+     "best_updates": [
+      2000,
+      2000,
+      2000
+     ]
+    },
+    {
+     "config_id": "p8192_lr0.001",
+     "parameter_target": 8192,
+     "lr": 0.001,
+     "mean_best_val": 0.00038950240141823216,
+     "best_updates": [
+      2750,
+      2500,
+      3000
+     ]
+    },
+    {
+     "config_id": "p32768_lr0.0003",
+     "parameter_target": 32768,
+     "lr": 0.0003,
+     "mean_best_val": 0.0003895769052804559,
+     "best_updates": [
+      1750,
+      2250,
+      750
+     ]
+    },
+    {
+     "config_id": "p8192_lr0.0003",
+     "parameter_target": 8192,
+     "lr": 0.0003,
+     "mean_best_val": 0.00038972573587862025,
+     "best_updates": [
+      2000,
+      2250,
+      2750
+     ]
+    }
+   ]
+  },
+  "ASYM": {
+   "selected_config": "p32768_lr0.003",
+   "parameter_target": 32768,
+   "lr": 0.003,
+   "final_updates": 2000,
+   "ranking": [
+    {
+     "config_id": "p32768_lr0.003",
+     "parameter_target": 32768,
+     "lr": 0.003,
+     "mean_best_val": 0.0003890283151118951,
+     "best_updates": [
+      2000,
+      2250,
+      1000
+     ]
+    },
+    {
+     "config_id": "p8192_lr0.003",
+     "parameter_target": 8192,
+     "lr": 0.003,
+     "mean_best_val": 0.00038990086426470396,
+     "best_updates": [
+      2000,
+      2250,
+      1000
+     ]
+    },
+    {
+     "config_id": "p32768_lr0.001",
+     "parameter_target": 32768,
+     "lr": 0.001,
+     "mean_best_val": 0.00039075928615624027,
+     "best_updates": [
+      2750,
+      1250,
+      1500
+     ]
+    },
+    {
+     "config_id": "p8192_lr0.001",
+     "parameter_target": 8192,
+     "lr": 0.001,
+     "mean_best_val": 0.0003913607635378514,
+     "best_updates": [
+      2750,
+      1250,
+      2000
+     ]
+    },
+    {
+     "config_id": "p32768_lr0.0003",
+     "parameter_target": 32768,
+     "lr": 0.0003,
+     "mean_best_val": 0.00039199844353620647,
+     "best_updates": [
+      1250,
+      2000,
+      1500
+     ]
+    },
+    {
+     "config_id": "p8192_lr0.0003",
+     "parameter_target": 8192,
+     "lr": 0.0003,
+     "mean_best_val": 0.0003925396680366561,
+     "best_updates": [
+      1750,
+      2250,
+      3000
+     ]
+    }
+   ]
+  }
+ }
+}
