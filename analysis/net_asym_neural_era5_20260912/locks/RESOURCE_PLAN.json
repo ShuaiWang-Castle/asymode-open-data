@@ -1,5 +1,5 @@
 {
- "status": "PRE_PROFILE_ESTIMATE",
+ "status": "PROFILED_BEFORE_ANY_FORMAL_TRIAL",
  "created_utc": "2026-09-13T00:08:56+00:00",
  "hardware": "Apple M2, 8 CPU cores (4P+4E), 16 GB RAM, no CUDA; MPS not used for determinism",
  "estimate_cpu_hours": {
@@ -11,5 +11,218 @@
   "scoring_replay_figures": 0.5
  },
  "will_be_revised_after": "100-update throughput profile, before any formal trial",
- "revision_log": []
+ "revision_log": [
+  {
+   "utc": "2026-09-13T00:28:34+00:00",
+   "reason": "100-update throughput profiles completed",
+   "scope": "resource numbers and worker layout only; no scientific parameter changed",
+   "evaluation_results_touched": false
+  }
+ ],
+ "profiled_utc": "2026-09-13T00:28:34+00:00",
+ "profiles": {
+  "SYNTH_PROFILE_t1": {
+   "threads": 1,
+   "runs": [
+    {
+     "model": "NET",
+     "config_id": "p8192_lr0.001",
+     "width": 73,
+     "n_params": 8139,
+     "seconds_per_update": 0.006500000000000001,
+     "projected_run_seconds_3000": 19.5
+    },
+    {
+     "model": "NET",
+     "config_id": "p32768_lr0.001",
+     "width": 163,
+     "n_params": 32799,
+     "seconds_per_update": 0.0069,
+     "projected_run_seconds_3000": 20.7
+    },
+    {
+     "model": "ASYM",
+     "config_id": "p8192_lr0.001",
+     "width": 73,
+     "n_params": 8173,
+     "seconds_per_update": 0.0026,
+     "projected_run_seconds_3000": 7.800000000000001
+    },
+    {
+     "model": "ASYM",
+     "config_id": "p32768_lr0.001",
+     "width": 163,
+     "n_params": 32833,
+     "seconds_per_update": 0.0027,
+     "projected_run_seconds_3000": 8.100000000000001
+    }
+   ]
+  },
+  "SYNTH_PROFILE_t2": {
+   "threads": 2,
+   "runs": [
+    {
+     "model": "NET",
+     "config_id": "p8192_lr0.001",
+     "width": 73,
+     "n_params": 8139,
+     "seconds_per_update": 0.0060999999999999995,
+     "projected_run_seconds_3000": 18.3
+    },
+    {
+     "model": "NET",
+     "config_id": "p32768_lr0.001",
+     "width": 163,
+     "n_params": 32799,
+     "seconds_per_update": 0.0070999999999999995,
+     "projected_run_seconds_3000": 21.299999999999997
+    },
+    {
+     "model": "ASYM",
+     "config_id": "p8192_lr0.001",
+     "width": 73,
+     "n_params": 8173,
+     "seconds_per_update": 0.0026,
+     "projected_run_seconds_3000": 7.800000000000001
+    },
+    {
+     "model": "ASYM",
+     "config_id": "p32768_lr0.001",
+     "width": 163,
+     "n_params": 32833,
+     "seconds_per_update": 0.0027,
+     "projected_run_seconds_3000": 8.100000000000001
+    }
+   ]
+  },
+  "US_PROFILE_t1": {
+   "threads": 1,
+   "runs": [
+    {
+     "model": "NET",
+     "config_id": "p8192_lr0.001",
+     "width": 12,
+     "n_params": 8189,
+     "seconds_per_update": 0.030507329579850192,
+     "projected_run_seconds_3000": 108.27698873943882
+    },
+    {
+     "model": "NET",
+     "config_id": "p32768_lr0.001",
+     "width": 48,
+     "n_params": 32633,
+     "seconds_per_update": 0.03657426499994472,
+     "projected_run_seconds_3000": 116.93974749580958
+    },
+    {
+     "model": "ASYM",
+     "config_id": "p8192_lr0.001",
+     "width": 11,
+     "n_params": 8162,
+     "seconds_per_update": 0.031633012919919566,
+     "projected_run_seconds_3000": 108.00968025578186
+    },
+    {
+     "model": "ASYM",
+     "config_id": "p32768_lr0.001",
+     "width": 47,
+     "n_params": 32534,
+     "seconds_per_update": 0.03312562542007072,
+     "projected_run_seconds_3000": 110.64719976024935
+    }
+   ]
+  },
+  "US_PROFILE_t2": {
+   "threads": 2,
+   "runs": [
+    {
+     "model": "NET",
+     "config_id": "p8192_lr0.001",
+     "width": 12,
+     "n_params": 8189,
+     "seconds_per_update": 0.02033596958994167,
+     "projected_run_seconds_3000": 66.97179277759278
+    },
+    {
+     "model": "NET",
+     "config_id": "p32768_lr0.001",
+     "width": 48,
+     "n_params": 32633,
+     "seconds_per_update": 0.03685062584001571,
+     "projected_run_seconds_3000": 119.17486902012024
+    },
+    {
+     "model": "ASYM",
+     "config_id": "p8192_lr0.001",
+     "width": 11,
+     "n_params": 8162,
+     "seconds_per_update": 0.024589212920109276,
+     "projected_run_seconds_3000": 80.95796226005768
+    },
+    {
+     "model": "ASYM",
+     "config_id": "p32768_lr0.001",
+     "width": 47,
+     "n_params": 32534,
+     "seconds_per_update": 0.026738694579980803,
+     "projected_run_seconds_3000": 88.57620423595654
+    }
+   ]
+  },
+  "US_PROFILE_t4": {
+   "threads": 4,
+   "runs": [
+    {
+     "model": "NET",
+     "config_id": "p8192_lr0.001",
+     "width": 12,
+     "n_params": 8189,
+     "seconds_per_update": 0.021664094160078095,
+     "projected_run_seconds_3000": 70.94368898437824
+    },
+    {
+     "model": "NET",
+     "config_id": "p32768_lr0.001",
+     "width": 48,
+     "n_params": 32633,
+     "seconds_per_update": 0.03174018791003618,
+     "projected_run_seconds_3000": 101.05546273814979
+    },
+    {
+     "model": "ASYM",
+     "config_id": "p8192_lr0.001",
+     "width": 11,
+     "n_params": 8162,
+     "seconds_per_update": 0.020579007919877768,
+     "projected_run_seconds_3000": 68.22451625950634
+    },
+    {
+     "model": "ASYM",
+     "config_id": "p32768_lr0.001",
+     "width": 47,
+     "n_params": 32534,
+     "seconds_per_update": 0.026671202089928556,
+     "projected_run_seconds_3000": 87.65047226980096
+    }
+   ]
+  }
+ },
+ "projection_basis": "conservative: slowest profiled candidate at 3000 updates for every run, validation included",
+ "projected_single_process_cpu_hours": {
+  "task_A_dev_36_runs": 1.19,
+  "task_A_final_10_runs": 0.33,
+  "task_C_dev_36_runs": 0.14,
+  "task_C_final_120_runs": 0.48,
+  "task_B_replay_and_spot_retrain": 0.1,
+  "scoring_replay_figures": 0.5
+ },
+ "projected_total_single_process_cpu_hours": 2.75,
+ "budget_hours_available_for_training": 20.4,
+ "fraction_of_training_budget": 0.135,
+ "reduction_ladder_triggered": false,
+ "execution_layout": {
+  "task_A": "3 worker processes x 2 threads",
+  "task_C": "2 worker processes x 1 thread",
+  "task_B": "1 process x 8 threads, matching the thread count of the repair run so the spot retrain can be compared bitwise"
+ }
 }

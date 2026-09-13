@@ -1,0 +1,13 @@
+..................................................                       [100%]
+=============================== warnings summary ===============================
+tests/test_models.py::test_cpu_fp64_reference_matches_fp32_device[us-NET]
+  ./tests/test_models.py:111: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+  Consider using tensor.detach() first. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)
+    assert abs(float(l32) - float(l64)) <= 1e-4 * abs(float(l64)) + 1e-6
+
+tests/test_us_data.py::test_states_are_exact_hourly_snapshots_not_means
+  ./tests/test_us_data.py:30: RuntimeWarning: Mean of empty slice
+    means = np.nanmean(np.where(o, y, np.nan)[:, :672].reshape(len(rows), 168, 4), axis=2)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+50 passed, 2 warnings in 15.99s

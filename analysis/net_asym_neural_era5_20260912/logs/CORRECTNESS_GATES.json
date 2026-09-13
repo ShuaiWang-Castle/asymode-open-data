@@ -1,0 +1,134 @@
+{
+ "fp64_cpu_reference_vs_fp32_device": {
+  "us_era5/NET": {
+   "forward_max_abs_diff": 3.1695224622652063e-07,
+   "forward_allclose_atol1e-6_rtol1e-4": true,
+   "loss_rel_diff": 1.2320636488435875e-07,
+   "grad_max_relative_norm_error": 1.4182352624380003e-07,
+   "pass": true
+  },
+  "us_era5/ASYM": {
+   "forward_max_abs_diff": 1.2967660466267628e-07,
+   "forward_allclose_atol1e-6_rtol1e-4": true,
+   "loss_rel_diff": 8.449517743550966e-08,
+   "grad_max_relative_norm_error": 1.491287687227083e-06,
+   "pass": true
+  },
+  "aneel/NET": {
+   "forward_max_abs_diff": 1.806366550782812e-07,
+   "forward_allclose_atol1e-6_rtol1e-4": true,
+   "loss_rel_diff": 1.3292873604345568e-07,
+   "grad_max_relative_norm_error": 2.08394702468864e-07,
+   "pass": true
+  },
+  "aneel/ASYM": {
+   "forward_max_abs_diff": 7.282160571775442e-08,
+   "forward_allclose_atol1e-6_rtol1e-4": true,
+   "loss_rel_diff": 1.0165867918756177e-07,
+   "grad_max_relative_norm_error": 1.3396558842346249e-06,
+   "pass": true
+  },
+  "synthetic/NET": {
+   "forward_max_abs_diff": 1.972608934863729e-06,
+   "forward_allclose_atol1e-6_rtol1e-4": true,
+   "loss_rel_diff": 6.153562708708744e-08,
+   "grad_max_relative_norm_error": 1.0606991021488538e-07,
+   "pass": true
+  },
+  "synthetic/ASYM": {
+   "forward_max_abs_diff": 8.024867143019421e-08,
+   "forward_allclose_atol1e-6_rtol1e-4": true,
+   "loss_rel_diff": 3.332970365645428e-09,
+   "grad_max_relative_norm_error": 1.463681927761897e-06,
+   "pass": true
+  }
+ },
+ "net_general_affine_response": {
+  "max_abs_error_vs_exact_affine_recursion": 5.551115123125783e-17,
+  "increment_at_y0.1_min": 0.018000000000000002,
+  "increment_at_y0.9_max": -0.07799999999999996,
+  "both_signs_under_same_context": true,
+  "signed_single_rate_can_do_this": false,
+  "pass": true
+ },
+ "asym_recursion_bounds_from_legal_start": {
+  "H24": {
+   "min": 0.0,
+   "max": 1.0
+  },
+  "H32": {
+   "min": 0.0,
+   "max": 1.0
+  },
+  "pass": true
+ },
+ "forward_signature": {
+  "params": [
+   "self",
+   "c",
+   "y0",
+   "known_clock"
+  ],
+  "accepts_target": false,
+  "pass": true
+ },
+ "changing_target_does_not_change_forward": {
+  "identical": true,
+  "pass": true
+ },
+ "shapes_and_endpoints": {
+  "us_era5": {
+   "output": [
+    8,
+    24
+   ],
+   "endpoints": {
+    "1h": 0,
+    "6h": 5,
+    "24h": 23
+   }
+  },
+  "aneel": {
+   "output": [
+    8,
+    24
+   ],
+   "endpoints": {
+    "1h": 0,
+    "6h": 5,
+    "24h": 23
+   }
+  },
+  "synthetic": {
+   "output": [
+    3,
+    32
+   ],
+   "endpoints": {
+    "1h": 0,
+    "6h": 5,
+    "24h": 23,
+    "32h": 31
+   }
+  },
+  "step_k_reads": "US weather hour t+k+1; ANEEL calendar t+k; synthetic (x[k], k/32)",
+  "pass": true
+ },
+ "paired_training_sample_ids": {
+  "us_era5_seed8101_first20": [
+   "ed8ac7d94f329ff34daedc1b7c513ccac58234d71a5a1b81de1b3c5e16a42058",
+   "ed8ac7d94f329ff34daedc1b7c513ccac58234d71a5a1b81de1b3c5e16a42058"
+  ],
+  "synthetic_seed6201_first20": [
+   "05425be4d7e7ba44a1b62f232cfd0a46416b4ace4f02ba18aa1856d1fa3d970e",
+   "05425be4d7e7ba44a1b62f232cfd0a46416b4ace4f02ba18aa1856d1fa3d970e"
+  ],
+  "evaluation_ids": "both models score the identical frozen window list (US) / identical events (synthetic) / identical origins (ANEEL)",
+  "pass": true
+ },
+ "checkpoint_only_replay": {
+  "status": "PENDING_AFTER_TRAINING",
+  "script": "code/replay.py via REPLAY_ONLY.sh"
+ },
+ "all_measured_gates_pass": true
+}

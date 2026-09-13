@@ -1,0 +1,58 @@
+{
+ "threads": 4,
+ "updates": 100,
+ "torch": "2.8.0",
+ "device": "cpu",
+ "cuda_available": false,
+ "runs": [
+  {
+   "model": "NET",
+   "config_id": "p8192_lr0.001",
+   "parameter_target": 8192,
+   "lr": 0.001,
+   "width": 12,
+   "n_params": 8189,
+   "seconds_per_update": 0.021664094160078095,
+   "updates_per_second": 46.15932670024894,
+   "validation_pass_seconds": 0.49595054201199673,
+   "projected_run_seconds_3000": 70.94368898437824
+  },
+  {
+   "model": "NET",
+   "config_id": "p32768_lr0.001",
+   "parameter_target": 32768,
+   "lr": 0.001,
+   "width": 48,
+   "n_params": 32633,
+   "seconds_per_update": 0.03174018791003618,
+   "updates_per_second": 31.505799613864355,
+   "validation_pass_seconds": 0.4862415840034373,
+   "projected_run_seconds_3000": 101.05546273814979
+  },
+  {
+   "model": "ASYM",
+   "config_id": "p8192_lr0.001",
+   "parameter_target": 8192,
+   "lr": 0.001,
+   "width": 11,
+   "n_params": 8162,
+   "seconds_per_update": 0.020579007919877768,
+   "updates_per_second": 48.593207403068035,
+   "validation_pass_seconds": 0.5406243749894202,
+   "projected_run_seconds_3000": 68.22451625950634
+  },
+  {
+   "model": "ASYM",
+   "config_id": "p32768_lr0.001",
+   "parameter_target": 32768,
+   "lr": 0.001,
+   "width": 47,
+   "n_params": 32534,
+   "seconds_per_update": 0.026671202089928556,
+   "updates_per_second": 37.49362314560298,
+   "validation_pass_seconds": 0.636405500001274,
+   "projected_run_seconds_3000": 87.65047226980096
+  }
+ ],
+ "peak_rss_mb": 886.90625
+}
