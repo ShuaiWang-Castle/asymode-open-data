@@ -1,0 +1,71 @@
+{
+ "task": "ANEEL targeted selection repair (table-only)",
+ "candidate_key": "(model, config_id)",
+ "support_rule": "2 folds x 3 development seeds per eligible candidate",
+ "selection": {
+  "NET": {
+   "top2": [
+    "p32768_lr0.0003",
+    "p8192_lr0.0003"
+   ],
+   "selected_config": "p32768_lr0.0003",
+   "parameter_target": 32768,
+   "lr": 0.0003,
+   "final_updates": 3500,
+   "candidate_means_six_records": {
+    "p32768_lr0.0003": 0.00012911443894395852,
+    "p8192_lr0.0003": 0.0001291411805178832
+   },
+   "scaled_updates": [
+    2539.3858477970625,
+    3021.71226831421,
+    3021.71226831421,
+    4028.9496910856133,
+    4570.894526034713,
+    5586.648865153538
+   ],
+   "median_scaled": 3525.330979699912
+  },
+  "ASYM": {
+   "top2": [
+    "p32768_lr0.001",
+    "p8192_lr0.001"
+   ],
+   "selected_config": "p8192_lr0.001",
+   "parameter_target": 8192,
+   "lr": 0.001,
+   "final_updates": 1000,
+   "candidate_means_six_records": {
+    "p8192_lr0.001": 0.0001288935374732387,
+    "p32768_lr0.001": 0.00012898324928234056
+   },
+   "scaled_updates": [
+    671.4916151809356,
+    1007.2374227714033,
+    1015.7543391188251,
+    1015.7543391188251,
+    2014.4748455428066,
+    4570.894526034713
+   ],
+   "median_scaled": 1015.7543391188251
+  }
+ },
+ "matches_verified_repair_config": {
+  "NET": true,
+  "ASYM": true
+ },
+ "status": "PASS",
+ "origin_counts": {
+  "fold_A_fit": 3745,
+  "fold_A_val": 1920,
+  "fold_B_fit": 5665,
+  "fold_B_val": 1920,
+  "full_2018": 7608,
+  "reused_2019": 7608
+ },
+ "sources": {
+  "stage1_sha256": "7f2917dca2238d1d10afaa4d3fd671055747d0996ebe58978c7d763077aa0a4b",
+  "stage2_sha256": "4ce90c4b5fe8b8f774b307766af0f5a3a425d039d1e623a35ced98d3aba3aee2",
+  "origins_sha256": "d4d7944f8f5dda5208c525696ea0145df869a7728fa837907e3c1725087cb90a"
+ }
+}

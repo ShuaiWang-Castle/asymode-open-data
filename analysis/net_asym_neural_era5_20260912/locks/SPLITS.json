@@ -1,0 +1,174 @@
+{
+ "information_contract": "RETROSPECTIVE_KNOWN_REANALYSIS_CONDITIONAL_RESPONSE",
+ "state_rule": "exact UTC top-of-hour snapshot y[4h]; legal iff observed and finite",
+ "weather_rule": "county weather illegal iff all 12 channels are exactly 0 at all 169 hours",
+ "window": {
+  "L": 24,
+  "H": 24,
+  "origin_stride_hours": 6,
+  "origin_hour_range": [
+   24,
+   144
+  ],
+  "states": "t-24..t+24 (49)",
+  "past_weather_hours": "t-23..t",
+  "future_weather_hours": "t+1..t+24",
+  "step_k_weather_hour": "t+k+1"
+ },
+ "dedup_rule": "(fips, origin_utc) kept once, earliest event_day owns it",
+ "splits": {
+  "train": {
+   "years": [
+    2018,
+    2019,
+    2020,
+    2021
+   ],
+   "events": [
+    "2018-01-16",
+    "2018-10-11",
+    "2019-02-20",
+    "2019-02-24",
+    "2019-11-27",
+    "2020-02-06",
+    "2020-08-04",
+    "2020-10-29",
+    "2021-02-15",
+    "2021-05-04",
+    "2021-06-21",
+    "2021-08-11",
+    "2021-12-11",
+    "2021-12-15"
+   ],
+   "n_events": 14,
+   "windows": 60707,
+   "county_event_pairs": 3427,
+   "window_id_sha256": "d206e467b17e6cab9fbfa60bd1ed749764d84411265ef0ddf32cce99c13e0edb",
+   "overlap_components": [
+    [
+     "2018-01-16"
+    ],
+    [
+     "2018-10-11"
+    ],
+    [
+     "2019-02-20",
+     "2019-02-24"
+    ],
+    [
+     "2019-11-27"
+    ],
+    [
+     "2020-02-06"
+    ],
+    [
+     "2020-08-04"
+    ],
+    [
+     "2020-10-29"
+    ],
+    [
+     "2021-02-15"
+    ],
+    [
+     "2021-05-04"
+    ],
+    [
+     "2021-06-21"
+    ],
+    [
+     "2021-08-11"
+    ],
+    [
+     "2021-12-11",
+     "2021-12-15"
+    ]
+   ]
+  },
+  "validation": {
+   "years": [
+    2022
+   ],
+   "events": [
+    "2022-01-16",
+    "2022-03-12",
+    "2022-04-13",
+    "2022-06-08",
+    "2022-06-17",
+    "2022-07-23"
+   ],
+   "n_events": 6,
+   "windows": 32907,
+   "county_event_pairs": 1710,
+   "window_id_sha256": "4b90d5f5f3649a3baca1f7abd1f3950d23a01e09a041f9a2bab85732c7b4b5ad",
+   "overlap_components": [
+    [
+     "2022-01-16"
+    ],
+    [
+     "2022-03-12"
+    ],
+    [
+     "2022-04-13"
+    ],
+    [
+     "2022-06-08"
+    ],
+    [
+     "2022-06-17"
+    ],
+    [
+     "2022-07-23"
+    ]
+   ]
+  },
+  "evaluation": {
+   "years": [
+    2024
+   ],
+   "events": [
+    "2024-01-09",
+    "2024-01-12",
+    "2024-05-08",
+    "2024-05-26",
+    "2024-06-26",
+    "2024-09-27"
+   ],
+   "n_events": 6,
+   "windows": 25430,
+   "county_event_pairs": 1240,
+   "window_id_sha256": "f7a5708c181c90fdb4b66d72ac4b2108cb2ad27a189dca6e55c23cf76f470981",
+   "overlap_components": [
+    [
+     "2024-01-09",
+     "2024-01-12"
+    ],
+    [
+     "2024-05-08"
+    ],
+    [
+     "2024-05-26"
+    ],
+    [
+     "2024-06-26"
+    ],
+    [
+     "2024-09-27"
+    ]
+   ]
+  }
+ },
+ "cross_split_shared_cells": {
+  "evaluation&train": 0,
+  "evaluation&validation": 0,
+  "train&validation": 0
+ },
+ "cross_split_leakage": "NONE",
+ "dedup_dropped_windows": 972,
+ "expected_events": {
+  "train": 14,
+  "validation": 6,
+  "evaluation": 6
+ },
+ "events_match_expected": true
+}

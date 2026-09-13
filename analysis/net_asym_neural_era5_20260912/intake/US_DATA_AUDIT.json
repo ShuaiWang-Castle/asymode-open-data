@@ -1,0 +1,3662 @@
+{
+ "summary": {
+  "events": 26,
+  "unique_panel_counties": 2625,
+  "counties_all_zero_whenever_present": 1265,
+  "counties_nonzero_whenever_present": 1360,
+  "counties_switching_status": 0,
+  "all_channels_match_expected_order": true,
+  "all_fips_identical_order": true,
+  "all_driver_ts_equal_panel_snapshots": true,
+  "all_panels_start_on_hour": true,
+  "all_denominators_finite_positive": true,
+  "total_observed_nonfinite_cells": 41297,
+  "total_observed_y_below0": 0,
+  "total_observed_y_above1": 0,
+  "total_X_nonfinite": 0,
+  "total_partial_zero_hour_counties": 0,
+  "sentinel_equals_allzero_everywhere": true
+ },
+ "events": [
+  {
+   "event": "2018-01-16",
+   "year": 2018,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    355,
+    673
+   ],
+   "observed_shape": [
+    355,
+    673
+   ],
+   "X_shape": [
+    355,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 355,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2018-01-14 00:00:00",
+   "panel_ts_end_utc": "2018-01-21 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.947186237783312,
+   "observed_nonfinite_cells": 853,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.7211394302848576,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.8479741225027287,
+   "denominator_finite_positive": true,
+   "denominator_min": 1680.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9500291690974247,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 122,
+   "weather_all_zero_fraction": 0.3436619718309859,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 122,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     2.0011794567108154,
+     359.1639709472656
+    ],
+    "cloud": [
+     0.0,
+     0.46053847670555115,
+     1.0
+    ],
+    "gust": [
+     0.7580236792564392,
+     6.338393211364746,
+     18.978092193603516
+    ],
+    "precip": [
+     0.0,
+     0.030716892331838608,
+     2.3201000690460205
+    ],
+    "pressure": [
+     90873.8515625,
+     99928.6796875,
+     103951.4296875
+    ],
+    "rh": [
+     3.1703600883483887,
+     62.75932693481445,
+     100.00169372558594
+    ],
+    "snowfall": [
+     0.0,
+     0.025989754125475883,
+     0.960696816444397
+    ],
+    "soil_moisture": [
+     0.2645309567451477,
+     0.41031476855278015,
+     0.5046495199203491
+    ],
+    "t2m_c": [
+     -22.148170471191406,
+     -2.756601572036743,
+     20.80169677734375
+    ],
+    "u10": [
+     -3.305882215499878,
+     0.7922042012214661,
+     7.1163010597229
+    ],
+    "v10": [
+     -10.543152809143066,
+     0.4587339460849762,
+     7.951259136199951
+    ],
+    "wind_speed": [
+     0.10562297701835632,
+     2.96055006980896,
+     10.615303993225098
+    ]
+   }
+  },
+  {
+   "event": "2018-10-11",
+   "year": 2018,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    235,
+    673
+   ],
+   "observed_shape": [
+    235,
+    673
+   ],
+   "X_shape": [
+    235,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 235,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2018-10-09 00:00:00",
+   "panel_ts_end_utc": "2018-10-16 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9768834371344567,
+   "observed_nonfinite_cells": 450,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 1.0,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.5028317335387285,
+   "denominator_finite_positive": true,
+   "denominator_min": 1407.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9768349490117084,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 109,
+   "weather_all_zero_fraction": 0.46382978723404256,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 109,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     128.60671997070312,
+     3541.509033203125
+    ],
+    "cloud": [
+     0.0,
+     0.6405349969863892,
+     1.0
+    ],
+    "gust": [
+     0.6844794750213623,
+     7.281594753265381,
+     28.55572509765625
+    ],
+    "precip": [
+     0.0,
+     0.4173181653022766,
+     25.936819076538086
+    ],
+    "pressure": [
+     81471.59375,
+     98745.0,
+     102712.4609375
+    ],
+    "rh": [
+     14.712339401245117,
+     79.0384521484375,
+     100.00028991699219
+    ],
+    "snowfall": [
+     0.0,
+     7.891313725849614e-05,
+     0.27538424730300903
+    ],
+    "soil_moisture": [
+     -1.4804303646087646e-05,
+     0.40738266706466675,
+     0.561800479888916
+    ],
+    "t2m_c": [
+     0.5329267978668213,
+     19.342599868774414,
+     31.728500366210938
+    ],
+    "u10": [
+     -11.040882110595703,
+     -0.46967819333076477,
+     16.742740631103516
+    ],
+    "v10": [
+     -16.650279998779297,
+     0.10707888007164001,
+     14.0006742477417
+    ],
+    "wind_speed": [
+     0.1921335607767105,
+     3.27842378616333,
+     20.0251522064209
+    ]
+   }
+  },
+  {
+   "event": "2019-02-20",
+   "year": 2019,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    474,
+    673
+   ],
+   "observed_shape": [
+    474,
+    673
+   ],
+   "X_shape": [
+    474,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 474,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2019-02-18 00:00:00",
+   "panel_ts_end_utc": "2019-02-25 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9566021529645582,
+   "observed_nonfinite_cells": 11285,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.7507411067193676,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.7445651105329043,
+   "denominator_finite_positive": true,
+   "denominator_min": 1361.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9566074950690335,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 147,
+   "weather_all_zero_fraction": 0.310126582278481,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 147,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     31.444822311401367,
+     2512.11279296875
+    ],
+    "cloud": [
+     0.0,
+     0.8852758407592773,
+     1.0
+    ],
+    "gust": [
+     0.3684091866016388,
+     8.134604454040527,
+     26.423686981201172
+    ],
+    "precip": [
+     0.0,
+     0.36046096682548523,
+     9.224750518798828
+    ],
+    "pressure": [
+     80627.21875,
+     98463.7890625,
+     103635.34375
+    ],
+    "rh": [
+     12.945406913757324,
+     75.97982025146484,
+     100.00382995605469
+    ],
+    "snowfall": [
+     0.0,
+     0.06778134405612946,
+     5.277030944824219
+    ],
+    "soil_moisture": [
+     0.0803709477186203,
+     0.4187050461769104,
+     0.5197908282279968
+    ],
+    "t2m_c": [
+     -26.245378494262695,
+     2.134423017501831,
+     27.073928833007812
+    ],
+    "u10": [
+     -10.501852989196777,
+     0.4131050109863281,
+     16.296045303344727
+    ],
+    "v10": [
+     -13.621466636657715,
+     -0.01489215437322855,
+     9.714821815490723
+    ],
+    "wind_speed": [
+     0.06705292314291,
+     3.7233450412750244,
+     19.1649169921875
+    ]
+   }
+  },
+  {
+   "event": "2019-02-24",
+   "year": 2019,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    688,
+    673
+   ],
+   "observed_shape": [
+    688,
+    673
+   ],
+   "X_shape": [
+    688,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 688,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2019-02-22 00:00:00",
+   "panel_ts_end_utc": "2019-03-01 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.95493754103459,
+   "observed_nonfinite_cells": 2209,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 1.0,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.6566054292686567,
+   "denominator_finite_positive": true,
+   "denominator_min": 556.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9549246594192927,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 235,
+   "weather_all_zero_fraction": 0.34156976744186046,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 235,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     12.733526229858398,
+     1123.837158203125
+    ],
+    "cloud": [
+     0.0,
+     0.7137234210968018,
+     1.0
+    ],
+    "gust": [
+     0.6270118355751038,
+     8.407322883605957,
+     27.986309051513672
+    ],
+    "precip": [
+     0.0,
+     0.1738540530204773,
+     8.15888500213623
+    ],
+    "pressure": [
+     89451.5390625,
+     98266.90625,
+     102249.4140625
+    ],
+    "rh": [
+     7.154247283935547,
+     67.29447937011719,
+     100.00225830078125
+    ],
+    "snowfall": [
+     0.0,
+     0.030473560094833374,
+     5.481908798217773
+    ],
+    "soil_moisture": [
+     0.12671175599098206,
+     0.39675191044807434,
+     0.5197908282279968
+    ],
+    "t2m_c": [
+     -30.42728042602539,
+     0.2975398898124695,
+     24.68620491027832
+    ],
+    "u10": [
+     -8.325495719909668,
+     0.9926005005836487,
+     16.296045303344727
+    ],
+    "v10": [
+     -13.621466636657715,
+     -0.3136324882507324,
+     10.746077537536621
+    ],
+    "wind_speed": [
+     0.1289195567369461,
+     3.9812707901000977,
+     19.1649169921875
+    ]
+   }
+  },
+  {
+   "event": "2019-11-27",
+   "year": 2019,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    480,
+    673
+   ],
+   "observed_shape": [
+    480,
+    673
+   ],
+   "X_shape": [
+    480,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 480,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2019-11-25 00:00:00",
+   "panel_ts_end_utc": "2019-12-02 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9904655770183259,
+   "observed_nonfinite_cells": 2032,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 1.0,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.7226215776972121,
+   "denominator_finite_positive": true,
+   "denominator_min": 689.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9904339250493097,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 196,
+   "weather_all_zero_fraction": 0.4083333333333333,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 196,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     31.76319694519043,
+     3509.165283203125
+    ],
+    "cloud": [
+     0.0,
+     0.7433222532272339,
+     1.0
+    ],
+    "gust": [
+     0.7132589817047119,
+     8.537614822387695,
+     25.67542839050293
+    ],
+    "precip": [
+     0.0,
+     0.24348904192447662,
+     10.955056190490723
+    ],
+    "pressure": [
+     76395.859375,
+     97717.078125,
+     102445.8671875
+    ],
+    "rh": [
+     13.437430381774902,
+     75.067138671875,
+     100.00772857666016
+    ],
+    "snowfall": [
+     0.0,
+     0.02739786170423031,
+     4.085878849029541
+    ],
+    "soil_moisture": [
+     0.05399928614497185,
+     0.3813709616661072,
+     0.5190212726593018
+    ],
+    "t2m_c": [
+     -13.683216094970703,
+     5.611659049987793,
+     26.502851486206055
+    ],
+    "u10": [
+     -11.88899040222168,
+     0.7244800329208374,
+     13.589484214782715
+    ],
+    "v10": [
+     -10.016757011413574,
+     0.8193791508674622,
+     10.658650398254395
+    ],
+    "wind_speed": [
+     0.09875547885894775,
+     4.176414966583252,
+     13.983354568481445
+    ]
+   }
+  },
+  {
+   "event": "2020-02-06",
+   "year": 2020,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    326,
+    673
+   ],
+   "observed_shape": [
+    326,
+    673
+   ],
+   "X_shape": [
+    326,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 326,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2020-02-04 00:00:00",
+   "panel_ts_end_utc": "2020-02-11 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9780854884730034,
+   "observed_nonfinite_cells": 844,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 1.0,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.6902418565636795,
+   "denominator_finite_positive": true,
+   "denominator_min": 908.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9780738374414637,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 163,
+   "weather_all_zero_fraction": 0.5,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 163,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     48.81980514526367,
+     2857.14501953125
+    ],
+    "cloud": [
+     0.0,
+     0.779352605342865,
+     1.0
+    ],
+    "gust": [
+     0.6266446709632874,
+     8.61784839630127,
+     30.618087768554688
+    ],
+    "precip": [
+     0.0,
+     0.5287399888038635,
+     19.395376205444336
+    ],
+    "pressure": [
+     74449.6875,
+     97187.1796875,
+     103444.3203125
+    ],
+    "rh": [
+     22.270055770874023,
+     77.31503295898438,
+     100.00553894042969
+    ],
+    "snowfall": [
+     0.0,
+     0.026043860241770744,
+     3.7104485034942627
+    ],
+    "soil_moisture": [
+     0.23538857698440552,
+     0.43724295496940613,
+     0.5198872089385986
+    ],
+    "t2m_c": [
+     -25.621395111083984,
+     8.112788200378418,
+     24.483795166015625
+    ],
+    "u10": [
+     -5.761999607086182,
+     1.2154744863510132,
+     11.565352439880371
+    ],
+    "v10": [
+     -7.397837162017822,
+     1.7829549312591553,
+     10.058847427368164
+    ],
+    "wind_speed": [
+     0.20135629177093506,
+     3.5842912197113037,
+     12.696938514709473
+    ]
+   }
+  },
+  {
+   "event": "2020-08-04",
+   "year": 2020,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    213,
+    673
+   ],
+   "observed_shape": [
+    213,
+    673
+   ],
+   "X_shape": [
+    213,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 213,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2020-08-02 00:00:00",
+   "panel_ts_end_utc": "2020-08-09 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9966515287863885,
+   "observed_nonfinite_cells": 157,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.9700944701847283,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.3666015720695182,
+   "denominator_finite_positive": true,
+   "denominator_min": 2419.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9966663888657388,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 124,
+   "weather_all_zero_fraction": 0.5821596244131455,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 124,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     765.56201171875,
+     4467.83740234375
+    ],
+    "cloud": [
+     0.0,
+     0.6314226984977722,
+     1.0
+    ],
+    "gust": [
+     0.8392137885093689,
+     6.262879371643066,
+     32.955413818359375
+    ],
+    "precip": [
+     0.0,
+     0.44087639451026917,
+     19.337080001831055
+    ],
+    "pressure": [
+     79664.4921875,
+     99804.109375,
+     102090.0078125
+    ],
+    "rh": [
+     7.576869487762451,
+     76.50299072265625,
+     99.71763610839844
+    ],
+    "snowfall": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "soil_moisture": [
+     -1.2159347534179688e-05,
+     0.33966064453125,
+     0.593574047088623
+    ],
+    "t2m_c": [
+     9.328570365905762,
+     24.89778709411621,
+     36.576683044433594
+    ],
+    "u10": [
+     -11.83047866821289,
+     0.4179711937904358,
+     16.890663146972656
+    ],
+    "v10": [
+     -9.947196960449219,
+     1.2210772037506104,
+     22.601451873779297
+    ],
+    "wind_speed": [
+     0.15527769923210144,
+     2.7519118785858154,
+     22.704103469848633
+    ]
+   }
+  },
+  {
+   "event": "2020-10-29",
+   "year": 2020,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    240,
+    673
+   ],
+   "observed_shape": [
+    240,
+    673
+   ],
+   "X_shape": [
+    240,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 240,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2020-10-27 00:00:00",
+   "panel_ts_end_utc": "2020-11-03 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9985141158989599,
+   "observed_nonfinite_cells": 1522,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.9901432311720314,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.4794580853174603,
+   "denominator_finite_positive": true,
+   "denominator_min": 1407.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9940828402366864,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 100,
+   "weather_all_zero_fraction": 0.4166666666666667,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 100,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     33.536338806152344,
+     1586.370849609375
+    ],
+    "cloud": [
+     0.0,
+     0.5178327560424805,
+     1.0
+    ],
+    "gust": [
+     0.6395403742790222,
+     8.061422348022461,
+     34.51716995239258
+    ],
+    "precip": [
+     0.0,
+     0.2846735715866089,
+     22.370269775390625
+    ],
+    "pressure": [
+     89158.78125,
+     98785.484375,
+     103185.3984375
+    ],
+    "rh": [
+     17.119760513305664,
+     72.9344253540039,
+     100.00878143310547
+    ],
+    "snowfall": [
+     0.0,
+     3.364835265529109e-06,
+     0.007070906925946474
+    ],
+    "soil_moisture": [
+     0.09683077782392502,
+     0.4535888433456421,
+     0.5205613970756531
+    ],
+    "t2m_c": [
+     -3.219856023788452,
+     14.890329360961914,
+     29.10205841064453
+    ],
+    "u10": [
+     -9.158491134643555,
+     0.6883017420768738,
+     10.005992889404297
+    ],
+    "v10": [
+     -7.383907794952393,
+     -0.21001628041267395,
+     14.532957077026367
+    ],
+    "wind_speed": [
+     0.12197615206241608,
+     3.548445701599121,
+     14.65057373046875
+    ]
+   }
+  },
+  {
+   "event": "2021-02-15",
+   "year": 2021,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    810,
+    673
+   ],
+   "observed_shape": [
+    810,
+    673
+   ],
+   "X_shape": [
+    810,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 810,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2021-02-13 00:00:00",
+   "panel_ts_end_utc": "2021-02-20 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9838974189642837,
+   "observed_nonfinite_cells": 3657,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 1.0,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.6880034007517452,
+   "denominator_finite_positive": true,
+   "denominator_min": 222.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9853897289794725,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 307,
+   "weather_all_zero_fraction": 0.3790123456790123,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 307,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     4.1076741218566895,
+     1199.068603515625
+    ],
+    "cloud": [
+     0.0,
+     0.8456708192825317,
+     1.0
+    ],
+    "gust": [
+     0.49782904982566833,
+     6.743556976318359,
+     23.629924774169922
+    ],
+    "precip": [
+     0.0,
+     0.1618601232767105,
+     8.780054092407227
+    ],
+    "pressure": [
+     74040.9765625,
+     99305.4296875,
+     102915.5234375
+    ],
+    "rh": [
+     29.63262367248535,
+     75.83065795898438,
+     100.01534271240234
+    ],
+    "snowfall": [
+     0.0,
+     0.1073007807135582,
+     4.083104610443115
+    ],
+    "soil_moisture": [
+     0.17452497780323029,
+     0.3818436563014984,
+     0.5183849334716797
+    ],
+    "t2m_c": [
+     -34.51816177368164,
+     -7.535189628601074,
+     20.660837173461914
+    ],
+    "u10": [
+     -8.424208641052246,
+     0.23365285992622375,
+     7.492950439453125
+    ],
+    "v10": [
+     -10.25634479522705,
+     -2.1848831176757812,
+     8.067667007446289
+    ],
+    "wind_speed": [
+     0.12860041856765747,
+     3.3091068267822266,
+     11.18537712097168
+    ]
+   }
+  },
+  {
+   "event": "2021-05-04",
+   "year": 2021,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    344,
+    673
+   ],
+   "observed_shape": [
+    344,
+    673
+   ],
+   "X_shape": [
+    344,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 344,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2021-05-02 00:00:00",
+   "panel_ts_end_utc": "2021-05-09 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9879531082622067,
+   "observed_nonfinite_cells": 7697,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 1.0,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.5965163101218505,
+   "denominator_finite_positive": true,
+   "denominator_min": 414.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9879420668776662,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 0,
+   "weather_all_zero_fraction": 0.0,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 0,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     363.3097839355469,
+     8955.0771484375
+    ],
+    "cloud": [
+     0.0,
+     0.5523338317871094,
+     1.0
+    ],
+    "gust": [
+     0.7117674350738525,
+     7.368438243865967,
+     19.959003448486328
+    ],
+    "precip": [
+     0.0,
+     0.2193882167339325,
+     25.00522804260254
+    ],
+    "pressure": [
+     88439.5234375,
+     99030.609375,
+     102061.7890625
+    ],
+    "rh": [
+     3.7547895908355713,
+     68.17765808105469,
+     99.904541015625
+    ],
+    "snowfall": [
+     0.0,
+     8.573299055569805e-06,
+     0.25170382857322693
+    ],
+    "soil_moisture": [
+     0.07212789356708527,
+     0.39779818058013916,
+     0.520234227180481
+    ],
+    "t2m_c": [
+     1.819496512413025,
+     19.094106674194336,
+     35.4534797668457
+    ],
+    "u10": [
+     -5.798586368560791,
+     0.6788432002067566,
+     10.454912185668945
+    ],
+    "v10": [
+     -10.151762008666992,
+     0.8513628840446472,
+     10.220603942871094
+    ],
+    "wind_speed": [
+     0.1283174306154251,
+     3.3132832050323486,
+     11.192720413208008
+    ]
+   }
+  },
+  {
+   "event": "2021-06-21",
+   "year": 2021,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    256,
+    673
+   ],
+   "observed_shape": [
+    256,
+    673
+   ],
+   "X_shape": [
+    256,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 256,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2021-06-19 00:00:00",
+   "panel_ts_end_utc": "2021-06-26 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.99609375,
+   "observed_nonfinite_cells": 380,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.8345797720797721,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.5493459196457187,
+   "denominator_finite_positive": true,
+   "denominator_min": 1559.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.99609375,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 0,
+   "weather_all_zero_fraction": 0.0,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 0,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     379.65655517578125,
+     5024.94140625
+    ],
+    "cloud": [
+     0.0,
+     0.6476167440414429,
+     1.0
+    ],
+    "gust": [
+     0.5555598735809326,
+     7.307877063751221,
+     24.740232467651367
+    ],
+    "precip": [
+     0.0,
+     0.22824622690677643,
+     16.027734756469727
+    ],
+    "pressure": [
+     90451.546875,
+     97842.0703125,
+     102732.5390625
+    ],
+    "rh": [
+     22.548328399658203,
+     68.55998992919922,
+     99.9992446899414
+    ],
+    "snowfall": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "soil_moisture": [
+     0.08400947600603104,
+     0.31119653582572937,
+     0.514272153377533
+    ],
+    "t2m_c": [
+     4.740554332733154,
+     21.75606346130371,
+     37.75297927856445
+    ],
+    "u10": [
+     -9.508740425109863,
+     1.0465518236160278,
+     8.96932315826416
+    ],
+    "v10": [
+     -7.26920223236084,
+     1.4960278272628784,
+     10.149229049682617
+    ],
+    "wind_speed": [
+     0.12957683205604553,
+     3.257124185562134,
+     11.126360893249512
+    ]
+   }
+  },
+  {
+   "event": "2021-08-11",
+   "year": 2021,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    253,
+    673
+   ],
+   "observed_shape": [
+    253,
+    673
+   ],
+   "X_shape": [
+    253,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 253,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2021-08-09 00:00:00",
+   "panel_ts_end_utc": "2021-08-16 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9937863028501959,
+   "observed_nonfinite_cells": 1299,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.813034188034188,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.4239263404861386,
+   "denominator_finite_positive": true,
+   "denominator_min": 1061.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9937787964543817,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 0,
+   "weather_all_zero_fraction": 0.0,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 0,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     943.7703247070312,
+     15506.5400390625
+    ],
+    "cloud": [
+     0.0,
+     0.6201837062835693,
+     1.0
+    ],
+    "gust": [
+     0.6144180297851562,
+     6.458501815795898,
+     17.592287063598633
+    ],
+    "precip": [
+     0.0,
+     0.1762171983718872,
+     14.097182273864746
+    ],
+    "pressure": [
+     82158.890625,
+     98330.3828125,
+     102016.4765625
+    ],
+    "rh": [
+     7.435169219970703,
+     72.24280548095703,
+     99.99681091308594
+    ],
+    "snowfall": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "soil_moisture": [
+     0.0053618913516402245,
+     0.29262518882751465,
+     0.5113991498947144
+    ],
+    "t2m_c": [
+     7.802765846252441,
+     24.760196685791016,
+     42.20948791503906
+    ],
+    "u10": [
+     -5.739124298095703,
+     0.9060685634613037,
+     7.9745612144470215
+    ],
+    "v10": [
+     -6.551548004150391,
+     1.3654584884643555,
+     8.174112319946289
+    ],
+    "wind_speed": [
+     0.12827713787555695,
+     2.962045907974243,
+     9.048178672790527
+    ]
+   }
+  },
+  {
+   "event": "2021-12-11",
+   "year": 2021,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    256,
+    673
+   ],
+   "observed_shape": [
+    256,
+    673
+   ],
+   "X_shape": [
+    256,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 256,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2021-12-09 00:00:00",
+   "panel_ts_end_utc": "2021-12-16 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9715418369242199,
+   "observed_nonfinite_cells": 2253,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.780473714615829,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.6350449562386116,
+   "denominator_finite_positive": true,
+   "denominator_min": 1281.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9715467825443787,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 0,
+   "weather_all_zero_fraction": 0.0,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 0,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     86.54570007324219,
+     3805.063720703125
+    ],
+    "cloud": [
+     0.0,
+     0.4950214922428131,
+     1.0
+    ],
+    "gust": [
+     0.5963072180747986,
+     7.9998626708984375,
+     28.0046329498291
+    ],
+    "precip": [
+     0.0,
+     0.14518921077251434,
+     16.837358474731445
+    ],
+    "pressure": [
+     91151.84375,
+     99043.5390625,
+     102217.046875
+    ],
+    "rh": [
+     14.424464225769043,
+     68.4137191772461,
+     99.99491119384766
+    ],
+    "snowfall": [
+     0.0,
+     6.040757580194622e-05,
+     0.0630447268486023
+    ],
+    "soil_moisture": [
+     0.2352849841117859,
+     0.4086955189704895,
+     0.5204058289527893
+    ],
+    "t2m_c": [
+     -5.290494441986084,
+     9.18521499633789,
+     28.06993865966797
+    ],
+    "u10": [
+     -5.867393493652344,
+     0.5340359807014465,
+     13.269984245300293
+    ],
+    "v10": [
+     -5.298336982727051,
+     2.6896092891693115,
+     11.65323257446289
+    ],
+    "wind_speed": [
+     0.12679173052310944,
+     3.9162464141845703,
+     13.490447998046875
+    ]
+   }
+  },
+  {
+   "event": "2021-12-15",
+   "year": 2021,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    361,
+    673
+   ],
+   "observed_shape": [
+    361,
+    673
+   ],
+   "X_shape": [
+    361,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 361,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2021-12-13 00:00:00",
+   "panel_ts_end_utc": "2021-12-20 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9469732828983384,
+   "observed_nonfinite_cells": 878,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 1.0,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.6767635936888773,
+   "denominator_finite_positive": true,
+   "denominator_min": 5.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.946975036470029,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 291,
+   "weather_all_zero_fraction": 0.8060941828254847,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 291,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     9.029399871826172,
+     1491.756103515625
+    ],
+    "cloud": [
+     0.0,
+     0.31850337982177734,
+     1.0
+    ],
+    "gust": [
+     0.5838688611984253,
+     8.357590675354004,
+     32.07099533081055
+    ],
+    "precip": [
+     0.0,
+     0.022673536092042923,
+     5.362473487854004
+    ],
+    "pressure": [
+     73582.3203125,
+     92138.3203125,
+     100787.8203125
+    ],
+    "rh": [
+     4.532921314239502,
+     53.62928009033203,
+     99.98645782470703
+    ],
+    "snowfall": [
+     0.0,
+     0.0039208256639540195,
+     1.7033354043960571
+    ],
+    "soil_moisture": [
+     0.01339191384613514,
+     0.20880112051963806,
+     0.48722758889198303
+    ],
+    "t2m_c": [
+     -18.146465301513672,
+     4.2250800132751465,
+     25.659751892089844
+    ],
+    "u10": [
+     -6.917384147644043,
+     1.1580891609191895,
+     18.639301300048828
+    ],
+    "v10": [
+     -8.862119674682617,
+     1.6522810459136963,
+     15.122858047485352
+    ],
+    "wind_speed": [
+     0.21302460134029388,
+     4.484894752502441,
+     19.381921768188477
+    ]
+   }
+  },
+  {
+   "event": "2022-01-16",
+   "year": 2022,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    556,
+    673
+   ],
+   "observed_shape": [
+    556,
+    673
+   ],
+   "X_shape": [
+    556,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 556,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2022-01-14 00:00:00",
+   "panel_ts_end_utc": "2022-01-21 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9817524880541332,
+   "observed_nonfinite_cells": 966,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.513874253600281,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.6855264590592335,
+   "denominator_finite_positive": true,
+   "denominator_min": 1680.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.981737686773658,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 121,
+   "weather_all_zero_fraction": 0.21762589928057555,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 121,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     4.352194786071777,
+     1235.8052978515625
+    ],
+    "cloud": [
+     0.0,
+     0.7161166667938232,
+     1.0
+    ],
+    "gust": [
+     0.6192904114723206,
+     8.298942565917969,
+     23.9544620513916
+    ],
+    "precip": [
+     0.0,
+     0.23876988887786865,
+     10.380744934082031
+    ],
+    "pressure": [
+     88064.3046875,
+     97946.9453125,
+     102670.3125
+    ],
+    "rh": [
+     23.68099594116211,
+     70.99401092529297,
+     100.01322174072266
+    ],
+    "snowfall": [
+     0.0,
+     0.09649680554866791,
+     5.252789497375488
+    ],
+    "soil_moisture": [
+     0.1802973747253418,
+     0.4251441955566406,
+     0.5202488303184509
+    ],
+    "t2m_c": [
+     -18.740985870361328,
+     1.1411268711090088,
+     22.23579216003418
+    ],
+    "u10": [
+     -10.310163497924805,
+     0.7734609842300415,
+     9.513891220092773
+    ],
+    "v10": [
+     -8.49159049987793,
+     -0.7245909571647644,
+     9.214338302612305
+    ],
+    "wind_speed": [
+     0.045718710869550705,
+     3.6987273693084717,
+     10.679195404052734
+    ]
+   }
+  },
+  {
+   "event": "2022-03-12",
+   "year": 2022,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    536,
+    673
+   ],
+   "observed_shape": [
+    536,
+    673
+   ],
+   "X_shape": [
+    536,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 536,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2022-03-10 00:00:00",
+   "panel_ts_end_utc": "2022-03-17 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9773430396309685,
+   "observed_nonfinite_cells": 1182,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.5381917381137958,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.7217597254329112,
+   "denominator_finite_positive": true,
+   "denominator_min": 424.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9773359533692484,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 145,
+   "weather_all_zero_fraction": 0.27052238805970147,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 145,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     7.343438625335693,
+     1224.6778564453125
+    ],
+    "cloud": [
+     0.0,
+     0.4965689778327942,
+     1.0
+    ],
+    "gust": [
+     0.6330128312110901,
+     6.994259357452393,
+     27.762239456176758
+    ],
+    "precip": [
+     0.0,
+     0.12094065546989441,
+     12.260025978088379
+    ],
+    "pressure": [
+     89322.171875,
+     98444.96875,
+     103329.5078125
+    ],
+    "rh": [
+     8.442270278930664,
+     61.01277542114258,
+     99.63003540039062
+    ],
+    "snowfall": [
+     0.0,
+     0.056584037840366364,
+     4.026491641998291
+    ],
+    "soil_moisture": [
+     0.13802042603492737,
+     0.41671350598335266,
+     0.6307650804519653
+    ],
+    "t2m_c": [
+     -16.063072204589844,
+     6.206720352172852,
+     25.06768035888672
+    ],
+    "u10": [
+     -6.380797863006592,
+     0.7771495580673218,
+     10.768115997314453
+    ],
+    "v10": [
+     -12.159334182739258,
+     0.44129112362861633,
+     11.386195182800293
+    ],
+    "wind_speed": [
+     0.14335356652736664,
+     3.1394948959350586,
+     12.644418716430664
+    ]
+   }
+  },
+  {
+   "event": "2022-04-13",
+   "year": 2022,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    207,
+    673
+   ],
+   "observed_shape": [
+    207,
+    673
+   ],
+   "X_shape": [
+    207,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 207,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2022-04-11 00:00:00",
+   "panel_ts_end_utc": "2022-04-18 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9765345162980669,
+   "observed_nonfinite_cells": 646,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.41360249939918287,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.6684553299716264,
+   "denominator_finite_positive": true,
+   "denominator_min": 642.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9765314581368093,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 0,
+   "weather_all_zero_fraction": 0.0,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 0,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     444.97222900390625,
+     4560.71435546875
+    ],
+    "cloud": [
+     0.0,
+     0.6868266463279724,
+     1.0
+    ],
+    "gust": [
+     0.7549238801002502,
+     9.630459785461426,
+     26.39815330505371
+    ],
+    "precip": [
+     0.0,
+     0.3816973865032196,
+     12.903816223144531
+    ],
+    "pressure": [
+     93133.84375,
+     99019.25,
+     101750.59375
+    ],
+    "rh": [
+     16.246307373046875,
+     67.90325164794922,
+     100.00751495361328
+    ],
+    "snowfall": [
+     0.0,
+     0.002393188653513789,
+     1.2506133317947388
+    ],
+    "soil_moisture": [
+     0.18144479393959045,
+     0.4044906497001648,
+     0.5191027522087097
+    ],
+    "t2m_c": [
+     -7.877756595611572,
+     15.03575325012207,
+     31.503692626953125
+    ],
+    "u10": [
+     -10.759662628173828,
+     0.2857650816440582,
+     15.681653022766113
+    ],
+    "v10": [
+     -6.490799903869629,
+     1.7674410343170166,
+     12.062385559082031
+    ],
+    "wind_speed": [
+     0.23816516995429993,
+     4.495279788970947,
+     15.695131301879883
+    ]
+   }
+  },
+  {
+   "event": "2022-06-08",
+   "year": 2022,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    183,
+    673
+   ],
+   "observed_shape": [
+    183,
+    673
+   ],
+   "X_shape": [
+    183,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 183,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2022-06-06 00:00:00",
+   "panel_ts_end_utc": "2022-06-13 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9890629186661145,
+   "observed_nonfinite_cells": 270,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.714544513457557,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.640692214231767,
+   "denominator_finite_positive": true,
+   "denominator_min": 186.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9890387040450093,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 0,
+   "weather_all_zero_fraction": 0.0,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 0,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     752.2255859375,
+     8628.6083984375
+    ],
+    "cloud": [
+     0.0,
+     0.6579251885414124,
+     1.0
+    ],
+    "gust": [
+     0.5603067874908447,
+     6.296060085296631,
+     17.605558395385742
+    ],
+    "precip": [
+     0.0,
+     0.15793059766292572,
+     13.134072303771973
+    ],
+    "pressure": [
+     76477.0078125,
+     96211.1015625,
+     101846.5
+    ],
+    "rh": [
+     4.564060688018799,
+     68.70857238769531,
+     100.01028442382812
+    ],
+    "snowfall": [
+     0.0,
+     5.27107113157399e-05,
+     0.21019479632377625
+    ],
+    "soil_moisture": [
+     0.03760557249188423,
+     0.32192885875701904,
+     0.5163081884384155
+    ],
+    "t2m_c": [
+     -1.0585520267486572,
+     23.85865020751953,
+     42.485694885253906
+    ],
+    "u10": [
+     -8.37618637084961,
+     0.044162578880786896,
+     7.873200416564941
+    ],
+    "v10": [
+     -8.746756553649902,
+     1.1398272514343262,
+     9.658255577087402
+    ],
+    "wind_speed": [
+     0.04506780579686165,
+     3.048102617263794,
+     10.296799659729004
+    ]
+   }
+  },
+  {
+   "event": "2022-06-17",
+   "year": 2022,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    356,
+    673
+   ],
+   "observed_shape": [
+    356,
+    673
+   ],
+   "X_shape": [
+    356,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 356,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2022-06-15 00:00:00",
+   "panel_ts_end_utc": "2022-06-22 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9915730337078652,
+   "observed_nonfinite_cells": 2167,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.8777173913043478,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.5229175523742576,
+   "denominator_finite_positive": true,
+   "denominator_min": 2563.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9915730337078652,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 0,
+   "weather_all_zero_fraction": 0.0,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 0,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     933.51220703125,
+     16503.203125
+    ],
+    "cloud": [
+     0.0,
+     0.4377743899822235,
+     1.0
+    ],
+    "gust": [
+     0.5977506637573242,
+     6.051426410675049,
+     19.733800888061523
+    ],
+    "precip": [
+     0.0,
+     0.03437153622508049,
+     9.821969032287598
+    ],
+    "pressure": [
+     74848.8359375,
+     98378.4765625,
+     102347.7265625
+    ],
+    "rh": [
+     4.7285284996032715,
+     59.109371185302734,
+     100.0106430053711
+    ],
+    "snowfall": [
+     0.0,
+     1.0909612768728039e-07,
+     0.0057057831436395645
+    ],
+    "soil_moisture": [
+     -1.4092773199081421e-05,
+     0.2968668043613434,
+     0.5112935304641724
+    ],
+    "t2m_c": [
+     3.5384304523468018,
+     25.336591720581055,
+     39.307010650634766
+    ],
+    "u10": [
+     -6.3132500648498535,
+     0.6186673045158386,
+     8.324533462524414
+    ],
+    "v10": [
+     -11.354973793029785,
+     -0.0398566834628582,
+     8.817242622375488
+    ],
+    "wind_speed": [
+     0.09563889354467392,
+     2.665571928024292,
+     11.705291748046875
+    ]
+   }
+  },
+  {
+   "event": "2022-07-23",
+   "year": 2022,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    186,
+    673
+   ],
+   "observed_shape": [
+    186,
+    673
+   ],
+   "X_shape": [
+    186,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 186,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2022-07-21 00:00:00",
+   "panel_ts_end_utc": "2022-07-28 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9976992762306476,
+   "observed_nonfinite_cells": 550,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.785561725758223,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.5500760669389062,
+   "denominator_finite_positive": true,
+   "denominator_min": 1313.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9977094865432334,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 0,
+   "weather_all_zero_fraction": 0.0,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 0,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     505.3985900878906,
+     5538.47705078125
+    ],
+    "cloud": [
+     0.0,
+     0.5674180388450623,
+     1.0
+    ],
+    "gust": [
+     0.6595270037651062,
+     6.619299411773682,
+     18.023941040039062
+    ],
+    "precip": [
+     0.0,
+     0.13986872136592865,
+     13.235616683959961
+    ],
+    "pressure": [
+     75977.1484375,
+     97380.9765625,
+     102088.140625
+    ],
+    "rh": [
+     12.695869445800781,
+     70.8399658203125,
+     100.00151062011719
+    ],
+    "snowfall": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "soil_moisture": [
+     0.06630489975214005,
+     0.2749914526939392,
+     0.5106437802314758
+    ],
+    "t2m_c": [
+     7.5486626625061035,
+     24.323312759399414,
+     36.34636688232422
+    ],
+    "u10": [
+     -7.268224716186523,
+     1.8008426427841187,
+     7.294717788696289
+    ],
+    "v10": [
+     -6.980082035064697,
+     0.8381092548370361,
+     7.363210678100586
+    ],
+    "wind_speed": [
+     0.11993031203746796,
+     3.10673451423645,
+     8.719548225402832
+    ]
+   }
+  },
+  {
+   "event": "2024-01-09",
+   "year": 2024,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    240,
+    673
+   ],
+   "observed_shape": [
+    240,
+    673
+   ],
+   "X_shape": [
+    240,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 240,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2024-01-07 00:00:00",
+   "panel_ts_end_utc": "2024-01-14 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9964338781575037,
+   "observed_nonfinite_cells": 0,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.6569829741635909,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.5417412267621036,
+   "denominator_finite_positive": true,
+   "denominator_min": 3176.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9964497041420118,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 119,
+   "weather_all_zero_fraction": 0.49583333333333335,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 119,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     20.71705436706543,
+     2050.100341796875
+    ],
+    "cloud": [
+     0.0,
+     0.5563063621520996,
+     1.0
+    ],
+    "gust": [
+     0.5625457167625427,
+     9.698180198669434,
+     33.060752868652344
+    ],
+    "precip": [
+     0.0,
+     0.3804805278778076,
+     14.146838188171387
+    ],
+    "pressure": [
+     88205.7890625,
+     98764.7109375,
+     102951.5703125
+    ],
+    "rh": [
+     24.50322151184082,
+     70.43700408935547,
+     98.41000366210938
+    ],
+    "snowfall": [
+     0.0,
+     0.005930710583925247,
+     3.116769552230835
+    ],
+    "soil_moisture": [
+     0.22721365094184875,
+     0.44443953037261963,
+     0.5224444270133972
+    ],
+    "t2m_c": [
+     -6.595236301422119,
+     7.373599529266357,
+     26.268827438354492
+    ],
+    "u10": [
+     -8.675743103027344,
+     1.4356330633163452,
+     10.663309097290039
+    ],
+    "v10": [
+     -4.932403087615967,
+     1.2769174575805664,
+     15.059212684631348
+    ],
+    "wind_speed": [
+     0.20225079357624054,
+     4.235314846038818,
+     15.073287963867188
+    ]
+   }
+  },
+  {
+   "event": "2024-01-12",
+   "year": 2024,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    578,
+    673
+   ],
+   "observed_shape": [
+    578,
+    673
+   ],
+   "X_shape": [
+    578,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 578,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2024-01-10 00:00:00",
+   "panel_ts_end_utc": "2024-01-17 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9733055008560544,
+   "observed_nonfinite_cells": 0,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.8519189589853401,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.6990755658857399,
+   "denominator_finite_positive": true,
+   "denominator_min": 424.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9733011199606888,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 288,
+   "weather_all_zero_fraction": 0.4982698961937716,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 288,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     7.507340908050537,
+     2222.388671875
+    ],
+    "cloud": [
+     0.0,
+     0.686099112033844,
+     1.0
+    ],
+    "gust": [
+     0.4935208559036255,
+     9.781806945800781,
+     33.060752868652344
+    ],
+    "precip": [
+     0.0,
+     0.17522886395454407,
+     13.213356971740723
+    ],
+    "pressure": [
+     74717.2578125,
+     97712.3515625,
+     102675.0
+    ],
+    "rh": [
+     14.412059783935547,
+     72.69869995117188,
+     100.00657653808594
+    ],
+    "snowfall": [
+     0.0,
+     0.09632911533117294,
+     4.685187816619873
+    ],
+    "soil_moisture": [
+     0.1271621435880661,
+     0.3754778504371643,
+     0.5186412334442139
+    ],
+    "t2m_c": [
+     -28.694957733154297,
+     -5.38726282119751,
+     21.513996124267578
+    ],
+    "u10": [
+     -12.589380264282227,
+     2.504324436187744,
+     13.173500061035156
+    ],
+    "v10": [
+     -12.736432075500488,
+     0.0294609647244215,
+     12.525638580322266
+    ],
+    "wind_speed": [
+     0.08689340949058533,
+     4.784085750579834,
+     15.269535064697266
+    ]
+   }
+  },
+  {
+   "event": "2024-05-08",
+   "year": 2024,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    236,
+    673
+   ],
+   "observed_shape": [
+    236,
+    673
+   ],
+   "X_shape": [
+    236,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 236,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2024-05-06 00:00:00",
+   "panel_ts_end_utc": "2024-05-13 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9993892764499962,
+   "observed_nonfinite_cells": 0,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.40411599625818523,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.6377267200483837,
+   "denominator_finite_positive": true,
+   "denominator_min": 2844.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9993731822284625,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 70,
+   "weather_all_zero_fraction": 0.2966101694915254,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 70,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     377.111328125,
+     5393.1943359375
+    ],
+    "cloud": [
+     0.0,
+     0.5746541023254395,
+     1.0
+    ],
+    "gust": [
+     0.7116510272026062,
+     6.943512916564941,
+     19.085294723510742
+    ],
+    "precip": [
+     0.0,
+     0.2692188322544098,
+     13.857922554016113
+    ],
+    "pressure": [
+     91411.875,
+     98113.1640625,
+     101581.71875
+    ],
+    "rh": [
+     21.058502197265625,
+     75.00856018066406,
+     100.00597381591797
+    ],
+    "snowfall": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "soil_moisture": [
+     0.21982251107692719,
+     0.4251728355884552,
+     0.5193889737129211
+    ],
+    "t2m_c": [
+     4.262737274169922,
+     19.027740478515625,
+     31.93173599243164
+    ],
+    "u10": [
+     -6.489879608154297,
+     1.0022238492965698,
+     8.470766067504883
+    ],
+    "v10": [
+     -5.875197410583496,
+     0.6474393606185913,
+     7.991365909576416
+    ],
+    "wind_speed": [
+     0.15490834414958954,
+     3.0699455738067627,
+     9.486621856689453
+    ]
+   }
+  },
+  {
+   "event": "2024-05-26",
+   "year": 2024,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    339,
+    673
+   ],
+   "observed_shape": [
+    339,
+    673
+   ],
+   "X_shape": [
+    339,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 339,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2024-05-24 00:00:00",
+   "panel_ts_end_utc": "2024-05-31 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9437161128570615,
+   "observed_nonfinite_cells": 0,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.9990744311608176,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.4850491858099635,
+   "denominator_finite_positive": true,
+   "denominator_min": 1369.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.943952802359882,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 82,
+   "weather_all_zero_fraction": 0.24188790560471976,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 82,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     564.0910034179688,
+     7190.20361328125
+    ],
+    "cloud": [
+     0.0,
+     0.5170478820800781,
+     1.0
+    ],
+    "gust": [
+     0.5817385911941528,
+     6.598420143127441,
+     19.643863677978516
+    ],
+    "precip": [
+     0.0,
+     0.17988938093185425,
+     13.941904067993164
+    ],
+    "pressure": [
+     90285.7265625,
+     97494.6796875,
+     101715.9921875
+    ],
+    "rh": [
+     22.965211868286133,
+     74.7996826171875,
+     99.99933624267578
+    ],
+    "snowfall": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "soil_moisture": [
+     0.13299863040447235,
+     0.40273404121398926,
+     0.5194982290267944
+    ],
+    "t2m_c": [
+     6.817478179931641,
+     20.690168380737305,
+     36.10295486450195
+    ],
+    "u10": [
+     -7.1478095054626465,
+     0.952103316783905,
+     9.964735984802246
+    ],
+    "v10": [
+     -5.801356792449951,
+     0.5960337519645691,
+     9.068086624145508
+    ],
+    "wind_speed": [
+     0.013919244520366192,
+     2.8551523685455322,
+     10.019269943237305
+    ]
+   }
+  },
+  {
+   "event": "2024-06-26",
+   "year": 2024,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    230,
+    673
+   ],
+   "observed_shape": [
+    230,
+    673
+   ],
+   "X_shape": [
+    230,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 230,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2024-06-24 00:00:00",
+   "panel_ts_end_utc": "2024-07-01 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9956521739130435,
+   "observed_nonfinite_cells": 0,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 0.49612664196699224,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.5800138855544813,
+   "denominator_finite_positive": true,
+   "denominator_min": 1450.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9956521739130435,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 89,
+   "weather_all_zero_fraction": 0.3869565217391304,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 89,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     629.2244873046875,
+     8981.486328125
+    ],
+    "cloud": [
+     0.0,
+     0.5158857107162476,
+     1.0
+    ],
+    "gust": [
+     0.6442517638206482,
+     6.798277378082275,
+     19.788171768188477
+    ],
+    "precip": [
+     0.0,
+     0.15784583985805511,
+     11.421760559082031
+    ],
+    "pressure": [
+     85555.3359375,
+     98008.0703125,
+     102120.171875
+    ],
+    "rh": [
+     20.523090362548828,
+     69.7137680053711,
+     100.00540924072266
+    ],
+    "snowfall": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "soil_moisture": [
+     0.029328424483537674,
+     0.29145947098731995,
+     0.5133985877037048
+    ],
+    "t2m_c": [
+     9.22492504119873,
+     26.067338943481445,
+     41.72078323364258
+    ],
+    "u10": [
+     -6.557270050048828,
+     0.5310789942741394,
+     9.090498924255371
+    ],
+    "v10": [
+     -7.511319160461426,
+     0.8839388489723206,
+     9.004569053649902
+    ],
+    "wind_speed": [
+     0.17180106043815613,
+     3.0649824142456055,
+     11.295872688293457
+    ]
+   }
+  },
+  {
+   "event": "2024-09-27",
+   "year": 2024,
+   "panel_keys": [
+    "denominator",
+    "fips",
+    "observed",
+    "ts",
+    "y"
+   ],
+   "driver_keys": [
+    "X",
+    "channels",
+    "fips",
+    "ts"
+   ],
+   "y_shape": [
+    445,
+    673
+   ],
+   "observed_shape": [
+    445,
+    673
+   ],
+   "X_shape": [
+    445,
+    169,
+    12
+   ],
+   "y_dtype": "float64",
+   "observed_dtype": "bool",
+   "X_dtype": "float32",
+   "channels": [
+    "cape",
+    "cloud",
+    "gust",
+    "precip",
+    "pressure",
+    "rh",
+    "snowfall",
+    "soil_moisture",
+    "t2m_c",
+    "u10",
+    "v10",
+    "wind_speed"
+   ],
+   "channels_match_expected": true,
+   "n_counties": 445,
+   "fips_identical_order": true,
+   "fips_same_set": true,
+   "fips_unique": true,
+   "panel_ts_len": 673,
+   "panel_ts_start_utc": "2024-09-25 00:00:00",
+   "panel_ts_end_utc": "2024-10-02 00:00:00",
+   "panel_ts_uniform_15min": true,
+   "panel_starts_on_hour": true,
+   "driver_ts_len": 169,
+   "driver_ts_uniform_hourly": true,
+   "driver_ts_equals_panel_hourly_snapshots": true,
+   "observed_fraction_15min": 0.9971150474982052,
+   "observed_nonfinite_cells": 0,
+   "unobserved_cells_with_value": 0,
+   "observed_y_min": 0.0,
+   "observed_y_max": 1.0,
+   "observed_y_below0": 0,
+   "observed_y_above1": 0,
+   "observed_y_exact_zero_fraction": 0.3454646525194142,
+   "denominator_finite_positive": true,
+   "denominator_min": 1407.0,
+   "hourly_snapshot_count": 169,
+   "hourly_snapshot_observed_fraction": 0.9971278505418523,
+   "X_nonfinite_values": 0,
+   "weather_all_zero_counties": 175,
+   "weather_all_zero_fraction": 0.39325842696629215,
+   "weather_partial_zero_hour_counties": 0,
+   "temp_and_pressure_identically_zero_counties": 175,
+   "sentinel_equals_allzero": true,
+   "channel_ranges_covered_counties": {
+    "cape": [
+     0.0,
+     167.17971801757812,
+     3646.407958984375
+    ],
+    "cloud": [
+     0.0,
+     0.784177839756012,
+     1.0
+    ],
+    "gust": [
+     0.4804029166698456,
+     6.948494911193848,
+     39.76304626464844
+    ],
+    "precip": [
+     0.0,
+     0.7077741622924805,
+     21.987457275390625
+    ],
+    "pressure": [
+     87893.6875,
+     97497.453125,
+     101532.7578125
+    ],
+    "rh": [
+     31.265798568725586,
+     87.1317138671875,
+     100.00960540771484
+    ],
+    "snowfall": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "soil_moisture": [
+     0.10973300039768219,
+     0.4223701059818268,
+     0.5222280621528625
+    ],
+    "t2m_c": [
+     12.385815620422363,
+     20.840505599975586,
+     31.947263717651367
+    ],
+    "u10": [
+     -15.136529922485352,
+     -0.9298128485679626,
+     11.450819969177246
+    ],
+    "v10": [
+     -12.769510269165039,
+     0.396888792514801,
+     15.81877613067627
+    ],
+    "wind_speed": [
+     0.07438643276691437,
+     2.9795548915863037,
+     18.006391525268555
+    ]
+   }
+  }
+ ]
+}

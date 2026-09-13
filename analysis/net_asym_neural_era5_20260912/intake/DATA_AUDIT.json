@@ -1,0 +1,144 @@
+{
+ "status_note": "A prior manifest PASS was not accepted as this round PASS; every binary below was opened.",
+ "us_era5": {
+  "summary": {
+   "events": 26,
+   "unique_panel_counties": 2625,
+   "counties_all_zero_whenever_present": 1265,
+   "counties_nonzero_whenever_present": 1360,
+   "counties_switching_status": 0,
+   "all_channels_match_expected_order": true,
+   "all_fips_identical_order": true,
+   "all_driver_ts_equal_panel_snapshots": true,
+   "all_panels_start_on_hour": true,
+   "all_denominators_finite_positive": true,
+   "total_observed_nonfinite_cells": 41297,
+   "total_observed_y_below0": 0,
+   "total_observed_y_above1": 0,
+   "total_X_nonfinite": 0,
+   "total_partial_zero_hour_counties": 0,
+   "sentinel_equals_allzero_everywhere": true
+  },
+  "detail_file": "intake/US_DATA_AUDIT.json",
+  "coverage_file": "intake/us_weather_coverage_by_event.csv",
+  "blocking_semantic_defect": "1265 of 2625 unique panel counties carry all-zero weather in all 12 channels and all 169 hours; status never switches across events; exactly the counties with t2m and pressure identically zero",
+  "handling": "county weather illegal for both models; windows excluded; never zero-fed; see SCHEMA_DRIFT.md and MISSING_DATA_REQUEST.md",
+  "interpolation_note": "scripts/build_drivers.py fills temporal gaps with pandas interpolate(limit_direction=\"both\"); inputs are reanalysis with bidirectional gap filling, not historically available forecasts"
+ },
+ "aneel": {
+  "ledger_status": "PASS",
+  "arrays_pass": 192,
+  "arrays_expected": 192,
+  "ledger_bytes": 3508338,
+  "ledger_file_sha256": "bc51d2f326ef3f18b13f0da60523385c9ffbe7b085e661061ef03ed3794e39dc",
+  "detail_file": "intake/ANEEL_LEDGER_IDENTITY.json"
+ },
+ "synthetic": {
+  "calibration": {
+   "sd0_8h_gamma004": 0.060878399191013,
+   "c_floor_1_over_L": 0.03125,
+   "min_achievable_sd_8h": 0.01076188222393673,
+   "laws": [
+    {
+     "law_index": 0,
+     "target_sd_8h_gamma004": 0.011,
+     "c": 0.03264817594231698,
+     "rho": 0.0014432783920691435,
+     "rho_in_unit_interval": true
+    },
+    {
+     "law_index": 1,
+     "target_sd_8h_gamma004": 0.02,
+     "c": 0.10792785435476689,
+     "rho": 0.0791513335275013,
+     "rho_in_unit_interval": true
+    },
+    {
+     "law_index": 2,
+     "target_sd_8h_gamma004": 0.06,
+     "c": 0.971350689192902,
+     "rho": 0.970426517876544,
+     "rho_in_unit_interval": true
+    }
+   ]
+  },
+  "mc_checks": {
+   "single_block_h4_g0.04": {
+    "n_paths": 400000,
+    "max_abs_mean_err": 0.00034763866757103745,
+    "mean_se_max": 0.00014664549929414326,
+    "cov_rel_frobenius_err": 0.004610115641515121,
+    "paths_in_unit_interval": true
+   },
+   "single_block_h8_g0.04": {
+    "n_paths": 400000,
+    "max_abs_mean_err": 0.0002145131398431921,
+    "mean_se_max": 0.0001645174240226762,
+    "cov_rel_frobenius_err": 0.0025560475906913752,
+    "paths_in_unit_interval": true
+   },
+   "single_block_h12_g0.04": {
+    "n_paths": 400000,
+    "max_abs_mean_err": 0.00019653236379665873,
+    "mean_se_max": 0.00016929469535822278,
+    "cov_rel_frobenius_err": 0.0031750361072242403,
+    "paths_in_unit_interval": true
+   },
+   "single_block_h4_g0": {
+    "n_paths": 400000,
+    "max_abs_mean_err": 0.00016384374999989237,
+    "mean_se_max": 0.00014546230911294643,
+    "cov_rel_frobenius_err": 0.0021557960120111865,
+    "paths_in_unit_interval": true
+   },
+   "single_block_h8_g0": {
+    "n_paths": 400000,
+    "max_abs_mean_err": 0.00020236181775998285,
+    "mean_se_max": 0.00016071172011456416,
+    "cov_rel_frobenius_err": 0.004785711897390169,
+    "paths_in_unit_interval": true
+   },
+   "single_block_h12_g0": {
+    "n_paths": 400000,
+    "max_abs_mean_err": 0.00037944000000020295,
+    "mean_se_max": 0.00016504047408135147,
+    "cov_rel_frobenius_err": 0.003834056687523813,
+    "paths_in_unit_interval": true
+   },
+   "mixture_law0": {
+    "n_events": 60000,
+    "empirical_B_rate": 0.0014666666666666667,
+    "rho": 0.0014432783920691435,
+    "max_abs_mean_err_vs_mu0": 0.0001327068546748411,
+    "trace_ratio_emp_over_c_trace": 0.9932051450284003,
+    "cov_rel_frobenius_err_vs_cSigma0": 0.013046449151416813,
+    "paths_in_unit_interval": true
+   },
+   "mixture_law1": {
+    "n_events": 60000,
+    "empirical_B_rate": 0.07888333333333333,
+    "rho": 0.0791513335275013,
+    "max_abs_mean_err_vs_mu0": 0.00022833125921470354,
+    "trace_ratio_emp_over_c_trace": 0.9957054741129063,
+    "cov_rel_frobenius_err_vs_cSigma0": 0.022419069968827178,
+    "paths_in_unit_interval": true
+   },
+   "mixture_law2": {
+    "n_events": 60000,
+    "empirical_B_rate": 0.9700666666666666,
+    "rho": 0.970426517876544,
+    "max_abs_mean_err_vs_mu0": 0.0007263686085932086,
+    "trace_ratio_emp_over_c_trace": 0.9942645156454735,
+    "cov_rel_frobenius_err_vs_cSigma0": 0.013218136340099499,
+    "paths_in_unit_interval": true
+   },
+   "zero_initial_state_no_forcing_stays_zero": true,
+   "first_step_matches_binomial_from_zero": {
+    "emp_mean": 0.0601325,
+    "exact": 0.06,
+    "abs_err": 0.00013250000000000067
+   }
+  },
+  "detail_file": "results/synthetic/EXACT_LAW_CALIBRATION.json"
+ }
+}

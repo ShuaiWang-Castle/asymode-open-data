@@ -1,0 +1,15 @@
+{
+ "status": "PRE_PROFILE_ESTIMATE",
+ "created_utc": "2026-09-13T00:08:56+00:00",
+ "hardware": "Apple M2, 8 CPU cores (4P+4E), 16 GB RAM, no CUDA; MPS not used for determinism",
+ "estimate_cpu_hours": {
+  "task_A_tuning_36_runs": "2.0-3.0",
+  "task_A_final_10_runs": "0.5-1.0",
+  "task_B_verify_replay_spotcheck": 0.3,
+  "task_C_tuning_36_runs": "0.3-0.6",
+  "task_C_final_120_runs": "1.0-2.0",
+  "scoring_replay_figures": 0.5
+ },
+ "will_be_revised_after": "100-update throughput profile, before any formal trial",
+ "revision_log": []
+}

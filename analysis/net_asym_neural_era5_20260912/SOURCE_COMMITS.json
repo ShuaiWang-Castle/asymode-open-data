@@ -1,0 +1,67 @@
+{
+ "repository": "https://github.com/ShuaiWang-Castle/asymode-open-data",
+ "round_branch": "research/net-asym-neural-era5-20260912",
+ "branch_base": {
+  "branch": "aneel-open-data",
+  "commit": "de406e16e0de4601e221600a2cd5379eb36246c2",
+  "expected": "de406e16e0de4601e221600a2cd5379eb36246c2",
+  "matches_expected": true
+ },
+ "remote_heads_at_start": {
+  "main": "8dd47c5ccd829611f27b69a3d64c274a0a24c400",
+  "aneel-open-data": "de406e16e0de4601e221600a2cd5379eb36246c2",
+  "open-audit-20260904": "8c4322f6b08e39557b8e62efc6e2fdcb7e9c3587",
+  "aistats-current": "fc03d3660a80f80bae6c75990d7d41a91bf3e673"
+ },
+ "checked_for_newer_work": {
+  "aneel-open-data": "no commits after de406e16; no newer ANEEL repair pushed",
+  "main@8dd47c5": "public data release; data/README.md and data bytes identical to the base branch",
+  "open-audit-20260904@8c4322f": {
+   "relevant": "semantic weather-driver defect documented after the coarse confirmation",
+   "files": {
+    "analysis/post_coarse_confirmation_20260904/03_WEATHER_DRIVER_COVERAGE_DEFECT.md": "6952548a5bc21d026ab70eb6e340ec1a227a5673",
+    "analysis/post_coarse_confirmation_20260904/weather_coverage_by_event.csv": "0dd62fbda202854abe28c50dcf78bd6636aee795",
+    "CC_START_HERE.md": "5b049e9d0db5684749674cacbb9993cdeb2829c3"
+   },
+   "commits": {
+    "b21c4b4": "document semantic zero-weather driver defect",
+    "da1f90e": "event-level semantic weather coverage audit",
+    "e88d71d": "post-hoc event-level target-oracle decomposition",
+    "8c4322f": "freeze further runs after coarse confirmation and driver defect"
+   },
+   "applicable_protocol": "its model-run freeze governs that branch; its data finding (missing county weather encoded as all-zero tensors) is adopted here as an input-legality rule and independently re-verified byte by byte in intake/US_DATA_AUDIT.json",
+   "not_used": "no coarse-model, K-means or target-oracle output from that branch enters this round"
+  },
+  "aistats-current@fc03d36": "manuscript workspace; read only for existence, not modified and not used as evidence"
+ },
+ "historical_inputs_on_base": {
+  "analysis/asymode_trajectory_r1_20260909/data_resolution/rebuilt_selected_ledgers.npz": "4cec5e8cfa091f0999611ad4a1b2f696d3d00549",
+  "analysis/asymode_trajectory_r1_20260909/results/STAGE1_TRIALS.csv": "b88f89f365ba3abc3ec0b4c5cf1735de5dc99636",
+  "analysis/asymode_trajectory_r1_20260909/results/STAGE2_TRIALS.csv": "2edd98e6c2cf5f9a4f9125cfeacc770dcba4b05a",
+  "analysis/asymode_trajectory_r1_20260909/preflight/origin_hours_L24_H24.npz": "8c07f980d43d8349e1a186b5ce0829d4f83f78ac",
+  "analysis/asymode_trajectory_r1_20260909/_package/ASYMODE_CC_STANDALONE_20260909/code/core_models.py": "ecd86d6ac5a388feb8c7cc96de10b334ab8dad7b",
+  "analysis/asymode_trajectory_r1_20260909/_package/ASYMODE_CC_STANDALONE_20260909/metadata/LEDGER_REFERENCE.json": "950379855acda62d179b8ac4ca24876ccbb51062",
+  "configs/panel_manifest_g3-all-26.json": "6a4983fd867f8a22b69367de4242e5ba9c99ef24",
+  "data/SHA256SUMS.txt": "38c0d60ccbce362d510538554a0ac923103b294f"
+ },
+ "local_non_github_inputs": {
+  "aneel_selection_repair_run": {
+   "status": "produced 2026-09-09 in this project, never pushed; qualifies against protocol section 5.3",
+   "package_sha256sums_sha256": "159fbd282e7dbfc57ec8dcb2597bfcdd46260cf6b15c7850c99073f0b5997deb",
+   "corrected_lock_sha256": "b5964ff81d9406edac2f55f11d1d583c3a208312e36c2b7c42125365b62ae128",
+   "checkpoints_sha256": {
+    "final_ASYM_seed5101.pt": "736ef88879abc8827f4e3ea9adb44490187704f45bf145ddbc410b7383d104c2",
+    "final_ASYM_seed5102.pt": "80c2059293909a56053f1990b8f2c11e2f6648fc09a6a0099d1d6d84d6db182d",
+    "final_ASYM_seed5103.pt": "88b6b1c1383e594b56088a0b5663ba62f407661892c73d44362a10368b897543",
+    "final_ASYM_seed5104.pt": "a7d2453a7bd825b470271ff8c4daa9364bfd09537e583861b9060b80bb7e7a8f",
+    "final_ASYM_seed5105.pt": "f550a8cbac80d7d0eeb32da569682d0a1a84907a73e71fbff2d88700a299e622",
+    "final_NET_seed5101.pt": "f67fc81f5c81ab533dc227704038adac57d6cb2e92452159bac559eeded4e11c",
+    "final_NET_seed5102.pt": "1cd9010ead6f1b62ddfd62bea1bd79bd083ef302bf3756db98217d37582c1dfb",
+    "final_NET_seed5103.pt": "5dd24eb21b8ba896dcc5ca966d41ead16f4967fb4cb35f93fc450dbf4f90c22e",
+    "final_NET_seed5104.pt": "891550609e9bf3a0a6a8b95464b6fa1c0a83d4934b43c47df6a7638c9585b990",
+    "final_NET_seed5105.pt": "77fa9812a149f36ef6e681b913b56de65d9af76b76f89300682a62cbd354f9b4"
+   },
+   "used_for": "NET and ASYM only; DIRECT checkpoints in that run are not used"
+  }
+ }
+}

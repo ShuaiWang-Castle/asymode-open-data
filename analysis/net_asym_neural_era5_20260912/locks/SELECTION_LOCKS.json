@@ -1,0 +1,28 @@
+{
+ "created_utc": "2026-09-13T00:15:41+00:00",
+ "task_B_aneel": {
+  "status": "LOCKED_TABLE_ONLY_BEFORE_ANY_2019_SCORING",
+  "source": "locks/ANEEL_SELECTION_LOCK.json",
+  "NET": {
+   "selected_config": "p32768_lr0.0003",
+   "parameter_target": 32768,
+   "lr": 0.0003,
+   "final_updates": 3500
+  },
+  "ASYM": {
+   "selected_config": "p8192_lr0.001",
+   "parameter_target": 8192,
+   "lr": 0.001,
+   "final_updates": 1000
+  }
+ },
+ "task_A_us_era5": {
+  "status": "PENDING_DEV_TUNING",
+  "written_to": "locks/US_SELECTION_LOCK.json before any 2024 prediction"
+ },
+ "task_C_synthetic": {
+  "status": "PENDING_DEV_TUNING",
+  "written_to": "locks/SYNTH_SELECTION_LOCK.json before any final fit"
+ },
+ "revision_log": []
+}

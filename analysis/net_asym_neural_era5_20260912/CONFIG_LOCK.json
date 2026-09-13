@@ -1,0 +1,332 @@
+{
+ "protocol_id": "NET_ASYM_NEURAL_ERA5_20260912",
+ "created_utc": "2026-09-13T00:08:56+00:00",
+ "delta_convention": "Delta = MSE_NET - MSE_ASYM; positive supports two flows, negative supports one net flow",
+ "models": {
+  "NET": "y_{k+1} = y_k + scale*net(concat(context, step_x_k, y_k/scale)); ResidualMLP(din=context+step+1, dout=1); recursive in its own prediction; NOT relu(s)(1-y)-relu(-s)y",
+  "ASYM": "(u,r,stay)=softmax(concat(rate_logits(context, step_x_k), 0)); y_{k+1}=y_k+u(1-y_k)-r*y_k; ResidualMLP(din=context+step, dout=2); rates never read the recursive state",
+  "core_source": "analysis/asymode_trajectory_r1_20260909/_package/ASYMODE_CC_STANDALONE_20260909/code/core_models.py (ResidualMLP, linear skip, init, count_for_width/match_width unchanged)",
+  "only_models": [
+   "NET",
+   "ASYM"
+  ],
+  "excluded": [
+   "DIRECT",
+   "SR",
+   "source-rate projection",
+   "geographic kernel",
+   "neighbour model",
+   "intervention",
+   "certificate"
+  ]
+ },
+ "common_training": {
+  "batch": 512,
+  "optimizer": "AdamW",
+  "weight_decay": 0.0001,
+  "clip_grad_norm": 1.0,
+  "precision": "FP32",
+  "amp": false,
+  "torch_compile": false,
+  "scheduler": null,
+  "dropout": 0.0,
+  "tie_break": "smaller parameter_target, then smaller lr",
+  "loss": "mean(((prediction-target)/fit_scale)**2) over batch and all horizon steps; full-path BPTT, no detach, no teacher forcing",
+  "raw_outputs_scored": true,
+  "clip_sensitivity": "np.clip(pred,0,1) scored separately; never fed back into recursion"
+ },
+ "task_A_us_era5": {
+  "information_contract": "RETROSPECTIVE_KNOWN_REANALYSIS_CONDITIONAL_RESPONSE",
+  "splits": {
+   "train": [
+    2018,
+    2019,
+    2020,
+    2021
+   ],
+   "validation": [
+    2022
+   ],
+   "evaluation": [
+    2024
+   ]
+  },
+  "window": {
+   "L": 24,
+   "H": 24,
+   "origin_stride_hours": 6,
+   "origin_hours_utc": [
+    0,
+    6,
+    12,
+    18
+   ],
+   "states": "exact UTC hourly snapshot y[4h], t-24..t+24"
+  },
+  "inputs": {
+   "context": "hist y[t-24:t]/scale (24) + past weather hours t-23..t standardized (288) + given future weather hours t+1..t+24 standardized (288) = 600; y0 passed separately",
+   "step_x_k": "weather at hour t+k+1 standardized (12) + UTC sin/cos of that hour (2) + weekend of that hour (1) = 15",
+   "forbidden": [
+    "neighbour counties",
+    "geographic kernel",
+    "county id embedding",
+    "static variables",
+    "future outage states"
+   ]
+  },
+  "legality": "49 states observed and finite; weather hours t-23..t+24 finite; county weather not identically zero (missing mapping); identical window list for both models",
+  "fit_statistics": "train split only: scale = event->county->origin-equal RMS of hist+y0; source_mean = same-weighted mean; weather mean/std per channel over train windows with the same weights",
+  "weighting": "event -> county -> origin -> lead equal; sampler draws event, then county, then origin uniformly; independent data RNG so paired seeds see identical batches",
+  "tuning": {
+   "candidates": [
+    {
+     "config_id": "p8192_lr0.0003",
+     "parameter_target": 8192,
+     "lr": 0.0003
+    },
+    {
+     "config_id": "p8192_lr0.001",
+     "parameter_target": 8192,
+     "lr": 0.001
+    },
+    {
+     "config_id": "p8192_lr0.003",
+     "parameter_target": 8192,
+     "lr": 0.003
+    },
+    {
+     "config_id": "p32768_lr0.0003",
+     "parameter_target": 32768,
+     "lr": 0.0003
+    },
+    {
+     "config_id": "p32768_lr0.001",
+     "parameter_target": 32768,
+     "lr": 0.001
+    },
+    {
+     "config_id": "p32768_lr0.003",
+     "parameter_target": 32768,
+     "lr": 0.003
+    }
+   ],
+   "dev_seeds": [
+    8101,
+    8102,
+    8103
+   ],
+   "max_updates": 3000,
+   "validate_every": 250,
+   "select_by": "mean over DEV seeds of best event-equal validation path MSE (2022)",
+   "final_updates": "median of the selected config best_update over DEV seeds, nearest 250, clamp [250,3000]"
+  },
+  "final": {
+   "seeds": [
+    8201,
+    8202,
+    8203,
+    8204,
+    8205
+   ],
+   "fit": "2018-2021 only",
+   "no_early_stopping_on_evaluation": true
+  },
+  "endpoints": {
+   "1h": 0,
+   "6h": 5,
+   "24h": 23
+  },
+  "uncertainty": "paired resampling of evaluation overlap components (event-window time intersection); exact sign-flip over components; per-seed losses aggregated after squaring; descriptive only"
+ },
+ "task_B_aneel": {
+  "data": "rebuilt_selected_ledgers.npz verified by 192 f64-LE array fingerprints",
+  "cohort": "24 included collections, 16 companies",
+  "fixed_repair_configs": {
+   "NET": {
+    "parameter_target": 32768,
+    "lr": 0.0003,
+    "updates": 3500
+   },
+   "ASYM": {
+    "parameter_target": 8192,
+    "lr": 0.001,
+    "updates": 1000
+   }
+  },
+  "final_seeds": [
+   5101,
+   5102,
+   5103,
+   5104,
+   5105
+  ],
+  "context": "168 dims (24 group one-hot + 24 hist/s + 24x5 known calendar); step calendar 5 dims",
+  "checkpoint_policy": "reuse qualified local repair checkpoints after metadata verification and bitwise replay; one-seed retrain spot check per model",
+  "evaluation": "reused_2019 retrospective; company-equal primary; per company and collection paired Delta; 168h common-calendar block sensitivity; mean-company-relative gain and ratio-of-means kept separate",
+  "not_run": [
+   "DIRECT",
+   "SR",
+   "one-step ablation",
+   "any new tuning"
+  ]
+ },
+ "task_C_synthetic": {
+  "constants": {
+   "H": 32,
+   "M0": 16,
+   "L": 32,
+   "u": 0.06,
+   "r": 0.2,
+   "gamma_main": 0.04,
+   "gamma_control": 0.0,
+   "scene_hours": [
+    4,
+    8,
+    12
+   ],
+   "population": 12288
+  },
+  "calibration": {
+   "sd0_8h_gamma004": 0.060878399191013,
+   "c_floor_1_over_L": 0.03125,
+   "min_achievable_sd_8h": 0.01076188222393673,
+   "laws": [
+    {
+     "law_index": 0,
+     "target_sd_8h_gamma004": 0.011,
+     "c": 0.03264817594231698,
+     "rho": 0.0014432783920691435,
+     "rho_in_unit_interval": true
+    },
+    {
+     "law_index": 1,
+     "target_sd_8h_gamma004": 0.02,
+     "c": 0.10792785435476689,
+     "rho": 0.0791513335275013,
+     "rho_in_unit_interval": true
+    },
+    {
+     "law_index": 2,
+     "target_sd_8h_gamma004": 0.06,
+     "c": 0.971350689192902,
+     "rho": 0.970426517876544,
+     "rho_in_unit_interval": true
+    }
+   ]
+  },
+  "laws": [
+   {
+    "law_index": 0,
+    "c": 0.03264817594231698,
+    "rho": 0.0014432783920691435,
+    "target_sd_8h_gamma004": 0.011
+   },
+   {
+    "law_index": 1,
+    "c": 0.10792785435476689,
+    "rho": 0.0791513335275013,
+    "target_sd_8h_gamma004": 0.02
+   },
+   {
+    "law_index": 2,
+    "c": 0.971350689192902,
+    "rho": 0.970426517876544,
+    "target_sd_8h_gamma004": 0.06
+   }
+  ],
+  "inputs": {
+   "context": "x[0:32] (32)",
+   "step_x_k": "(x[k], k/32) (2)",
+   "y0": 0.0,
+   "forbidden": [
+    "M0",
+    "L",
+    "rho",
+    "c",
+    "gamma",
+    "B",
+    "future Y",
+    "transition counts",
+    "exact law"
+   ]
+  },
+  "n_per_scene": [
+   32,
+   128,
+   512
+  ],
+  "split_events_per_scene": {
+   "validation": 512,
+   "calibration": 512,
+   "test": 2048
+  },
+  "seeds": {
+   "dev": [
+    6201,
+    6202,
+    6203
+   ],
+   "final": [
+    7201,
+    7202,
+    7203,
+    7204,
+    7205
+   ]
+  },
+  "rng": "numpy SeedSequence(entropy=seed, spawn_key=(stage, scene, law, gamma_flag, split)); training pool of 512 per scene, n uses its prefix",
+  "fit_statistics": "scale = RMS of training target states of that environment; source_mean = their mean",
+  "tuning": {
+   "candidates": [
+    {
+     "config_id": "p8192_lr0.0003",
+     "parameter_target": 8192,
+     "lr": 0.0003
+    },
+    {
+     "config_id": "p8192_lr0.001",
+     "parameter_target": 8192,
+     "lr": 0.001
+    },
+    {
+     "config_id": "p8192_lr0.003",
+     "parameter_target": 8192,
+     "lr": 0.003
+    },
+    {
+     "config_id": "p32768_lr0.0003",
+     "parameter_target": 32768,
+     "lr": 0.0003
+    },
+    {
+     "config_id": "p32768_lr0.001",
+     "parameter_target": 32768,
+     "lr": 0.001
+    },
+    {
+     "config_id": "p32768_lr0.003",
+     "parameter_target": 32768,
+     "lr": 0.003
+    }
+   ],
+   "environment": "law index 1 (target sd .020), n=128, gamma=.04, three scenes mixed",
+   "max_updates": 3000,
+   "validate_every": 250,
+   "select_by": "mean over DEV seeds of best scene-equal validation path MSE against realized events"
+  },
+  "final_grid": "3 laws x 3 n x 5 seeds x 2 models = 90 fits; gamma=0, n=128, 3 laws x 5 seeds x 2 models = 30 control fits",
+  "computation_note": "every event in a scene has identical inputs, so each batch runs the network once per distinct scene and gathers; loss and gradients are unchanged (verified by test)",
+  "selection_rule": "per environment and seed, pick the frozen model with lower scene-equal calibration path MSE; evaluate on test only"
+ },
+ "budget": {
+  "cap_cumulative_compute_hours": 24,
+  "reserve_fraction_for_scoring_and_replay": 0.15,
+  "hardware": "CPU (no CUDA device on this host)",
+  "reduction_ladder": [
+   "final seeds 5 -> 3 for tasks A and C",
+   "then DEV max updates 3000 -> 1500"
+  ],
+  "aneel": "never reduced"
+ },
+ "revision_log": []
+}
