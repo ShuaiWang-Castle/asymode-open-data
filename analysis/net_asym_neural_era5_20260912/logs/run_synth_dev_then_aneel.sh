@@ -12,7 +12,7 @@ rc=0
 for i in 0 1; do wait "${pids[$i]}"; e=$?; echo "$(date -u +%FT%TZ) synth_dev worker=$i exit=$e" >> logs/EXIT_CODES.log; [ $e -ne 0 ] && rc=1; done
 if [ $rc -eq 0 ]; then
   env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 MKL_NUM_THREADS=1 python3.11 code/synth_train.py --phase select --work "$WORK" > logs/synth_select.log 2>&1
-  echo "$(date -u +%FT%TZ) synth_select exit=$?" >> logs/EXIT_CODES.log
+  e=$?; echo "$(date -u +%FT%TZ) synth_select exit=$e" >> logs/EXIT_CODES.log
 fi
 python3.11 code/aneel_eval.py --root "$ROOT" --work "$WORK" --repair-dir "$REPAIR" --scratch "$SCRATCH" --threads 8 > logs/aneel_eval.log 2>&1
-echo "$(date -u +%FT%TZ) aneel_eval exit=$?" >> logs/EXIT_CODES.log
+e=$?; echo "$(date -u +%FT%TZ) aneel_eval exit=$e" >> logs/EXIT_CODES.log

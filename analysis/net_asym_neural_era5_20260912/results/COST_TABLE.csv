@@ -1,0 +1,7 @@
+task,model,config_id,width,n_params,updates,threads,runs,train_wall_seconds_mean,inference_seconds_mean
+synthetic,ASYM,p32768_lr0.003,163,32833,2000.0,1.0,60,17.641333333333332,
+synthetic,NET,p32768_lr0.003,163,32799,2500.0,1.0,60,31.556333333333335,
+us_era5,ASYM,p32768_lr0.001,47,32534,1000.0,2.0,5,46.648,0.842
+us_era5,NET,p32768_lr0.001,48,32633,2750.0,2.0,5,157.696,0.728
+aneel,ASYM,repair lock,37,8266,,,5,,2.67
+aneel,NET,repair lock,113,32945,,,5,,4.214

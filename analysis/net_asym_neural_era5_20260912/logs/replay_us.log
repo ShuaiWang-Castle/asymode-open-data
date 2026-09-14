@@ -1,0 +1,11 @@
+  us ASYM_seed8201.pt       max|replay-shard|=0.00e+00 path=1.860267e-03
+  us ASYM_seed8202.pt       max|replay-shard|=0.00e+00 path=2.367420e-03
+  us ASYM_seed8203.pt       max|replay-shard|=0.00e+00 path=2.148202e-03
+  us ASYM_seed8204.pt       max|replay-shard|=0.00e+00 path=2.209207e-03
+  us ASYM_seed8205.pt       max|replay-shard|=0.00e+00 path=2.161067e-03
+  us NET_seed8201.pt        max|replay-shard|=0.00e+00 path=2.494022e-03
+  us NET_seed8202.pt        max|replay-shard|=0.00e+00 path=2.409979e-03
+  us NET_seed8203.pt        max|replay-shard|=0.00e+00 path=2.577691e-03
+  us NET_seed8204.pt        max|replay-shard|=0.00e+00 path=2.387028e-03
+  us NET_seed8205.pt        max|replay-shard|=0.00e+00 path=2.490036e-03
+replayed 10 checkpoints; worst difference 0.00e+00

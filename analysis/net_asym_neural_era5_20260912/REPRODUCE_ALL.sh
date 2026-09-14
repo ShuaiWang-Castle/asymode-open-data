@@ -26,6 +26,10 @@ $PY code/synth_train.py --phase select --work "$HERE"
 for w in 0 1; do $PY code/synth_train.py --phase final --work "$HERE" --worker $w --n-workers 2 --threads 1 & done; wait
 # 5. Task B (ANEEL): the repair checkpoints must be supplied via --repair-dir to reproduce the replay step
 echo "Task B: run code/aneel_eval.py --root $ROOT --work $HERE --repair-dir <dir with main/ and predictions/> --scratch \$(mktemp -d)"
-# 6. analysis, figures, replay
+# 6. analysis, figures, post-hoc descriptive references, then replay at the thread count each task was trained with
 $PY code/analyze.py --root "$ROOT" --work "$HERE"
-./REPLAY_ONLY.sh
+$PY code/aneel_detail.py --work "$HERE"
+$PY code/posthoc_descriptives.py --work "$HERE"
+./REPLAY_ONLY.sh --task us --threads 2
+./REPLAY_ONLY.sh --task synthetic --threads 1
+./REPLAY_ONLY.sh --task aneel --threads 8

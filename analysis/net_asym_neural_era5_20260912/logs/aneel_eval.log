@@ -1,0 +1,15 @@
+  replay NET  seed5101 diff_vs_repair=0.0e+00
+  replay NET  seed5102 diff_vs_repair=0.0e+00
+  replay NET  seed5103 diff_vs_repair=0.0e+00
+  replay NET  seed5104 diff_vs_repair=0.0e+00
+  replay NET  seed5105 diff_vs_repair=0.0e+00
+  replay ASYM seed5101 diff_vs_repair=0.0e+00
+  replay ASYM seed5102 diff_vs_repair=0.0e+00
+  replay ASYM seed5103 diff_vs_repair=0.0e+00
+  replay ASYM seed5104 diff_vs_repair=0.0e+00
+  replay ASYM seed5105 diff_vs_repair=0.0e+00
+  retrain spot check NET seed5101: max diff 0.0e+00
+  retrain spot check ASYM seed5101: max diff 0.0e+00
+  raw             Delta(NET-ASYM) path = -6.4409e-07  block 95% [-1.120e-06, -1.331e-07]  seeds+ 1/5  companies+ 9/16  relgain +0.0664%
+  output_clip_01  Delta(NET-ASYM) path = -8.1915e-07  block 95% [-1.217e-06, -4.382e-07]  seeds+ 1/5  companies+ 9/16  relgain -0.0887%
+  independent scorer max diff: 0.0

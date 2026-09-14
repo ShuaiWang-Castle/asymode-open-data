@@ -1,0 +1,6 @@
+[us:dev] train/val/eval windows = [60707, 32907, 25430] scale=0.0672857 source_mean=0.0144606 threads=2
+  dev ASYM p32768_lr0.001  seed8102 best=4.581362e-04@250 (181.95s)
+  dev NET  p8192_lr0.0003  seed8103 best=6.549438e-04@500 (179.17s)
+  dev ASYM p8192_lr0.001   seed8103 best=4.381592e-04@250 (147.26s)
+  dev NET  p32768_lr0.0003 seed8103 best=5.970411e-04@3000 (206.82s)
+  dev ASYM p32768_lr0.001  seed8103 best=4.347767e-04@1000 (158.46s)

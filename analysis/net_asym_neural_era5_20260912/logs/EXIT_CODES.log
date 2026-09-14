@@ -1,0 +1,21 @@
+2026-09-13T01:17:28Z synth_dev worker=0 exit=0
+2026-09-13T01:17:28Z synth_dev worker=1 exit=0
+2026-09-13T01:17:34Z synth_select exit=0
+2026-09-13T01:34:28Z us_dev worker=0 exit=137
+2026-09-13T01:34:28Z synth_final worker=0 exit=0
+2026-09-13T01:34:28Z synth_final worker=1 exit=0
+2026-09-13T01:34:28Z us_dev worker=1 exit=137
+2026-09-13T01:34:28Z us_dev worker=2 exit=137
+2026-09-13T01:34:28Z aneel_eval exit=0
+2026-09-13T01:35:53+00:00 CORRECTION: the lines 'synth_select exit=0', 'synth_final worker=0 exit=0', 'synth_final worker=1 exit=0' and 'aneel_eval exit=0' were logged with $? expanded after a $(date) substitution and do not reflect the job status. The synth_final workers and aneel_eval were SIGKILLed at the PI-requested stop (true status 137). Synthetic selection success is established independently by the committed lock. Orchestrators fixed to capture e=$? first.
+2026-09-14T05:30:53Z aneel_eval exit=0 (rerun after PI-requested stop)
+2026-09-14T05:36:41Z us_dev worker=0 exit=0
+2026-09-14T05:36:58Z us_dev worker=1 exit=0
+2026-09-14T05:36:58Z us_dev worker=2 exit=0
+2026-09-14T05:37:00Z us_select exit=0
+2026-09-14T05:43:46Z us_final worker=0 exit=0
+2026-09-14T05:43:46Z us_final worker=1 exit=0
+2026-09-14T05:43:46Z us_final worker=2 exit=0
+2026-09-14T05:44:44Z synth_final worker=0 exit=0
+2026-09-14T05:44:44Z synth_final worker=1 exit=0
+2026-09-14T05:45:29Z finalize_build exit=0

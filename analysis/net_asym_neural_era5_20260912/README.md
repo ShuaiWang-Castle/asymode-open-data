@@ -17,11 +17,11 @@ full-path squared loss with no teacher forcing, and are compared as
 
 ## Tasks
 
-| task | data | status |
+| task | data | outcome (details in `RESULTS_ZH.md`) |
 |---|---|---|
-| A. US EAGLE-I + ERA5 | 26 public panels and matched ERA5 drivers; retrospective, given-reanalysis conditional response | see `RESULTS_ZH.md` |
-| B. ANEEL | fixed 24-collection ledger; targeted selection repair; reused 2019 retrospective evaluation | see `RESULTS_ZH.md` |
-| C. Synthetic | exact binomial source-pool mixture laws with identical x and zero start | see `RESULTS_ZH.md` |
+| A. US EAGLE-I + ERA5 | 26 public panels and matched ERA5 drivers; retrospective, given-reanalysis conditional response | 10/10 final fits. 2024 event-equal path risk favours ASYM: Delta = +3.23e-04, positive in 5/5 seeds, 6/6 events and 5/5 overlap components; the exact sign-flip p of 0.0625 is the minimum attainable with five components |
+| B. ANEEL | fixed 24-collection ledger; targeted selection repair; reused 2019 retrospective evaluation | 10 repaired checkpoints replayed bit-exactly. Company-equal risk favours NET: Delta = -6.44e-07, concentrated in three companies; 9 of 16 companies lean ASYM |
+| C. Synthetic | exact binomial source-pool mixture laws with identical x and zero start | 120/120 fits. All five seeds favour ASYM only in the noisiest, smallest-sample cell; the other cells are undecided |
 
 ## Layout
 
@@ -35,15 +35,20 @@ full-path squared loss with no teacher forcing, and are compared as
 | `checkpoints/`, `predictions/` | final models and sharded predictions |
 | `results/`, `figures/` | tables and figures built from saved predictions |
 | `logs/` | trial registry, environment, gates, negative results and failures |
+| `code/posthoc_descriptives.py` | descriptive references computed after the results were seen: persistence, untrained models, validation curves, compute |
 
 ## Replay without training
 
 ```bash
-./REPLAY_ONLY.sh                      # every checkpoint, all three tasks
-./REPLAY_ONLY.sh --task us --max-models 1
+./REPLAY_ONLY.sh --task us --threads 2          # 10 US checkpoints
+./REPLAY_ONLY.sh --task synthetic --threads 1   # 120 synthetic checkpoints
+./REPLAY_ONLY.sh --task aneel --threads 8       # 10 ANEEL checkpoints
+./REPLAY_ONLY.sh --task us --max-models 1 --threads 2
 ```
 
-`REPRODUCE_ALL.sh` reruns everything from the repository data and retrains every model.
+Replay each task at the thread count it was trained and predicted with; at those counts every
+recorded replay matches the saved prediction shards bit for bit. `REPRODUCE_ALL.sh` reruns
+everything from the repository data and retrains every model.
 
 ## Data caveat that shapes Task A
 

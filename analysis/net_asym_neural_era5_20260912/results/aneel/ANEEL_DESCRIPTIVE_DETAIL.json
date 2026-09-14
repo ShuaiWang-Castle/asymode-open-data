@@ -1,0 +1,72 @@
+{
+ "delta_convention": "MSE_NET - MSE_ASYM; positive favours ASYM",
+ "status": "descriptive, reused 2019 retrospective",
+ "variants": {
+  "raw": {
+   "company_equal_delta_by_seed": {
+    "5101": -1.4078088559354712e-07,
+    "5102": -2.726427114154003e-07,
+    "5103": -2.588687192292058e-06,
+    "5104": -4.962287340411006e-07,
+    "5105": 2.778734823254167e-07
+   },
+   "leave_one_seed_out_delta": {
+    "5101": -7.699212888557856e-07,
+    "5102": -7.369558324003222e-07,
+    "5103": -1.5794471218115784e-07,
+    "5104": -6.810593267438971e-07,
+    "5105": -8.745848808355265e-07
+   },
+   "leave_one_seed_out_all_negative": true,
+   "companies_delta_positive": 9,
+   "companies": 16,
+   "companies_positive_in_all_5_seeds": 3,
+   "companies_negative_in_all_5_seeds": 4,
+   "top3_companies_by_abs_delta": [
+    2,
+    7,
+    25
+   ],
+   "share_of_summed_company_delta_from_top3": 1.1522882284029796,
+   "spearman_company_NET_mse_vs_delta": -0.5058823529411764,
+   "spearman_company_NET_mse_vs_relative_gain": -0.4735294117647058,
+   "collections_delta_positive": 15,
+   "collections": 24,
+   "collection_delta_min": -5.8504938112114e-06,
+   "collection_delta_max": 1.247509232715294e-06
+  },
+  "output_clip_01": {
+   "company_equal_delta_by_seed": {
+    "5101": -3.819038573140473e-07,
+    "5102": -4.1772311275220837e-07,
+    "5103": -2.7046243632249396e-06,
+    "5104": -7.538783181271031e-07,
+    "5105": 1.623769005045682e-07
+   },
+   "leave_one_seed_out_delta": {
+    "5101": -9.284622233999206e-07,
+    "5102": -9.195074095403805e-07,
+    "5103": -3.4778209692219763e-07,
+    "5104": -8.354686081966568e-07,
+    "5105": -1.0645324128545747e-06
+   },
+   "leave_one_seed_out_all_negative": true,
+   "companies_delta_positive": 9,
+   "companies": 16,
+   "companies_positive_in_all_5_seeds": 1,
+   "companies_negative_in_all_5_seeds": 4,
+   "top3_companies_by_abs_delta": [
+    2,
+    7,
+    25
+   ],
+   "share_of_summed_company_delta_from_top3": 1.0480267125849647,
+   "spearman_company_NET_mse_vs_delta": -0.5705882352941177,
+   "spearman_company_NET_mse_vs_relative_gain": -0.44117647058823534,
+   "collections_delta_positive": 14,
+   "collections": 24,
+   "collection_delta_min": -5.85650374130212e-06,
+   "collection_delta_max": 9.311209804660156e-07
+  }
+ }
+}

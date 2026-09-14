@@ -1,0 +1,10 @@
+  replay NET  seed5101 diff_vs_repair=0.0e+00
+  replay NET  seed5102 diff_vs_repair=0.0e+00
+  replay NET  seed5103 diff_vs_repair=0.0e+00
+  replay NET  seed5104 diff_vs_repair=0.0e+00
+  replay NET  seed5105 diff_vs_repair=0.0e+00
+  replay ASYM seed5101 diff_vs_repair=0.0e+00
+  replay ASYM seed5102 diff_vs_repair=0.0e+00
+  replay ASYM seed5103 diff_vs_repair=0.0e+00
+  replay ASYM seed5104 diff_vs_repair=0.0e+00
+  replay ASYM seed5105 diff_vs_repair=0.0e+00

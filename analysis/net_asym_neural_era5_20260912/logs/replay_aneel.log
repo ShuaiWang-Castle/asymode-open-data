@@ -1,0 +1,11 @@
+  aneel ASYM_seed5101.pt max|replay-shard|=0.00e+00 path=1.696446e-04
+  aneel ASYM_seed5102.pt max|replay-shard|=0.00e+00 path=1.693786e-04
+  aneel ASYM_seed5103.pt max|replay-shard|=0.00e+00 path=1.722056e-04
+  aneel ASYM_seed5104.pt max|replay-shard|=0.00e+00 path=1.701434e-04
+  aneel ASYM_seed5105.pt max|replay-shard|=0.00e+00 path=1.687566e-04
+  aneel NET_seed5101.pt  max|replay-shard|=0.00e+00 path=1.695038e-04
+  aneel NET_seed5102.pt  max|replay-shard|=0.00e+00 path=1.691059e-04
+  aneel NET_seed5103.pt  max|replay-shard|=0.00e+00 path=1.696169e-04
+  aneel NET_seed5104.pt  max|replay-shard|=0.00e+00 path=1.696471e-04
+  aneel NET_seed5105.pt  max|replay-shard|=0.00e+00 path=1.690345e-04
+replayed 10 checkpoints; worst difference 0.00e+00

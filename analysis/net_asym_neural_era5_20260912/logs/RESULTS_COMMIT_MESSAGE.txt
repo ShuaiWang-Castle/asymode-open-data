@@ -1,0 +1,25 @@
+analysis: NET/ASYM round results for US ERA5, ANEEL and synthetic
+
+Task A (US EAGLE-I + ERA5, 2024 retrospective, given reanalysis weather): 10/10 final
+fits under the locked selection. Event-equal path risk favours ASYM: Delta = MSE_NET -
+MSE_ASYM = +3.23e-04, positive in 5/5 seeds, 6/6 events and 5/5 overlap components
+(component resampling [+1.20e-04, +7.46e-04]; exact sign-flip p = 0.0625, the minimum
+attainable with five components). Post hoc, the untrained models rank the other way on
+the pooled measure (-2.67e-04), entirely because of 2024-09-27; in the other five events
+the untrained ASYM, a relaxation towards the train mean, is already ahead. NET is worse
+than persistence at the 1 h and 6 h endpoints.
+
+Task B (ANEEL, reused 2019 retrospective): 10 repaired checkpoints replayed bit-exactly.
+Company-equal risk favours NET: Delta = -6.44e-07 (168 h blocks [-1.12e-06, -1.33e-07]),
+concentrated in three companies; 9 of 16 companies lean ASYM.
+
+Task C (synthetic exact mixture laws): 90 main fits plus 30 gamma = 0 controls. All five
+seeds favour ASYM only in the noisiest, smallest-sample cell (law 2, n = 32); the other
+cells are undecided. Calibration-based selection lowers test risk against always-NET in
+11 of 12 cells.
+
+Includes sharded predictions, 140 checkpoints, figures, post-hoc descriptive references
+written after the results were seen, the trial registry, failures and scope not run, and
+SHA256SUMS for every file in the round directory.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>

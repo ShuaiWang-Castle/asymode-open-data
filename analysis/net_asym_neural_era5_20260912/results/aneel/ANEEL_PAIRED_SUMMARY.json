@@ -1,0 +1,131 @@
+{
+ "delta_convention": "MSE_NET - MSE_ASYM; positive supports ASYM",
+ "block_hours": 168,
+ "n_blocks": 52,
+ "n_resamples": 2000,
+ "status": "DESCRIPTIVE_DEPENDENCE_SENSITIVITY_ON_REUSED_2019",
+ "variants": {
+  "raw": {
+   "delta_path_point_seed_mean": -6.440932082033598e-07,
+   "delta_path_block_p2.5": -1.1202695165435942e-06,
+   "delta_path_block_p50": -6.566148479187961e-07,
+   "delta_path_block_p97.5": -1.3311917475380213e-07,
+   "per_seed": [
+    {
+     "seed": 5101,
+     "delta_path_company_equal": -1.4078088559358248e-07,
+     "asym_vs_net_mean_company_relative_gain": -0.002252630317593414,
+     "asym_vs_net_ratio_of_means_gain": -0.0008305470728094679,
+     "zero_net_denominator_companies": 0
+    },
+    {
+     "seed": 5102,
+     "delta_path_company_equal": -2.7264271141541987e-07,
+     "asym_vs_net_mean_company_relative_gain": 0.0006978212314906422,
+     "asym_vs_net_ratio_of_means_gain": -0.0016122597447237002,
+     "zero_net_denominator_companies": 0
+    },
+    {
+     "seed": 5103,
+     "delta_path_company_equal": -2.588687192292094e-06,
+     "asym_vs_net_mean_company_relative_gain": -0.007774135719034442,
+     "asym_vs_net_ratio_of_means_gain": -0.015261968153919926,
+     "zero_net_denominator_companies": 0
+    },
+    {
+     "seed": 5104,
+     "delta_path_company_equal": -4.962287340410699e-07,
+     "asym_vs_net_mean_company_relative_gain": 0.008994002088490079,
+     "asym_vs_net_ratio_of_means_gain": -0.0029250640941603156,
+     "zero_net_denominator_companies": 0
+    },
+    {
+     "seed": 5105,
+     "delta_path_company_equal": 2.77873482325367e-07,
+     "asym_vs_net_mean_company_relative_gain": 0.0036528848726471164,
+     "asym_vs_net_ratio_of_means_gain": 0.0016438865211898589,
+     "zero_net_denominator_companies": 0
+    }
+   ],
+   "mean_company_relative_gain_seed_mean": 0.0006635884311999962,
+   "ratio_of_means_gain_seed_mean": -0.00379719050888471,
+   "seeds_with_positive_delta": 1,
+   "companies_with_positive_seed_mean_delta": 9,
+   "companies": 16,
+   "endpoint_delta_seed_mean": {
+    "mse_1h": -5.349173029105305e-06,
+    "mse_6h": -1.585938138782769e-06,
+    "mse_24h": -1.8421876025619035e-07
+   }
+  },
+  "output_clip_01": {
+   "delta_path_point_seed_mean": -8.19150550182752e-07,
+   "delta_path_block_p2.5": -1.216678285892139e-06,
+   "delta_path_block_p50": -8.20950210184105e-07,
+   "delta_path_block_p97.5": -4.3817389490755663e-07,
+   "per_seed": [
+    {
+     "seed": 5101,
+     "delta_path_company_equal": -3.8190385731406247e-07,
+     "asym_vs_net_mean_company_relative_gain": -0.005120272119874365,
+     "asym_vs_net_ratio_of_means_gain": -0.0022562791880020366,
+     "zero_net_denominator_companies": 0
+    },
+    {
+     "seed": 5102,
+     "delta_path_company_equal": -4.1772311275221886e-07,
+     "asym_vs_net_mean_company_relative_gain": -0.0004097242162529936,
+     "asym_vs_net_ratio_of_means_gain": -0.0024723068745716526,
+     "zero_net_denominator_companies": 0
+    },
+    {
+     "seed": 5103,
+     "delta_path_company_equal": -2.70462436322496e-06,
+     "asym_vs_net_mean_company_relative_gain": -0.008618023767996221,
+     "asym_vs_net_ratio_of_means_gain": -0.015956398572901685,
+     "zero_net_denominator_companies": 0
+    },
+    {
+     "seed": 5104,
+     "delta_path_company_equal": -7.538783181270617e-07,
+     "asym_vs_net_mean_company_relative_gain": 0.007550804891894303,
+     "asym_vs_net_ratio_of_means_gain": -0.004450561558242317,
+     "zero_net_denominator_companies": 0
+    },
+    {
+     "seed": 5105,
+     "delta_path_company_equal": 1.6237690050454278e-07,
+     "asym_vs_net_mean_company_relative_gain": 0.0021642104481282,
+     "asym_vs_net_ratio_of_means_gain": 0.0009612709565078395,
+     "zero_net_denominator_companies": 0
+    }
+   ],
+   "mean_company_relative_gain_seed_mean": -0.0008866009528202155,
+   "ratio_of_means_gain_seed_mean": -0.00483485504744197,
+   "seeds_with_positive_delta": 1,
+   "companies_with_positive_seed_mean_delta": 9,
+   "companies": 16,
+   "endpoint_delta_seed_mean": {
+    "mse_1h": -5.357618570690285e-06,
+    "mse_6h": -1.7017956399860543e-06,
+    "mse_24h": -4.100049663413076e-07
+   }
+  }
+ },
+ "independent_scorer_check": [
+  {
+   "model": "NET",
+   "seed": 5101,
+   "independent_company_equal_path_mse": 0.00016950380081091248,
+   "package_scorer_path_mse": 0.00016950380081091248,
+   "abs_diff": 0.0
+  },
+  {
+   "model": "ASYM",
+   "seed": 5101,
+   "independent_company_equal_path_mse": 0.00016964458169650606,
+   "package_scorer_path_mse": 0.00016964458169650606,
+   "abs_diff": 0.0
+  }
+ ]
+}

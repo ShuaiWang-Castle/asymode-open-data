@@ -1,0 +1,68 @@
+{
+ "replayed_checkpoints": 10,
+ "worst_max_abs_diff_vs_shard": 0.0,
+ "exact": true,
+ "note": "inference only; no optimizer, no training call, no selection",
+ "rows": [
+  {
+   "task": "aneel",
+   "checkpoint": "ASYM_seed5101.pt",
+   "max_abs_diff_vs_shard": 0.0,
+   "company_equal_path_mse": 0.00016964458169650606
+  },
+  {
+   "task": "aneel",
+   "checkpoint": "ASYM_seed5102.pt",
+   "max_abs_diff_vs_shard": 0.0,
+   "company_equal_path_mse": 0.00016937859000537567
+  },
+  {
+   "task": "aneel",
+   "checkpoint": "ASYM_seed5103.pt",
+   "max_abs_diff_vs_shard": 0.0,
+   "company_equal_path_mse": 0.00017220555221157555
+  },
+  {
+   "task": "aneel",
+   "checkpoint": "ASYM_seed5104.pt",
+   "max_abs_diff_vs_shard": 0.0,
+   "company_equal_path_mse": 0.0001701433605804108
+  },
+  {
+   "task": "aneel",
+   "checkpoint": "ASYM_seed5105.pt",
+   "max_abs_diff_vs_shard": 0.0,
+   "company_equal_path_mse": 0.00016875659376564564
+  },
+  {
+   "task": "aneel",
+   "checkpoint": "NET_seed5101.pt",
+   "max_abs_diff_vs_shard": 0.0,
+   "company_equal_path_mse": 0.00016950380081091248
+  },
+  {
+   "task": "aneel",
+   "checkpoint": "NET_seed5102.pt",
+   "max_abs_diff_vs_shard": 0.0,
+   "company_equal_path_mse": 0.00016910594729396025
+  },
+  {
+   "task": "aneel",
+   "checkpoint": "NET_seed5103.pt",
+   "max_abs_diff_vs_shard": 0.0,
+   "company_equal_path_mse": 0.0001696168650192835
+  },
+  {
+   "task": "aneel",
+   "checkpoint": "NET_seed5104.pt",
+   "max_abs_diff_vs_shard": 0.0,
+   "company_equal_path_mse": 0.00016964713184636972
+  },
+  {
+   "task": "aneel",
+   "checkpoint": "NET_seed5105.pt",
+   "max_abs_diff_vs_shard": 0.0,
+   "company_equal_path_mse": 0.0001690344672479711
+  }
+ ]
+}

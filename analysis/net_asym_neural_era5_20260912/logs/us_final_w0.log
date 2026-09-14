@@ -1,0 +1,5 @@
+[us:final] train/val/eval windows = [60707, 32907, 25430] scale=0.0672857 source_mean=0.0144606 threads=2
+  final NET  seed8201 p32768_lr0.001 upd=2750 2024 path=2.494022e-03 oob=2.878e-01 (171.93s)
+  final ASYM seed8202 p32768_lr0.001 upd=1000 2024 path=2.367420e-03 oob=0.000e+00 (53.49s)
+  final NET  seed8204 p32768_lr0.001 upd=2750 2024 path=2.387028e-03 oob=3.517e-01 (137.71s)
+  final ASYM seed8205 p32768_lr0.001 upd=1000 2024 path=2.161067e-03 oob=0.000e+00 (28.86s)

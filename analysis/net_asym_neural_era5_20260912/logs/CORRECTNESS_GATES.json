@@ -127,8 +127,30 @@
   "pass": true
  },
  "checkpoint_only_replay": {
-  "status": "PENDING_AFTER_TRAINING",
-  "script": "code/replay.py via REPLAY_ONLY.sh"
+  "status": "COMPLETED",
+  "per_task": {
+   "us_era5": {
+    "replayed_checkpoints": 10,
+    "worst_max_abs_diff_vs_shard": 0.0,
+    "exact": true
+   },
+   "synthetic": {
+    "replayed_checkpoints": 120,
+    "worst_max_abs_diff_vs_shard": 0.0,
+    "exact": true
+   },
+   "aneel": {
+    "replayed_checkpoints": 10,
+    "worst_max_abs_diff_vs_shard": 0.0,
+    "exact": true
+   }
+  },
+  "expected_counts": {
+   "us_era5": 10,
+   "synthetic": 120,
+   "aneel": 10
+  },
+  "pass": true
  },
  "all_measured_gates_pass": true
 }
