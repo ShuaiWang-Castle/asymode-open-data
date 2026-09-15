@@ -1,0 +1,36 @@
+{
+ "final_runs": 50,
+ "paired_first20_batch_ids_identical": true,
+ "parameter_counts_within_1pct": true,
+ "selection_lock_sha256_single": true,
+ "folds_lock_sha256_single": true,
+ "untrained_rebuild_max_abs_diff_vs_logged_update0_val": 0.0
+}
+                   grouping population  events  components  delta_event_equal  components_positive  signflip_p_components      decision  delta_rmse_event_equal  signflip_p_components_rmse_secondary
+                 all_events        all      26          23          -0.000277                   15               0.206285     undecided               -0.000065                              0.792230
+          type_group:winter        all       7           6           0.000155                    5               0.125000     undecided                0.004278                              0.062500
+   type_group:wind_tropical        all       7           7          -0.001306                    2               0.109375     undecided               -0.007199                              0.156250
+type_group:convective_flood        all      12          12           0.000071                    9               0.024414 supports ASYM                0.001562                              0.014160
+            type:convective        all      11          11           0.000061                    8               0.048828 supports ASYM                0.001438                              0.028320
+                 type:flood        all       1           1           0.000183                    1               1.000000     undecided                0.002927                              1.000000
+              type:tropical        all       3           3          -0.001434                    0               0.250000     undecided               -0.010606                              0.250000
+                  type:wind        all       4           4          -0.001210                    2               0.875000     undecided               -0.004643                              0.875000
+                type:winter        all       7           6           0.000155                    5               0.125000     undecided                0.004278                              0.062500
+                 all_events   affected      26          23          -0.000389                   13               0.112540     undecided               -0.001384                              0.305950
+          type_group:winter   affected       7           6           0.000060                    5               0.750000     undecided                0.002166                              0.093750
+   type_group:wind_tropical   affected       7           7          -0.001597                    2               0.062500     undecided               -0.009050                              0.093750
+type_group:convective_flood   affected      12          12           0.000053                    8               0.168457     undecided                0.001016                              0.090820
+            type:convective   affected      11          11           0.000032                    7               0.336914     undecided                0.000801                              0.181641
+                 type:flood   affected       1           1           0.000280                    1               1.000000     undecided                0.003389                              1.000000
+              type:tropical   affected       3           3          -0.001826                    0               0.250000     undecided               -0.012561                              0.250000
+                  type:wind   affected       4           4          -0.001425                    2               0.500000     undecided               -0.006416                              0.750000
+                type:winter   affected       7           6           0.000060                    5               0.750000     undecided                0.002166                              0.093750
+                 all_events unaffected      26          23           0.000262                   23               0.000000 supports ASYM                0.010788                              0.000000
+          type_group:winter unaffected       7           6           0.000303                    6               0.031250 supports ASYM                0.013427                              0.031250
+   type_group:wind_tropical unaffected       7           7           0.000423                    7               0.015625 supports ASYM                0.013854                              0.015625
+type_group:convective_flood unaffected      12          12           0.000145                   12               0.000488 supports ASYM                0.007460                              0.000488
+            type:convective unaffected      11          11           0.000153                   11               0.000977 supports ASYM                0.007763                              0.000977
+                 type:flood unaffected       1           1           0.000062                    1               1.000000     undecided                0.004124                              1.000000
+              type:tropical unaffected       3           3           0.000673                    3               0.250000     undecided                0.017519                              0.250000
+                  type:wind unaffected       4           4           0.000236                    4               0.125000     undecided                0.011105                              0.125000
+                type:winter unaffected       7           6           0.000303                    6               0.031250 supports ASYM                0.013427                              0.031250

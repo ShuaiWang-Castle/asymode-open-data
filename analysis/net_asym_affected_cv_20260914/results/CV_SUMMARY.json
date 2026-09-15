@@ -1,0 +1,421 @@
+{
+ "status": "PRE_REGISTERED_ANALYSIS",
+ "delta_convention": "MSE_NET - MSE_ASYM; positive favours ASYM",
+ "checks": {
+  "final_runs": 50,
+  "paired_first20_batch_ids_identical": true,
+  "parameter_counts_within_1pct": true,
+  "selection_lock_sha256_single": true,
+  "folds_lock_sha256_single": true,
+  "untrained_rebuild_max_abs_diff_vs_logged_update0_val": 0.0
+ },
+ "decisions": [
+  {
+   "grouping": "all_events",
+   "population": "all",
+   "events": 26,
+   "components": 23,
+   "delta_event_equal": -0.00027715035308204856,
+   "components_positive": 15,
+   "signflip_p_components": 0.206285,
+   "decision": "undecided",
+   "delta_rmse_event_equal": -6.546041811358324e-05,
+   "signflip_p_components_rmse_secondary": 0.79223
+  },
+  {
+   "grouping": "type_group:winter",
+   "population": "all",
+   "events": 7,
+   "components": 6,
+   "delta_event_equal": 0.0001553801344318959,
+   "components_positive": 5,
+   "signflip_p_components": 0.125,
+   "decision": "undecided",
+   "delta_rmse_event_equal": 0.00427825238193753,
+   "signflip_p_components_rmse_secondary": 0.0625
+  },
+  {
+   "grouping": "type_group:wind_tropical",
+   "population": "all",
+   "events": 7,
+   "components": 7,
+   "delta_event_equal": -0.001306305392800992,
+   "components_positive": 2,
+   "signflip_p_components": 0.109375,
+   "decision": "undecided",
+   "delta_rmse_event_equal": -0.007198666324971528,
+   "signflip_p_components_rmse_secondary": 0.15625
+  },
+  {
+   "grouping": "type_group:convective_flood",
+   "population": "all",
+   "events": 12,
+   "components": 12,
+   "delta_event_equal": 7.088063570420088e-05,
+   "components_positive": 9,
+   "signflip_p_components": 0.0244140625,
+   "decision": "supports ASYM",
+   "delta_rmse_event_equal": 0.0015617438941904014,
+   "signflip_p_components_rmse_secondary": 0.01416015625
+  },
+  {
+   "grouping": "type:convective",
+   "population": "all",
+   "events": 11,
+   "components": 11,
+   "delta_event_equal": 6.066249126670563e-05,
+   "components_positive": 8,
+   "signflip_p_components": 0.048828125,
+   "decision": "supports ASYM",
+   "delta_rmse_event_equal": 0.0014376623617235746,
+   "signflip_p_components_rmse_secondary": 0.0283203125
+  },
+  {
+   "grouping": "type:flood",
+   "population": "all",
+   "events": 1,
+   "components": 1,
+   "delta_event_equal": 0.0001832802245166486,
+   "components_positive": 1,
+   "signflip_p_components": 1.0,
+   "decision": "undecided",
+   "delta_rmse_event_equal": 0.0029266407513254926,
+   "signflip_p_components_rmse_secondary": 1.0
+  },
+  {
+   "grouping": "type:tropical",
+   "population": "all",
+   "events": 3,
+   "components": 3,
+   "delta_event_equal": -0.0014341032412930905,
+   "components_positive": 0,
+   "signflip_p_components": 0.25,
+   "decision": "undecided",
+   "delta_rmse_event_equal": -0.01060574471911776,
+   "signflip_p_components_rmse_secondary": 0.25
+  },
+  {
+   "grouping": "type:wind",
+   "population": "all",
+   "events": 4,
+   "components": 4,
+   "delta_event_equal": -0.001210457006431918,
+   "components_positive": 2,
+   "signflip_p_components": 0.875,
+   "decision": "undecided",
+   "delta_rmse_event_equal": -0.004643357529361853,
+   "signflip_p_components_rmse_secondary": 0.875
+  },
+  {
+   "grouping": "type:winter",
+   "population": "all",
+   "events": 7,
+   "components": 6,
+   "delta_event_equal": 0.0001553801344318959,
+   "components_positive": 5,
+   "signflip_p_components": 0.125,
+   "decision": "undecided",
+   "delta_rmse_event_equal": 0.00427825238193753,
+   "signflip_p_components_rmse_secondary": 0.0625
+  },
+  {
+   "grouping": "all_events",
+   "population": "affected",
+   "events": 26,
+   "components": 23,
+   "delta_event_equal": -0.0003892808028265229,
+   "components_positive": 13,
+   "signflip_p_components": 0.11254,
+   "decision": "undecided",
+   "delta_rmse_event_equal": -0.0013842453068541973,
+   "signflip_p_components_rmse_secondary": 0.30595
+  },
+  {
+   "grouping": "type_group:winter",
+   "population": "affected",
+   "events": 7,
+   "components": 6,
+   "delta_event_equal": 6.032231972362374e-05,
+   "components_positive": 5,
+   "signflip_p_components": 0.75,
+   "decision": "undecided",
+   "delta_rmse_event_equal": 0.002165873237715816,
+   "signflip_p_components_rmse_secondary": 0.09375
+  },
+  {
+   "grouping": "type_group:wind_tropical",
+   "population": "affected",
+   "events": 7,
+   "components": 7,
+   "delta_event_equal": -0.0015970013753136766,
+   "components_positive": 2,
+   "signflip_p_components": 0.0625,
+   "decision": "undecided",
+   "delta_rmse_event_equal": -0.00904963780623931,
+   "signflip_p_components_rmse_secondary": 0.09375
+  },
+  {
+   "grouping": "type_group:convective_flood",
+   "population": "affected",
+   "events": 12,
+   "components": 12,
+   "delta_event_equal": 5.295437630339775e-05,
+   "components_positive": 8,
+   "signflip_p_components": 0.16845703125,
+   "decision": "undecided",
+   "delta_rmse_event_equal": 0.001016331166787945,
+   "signflip_p_components_rmse_secondary": 0.0908203125
+  },
+  {
+   "grouping": "type:convective",
+   "population": "affected",
+   "events": 11,
+   "components": 11,
+   "delta_event_equal": 3.2285420083408434e-05,
+   "components_positive": 7,
+   "signflip_p_components": 0.3369140625,
+   "decision": "undecided",
+   "delta_rmse_event_equal": 0.000800665539768563,
+   "signflip_p_components_rmse_secondary": 0.181640625
+  },
+  {
+   "grouping": "type:flood",
+   "population": "affected",
+   "events": 1,
+   "components": 1,
+   "delta_event_equal": 0.0002803128947232801,
+   "components_positive": 1,
+   "signflip_p_components": 1.0,
+   "decision": "undecided",
+   "delta_rmse_event_equal": 0.0033886530640011487,
+   "signflip_p_components_rmse_secondary": 1.0
+  },
+  {
+   "grouping": "type:tropical",
+   "population": "affected",
+   "events": 3,
+   "components": 3,
+   "delta_event_equal": -0.0018260088058288184,
+   "components_positive": 0,
+   "signflip_p_components": 0.25,
+   "decision": "undecided",
+   "delta_rmse_event_equal": -0.012560718280345022,
+   "signflip_p_components_rmse_secondary": 0.25
+  },
+  {
+   "grouping": "type:wind",
+   "population": "affected",
+   "events": 4,
+   "components": 4,
+   "delta_event_equal": -0.0014252458024273202,
+   "components_positive": 2,
+   "signflip_p_components": 0.5,
+   "decision": "undecided",
+   "delta_rmse_event_equal": -0.00641632745066003,
+   "signflip_p_components_rmse_secondary": 0.75
+  },
+  {
+   "grouping": "type:winter",
+   "population": "affected",
+   "events": 7,
+   "components": 6,
+   "delta_event_equal": 6.032231972362374e-05,
+   "components_positive": 5,
+   "signflip_p_components": 0.75,
+   "decision": "undecided",
+   "delta_rmse_event_equal": 0.002165873237715816,
+   "signflip_p_components_rmse_secondary": 0.09375
+  },
+  {
+   "grouping": "all_events",
+   "population": "unaffected",
+   "events": 26,
+   "components": 23,
+   "delta_event_equal": 0.00026237588038083374,
+   "components_positive": 23,
+   "signflip_p_components": 0.0,
+   "decision": "supports ASYM",
+   "delta_rmse_event_equal": 0.01078777599431814,
+   "signflip_p_components_rmse_secondary": 0.0
+  },
+  {
+   "grouping": "type_group:winter",
+   "population": "unaffected",
+   "events": 7,
+   "components": 6,
+   "delta_event_equal": 0.0003030378346793298,
+   "components_positive": 6,
+   "signflip_p_components": 0.03125,
+   "decision": "supports ASYM",
+   "delta_rmse_event_equal": 0.013426565955920126,
+   "signflip_p_components_rmse_secondary": 0.03125
+  },
+  {
+   "grouping": "type_group:wind_tropical",
+   "population": "unaffected",
+   "events": 7,
+   "components": 7,
+   "delta_event_equal": 0.00042298677143344873,
+   "components_positive": 7,
+   "signflip_p_components": 0.015625,
+   "decision": "supports ASYM",
+   "delta_rmse_event_equal": 0.013854063938530637,
+   "signflip_p_components_rmse_secondary": 0.015625
+  },
+  {
+   "grouping": "type_group:convective_flood",
+   "population": "unaffected",
+   "events": 12,
+   "components": 12,
+   "delta_event_equal": 0.00014496672059268555,
+   "components_positive": 12,
+   "signflip_p_components": 0.00048828125,
+   "decision": "supports ASYM",
+   "delta_rmse_event_equal": 0.0074598138825930265,
+   "signflip_p_components_rmse_secondary": 0.00048828125
+  },
+  {
+   "grouping": "type:convective",
+   "population": "unaffected",
+   "events": 11,
+   "components": 11,
+   "delta_event_equal": 0.00015254117497141644,
+   "components_positive": 11,
+   "signflip_p_components": 0.0009765625,
+   "decision": "supports ASYM",
+   "delta_rmse_event_equal": 0.007763083030796897,
+   "signflip_p_components_rmse_secondary": 0.0009765625
+  },
+  {
+   "grouping": "type:flood",
+   "population": "unaffected",
+   "events": 1,
+   "components": 1,
+   "delta_event_equal": 6.164772242664559e-05,
+   "components_positive": 1,
+   "signflip_p_components": 1.0,
+   "decision": "undecided",
+   "delta_rmse_event_equal": 0.00412385325235046,
+   "signflip_p_components_rmse_secondary": 1.0
+  },
+  {
+   "grouping": "type:tropical",
+   "population": "unaffected",
+   "events": 3,
+   "components": 3,
+   "delta_event_equal": 0.000672619528288627,
+   "components_positive": 3,
+   "signflip_p_components": 0.25,
+   "decision": "undecided",
+   "delta_rmse_event_equal": 0.017518853452058673,
+   "signflip_p_components_rmse_secondary": 0.25
+  },
+  {
+   "grouping": "type:wind",
+   "population": "unaffected",
+   "events": 4,
+   "components": 4,
+   "delta_event_equal": 0.00023576220379206502,
+   "components_positive": 4,
+   "signflip_p_components": 0.125,
+   "decision": "undecided",
+   "delta_rmse_event_equal": 0.01110547180338461,
+   "signflip_p_components_rmse_secondary": 0.125
+  },
+  {
+   "grouping": "type:winter",
+   "population": "unaffected",
+   "events": 7,
+   "components": 6,
+   "delta_event_equal": 0.0003030378346793298,
+   "components_positive": 6,
+   "signflip_p_components": 0.03125,
+   "decision": "supports ASYM",
+   "delta_rmse_event_equal": 0.013426565955920126,
+   "signflip_p_components_rmse_secondary": 0.03125
+  }
+ ],
+ "best_update_zero_counts": {
+  "ASYM": 1,
+  "NET": 0
+ },
+ "separability_by_group_population": [
+  {
+   "type_group": "convective_flood",
+   "population": "affected",
+   "any_change": 0.5844103530323557,
+   "rise_and_fall": 0.47605270993355536,
+   "rise_only": 0.03446440566034276,
+   "fall_only": 0.07389323743845756
+  },
+  {
+   "type_group": "convective_flood",
+   "population": "all",
+   "any_change": 0.5038013738432807,
+   "rise_and_fall": 0.4075590699845763,
+   "rise_only": 0.033909961798293545,
+   "fall_only": 0.06233234206041088
+  },
+  {
+   "type_group": "convective_flood",
+   "population": "unaffected",
+   "any_change": 0.2933080538786524,
+   "rise_and_fall": 0.2302199979344369,
+   "rise_only": 0.03255130815252178,
+   "fall_only": 0.030536747791693727
+  },
+  {
+   "type_group": "wind_tropical",
+   "population": "affected",
+   "any_change": 0.6503713606767996,
+   "rise_and_fall": 0.5138421135070019,
+   "rise_only": 0.03411893786024594,
+   "fall_only": 0.10241030930955178
+  },
+  {
+   "type_group": "wind_tropical",
+   "population": "all",
+   "any_change": 0.5632383124416716,
+   "rise_and_fall": 0.44483247665287934,
+   "rise_only": 0.03214578163541096,
+   "fall_only": 0.08626005415338123
+  },
+  {
+   "type_group": "wind_tropical",
+   "population": "unaffected",
+   "any_change": 0.242317732006887,
+   "rise_and_fall": 0.1836833801853818,
+   "rise_only": 0.027088949465450672,
+   "fall_only": 0.031545402356054554
+  },
+  {
+   "type_group": "winter",
+   "population": "affected",
+   "any_change": 0.5013533212827467,
+   "rise_and_fall": 0.40955519032302,
+   "rise_only": 0.04261319230280059,
+   "fall_only": 0.04918493865692607
+  },
+  {
+   "type_group": "winter",
+   "population": "all",
+   "any_change": 0.350719965424476,
+   "rise_and_fall": 0.2852395414702292,
+   "rise_only": 0.03007257322557958,
+   "fall_only": 0.03540785072866722
+  },
+  {
+   "type_group": "winter",
+   "population": "unaffected",
+   "any_change": 0.2031386725861763,
+   "rise_and_fall": 0.1633663052914911,
+   "rise_only": 0.02050723389317217,
+   "fall_only": 0.019265133401513028
+  }
+ ],
+ "untrained_event_equal_delta_by_population": {
+  "affected": 7.095845493106571e-05,
+  "all": 5.426340356418036e-05,
+  "unaffected": 2.537738485118059e-07
+ }
+}

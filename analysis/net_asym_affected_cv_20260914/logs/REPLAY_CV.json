@@ -1,0 +1,208 @@
+{
+ "replayed_checkpoints": 50,
+ "worst_max_abs_diff_vs_shard": 0.0,
+ "exact": true,
+ "note": "inference only; no optimizer, no training call, no selection",
+ "rows": [
+  {
+   "checkpoint": "fold0/ASYM_seed9201.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold0/ASYM_seed9202.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold0/ASYM_seed9203.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold0/ASYM_seed9204.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold0/ASYM_seed9205.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold0/NET_seed9201.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold0/NET_seed9202.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold0/NET_seed9203.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold0/NET_seed9204.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold0/NET_seed9205.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold1/ASYM_seed9201.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold1/ASYM_seed9202.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold1/ASYM_seed9203.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold1/ASYM_seed9204.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold1/ASYM_seed9205.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold1/NET_seed9201.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold1/NET_seed9202.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold1/NET_seed9203.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold1/NET_seed9204.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold1/NET_seed9205.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold2/ASYM_seed9201.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold2/ASYM_seed9202.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold2/ASYM_seed9203.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold2/ASYM_seed9204.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold2/ASYM_seed9205.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold2/NET_seed9201.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold2/NET_seed9202.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold2/NET_seed9203.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold2/NET_seed9204.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold2/NET_seed9205.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold3/ASYM_seed9201.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold3/ASYM_seed9202.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold3/ASYM_seed9203.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold3/ASYM_seed9204.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold3/ASYM_seed9205.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold3/NET_seed9201.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold3/NET_seed9202.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold3/NET_seed9203.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold3/NET_seed9204.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold3/NET_seed9205.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold4/ASYM_seed9201.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold4/ASYM_seed9202.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold4/ASYM_seed9203.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold4/ASYM_seed9204.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold4/ASYM_seed9205.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold4/NET_seed9201.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold4/NET_seed9202.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold4/NET_seed9203.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold4/NET_seed9204.pt",
+   "max_abs_diff_vs_shard": 0.0
+  },
+  {
+   "checkpoint": "fold4/NET_seed9205.pt",
+   "max_abs_diff_vs_shard": 0.0
+  }
+ ]
+}
