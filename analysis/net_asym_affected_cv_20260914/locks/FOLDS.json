@@ -1,0 +1,515 @@
+{
+ "information_contract": "RETROSPECTIVE_KNOWN_REANALYSIS_CONDITIONAL_RESPONSE",
+ "data_contract": "unchanged from ../net_asym_neural_era5_20260912 (states, weather legality, windows, dedup)",
+ "round_window_index_sha256": "4c87d20d14c30a8e34d90529970743355afb498768be19c1dafaab94d73c3d67",
+ "K": 5,
+ "affected_rule": "peak legal snapshot over the 169-hour event panel >= 0.01",
+ "affected_use": "training and inner validation: affected only; test: all, reported as all / affected / unaffected",
+ "type_source": "data/interim/event_days_stratified.parquet column dominant",
+ "type_group_map": {
+  "winter": "winter",
+  "wind": "wind_tropical",
+  "tropical": "wind_tropical",
+  "convective": "convective_flood",
+  "flood": "convective_flood"
+ },
+ "group_order": [
+  "winter",
+  "wind_tropical",
+  "convective_flood"
+ ],
+ "fold_rule": "components labelled by the type group of their event with most windows; sorted by first event date within group; round-robin over K folds continuing across groups in group_order",
+ "role_rule": "outer fold k tests; fold (k+1) mod K is inner validation; the remaining folds train",
+ "event_types": {
+  "2018-01-16": "winter",
+  "2018-10-11": "tropical",
+  "2019-02-20": "winter",
+  "2019-02-24": "wind",
+  "2019-11-27": "wind",
+  "2020-02-06": "flood",
+  "2020-08-04": "tropical",
+  "2020-10-29": "tropical",
+  "2021-02-15": "winter",
+  "2021-05-04": "convective",
+  "2021-06-21": "convective",
+  "2021-08-11": "convective",
+  "2021-12-11": "convective",
+  "2021-12-15": "wind",
+  "2022-01-16": "winter",
+  "2022-03-12": "winter",
+  "2022-04-13": "convective",
+  "2022-06-08": "convective",
+  "2022-06-17": "convective",
+  "2022-07-23": "convective",
+  "2024-01-09": "winter",
+  "2024-01-12": "winter",
+  "2024-05-08": "convective",
+  "2024-05-26": "convective",
+  "2024-06-26": "convective",
+  "2024-09-27": "wind"
+ },
+ "components": [
+  {
+   "events": [
+    "2018-01-16"
+   ],
+   "first_event": "2018-01-16",
+   "group": "winter",
+   "group_from_event": "2018-01-16",
+   "fold": 0
+  },
+  {
+   "events": [
+    "2018-10-11"
+   ],
+   "first_event": "2018-10-11",
+   "group": "wind_tropical",
+   "group_from_event": "2018-10-11",
+   "fold": 0
+  },
+  {
+   "events": [
+    "2019-02-20",
+    "2019-02-24"
+   ],
+   "first_event": "2019-02-20",
+   "group": "wind_tropical",
+   "group_from_event": "2019-02-24",
+   "fold": 1
+  },
+  {
+   "events": [
+    "2019-11-27"
+   ],
+   "first_event": "2019-11-27",
+   "group": "wind_tropical",
+   "group_from_event": "2019-11-27",
+   "fold": 2
+  },
+  {
+   "events": [
+    "2020-02-06"
+   ],
+   "first_event": "2020-02-06",
+   "group": "convective_flood",
+   "group_from_event": "2020-02-06",
+   "fold": 1
+  },
+  {
+   "events": [
+    "2020-08-04"
+   ],
+   "first_event": "2020-08-04",
+   "group": "wind_tropical",
+   "group_from_event": "2020-08-04",
+   "fold": 3
+  },
+  {
+   "events": [
+    "2020-10-29"
+   ],
+   "first_event": "2020-10-29",
+   "group": "wind_tropical",
+   "group_from_event": "2020-10-29",
+   "fold": 4
+  },
+  {
+   "events": [
+    "2021-02-15"
+   ],
+   "first_event": "2021-02-15",
+   "group": "winter",
+   "group_from_event": "2021-02-15",
+   "fold": 1
+  },
+  {
+   "events": [
+    "2021-05-04"
+   ],
+   "first_event": "2021-05-04",
+   "group": "convective_flood",
+   "group_from_event": "2021-05-04",
+   "fold": 2
+  },
+  {
+   "events": [
+    "2021-06-21"
+   ],
+   "first_event": "2021-06-21",
+   "group": "convective_flood",
+   "group_from_event": "2021-06-21",
+   "fold": 3
+  },
+  {
+   "events": [
+    "2021-08-11"
+   ],
+   "first_event": "2021-08-11",
+   "group": "convective_flood",
+   "group_from_event": "2021-08-11",
+   "fold": 4
+  },
+  {
+   "events": [
+    "2021-12-11",
+    "2021-12-15"
+   ],
+   "first_event": "2021-12-11",
+   "group": "convective_flood",
+   "group_from_event": "2021-12-11",
+   "fold": 0
+  },
+  {
+   "events": [
+    "2022-01-16"
+   ],
+   "first_event": "2022-01-16",
+   "group": "winter",
+   "group_from_event": "2022-01-16",
+   "fold": 2
+  },
+  {
+   "events": [
+    "2022-03-12"
+   ],
+   "first_event": "2022-03-12",
+   "group": "winter",
+   "group_from_event": "2022-03-12",
+   "fold": 3
+  },
+  {
+   "events": [
+    "2022-04-13"
+   ],
+   "first_event": "2022-04-13",
+   "group": "convective_flood",
+   "group_from_event": "2022-04-13",
+   "fold": 1
+  },
+  {
+   "events": [
+    "2022-06-08"
+   ],
+   "first_event": "2022-06-08",
+   "group": "convective_flood",
+   "group_from_event": "2022-06-08",
+   "fold": 2
+  },
+  {
+   "events": [
+    "2022-06-17"
+   ],
+   "first_event": "2022-06-17",
+   "group": "convective_flood",
+   "group_from_event": "2022-06-17",
+   "fold": 3
+  },
+  {
+   "events": [
+    "2022-07-23"
+   ],
+   "first_event": "2022-07-23",
+   "group": "convective_flood",
+   "group_from_event": "2022-07-23",
+   "fold": 4
+  },
+  {
+   "events": [
+    "2024-01-09",
+    "2024-01-12"
+   ],
+   "first_event": "2024-01-09",
+   "group": "winter",
+   "group_from_event": "2024-01-12",
+   "fold": 4
+  },
+  {
+   "events": [
+    "2024-05-08"
+   ],
+   "first_event": "2024-05-08",
+   "group": "convective_flood",
+   "group_from_event": "2024-05-08",
+   "fold": 0
+  },
+  {
+   "events": [
+    "2024-05-26"
+   ],
+   "first_event": "2024-05-26",
+   "group": "convective_flood",
+   "group_from_event": "2024-05-26",
+   "fold": 1
+  },
+  {
+   "events": [
+    "2024-06-26"
+   ],
+   "first_event": "2024-06-26",
+   "group": "convective_flood",
+   "group_from_event": "2024-06-26",
+   "fold": 2
+  },
+  {
+   "events": [
+    "2024-09-27"
+   ],
+   "first_event": "2024-09-27",
+   "group": "wind_tropical",
+   "group_from_event": "2024-09-27",
+   "fold": 0
+  }
+ ],
+ "roles": {
+  "0": {
+   "test_fold": 0,
+   "validation_fold": 1,
+   "train_folds": [
+    2,
+    3,
+    4
+   ]
+  },
+  "1": {
+   "test_fold": 1,
+   "validation_fold": 2,
+   "train_folds": [
+    0,
+    3,
+    4
+   ]
+  },
+  "2": {
+   "test_fold": 2,
+   "validation_fold": 3,
+   "train_folds": [
+    0,
+    1,
+    4
+   ]
+  },
+  "3": {
+   "test_fold": 3,
+   "validation_fold": 4,
+   "train_folds": [
+    0,
+    1,
+    2
+   ]
+  },
+  "4": {
+   "test_fold": 4,
+   "validation_fold": 0,
+   "train_folds": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ "folds": [
+  {
+   "fold": 0,
+   "events": [
+    "2018-01-16",
+    "2018-10-11",
+    "2021-12-11",
+    "2021-12-15",
+    "2024-05-08",
+    "2024-09-27"
+   ],
+   "components": [
+    [
+     "2018-01-16"
+    ],
+    [
+     "2018-10-11"
+    ],
+    [
+     "2021-12-11",
+     "2021-12-15"
+    ],
+    [
+     "2024-05-08"
+    ],
+    [
+     "2024-09-27"
+    ]
+   ],
+   "event_types": {
+    "2018-01-16": "winter",
+    "2018-10-11": "tropical",
+    "2021-12-11": "convective",
+    "2021-12-15": "wind",
+    "2024-05-08": "convective",
+    "2024-09-27": "wind"
+   },
+   "windows_all": 20181,
+   "windows_affected": 14627,
+   "county_events_all": 1097,
+   "county_events_affected": 740
+  },
+  {
+   "fold": 1,
+   "events": [
+    "2019-02-20",
+    "2019-02-24",
+    "2020-02-06",
+    "2021-02-15",
+    "2022-04-13",
+    "2024-05-26"
+   ],
+   "components": [
+    [
+     "2019-02-20",
+     "2019-02-24"
+    ],
+    [
+     "2020-02-06"
+    ],
+    [
+     "2021-02-15"
+    ],
+    [
+     "2022-04-13"
+    ],
+    [
+     "2024-05-26"
+    ]
+   ],
+   "event_types": {
+    "2019-02-20": "winter",
+    "2019-02-24": "wind",
+    "2020-02-06": "flood",
+    "2021-02-15": "winter",
+    "2022-04-13": "convective",
+    "2024-05-26": "convective"
+   },
+   "windows_all": 34340,
+   "windows_affected": 20672,
+   "county_events_all": 1872,
+   "county_events_affected": 1118
+  },
+  {
+   "fold": 2,
+   "events": [
+    "2019-11-27",
+    "2021-05-04",
+    "2022-01-16",
+    "2022-06-08",
+    "2024-06-26"
+   ],
+   "components": [
+    [
+     "2019-11-27"
+    ],
+    [
+     "2021-05-04"
+    ],
+    [
+     "2022-01-16"
+    ],
+    [
+     "2022-06-08"
+    ],
+    [
+     "2024-06-26"
+    ]
+   ],
+   "event_types": {
+    "2019-11-27": "wind",
+    "2021-05-04": "convective",
+    "2022-01-16": "winter",
+    "2022-06-08": "convective",
+    "2024-06-26": "convective"
+   },
+   "windows_all": 25245,
+   "windows_affected": 15137,
+   "county_events_all": 1367,
+   "county_events_affected": 816
+  },
+  {
+   "fold": 3,
+   "events": [
+    "2020-08-04",
+    "2021-06-21",
+    "2022-03-12",
+    "2022-06-17"
+   ],
+   "components": [
+    [
+     "2020-08-04"
+    ],
+    [
+     "2021-06-21"
+    ],
+    [
+     "2022-03-12"
+    ],
+    [
+     "2022-06-17"
+    ]
+   ],
+   "event_types": {
+    "2020-08-04": "tropical",
+    "2021-06-21": "convective",
+    "2022-03-12": "winter",
+    "2022-06-17": "convective"
+   },
+   "windows_all": 20406,
+   "windows_affected": 13659,
+   "county_events_all": 1066,
+   "county_events_affected": 713
+  },
+  {
+   "fold": 4,
+   "events": [
+    "2020-10-29",
+    "2021-08-11",
+    "2022-07-23",
+    "2024-01-09",
+    "2024-01-12"
+   ],
+   "components": [
+    [
+     "2020-10-29"
+    ],
+    [
+     "2021-08-11"
+    ],
+    [
+     "2022-07-23"
+    ],
+    [
+     "2024-01-09",
+     "2024-01-12"
+    ]
+   ],
+   "event_types": {
+    "2020-10-29": "tropical",
+    "2021-08-11": "convective",
+    "2022-07-23": "convective",
+    "2024-01-09": "winter",
+    "2024-01-12": "winter"
+   },
+   "windows_all": 18872,
+   "windows_affected": 14109,
+   "county_events_all": 975,
+   "county_events_affected": 732
+  }
+ ],
+ "cross_fold_shared_cells": {
+  "0&1": 0,
+  "0&2": 0,
+  "0&3": 0,
+  "0&4": 0,
+  "1&2": 0,
+  "1&3": 0,
+  "1&4": 0,
+  "2&3": 0,
+  "2&4": 0,
+  "3&4": 0
+ },
+ "cross_fold_leakage": "NONE",
+ "cv_window_index_sha256": "e10e6c614a819817d6fb54e0d1aa8b82e5a0f33b45ffc91d2b53da7914b2ee56"
+}

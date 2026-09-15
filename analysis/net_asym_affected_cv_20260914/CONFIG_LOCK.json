@@ -1,0 +1,190 @@
+{
+ "round": "net_asym_affected_cv_20260914",
+ "status": "locked before any DEV or final run",
+ "pi_decisions_2026_09_14": {
+  "affected_counties": "train and inner validation on affected county-events only (event-panel peak >= 1%); test reports all, affected (conditional on realized impact) and unaffected",
+  "events_and_split": "grouped cross-validation over the existing 26 events, stratified by type group, overlapping events in the same fold",
+  "asym_structure": "separate damage and recovery networks; damage:recovery parameter ratio in {1:1, 2:1, 3:1} tuned on validation; NET gets the same number of structural candidates; total parameters within 1% of a common target",
+  "training_setup": "same maximum updates, learning-rate grid and early stopping for both models; final per-seed early stopping on inner validation; both models start near persistence"
+ },
+ "information_contract": "RETROSPECTIVE_KNOWN_REANALYSIS_CONDITIONAL_RESPONSE",
+ "data": {
+  "manifest": "configs/panel_manifest_g3-all-26.json",
+  "manifest_digest": "db286b4960a4",
+  "window_index": "../net_asym_neural_era5_20260912/locks/US_WINDOW_INDEX.csv.gz (hash-verified per split)",
+  "windows": 119044,
+  "L": 24,
+  "H": 24,
+  "origin_stride_hours": 6,
+  "context_dim": 600,
+  "step_feature_dim": 15,
+  "missing_weather_counties": "excluded for both models, never fed as zero",
+  "fit_statistics": "state scale, source mean and weather standardization from each outer fold's training windows only"
+ },
+ "population": {
+  "affected_rule": "peak legal snapshot over the 169-hour event panel >= 0.01",
+  "train_and_validation": "affected county-events only",
+  "test": "all legal windows, reported as all / affected / unaffected"
+ },
+ "cross_validation": {
+  "K": 5,
+  "type_source": "data/interim/event_days_stratified.parquet, column dominant",
+  "type_groups": {
+   "winter": [
+    "winter"
+   ],
+   "wind_tropical": [
+    "wind",
+    "tropical"
+   ],
+   "convective_flood": [
+    "convective",
+    "flood"
+   ]
+  },
+  "fold_rule": "overlap components labelled by the type group of their event with most windows, sorted by first event date within group, round-robin over K continuing across groups in the order winter, wind_tropical, convective_flood",
+  "roles": "outer fold k tests; fold (k+1) mod K is inner validation; the other three folds train",
+  "lock": "locks/FOLDS.json"
+ },
+ "models": {
+  "parameter_target": 32768,
+  "parameter_tolerance": 0.01,
+  "NET": {
+   "form": "y + scale * f(c, x_k, y/scale)",
+   "structures": {
+    "d2": {
+     "hidden_layers": 2,
+     "width": 48,
+     "params": 32633
+    },
+    "d3": {
+     "hidden_layers": 3,
+     "width": 45,
+     "params": 32567
+    },
+    "d4": {
+     "hidden_layers": 4,
+     "width": 43,
+     "params": 32867
+    }
+   },
+   "init": "output layer N(0, 1e-3), linear skip 0 (near persistence)"
+  },
+  "ASYM": {
+   "form": "(u, r, stay) = softmax(D(c, x_k), R(c, x_k), 0); y + u (1 - y) - r y",
+   "structures": {
+    "r1": {
+     "damage_width": 25,
+     "recovery_width": 24,
+     "damage_params": 16691,
+     "recovery_params": 16024
+    },
+    "r2": {
+     "damage_width": 33,
+     "recovery_width": 16,
+     "damage_params": 22099,
+     "recovery_params": 10760
+    },
+    "r3": {
+     "damage_width": 37,
+     "recovery_width": 12,
+     "damage_params": 24851,
+     "recovery_params": 8176
+    }
+   },
+   "init": "u = 0.002 pi, r = 0.002 (1 - pi), stay = 0.998 (near persistence)"
+  }
+ },
+ "training": {
+  "loss": "full-path squared error scaled by the fold fit scale; no teacher forcing",
+  "sampler": "uniform event, then county, then origin over training windows; identical batch ids for NET and ASYM at the same fold and seed",
+  "batch": 512,
+  "optimizer": "AdamW",
+  "weight_decay": 0.0001,
+  "grad_clip_norm": 1.0,
+  "learning_rates": [
+   0.0003,
+   0.001,
+   0.003
+  ],
+  "max_updates": 3000,
+  "validate_every": 250,
+  "early_stopping_patience_updates": 1000,
+  "best_checkpoint_candidates_include_update_0": true,
+  "torch_seed": "seed + 1000 * fold"
+ },
+ "dev": {
+  "seeds": [
+   9101,
+   9102
+  ],
+  "runs": 180
+ },
+ "selection": {
+  "rule": "per outer fold and model: lowest mean over DEV seeds of the best inner-validation path MSE; ties -> smaller lr, then structure order",
+  "lock": "locks/SELECTION_LOCK.json, committed before any final run"
+ },
+ "final": {
+  "seeds": [
+   9201,
+   9202,
+   9203,
+   9204,
+   9205
+  ],
+  "runs": 50
+ },
+ "evaluation": {
+  "delta": "MSE_NET - MSE_ASYM, positive favours ASYM",
+  "weighting": "per seed squared loss first; within event counties equal, origins equal within county, leads equal; event-equal across events",
+  "populations": [
+   "all",
+   "affected",
+   "unaffected"
+  ],
+  "groupings": [
+   "all 26 events",
+   "type groups",
+   "catalogue types"
+  ],
+  "inference_unit": "overlap component (within a grouping, only that grouping's events)",
+  "signflip": "exact up to 16 components, Monte Carlo 200000 draws above",
+  "interval": "component bootstrap, 4000 draws, 95%",
+  "decision": "supports ASYM if p < 0.05 and event-equal and component-mean Delta both positive; supports NET if p < 0.05 and both negative; otherwise undecided",
+  "secondary_metric": "event RMSE = sqrt(event path MSE) per seed; event-equal RMSE, NET minus ASYM and a component sign-flip p; never used for training, selection or the decision"
+ },
+ "resources": {
+  "device": "cpu",
+  "precision": "fp32",
+  "workers": 3,
+  "threads_per_worker": 2,
+  "profile": "logs/PROFILE_t2.json",
+  "gpu_hours": 0
+ },
+ "delivery": {
+  "working_copy": "persistent directory outside the session scratchpad",
+  "push": "after each stage to origin research/net-asym-affected-cv-20260914"
+ },
+ "revision_log": [
+  {
+   "date": "2026-09-14",
+   "change": "rebuild after the working copy in the session scratchpad was lost to a machine reboot (after DEV, before selection); code, tests, protocol and configuration recovered from the session record, fold lock regenerated, DEV rerun from scratch",
+   "results_seen_before_change": "fold-0 DEV interim results on inner validation only; no selection lock and no test score existed"
+  },
+  {
+   "date": "2026-09-14",
+   "change": "RMSE added as a secondary metric (PI decision)",
+   "results_seen_before_change": "fold-0 DEV interim results on inner validation only; no selection lock and no test score existed"
+  },
+  {
+   "date": "2026-09-14",
+   "change": "stage-wise push to the research branch (PI decision)",
+   "results_seen_before_change": "fold-0 DEV interim results on inner validation only; no selection lock and no test score existed"
+  },
+  {
+   "date": "2026-09-14",
+   "change": "none: ASYM head start at initialization observed during the first DEV; PI decided not to modify the setup",
+   "results_seen_before_change": "fold-0 DEV interim results on inner validation only; no selection lock and no test score existed"
+  }
+ ]
+}

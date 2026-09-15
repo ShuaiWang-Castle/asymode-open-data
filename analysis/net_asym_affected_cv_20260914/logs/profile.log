@@ -1,0 +1,6 @@
+  NET  d2 26.1 ms/update  val pass 0.29s  params 32633 {'net': 32633}
+  NET  d3 31.1 ms/update  val pass 0.46s  params 32567 {'net': 32567}
+  NET  d4 36.1 ms/update  val pass 0.32s  params 32867 {'net': 32867}
+  ASYM r1 26.8 ms/update  val pass 0.40s  params 32715 {'damage': 16691, 'recovery': 16024}
+  ASYM r2 26.7 ms/update  val pass 0.52s  params 32859 {'damage': 22099, 'recovery': 10760}
+  ASYM r3 26.1 ms/update  val pass 0.46s  params 33027 {'damage': 24851, 'recovery': 8176}
