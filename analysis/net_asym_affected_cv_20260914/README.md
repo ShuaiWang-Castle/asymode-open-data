@@ -47,6 +47,11 @@ consistent sign. Details are in `RESULTS_ZH.md`.
   selection would have over always choosing NET.
 - **Dispersion.** sigma_x points towards NET across events, because large events carry more signal; at a fixed
   outage level it points towards ASYM, as the paper predicts.
+- **The paper's Lambda = 1 threshold** (n = training events). Forecast origins where NET was better have larger
+  Lambda_hat than those where ASYM was better (median 0.46 against 0.16, mean 0.83 against 0.36). ASYM-better
+  origins sit below 1, and so do most NET-better origins. At the origin level a cut at 1 separates the two groups
+  about as well as the best cut, and higher cuts do worse; event-level estimates put the cut at about 0.3 to 0.7.
+  Choosing NET when Lambda_hat > 1 does not lower the total error.
 
 ## Layout
 
