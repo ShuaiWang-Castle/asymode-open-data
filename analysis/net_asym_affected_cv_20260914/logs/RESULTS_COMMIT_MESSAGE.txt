@@ -1,0 +1,18 @@
+analysis: affected-county CV round write-up, README and checksums
+
+Pre-registered decisions (Delta = MSE_NET - MSE_ASYM; component sign-flip p < 0.05 with a
+consistent sign):
+
+- All 26 events are undecided, both on affected windows (-3.89e-04, p = 0.11) and on all
+  windows (-2.77e-04, p = 0.21).
+- Convective and flood events support ASYM on all windows (+7.09e-05, p = 0.024) but are
+  undecided on affected windows.
+- Wind and tropical events lean NET (affected -1.60e-03, p = 0.063, five of seven events)
+  and ASYM is worse than persistence in the three largest of them.
+- Winter is undecided, with six of seven events favouring ASYM.
+- Unaffected counties support ASYM because both models predict spurious outages there and
+  ASYM's are smaller; both are far worse than persistence.
+
+RMSE agrees in direction everywhere. All 50 final checkpoints replay bit-exactly.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
