@@ -1,0 +1,141 @@
+analysis/net_asym_affected_cv_20260914/code/threshold_accuracy.py:140: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  chk = M.groupby('event').apply(lambda g: float((g.NET - g.ASYM).mean())).rename('origin_equal_delta').reset_index().merge(E[['event', 'delta_cv']], on='event')
+analysis/net_asym_affected_cv_20260914/code/threshold_accuracy.py:153: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  B = M.loc[pos].assign(bin=bins).groupby('bin', observed=True).apply(
+{
+ "status": "POST_HOC_DESCRIPTIVE",
+ "question": "is Lambda = 1 (n = independent training events) where the neural preference flips?",
+ "bootstrap_unit": "overlap components",
+ "event_level": {
+  "units": 26,
+  "n_train_events_mean": 15.461538461538462,
+  "mse_optimal_lambda_threshold": {
+   "point": 0.33566803118123145,
+   "bootstrap": {
+    "p2.5": 0.3198011236108621,
+    "p50": 0.33566803118123145,
+    "p97.5": 1.4363255325322797,
+    "finite_share": 0.99925
+   },
+   "share_above_1": 0.03975,
+   "implied_n_eff": 46.061992877691054
+  },
+  "logistic_boundary_lambda": {
+   "point": 0.7200861300471725,
+   "slope": 1.661266465354734,
+   "bootstrap": {
+    "p2.5": 0.3937732357014487,
+    "p50": 0.7057271196331966,
+    "p97.5": 1.8517335152557743,
+    "finite_share": 0.9995
+   },
+   "share_above_1": 0.1885
+  },
+  "event_equal_mse": {
+   "rule_lambda_gt_1": 0.0019833038786475927,
+   "rule_at_mse_optimal_tau_in_sample": 0.0019144586761000273,
+   "always_NET": 0.0019688596482335154,
+   "always_ASYM": 0.0023581404510600386,
+   "better_of_two": 0.001899132716660377
+  },
+  "mean_outage_level_threshold": {
+   "point_pct": 0.8770325402188219,
+   "bootstrap_pct": {
+    "p2.5": 0.5947638444404775,
+    "p50": 0.8770325402188223,
+    "p97.5": 1.8925531063067218,
+    "finite_share": 1.0
+   },
+   "in_sample_event_equal_mse": 0.0019021328576602462
+  }
+ },
+ "origin_level": {
+  "units": 535,
+  "origins_with_nonpositive_signal": 137,
+  "check_spearman_origin_equal_vs_cv_delta": 0.9924786324786324,
+  "mse_optimal_lambda_threshold": {
+   "point": -Infinity,
+   "bootstrap": {
+    "p2.5": 0.003559787017935263,
+    "p50": 0.09634974017937563,
+    "p97.5": 0.9629277407945164,
+    "finite_share": 0.511
+   },
+   "share_above_1": 0.0
+  },
+  "logistic_boundary_lambda": {
+   "point": 1.706772186051972,
+   "slope": 0.45801264881551734,
+   "bootstrap": {
+    "p2.5": 0.6861498250545501,
+    "p50": 1.7746647959090815,
+    "p97.5": 13.495642370469735,
+    "finite_share": 1.0
+   },
+   "share_above_1": 0.859
+  },
+  "event_equal_mse": {
+   "rule_lambda_gt_1": 0.00217310721124677,
+   "rule_at_mse_optimal_tau_in_sample": 0.002059664543053233,
+   "always_NET": 0.0020596645430532327,
+   "always_ASYM": 0.0024393233440086876,
+   "better_of_two": 0.0018863468961394386
+  },
+  "binned": [
+   {
+    "lambda_median": 0.0,
+    "origins": 137.0,
+    "share_NET_better_event_weighted": 0.2193754196480288,
+    "mean_relative_delta": 0.2844732679904726
+   },
+   {
+    "lambda_median": 0.02765115327845128,
+    "origins": 50.0,
+    "share_NET_better_event_weighted": 0.17069474960224262,
+    "mean_relative_delta": 0.3158675549283902
+   },
+   {
+    "lambda_median": 0.09726641774772124,
+    "origins": 50.0,
+    "share_NET_better_event_weighted": 0.2363570394765697,
+    "mean_relative_delta": 0.21845453986590815
+   },
+   {
+    "lambda_median": 0.1934973157232327,
+    "origins": 49.0,
+    "share_NET_better_event_weighted": 0.22123605569579025,
+    "mean_relative_delta": 0.2847404676612052
+   },
+   {
+    "lambda_median": 0.3155870455309113,
+    "origins": 50.0,
+    "share_NET_better_event_weighted": 0.2585754813450207,
+    "mean_relative_delta": 0.23493761487758744
+   },
+   {
+    "lambda_median": 0.49114003819879,
+    "origins": 50.0,
+    "share_NET_better_event_weighted": 0.3505704448794978,
+    "mean_relative_delta": -0.052309482813021835
+   },
+   {
+    "lambda_median": 0.6976527452086003,
+    "origins": 49.0,
+    "share_NET_better_event_weighted": 0.301185400033103,
+    "mean_relative_delta": 0.21454622234099083
+   },
+   {
+    "lambda_median": 1.1358275757664207,
+    "origins": 50.0,
+    "share_NET_better_event_weighted": 0.47651392444746343,
+    "mean_relative_delta": -0.053631491612113724
+   },
+   {
+    "lambda_median": 2.273483146582345,
+    "origins": 50.0,
+    "share_NET_better_event_weighted": 0.6593258193528283,
+    "mean_relative_delta": -0.40262113302387076
+   }
+  ]
+ }
+}
