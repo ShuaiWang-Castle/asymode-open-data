@@ -1,0 +1,89 @@
+{
+ "status": "POST_HOC_DESCRIPTIVE",
+ "written_after_cv_results_were_seen": true,
+ "delta_convention": "positive favours ASYM for both Delta_hat and the CV test Delta",
+ "forcing_thresholds_90pct_of_positive_values": {
+  "gust": 12.82288646697998,
+  "precip": 1.396474123001099,
+  "snowfall": 0.4153623014688492
+ },
+ "H": 24,
+ "splits": 20,
+ "min_counties": 10,
+ "origins_total": 535,
+ "origins_used": 535,
+ "events": 26,
+ "decision": {
+  "always_NET_event_equal_mse": 0.0019688596482335154,
+  "always_ASYM_event_equal_mse": 0.0023581404510600386,
+  "better_of_two_per_event_mse": 0.001899132716660377,
+  "rule_n_counties": {
+   "event_equal_mse": 0.0019425227346858464,
+   "share_matching_realized_winner": 0.5769230769230769,
+   "share_choosing_ASYM": 0.19230769230769232
+  },
+  "rule_n_train_events": {
+   "event_equal_mse": 0.0019833038786475927,
+   "share_matching_realized_winner": 0.6153846153846154,
+   "share_choosing_ASYM": 0.7692307692307693
+  }
+ },
+ "spearman_association_over_events": {
+  "delta_hat_counties": {
+   "spearman_with_delta_cv": 0.7811965811965812,
+   "descriptive_p": 2.475255923245622e-06,
+   "spearman_with_relative_delta_cv": 0.738119658119658
+  },
+  "delta_hat_train_events": {
+   "spearman_with_delta_cv": 0.1576068376068376,
+   "descriptive_p": 0.44192830152228535,
+   "spearman_with_relative_delta_cv": 0.0823931623931624
+  },
+  "lambda_hat_counties": {
+   "spearman_with_delta_cv": -0.5712820512820513,
+   "descriptive_p": 0.0023008258999498606,
+   "spearman_with_relative_delta_cv": -0.4947008547008547
+  },
+  "signal_to_noise_per_replicate": {
+   "spearman_with_delta_cv": -0.5958974358974359,
+   "descriptive_p": 0.0013169593057771032,
+   "spearman_with_relative_delta_cv": -0.5548717948717948
+  },
+  "S_hat": {
+   "spearman_with_delta_cv": -0.7668376068376067,
+   "descriptive_p": 4.895733704163616e-06,
+   "spearman_with_relative_delta_cv": -0.7873504273504273
+  },
+  "nu2_hat": {
+   "spearman_with_delta_cv": -0.7251282051282051,
+   "descriptive_p": 2.7816340398921194e-05,
+   "spearman_with_relative_delta_cv": -0.8064957264957264
+  },
+  "sigma_x_pp": {
+   "spearman_with_delta_cv": -0.6806837606837607,
+   "descriptive_p": 0.00012977061090720262,
+   "spearman_with_relative_delta_cv": -0.7948717948717947
+  },
+  "n_counties_mean": {
+   "spearman_with_delta_cv": -0.2656410256410256,
+   "descriptive_p": 0.18965338229698442,
+   "spearman_with_relative_delta_cv": -0.17743589743589744
+  },
+  "b_net_median": {
+   "spearman_with_delta_cv": 0.19658119658119655,
+   "descriptive_p": 0.33579369165846373,
+   "spearman_with_relative_delta_cv": 0.107008547008547
+  },
+  "mean_origin_state": {
+   "spearman_with_delta_cv": -0.7654700854700854,
+   "descriptive_p": 5.211272696268851e-06,
+   "spearman_with_relative_delta_cv": -0.8365811965811965
+  },
+  "mean_path_peak_max": {
+   "spearman_with_delta_cv": -0.7647863247863247,
+   "descriptive_p": 5.375754468618927e-06,
+   "spearman_with_relative_delta_cv": -0.7989743589743589
+  }
+ },
+ "caveat": "counties within an event share shocks and differ in local weather; plug-in estimates, not the paper's unbiased estimator under Assumption 1; decision rule not validated as an automatic selector"
+}

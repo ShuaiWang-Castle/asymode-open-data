@@ -1,0 +1,70 @@
+2018-01-16: 13 origins
+analysis/net_asym_affected_cv_20260914/code/event_features.py:55: RuntimeWarning: overflow encountered in scalar multiply
+  J[k + 1, 0] = a * J[k, 0] + x[k] * (1.0 - g[k])
+analysis/net_asym_affected_cv_20260914/code/event_features.py:56: RuntimeWarning: overflow encountered in scalar multiply
+  J[k + 1, 1] = a * J[k, 1] - g[k]
+analysis/net_asym_affected_cv_20260914/code/event_features.py:57: RuntimeWarning: overflow encountered in scalar multiply
+  J[k + 1, 2] = a * J[k, 2] + g[k] ** 2
+analysis/net_asym_affected_cv_20260914/code/event_features.py:57: RuntimeWarning: overflow encountered in scalar power
+  J[k + 1, 2] = a * J[k, 2] + g[k] ** 2
+analysis/net_asym_affected_cv_20260914/code/event_features.py:58: RuntimeWarning: overflow encountered in scalar multiply
+  c[k + 1] = a * c[k]
+analysis/net_asym_affected_cv_20260914/code/event_features.py:59: RuntimeWarning: overflow encountered in scalar power
+  g[k + 1] = u * x[k] + (1.0 - u * x[k] - r) * g[k] + b * g[k] ** 2
+analysis/net_asym_affected_cv_20260914/code/event_features.py:55: RuntimeWarning: invalid value encountered in scalar add
+  J[k + 1, 0] = a * J[k, 0] + x[k] * (1.0 - g[k])
+analysis/net_asym_affected_cv_20260914/code/event_features.py:55: RuntimeWarning: invalid value encountered in scalar multiply
+  J[k + 1, 0] = a * J[k, 0] + x[k] * (1.0 - g[k])
+2018-10-11: 21 origins
+2019-02-20: 21 origins
+2019-02-24: 21 origins
+2019-11-27: 21 origins
+2020-02-06: 21 origins
+2020-08-04: 21 origins
+2020-10-29: 20 origins
+2021-02-15: 21 origins
+2021-05-04: 21 origins
+2021-06-21: 21 origins
+2021-08-11: 21 origins
+2021-12-11: 21 origins
+2021-12-15: 21 origins
+2022-01-16: 21 origins
+2022-03-12: 21 origins
+2022-04-13: 21 origins
+2022-06-08: 21 origins
+2022-06-17: 21 origins
+2022-07-23: 21 origins
+2024-01-09: 21 origins
+2024-01-12: 21 origins
+2024-05-08: 21 origins
+2024-05-26: 19 origins
+2024-06-26: 21 origins
+2024-09-27: 21 origins
+{
+ "decision": {
+  "always_NET_event_equal_mse": 0.0019688596482335154,
+  "always_ASYM_event_equal_mse": 0.0023581404510600386,
+  "better_of_two_per_event_mse": 0.001899132716660377,
+  "rule_n_counties": {
+   "event_equal_mse": 0.0019425227346858464,
+   "share_matching_realized_winner": 0.5769230769230769,
+   "share_choosing_ASYM": 0.19230769230769232
+  },
+  "rule_n_train_events": {
+   "event_equal_mse": 0.0019833038786475927,
+   "share_matching_realized_winner": 0.6153846153846154,
+   "share_choosing_ASYM": 0.7692307692307693
+  }
+ },
+ "assoc_delta_hat_counties": {
+  "spearman_with_delta_cv": 0.7811965811965812,
+  "descriptive_p": 2.475255923245622e-06,
+  "spearman_with_relative_delta_cv": 0.738119658119658
+ },
+ "assoc_sigma_x": {
+  "spearman_with_delta_cv": -0.6806837606837607,
+  "descriptive_p": 0.00012977061090720262,
+  "spearman_with_relative_delta_cv": -0.7948717948717947
+ }
+}
+exit=0 seconds=40

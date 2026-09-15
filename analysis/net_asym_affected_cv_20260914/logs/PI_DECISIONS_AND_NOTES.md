@@ -46,3 +46,19 @@ reported next to every trained comparison.
   and the one patch made before the first DEV was re-applied. The fold lock was regenerated with the same
   script. Before the DEV rerun, the RMSE secondary metric was added to `code/cv_analyze.py`, and revision notes
   were added to `PROTOCOL_ZH.md` and `CONFIG_LOCK.json`.
+
+## 2026-09-15, after the results write-up
+
+- PI feedback on reporting: do not split results by forecast lead, and do not report counts of events favouring
+  a model within each event type. The question to answer is how the data features defined in the paper decide
+  which model to use.
+- Options put to the PI:
+  - Decision unit: input-defined condition cells, events, or both.
+  - Estimation of the paper's signal S and noise nu^2: the solvable benchmark with the Appendix F cross-fitted
+    estimator, the readable features only, or both.
+- PI decisions:
+  - Unit: event level.
+  - Estimation: report both. The solvable-benchmark estimates make the decision; the conditional path dispersion
+    sigma_x and the replicate count n explain it.
+- Status: this analysis is written after the CV results were seen. It is labelled post-hoc and descriptive, as the
+  paper requires for real-data conditional-law diagnostics.

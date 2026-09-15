@@ -3,6 +3,7 @@
 - **分支：** `research/net-asym-affected-cv-20260914`。
 - **方向：** Δ = MSE_NET − MSE_ASYM，正数支持 ASYM。
 - **依据：** 设计与判定规则见 `PROTOCOL_ZH.md`，在任何训练之前提交；PI 的决定和运行中的记录见 `logs/PI_DECISIONS_AND_NOTES.md`。
+- **报告方式（PI 2026-09-15）：** 选哪个模型以数据特征判决为准，见 `EVENT_FEATURES_ZH.md`；本文中按时距拆分和按事件类型计数的内容只作记录，不再作为结论。
 
 | commit | 内容 |
 |---|---|

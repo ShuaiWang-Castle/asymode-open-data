@@ -35,6 +35,19 @@ consistent sign. Details are in `RESULTS_ZH.md`.
   response.
 - **RMSE**, the secondary metric, agrees in direction with MSE in every grouping and population.
 
+## Event-level data features (post hoc)
+
+`EVENT_FEATURES_ZH.md` asks how the data features in the paper decide the model, event by event:
+
+- **Ranking.** The paper's benchmark estimate Delta_hat ranks the events in the same order as the neural Delta
+  (Spearman +0.78). Its Lambda = 1 threshold, however, depends on an effective number of independent events that
+  these data do not identify.
+- **Outage level dominates.** Choosing NET above a leave-one-component-out threshold near 0.9% mean outage at the
+  forecast origins picks the better model in 81% of events. That recovers 91% of the gain per-event oracle
+  selection would have over always choosing NET.
+- **Dispersion.** sigma_x points towards NET across events, because large events carry more signal; at a fixed
+  outage level it points towards ASYM, as the paper predicts.
+
 ## Layout
 
 | path | contents |

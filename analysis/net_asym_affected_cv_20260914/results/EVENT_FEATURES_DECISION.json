@@ -1,0 +1,66 @@
+{
+ "status": "POST_HOC_DESCRIPTIVE",
+ "events": 26,
+ "components": 23,
+ "baselines_event_equal_affected_mse": {
+  "always_NET": 0.0019688596482335154,
+  "always_ASYM": 0.0023581404510600386,
+  "better_of_two_per_event": 0.001899132716660377
+ },
+ "uncalibrated_paper_rules": {
+  "paper_rule_Delta_hat_n_counties": {
+   "event_equal_mse": 0.0019425227346858464,
+   "share_matching_realized_winner": 0.5769230769230769,
+   "share_choosing_NET": 0.8076923076923077
+  },
+  "paper_rule_Delta_hat_n_train_events": {
+   "event_equal_mse": 0.0019833038786475927,
+   "share_matching_realized_winner": 0.6153846153846154,
+   "share_choosing_NET": 0.23076923076923078
+  }
+ },
+ "loco_calibrated_rules": [
+  {
+   "feature": "signal_to_noise_per_replicate",
+   "description": "paper: S_hat/nu_hat^2, NET if above 1/n_eff",
+   "loco_event_equal_mse": 0.00197562889990185,
+   "share_matching_realized_winner": 0.6538461538461539,
+   "share_choosing_NET": 0.6538461538461539
+  },
+  {
+   "feature": "sigma_x_pp",
+   "description": "readable: conditional path dispersion sigma_x",
+   "loco_event_equal_mse": 0.0019416795370855273,
+   "share_matching_realized_winner": 0.7307692307692307,
+   "share_choosing_NET": 0.4230769230769231
+  },
+  {
+   "feature": "mean_origin_state",
+   "description": "readable: mean outage level at the origins (an input)",
+   "loco_event_equal_mse": 0.001905669689540408,
+   "share_matching_realized_winner": 0.8076923076923077,
+   "share_choosing_NET": 0.4230769230769231
+  },
+  {
+   "feature": "n_counties_mean",
+   "description": "readable: replicates per origin n",
+   "loco_event_equal_mse": 0.0022259367429152267,
+   "share_matching_realized_winner": 0.38461538461538464,
+   "share_choosing_NET": 0.8461538461538461
+  }
+ ],
+ "implied_n_eff_from_loco_snr_threshold": {
+  "median": 49.933246890199065,
+  "min": 35.17398878039547,
+  "max": 50.639325350269054
+ },
+ "partial_spearman_with_delta_cv": {
+  "signal_to_noise_per_replicate_given_mean_origin_state": -0.23961856445091528,
+  "delta_hat_counties_given_mean_origin_state": 0.44174715595794084,
+  "sigma_x_pp_given_mean_origin_state": 0.25823628020550116,
+  "S_hat_given_mean_origin_state": -0.3072614317669835,
+  "nu2_hat_given_mean_origin_state": -0.12871925706165027,
+  "mean_origin_state_given_signal_to_noise": -0.6283503254388235,
+  "sigma_x_given_signal_to_noise": -0.5552829172677086
+ }
+}
