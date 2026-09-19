@@ -1,0 +1,1842 @@
+% Compile AsymODE.tex from this directory; all figure files are under figures/.
+% Figures use native physical sizes and the same T1 Computer Modern font setup as this manuscript.
+% The proposed response-risk-evidence overview is deliberately excluded.
+% Figure revision: actual numeric records replace image-generated illustrative charts.
+% No ZIP, data files, bibliography file, or custom fonts are required.
+% LaTeX writes the embedded AISTATS style in an empty compilation directory.
+% Real-data source fixed at 97e1a5b343ecdc8d4bc333fd8fc0342c01bea6c4.
+% Narrative revision: solvable calibration and real-data distributional evidence have distinct roles.
+% Theory statements, proofs, observations, and reported experimental values are unchanged.
+% No repository writes or neural retraining were performed for this revision.
+\begin{filecontents*}{aistats2026.sty}
+% File:  aistats2026.sty
+
+% Modified by Arno Solin, 2025: changed venue, year, and volume number, clarified the instructions, fixed title spacing bug in onecolumn (suppelement) mode, added a `preprint' option similar to other conference style files.
+%
+% Modified by Javier Burroni, 2024 (late): adapted to 2025; stop compilation if running headings are too long. 
+% Modified by Javier Burroni, 2024: volume number. 
+% Modified by Yingzhen Li, 2023: changed year and volume number. 
+%
+% Modified by Francisco Ruiz, 2022: changed venue, year, and volume number.
+%
+% Modified by Robert Giaquinto and Krikamol Muandet 2021: changed
+% venue, year, and volume number. Adjust spacing in the copyright box.
+%
+% Modified by Marcello Restelli, 2020: changed \evensidemargin and
+% \oddsidemargin in order to center the text with respect to the page.
+% Removed author names and affiliation when the paper is submitted.
+% Added command to display acknowledgments only in the final version.
+%
+% Modified by Roberto Calandra, 2019: introduced parametric structure to
+% change venue, year, and volume number. This will make life easier
+% for future organizers :)
+%
+% Modified Atsushi Miyauchi, Mirai Tanaka and Akiko Takeda, 2018: changed venue,
+% year, volume number, and heading for the references, and removed tiny bugs.
+%
+% Modified Fernando Perez-Cruz, 2017: changed venue, year, and volume number.
+%
+% Modified Scott Alfeld, 2016: changed venue, year, and volume number.
+%
+% Modified Zoltan Szabo, 2015: change venue, year, volume number.
+%
+% Modified Antti Honkela, 2013: change venue, year
+%
+% Modified Miro Dudik, 2011, 2012: change venue, year and volume number
+%
+% Modified Geoff Gordon, 2010: change to 2011
+%
+% Modified Mauricio Alvarez, 2009. Headings for the manuscript when
+% being under review and additional changes so that the headings are
+% automatically obtained from the title and author fields from the tex
+% file. Also changes to the year 2009 for 2010 where it appeared.
+%
+% Modified Mauricio Alvarez, 2009. Copyright Notice and commands for headings
+%
+%
+% Originally this file contains the LaTeX formatting parameters for the Morgan
+% Kaufmann two column, 8 1/2 by 11 inch proceedings format.
+
+\NeedsTeXFormat{LaTeX2e}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Content to be changed from year to year
+
+\ProvidesPackage{aistats2026}[2026/08/29 AISTATS2026 submission/camera-ready style file]
+
+\newcommand{\@conferenceordinal}{29\textsuperscript{th}}
+\newcommand{\@conferenceyear}{2026}
+\newcommand{\@conferencelocation}{Tangier, Morocco}
+\newcommand{\@conferencevolume}{300}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{amsmath}
+
+% Create acknowledgments -- only if the option 'final' is activated
+\providecommand{\acknowledgments}[1]{}
+\newcommand{\ackaccepted}[1]{%
+\subsubsection*{Acknowledgments} #1
+}
+
+\DeclareOption{accepted}{\renewcommand{\statePaper}{\acceptedPaper}%
+                         \renewcommand{\Notice@String}{\AISTATS@appearing}%
+                         \renewcommand{\acknowledgments}{\ackaccepted}}
+
+\newcommand{\statePaper}{0}
+\newcommand{\acceptedPaper}{1}
+\newcommand{\Notice@String}{Preliminary work. Under review by AISTATS \@conferenceyear. Do not distribute.}
+\newcommand{\AISTATS@appearing}{Proceedings of the \@conferenceordinal\,International Conference on Artificial
+  Intelligence and Statistics (AISTATS) \@conferenceyear,  \@conferencelocation\@. PMLR: Volume  \@conferencevolume. Copyright
+  \@conferenceyear\/ by the author(s).}
+
+% Preprint option: hide the venue box on page 1
+\newif\if@preprint
+\@preprintfalse
+\DeclareOption{preprint}{%
+  \@preprinttrue
+  \renewcommand{\statePaper}{\acceptedPaper}%
+  \renewcommand{\Notice@String}{}%
+}
+
+\ProcessOptions\relax
+
+\evensidemargin -0.125in
+\oddsidemargin -0.125in
+\setlength\topmargin{-25pt} \setlength\textheight{9.25in}
+\setlength\textwidth{6.75in} \setlength\columnsep{0.25in}
+\newlength\titlebox \setlength\titlebox{2.375in}
+\setlength\headheight{10pt} \setlength\headsep{15pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% To include the copyright legend at the end of
+%%%% the first column of the first page. Adapted from ICML09.sty
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\ftype@copyrightbox{8}
+\def\@copyrightspace{
+% Create a float object positioned at the bottom of the column.  Note
+% that because of the mystical nature of floats, this has to be called
+% before the first column is populated with text (e.g., from the title
+% or abstract blocks).  Otherwise, the text will force the float to
+% the next column.  -- TDRL.
+\@float{copyrightbox}[b]
+\begin{center}
+\setlength{\unitlength}{1pc}
+\begin{picture}(20,2.5)
+% Create a line separating the main text from the note block.
+% 4.818pc==0.8in.
+\put(0,3.5){\line(1,0){4.818}}
+% Insert the text string itself.  Note that the string has to be
+% enclosed in a parbox -- the \put call needs a box object to
+% position.  Without the parbox, the text gets splattered across the
+% bottom of the page semi-randomly.  The 19.75pc distance seems to be
+% the width of the column, though I can't find an appropriate distance
+% variable to substitute here.  -- TDRL.
+\put(0,0){\parbox[b]{19.75pc}{\small \Notice@String}}
+\end{picture}
+\end{center}
+\end@float}
+
+% If [preprint] is set, suppress the venue/copyright block entirely
+\if@preprint
+  \def\@copyrightspace{}%
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength\footskip{0pt}
+\thispagestyle{empty}     \pagestyle{empty}
+\flushbottom \twocolumn \sloppy
+
+\def\addcontentsline#1#2#3{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%     Definition of maketitle (includes title and author)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{fancyhdr}
+
+% box to check the size of the running head
+\newbox\titrun
+\newbox\autrun
+
+% general page style
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+
+\fancyhead{}
+\fancyfoot{}
+
+% definition to set running head title and running head author
+\def\runningtitle#1{\gdef\@runningtitle{#1}}
+\def\runningauthor#1{\gdef\@runningauthor{#1}}
+
+\long\def\aistatstitle#1{
+
+   %\renewcommand{\headrulewidth}{0.5pt}
+
+   \gdef\@runningheadingerrortitle{0}
+
+   % If paper is under review print this as headings
+
+   \ifnum\statePaper=0
+    {
+     \gdef\@runningtitle{Manuscript under review by AISTATS \@conferenceyear}
+    }
+   \fi
+
+   % If the paper is accepted, print the title or the running title as heading.
+
+   \ifnum\statePaper=1
+   {
+   \ifx\undefined\@runningtitle
+    {
+    \gdef\@runningtitle{#1}
+    }
+   \fi
+   }
+   \fi
+
+   \ifnum\@runningheadingerrortitle=0
+         {
+         \global\setbox\titrun=\vbox{\small\bfseries\@runningtitle}%
+         \ifdim\wd\titrun>\textwidth%
+            {\gdef\@runningheadingerrortitle{2}
+             \gdef\@messagetitle{Running heading title too long}
+            }%
+         \else\ifdim\ht\titrun>10pt
+              {\gdef\@runningheadingerrortitle{3}
+              \gdef\@messagetitle{Running heading title breaks the line}
+              }%
+              \fi
+          \fi
+         }
+    \fi
+
+   \ifnum\@runningheadingerrortitle>0
+     {
+        \fancyhead[CE]{\small\bfseries\@messagetitle}
+        \ifnum\@runningheadingerrortitle>1
+           \typeout{}%
+           \typeout{}%
+           \typeout{*******************************************************}%
+           \typeout{Running heading title exceeds size limitations for running head.}%
+           \typeout{Please supply a shorter form for the running head}
+           \typeout{with \string\runningtitle{...}\space just after \string\begin{document}}%
+           \typeout{*******************************************************}%
+           \typeout{}%
+           \typeout{}%
+           \PackageError{Document}{Running heading title exceeds size limitations. Provide a shorter form for the running head using \string\runningtitle{...}.}{Provide a shorter form for the running head using \string\runningtitle{...}.}
+        \fi
+     }
+  \else
+     {
+          \fancyhead[CE]{\small\bfseries\@runningtitle}
+     }
+  \fi
+
+  \hsize\textwidth
+  \linewidth\hsize \toptitlebar {\centering
+  {\Large\bfseries #1 \par}}
+ \bottomtitlebar %\vskip 0.2in plus 1fil minus 0.1in
+ \if@twocolumn
+   \vskip 0.25in plus 1fil minus 0.125in
+ \else
+   \vskip 0.5em
+ \fi
+}
+
+\long\def\aistatsauthor#1{
+
+   \gdef\@runningheadingerrorauthor{0}
+
+   % If the paper is under review, print this message as heading.
+
+   \ifnum\statePaper=0
+    {
+     \gdef\@runningauthor{Manuscript under review by AISTATS \@conferenceyear}
+    }
+   \fi
+
+   % If the paper is accepted, print the author names or runningauthor as heading.
+
+   \ifnum\statePaper=1
+   {
+   \ifx\undefined\@runningauthor%
+    {
+   \gdef\@runningauthor{\def\and{\unskip{,}\enspace}\def\And{\unskip{,}\enspace}\def\AND{\unskip{,}\enspace}
+   #1}
+    }
+   \fi
+    }
+   \fi
+
+  \ifnum\@runningheadingerrorauthor=0
+      {
+      \global\setbox\autrun=\vbox{\small\bfseries\@runningauthor}
+      \ifdim\wd\autrun>\textwidth%
+            {\gdef\@runningheadingerrorauthor{2}
+             \gdef\@messageauthor{Running heading author too long}
+            }%
+         \else\ifdim\ht\autrun>10pt
+              {\gdef\@runningheadingerrorauthor{3}
+              \gdef\@messageauthor{Running heading author breaks the line}
+              }%
+              \fi
+          \fi
+      }
+  \fi
+
+  \ifnum\@runningheadingerrorauthor>0
+     {
+       \fancyhead[CO]{\small\bfseries\@messageauthor}
+       \ifnum\@runningheadingerrorauthor>1
+           \typeout{}%
+           \typeout{}%
+           \typeout{*******************************************************}%
+           \typeout{Running heading author exceeds size limitations for running head.}%
+           \typeout{Please supply a shorter form for the running head}
+           \typeout{with \string\runningauthor{...}\space just after \string\begin{document}}%
+           \typeout{*******************************************************}%
+           \typeout{}%
+           \typeout{}%
+            \PackageError{Document}{Running heading author exceeds size limitations. Provide a shorter form for the running head using \string\runningauthor{...}.}{Provide a shorter form for the running head using \string\runningauthor{...}.}
+      \fi
+     }
+  \else
+     {
+     \fancyhead[CO]{\small\bfseries\@runningauthor}
+     }
+  \fi
+
+
+    \ifnum\statePaper=0
+    {
+        {\def\and{\unskip\enspace{\rm and}\enspace}%
+        \def\And{\end{tabular}\hss \egroup \hskip 1in plus 2fil
+                \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}\bfseries}%
+        \def\AND{\end{tabular}\hss\egroup \hfil\hfil\egroup
+                \vskip 0.25in plus 1fil minus 0.125in
+                \hbox to \linewidth\bgroup \hfil\hfil
+                    \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}\bfseries}
+        \def\ANDD{\end{tabular}\hss\egroup \hfil\hfil\egroup
+                \vskip 0.25in plus 1fil minus 0.125in
+                \hbox to \linewidth\bgroup \hfil\hfil
+                    \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}\bfseries}
+            \hbox to \linewidth\bgroup \hfil\hfil
+            \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}\bfseries Anonymous Author
+                                \end{tabular}
+            \hss\egroup
+            \hfil\hfil\egroup}
+    }
+    \else
+    {
+        {\def\and{\unskip\enspace{\rm and}\enspace}%
+        \def\And{\end{tabular}\hss \egroup \hskip 1in plus 2fil
+                \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}\bfseries}%
+        \def\AND{\end{tabular}\hss\egroup \hfil\hfil\egroup
+                \vskip 0.25in plus 1fil minus 0.125in
+                \hbox to \linewidth\bgroup \hfil\hfil
+                    \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}\bfseries}
+        \def\ANDD{\end{tabular}\hss\egroup \hfil\hfil\egroup
+                \vskip 0.25in plus 1fil minus 0.125in
+                \hbox to \linewidth\bgroup \hfil\hfil
+                    \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}\bfseries}
+            \hbox to \linewidth\bgroup \hfil\hfil
+            \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}\bfseries #1
+                                \end{tabular}
+            \hss\egroup
+            \hfil\hfil\egroup}
+    }
+   \fi
+}
+
+
+\long\def\aistatsaddress#1{
+     \ifnum\statePaper=0
+    {
+        {\def\and{\unskip\enspace{\rm and}\enspace}%
+        \def\And{\end{tabular}\hss \egroup \hskip 1in plus 2fil
+                \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c} }%
+        \def\AND{\end{tabular}\hss\egroup \hfil\hfil\egroup
+                \vskip 0.25in plus 1fil minus 0.125in
+                \hbox to \linewidth\bgroup \hfil\hfil
+                    \hbox to 0pt  \bgroup \hss \begin{tabular}[t]{c}}
+        \def\ANDD{\end{tabular}\hss\egroup \hfil\hfil\egroup
+                \vskip 0.25in plus 1fil minus 0.125in
+                \hbox to \linewidth \bgroup \hfil\hfil
+                    \hbox to 0pt  \bgroup \hss\begin{tabular}[t]{c}\bfseries}
+            \hbox to \linewidth\bgroup \hfil\hfil
+            \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}
+            Anonymous Institution
+            \end{tabular}
+            \hss\egroup
+            \hfil\hfil\egroup}
+        \vskip 0.3in plus 2fil minus 0.1in
+    }
+    \else
+    {
+        {\def\and{\unskip\enspace{\rm and}\enspace}%
+        \def\And{\end{tabular}\hss \egroup \hskip 1in plus 2fil
+                \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c} }%
+        \def\AND{\end{tabular}\hss\egroup \hfil\hfil\egroup
+                \vskip 0.25in plus 1fil minus 0.125in
+                \hbox to \linewidth\bgroup \hfil\hfil
+                    \hbox to 0pt  \bgroup \hss \begin{tabular}[t]{c}}
+        \def\ANDD{\end{tabular}\hss\egroup \hfil\hfil\egroup
+                \vskip 0.25in plus 1fil minus 0.125in
+                \hbox to \linewidth \bgroup \hfil\hfil
+                    \hbox to 0pt  \bgroup \hss\begin{tabular}[t]{c}\bfseries}
+            \hbox to \linewidth\bgroup \hfil\hfil
+            \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c} #1
+                                \end{tabular}
+        \hss\egroup
+        \hfil\hfil\egroup}
+    \vskip 0.3in plus 2fil minus 0.1in
+    }
+   \fi
+}
+
+\renewcommand{\headrulewidth}{0.5pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  Definition of abstract environment
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewenvironment{abstract}
+{\@copyrightspace\centerline{\large\bfseries
+Abstract}\vspace{0.5ex}\begin{quote}}{\par\end{quote}\vskip 1ex}
+
+% sections with less space
+\def\section{\@startsection {section}{1}{\z@}{-2.0ex plus
+    -0.5ex minus -.2ex}{1.5ex plus 0.3ex minus .2ex}{\large\bfseries\raggedright}}
+\def\subsection{\@startsection{subsection}{2}{\z@}{-1.8ex plus
+    -0.5ex minus -.2ex}{0.8ex plus .2ex}{\normalsize\bfseries\raggedright}}
+\def\subsubsection{\@startsection{subsubsection}{3}{\z@}{-1.5ex plus
+   -0.5ex minus -.2ex}{0.5ex plus .2ex}{\normalsize\bfseries\raggedright}}
+\def\paragraph{\@startsection{paragraph}{4}{\z@}{1.5ex plus
+   0.5ex minus .2ex}{-1em}{\normalsize\bfseries}}
+\def\subparagraph{\@startsection{subparagraph}{5}{\z@}{1.5ex plus
+   0.5ex minus .2ex}{-1em}{\normalsize\bfseries}}
+\def\subsubsubsection{\vskip 5pt{\noindent\normalsize\rm\raggedright}}
+
+
+% Footnotes
+\footnotesep 6.65pt %
+\skip\footins 9pt plus 4pt minus 2pt
+\def\footnoterule{\kern-3pt \hrule width 5pc \kern 2.6pt }
+\setcounter{footnote}{0}
+
+% Lists and paragraphs
+\parindent 0pt
+\topsep 4pt plus 1pt minus 2pt
+\partopsep 1pt plus 0.5pt minus 0.5pt
+\itemsep 2pt plus 1pt minus 0.5pt
+\parsep 2pt plus 1pt minus 0.5pt
+\parskip .5pc
+
+
+\leftmargin 2em \leftmargini\leftmargin \leftmarginii 2em
+\leftmarginiii 1.5em \leftmarginiv 1.0em \leftmarginv .5em
+\leftmarginvi .5em
+\labelwidth\leftmargini\advance\labelwidth-\labelsep \labelsep 5pt
+
+\def\@listi{\leftmargin\leftmargini}
+\def\@listii{\leftmargin\leftmarginii
+   \labelwidth\leftmarginii\advance\labelwidth-\labelsep
+   \topsep 2pt plus 1pt minus 0.5pt
+   \parsep 1pt plus 0.5pt minus 0.5pt
+   \itemsep \parsep}
+\def\@listiii{\leftmargin\leftmarginiii
+    \labelwidth\leftmarginiii\advance\labelwidth-\labelsep
+    \topsep 1pt plus 0.5pt minus 0.5pt
+    \parsep \z@ \partopsep 0.5pt plus 0pt minus 0.5pt
+    \itemsep \topsep}
+\def\@listiv{\leftmargin\leftmarginiv
+     \labelwidth\leftmarginiv\advance\labelwidth-\labelsep}
+\def\@listv{\leftmargin\leftmarginv
+     \labelwidth\leftmarginv\advance\labelwidth-\labelsep}
+\def\@listvi{\leftmargin\leftmarginvi
+     \labelwidth\leftmarginvi\advance\labelwidth-\labelsep}
+
+\abovedisplayskip 7pt plus2pt minus5pt%
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip  0pt plus3pt%
+\belowdisplayshortskip  4pt plus3pt minus3pt%
+
+% Less leading in most fonts (due to the narrow columns)
+% The choices were between 1-pt and 1.5-pt leading
+\def\@normalsize{\@setsize\normalsize{11pt}\xpt\@xpt}
+\def\small{\@setsize\small{10pt}\ixpt\@ixpt}
+\def\footnotesize{\@setsize\footnotesize{10pt}\ixpt\@ixpt}
+\def\scriptsize{\@setsize\scriptsize{8pt}\viipt\@viipt}
+\def\tiny{\@setsize\tiny{7pt}\vipt\@vipt}
+\def\large{\@setsize\large{14pt}\xiipt\@xiipt}
+\def\Large{\@setsize\Large{16pt}\xivpt\@xivpt}
+\def\LARGE{\@setsize\LARGE{20pt}\xviipt\@xviipt}
+\def\huge{\@setsize\huge{23pt}\xxpt\@xxpt}
+\def\Huge{\@setsize\Huge{28pt}\xxvpt\@xxvpt}
+
+\def\toptitlebar{
+\hrule height4pt
+\vskip .25in}
+
+\def\bottomtitlebar{
+\vskip .25in
+\hrule height1pt
+\vskip .25in}
+
+\renewenvironment{thebibliography}[1]
+     {\subsubsection*{\refname}%
+      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+
+\end{filecontents*}
+% Neural CV and post-hoc conditional-response integration, 2026-09-15; evidence fixed at 97e1a5b.
+% DFSL used as an organization reference; no additional model comparison introduced.
+% Only NET versus Asym. All new synthetic events start at zero under identical x.
+% Old initial-state-width results are archived, not relabeled.
+\documentclass[twoside]{article}
+\usepackage[preprint]{aistats2026}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{natbib,booktabs,graphicx,microtype,xurl}
+\usepackage{algorithm,algpseudocode,placeins}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={AsymODE: Conditional Response Distributions and Dual-Flow Forecasting},pdfauthor={Anonymous Authors}}
+\graphicspath{{./}}
+% Each plot is a separate PDF; composition, labels, and takeaways are in LaTeX.
+% For convenience, AsymODE_Figures.pdf supplies an equivalent page fallback.
+\newcommand{\AsymFigure}[2]{%
+  \includegraphics{figures/#1.pdf}%
+}
+
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\net}{\textup{\textsc{Net}}}
+\newcommand{\asym}{\textup{\textsc{Asym}}}
+\newcommand{\Risk}{\mathcal R}
+\newcommand{\Info}{\mathcal I}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{assumption}{Assumption}
+\theoremstyle{plain}
+\setlength{\emergencystretch}{1.5em}
+\setlength{\footskip}{14pt}
+% Avoid delaying small result figures onto otherwise empty float pages.
+\renewcommand{\topfraction}{0.93}
+\renewcommand{\dbltopfraction}{0.93}
+\renewcommand{\textfraction}{0.06}
+\renewcommand{\floatpagefraction}{0.80}
+\renewcommand{\dblfloatpagefraction}{0.80}
+\setcounter{topnumber}{4}
+\setcounter{dbltopnumber}{3}
+\setcounter{totalnumber}{6}
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\dbltextfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 1pt minus 1pt}
+\setlength{\dblfloatsep}{8pt plus 1pt minus 1pt}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{8pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+\setlength{\@dblfptop}{0pt}
+\setlength{\@dblfpsep}{8pt}
+\setlength{\@dblfpbot}{0pt plus 1fil}
+\makeatother
+
+
+\begin{document}
+\raggedbottom
+\runningtitle{Conditional Response and Dual-Flow Forecasting}
+\runningauthor{Anonymous Authors}
+\twocolumn[
+\aistatstitle{AsymODE: Conditional Response Distributions\\ and Dual-Flow Forecasting}
+\aistatsauthor{Anonymous Authors}
+\aistatsaddress{Anonymous Institution}
+]
+\fancyhead[CE]{\small\bfseries Conditional Response and Dual-Flow Forecasting}
+\fancyhead[CO]{\small\bfseries Anonymous Authors}
+\fancyfoot[C]{\small\thepage}
+\begin{abstract}
+Single-flow and dual-flow models encode different assumptions about outage trajectories, but when either structure is preferable remains unclear. We compare a flexible net-flow predictor with an explicit damage--recovery model under shared information and full-path supervision. Our analysis balances predictable response excluded by the dual-flow restriction against the cost of learning that response. An exact local criterion incorporates temporal covariance, and a regular nonlinear expansion extends the comparison to smooth neural path estimators. A solvable stochastic model isolates response variability while holding the external input, initial state, and conditional mean fixed; numerical experiments recover the predicted changes in model preference. Across 26 US storm panels with matched ERA5 inputs, neural comparative advantage varies systematically with response characteristics. A theory-motivated diagnostic has rank correlation $0.78$ with the observed risk difference, and post-hoc response-level selection lowers recorded risk by $3.21\%$ relative to the better fixed model. These results support conditional response statistics as a basis for choosing trajectory-model structure.
+\end{abstract}
+
+\section{Introduction}
+Power-outage trajectories reflect interruptions and restoration occurring concurrently. A forecaster can learn their net effect directly or represent the two flows through separate damage and recovery rates. Both approaches use aggregate outage observations to predict a complete trajectory, but impose different restrictions on the response to the current system state. When does explicit dual-flow structure improve prediction, and when is a flexible single net flow preferable?
+
+The outage literature motivates both approaches. \citet{carrington2021} analyze concurrent outage and restore processes using distribution-utility records. When separate directional records are unavailable, \citet{zhu2025} instead model aggregate customer outages with a single spatio-temporal stochastic process. Neural compartment models provide another route, learning failure and restoration rates from aggregate trajectories \citep{chen2025}. These studies establish the relevance of both representations, but do not resolve their predictive comparison under a common information set and training objective.
+
+We study this choice through the conditional response distribution. Even with the same external scenario and an initially unaffected system, event trajectories can differ in how clearly they reveal additional predictable response beyond a restricted damage--recovery representation (Figure~\ref{fig:paths}). When this extra response is reproducible across events, a flexible net flow can reduce prediction bias; when it is hard to estimate from finite samples, the dual-flow restriction can lower estimation cost. The central question is therefore when the additional response is worth learning.
+
+\begin{figure*}[!t]
+\centering
+\AsymFigure{fig_response_distributions}{1}
+\caption{Motivating comparison under a common external scenario and zero initial state. Each row fixes the external input and the conditional mean target (black dashed line) but changes how clearly the response is revealed by finite events. Left: observed event paths. Right: predictions fitted from repeated training samples. When the extra response is stable across events, the flexible NET can reduce prediction bias. When it is noisy relative to sample size, NET becomes more sample-sensitive, while Asym remains more stable by restricting the response class. The figure motivates why the preferred structure can change across conditional response regimes.}
+\label{fig:paths}
+\end{figure*}
+
+Our analysis expresses this trade-off using the conditional mean path and its full temporal covariance. For fixed local path spaces, the signal excluded by the refitted dual response is $S_H$, and the noise in the same response directions is $\nu_H^2$. Their balance, $\Lambda_H=nS_H/\nu_H^2$, determines the expected-risk ordering for $n$ independent training events. A nonlinear expansion accounts for fit curvature and connects the local comparison to regular smooth neural estimators. A finite-state outage process then makes the response moments and risk balance computable.
+
+The experiments test the same comparison at two levels. Mean-preserving stochastic events isolate the effect of response variability and sample quantity on path risk. Grouped cross-validation on 26 US storms evaluates neural NET and Asym predictors and relates their comparative advantage to response features. Together, the formulation, risk analysis, controlled experiment, and storm study identify conditional response statistics as a determinant of the value of damage--recovery structure.
+
+\paragraph{Related work.}
+Neural differential equations learn dynamics through the trajectories they induce \citep{chen2018,rubanova2019}. Universal differential equations and APHYNITY combine structural dynamics with learned components \citep{rackauckas2020,yin2021}. We focus on a particular structural choice: a state-dependent net response versus opposing source-pool flows, holding prediction information and path supervision fixed.
+
+The local comparison uses partial-regression geometry for nested least squares \citep{ding2020,hansen2022}; the nonlinear analysis uses regular and misspecified-regression expansions \citep{jennrich1969,white1981}. We explicitly state the optimization accuracy required of an attained neural fit \citep{schmidthieber2020}. Nonlinear stochastic dynamics need not close at the mean \citep{schnoerr2017}, and aggregate Markov estimation requires distinguishing process from observation variation \citep{bernstein2016}. Our finite-state construction retains these effects when computing the conditional response and its forecast risk.
+
+\section{Problem Formulation}
+Let $x=(x_0,\ldots,x_{H-1})$ denote a common external scenario, with initial state $Y_0=0$. An event produces
+\begin{equation}
+ \mathbf Y=(Y_1,\ldots,Y_H)^\top\sim\mathcal P_x,
+ \qquad Y_h\in[0,1].
+ \label{eq:conditional_law}
+\end{equation}
+with conditional mean $\mu_x=\E[\mathbf Y\mid x]$ and covariance $\Sigma_x=\Cov(\mathbf Y\mid x)$. The conditioning includes all context held fixed in the comparison. In the synthetic study, $x$ is a prescribed input. Both predictors receive the same available information.
+
+Given $n$ independent training events, a fitted predictor returns $\widehat g(x)\in\R^H$. Its risk on an independent event from the same law is
+\begin{equation}
+ \Risk_H(\widehat g;\mathcal P_x)
+ =\E_{\mathcal D_n,\mathbf Y^{\rm new}}
+ \frac{\|\widehat g(x)-\mathbf Y^{\rm new}\|^2}{H}.
+ \label{eq:risk}
+\end{equation}
+We compare the single net-flow predictor (N) and dual-flow predictor (A) through
+\begin{equation}
+ \Delta_H(\mathcal P_x,n)
+ =\Risk_H(\widehat g_{\mathrm N};\mathcal P_x)
+ -\Risk_H(\widehat g_{\mathrm A};\mathcal P_x).
+ \label{eq:gap}
+\end{equation}
+Positive $\Delta_H$ favors dual flow; negative $\Delta_H$ favors single flow. Expectations include both training randomness and the new event.
+
+Squared path risk decomposes as
+\begin{equation}
+ \Risk_H(\widehat g;\mathcal P_x)
+ =\E\frac{\|\widehat g-\mu_x\|^2}{H}
+ +\frac{\tr\Sigma_x}{H}.
+ \label{eq:irreducible}
+\end{equation}
+The common irreducible term cancels in $\Delta_H$. We distinguish mean-path estimation risk from new-event MSE when reporting relative gains. For rolling forecasts, both models instead start from the same observed current state, which may be nonzero.
+
+\section{Single- and Dual-Flow Forecasting}
+\subsection{Matched Recursive Predictors}
+The single net-flow predictor uses
+\begin{equation}
+ \widehat Y^{\mathrm N}_{k+1}
+ =\widehat Y^{\mathrm N}_k+f_\theta(c,x_k,\widehat Y^{\mathrm N}_k),
+ \qquad \widehat Y^{\mathrm N}_0=y_{\rm init}.
+ \label{eq:net}
+\end{equation}
+where $c$ is the context available at the forecast origin. The function $f_\theta$ learns a general signed net response, including state dependence; it does not suppress either physical direction.
+
+The dual-flow predictor uses
+\begin{equation}
+ \begin{split}
+ \widehat Y^{\mathrm A}_{k+1}
+ &=\widehat Y^{\mathrm A}_k
+ +U_\theta(c,x_k)(1-\widehat Y^{\mathrm A}_k)\\
+ &\hspace{17mm}-R_\theta(c,x_k)\widehat Y^{\mathrm A}_k,
+ \qquad \widehat Y^{\mathrm A}_0=y_{\rm init}.
+ \end{split}
+ \label{eq:asym}
+\end{equation}
+with $U_\theta,R_\theta\ge0$ and $U_\theta+R_\theta\le1$. This update preserves $[0,1]$ and is affine in the recursively predicted state. The rates depend nonlinearly on $c$ and $x_k$, while the state enters through the source-pool factors. This functional restriction, rather than the number of output heads, distinguishes the models (Figure~\ref{fig:models}). Both start from the same $y_{\rm init}$.
+
+\begin{figure*}[!t]
+\centering
+\AsymFigure{fig_two_models_shared_info}{2}
+\caption{Single- and dual-flow forecasting under shared information. NET learns the net transition; Asym represents damage and recovery through complementary source pools. Both recursions generate the complete forecast path from the same observed origin.}
+\label{fig:models}
+\end{figure*}
+
+In the neural implementation, independent damage and recovery networks produce logits $d_\theta(c,x_k)$ and $r_\theta(c,x_k)$, with
+\[
+ (U_k,R_k,s_k)=\operatorname{softmax}\!\left(d_\theta(c,x_k),r_\theta(c,x_k),0\right).
+\]
+NET uses a residual multilayer perceptron with a linear skip. Both use discrete hourly updates; fitted rate coefficients are not assumed to identify continuous-time physical hazards. Architecture selection is described in Appendix~\ref{app:neural_contract}.
+
+\subsection{Full-Path Training}
+Both models minimize
+\begin{equation}
+ \widehat L_H(\theta)
+ =\frac1{nH}\sum_{i=1}^n\sum_{h=1}^H
+ \bigl(\widehat Y_h(\theta;x)-Y_{i,h}\bigr)^2.
+ \label{eq:training}
+\end{equation}
+by differentiating through the complete recursion. Predictions after the origin use only predicted states, not the realized intermediate trajectory. When training events have identical inputs, fitting their sample mean is exactly equivalent to this objective (Lemma~\ref{lem:mean}). The solvable study uses two- and three-parameter recursions, whereas the real-data study uses neural predictors. The analysis below distinguishes the exact local comparison from the regular nonlinear result.
+
+\section{Theoretical Analysis}
+\label{sec:theory}
+The analysis answers one question: when is the additional conditional-mean signal available to NET worth its estimation cost? We first separate learning error from irreducible event variation, compare the two costs exactly in fixed local path spaces, and then establish the corresponding expansion for regular nonlinear path fits. A stochastic response law makes the same terms computable. All technical lemmas and full proofs are collected in Appendix~\ref{app:theory_all}.
+
+\subsection{Conditional Risk Decomposition}
+\begin{assumption}[Replicated conditional events]
+\label{ass:event}
+At a fixed available external scenario and context, $x$, the training observations $\mathbf Y_1,\ldots,\mathbf Y_n$ are independent events from $\mathcal P_x$, start at $Y_0=0$, and have a finite fourth moment. Their mean and covariance are $\mu_x$ and $\Sigma_x$. Evaluation uses an independent event from the same law. No independence of the $H$ coordinates within an event is required. Model definitions, candidate response directions, and any local reference are fixed independently of these training events unless explicitly stated otherwise.
+\end{assumption}
+
+\begin{proposition}[One risk decomposition for both predictors]
+\label{prop:decomp}
+Under Assumption~\ref{ass:event}, let a fitted predictor have finite second moment, and write $\bar g_j=\E_{\mathcal D_n}\widehat g_j$, $j\in\{\mathrm N,\mathrm A\}$. Define
+\[
+ B_j=\frac{\|\bar g_j-\mu_x\|^2}{H},\qquad
+ V_j=\frac{\E\|\widehat g_j-\bar g_j\|^2}{H}.
+\]
+Then, for either training algorithm,
+\begin{equation}
+ \begin{aligned}
+ \Risk_H(\widehat g_j)&=\frac{\tr\Sigma_x}{H}+B_j+V_j,\\
+ \Delta_H&=(B_N-B_A)+(V_N-V_A).
+ \end{aligned}
+ \label{eq:bv_general}
+\end{equation}
+\end{proposition}
+The common event variance cancels from the absolute risk difference. The remaining competition is between the bias introduced by a structural restriction and the variation saved by not estimating the excluded response. This identity applies to either training algorithm, but does not alone establish that the structural model has smaller variance or greater bias.
+
+For replicated events with common input, full-path least squares is equivalent to fitting their sample mean, whose covariance is $\Sigma_x/n$ (Lemma~\ref{lem:mean}). This reduction concerns the complete recursive forecast, not teacher-forced one-step training. The proof is in Appendix~\ref{app:proof}.
+
+\subsection{Conditional Signal and Estimation Cost}
+Fix a common reference path $g_0$. Let $J_A$ and $J_N$ be fixed full-path design matrices with nested column spaces, $\operatorname{col}(J_A)\subseteq\operatorname{col}(J_N)$. They can be generated by the derivatives of the recursive models, but are treated as fixed in the exact local experiment. Write $P_A,P_N$ for the orthogonal projectors and
+\[
+ \begin{aligned}
+ P_W&=P_N-P_A,\\
+ S_H&=\|P_W(\mu_x-g_0)\|^2,\qquad
+ \nu_H^2=\tr(P_W\Sigma_x).
+ \end{aligned}
+\]
+$P_W$ extracts response directions available only to the local single-flow fit. Thus $S_H$ is the conditional mean signal discarded by the dual restriction, and $\nu_H^2$ is event variation along those same directions. Both are functionals of the full conditional response law, rather than of an initial-state distribution.
+
+\begin{theorem}[Exact conditional model-choice criterion]
+\label{thm:main}
+Under Assumption~\ref{ass:event}, fit the two affine path spaces $g_0+\operatorname{col}(J_A)$ and $g_0+\operatorname{col}(J_N)$ by the common loss \eqref{eq:training}. Their expected risks on an independent event satisfy
+\begin{equation}
+ \boxed{\quad \Delta_H^{\rm loc}
+ =\frac{\nu_H^2-nS_H}{nH}.\quad}
+ \label{eq:mainrisk}
+\end{equation}
+If $\nu_H^2>0$, define the single selection index
+\begin{equation}
+ \Lambda_H=\frac{nS_H}{\nu_H^2}.
+ \label{eq:lambda}
+\end{equation}
+Dual flow has strictly smaller local risk if and only if $\Lambda_H<1$; single flow has strictly smaller local risk if and only if $\Lambda_H>1$. Equality gives a tie. The result requires neither Gaussian noise nor correct specification of either path space.
+\end{theorem}
+
+\paragraph{Proof outline.}
+Lemma~\ref{lem:mean} gives $\widehat g_j=g_0+P_j(\overline{\mathbf Y}-g_0)$. The two estimates agree in the common space. In $W$, the dual estimator omits a signal with squared norm $S_H$, whereas the single estimator incurs variance $\nu_H^2/n$. Orthogonality removes the remaining components; Proposition~\ref{prop:decomp} removes independent evaluation noise. Appendix~\ref{app:proof} provides the exact calculation, including nonnested spaces and general linear smoothers.
+
+The scalar notation used in the synthetic experiment is recovered by taking $J_A=J\in\R^{H\times2}$ and $J_N=[J,t]$. With a nonzero residual direction
+\begin{equation}
+ q=(I-P_J)t,\qquad P_J=J(J^\top J)^{-1}J^\top,
+ \label{eq:q}
+\end{equation}
+we have
+\begin{equation}
+ S_H=\frac{\{q^\top(\mu_x-g_0)\}^2}{q^\top q},\qquad
+ \nu_H^2=\frac{q^\top\Sigma_xq}{q^\top q}.
+ \label{eq:signal_noise}
+\end{equation}
+Refitting the two source coefficients is essential: the raw extra-response derivative $t$ is not the signal that distinguishes the models. Only its component $q$ that the common fit cannot absorb enters the comparison. This calculation is a proof device, not a postprocessing forecasting method.
+
+The condition is distributional in a specific sense. Higher conditional dispersion need not favor either model: it matters where covariance lies relative to $W$, and whether the conditional mean has signal there. Replacing $\Sigma_x$ by its diagonal can change the selected model even when all hourly variances are preserved. If $P_W=0$, the local fitted paths coincide and the risk difference is zero. If $\nu_H^2=0<S_H$, the single estimator is preferable without a ratio; if both vanish, the risks tie. No zero or signed denominator is interpreted as a positive selection index.
+
+
+\subsection{Regular Nonlinear Path Estimation}
+We next analyze the complete recursive map $g_j(\theta)$ used by each model, rather than propagating a bound for a different one-step estimator. Let $\theta_j^*$ minimize its population path loss within a regular local parameter chart, and define
+\begin{equation}
+ \begin{aligned}
+ r_j&=\mu_x-g_j(\theta_j^*),\\
+ J_j&=D_\theta g_j(\theta_j^*),\\
+ Q_j&=J_j^\top J_j-\sum_{h=1}^H r_{j,h}D_\theta^2g_{j,h}(\theta_j^*).
+ \end{aligned}
+ \label{eq:neural_curvature}
+\end{equation}
+Here $Q_j$ is the Hessian of half the unnormalized path loss; the residual-curvature term matters under misspecification. Assumptions~\ref{ass:smooth}--\ref{ass:fit}, stated in Appendix~\ref{app:neural}, require smooth iterates, an isolated interior minimizer with $Q_j\succ0$, a fourth-moment estimation rate, and an attained empirical score residual of $o_{L^2}(n^{-1/2})$. These are conditions on the fitted estimator, not consequences of using Adam.
+
+The proof has two steps. Differentiating the entire recursion gives the path Jacobian (Lemma~\ref{lem:jacobian}); expanding its normal equations transfers event covariance into parameter and path estimation error (Lemma~\ref{lem:influence}). The resulting risk expansion is the common comparison's nonlinear counterpart.
+
+\begin{theorem}[Risk comparison for regular nonlinear path estimators]
+\label{thm:neural}
+Under Assumptions~\ref{ass:event}--\ref{ass:fit}, define
+\[
+ \mathcal B_j=\frac{\|r_j\|^2}{H},\qquad
+ \mathcal K_j=\tr\!\left(Q_j^{-1}J_j^\top\Sigma_xJ_j\right).
+\]
+Then the two models satisfy
+\begin{equation}
+ \begin{aligned}
+ \Risk_H(\widehat g_j)
+ &=\frac{\tr\Sigma_x}{H}+\mathcal B_j
+       +\frac{\mathcal K_j}{nH}+o(n^{-1}),\\
+ \Delta_H
+ &=\frac{\mathcal K_N-\mathcal K_A}{nH}
+       -(\mathcal B_A-\mathcal B_N)+o(n^{-1}).
+ \end{aligned}
+ \label{eq:neural_risk}
+\end{equation}
+The result applies to the regular neural path maps in Assumption~\ref{ass:smooth}, without requiring their classes or tangents to be nested. The first-order comparison favors dual flow when
+\begin{equation}
+ nH(\mathcal B_A-\mathcal B_N)<\mathcal K_N-\mathcal K_A,
+ \label{eq:neural_choice}
+\end{equation}
+provided the displayed margin exceeds the remainder in \eqref{eq:neural_risk}. At an unresolved boundary no strict finite-sample ordering follows.
+\end{theorem}
+The first term is the estimation cost saved by the dual restriction; the second is the population approximation cost of that restriction. Neither difference is assumed positive. Their signed comparison therefore remains meaningful even when the two neural tangent spaces are not nested. This is a regular local expansion, not a finite-sample guarantee for arbitrary overparameterized networks or early-stopped optimizers.
+
+Under a shared reference path, nested tangents, and local alternatives $\mu_{x,n}=g_0+d/\sqrt n+o(n^{-1/2})$, Corollary~\ref{cor:local_neural} recovers the exact local comparison as the first-order limit. If both tangent spaces coincide, their leading risks coincide. Thus the low-dimensional calculation identifies a statistical mechanism without equating neural complexity to output-head count. Full statements, proofs, and contextual extensions are in Appendix~\ref{app:neural}.
+
+\subsection{A Solvable Conditional Response Law}
+To connect the risk terms to outage responses, hold the external path $x$ and normal-service origin $Y_0=0$ fixed. A finite population model generates random damage from served groups and random restoration from interrupted groups, with probabilities $ux_k$ and $r-\gamma Y_k$, respectively. Both act during the same time interval. Equation~\eqref{eq:process} and Appendix~\ref{app:kernel} specify the exact transition kernel. The conditional mean contains $\gamma(\mu_k^2+v_k)$, so process variability can affect the mean itself; replacing a random state by its mean would miss $\gamma v_k$ (Theorem~\ref{thm:process}).
+
+The low-dimensional predictors fitted to this process are
+\begin{equation}
+ g_{k+1}(u,r,b)=ux_k+(1-ux_k-r)g_k+b g_k^2,
+ \qquad g_0=0.
+ \label{eq:fitted_model}
+\end{equation}
+NET estimates $(u,r,b)$ and Asym fixes $b=0$ while refitting $(u,r)$. The fitted coefficient $b$ need not equal the physical feedback $\gamma$. This pair provides a computable path-fitting experiment, not a substitute for neural training.
+
+\paragraph{Isolating response variability.}
+Fix a base random event path $Z$ with moments $(\mu_0,\Sigma_0)$, including its local response-group count. For $L$ equal internal blocks, use independent copies $Z_1,\ldots,Z_L$ and an independent event-level indicator $B\sim\operatorname{Bernoulli}(\rho)$:
+\begin{equation}
+ Y^{(\rho)}=B Z_1+(1-B)\frac1L\sum_{\ell=1}^L Z_\ell,
+ \qquad c(\rho)=\rho+\frac{1-\rho}{L}.
+ \label{eq:law_intervention}
+\end{equation}
+When $B=1$, the blocks respond together; otherwise they respond independently. Population size, local mechanism, forcing, and initial state remain fixed, while
+\begin{equation}
+ \mu_\rho=\mu_0,\qquad \Sigma_\rho=c(\rho)\Sigma_0.
+ \label{eq:fixed_mean_cov}
+\end{equation}
+changes only covariance. For the same fixed path spaces, let $S_0=\|P_W(\mu_0-g_0)\|^2$ and $\nu_0^2=\tr(P_W\Sigma_0)$. The exact local comparison becomes
+\begin{equation}
+ \begin{aligned}
+ \Lambda_H(\rho,n)&=\frac{nS_0}{c(\rho)\nu_0^2},\\
+ \Delta_H^{\rm loc}(\rho,n)&=\frac{c(\rho)\nu_0^2/n-S_0}{H}.
+ \end{aligned}
+ \label{eq:law_index}
+\end{equation}
+The population-optimal nonlinear paths also remain unchanged. Their estimation costs scale with $c(\rho)$, yielding
+\begin{equation}
+ \Delta_H(\rho,n)
+ =\frac{c(\rho)(\mathcal K_N^0-\mathcal K_A^0)}{nH}
+  -(\mathcal B_A^0-\mathcal B_N^0)+o(n^{-1}).
+ \label{eq:nonlinear_law}
+\end{equation}
+Consequently, collecting more independent events and making an event law less variable are distinct controls on the same learning problem. The solvable experiment checks their quantitative effects. In real storms, estimated response features provide diagnostics for trained neural predictors; they are not assigned the solvable model's exact numerical cutoff. Appendix~\ref{app:mean_preserving} proves the identities, and Appendix~\ref{app:nls} gives the local process specialization.
+
+
+\section{Experiments}
+We test whether the signal--estimation-cost balance explains the relative performance of NET and Asym. The synthetic study permits quantitative evaluation of the risk criterion; the storm study examines comparative advantage in trained neural models. Both use complete-path squared loss. Detailed protocols and additional analyses appear in Appendices~\ref{app:protocols_all} and~\ref{app:additional_all}.
+
+\subsection{Synthetic Experiments}
+We instantiate the mean-preserving response law in \eqref{eq:law_intervention}. All events start at zero under the same eight-hour forcing followed by recovery, with $H=32$. We vary the conditional path standard deviation from 1.1 to 6.0 percentage points and the number of training events over $n\in\{32,128,512\}$. Each setting uses 800 paired datasets; full details are deferred to Appendix~\ref{app:numerics}.
+
+Table~\ref{tab:main} shows a clear reversal in model preference. At $n=128$, NET has lower mean-path risk for concentrated responses, whereas Asym is preferable at standard deviations of 2 percentage points and above. The near-tie at 1.7 matches the nonlinear risk expansion, and Figure~\ref{fig:risk} shows the corresponding bias--variance trade-off.
+
+\begin{table*}[!t]
+\centering
+\caption{Mean-preserving synthetic results. NET and Asym mean-path MSEs and their paired difference are in units of $10^{-6}$. Intervals are 95\% Monte Carlo half-widths over 800 datasets. Bold indicates lower risk when the paired interval excludes zero; pp denotes percentage points.}
+\label{tab:main}
+\begingroup\fontsize{8.9}{10.1}\selectfont\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{r rrr rrr rrr}
+\toprule
+& \multicolumn{3}{c}{$n=32$} & \multicolumn{3}{c}{$n=128$} & \multicolumn{3}{c}{$n=512$}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+SD (pp) & NET & Asym & $\Delta_H\pm$ CI & NET & Asym & $\Delta_H\pm$ CI & NET & Asym & $\Delta_H\pm$ CI\\
+\midrule
+1.1 & $2.599$ & $\mathbf{2.478}$ & $+0.121\!\pm\!0.030$ & $\mathbf{0.674}$ & $0.790$ & $-0.116\!\pm\!0.007$ & $\mathbf{0.161}$ & $0.334$ & $-0.172\!\pm\!0.002$\\
+1.35 & $3.886$ & $\mathbf{3.609}$ & $+0.277\!\pm\!0.047$ & $\mathbf{1.001}$ & $1.073$ & $-0.072\!\pm\!0.012$ & $\mathbf{0.251}$ & $0.415$ & $-0.165\!\pm\!0.003$\\
+1.5 & $4.932$ & $\mathbf{4.566}$ & $+0.366\!\pm\!0.056$ & $\mathbf{1.254}$ & $1.298$ & $-0.044\!\pm\!0.014$ & $\mathbf{0.304}$ & $0.460$ & $-0.156\!\pm\!0.004$\\
+1.7 & $6.339$ & $\mathbf{5.794}$ & $+0.545\!\pm\!0.074$ & $1.601$ & $1.603$ & $-0.002\!\pm\!0.019$ & $\mathbf{0.392}$ & $0.540$ & $-0.148\!\pm\!0.005$\\
+2 & $8.800$ & $\mathbf{7.959}$ & $+0.840\!\pm\!0.102$ & $2.287$ & $\mathbf{2.211}$ & $+0.076\!\pm\!0.025$ & $\mathbf{0.536}$ & $0.661$ & $-0.126\!\pm\!0.007$\\
+3 & $20.743$ & $\mathbf{18.570}$ & $+2.173\!\pm\!0.245$ & $5.276$ & $\mathbf{4.865}$ & $+0.411\!\pm\!0.058$ & $\mathbf{1.294}$ & $1.335$ & $-0.040\!\pm\!0.015$\\
+6 & $83.292$ & $\mathbf{73.809}$ & $+9.483\!\pm\!0.902$ & $21.066$ & $\mathbf{18.874}$ & $+2.192\!\pm\!0.234$ & $5.006$ & $\mathbf{4.576}$ & $+0.431\!\pm\!0.059$\\
+\bottomrule
+\end{tabular}\endgroup
+\end{table*}
+
+\begin{figure}[!t]
+\centering
+\AsymFigure{fig_synthetic_decomposition}{4}\\[-1pt]
+\caption{Mean-preserving synthetic experiment at $n=128$. Variance saved by Asym and its additional squared bias are normalized by $\nu_H^2/(nH)$; diamonds show the paired risk difference. All empirical quantities use 800 paired fits.}
+\label{fig:risk}
+\end{figure}
+
+Figure~\ref{fig:distribution_grid} separates the effects of response variability and sample size. With fewer events, estimation cost favors Asym across the grid; with more events, NET can exploit the additional mean response. The $n=128$ crossover occurs near 1.7 percentage points, with calibration results reported in Appendix~\ref{app:curvature_checks}.
+
+\begin{figure*}[!t]
+\centering
+\begin{minipage}[t]{.492\textwidth}\centering
+\AsymFigure{fig_synthetic_risk_map}{5}\\[-2pt]
+\small (a) Mean-path risk
+\end{minipage}\hspace{0.004\textwidth}%
+\begin{minipage}[t]{.492\textwidth}\centering
+\AsymFigure{fig_synthetic_advantage_map}{6}\\[-2pt]
+\small (b) Relative risk difference
+\end{minipage}
+\caption{Mean-path risk over response dispersion and training sample size. (a) The lower attained MSE at each setting. (b) The relative NET--Asym difference, $100(R_N-R_A)/\max(R_N,R_A)$; blue favors NET and red favors Asym. Hatching marks paired 95\% intervals containing zero.}
+\label{fig:distribution_grid}
+\end{figure*}
+
+\subsection{Real-Data Experiments}
+\label{sec:real}
+We evaluate on 26 US storm panels from 2018--2024 using EAGLE-I county outage fractions and aligned hourly ERA5 inputs. Both models receive the same 24-hour history and future weather path to predict the next 24 hours. Five-fold cross-validation keeps the 23 groups of overlapping event panels intact. Training uses counties with a realized panel peak of at least 1\%, and Appendix~\ref{app:neural_contract} gives the learning protocol.
+
+Table~\ref{tab:real} again shows complementary strengths. NET has the lower affected-population event-equal MSE, whereas Asym has the lower mean in 16 of 26 events. The aggregate difference remains unresolved under the specified component-level test ($p=.113$), reflecting many modest Asym gains and larger NET gains in a few high-error events.
+
+\begin{table*}[!t]
+\centering
+\caption{Grouped neural cross-validation. Path MSE and paired differences are in units of $10^{-3}$. Rows report event-equal scores; intervals resample overlap components. $\Delta>0$ favors Asym. The primary population comprises affected counties; remaining rows provide population and event-family breakdowns. Persistence is an untrained reference.}
+\label{tab:real}
+\begingroup\fontsize{8.8}{10.1}\selectfont\setlength{\tabcolsep}{3.0pt}
+\begin{tabular}{l c rrr r rrr}
+\toprule
+& & \multicolumn{3}{c}{Full-path MSE} & Full-path comparison & \multicolumn{3}{c}{Endpoint $\Delta$}\\
+\cmidrule(lr){3-5}\cmidrule(lr){7-9}
+Population / family & $E/C$ & NET & Asym & Persist. & $\Delta_H$ [95\% interval] & 1h & 6h & 24h\\
+\midrule
+\multicolumn{9}{l}{\textit{Evaluation populations (same fitted models)}}\\[1pt]
+All counties & 26/23 & $\mathbf{1.506}$ & $1.783$ & 1.710 & $-0.277\ [-0.761,\,+0.061]$ & $+0.037$ & $-0.140$ & $-0.403$\\
+Affected counties & 26/23 & $\mathbf{1.969}$ & $2.358$ & 2.258 & $-0.389\ [-0.964,\,+0.002]$ & $+0.041$ & $-0.165$ & $-0.622$\\
+Unaffected counties & 26/23 & $0.342$ & $\mathbf{0.080}$ & 0.0011 & $+0.262\ [+0.160,\,+0.386]$ & $+0.047$ & $+0.117$ & $+0.482$\\
+\midrule\multicolumn{9}{l}{\textit{Affected counties by published event family}}\\[1pt]
+Winter & 7/6 & $1.882$ & $\mathbf{1.822}$ & 1.421 & $+0.060\ [-0.144,\,+0.185]$ & $+0.106$ & $+0.207$ & $-0.071$\\
+Wind / tropical & 7/7 & $\mathbf{3.345}$ & $4.942$ & 4.594 & $-1.597\ [-3.061,\,-0.359]$ & $-0.050$ & $-1.001$ & $-2.258$\\
+Convective / flood & 12/12 & $1.217$ & $\mathbf{1.164}$ & 1.384 & $+0.053\ [-0.008,\,+0.122]$ & $+0.056$ & $+0.106$ & $+0.010$\\
+\bottomrule\end{tabular}\endgroup
+\end{table*}
+
+We next relate this heterogeneity to response statistics in a post-hoc analysis. A low-dimensional path benchmark estimates excluded signal and directional noise using counties within an event as approximate response replicates. Its risk contrast has Spearman correlation $+.78$ with the neural risk difference, while the signal-to-noise ratio has correlation $-.60$. Higher origin outage levels are also associated with NET advantages (Figure~\ref{fig:cv_features}). After adjusting ranks for outage level, the dispersion association is positive ($+.26$), consistent with the controlled covariance comparison. The feature construction and dependence assumptions are detailed in Appendix~\ref{app:empirical_diagnostics}.
+
+\begin{figure*}[!t]
+\centering
+\begin{minipage}[t]{.485\textwidth}\centering
+\AsymFigure{fig_real_outage_level}{7}\\[-2pt]
+\small (a) Outage level
+\end{minipage}\hfill
+\begin{minipage}[t]{.485\textwidth}\centering
+\AsymFigure{fig_real_benchmark_alignment}{8}\\[-2pt]
+\small (b) Benchmark risk contrast
+\end{minipage}
+\caption{Response features and neural comparative advantage across 26 held-out events. Colors indicate the model with lower five-seed mean MSE. Both plots use a symmetric-log risk-difference axis; outage level is logarithmic. Features and associations are evaluated post hoc.}
+\label{fig:cv_features}
+\end{figure*}
+
+The estimated response index separates the two model-preference groups (Figure~\ref{fig:cv_lambda}(a)). NET-better events have median $\widehat\Lambda=.85$, compared with $.30$ for Asym-better events. This ordering supports the signal--cost interpretation for neural forecasts; quantitative threshold calibration is tested in the solvable study.
+
+Figure~\ref{fig:selection_risk}(b) further evaluates response-level selection. A post-hoc rule calibrated by leaving out each overlap component reduces recorded event-equal MSE by 3.21\% relative to always NET and selects the lower-loss model in 21 of 26 events. These scores quantify retrospective selection potential: features use realized event responses and affectedness, rather than solely forecast-time information. Complete rule comparisons, including non-improving choices, are reported in Table~\ref{tab:selectorfull}.
+
+\begin{figure*}[!t]
+\centering
+\begin{minipage}[t]{.485\textwidth}\centering
+\AsymFigure{fig_real_lambda_violin}{9}\\[-1pt]
+\small (a) Response-index distributions
+\end{minipage}\hfill
+\begin{minipage}[t]{.485\textwidth}\centering
+\AsymFigure{fig_real_feature_guided_selection}{10}\\[-1pt]
+\small (b) Retrospective model selection
+\end{minipage}
+\caption{Response-based model comparison. (a) Estimated indices for 10 NET-better and 16 Asym-better events; points are events, envelopes are log-coordinate kernel densities, and black bars show interquartile ranges with median markers. (b) Event-equal MSE for fixed choices, post-hoc outage-level LOCO selection, and hindsight event-wise choice.}
+\label{fig:cv_lambda}
+\label{fig:selection_risk}
+\end{figure*}
+
+\FloatBarrier
+\section{Conclusion}
+We analyze when explicit damage--recovery structure improves trajectory forecasting. The conditional-risk comparison balances predictable response excluded by dual flow against the cost of learning it, accounting for temporal covariance and nonlinear fitting. Mean-preserving synthetic experiments recover the resulting changes in model preference. Across held-out US storms, neural comparative advantage aligns with response characteristics, and post-hoc feature-based choice improves recorded risk over either fixed model. The findings motivate distribution-aware model selection, with prospective selection requiring independently evaluated, forecast-time features.
+
+\begin{thebibliography}{99}
+\bibitem[Bernstein and Sheldon(2016)]{bernstein2016}
+Garrett Bernstein and Daniel Sheldon. Consistently estimating Markov chains with noisy aggregate data. In \emph{AISTATS}, PMLR 51, pp. 1142--1150, 2016.
+\bibitem[Carrington et~al.(2021)]{carrington2021}
+Nichelle'Le K. Carrington, Ian Dobson, and Zhaoyu Wang. Extracting resilience metrics from distribution utility data using outage and restore process statistics. \emph{IEEE Transactions on Power Systems}, 36(6):5814--5823, 2021. doi:\url{10.1109/TPWRS.2021.3074898}.
+\bibitem[Chen et~al.(2018)]{chen2018}
+Ricky T. Q. Chen, Yulia Rubanova, Jesse Bettencourt, and David Duvenaud. Neural ordinary differential equations. In \emph{Advances in Neural Information Processing Systems}, 31, 2018.
+\bibitem[Chen et~al.(2025)]{chen2025}
+Shuyi Chen, Ferdinando Fioretto, Feng Qiu, and Shixiang Zhu. Global-decision-focused neural ODEs for proactive grid resilience management. \emph{arXiv:2502.18321}, 2025.
+\bibitem[Ding(2020)]{ding2020}
+Peng Ding. The Frisch--Waugh--Lovell theorem for standard errors. \emph{arXiv:2009.06621}, 2020.
+\bibitem[Hansen(2022)]{hansen2022}
+Bruce E. Hansen. \emph{Econometrics}. Princeton University Press, 2022.
+\bibitem[Jennrich(1969)]{jennrich1969}
+Robert I. Jennrich. Asymptotic properties of non-linear least squares estimators. \emph{The Annals of Mathematical Statistics}, 40(2):633--643, 1969.
+\bibitem[Rackauckas et~al.(2020)]{rackauckas2020}
+Chris Rackauckas et al. Universal differential equations for scientific machine learning. \emph{arXiv:2001.04385}, 2020.
+\bibitem[Rubanova et~al.(2019)]{rubanova2019}
+Yulia Rubanova, Ricky T. Q. Chen, and David Duvenaud. Latent ordinary differential equations for irregularly-sampled time series. In \emph{Advances in Neural Information Processing Systems}, 32, 2019.
+\bibitem[Schnoerr et~al.(2017)]{schnoerr2017}
+David Schnoerr, Guido Sanguinetti, and Ramon Grima. Approximation and inference methods for stochastic biochemical kinetics---a tutorial review. \emph{Journal of Physics A: Mathematical and Theoretical}, 50:093001, 2017.
+\bibitem[Yin et~al.(2021)]{yin2021}
+Yuan Yin, Vincent Le Guen, J\'er\'emie Dona, Emmanuel de B\'ezenac, Ibrahim Ayed, Nicolas Thome, and Patrick Gallinari. Augmenting physical models with deep networks for complex dynamics forecasting. In \emph{ICLR}, 2021.
+\bibitem[Schmidt-Hieber(2020)]{schmidthieber2020}
+Johannes Schmidt-Hieber. Nonparametric regression using deep neural networks with ReLU activation function. \emph{The Annals of Statistics}, 48(4):1875--1897, 2020.
+\bibitem[White(1981)]{white1981}
+Halbert White. Consequences and detection of misspecified nonlinear regression models. \emph{Journal of the American Statistical Association}, 76(374):419--433, 1981.
+\bibitem[Zhu et~al.(2025)]{zhu2025}
+Shixiang Zhu, Rui Yao, Yao Xie, Feng Qiu, Yueming (Lucy) Qiu, and Xuan Wu. Quantifying grid resilience against extreme weather using large-scale customer power outage data. \emph{INFORMS Journal on Data Science}, 5(2):102--118, 2025. doi:\url{10.1287/ijds.2023.0017}.
+\bibitem[AsymODE experimental record(2026)]{affectedcv2026}
+AsymODE experimental record. Affected-county grouped cross-validation and event-feature analyses. \href{https://github.com/ShuaiWang-Castle/asymode-open-data/commit/97e1a5b343ecdc8d4bc333fd8fc0342c01bea6c4}{Repository revision \texttt{97e1a5b}}, 2026.
+\end{thebibliography}
+
+
+\clearpage
+\onecolumn
+\appendix
+\section*{Supplementary Material}
+Appendix~\ref{app:theory_all} provides proofs; Appendix~\ref{app:protocols_all} specifies the experiments; Appendix~\ref{app:additional_all} reports controls and statistical analyses.
+
+\section{Theoretical Results and Proofs}\label{app:theory_all}
+\subsection{Conditional Risk and the Exact Local Criterion}
+\label{app:proof}
+\subsubsection{Proof of Proposition~\ref{prop:decomp}}
+Fix $x$ and condition on the training events and any training randomness independent of evaluation. Since $\E[\mathbf Y^{\rm new}-\mu_x\mid\mathcal D_n]=0$,
+\begin{equation}
+ \E\|\widehat g_j-\mathbf Y^{\rm new}\|^2
+ =\E\|\widehat g_j-\mu_x\|^2+\tr\Sigma_x.
+ \label{eq:app_risk_split}
+\end{equation}
+Next decompose $\widehat g_j-\mu_x=(\widehat g_j-\bar g_j)+(\bar g_j-\mu_x)$. The first summand is centered with respect to the training randomness, so their expected inner product is zero. Consequently,
+\[
+ \E\|\widehat g_j-\mu_x\|^2
+ =\E\|\widehat g_j-\bar g_j\|^2+\|\bar g_j-\mu_x\|^2.
+\]
+Divide by $H$ and subtract the two model risks. This proves \eqref{eq:bv_general} and also \eqref{eq:irreducible}. The proof does not constrain the optimizer, network architecture, model misspecification, or within-event dependence. It concerns independent evaluation, not empirical training error.
+
+\begin{lemma}[Full-path least squares and the sample mean]
+\label{lem:mean}
+For repeated events with the same input and for every candidate path $g$, let $\overline{\mathbf Y}=n^{-1}\sum_i\mathbf Y_i$. Then
+\begin{equation}
+ \widehat L_H(g)
+ =\frac{\|g-\overline{\mathbf Y}\|^2}{H}
+ +\frac1{nH}\sum_i\|\mathbf Y_i-\overline{\mathbf Y}\|^2.
+ \label{eq:mean_reduction}
+\end{equation}
+The second term does not depend on $g$, and $\Cov(\overline{\mathbf Y})=\Sigma_x/n$. This reduction holds for the full recursive forecast, including a neural forecast, without replacing the individual events by noiseless population means.
+\end{lemma}
+
+\subsubsection{Proof of Lemma~\ref{lem:mean}}
+For each event, write $g-\mathbf Y_i=(g-\overline{\mathbf Y})+(\overline{\mathbf Y}-\mathbf Y_i)$. The sum of the second terms is zero. Expanding and summing the squared norms gives
+\[
+ \sum_{i=1}^n\|g-\mathbf Y_i\|^2
+ =n\|g-\overline{\mathbf Y}\|^2+
+          \sum_{i=1}^n\|\mathbf Y_i-\overline{\mathbf Y}\|^2.
+\]
+This is a deterministic equality for every candidate, including a nonlinear recursively generated path. It therefore preserves minimizers, gradients, and Hessians of the full-path objective. Event independence implies
+\[
+ \Cov(\overline{\mathbf Y})=\frac1{n^2}\sum_i\Cov(\mathbf Y_i)=\frac{\Sigma_x}{n}.
+\]
+No entry of $\Sigma_x$ has been discarded. In the finite-group experiment, the sample mean is computed from simulated random events rather than from the population transition kernel. The kernel is used only for independent scoring and diagnostics.
+
+The identity relies on the same prediction vector applying to each replicate. For unequal external inputs, it applies separately within exactly replicated input groups; it cannot be used to replace a contextual regression dataset by a single average path. Appendix~\ref{app:context} treats the pooled conditional model directly.
+
+\subsubsection{Proof of Theorem~\ref{thm:main}}
+Let $\delta=\mu_x-g_0$ and $e=\overline{\mathbf Y}-\mu_x$. Then $\E e=0$ and $\Cov(e)=\Sigma_x/n$. Nested column spaces imply
+\begin{equation}
+ P_AP_W=0,\qquad P_N=P_A+P_W,\qquad P_W^2=P_W=P_W^\top.
+ \label{eq:app_projection}
+\end{equation}
+By Lemma~\ref{lem:mean}, the least-squares fitted paths are
+\[
+ \widehat g_A=g_0+P_A(\overline{\mathbf Y}-g_0),\qquad
+ \widehat g_N=g_0+P_N(\overline{\mathbf Y}-g_0).
+\]
+The decomposition $\delta=P_A\delta+P_W\delta+(I-P_N)\delta$ is orthogonal. Thus
+\begin{align*}
+ \widehat g_A-\mu_x&=P_Ae-P_W\delta-(I-P_N)\delta,\\
+ \widehat g_N-\mu_x&=P_Ae+P_We-(I-P_N)\delta.
+\end{align*}
+All cross terms between the displayed subspaces vanish, for every realized sample, giving
+\begin{equation}
+ \|\widehat g_N-\mu_x\|^2-\|\widehat g_A-\mu_x\|^2
+ =\|P_We\|^2-\|P_W\delta\|^2.
+ \label{eq:app_pointwise}
+\end{equation}
+Taking expectations yields
+\[
+ \E\|P_We\|^2=\frac{\tr(P_W\Sigma_xP_W)}n
+             =\frac{\tr(P_W\Sigma_x)}n=\frac{\nu_H^2}{n},
+ \qquad \|P_W\delta\|^2=S_H.
+\]
+Equation~\eqref{eq:app_risk_split} and division by $H$ prove the theorem. In particular, misspecification outside the larger space cancels; correct specification of the single-flow space is unnecessary. Rescaling or changing the basis of either design without changing its column space leaves the comparison unchanged.
+
+In the one-direction specialization, $q=(I-P_J)t\ne0$ gives $P_W=qq^\top/(q^\top q)$ and hence \eqref{eq:signal_noise}. If $q=0$, the spaces coincide. If $\nu_H^2=0$, the risk difference is $-S_H/H$ without dividing by the variance. If both are zero, the risks tie. These cases explain why an unidentifiable additional response is not automatically a strict advantage for the smaller model.
+
+\subsection{Regular Nonlinear Path Estimation}
+\label{app:neural}
+\begin{assumption}[Regular recursive path maps]
+\label{ass:smooth}
+For fixed finite $H$, each scalar transition $F_{j,k}(y,\theta)$ is three times continuously differentiable on a compact neighborhood containing all relevant forecast iterates and parameter segments. The derivatives are bounded there. In a fixed finite-dimensional identifiable parameter chart, $\theta_j^*$ is an isolated interior minimizer and $Q_j\succ0$.
+\end{assumption}
+
+\begin{lemma}[Derivatives of the complete recursive path]
+\label{lem:jacobian}
+Under Assumption~\ref{ass:smooth}, let $d_{j,k}=\nabla_\theta g_{j,k}$ and $d_{j,0}=0$. Then
+\begin{equation}
+ d_{j,k+1}
+ =\partial_y F_{j,k}(g_{j,k},\theta)d_{j,k}
+   +\nabla_\theta F_{j,k}(g_{j,k},\theta).
+ \label{eq:full_jacobian}
+\end{equation}
+The rows of $J_j$ are $d_{j,h}^\top$, $h=1,\ldots,H$. For sufficiently small $v$, uniformly in the specified neighborhood,
+\[
+ \|g_j(\theta+v)-g_j(\theta)-Dg_j(\theta)v\|
+ \le C_H\|v\|^2.
+\]
+The finite constant $C_H$ controls a Taylor remainder, not a global risk-propagation factor.
+\end{lemma}
+
+\subsubsection{Proof of Lemma~\ref{lem:jacobian}}
+Write the recursively generated forecast as $g_{k+1}(\theta)=F_k(g_k(\theta),\theta)$ with parameter-independent $g_0=0$. The multivariate chain rule gives
+\[
+ d_{k+1}=a_kd_k+b_k,\qquad
+ a_k=\partial_yF_k(g_k,\theta),\quad
+ b_k=\nabla_\theta F_k(g_k,\theta),\quad d_0=0.
+\]
+Iteration yields
+\[
+ d_h=\sum_{k=0}^{h-1}\left(\prod_{\ell=k+1}^{h-1}a_\ell\right)b_k,
+\]
+with empty products equal to one. Thus a change in a coefficient or network weight at an early step contributes to all later predicted states. The derivative is not the Jacobian of an independently fitted one-hour transition.
+
+For completeness, let $T_k=D_\theta^2g_k$ and evaluate all partial derivatives below at $(g_k,\theta)$. Differentiating again gives
+\begin{equation}
+ \begin{split}
+ T_{k+1}={}&a_kT_k+\partial_{yy}F_k\,d_kd_k^\top
+  +d_k(\nabla_\theta\partial_yF_k)^\top\\
+ &+(\nabla_\theta\partial_yF_k)d_k^\top
+   +D_\theta^2F_k.
+ \end{split}
+ \label{eq:path_hessian}
+\end{equation}
+For fixed $H$, bounded derivatives of $F_k$ and a compact region containing the iterates bound $d_k,T_k$, and the third derivatives by finite induction. Taylor's integral remainder for $g_j$ then proves the quadratic path remainder with a finite $C_H$. No estimate uniform over $H\to\infty$ is asserted, and no true-parameter local gain is used as a global bound on arbitrary fitted parameters.
+
+For NET, $F_k=y+f_\theta(c,x_k,y)$, giving $a_k=1+\partial_yf_\theta$ and $b_k=\nabla_\theta f_\theta$. For Asym,
+\[
+ a_k=1-U_\theta-R_\theta,\qquad
+ b_k=(1-g_k)\nabla_\theta U_\theta-g_k\nabla_\theta R_\theta.
+\]
+The rates and partial derivatives are evaluated at the common available inputs, not at the future observed state. If a recurrent hidden state is used, the same calculation applies to the augmented state and matrix products; the reported scalar implementation needs only the recursion above.
+
+\begin{assumption}[Attained local path fit]
+\label{ass:fit}
+The estimators use \eqref{eq:training} and stay in the neighborhoods of Assumption~\ref{ass:smooth}. With $\delta_j=\widehat\theta_j-\theta_j^*$, they satisfy
+\[
+ \E\|\delta_j\|^4=O(n^{-2}),\qquad
+ \E\|\zeta_{j,n}\|^2=o(n^{-1}),
+\]
+where
+\[
+ \zeta_{j,n}=Dg_j(\widehat\theta_j)^\top
+       \{g_j(\widehat\theta_j)-\overline{\mathbf Y}\}
+\]
+is the attained empirical path-score residual. For local sequences of event laws, the bounds and neighborhood regularity hold uniformly.
+\end{assumption}
+
+\begin{lemma}[Influence of full-event sampling on a path fit]
+\label{lem:influence}
+Under Assumptions~\ref{ass:event}--\ref{ass:fit}, put $e_n=\overline{\mathbf Y}-\mu_x$ and $B_j^{\rm score}=J_j^\top\Sigma_xJ_j$. Then
+\begin{equation}
+ \widehat\theta_j-\theta_j^*
+ =Q_j^{-1}J_j^\top e_n+o_{L^2}(n^{-1/2}),
+ \label{eq:influence}
+\end{equation}
+and
+\[
+ n\E[\delta_j\delta_j^\top]
+ \longrightarrow Q_j^{-1}B_j^{\rm score}Q_j^{-1}.
+\]
+\end{lemma}
+
+\subsubsection{Proof of Lemma~\ref{lem:influence}}
+For one model suppress the index $j$, and set $\theta^*=\theta_j^*$, $g^*=g(\theta^*)$, $r=\mu_x-g^*$, $J=Dg(\theta^*)$. The stationary population equation is $J^\top(g^*-\mu_x)=0$. Define the unnormalized half-loss score
+\[
+ s_n(\theta)=Dg(\theta)^\top\{g(\theta)-\overline{\mathbf Y}\}.
+\]
+At $\theta^*$, $s_n(\theta^*)=-J^\top e_n$. Differentiation gives the population score Jacobian
+\[
+ Q=J^\top J-\sum_h r_hD^2g_h(\theta^*),
+\]
+which explains the sign of the residual-curvature term in \eqref{eq:neural_curvature}. Expanding $s_n$ at $\theta^*$, with $\delta=\widehat\theta-\theta^*$, gives
+\[
+ \zeta_n=-J^\top e_n+Q\delta+R_n,\qquad
+ \|R_n\|\le C\bigl(\|\delta\|^2+\|\delta\|\,\|e_n\|\bigr).
+\]
+The second product accounts for the change of the model Jacobian multiplying the sample noise. Under Assumption~\ref{ass:event}, independent vectors with finite fourth moment satisfy $\E\|e_n\|^4=O(n^{-2})$ for fixed $H$. Assumption~\ref{ass:fit} and Cauchy--Schwarz therefore imply
+\[
+ \|R_n\|_{L^2}=O(n^{-1}),\qquad
+ \|\zeta_n\|_{L^2}=o(n^{-1/2}).
+\]
+Multiplication by the fixed $Q^{-1}$ proves \eqref{eq:influence}. Since $\Cov(e_n)=\Sigma_x/n$, the second moment of the leading term is $Q^{-1}J^\top\Sigma_xJQ^{-1}/n$. The $L^2$ remainder and another Cauchy--Schwarz inequality make its cross products $o(n^{-1})$, proving the displayed limit. Weak convergence alone would not have been sufficient for this expectation statement.
+
+\subsubsection{A Sufficient Construction for the Attained-Fit Assumption}
+Assumption~\ref{ass:fit} is stronger than merely writing an estimator as an $\argmin$. One sufficient construction is available when events are bounded. Suppose a convex compact ball inside the parameter chart contains $\theta^*$ in its interior, the population half-loss is strongly convex throughout the ball with Hessian at least $\kappa I$, and its derivatives satisfy Assumption~\ref{ass:smooth}. The empirical objective differs from the population one, up to an irrelevant constant, by $-g(\theta)^\top e_n$. Its gradient and Hessian differences on the ball are bounded by constants times $\|e_n\|$.
+
+On $\|e_n\|\le\varepsilon$ for sufficiently small fixed $\varepsilon$, the empirical objective is strongly convex, its minimizer is interior, and the mean-value equation gives
+\[
+ \|\widehat\theta-\theta^*\|\le C\|e_n\|.
+\]
+Coordinatewise concentration of the bounded sample mean makes the complementary event exponentially small in $n$. A minimizer on the compact ball always has bounded parameter error and bounded score. Hence its fourth moment is $O(n^{-2})$, and the squared score on the exceptional boundary event is $o(n^{-1})$. This yields Assumption~\ref{ass:fit} without postulating an asymptotic normal distribution for the fitted weights.
+
+The construction presumes a predetermined regular basin; it does not prove a global neural optimizer finds that basin. The moment and score conditions also allow an approximate local solution when its attained score is sufficiently small. If a score error is instead of order $n^{-1/2}$, it enters the leading influence equation and its covariance and cross-covariance with $e_n$ must be retained. Fixed nonvanishing weight decay can change the population target. A differentiable penalty with bounded gradient and coefficient $o(n^{-1/2})$ is negligible in the score expansion, but this does not automatically describe the frozen AdamW implementation.
+
+\subsubsection{Proof of Theorem~\ref{thm:neural}}
+Let $L(\theta)=\|g(\theta)-\mu_x\|^2$. Its first derivative vanishes at $\theta^*$, and its Hessian there is $2Q$. Uniform third derivatives give
+\[
+ L(\theta^*+\delta)
+ =\|r\|^2+\delta^\top Q\delta+O(\|\delta\|^3).
+\]
+Assumption~\ref{ass:fit} implies $\E\|\delta\|^3=O(n^{-3/2})$. By Lemma~\ref{lem:influence},
+\begin{align*}
+ \E\{L(\widehat\theta)-L(\theta^*)\}
+ &=\frac1n\tr\{Q Q^{-1}J^\top\Sigma_xJQ^{-1}\}+o(n^{-1})\\
+ &=\frac1n\tr(Q^{-1}J^\top\Sigma_xJ)+o(n^{-1}).
+\end{align*}
+Divide by $H$ and add the common independent-event variance from Proposition~\ref{prop:decomp}. Subtraction proves \eqref{eq:neural_risk}.
+
+Under misspecification, it is important to expand the population \emph{risk}, not only the predicted path. A first-order covariance approximation to $g(\widehat\theta)$ alone would produce $\tr(JQ^{-1}J^\top\Sigma_xJQ^{-1}J^\top)$. That expression omits the interaction of the nonzero residual with second-order prediction curvature. The stationary loss expansion combines both into the compact expression $\mathcal K=\tr(Q^{-1}J^\top\Sigma_xJ)$. Thus $\mathcal K$ is a first-order estimation \emph{cost}; outside correct specification it is not merely the variance of a linearized forecast.
+
+For a fixed law, write the total remainder in the risk difference as $\epsilon_n=o(n^{-1})$. Let
+\[
+ D_n=\mathcal K_N-\mathcal K_A-nH(\mathcal B_A-\mathcal B_N).
+\]
+Then $\Delta_H=D_n/(nH)+\epsilon_n$. Its sign agrees with $D_n$ whenever $|D_n|>nH|\epsilon_n|$. In particular, a fixed positive approximation advantage for NET eventually favors NET under these regular consistent fits. If the two approximation errors coincide, the sign of a nonzero $\mathcal K_N-\mathcal K_A$ determines the large-sample preference. If both leading terms tie, the theorem leaves the ordering unresolved. It is not legitimate to compare two upper bounds or divide by a possibly negative variance difference to produce an unconditional winner.
+
+\begin{corollary}[Recovery of the local criterion by neural path fits]
+\label{cor:local_neural}
+Consider a sequence of event laws with
+\[
+ \mu_{x,n}=g_0+d/\sqrt n+o(n^{-1/2}),\qquad
+ \Sigma_{x,n}\longrightarrow\Sigma_0.
+\]
+Suppose both recursive maps contain $g_0$ at regular interior parameters, have fixed nested full-path tangent spaces there, and meet the uniform version of Assumptions~\ref{ass:smooth}--\ref{ass:fit}. With $P_W=P_N-P_A$ at that reference,
+\begin{equation}
+ nH\Delta_H\longrightarrow
+       \tr(P_W\Sigma_0)-\|P_Wd\|^2.
+ \label{eq:local_neural}
+\end{equation}
+Thus the exact conditional selection criterion of Theorem~\ref{thm:main} is the first-order limit of these full-path nonlinear fits. If $P_W=0$, their first-order risks coincide.
+\end{corollary}
+
+\subsubsection{Proof of Corollary~\ref{cor:local_neural}}
+At the common reference parameters, $g_j(\theta_{j,0})=g_0$. Let $J_j=Dg_j(\theta_{j,0})$ in its full-rank identifiable chart. The implicit function theorem for the population score gives moving local optima
+\[
+ \theta_{j,n}^*=\theta_{j,0}
+   +(J_j^\top J_j)^{-1}J_j^\top d/\sqrt n+o(n^{-1/2}).
+\]
+The population residual is now $O(n^{-1/2})$, and the score Hessian tends to $J_j^\top J_j$. Set $e_n=\overline{\mathbf Y}-\mu_{x,n}$. Lemmas~\ref{lem:jacobian} and~\ref{lem:influence}, applied uniformly along the sequence, yield
+\[
+ \widehat g_j=g_0+P_j\{d/\sqrt n+e_n\}
+                         +o_{L^2}(n^{-1/2}).
+\]
+Thus
+\[
+ \widehat g_j-\mu_{x,n}
+ =P_je_n-(I-P_j)d/\sqrt n+o_{L^2}(n^{-1/2}).
+\]
+The two displayed leading terms lie in orthogonal spaces. Their expected squared norm, multiplied by $n$, tends to $\tr(P_j\Sigma_0)+\|(I-P_j)d\|^2$. Nestedness gives
+\[
+ \|(I-P_N)d\|^2-\|(I-P_A)d\|^2=-\|P_Wd\|^2.
+\]
+Subtract and cancel common evaluation noise to prove \eqref{eq:local_neural}. The mean-square remainder justifies the limit of expected risk and not only a distributional limit of parameters. If the tangent spaces coincide, $P_W=0$ and the leading difference vanishes.
+
+This proof applies to a smooth neural map under its stated local regularity, not only to a linear regression or a polynomial recursion. It does not prove that the tangents of the implemented neural candidates are nested. Where that condition fails, Theorem~\ref{thm:neural} still supplies the separate curvature-based comparison under its assumptions, and the nonnested fixed-tangent formula in Appendix~\ref{app:proof} remains available without a positive ratio interpretation.
+
+\subsection{Stochastic Response Moments and Preference Reversal}
+\label{app:nls}
+The following statements specialize the two main risk results to the same finite-state event generator. The fitted deterministic recurrence is \eqref{eq:fitted_model}; $b$ is a fitted mean-response coefficient and $\gamma$ is the generator's physical feedback. The group-count specialization below is retained as a companion to the main mean-preserving experiment, not as another model comparison.
+\label{app:kernel}\label{app:process}
+\begin{equation}
+ \begin{aligned}
+ D_k\mid K_k&\sim\operatorname{Bin}(M-K_k,ux_k),\\
+ C_k\mid K_k&\sim\operatorname{Bin}(K_k,r-\gamma K_k/M),\\
+ K_{k+1}&=K_k+D_k-C_k,\qquad K_0=0,
+ \end{aligned}
+ \label{eq:process}
+\end{equation}
+
+\subsubsection{Response Groups and Fixed External Conditions}
+The synthetic population has $N_{\rm service}=12{,}288$ connections. A configuration with $M$ groups treats each group as $N_{\rm service}/M$ connections that share a status. All groups begin served. At each update, served groups fail with probability $p_k=ux_k$ and interrupted groups recover with probability $\rho(y)=r-\gamma y$. Conditional on the current group count, these two transition counts are independent. Previously recovered groups can fail again during the external stimulus; there is no permanently immune compartment.
+
+The group count varies over divisors of the same population total. This changes dependence at the connection level rather than changing the number of served connections, the external hazard path, or the one-step conditional drift. It is a stylized generative device. No claim is made that real service territories consist of equal, independently transitioning groups. With feedback, the group transitions are conditionally independent given the aggregate state, but the group paths are not unconditionally independent. The independence used for $\Sigma_M=\Sigma_1/M$ applies only to the no-feedback reference.
+
+State validity is exact: $0\le D_k\le M-K_k$ and $0\le C_k\le K_k$, hence $0\le K_{k+1}\le M$. After $x_k$ becomes zero, $D_k=0$ and $K_k$ is nonincreasing. The restoration probability is bounded below by $r-\gamma>0$. In particular,
+\[
+ \E[K_{k+1}\mid K_k]\le (1-r+\gamma)K_k
+\]
+after the stimulus. The expected state tends to zero geometrically, and the finite process is eventually absorbed at zero with probability one. A finite-horizon path need not be exactly zero at its last recorded time.
+
+\subsubsection{Finite Transition Kernel}
+For $j,\ell\in\{0,\ldots,M\}$ and $k\in\{0,\ldots,H-1\}$, let $T_k(j,\ell)$ denote the probability of moving from $j$ interrupted groups to $\ell$ at time $k+1$. The notation $T_k$ indexes time; the row is the interrupted count. Conditional on $j$, the number remaining interrupted is binomial with parameters $(j,1-r+\gamma j/M)$, and the newly interrupted count is binomial with parameters $(M-j,p_k)$. Thus
+\begin{equation}
+ T_k(j,\ell)=\sum_b
+ \binom{j}{b}(1-r+\gamma j/M)^b(r-\gamma j/M)^{j-b}
+ \binom{M-j}{\ell-b}p_k^{\ell-b}(1-p_k)^{M-j-\ell+b},
+ \label{eq:kernel}
+\end{equation}
+where the sum includes only feasible $b$ and $\ell-b$. Terms with zero-probability impossible outcomes are interpreted in the standard binomial sense. The code forms each row by convolving these two probability vectors. No state truncation or Gaussian approximation is used.
+
+Let $\pi_k$ be the row vector of probabilities for $K_k$, initialized at a unit mass at zero. Then $\pi_{k+1}=\pi_kT_k$. For the state vector $z=(0,1/M,\ldots,1)^\top$,
+\[
+ \mu_k=\pi_kz,\qquad
+ v_k=\pi_k(z\odot z)-\mu_k^2.
+\]
+The symbol $\pi_k$ in this appendix is a finite-state probability vector, not an equilibrium parameter. Exact means and full marginal distributions are saved for all 18 distinct laws: nine group counts in the main feedback case and nine in the null control.
+
+Cross-time second moments are also propagated exactly. For a past time $h$, form a weighted state row $A_{h,k}(j)=\E[Y_h\mathbf1\{K_k=j\}]$. At time $h$, $A_{h,h}=\pi_h\odot z^\top$. The update $A_{h,k+1}=A_{h,k}T_k$ yields
+\[
+ \E[Y_hY_{k+1}]=A_{h,k+1}z.
+\]
+Subtracting $\mu_h\mu_{k+1}$ gives the covariance. At most $H$ weighted rows are propagated simultaneously. With $H=32$ and $M\le512$, the complete calculation is small enough for CPU evaluation. The saved transition row sums and probability masses are checked numerically; no empirical outcome is used to tune this calculation.
+
+\subsubsection{Exact Conditional Mean and Closure Error}
+Taking the conditional expectation of the update count gives
+\[
+ \E[Y_{k+1}\mid Y_k=y,x]
+ =y+ux_k(1-y)-(r-\gamma y)y.
+\]
+A second expectation conditional only on the fixed external path gives \eqref{eq:mean_closure}. The difference between $\E[Y_k^2\mid x]$ and $\mu_k^2$ is $v_k$, so the deterministic recursion with the true parameters is not generally the true conditional mean.
+
+This distinction matters for both fitting and interpretation. The synthetic labels are realized paths of the finite stochastic process. They are not deterministic paths plus independently added observation noise. The fitted forecasts are deterministic functions of available information and must predict before future group transitions occur. Neither fitting nor evaluation silently conditions on the realized sequence of damage and restoration draws.
+
+The exact mean is available to the experimenter for independent scoring, but not to the optimizer. The fitted model minimizes the empirical trajectory loss using its own recursively predicted states. The exact conditional mean and covariance are used only to compute the theoretical diagnostic, evaluation risk, and plots of the data-generating law.
+
+\begin{equation}
+ \E[Y_{k+1}\mid Y_k=y,x]
+ =ux_k+(1-ux_k-r)y+\gamma y^2.
+ \label{eq:conditional_transition}
+\end{equation}
+\begin{equation}
+ \begin{split}
+ &\Var(Y_{k+1}\mid Y_k=y,x)\\
+ &\quad=\frac{(1-y)p_k(1-p_k)}{M}\\
+ &\qquad+\frac{y(r-\gamma y)(1-r+\gamma y)}{M},\quad p_k=ux_k.
+ \end{split}
+ \label{eq:innovation_variance}
+\end{equation}
+At the no-feedback reference set $a_k=1-ux_k-r$. The full-path derivatives start at zero and obey
+\begin{equation}
+ \begin{aligned}
+ J^u_{k+1}&=a_kJ^u_k+x_k(1-g_k),\\
+ J^r_{k+1}&=a_kJ^r_k-g_k,\\
+ t_{k+1}&=a_kt_k+g_k^2.
+ \end{aligned}
+ \label{eq:sensitivity}
+\end{equation}
+
+\begin{theorem}[Conditional moments and usable feedback signal]
+\label{thm:process}
+For the process \eqref{eq:process}, write $\mu_k=\E[Y_k\mid x]$ and $v_k=\Var(Y_k\mid x)$. At every valid $\gamma$,
+\begin{equation}
+ \mu_{k+1}=ux_k+(1-ux_k-r)\mu_k
+                  +\gamma(\mu_k^2+v_k).
+ \label{eq:mean_closure}
+\end{equation}
+At $\gamma=0$, let $g$ be the mean path and $\Sigma_1$ the covariance of a single group. Then
+\begin{equation}
+ \begin{aligned}
+ v_k&=\frac{g_k(1-g_k)}M,\qquad \Sigma_M=\frac{\Sigma_1}M,\\
+ \left.\partial_\gamma\mu_x\right|_0
+ &=(1-M^{-1})t-M^{-1}J^r.
+ \end{aligned}
+ \label{eq:process_identity}
+\end{equation}
+For $J=[J^u,J^r]$ and $q=(I-P_J)t\ne0$, define $\Info_H=q^\top q$ and $\nu_1^2=q^\top\Sigma_1q/(q^\top q)>0$. With $M,H$ fixed, the index in Theorem~\ref{thm:main} obeys
+\begin{equation}
+ \Lambda_H
+ =\frac{n\gamma^2\Info_H}{\nu_1^2}
+      M(1-M^{-1})^2+O(n|\gamma|^3).
+ \label{eq:group_lambda}
+\end{equation}
+\end{theorem}
+
+\begin{corollary}[Distribution-dependent preference reversal]
+\label{cor:process}
+Fix $M,H,x$, take $\gamma_n=c/\sqrt n$ with $c\ge0$, and suppose the two- and three-parameter path fits in \eqref{eq:fitted_model} satisfy the regularity of Corollary~\ref{cor:local_neural}. Then
+\begin{equation}
+ nH\Delta_H^{\rm NLS}
+ =\frac{\nu_1^2}{M}
+    -c^2(1-M^{-1})^2\Info_H+o(1).
+ \label{eq:process_nls}
+\end{equation}
+When $c>0$, the leading preference changes sign once in the continuous extension $M>1$, at
+\[
+ M^*=\frac{\eta+2+\sqrt{\eta^2+4\eta}}2,\qquad
+ \eta=\frac{\nu_1^2}{c^2\Info_H}.
+\]
+The leading term favors dual flow for $M<M^*$ and single flow for $M>M^*$. If $c=0$ and $\nu_1^2>0$, dual flow has the smaller first-order risk for every fixed finite $M$.
+\end{corollary}
+
+\subsubsection{Proof of Theorem~\ref{thm:process}: Reference Moments}
+At $\gamma=0$, all groups follow independent, identically distributed two-state time-inhomogeneous Markov chains. The interruption probability of one group obeys
+\[
+ g_{k+1}=ux_k+(1-ux_k-r)g_k,\qquad g_0=0.
+\]
+Therefore $K_k\sim\operatorname{Bin}(M,g_k)$, which proves $v_k=g_k(1-g_k)/M$. For a future time $j>h$, the conditional mean of the aggregate state is affine in $Y_h$, with slope $\prod_{k=h}^{j-1}a_k$. The covariance is
+\begin{equation}
+ (\Sigma_M)_{hj}
+ =\frac{g_h(1-g_h)}{M}\prod_{k=h}^{j-1}a_k,
+ \qquad a_k=1-ux_k-r,
+ \label{eq:covariance_explicit}
+\end{equation}
+with the diagonal product equal to one and symmetry for $j<h$. This proves $\Sigma_M=\Sigma_1/M$ for the full vector, not merely its diagonal. The code checks \eqref{eq:covariance_explicit} against the independently propagated finite kernel.
+
+The same variance follows from the law of total variance:
+\[
+ v_{k+1}=a_k^2v_k+
+ \frac{ux_k(1-ux_k)(1-g_k)+r(1-r)g_k}{M}.
+\]
+This recursion illustrates how the process noise propagates into later outcomes. Treating it as independent additive noise at each forecast horizon would give the wrong cross-time covariance, even at the no-feedback reference.
+
+\subsubsection{Proof of Theorem~\ref{thm:process}: Mean Response}
+Let $s_k=\partial_\gamma\mu_k|_{\gamma=0}$ with $u,r,x,M$ fixed. Differentiability follows directly from the finite transition kernel, whose entries are polynomials in valid interior transition probabilities. Differentiating \eqref{eq:mean_closure} yields
+\[
+ s_{k+1}=a_ks_k+g_k^2+\frac{g_k(1-g_k)}{M},\qquad s_0=0.
+\]
+The term involving $\partial_\gamma v_k$ is multiplied by $\gamma$ and vanishes at the reference. Hence the forcing is
+\[
+ (1-M^{-1})g_k^2+M^{-1}g_k.
+\]
+Comparing this recursion with \eqref{eq:sensitivity}, whose recovery derivative has forcing $-g_k$, proves
+\begin{equation}
+ s=(1-M^{-1})t-M^{-1}J^r.
+ \label{eq:s_exact}
+\end{equation}
+The common reference direction $J^r$ is available to both predictors. Applying $I-P_J$ to \eqref{eq:s_exact} gives $(I-P_J)s=(1-M^{-1})q$. Consequently,
+\begin{equation}
+ \frac{\{q^\top(\mu_\gamma-g_0)\}^2}{q^\top q}
+ =\gamma^2(1-M^{-1})^2\Info_H+O(|\gamma|^3),
+ \label{eq:signal_expansion}
+\end{equation}
+for fixed finite $M,H$, because $\mu_\gamma=g_0+\gamma s+O(\gamma^2)$. The covariance also varies smoothly, giving
+$\nu_H^2(\gamma)=\nu_1^2/M+O(|\gamma|)$.
+Substitution into \eqref{eq:lambda}, with $\nu_1^2>0$, proves \eqref{eq:group_lambda}. The remainder is not asserted uniform as $M$ or $H$ tends to infinity.
+
+At first order, fitting the deterministic mean model corresponds to recovery coefficient $r-\gamma/M$ and net quadratic coefficient $b=\gamma(1-1/M)$. This explains why $b$ need not recover the physical $\gamma$. At $M=1$, $Y_k^2=Y_k$ on all realized states and the actual mean is exactly a dual trajectory with recovery coefficient $r-\gamma$. That special case is distinct from degeneracy of the deterministic mean-model columns: its fractional mean path can still have a nonzero candidate direction $q$. No instantaneous-state support argument from the earlier deterministic-initial-design experiment is transferred to this mean-forecasting experiment.
+
+\subsubsection{Proof of Corollary~\ref{cor:process}: Nonlinear Fitting}
+Fix $M,H,x$ and an interior pair $(u_0,r_0)$. Under $\gamma_n=c/\sqrt n$, each row of the triangular array contains $n$ independent bounded event paths. The finite kernel is differentiable in $\gamma$, so
+\[
+ \mu_{\gamma_n}=g_0+cs/\sqrt n+O(n^{-1}),\qquad
+ \Sigma_{\gamma_n}\longrightarrow\Sigma_1/M,
+\]
+where $s=(1-M^{-1})t-M^{-1}J^r$. The fitted deterministic recursions have reference Jacobians $J$ and $[J,t]$, with ranks two and three in the stated regime. Their fitted feedback parameter $b$ is allowed on both sides of zero, so the null does not place it at a constraint boundary.
+
+Corollary~\ref{cor:local_neural} applies to these smooth low-dimensional maps with local mean displacement $d=cs$ and noise covariance $\Sigma_1/M$. Since $P_W=P_q$ and $P_qs=(1-M^{-1})q$,
+\[
+ \tr(P_W\Sigma_1/M)-\|P_Wcs\|^2
+ =\frac{\nu_1^2}{M}-c^2(1-M^{-1})^2\Info_H.
+\]
+This proves \eqref{eq:process_nls}. Thus the nonlinear stochastic consequence is a direct application of the same full-path neural/nonlinear estimation argument, not an unrelated result for an independently fitted one-hour transition.
+
+For $c>0$, multiplication of the leading difference by $M/\nu_1^2$ gives $1-c^2\Info_H(M-2+1/M)/\nu_1^2$. The factor $M-2+1/M$ has derivative $1-1/M^2>0$ for $M>1$, starts at zero, and grows without bound. Solving its equality to $\eta=\nu_1^2/(c^2\Info_H)$ yields the unique root stated in Corollary~\ref{cor:process}; the other quadratic root is below one. At $c=0$ the leading difference is $\nu_1^2/M>0$ for each fixed finite $M$. These are first-order statements, not claims of a winner for every finite $n$.
+
+The two-parameter shared-coefficient benchmark is not an arbitrary time-conditioned Asym network: freely varying coefficients at every horizon may span additional mean-path directions. The path spaces of the actual neural maps, rather than the coefficient count of this example, determine Theorem~\ref{thm:neural} and Corollary~\ref{cor:local_neural}.
+
+The Monte Carlo experiment uses fixed $\gamma=.04$, not a shrinking sequence. It is therefore a finite-feedback assessment of the mechanism. Theorem~\ref{thm:neural} additionally permits expansion about the fixed-feedback population fits, provided their regularity holds. The saved fitted parameters and laws allow that expansion to be checked without changing any response, model, or sample size.
+
+\subsubsection{Boundary within the Local Distribution Family}
+For fixed nonzero small feedback, the leading index has the form
+\[
+ \frac{n\gamma^2\Info_H}{\nu_1^2}(M-2+M^{-1}).
+\]
+The last factor has derivative $1-M^{-2}>0$ for $M>1$. Thus its crossing of one is unique in this continuous local extension. If
+$\eta=\nu_1^2/(n\gamma^2\Info_H)$, the crossing is
+\[
+ M^\star=\frac{\eta+2+\sqrt{(\eta+2)^2-4}}{2}.
+\]
+The actual experiment uses integer group counts dividing the fixed population; no interpolation changes the fitted models or reported statistics. For the locked forcing and reference coefficients,
+\[
+ \Info_H=0.0037810220232,\qquad
+ \nu_1^2=0.15386548424.
+\]
+With $\gamma=.04$, the leading boundary is approximately $796.81$, $200.70$, and $51.66$ for $n=32,128,512$. These are analytically computed benchmarks. They are not exact finite-nonlinear critical values or empirically fitted winner curves.
+
+\subsubsection{Mean-Preserving Dependence Intervention}
+\label{app:mean_preserving}
+The new experiment uses the fixed base stochastic event law in \eqref{eq:process}, not a deterministic path with injected measurement noise. Let $Z_1,\ldots,Z_L$ be independent paths with mean $\mu_0$ and covariance $\Sigma_0$, and let $B$ be an independent Bernoulli variable. Both branches of \eqref{eq:law_intervention} have conditional expectation $\mu_0$, so the law of total covariance gives
+\[
+ \E Y^{(\rho)}=\mu_0,\qquad
+ \Cov(Y^{(\rho)})
+ =\rho\Sigma_0+(1-\rho)\Sigma_0/L
+   +\Cov(\E[Y^{(\rho)}\mid B])
+ =c(\rho)\Sigma_0.
+\]
+The last covariance is zero because the two branch means are equal. This proves an identity for the complete covariance matrix, including all cross-time entries. Every path stays in $[0,1]$ and begins at zero; after the forcing ends each local path is nonincreasing, and their aggregate is also nonincreasing. The base transition rule is fixed in the internal blocks. It would be incorrect to claim that the aggregate obeys that same scalar Markov kernel under every $\rho$.
+
+For any fixed reference and fixed projectors, the signal $S_H$ depends only on the mean and is therefore unchanged, while $\tr(P_W\Sigma_\rho)=c(\rho)\tr(P_W\Sigma_0)$. Theorem~\ref{thm:main} proves \eqref{eq:law_index} exactly, at arbitrary valid finite feedback in the base law. No local expansion of the physical feedback is used for this distribution identity. The calibration \eqref{eq:dispersion_calibration} is valid precisely for $\sigma_0/\sqrt L\le\sigma_x\le\sigma_0$.
+
+Population path least squares depends on the response law through its mean only. Thus each candidate's population optimum, residual, Jacobian, and curvature $Q_j$ are unchanged. Substituting $c(\rho)\Sigma_0$ into the definition of $\mathcal K_j$ in Theorem~\ref{thm:neural} proves \eqref{eq:nonlinear_law} under the assumptions of Theorem~\ref{thm:neural}. The expansion is for fixed $\rho$, fixed architectures and a regular optimizer as $n$ increases; it is not claimed uniform over singular fits or growing parameter dimension.
+
+The distinction between $M$ and $n$ is equally exact. Equation~\eqref{eq:innovation_variance} follows by adding the conditional variances of the independent binomial failure and restoration counts and dividing by $M^2$. Changing $M$ changes the event-generating law. On the other hand, independence of complete events implies $\Cov(n^{-1}\sum_iY_i)=\Sigma_x/n$ with the \emph{same} $\Sigma_x$. Neither $nM$ customer-group states nor $nH$ path coordinates are the number of independent events in this statement.
+
+\subsection{Risk Diagnostics and Scope Extensions}
+\label{app:diagnostic}
+\subsubsection{Nonnested Tangents and General Linear Response Operators}
+The same squared-loss geometry can be used without assuming finite neural classes are nested. For arbitrary orthogonal projectors $P_N,P_A$, the mean-fit errors of each candidate separately decompose into its retained noise and omitted mean. Consequently
+\[
+ \Delta_H^{\rm loc}=
+ \frac{\tr\{(P_N-P_A)\Sigma_x\}}{nH}
+ -\frac{\delta^\top(P_N-P_A)\delta}{H}.
+\]
+Now $P_N-P_A$ can be indefinite. Neither term need be nonnegative and a positive signal-to-noise ratio need not exist. The nested theorem is precisely the case where the difference is a projector onto identifiable extra response directions.
+
+More generally, suppose a fixed fitted-response rule is $\widehat g_j=b_j+S_j\overline{\mathbf Y}$, with matrices and intercepts independent of the training responses. Its expected risk difference is
+\begin{align*}
+ H\Delta_H
+ &=\|b_N+S_N\mu_x-\mu_x\|^2
+   -\|b_A+S_A\mu_x-\mu_x\|^2\\
+ &\quad+\frac1n\tr(S_N\Sigma_xS_N^\top-S_A\Sigma_xS_A^\top).
+\end{align*}
+This is the full-path version of an affine-estimator bias--variance identity. Its variance difference is signed. Dividing by that difference without checking its sign is invalid, and matching raw parameter counts does not make it vanish. Arbitrary trained neural networks are not assumed to be fixed affine maps of their response data.
+
+\subsubsection{Dependence and the Information Unit}
+If training event vectors are dependent but still identically centered, the fixed-space calculation remains exact after replacing $\Sigma_x/n$ by
+\[
+ V_{\rm train}=\Cov(\overline{\mathbf Y})
+ =\frac1{n^2}\sum_{i,j}\Cov(\mathbf Y_i,\mathbf Y_j).
+\]
+In particular, $H\Delta_H^{\rm loc}=\tr(P_WV_{\rm train})-S_H$. This is not a theorem identifying a universal scalar effective sample size. For instance, a covariance matrix with unit diagonal and correlation $.8$ has eigenvalues $1.8$ and $.2$ in the sum and difference directions. One scalar inflation factor cannot reproduce both. Complete event replication, overlapping rolling windows, and repeated optimization seeds are distinct statistical units.
+
+The exact fixed linear-estimator risk depends only on conditional first and second moments. The full law can still matter for higher-order nonlinear fitting error, tail losses, and other scoring rules. The paper's choice problem is the stated squared path risk, not recovery identification or conditional density estimation.
+
+\subsubsection{Contextual Neural Training and Shared Parameters}
+\label{app:context}
+The same-input theory isolates the conditional response mechanism. In a pooled application, let independent events have pairs $(X_i,\mathbf Y_i)$ with conditional mean $\mu(X)$ and covariance $\Sigma(X)$. Suppose the neural forecasts use common parameters across $X$. At a population path minimizer define
+\[
+ r(X)=\mu(X)-g(\theta^*;X),\qquad J(X)=D_\theta g(\theta^*;X).
+\]
+Under bounded derivative envelopes and the analogous attained-fit moment assumptions, the correct matrices are
+\begin{align*}
+ Q&=\E_X\left[J(X)^\top J(X)-\sum_h r_h(X)D^2_\theta g_h(\theta^*;X)\right],\\
+ B^{\rm score}&=\E_X\left[J(X)^\top
+        \{\Sigma(X)+r(X)r(X)^\top\}J(X)\right].
+\end{align*}
+Population stationarity is $\E_XJ(X)^\top r(X)=0$, not necessarily pointwise stationarity. The term $r(X)r(X)^\top$ therefore matters: random design can contribute score variation under misspecification. The empirical score is an average of independent vectors with mean zero and covariance $B^{\rm score}/n$. The empirical Hessian concentrates at $Q$ under the bounded moment conditions. The same Taylor argument proves integrated risk
+\[
+ \Risk_H(\widehat g)=\E_X\frac{\tr\Sigma(X)}H
+   +\E_X\frac{\|r(X)\|^2}H
+   +\frac{\tr(Q^{-1}B^{\rm score})}{nH}+o(n^{-1}).
+\]
+At fixed $x$, $J^\top r=0$ makes the extra score term zero, recovering Theorem~\ref{thm:neural}. Averaging independently derived cellwise formulas is not generally equivalent when weights are shared across cells. Dependent windows require their own score-covariance analysis and are not justified by substituting an arbitrary block count for $n$.
+
+\subsubsection{Neural Scope and Verification}
+A finite-dimensional identifiable chart means that redundant weight representations have been removed locally, not that a generic deep network has an invertible raw parameter Gram matrix. When a smooth network's local prediction image has constant rank, it can be represented in local independent coordinates on that image. Singular intersections, changing rank, boundary solutions, and activation kinks are outside the regular argument. SiLU and softmax in the retained implementation avoid activation kinks but do not themselves guarantee nonsingularity or an attained local optimum.
+
+The derivatives in Lemma~\ref{lem:jacobian} were checked for actual smooth single- and dual-flow neural recursions at $H=24$ and $H=32$. The largest absolute discrepancy against end-to-end automatic differentiation was $2.0\times10^{-15}$; halving the parameter perturbation reduced the linearization remainder by factors between $3.998$ and $4.001$. These are derivative checks, not training experiments or verification of Assumption~\ref{ass:fit}. The numerical comparison with the archived low-dimensional fits is reported separately in Appendix~\ref{app:curvature_checks}.
+
+Suppose a reference $g_0$ and a nonzero direction $q$ have been fixed independently of a set of replicate events. Define the scalar conditional observations
+\[
+ Z_i=\frac{q^\top(\mathbf Y_i-g_0)}{\|q\|},\qquad
+ \overline Z=\frac1n\sum_i Z_i,
+ \qquad \widehat v_Z=\frac1{n-1}\sum_i(Z_i-\overline Z)^2.
+\]
+Their mean is $b_x=q^\top(\mu_x-g_0)/\|q\|$ and their variance is $\nu_H^2$. Independence across events gives
+\[
+ \E\overline Z^{\,2}=b_x^2+\nu_H^2/n,
+ \qquad \E\widehat v_Z=\nu_H^2.
+\]
+Consequently
+\begin{equation}
+ \widehat\Delta_H^{\rm loc}
+ =\frac{2\widehat v_Z/n-\overline Z^{\,2}}{H}
+ \label{eq:estimated_gap}
+\end{equation}
+is an unbiased estimator of the local expected risk contrast. A zero cutoff of this risk estimate is not the same as applying a threshold of one to the noisy plug-in ratio $n\overline Z^{\,2}/\widehat v_Z$. Estimating squared signal from the same noisy sample mean introduces the additional variance term.
+
+This calculation illustrates what the distributional criterion would require operationally. It is not a calibrated automatic model-selection rule for a neural forecaster. In particular, estimating $q$ and the reference from the same observations, choosing response features after seeing evaluation scores, or treating overlapping rolling windows as independent invalidates the displayed unbiasedness argument without further correction. Independent source-only pilot data, honest sample separation, and a justified event definition would be necessary for that interpretation.
+
+For exactly replicated external scenarios, the full covariance can be estimated from independent complete events. For a continuous covariate $x$, exact repetitions may not exist. Local smoothing or conditional modeling would then introduce an additional estimation problem and its own assumptions. We do not claim that a small calendar cell or a cluster of similar weather records automatically solves it. The current US study is therefore evaluated first by actual paired predictive risk. Its conditional-law diagnostics use realized evaluation-event responses and are explicitly post hoc (Appendix~\ref{app:empirical_diagnostics}); they do not satisfy the independent-event unbiasedness conditions merely because county splits are used.
+
+The paper concerns mean-squared trajectory error. Two conditional laws with the same $\mu_x$ and $\Sigma_x$ yield the same exact linearized risk contrast but can differ in tail probabilities, quantile risk, and finite-sample nonlinear behavior. No full-distribution density forecaster or extra loss is introduced here.
+
+
+\section{Experimental Protocols}\label{app:protocols_all}
+\subsection{Synthetic Data and Evaluation}\label{app:numerics}
+\subsubsection{Response Law and Sampling}
+The base process in \eqref{eq:process} has $u=.06$, $r=.20$, $\gamma=.04$, and $M_0=16$. The population of 12,288 connections is divided into $L=32$ equal blocks, each containing sixteen response groups. Forcing satisfies $x_k=1$ for $k=0,\ldots,7$ and zero afterward; all paths start at zero and are observed through $H=32$. The event-level mixture in \eqref{eq:law_intervention} couples the blocks without changing their marginal mean. No additional observation noise is used.
+
+For each desired path standard deviation, the dependence probability is
+\begin{equation}
+ \sigma_x=\sqrt{\tr\Sigma_x/H},\qquad
+ \rho=\frac{(\sigma_x/\sigma_0)^2-L^{-1}}{1-L^{-1}},
+ \label{eq:dispersion_calibration}
+\end{equation}
+where $\sigma_0^2=\tr\Sigma_0/H$. We use $100\sigma_x\in\{1.1,1.35,1.5,1.7,2,3,6\}$ and $n\in\{32,128,512\}$. Each cell contains 800 independent training datasets. Within a replication, the three sample sizes use prefixes of the same event pool; common random numbers couple the dispersion settings. Each model receives the same sampled paths. The zero-feedback control sets $\gamma=0$, $n=128$, and $100\sigma_x\in\{1.1,2,5.5\}$.
+
+The finite transition kernel supplies the exact conditional mean and covariance for evaluation. At $n=128$, the excluded mean-response amplitude $100\sqrt{S_H/H}=.0400$ is constant across the main laws, while $100\nu_H/\sqrt{nH}$ increases from .0281 to .1535. The predictors receive sampled event paths, not these population moments.
+
+\subsubsection{Fitting and Evaluation}
+The predictors in \eqref{eq:fitted_model} fit $(u,r)$ for Asym and $(u,r,b)$ for NET. Bounds are $u\in[10^{-4},.45]$, $r\in[.001,.55]$, and $b\in[-.8,.8]$. Both use three fixed $(u,r)$ initializations, $(.03,.12)$, $(.07,.25)$, and $(.12,.40)$; NET starts at $b=0$. A damped Gauss--Newton method runs for at most 120 iterations per start, selecting the smallest training residual. A nonfinite objective or projected-gradient residual above $10^{-7}$ triggers bounded least-squares refinement on the same training data. Derivatives follow the complete recursion.
+
+For replication $b$ and model $j$, mean-path risk is $R_{j,b}=\|\widehat g_{j,b}-\mu_x\|^2/H$. New-event MSE adds the common term $\sigma_x^2$. Reported paired intervals are the mean NET--Asym difference plus or minus $1.96$ times its standard deviation divided by $\sqrt{800}$. Individual model bands use the corresponding model-risk standard errors. The empirical decomposition is
+\[
+ B_j^{\rm emp}=H^{-1}\|\overline g_j-\mu_x\|^2,
+ \qquad
+ V_j^{\rm emp}=\frac1{800H}\sum_b\|\widehat g_{j,b}-\overline g_j\|^2,
+\]
+so the mean paired difference equals $(V_N^{\rm emp}-V_A^{\rm emp})-(B_A^{\rm emp}-B_N^{\rm emp})$. Intervals measure Monte Carlo precision over training datasets, not uncertainty over real storms.
+
+\subsection{Neural Cross-Validation}\label{app:neural_contract}\label{app:real}
+\subsubsection{Data and Splits}
+The 26 event panels contain 169 hourly boundaries, obtained from exact-hour EAGLE-I snapshots and twelve ERA5 channels aligned by county and time. Each example has 24 past states, the current state, 24 past and 24 supplied future weather vectors, and 24 forecast targets. Origins advance by six hours. All required states and inputs must be valid; wholly zero weather arrays are excluded. Released observation masks and denominators are retained.
+
+The legal sample contains 6,377 county--event pairs and 119,044 windows. Affected pairs satisfy $\max_tY_{ec,t}\ge .01$ within the realized panel, retaining 4,119 pairs and 78,204 windows. Training and inner validation use this population; all legal test windows are scored. Thus affected-only results condition on realized event severity rather than a forecast-time alarm.
+
+Overlapping panels form 23 components. The multi-event components are \{2019-02-20, 2019-02-24\}, \{2021-12-11, 2021-12-15\}, and \{2024-01-09, 2024-01-12\}; all others are singletons. A type-stratified deterministic round robin assigns components to five folds. For test fold $k$, fold $(k+1)\bmod5$ is used for validation and the other three for training. No county--hour state or weather unit is shared across folds. This is a retrospective corpus previously used in development.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Outer-fold assignments. Validation is the next fold cyclically; the remaining three folds supply training. Window counts are not independent event counts.}
+\label{tab:cvfolds}
+\begin{tabular}{@{}crrrrl@{}}\toprule
+Fold & Events & All windows & Affected windows & Training events & Test event dates\\\midrule
+0 & 6 & 20,181 & 14,627 & 14 & 2018-01-16, 2018-10-11, 2021-12-11,\\
+  & & & & & 2021-12-15, 2024-05-08, 2024-09-27\\
+1 & 6 & 34,340 & 20,672 & 15 & 2019-02-20, 2019-02-24, 2020-02-06,\\
+  & & & & & 2021-02-15, 2022-04-13, 2024-05-26\\
+2 & 5 & 25,245 & 15,137 & 17 & 2019-11-27, 2021-05-04, 2022-01-16,\\
+  & & & & & 2022-06-08, 2024-06-26\\
+3 & 4 & 20,406 & 13,659 & 17 & 2020-08-04, 2021-06-21, 2022-03-12, 2022-06-17\\
+4 & 5 & 18,872 & 14,109 & 15 & 2020-10-29, 2021-08-11, 2022-07-23,\\
+  & & & & & 2024-01-09, 2024-01-12\\\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Architecture and Learning}
+The origin context has 600 entries: 24 past states and $24\times12$ past and future weather values. Each step receives 12 weather channels and three calendar features (UTC sine, cosine, weekend). The current state is passed separately. Input normalization and state scaling use only training windows.
+
+NET uses SiLU multilayer perceptrons with two, three, or four hidden layers of widths 48, 45, and 43, respectively, and a linear input--output skip. Their parameter counts are 32,633, 32,567, and 32,867. Asym uses independent two-hidden-layer networks for damage and recovery, with width pairs $(25,24)$, $(33,16)$, or $(37,12)$ and parameter counts 32,715, 32,859, and 33,027. The two logits and a fixed zero logit define the damage, recovery, and stay probabilities through softmax. Rates do not read the recursively predicted state.
+
+Output weights have initial standard deviation $10^{-3}$ and skip weights start at zero. NET is therefore near persistence; Asym starts with weak mean reversion, with rate biases yielding $u=.002\pi$ and $r=.002(1-\pi)$ for the clipped training source mean $\pi$. The initial forecasts are not identical.
+
+Both models use AdamW, batch size 512, weight decay $10^{-4}$, gradient-norm clipping at one, learning rates $3\times10^{-4},10^{-3},3\times10^{-3}$, and a 3,000-update ceiling. Validation is evaluated every 250 updates, with patience of 1,000 updates; update zero is eligible. Events, counties, and origins are sampled hierarchically with equal probability. Two development seeds select the architecture and learning rate by mean best validation MSE. Five final seeds retain their own best inner-validation checkpoints. Hyperparameters and stopping never use the outer test fold.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Configurations selected by inner validation. Final checkpoint selection is seed-specific.}
+\label{tab:cvselection}
+\begin{tabular}{@{}clrrlrr@{}}\toprule
+ & \multicolumn{3}{c}{NET} & \multicolumn{3}{c}{Asym}\\
+Fold & Structure & Learning rate & Parameters & Structure & Learning rate & Parameters\\\midrule
+0 & 2 layers & $.0003$ & 32,633 & $2{:}1$ & $.0003$ & 32,859\\
+1 & 2 layers & $.001$  & 32,633 & $3{:}1$ & $.001$  & 33,027\\
+2 & 4 layers & $.0003$ & 32,867 & $1{:}1$ & $.003$  & 32,715\\
+3 & 4 layers & $.0003$ & 32,867 & $3{:}1$ & $.003$  & 33,027\\
+4 & 2 layers & $.0003$ & 32,633 & $3{:}1$ & $.001$  & 33,027\\\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Scores and Statistical Comparisons}
+For each seed, squared error is averaged over forecast leads, origins within county, and counties within event; final scores average losses over seeds and then events. This differs from scoring an ensemble of mean predictions. Endpoint scores use the same forecast paths. The sign-flip statistic gives equal weight to overlap components, and bootstrap intervals resample those components. The comparison rule requires $p<.05$ and agreement between event-equal and component-equal signs. Subgroups use exact enumeration when feasible; the full sample uses Monte Carlo sign flips. These dependence-aware summaries concern the retrospective corpus.
+
+Persistence predicts the current state at every lead. For affected counties, NET lowers aggregate MSE by 12.8\% relative to persistence, while Asym is 4.4\% above it. For unaffected counties, persistence is markedly better than both learned models. The untrained pair has affected-population $\Delta\approx+7.1\times10^{-5}$, compared with $-3.89\times10^{-4}$ after fitting; this does not isolate initialization as a causal factor.
+
+\section{Additional Results and Statistical Analyses}\label{app:additional_all}
+\subsection{Synthetic Controls and Calibration}\label{app:results}\label{app:curvature_checks}
+Table~\ref{tab:main} reports the complete 21-setting main grid. The following control removes state feedback, so the conditional mean belongs to the dual-flow family.
+
+\subsubsection{Zero-Feedback Control}
+\begin{center}\small\begin{tabular}{@{}rrrrrr@{}}\toprule
+Conditional SD (pp) & $\rho$ & $10^6R_N$ & $10^6R_A$ & $\Lambda_H$ & Measured $D\pm1.96\,\mathrm{SE}$\\\midrule
+1.1 & 0.003428 & 0.6158 & 0.5366 & 0.0000 & $0.9765\pm0.0957$\\
+2 & 0.085714 & 2.2445 & 1.9532 & 0.0000 & $1.0854\pm0.1131$\\
+5.5 & 0.859902 & 17.2498 & 15.4160 & 0.0000 & $0.9037\pm0.0962$\\\bottomrule\end{tabular}\end{center}
+
+
+The exact local criterion lies within all 24 pointwise Monte Carlo intervals. The curvature-aware nonlinear expansion lies within 23 of 24 intervals. At a path standard deviation of 1.5 percentage points and $n=128$, the predicted normalized difference is $-.293$, compared with $-.302\pm.096$ for the fitted models and $-.086$ for the fixed-reference local criterion. Figure~\ref{fig:calibration} compares the nonlinear expansion with the full measured grid.
+
+\begin{figure}[!htbp]
+\centering
+\AsymFigure{fig_synthetic_calibration}{11}\\[-1pt]
+\caption{Additional synthetic check: observed normalized risk differences against the nonlinear expansion across all measured settings. Intervals are pointwise 95\% Monte Carlo intervals.}
+\label{fig:calibration}
+\end{figure}
+
+For the shared main conditional mean, the population approximation errors are $1.9439\times10^{-7}$ for Asym and $6.5056\times10^{-12}$ for NET. These errors remain fixed across dependence settings. Saved prediction and loss calculations were checked by independent recursion and least-squares refitting; the first- and second-order path derivatives were also checked numerically. Such checks assess implementation and the local expansion, not global nonlinear optimization.
+
+\subsection{Real-Data Response Diagnostics}
+\label{app:empirical_diagnostics}
+\subsubsection{Estimated Quantities and Their Information Sets}
+The diagnostics use \texttt{code/event\_features.py}, \texttt{event\_features\_decision.py}, \texttt{threshold\_accuracy.py}, and \texttt{lambda\_group\_compare.py} at the fixed revision. They were designed after the CV results were inspected. No neural prediction enters feature construction, but \emph{realized future response data do}. This distinction must not be described as forecast-time availability or outcome-blind feature selection.
+
+At each event--origin with at least ten affected counties, the 24-step response matrix is $Y_i$ and the observed origin is $y_{0i}$. Forcing $x_k$ is the fraction of these counties exceeding a destructive-weather threshold in gust, precipitation, or snowfall. Each threshold is the 90th percentile among positive affected county--hour values over the full retrospective corpus, not a training-only learned weather rule. The two benchmark maps are
+\[
+ g_{k+1}=ux_k+(1-ux_k-r)g_k+b g_k^2,\qquad
+ g_0=\overline y_0,
+\]
+with $b=0$ or fitted freely. Both use full-path least squares. The source bounds $u,r$ separately in $[0,1]$ and $b$ in $[-20,20]$, with three fixed starts; it does not impose the neural softmax triangle in this diagnostic fit. Some reported coefficient summaries approach the bounds. The fitted $b$ is not a recovered physical restoration parameter.
+
+At the two-parameter fit let $J=[\partial_u g,\partial_r g]$, $t=\partial_b g$, and $q=(I-JJ^+)t$. For the affine reference, $c_h=\partial g_h/\partial g_0$ gives the exact adjustment for different county origins. Residual paths are
+\[
+ E_i=Y_i-\{g+c(y_{0i}-\overline y_0)\}.
+\]
+Their covariance yields $\widehat\sigma_x^2=\tr\widehat{\Cov}(E)/H$. Twenty random half-splits of counties, evaluated in both directions, fit $(u,r)$ and $q$ on one half and project the other half's residuals onto $q/\|q\|$. For projected residuals $Z_i$, the split quantities are
+\[
+ \widehat S=\overline Z^{\,2}-\frac{s_Z^2}{m},\qquad
+ \widehat\nu^2=s_Z^2,
+\]
+where $m$ is the evaluation-half county count. Their split average is the origin feature. Directions below the source numerical tolerance are skipped. These formulas reproduce an unbiased correction only under the independent common-law conditions of Appendix~\ref{app:diagnostic}; those conditions do not follow from spatial half-splitting inside one storm.
+
+The feature file contains 535 admissible origins over all 26 events. Features average the available origins, whereas neural event scores retain their county-then-origin weights over the original test population. Local weather, history, common shocks, weighting, reference fitting, and dimension differ from the theoretical replicated-event experiment. Hence the plug-in magnitude is not a verified estimate of the exact neural population risk difference.
+
+\subsubsection{Normalization, Ranking, and Partial Associations}
+Let $n_o$ be the county count at origin $o$ and $n_e^{\rm train}\in\{14,15,17\}$ the outer split's training-event count. The source county-count contrast is
+\[
+ \widehat\Delta_e^{\rm county}
+ =\operatorname{mean}_{o\in e}\frac{\widehat\nu_o^2/n_o-\widehat S_o}{H}.
+\]
+The training-event version replaces $n_o$ by the constant $n_e^{\rm train}$, with
+\[
+ \widehat\Lambda_e^{\rm train}
+ =n_e^{\rm train}\frac{\operatorname{mean}_o\widehat S_o}
+                         {\operatorname{mean}_o\widehat\nu_o^2}.
+\]
+At event level, this unit-cutoff rule agrees with the sign of the training-event contrast. For varying county counts, however, the source actually selects using $\widehat\Delta_e^{\rm county}$; it need not equal thresholding the separately reported ratio $\operatorname{mean}(n_o\widehat S_o)/\operatorname{mean}(\widehat\nu_o^2)$. Neither normalization corrects all cross-county dependence.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Reaggregated descriptive rank associations across 26 events. Relative risk is the observed neural contrast divided by the event's NET MSE. Partial coefficients residualize ranks on mean origin outage; they are not causal effects or controlled-distribution interventions.}
+\begin{tabular}{@{}lrrr@{}}\toprule
+Feature & With $\Delta_e$ & With relative $\Delta_e$ & Given outage level\\\midrule
+Benchmark county-count contrast & $+.781$ & $+.738$ & $+.442$\\
+$\widehat S/\widehat\nu^2$ & $-.596$ & $-.555$ & $-.240$\\
+Mean origin outage & $-.765$ & $-.837$ & ---\\
+Conditional path dispersion & $-.681$ & $-.795$ & $+.258$\\
+Counties per origin & $-.266$ & $-.177$ & $-.129$\\
+Estimated signal $\widehat S$ & $-.767$ & $-.787$ & $-.307$\\
+Estimated noise $\widehat\nu^2$ & $-.725$ & $-.806$ & $-.129$\\\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Winner-Grouped Index Distributions}
+Origin groups are defined by the sign of their affected-county neural path-MSE contrast after averaging the five seed losses. Event groups use the original event-equal contrast. A displayed origin index is $\max\{0,n_e^{\rm train}\widehat S_o/\widehat\nu_o^2\}$. There are 137 nonpositive-signal origins; a zero here is not proof of absent population signal. Event indices use the aggregated signal and noise rather than the average of these truncated origin ratios.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Reported group summaries from the final \texttt{97e1a5b} analysis. Brackets are 95\% overlap-component bootstrap intervals (2,000 resamples). ``Better'' means lower observed five-seed mean MSE, not a per-unit significant difference.}
+\label{tab:lambdagroups}
+\begin{tabular}{@{}llrrrl@{}}\toprule
+Population & Lower MSE & Count & Median $\widehat\Lambda$ & Mean $\widehat\Lambda$ & Share $>1$\\\midrule
+All origins & NET & 163 & .46 [.27,.67] & .83 [.60,1.04] & 33\%\\
+ & Asym & 372 & .16 [.09,.20] & .36 [.28,.47] & 9\%\\
+Positive signal only & NET & 133 & .66 [.46,1.02] & 1.02 [.74,1.25] & 41\%\\
+ & Asym & 265 & .31 [.23,.37] & .51 [.41,.61] & 12\%\\
+Relative gap at least 5\% & NET & 132 & .45 [.22,.73] & .85 [.57,1.06] & 33\%\\
+ & Asym & 352 & .14 [.08,.20] & .35 [.27,.44] & 8\%\\
+Events & NET & 10 & .85 [.65,1.65] & 1.06 [.71,1.53] & 30\%\\
+ & Asym & 16 & .30 [.15,.56] & .47 [.22,.74] & 19\%\\\bottomrule
+\end{tabular}
+\end{table}
+
+For all origins the median difference (NET-better minus Asym-better) is .31 [.12,.52] and the mean difference .47 [.24,.67]. At event level the corresponding differences are .55 [.27,1.38] and .59 [.17,1.11]. Pairwise ordering probability, counting ties at one half, is .65 [.58,.71] at origin level and .85 [.67,.99] at event level. Intervals resample overlap components conditional on the fitted models and constructed features.
+
+\subsubsection{Empirical Calibration and Retrospective Rule Scores}
+\label{app:threshold_calibration}
+The report examines three different objectives: the index at which fitted NET-win probability is one half; the cut maximizing the difference in shares above the cut between winner groups; and the cut minimizing recorded MSE after model choice. Their event-level point estimates are .72, .56, and .34 respectively. They need not agree, because outcome frequencies and the magnitudes of incorrect choices enter differently. The fitted equal-win point has interval [.39,1.85]; the group-separation cut has [.32,.69]; the reported risk-optimal-cut interval is [.32,1.44]. These objectives target different quantities.
+
+At origin level, the equal-win point is 1.71 [.69,13.50]. The group-separation objective is almost flat between .1 and 1: its value is .25 at one, compared with the best .26 at .43. Restricting to positive signals gives a best separating cut near .96, but this does not establish minimum predictive risk there. The unit-cutoff choice worsens recorded risk by 5.5\% at origin level. At event level it worsens risk by .73\%. The index is therefore used primarily as a ranking diagnostic in the real-data analysis.
+
+For leave-one-component-out (LOCO) calibration, each overlap component is withheld while cutoffs are chosen using the other events' fixed CV losses. Candidate cutoffs are midpoints between observed feature values plus the two always-model extremes. The signal/noise orientation is fixed (larger chooses NET); orientations for readable features are selected using the other components. This repeats a rule-calibration step, not the whole neural training and feature-selection pipeline. The lower-level feature is evaluated on the held-out event's realized panel and realized affected population.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Complete retrospective rule comparison, independently recomputed from the exported event table. MSE is multiplied by $10^3$. The recovered opportunity is relative to the same-sample hindsight best-of-two, not a population oracle guarantee.}
+\label{tab:selectorfull}\label{tab:selectors}
+\begin{tabular}{@{}lrrrr@{}}\toprule
+Rule & MSE & Change vs NET & Correct events & NET selected\\\midrule
+Always NET & 1.9689 & --- & --- & 26/26\\
+Always Asym & 2.3581 & $+19.77\%$ & --- & 0/26\\
+Hindsight event-wise best & 1.8991 & $-3.54\%$ & 26/26 & 10/26\\
+County-count signed contrast & 1.9425 & $-1.34\%$ & 15/26 & 21/26\\
+Training-event unit cutoff & 1.9833 & $+0.73\%$ & 16/26 & 6/26\\
+Signal/noise, LOCO & 1.9756 & $+0.34\%$ & 17/26 & 17/26\\
+Dispersion, LOCO & 1.9417 & $-1.38\%$ & 19/26 & 11/26\\
+Origin outage level, LOCO & 1.9057 & $-3.21\%$ & 21/26 & 11/26\\
+County count, LOCO & 2.2259 & $+13.06\%$ & 10/26 & 22/26\\\bottomrule
+\end{tabular}
+\end{table}
+
+The level rule's 3.21\% decrease recovers 90.6\% of the 3.54\% recorded hindsight opportunity. Its median LOCO threshold is .8807\%, range [.8408\%,1.2633\%]; the separate reported bootstrap threshold interval is [.59\%,1.89\%]. 
+
+\begin{figure}[!htbp]
+\centering
+\AsymFigure{fig_real_event_heterogeneity}{13}
+\caption{All 26 held-out-event risk differences, ordered by $\Delta_e=\widehat R_{N,e}-\widehat R_{A,e}$. Blue denotes lower NET MSE and red lower Asym MSE. Each point averages the five seed losses; the vertical axis is symmetric-log.}
+\label{fig:event_heterogeneity}
+\end{figure}
+
+\subsubsection{Complete Event-Level Results}
+\begin{table}[htbp]
+\centering\small
+\caption{All 26 affected-population event results, sorted by mean origin outage. Level is a percentage, dispersion is in percentage points, model MSEs are multiplied by $10^3$, and $\Delta_e$ by $10^4$. The last column counts seeds with positive contrast, not independent tests. The index uses training-event count. Source: byte-verified \texttt{EVENT\_FEATURES.csv}.}
+\label{tab:eventfull}
+\begin{tabular}{@{}lrrrrrrr@{}}\toprule
+Event & Level & Dispersion & $\widehat\Lambda_e$ & NET & Asym & $\Delta_e$ & $\Delta_e>0$\\\midrule
+2019-02-20 & 0.17 & 1.33 & 0.31 & 0.281 & 0.201 & +0.802 & 5/5 \\
+2022-03-12 & 0.18 & 1.37 & 0.11 & 0.453 & 0.306 & +1.464 & 5/5 \\
+2018-01-16 & 0.21 & 1.27 & 0.14 & 0.261 & 0.235 & +0.261 & 3/5 \\
+2019-11-27 & 0.25 & 1.24 & 0.40 & 0.287 & 0.174 & +1.131 & 5/5 \\
+2024-05-08 & 0.36 & 1.60 & 0.31 & 0.454 & 0.381 & +0.729 & 3/5 \\
+2021-06-21 & 0.40 & 1.90 & 0.24 & 0.507 & 0.434 & +0.722 & 5/5 \\
+2022-06-08 & 0.40 & 2.18 & 0.06 & 0.955 & 0.731 & +2.234 & 5/5 \\
+2024-01-09 & 0.49 & 2.54 & 0.30 & 1.112 & 0.761 & +3.510 & 5/5 \\
+2024-06-26 & 0.53 & 1.90 & 0.15 & 0.466 & 0.458 & +0.086 & 3/5 \\
+2022-01-16 & 0.56 & 1.94 & 1.41 & 0.459 & 0.382 & +0.770 & 5/5 \\
+2022-07-23 & 0.63 & 2.38 & 0.90 & 0.657 & 0.696 & -0.393 & 2/5 \\
+2022-04-13 & 0.65 & 2.17 & 1.26 & 0.742 & 0.549 & +1.928 & 5/5 \\
+2024-01-12 & 0.72 & 2.81 & 0.11 & 0.903 & 0.773 & +1.302 & 4/5 \\
+2020-02-06 & 0.80 & 3.76 & 0.15 & 1.837 & 1.557 & +2.803 & 5/5 \\
+2022-06-17 & 0.96 & 3.44 & 0.56 & 1.423 & 1.515 & -0.920 & 1/5 \\
+2021-05-04 & 1.03 & 3.34 & 0.33 & 1.031 & 1.008 & +0.231 & 3/5 \\
+2021-12-11 & 1.04 & 2.97 & 0.56 & 0.887 & 0.880 & +0.066 & 2/5 \\
+2021-12-15 & 1.17 & 3.26 & 1.65 & 1.414 & 1.405 & +0.090 & 3/5 \\
+2019-02-24 & 1.35 & 3.67 & 0.85 & 1.545 & 1.735 & -1.903 & 0/5 \\
+2021-08-11 & 1.46 & 3.40 & 0.85 & 1.450 & 1.487 & -0.370 & 3/5 \\
+2024-05-26 & 3.06 & 5.81 & 0.65 & 4.190 & 4.266 & -0.762 & 2/5 \\
+2020-08-04 & 3.47 & 6.01 & 0.34 & 3.418 & 4.505 & -10.863 & 0/5 \\
+2018-10-11 & 4.32 & 7.17 & 1.46 & 4.600 & 6.766 & -21.653 & 0/5 \\
+2020-10-29 & 5.74 & 6.98 & 2.33 & 4.363 & 6.590 & -22.264 & 0/5 \\
+2021-02-15 & 5.86 & 7.88 & 0.81 & 9.705 & 10.094 & -3.887 & 2/5 \\
+2024-09-27 & 8.14 & 9.23 & 1.84 & 7.790 & 13.423 & -56.328 & 0/5 \\
+\bottomrule\end{tabular}
+\end{table}
+
+\subsubsection{Interpretation}\label{app:feature_scope}
+These diagnostics are post hoc. Counties share shocks and differ in local inputs, so they approximate rather than satisfy independent common-input replication. The reference path space is not the full neural tangent space. Feature summaries use realized responses and affectedness; LOCO leaves out threshold-fitting components but not the entire feature-design and neural-training procedure. The analyses establish descriptive separation and retrospective selection potential, not a prospectively validated policy.
+
+\section{Computational Details}\label{app:repro_all}
+The neural campaign contains 180 development fits and 50 final fits. Table~\ref{tab:runtime} reports final-fit computation; times include different stopping points and are not a controlled hardware-efficiency comparison. Data preparation, model code, split assignments, and prediction records are available in the experimental release \citep{affectedcv2026}.
+
+\begin{table}[htbp]\centering\caption{Recorded final-fit computation at the frozen experimental revision.}\label{tab:runtime}\begin{tabular}{lrrrr}\toprule
+Model & Fits & Parameter range & Best update: median [range] & Seconds: median [range]\\\midrule
+NET & 25 & 32,633--32,867 & 750 [250, 2750] & 137.26 [73.09, 202.70]\\
+Asym & 25 & 32,715--33,027 & 1500 [0, 2750] & 133.69 [61.17, 179.02]\\
+\bottomrule\end{tabular}\end{table}
+\end{document}
