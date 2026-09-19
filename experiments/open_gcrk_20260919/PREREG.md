@@ -281,3 +281,29 @@ added in decreasing order of forecast-window wind-report counties, skipping any 
 overlaps one already taken, until there are twelve events. Panels, gates and descriptors are
 built by the same scripts. Which models are trained on the twelve events, and with which
 held-out design, is fixed in a further amendment before any such run.
+
+Note to Amendment 2 (E3 data build, before any E3 training): candidate 2024-05-26 passes the
+metadata rules but gate G4 leaves no county (an EAGLE-I collection gap of about 9.5 hours on
+2024-05-24 puts every county's prefix below 90% observed hours). It fails F5 in substance; the
+next candidate in the fixed order, 2024-05-08, takes its place (`select_events_e3.py`).
+
+## Amendment 3 (2026-09-19, written before the R2 screen has any result and before any E3 run)
+
+**E3 training.** Data: the twelve events of Amendment 2 with its note (2024-05-08 in place of
+2024-05-26). Inputs: the R2 set if the R2 screen passes its continuation rule, otherwise the
+round-1 set; both are built by the same scripts for the twelve events, and GCRK reads the 40
+descriptors (built for the added counties by the same scripts). If R2 passes, R2's seeds 1-4 on
+the five events are not run: E3 contains those events and supersedes them.
+Designs: (i) county-grouped, five outer folds with three county-grouped inner folds, built as in
+round 1; (ii) event-grouped, four outer folds of three events each (events in date order, fold =
+rank mod 4), each selecting t* on three inner folds of three development events (rank mod 3).
+Protocol, optimiser, stopping rule and export as in round 1. Arms W and GCRK, seeds 0-4, run
+seed by seed.
+Primary contrast: GCRK vs W on the pooled full-rollout RMSE of held-out county-hours in each
+design, with 95% cluster-bootstrap intervals over counties and over event x state blocks, the
+event-equal-weighted RMSE (mean over events of each event's RMSE) and seed agreement. Reading:
+"GCRK better" or "worse" only when the county-cluster interval of the relative RMSE change
+excludes zero and at least four of five seeds agree; otherwise "not distinguishable". Also
+reported: lead segments, MAE, peak errors, false activity at 0.001 and 0.005, the exit-closed
+decomposition, oracle rescaling, the E0 residual test and the effective number of events.
+Compute: about 90 CPU hours; the number of workers is set by measured memory, not cores alone.
