@@ -68,7 +68,7 @@ def main(design: str = "main"):
                 continue
             preds[(arm, s)] = P
             seed_rows.append(dict(model=arm, seed=s, **C.metrics(P, F)))
-    sd = pd.DataFrame(seed_rows)
+    sd = pd.DataFrame(seed_rows, columns=["model", "seed"] + (list(seed_rows[0].keys())[2:] if seed_rows else []))
     sd.to_csv(C.RESULTS / f"seeds_{design}.csv", index=False)
     for arm in ("W", "GCRK", "GCRK exit closed"):
         g = sd[sd.model == arm]

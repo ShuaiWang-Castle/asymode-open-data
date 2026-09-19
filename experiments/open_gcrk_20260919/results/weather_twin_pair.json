@@ -1,0 +1,27 @@
+{
+ "rule": "2021-12-11 event, counties with >= 10,000 customers whose outage fraction never reaches the cap of 1; weather distance = RMS difference of standardised gust, precipitation, snowfall and wind speed over hours 168-215; among pairs in the closest 1%, the largest difference in observed peak over hours 168-215",
+ "pair": [
+  {
+   "fips": "20079",
+   "name": "Harvey, KS",
+   "peak_pct": 1.55,
+   "peak_hour": 196,
+   "gust_max_ms": 30.27,
+   "precip_mm": 0.7,
+   "snowfall_mm": 0.0,
+   "p71_pct": 0.0
+  },
+  {
+   "fips": "20169",
+   "name": "Saline, KS",
+   "peak_pct": 59.85,
+   "peak_hour": 192,
+   "gust_max_ms": 28.56,
+   "precip_mm": 0.69,
+   "snowfall_mm": 0.0,
+   "p71_pct": 0.0
+  }
+ ],
+ "weather_distance": 0.274,
+ "threshold_1pct": 0.297
+}

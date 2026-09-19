@@ -1,0 +1,6 @@
+{
+ "rule": "POST HOC (model output): among the 2021-12-11 units, seed 0 main design, the largest max over hours 168-215 of |GCRK open - GCRK exit closed|",
+ "unit": 1822,
+ "fips": "55085",
+ "max_abs_effect": 0.39059264212846756
+}

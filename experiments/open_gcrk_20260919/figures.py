@@ -123,22 +123,23 @@ def panel_c(ax_s, ax, z, fs):
     ser = lambda k: 100 * np.r_[start, z[k]]
     off, on = ser("P_closed"), ser("P_open")
     pw = z["push_window"]
-    ax.axvspan(pw[0], pw[1], color="#f7e6e1", lw=0, zorder=0)
+    ax.axvspan(pw[0], pw[1], color="#ecebe6", lw=0, zorder=0)
     ax.fill_between(x, off, on, where=on >= off, color=RAISE_FILL, lw=0, interpolate=True, zorder=1)
     ax.fill_between(x, off, on, where=on < off, color=LOWER_FILL, lw=0, interpolate=True, zorder=1)
     ax.plot(np.arange(PREFIX_END - 11, 216), 100 * y[PREFIX_END - 11:], color=INK, lw=1.0, zorder=3)
     ax.plot(x, ser("P_W"), color=HOST, lw=1.1, ls=HOST_DASH, zorder=4)
-    ax.plot(x, off, color=OFF, lw=1.1, ls=OFF_DASH, zorder=4)
     ax.plot(x, on, color=GCRK, lw=1.3, zorder=5)
+    ax.plot(x, off, color="#5f5e5a", lw=1.0, ls=OFF_DASH, zorder=6)
     top = np.nanmax(np.r_[100 * y[PREFIX_END:], on, off, ser("P_W")])
     ax.set_xlim(PREFIX_END, 215); ax.set_ylim(0, top * 1.35 if top > 0 else 1)
     ax.set_xticks([72, 120, 168, 215]); ax.set_xlabel("Forecast hour $t$", labelpad=1.5)
     ax.set_ylabel("Customers out (%)")
     ax.legend(handles=[Line2D([], [], color=INK, lw=1.0, label="Observed"),
                        Line2D([], [], color=HOST, lw=1.2, ls=HOST_DASH, label="Weather host W"),
-                       Line2D([], [], color=OFF, lw=1.2, ls=OFF_DASH, label="GCRK, kernel off"),
+                       Line2D([], [], color="#5f5e5a", lw=1.1, ls=OFF_DASH, label="GCRK, kernel off"),
                        Line2D([], [], color=GCRK, lw=1.4, label="AsymODE + GCRK"),
-                       Patch(facecolor=RAISE_FILL, label="effect of the push")],
+                       Patch(facecolor=RAISE_FILL, label="effect of the push"),
+                       Patch(facecolor="#ecebe6", label="push window")],
               loc="upper left", ncol=2, fontsize=fs - 1.3, handlelength=1.6, labelspacing=0.25, columnspacing=0.8,
               borderaxespad=0.1)
 
@@ -169,10 +170,10 @@ def panel_d(ax, fs):
     ax.text(len(keys) - 0.4, -lim * 0.97, "better than W", ha="right", va="bottom", fontsize=fs - 1.1, color=TEXT2)
 
 
-def fig3():
+def fig3(tag="", out="fig3_gcrk_interpretation_open"):
     fs = 7.0; apply_style(fs)
-    z = np.load(FIGDATA / "fig3_kernel.npz")
-    drv = pd.read_csv(FIGDATA / "fig3_drivers.csv")
+    z = np.load(FIGDATA / f"fig3{tag}_kernel.npz")
+    drv = pd.read_csv(FIGDATA / f"fig3{tag}_drivers.csv")
     name = county_names().get(str(z["fips"]), str(z["fips"]))
     fig = plt.figure(figsize=(TEXT_WIDTH, 5.0))
     top = fig.add_gridspec(1, 3, left=0.07, right=0.99, top=0.9, bottom=0.58, wspace=0.0, width_ratios=[1.0, 0.62, 0.78])
@@ -180,20 +181,23 @@ def fig3():
     sa = top[0, 0].subgridspec(2, 2, height_ratios=[0.24, 1.0], width_ratios=[1.0, 0.045], hspace=0.07, wspace=0.06)
     ax_in = fig.add_subplot(sa[0, 0]); ax_a = fig.add_subplot(sa[1, 0], sharex=ax_in)
     panel_a(ax_a, ax_in, fig.add_subplot(sa[1, 1]), z, fs); fig.add_subplot(sa[0, 1]).set_axis_off()
-    title(ax_in, "a", f"Kernel at work: {name}", fs)
-    sb = top[0, 2].subgridspec(2, 1, height_ratios=[7, 6], hspace=0.45)
-    ax_up, ax_dn = fig.add_subplot(sb[0]), fig.add_subplot(sb[1])
+    title(ax_in, "a", f"Kernel at work: {name}" + (" (post hoc: largest kernel effect)" if tag else ""), fs)
+    sb = top[0, 2].subgridspec(3, 1, height_ratios=[1.7, 7, 6], hspace=0.4)
+    ax_up, ax_dn = fig.add_subplot(sb[1]), fig.add_subplot(sb[2])
     head = panel_b(ax_up, ax_dn, drv, fs)
-    ax_up.text(-0.95, 1.33, "What drives the push-window push", transform=ax_up.transAxes, fontsize=fs + 0.3, color=INK)
-    ax_up.text(-0.98, 1.33, "b", transform=ax_up.transAxes, ha="right", fontsize=fs + 1.5, fontweight="bold")
-    ax_up.text(-0.95, 1.16, head, transform=ax_up.transAxes, fontsize=fs - 1.1, color=TEXT2)
+    fig.canvas.draw()
+    ya = ax_in.get_position().y1
+    xb = top[0, 1].get_position(fig).x0 + 0.02
+    fig.text(xb, ya, "What drives the push-window push", fontsize=fs + 0.3, color=INK, va="bottom")
+    fig.text(xb - 0.006, ya, "b", ha="right", va="bottom", fontsize=fs + 1.5, fontweight="bold")
+    fig.text(xb, ya - 0.028, head, fontsize=fs - 1.1, color=TEXT2, va="bottom")
     sc = bot[0, 0].subgridspec(2, 1, height_ratios=[0.27, 1.0], hspace=0.06)
     ax_s = fig.add_subplot(sc[0]); ax_c = fig.add_subplot(sc[1], sharex=ax_s)
     panel_c(ax_s, ax_c, z, fs)
     title(ax_s, "c", f"Forecast, {name} (event {z['event']})", fs, y=1.1)
     ax_d = fig.add_subplot(bot[0, 2]); panel_d(ax_d, fs)
     title(ax_d, "d", "Held-out error against the weather host W", fs, y=1.03)
-    save(fig, "fig3_gcrk_interpretation_open")
+    save(fig, out)
 
 
 def fig4_counties(F) -> list[int]:
@@ -265,23 +269,25 @@ def fig1():
     ev = choice["event"]
     u = np.where(F["event"] == ev)[0]
     y = 100 * np.where(F["obs_full"][u], F["y_full"][u], np.nan)
-    peaks = {"Wave A (hours 72-95)": np.nanmax(y[:, 72:96], 1), "Wave B (hours 168-215)": np.nanmax(y[:, 168:216], 1),
-             "Whole forecast window (hours 72-215)": np.nanmax(y[:, 72:216], 1)}
+    peaks = {"Wave A (hours 72–95)": np.nanmax(y[:, 72:96], 1), "Wave B (hours 168–215)": np.nanmax(y[:, 168:216], 1),
+             "Both waves (hours 72–215)": np.nanmax(y[:, 72:216], 1)}
     shp = gpd.read_file(C.ROOT / "data/raw/census/cb_county/cb_2023_us_county_500k.shp")
     shp["fips"] = shp.STATEFP + shp.COUNTYFP
-    shp = shp[shp.STATEFP.isin({f[:2] for f in F["fips"][u]})].to_crs(5070)
-    states = shp.dissolve("STATEFP")
-    fig, axes = plt.subplots(1, 3, figsize=(TEXT_WIDTH, 2.35))
+    conus = shp[~shp.STATEFP.isin(["02", "15", "60", "66", "69", "72", "78"])].to_crs(5070)
+    states = conus.dissolve("STATEFP")
+    states["geometry"] = states.geometry.simplify(800)
+    conus["geometry"] = conus.geometry.simplify(800)
+    fig, axes = plt.subplots(1, 3, figsize=(TEXT_WIDTH, 2.2))
     fig.subplots_adjust(left=0.01, right=0.93, top=0.9, bottom=0.02, wspace=0.03)
     norm = LogNorm(0.1, 50)
     cmap = plt.get_cmap("YlOrRd")
     for ax, (lab, v) in zip(axes, peaks.items()):
-        d = shp.merge(pd.DataFrame(dict(fips=F["fips"][u], v=v)), on="fips", how="left")
-        states.boundary.plot(ax=ax, color="#b0aea8", lw=0.3, zorder=1)
-        d[d.v.isna()].plot(ax=ax, color="#f3f1ec", lw=0, zorder=0)
-        dd = d[d.v.notna()].copy(); dd["v"] = dd.v.clip(0.1, 50)
-        dd.plot(ax=ax, column="v", cmap=cmap, norm=norm, lw=0.05, edgecolor="white", zorder=2)
-        ax.set_axis_off(); ax.set_title(lab, fontsize=7.2, loc="left", pad=2)
+        d = conus.merge(pd.DataFrame(dict(fips=F["fips"][u], v=v)), on="fips", how="inner")
+        states.plot(ax=ax, color="#eeede9", lw=0, zorder=0, rasterized=True)
+        d["v"] = d.v.clip(0.1, 50)
+        d.plot(ax=ax, column="v", cmap=cmap, norm=norm, lw=0, zorder=2, rasterized=True)
+        states.boundary.plot(ax=ax, color="white", lw=0.35, zorder=3)
+        ax.set_axis_off(); ax.set_title(lab, fontsize=7.0, loc="left", pad=2)
     cax = fig.add_axes([0.94, 0.15, 0.012, 0.65])
     cb = plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cax, extend="both")
     cb.set_label("peak customers out (%)", fontsize=6.5); cb.outline.set_visible(False)
@@ -293,4 +299,5 @@ if __name__ == "__main__":
     import sys
     which = sys.argv[1:] or ["fig1", "fig3", "fig4"]
     for w in which:
-        {"fig1": fig1, "fig3": fig3, "fig4": fig4}[w]()
+        {"fig1": fig1, "fig3": fig3, "fig4": fig4,
+         "fig3s": lambda: fig3("s", "fig3s_gcrk_largest_kernel_effect_posthoc_open")}[w]()

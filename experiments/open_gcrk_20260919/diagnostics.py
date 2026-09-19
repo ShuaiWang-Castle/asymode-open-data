@@ -102,18 +102,18 @@ def concentration(design="main"):
 
 
 # ------------------------------------------------------------------------------- swap
-def swap(design="main", n_donors=200, chunk=8):
+def swap(design="main", n_donors=200, chunk=8, seeds=None):
     F = C.load_features(); n = len(F["y"])
     fips = F["fips"]
     uniq = sorted(set(fips.tolist()))
     first = {f: int(np.where(fips == f)[0][0]) for f in uniq}
     geo_raw = {f: F["geo"][first[f]] for f in uniq}
     sp = C.load_splits()[design]
-    out_rows = []
-    for s in C.SEEDS:
+    for s in (C.SEEDS if seeds is None else seeds):
+        out_rows = []
+        if not all((C.cell(design, s, f, "GCRK") / "final.pt").exists() for f in sp):
+            print("seed", s, "incomplete, skipped"); continue
         for f, spec in sp.items():
-            if not (C.cell(design, s, f, "GCRK") / "final.pt").exists():
-                continue
             m, st = load_model(design, s, f, "GCRK", F)
             outer = np.array(spec["outer"])
             for k in range(0, len(outer), chunk):
@@ -138,8 +138,10 @@ def swap(design="main", n_donors=200, chunk=8):
                                          percentile=float((don < own).mean()), donor_sd=float(don.std()),
                                          rmse_donor_min=float(don.min()), rmse_donor_max=float(don.max())))
             print("swap", s, f, flush=True)
-    d = pd.DataFrame(out_rows)
-    d.to_csv(C.RESULTS / f"swap_units_{design}.csv", index=False)
+        pd.DataFrame(out_rows).to_csv(C.RESULTS / f"swap_units_{design}_seed{s}.csv", index=False)
+    parts = [pd.read_csv(C.RESULTS / f"swap_units_{design}_seed{s}.csv") for s in C.SEEDS
+             if (C.RESULTS / f"swap_units_{design}_seed{s}.csv").exists()]
+    d = pd.concat(parts, ignore_index=True)
     summ = []
     for s, g in d.groupby("seed"):
         act = g[g.donor_sd > 1e-5]
@@ -265,9 +267,10 @@ GROUPS = {
 FEATURE_GROUP = {f: g for g, fs in GROUPS.items() for f in fs}
 
 
-def figure3(design="main", seed=0):
+def figure3(design="main", seed=0, unit=None, tag=""):
+    """tag="" -> the PREREG county; otherwise a unit chosen elsewhere (files get the tag)."""
     F = C.load_features(); n = len(F["y"])
-    u, ranked = representative_county(F)
+    u, ranked = representative_county(F) if unit is None else (int(unit), None)
     fo = fold_of(design)[u]
     mg, stg = load_model(design, seed, fo, "GCRK", F)
     mw, stw = load_model(design, seed, fo, "W", F)
@@ -282,8 +285,8 @@ def figure3(design="main", seed=0):
     drv = pd.DataFrame(dict(feature=names, kind=kind, attribution=vals, group=[FEATURE_GROUP.get(x, "Other") for x in names]))
     drv["window_push"] = full; drv["baseline_push"] = zero
     FIGDATA.mkdir(parents=True, exist_ok=True)
-    drv.to_csv(FIGDATA / "fig3_drivers.csv", index=False)
-    np.savez_compressed(FIGDATA / "fig3_kernel.npz", unit=u, fips=F["fips"][u], event=F["event"][u], fold=int(fo), seed=seed,
+    drv.to_csv(FIGDATA / f"fig3{tag}_drivers.csv", index=False)
+    np.savez_compressed(FIGDATA / f"fig3{tag}_kernel.npz", unit=u, fips=F["fips"][u], event=F["event"][u], fold=int(fo), seed=seed,
                         C=Cm.astype(np.float32), deposit_norm=dep_norm.astype(np.float32), raw_open=raw_open, raw_closed=raw_closed,
                         P_open=out["P"][0].numpy(), P_closed=off["P"][0].numpy(), P_W=pw,
                         y_full=F["y_full"][u], obs_full=F["obs_full"][u], push_window=np.array(PUSH), **checks)
@@ -296,6 +299,10 @@ if __name__ == "__main__":
     ap.add_argument("what", choices=["concentration", "swap", "figure3"])
     ap.add_argument("--design", default="main")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--seeds", default=None)
+    ap.add_argument("--unit", type=int, default=None)
+    ap.add_argument("--tag", default="")
     a = ap.parse_args()
-    {"concentration": lambda: concentration(a.design), "swap": lambda: swap(a.design),
-     "figure3": lambda: figure3(a.design, a.seed)}[a.what]()
+    {"concentration": lambda: concentration(a.design),
+     "swap": lambda: swap(a.design, seeds=None if a.seeds is None else [int(x) for x in a.seeds.split(",")]),
+     "figure3": lambda: figure3(a.design, a.seed, a.unit, a.tag)}[a.what]()

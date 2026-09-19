@@ -20,3 +20,4 @@ results/smoke/
 results/d6_cells_*.json.gz
 results/v2/*.npz
 runs/
+experiments/open_gcrk_20260919/logs/

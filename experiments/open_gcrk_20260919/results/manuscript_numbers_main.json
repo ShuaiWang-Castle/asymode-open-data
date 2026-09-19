@@ -1,0 +1,99 @@
+{
+ "cells_by_segment": {
+  "1-6 h": 15959,
+  "7-24 h": 47850,
+  "25-48 h": 63797,
+  "49-144 h": 255130
+ },
+ "cells_total": 382736,
+ "figure3_county": {
+  "fips": "06093",
+  "observed_peak_pct_wave_B": 31.91,
+  "observed_peak_hour": 195,
+  "seed0": {
+   "GCRK_at_obs_peak_pct": 1.63,
+   "W_at_obs_peak_pct": 2.07,
+   "GCRK_closed_at_obs_peak_pct": 1.65,
+   "GCRK_max_wave_B_pct": 2.24,
+   "GCRK_max_hour": 200,
+   "W_max_wave_B_pct": 2.77
+  },
+  "seed1": {
+   "GCRK_at_obs_peak_pct": 3.09,
+   "W_at_obs_peak_pct": 3.03,
+   "GCRK_closed_at_obs_peak_pct": 2.82,
+   "GCRK_max_wave_B_pct": 3.54,
+   "GCRK_max_hour": 190,
+   "W_max_wave_B_pct": 3.81
+  },
+  "seed2": {
+   "GCRK_at_obs_peak_pct": 1.92,
+   "W_at_obs_peak_pct": 2.68,
+   "GCRK_closed_at_obs_peak_pct": 1.88,
+   "GCRK_max_wave_B_pct": 2.29,
+   "GCRK_max_hour": 198,
+   "W_max_wave_B_pct": 3.43
+  },
+  "seed3": {
+   "GCRK_at_obs_peak_pct": 2.98,
+   "W_at_obs_peak_pct": 2.72,
+   "GCRK_closed_at_obs_peak_pct": 2.88,
+   "GCRK_max_wave_B_pct": 4.1,
+   "GCRK_max_hour": 191,
+   "W_max_wave_B_pct": 3.7
+  },
+  "seed4": {
+   "GCRK_at_obs_peak_pct": 2.19,
+   "W_at_obs_peak_pct": 2.08,
+   "GCRK_closed_at_obs_peak_pct": 1.93,
+   "GCRK_max_wave_B_pct": 3.56,
+   "GCRK_max_hour": 213,
+   "W_max_wave_B_pct": 3.82
+  }
+ },
+ "figure3s_county": {
+  "fips": "55085",
+  "observed_peak_pct_wave_B": 44.46,
+  "observed_peak_hour": 203,
+  "seed0": {
+   "GCRK_at_obs_peak_pct": 46.49,
+   "W_at_obs_peak_pct": 14.84,
+   "GCRK_closed_at_obs_peak_pct": 9.62,
+   "GCRK_max_wave_B_pct": 48.06,
+   "GCRK_max_hour": 208,
+   "W_max_wave_B_pct": 15.8
+  },
+  "seed1": {
+   "GCRK_at_obs_peak_pct": 24.08,
+   "W_at_obs_peak_pct": 19.45,
+   "GCRK_closed_at_obs_peak_pct": 13.09,
+   "GCRK_max_wave_B_pct": 24.24,
+   "GCRK_max_hour": 204,
+   "W_max_wave_B_pct": 19.77
+  },
+  "seed2": {
+   "GCRK_at_obs_peak_pct": 19.38,
+   "W_at_obs_peak_pct": 21.97,
+   "GCRK_closed_at_obs_peak_pct": 12.89,
+   "GCRK_max_wave_B_pct": 19.75,
+   "GCRK_max_hour": 202,
+   "W_max_wave_B_pct": 23.16
+  },
+  "seed3": {
+   "GCRK_at_obs_peak_pct": 21.26,
+   "W_at_obs_peak_pct": 14.23,
+   "GCRK_closed_at_obs_peak_pct": 6.76,
+   "GCRK_max_wave_B_pct": 34.76,
+   "GCRK_max_hour": 211,
+   "W_max_wave_B_pct": 16.77
+  },
+  "seed4": {
+   "GCRK_at_obs_peak_pct": 36.88,
+   "W_at_obs_peak_pct": 31.18,
+   "GCRK_closed_at_obs_peak_pct": 11.02,
+   "GCRK_max_wave_B_pct": 40.5,
+   "GCRK_max_hour": 208,
+   "W_max_wave_B_pct": 39.31
+  }
+ }
+}

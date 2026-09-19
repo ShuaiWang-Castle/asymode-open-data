@@ -1,0 +1,72 @@
+feature,kind,attribution,group,window_push,baseline_push
+cape,weather,0.043686386,"Cloud, convection",-11.713508605957031,0.0
+cloud,weather,-0.21513787,"Cloud, convection",-11.713508605957031,0.0
+gust,weather,0.60572684,Wind and gusts,-11.713508605957031,0.0
+precip,weather,0.4553235,Precipitation,-11.713508605957031,0.0
+pressure,weather,-0.34664506,Pressure,-11.713508605957031,0.0
+rh,weather,0.33305988,"Temperature, humidity",-11.713508605957031,0.0
+snowfall,weather,-2.9782631,"Snow, ice, freezing",-11.713508605957031,0.0
+soil_moisture,weather,0.019793604,Soil moisture,-11.713508605957031,0.0
+t2m_c,weather,-0.055520948,"Temperature, humidity",-11.713508605957031,0.0
+u10,weather,0.09370272,Wind and gusts,-11.713508605957031,0.0
+v10,weather,0.66638184,Wind and gusts,-11.713508605957031,0.0
+wind_speed,weather,0.473088,Wind and gusts,-11.713508605957031,0.0
+clock_sin,weather,0.13723823,Time of day,-11.713508605957031,0.0
+clock_cos,weather,0.14311664,Time of day,-11.713508605957031,0.0
+gust_excess_energy,weather,0.42848393,Wind and gusts,-11.713508605957031,0.0
+wet_wind,weather,0.5881422,Wind-driven rain,-11.713508605957031,0.0
+snow_ice_load,weather,0.22247945,"Snow, ice, freezing",-11.713508605957031,0.0
+near_freeze,weather,-0.13374045,"Snow, ice, freezing",-11.713508605957031,0.0
+cold_precip,weather,-2.5016232,"Snow, ice, freezing",-11.713508605957031,0.0
+gust_excess_energy_sum6,weather,0.14666298,Wind and gusts,-11.713508605957031,0.0
+wet_wind_sum12,weather,0.97735035,Wind-driven rain,-11.713508605957031,0.0
+path_gust_max,weather,-2.071725,Wind and gusts,-11.713508605957031,0.0
+path_gust_excess_energy,weather,0.55412436,Wind and gusts,-11.713508605957031,0.0
+path_wet_wind,weather,-0.6315243,Wind-driven rain,-11.713508605957031,0.0
+path_snow_ice_load,weather,-10.7216,"Snow, ice, freezing",-11.713508605957031,0.0
+hours_since_path_gust_max,weather,0.09775541,Wind and gusts,-11.713508605957031,0.0
+gust_max6,weather,-0.19076496,Wind and gusts,-11.713508605957031,0.0
+gust_max12,weather,0.5018489,Wind and gusts,-11.713508605957031,0.0
+gust_max24,weather,0.7801124,Wind and gusts,-11.713508605957031,0.0
+precip_sum6,weather,-0.17574692,Precipitation,-11.713508605957031,0.0
+precip_sum12,weather,0.19115849,Precipitation,-11.713508605957031,0.0
+precip_sum24,weather,1.5304267,Precipitation,-11.713508605957031,0.0
+wind_speed_mean12,weather,0.6344958,Wind and gusts,-11.713508605957031,0.0
+soil_moisture_mean24,weather,0.11664759,Soil moisture,-11.713508605957031,0.0
+subzero_hours24,weather,-3.941811,"Snow, ice, freezing",-11.713508605957031,0.0
+zero_crossings24,weather,1.1103591,"Snow, ice, freezing",-11.713508605957031,0.0
+dir_change3,weather,0.03899248,"Wind direction, shifts",-11.713508605957031,0.0
+dir_change6,weather,-0.011526839,"Wind direction, shifts",-11.713508605957031,0.0
+dir_sin,weather,0.42158434,"Wind direction, shifts",-11.713508605957031,0.0
+dir_cos,weather,-0.26241824,"Wind direction, shifts",-11.713508605957031,0.0
+elev_mean,geography,0.6904839,"Terrain relief, slope",-11.713508605957031,0.0
+relief_p95_p5,geography,0.26779115,"Terrain relief, slope",-11.713508605957031,0.0
+slope_mean_deg,geography,-0.88105845,"Terrain relief, slope",-11.713508605957031,0.0
+steep_frac,geography,-0.370031,"Terrain relief, slope",-11.713508605957031,0.0
+ruggedness_tri,geography,-1.5461313,"Terrain relief, slope",-11.713508605957031,0.0
+aspect_N,geography,-0.071128435,Slope aspect,-11.713508605957031,0.0
+aspect_NE,geography,-0.44500056,Slope aspect,-11.713508605957031,0.0
+aspect_E,geography,0.0016347477,Slope aspect,-11.713508605957031,0.0
+aspect_SE,geography,-0.26401767,Slope aspect,-11.713508605957031,0.0
+aspect_S,geography,-0.18731517,Slope aspect,-11.713508605957031,0.0
+aspect_SW,geography,-0.26052865,Slope aspect,-11.713508605957031,0.0
+aspect_W,geography,0.0047177714,Slope aspect,-11.713508605957031,0.0
+aspect_NW,geography,0.07235305,Slope aspect,-11.713508605957031,0.0
+canopy_mean,geography,0.33078328,Forest and canopy,-11.713508605957031,0.0
+canopy_dense_frac,geography,0.083674625,Forest and canopy,-11.713508605957031,0.0
+forest_frac,geography,0.469094,Forest and canopy,-11.713508605957031,0.0
+developed_frac,geography,0.78421116,Developed land,-11.713508605957031,0.0
+wetland_frac,geography,-0.31028408,"Wet, poorly drained soils",-11.713508605957031,0.0
+forest_on_steep_frac,geography,-0.45337978,Forest and canopy,-11.713508605957031,0.0
+canopy_in_developed,geography,0.9400632,Forest and canopy,-11.713508605957031,0.0
+poorly_drained_share,geography,-0.018793013,"Wet, poorly drained soils",-11.713508605957031,0.0
+hydric_share,geography,0.003000976,"Wet, poorly drained soils",-11.713508605957031,0.0
+shallow_share,geography,0.037894305,Shallow soils,-11.713508605957031,0.0
+high_water_table_share,geography,0.032585844,"Wet, poorly drained soils",-11.713508605957031,0.0
+root_limiting_share,geography,0.0062209717,Windthrow susceptibility,-11.713508605957031,0.0
+windthrow_susceptibility,geography,0.61497694,Windthrow susceptibility,-11.713508605957031,0.0
+log_land_area_km2,geography,0.9291331,County area,-11.713508605957031,0.0
+s50_relief_p95_p5,geography,-0.2884243,"Terrain relief, slope",-11.713508605957031,0.0
+s50_canopy_mean,geography,0.29661036,Forest and canopy,-11.713508605957031,0.0
+s50_windthrow_susceptibility,geography,0.7662657,Windthrow susceptibility,-11.713508605957031,0.0
+s50_poorly_drained_share,geography,-0.024594665,"Wet, poorly drained soils",-11.713508605957031,0.0

@@ -40,8 +40,10 @@ def main(design="main"):
            "|---|---:|---:|---:|---:|"]
     for r in ROWS:
         if r in t.index:
+            ptime = ("n/a (constant forecast)" if r in ("all-zero", "persistence") else
+                     fmt(t.loc[r, PEAK[1]], t.loc[r, PEAK[1] + ' sd'] if PEAK[1] + ' sd' in t.columns else None, 1))
             md.append(f"| {r} | {fmt(t.loc[r, PEAK[0]], t.loc[r, PEAK[0] + ' sd'] if PEAK[0] + ' sd' in t.columns else None, 4)} | "
-                      f"{fmt(t.loc[r, PEAK[1]], t.loc[r, PEAK[1] + ' sd'] if PEAK[1] + ' sd' in t.columns else None, 1)} | "
+                      f"{ptime} | "
                       f"{fmt(t.loc[r, PEAK[2]], None, 3)} | {fmt(t.loc[r, PEAK[3]], None, 3)} |")
     p = pd.read_csv(R / f"paired_{design}.csv")
     md += ["", f"## Paired seed-wise differences, GCRK - W ({design})", "",
@@ -77,7 +79,8 @@ def main(design="main"):
              "GCRK": "AsymODE + GCRK"}
     for r in ("all-zero", "persistence", "TimesFM", "W", "GCRK"):
         if r in t.index:
-            vals = [f"{t.loc[r, c]:.5f}" for c in COLS]
+            vals = [f"{t.loc[r, c]:.5f}" + (f"\\,{{\\scriptsize$\\pm${t.loc[r, c + ' sd']:.5f}}}" if r in ("W", "GCRK") else "")
+                    for c in COLS]
             tex.append(f"{names[r]}&" + "&".join(vals) + r"\\")
     tex += [r"\bottomrule", r"\end{tabular}"]
     (R / f"table_main_{design}.tex").write_text("\n".join(tex) + "\n")
