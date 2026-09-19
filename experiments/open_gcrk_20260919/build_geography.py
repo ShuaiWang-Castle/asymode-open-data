@@ -11,7 +11,8 @@ shares are component-percent x map-unit-overlap acreage.
 Descriptors (land pixels = inside the county polygon and not open water):
   terrain   elev_mean, relief_p95_p5, slope_mean_deg, steep_frac (slope >= 10 deg),
             ruggedness_tri (mean |dz| to the 8 neighbours), aspect_<sector> for 8
-            compass sectors (share of pixels with slope >= 2 deg facing each way)
+            compass sectors (share of pixels with slope >= 2 deg facing each way;
+            1/8 each when fewer than 200 such pixels exist)
   canopy    canopy_mean, canopy_dense_frac (>= 50%), canopy_in_developed (mean
             canopy on developed pixels), forest_frac, developed_frac,
             wetland_frac, forest_on_steep_frac
@@ -69,7 +70,7 @@ SOURCES = {
 SDA = "https://sdmdataaccess.sc.egov.usda.gov/Tabular/post.rest"
 SECTORS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
 SMOOTH = ["relief_p95_p5", "canopy_mean", "windthrow_susceptibility", "poorly_drained_share"]
-STEEP_DEG, SLOPED_DEG, SMOOTH_KM = 10.0, 2.0, 50.0
+STEEP_DEG, SLOPED_DEG, SMOOTH_KM, MIN_SLOPED_PIXELS = 10.0, 2.0, 50.0, 200
 
 
 def sha256(b: bytes) -> str:
@@ -166,7 +167,8 @@ def raster_stats(fips: str, geom) -> dict:
     sl = ok & (slope >= SLOPED_DEG)
     sector = ((aspect[sl] + 22.5) // 45).astype(int) % 8
     for k, name in enumerate(SECTORS):
-        out[f"aspect_{name}"] = float(np.mean(sector == k)) if sl.any() else 0.125
+        # flat counties: too few sloped pixels for a meaningful aspect mix -> uniform
+        out[f"aspect_{name}"] = float(np.mean(sector == k)) if sl.sum() >= MIN_SLOPED_PIXELS else 0.125
     c = tcc[land]
     out["canopy_mean"] = float(np.nanmean(c))
     out["canopy_dense_frac"] = float(np.nanmean(c >= 50))
