@@ -1,0 +1,207 @@
+"""Training protocol for W and GCRK: pooled INNER early stopping, REFIT from scratch.
+
+  * Adam, two groups: damage (and kernel) at 3e-3, recovery at 3e-4.
+  * INNER: three county-grouped inner folds are trained in lockstep; every 10 steps
+    each is evaluated on its held-out inner counties and the pooled trajectory loss
+    decides. The search runs at least 400 steps, stops 200 steps after the best
+    evaluation, and never beyond 1600 steps. Step 0 is evaluated too.
+  * REFIT: a fresh model with the same initialisation seed is trained on all
+    development units for exactly the selected number of steps t*, then OUTER is
+    exported in evaluation mode.
+  * GCRK only: the kernel's calibration buffers are refreshed from the current
+    fitting-set hidden sequences every 10 steps and before every evaluation, the
+    response contribution opens linearly over 200 steps, and a training-only
+    drop-path removes it with probability 0.2 (asymode.gcrk).
+  * Training loss = selection loss = masked MSE of the outage fraction over the
+    rollout hours 72..215 (observed cells only).
+Standardisation statistics are computed on each model's own fitting units.
+"""
+from __future__ import annotations
+
+import copy
+
+import numpy as np
+import torch
+
+from .asym_host import AsymODE, masked_se, trajectory_loss
+
+POLICY = dict(min_steps=400, patience_steps=200, max_steps=1600, eval_every=10)
+LR_HOST, LR_RECOVERY = 3e-3, 3e-4
+N_WEATHER = 14          # leading columns of x^U and x^R that are raw weather (not clipped)
+N_STATIC = 6            # x^R columns after the weather block: county background (not clipped)
+CLIP = 5.0
+
+
+class Rule:
+    def __init__(self, min_steps=400, patience_steps=200, max_steps=1600, eval_every=10):
+        self.policy = dict(min_steps=min_steps, patience_steps=patience_steps, max_steps=max_steps,
+                           eval_every=eval_every)
+        self.best, self.best_step, self.step = float("inf"), 0, -eval_every
+
+    def observe(self, step: int, value: float) -> bool:
+        assert step == self.step + self.policy["eval_every"] and np.isfinite(value)
+        self.step = step
+        if value < self.best:
+            self.best, self.best_step = float(value), int(step)
+        p = self.policy
+        return step >= p["max_steps"] or (step >= p["min_steps"] and step - self.best_step >= p["patience_steps"])
+
+
+def _moments(a: np.ndarray):
+    flat = a.reshape(-1, a.shape[-1]).astype(np.float64)
+    return np.nanmean(flat, 0), np.nanstd(flat, 0) + 1e-6
+
+
+def fit_stats(F: dict, idx: np.ndarray) -> dict:
+    """Standardisation statistics from the fitting units only."""
+    st = {}
+    for k in ("xu", "xr", "xo"):
+        st[k] = _moments(F[k][idx])
+    st["geo"] = _moments(F["geo"][idx])
+    return st
+
+
+def _std(a, mom, noclip: int):
+    z = (a - mom[0]) / mom[1]
+    z = np.nan_to_num(z, nan=0.0)
+    if noclip < z.shape[-1]:
+        z[..., noclip:] = np.clip(z[..., noclip:], -CLIP, CLIP)
+    return z.astype(np.float32)
+
+
+def make_batch(F: dict, idx: np.ndarray, st: dict) -> dict:
+    idx = np.asarray(idx)
+    b = dict(xu=_std(F["xu"][idx], st["xu"], N_WEATHER),
+             xr=_std(F["xr"][idx], st["xr"], N_WEATHER + N_STATIC),
+             xo=_std(F["xo"][idx], st["xo"], 0),
+             geo=_std(F["geo"][idx], st["geo"], 0))
+    b = {k: torch.from_numpy(np.ascontiguousarray(v)) for k, v in b.items()}
+    b["y0"] = torch.from_numpy(np.ascontiguousarray(F["y0"][idx].astype(np.float32)))
+    b["y"] = torch.from_numpy(np.ascontiguousarray(F["y"][idx].astype(np.float32)))
+    b["m"] = torch.from_numpy(np.ascontiguousarray(F["m"][idx].astype(np.float32)))
+    b["idx"] = idx
+    return b
+
+
+class Engine:
+    """One model on one fitting set (optionally with a validation set)."""
+
+    def __init__(self, F: dict, fit_idx, val_idx, seed: int, arm: str, private_seed: int = 1729):
+        assert arm in ("W", "GCRK")
+        self.arm, self.seed, self.step = arm, int(seed), 0
+        self.fit_idx = np.sort(np.asarray(fit_idx))
+        self.val_idx = None if val_idx is None else np.sort(np.asarray(val_idx))
+        self.stats = fit_stats(F, self.fit_idx)
+        self.fit = make_batch(F, self.fit_idx, self.stats)
+        self.val = None if self.val_idx is None else make_batch(F, self.val_idx, self.stats)
+        torch.manual_seed(self.seed)
+        self.model = AsymODE(F["xu"].shape[-1], F["xr"].shape[-1], F["xo"].shape[-1])
+        if arm == "GCRK":
+            self.model.attach_gcrk(torch.tanh(self.fit["geo"] / 3.0).mean(0), private_seed)
+        host, rec = self.model.parameter_groups()
+        self.opt = torch.optim.Adam([dict(params=host, lr=LR_HOST), dict(params=rec, lr=LR_RECOVERY)], lr=LR_HOST)
+        self.last_loss = float("nan")
+        self.refresh()
+
+    @torch.no_grad()
+    def refresh(self):
+        k = self.model.kernel
+        if k is None:
+            return None
+        k.training_step.fill_(self.step)
+        return k.calibrate_(self.model.hidden(self.fit["xu"]), self.step)
+
+    def train_step(self) -> float:
+        k = self.model.kernel
+        if k is not None:
+            if self.step % 10 == 0 and int(k.calibration_step) != self.step:
+                self.refresh()
+            k.training_step.fill_(self.step)
+        self.model.train()
+        self.opt.zero_grad(set_to_none=True)
+        out = self.model(self.fit)
+        loss = trajectory_loss(out["P"], self.fit["y"], self.fit["m"])
+        if not torch.isfinite(loss):
+            raise RuntimeError("nonfinite training loss")
+        loss.backward()
+        for n, p in self.model.named_parameters():
+            if p.grad is not None and not torch.isfinite(p.grad).all():
+                raise RuntimeError(f"nonfinite gradient {n}")
+        self.opt.step()
+        self.step += 1
+        if k is not None:
+            k.training_step.fill_(self.step)
+        self.last_loss = float(loss.detach())
+        return self.last_loss
+
+    @torch.no_grad()
+    def evaluate(self):
+        """Per-unit (squared-error sum, observed cells) on the validation units."""
+        assert self.val is not None, "a REFIT model has no validation set"
+        self.refresh()
+        self.model.eval()
+        out = self.model(self.val)
+        s, n = masked_se(out["P"], self.val["y"], self.val["m"])
+        return s.double().numpy(), n.double().numpy()
+
+    def snapshot(self) -> dict:
+        k = self.model.kernel
+        return dict(model_state=copy.deepcopy(self.model.state_dict()), step=self.step, arm=self.arm, seed=self.seed,
+                    fit_idx=self.fit_idx, stats=self.stats,
+                    kernel_rng=None if k is None else k._drop.get_state().clone())
+
+
+def select_steps(F: dict, inner: list[tuple], seed: int, arm: str, log=None) -> dict:
+    """Pooled INNER early stopping over three lockstep inner folds."""
+    engines = [Engine(F, fit, val, seed, arm) for fit, val in inner]
+    rule, trace = Rule(**POLICY), []
+    while True:
+        t = engines[0].step
+        res = [e.evaluate() for e in engines]
+        pooled = float(sum(s.sum() for s, _ in res) / sum(n.sum() for _, n in res))
+        stop = rule.observe(t, pooled)
+        row = dict(step=t, pooled_inner_mse=pooled, best_step=rule.best_step)
+        for j, (e, (s, n)) in enumerate(zip(engines, res), 1):
+            row[f"inner{j}_mse"] = float(s.sum() / n.sum())
+            row[f"inner{j}_fit_loss"] = e.last_loss
+            k = e.model.kernel
+            if k is not None:
+                row[f"inner{j}_beta"] = float(torch.tanh(k.alpha).detach())
+                row[f"inner{j}_scale"] = float(k.scale)
+                row[f"inner{j}_theta"] = float(k.threshold)
+        trace.append(row)
+        if log is not None and t % 100 == 0:
+            log(f"INNER {arm} seed={seed} step={t} pooled={pooled:.6e} best={rule.best_step}")
+        if stop:
+            break
+        for e in engines:
+            for _ in range(POLICY["eval_every"]):
+                e.train_step()
+    return dict(best_step=rule.best_step, best_inner_mse=rule.best, stop_step=rule.step, trace=trace)
+
+
+def refit(F: dict, dev_idx, steps: int, seed: int, arm: str, log=None) -> Engine:
+    e = Engine(F, dev_idx, None, seed, arm)
+    for t in range(1, steps + 1):
+        e.train_step()
+        if t % 10 == 0:
+            e.refresh()
+        if log is not None and t % 200 == 0:
+            log(f"REFIT {arm} seed={seed} step={t}/{steps}")
+    e.refresh()
+    e.model.eval()
+    return e
+
+
+@torch.no_grad()
+def export(e: Engine, F: dict, idx) -> dict:
+    """Open-loop OUTER rollouts from the observed p_71 (kernel open, and closed for GCRK)."""
+    b = make_batch(F, idx, e.stats)
+    e.model.eval()
+    out = e.model(b, diagnostics=False)
+    res = dict(idx=np.asarray(idx), P=out["P"].numpy(), u=out["u"].numpy(), r=out["r"].numpy(),
+               raw_logit=out["raw_logit"].numpy())
+    if e.model.kernel is not None:
+        off = e.model(b, exit_open=False)
+        res.update(P_closed=off["P"].numpy(), raw_logit_closed=off["raw_logit"].numpy())
+    return res

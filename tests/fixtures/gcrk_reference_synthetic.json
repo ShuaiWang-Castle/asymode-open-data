@@ -1,0 +1,28 @@
+{
+  "reference_source_sha256": {
+    "model.py": "12ff628b208401cf1273a69082527937e188922d358d2c647a08bff27ed201c1",
+    "kernel.py": "20dffac19bc497046cd34874afddb25e7271e03176e247e1ce179fdc715fda60"
+  },
+  "reference_solver": "PyTorch recurrence (fast=False)",
+  "reference_private_dropout_seed_offset": 1,
+  "shapes": {
+    "B_fit": 9,
+    "B": 4,
+    "T": 216,
+    "D": 32,
+    "G": 34
+  },
+  "config_constants": {
+    "memory_min": 2.0,
+    "memory_max": 96.0,
+    "memory_init": 16.0,
+    "a_max": 0.5,
+    "gain_log_bound": 0.6931471805599453,
+    "gate_quantile": 0.8,
+    "gate_slope": 4.0,
+    "scale_floor": 0.0001,
+    "drop_path": 0.2,
+    "warmup_steps": 200
+  },
+  "data": "synthetic random tensors only (seeded); no observations of any kind"
+}

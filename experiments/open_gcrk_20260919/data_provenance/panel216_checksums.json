@@ -1,0 +1,32 @@
+[
+ {
+  "file": "data/interim/open_gcrk/panel216_2019-03-13.npz",
+  "sha256": "d2e5f818a00c9b04da93dfcb286762a964caa397d7329173d36bcb29be94050c",
+  "bytes": 8769305
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216_2021-03-26.npz",
+  "sha256": "7b1830824300fc8c42b8b355b0ea0efc66391708c4391424c612c44155e4c37d",
+  "bytes": 15625717
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216_2021-12-11.npz",
+  "sha256": "962c23c361c0d8536f03c585d9f140e7bf51853353fb214cd3bb0f3cd8b4379e",
+  "bytes": 23572289
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216_2022-06-08.npz",
+  "sha256": "89e4b98ced06c0cc41687b4428e21d6ce7a82da1660df3ad0c6727590ea11d6e",
+  "bytes": 13048595
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216_2024-02-27.npz",
+  "sha256": "fd97a035b62f51f9002090dc4d8a0f53545f95a3d628a39a934e4958e0018d3c",
+  "bytes": 12320561
+ },
+ {
+  "file": "data/interim/open_gcrk/era5_county_weights_conus.parquet",
+  "sha256": "2e771ca4d6ec721121f3efdd0e97643ce00b55f0db5a748c4ae0339c1f2c2a3e",
+  "bytes": 377651
+ }
+]
