@@ -307,3 +307,13 @@ excludes zero and at least four of five seeds agree; otherwise "not distinguisha
 reported: lead segments, MAE, peak errors, false activity at 0.001 and 0.005, the exit-closed
 decomposition, oracle rescaling, the E0 residual test and the effective number of events.
 Compute: about 90 CPU hours; the number of workers is set by measured memory, not cores alone.
+
+Note to Amendment 3 (before the twelve-event run): in the R2 screen the leave-one-event-out
+design with event-held-out inner folds selects 50-110 steps, i.e. a barely trained model. The
+kernel's warm-up is 200 steps, so its opening is still ramping and W, GCRK and GCRK with the exit
+closed coincide (0.0297 each at seed 0, against 0.0310 for the round-1 W); RMSE improves while MAE
+and false activity get worse. The same is expected in the event-grouped design of the twelve-event
+round: it measures how far a shrunken model transfers, and cannot test the kernel. The
+county-grouped design remains the test of the kernel. Both are reported, and each event-design cell
+also reports its kernel opening at t* (ramp x tanh(alpha)) so that a coincidence of the arms is
+visible rather than read as "no kernel effect".
