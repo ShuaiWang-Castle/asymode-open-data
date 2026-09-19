@@ -1,0 +1,17 @@
+{
+ "main": {
+  "w_round1": 0.026752460314051124,
+  "w_round2": 0.02597410113756555,
+  "improvement": 0.0007783591764855755,
+  "threshold": 0.00036,
+  "passes": true
+ },
+ "loeo": {
+  "w_round1": 0.030963187845183725,
+  "w_round2": 0.0297074939804484,
+  "improvement": 0.0012556938647353237,
+  "threshold": 0.00102,
+  "passes": true
+ },
+ "continue": true
+}

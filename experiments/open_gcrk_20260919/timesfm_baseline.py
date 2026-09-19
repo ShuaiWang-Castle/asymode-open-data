@@ -30,11 +30,11 @@ PANELS = ROOT / "data" / "interim" / "open_gcrk"
 OUT = ROOT / "runs" / "open_gcrk_20260919" / "timesfm"
 
 
-def units():
-    events = json.loads((HERE / "selected_events.json").read_text())["events"]
+def units(events_file: str = "selected_events.json", panels: str = "panel216"):
+    events = json.loads((HERE / events_file).read_text())["events"]
     ev, fips, ctx, cov, cust = [], [], [], [], []
     for e in events:
-        z = np.load(PANELS / f"panel216_{e['event']}.npz")
+        z = np.load(PANELS / f"{panels}_{e['event']}.npz", allow_pickle=True)
         y = np.where(z["observed"], z["y"], np.nan)[:, :72].astype(np.float64)
         for i in range(y.shape[0]):
             row = y[i].copy()
@@ -58,13 +58,17 @@ def main():
     ap.add_argument("--device", default="mps")
     ap.add_argument("--batch", type=int, default=8)
     ap.add_argument("--arms", default="WEATHER,HISTORY")
+    ap.add_argument("--events-file", default="selected_events.json")
+    ap.add_argument("--panels", default="panel216", help="panel file prefix (panel216r2 for the round-2 weather)")
+    ap.add_argument("--out-dir", default=None, help="under the repository root (default runs/open_gcrk_20260919/timesfm)")
     a = ap.parse_args()
     sys.path.insert(0, str(a.runtime / "source" / "src"))
     import torch
     from timesfm3 import ModelConfig, TimesFM3Evaluator
     torch.set_num_threads(1); torch.manual_seed(0)
-    OUT.mkdir(parents=True, exist_ok=True)
-    ev, fips, ctx, cov, cust = units()
+    out = ROOT / a.out_dir if a.out_dir else OUT
+    out.mkdir(parents=True, exist_ok=True)
+    ev, fips, ctx, cov, cust = units(a.events_file, a.panels)
     model = TimesFM3Evaluator(ModelConfig(checkpoint_path=str(a.runtime / "weights"), device=a.device,
                                           per_core_batch_size=a.batch, local_files_only=True))
     meta = dict(n_units=len(fips), device=a.device, torch=torch.__version__, context_hours=72, horizon=144,
@@ -84,10 +88,10 @@ def main():
                 qs.append(np.clip(o.quantiles, 0, cust[j]) / cust[j])
             if lo % (a.batch * 50) == 0:
                 print(arm, hi, len(fips), round(time.monotonic() - t0), flush=True)
-        np.savez_compressed(OUT / f"timesfm_{arm}.npz", event=ev, fips=fips, P=np.array(med, np.float32),
+        np.savez_compressed(out / f"timesfm_{arm}.npz", event=ev, fips=fips, P=np.array(med, np.float32),
                             quantiles=np.array(qs, np.float32))
         meta[f"{arm}_seconds"] = time.monotonic() - t0
-        (OUT / "manifest.json").write_text(json.dumps(meta, indent=1) + "\n")
+        (out / "manifest.json").write_text(json.dumps(meta, indent=1) + "\n")
         print("done", arm, round(meta[f"{arm}_seconds"]), flush=True)
 
 

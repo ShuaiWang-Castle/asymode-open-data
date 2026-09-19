@@ -394,7 +394,38 @@ selects fewer steps: median 420 vs 620 in LOEO, 290-420 vs 620 in main). Means o
   (0.03063); the kernel adds nothing at matched length, and GCRK's advantage over W in LOEO is a
   training-length (shrinkage) effect.
 
-## 14. Provenance of every number
+## 14. R2: better inputs and an event-held-out selection (PREREG Amendment 2; seed 0 screen)
+
+`build_panel216_r2.py`, `build_features_r2.py`, `r2_screen_evaluate.py`; `results/r2/screen*.csv`,
+`screen_decision.json`. Round 2 changes both arms together: the hour's maximum ERA5 gust instead of
+the instantaneous gust; gust exceedance energy, wet wind, near-freeze, snow-ice load and cold
+precipitation computed per ERA5 cell and then area-averaged; trailing 72-hour path summaries in
+place of summaries that start at the forecast origin; the county's highest cell gust and its
+gust > 15 m/s area share as two more damage inputs; 40 geographic descriptors; and, in the
+leave-one-event-out design only, inner folds that leave one development event out. One seed.
+
+| design | round | W | GCRK | GCRK exit closed | W MAE | W false activity |
+|---|---|---:|---:|---:|---:|---:|
+| main (inputs only) | 1 | 0.02675 | 0.02680 | 0.02766 | 0.00579 | 0.347 |
+| main (inputs only) | 2 | 0.02597 | 0.02644 | 0.02788 | 0.00536 | 0.267 |
+| LOEO (inputs + selection) | 1 | 0.03096 | 0.03023 | 0.02977 | 0.00682 | 0.313 |
+| LOEO (inputs + selection) | 2 | 0.02971 | 0.02973 | 0.02973 | 0.00739 | 0.749 |
+
+* Inputs alone (main design, where selection is unchanged) lower the host's RMSE by 2.9%
+  (0.02675 -> 0.02597, against a seed-to-seed standard deviation of 0.00036), every lead segment,
+  MAE (0.00579 -> 0.00536) and false activity (0.347 -> 0.267). The pre-registered continuation
+  rule passes in both designs (improvement 7.8e-4 main, 1.3e-3 LOEO).
+* GCRK gains less from the better inputs than W does (0.02680 -> 0.02644), so at this seed the
+  gap to W widens from +0.2% to +1.8%.
+* With event-held-out inner folds the selected training length collapses to 50-110 steps (median
+  70, against 330 for W in round 1). The kernel's warm-up is 200 steps, so its opening is still
+  ramping and W, GCRK and the closed exit coincide at 0.0297. RMSE improves, MAE and false
+  activity get worse (0.31 -> 0.75): under event transfer the safest model is a barely trained one,
+  and this design cannot test the kernel.
+* The twelve-event round therefore uses the round-2 inputs (rule of Amendment 2) and reports the
+  kernel's realised opening in every event-design cell.
+
+## 15. Provenance of every number
 
 | numbers | file | script (inputs) | seeds |
 |---|---|---|---|
@@ -415,3 +446,4 @@ selects fewer steps: median 420 vs 620 in LOEO, 290-420 vs 620 in main). Means o
 | review checks (section 12) | `results/review_*.csv`, `results/review_effective_events_*.json` | `review_checks.py` (outer.npz, final.pt, features.npz, features_geo40.npz) | 0-4 |
 | nine further descriptors (PREREG Amendment 1) | `data/interim/open_gcrk/geography_ext.parquet`, `features_geo40.npz`; `data_provenance/geography_ext_{log.jsonl,meta.json}`, `features_geo40_checksum.json` | `build_geography_ext.py`, `build_features.py --geo-ext` | none |
 | E2 (section 13) | `results/e2_{main,loeo}.csv` | `e2_refit.py`, `e2_evaluate.py` (runs/.../e2/, final.pt) | 0-4 |
+| R2 screen (section 14) | `results/r2/screen*.csv`, `screen_decision.json` | `r2_screen_evaluate.py` (runs/.../r2/) | 0 |
