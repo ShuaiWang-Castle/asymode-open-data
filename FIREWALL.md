@@ -107,6 +107,20 @@ what got through.
   registered and graded (`RESULTS_LEDGER.md`, the H-A3 decisive rerun). Any future
   work on gradient dilution in this project starts from that, not from the refused
   document.
+* **2026-09-19, the PI — rule 1 relaxed for one task, authorised in writing.**
+  Scope: the open-data replication in `experiments/open_gcrk_20260919/`. This
+  project may read exactly two kinds of material in the parent directory:
+  (a) model code and reference analysis scripts, used to re-implement the
+  response-kernel architecture, its training recipe and its diagnostics here;
+  (b) raw downloads of public sources and their provenance records, used only as a
+  record of method and source. Every other rule in this file stays in force. No
+  data, feature table, weight, checkpoint, normalisation statistic, fold
+  assignment, measured number or excluded-index material from the non-public side
+  enters this repository; the architecture is re-implemented here and checked
+  against the reference on synthetic random inputs only; every feature is rebuilt
+  from public origin by this repository's own scripts. The PI also supplied three
+  qualitative expectations about the result, which are registered as hypotheses to
+  be tested (`experiments/open_gcrk_20260919/PREREG.md`), not as findings.
 
 ## When in doubt
 
