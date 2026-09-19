@@ -1,0 +1,10 @@
+{
+ "file": "data/interim/open_gcrk/features_e3r1.npz",
+ "sha256": "d818f4cbbd5c5c2f17b71b5e2e5b43dda05834d1d2455d8964da14650e841552",
+ "units": 6122,
+ "counties": 2409,
+ "d_u": 40,
+ "d_r": 33,
+ "d_occ": 7,
+ "G": 40
+}

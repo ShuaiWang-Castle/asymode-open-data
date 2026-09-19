@@ -6,6 +6,11 @@ Only the nine UTC days of each 216-hour window are requested. Writes
 data/raw/era5/era5_<event>.nc (one month) or era5_<event>.m<i>.nc (several), and
 appends source, request, date and SHA-256 to data_provenance/era5_fetch_log.jsonl.
 
+Options for PREREG Amendment 2: --variables fetches another variable list into --out-dir
+(e.g. the hourly maximum gust into data/raw/era5_fg10/), and --from-candidates takes the
+windows from event_selection.csv (the pre-registered candidate pool) instead of
+selected_events.json.
+
 Requires ~/.cdsapirc (never read or printed here beyond what cdsapi does itself).
 """
 from __future__ import annotations
@@ -39,11 +44,20 @@ def sha256(p: Path) -> str:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--events", nargs="+", required=True)
+    ap.add_argument("--variables", nargs="+", default=None, help="CDS variable names (default: the panel list)")
+    ap.add_argument("--out-dir", default=None, help="directory under the repository root (default data/raw/era5)")
+    ap.add_argument("--from-candidates", action="store_true", help="windows from event_selection.csv")
     a = ap.parse_args()
     import cdsapi
     c = cdsapi.Client()
-    sel = {e["event"]: e for e in json.loads((HERE / "selected_events.json").read_text())["events"]}
-    RAW.mkdir(parents=True, exist_ok=True)
+    variables = a.variables or VARIABLES
+    raw = ROOT / a.out_dir if a.out_dir else RAW
+    if a.from_candidates:
+        cand = pd.read_csv(HERE / "event_selection.csv")
+        sel = {r.day: dict(window_start_utc=r.window_start_utc, window_end_utc=r.window_end_utc) for r in cand.itertuples()}
+    else:
+        sel = {e["event"]: e for e in json.loads((HERE / "selected_events.json").read_text())["events"]}
+    raw.mkdir(parents=True, exist_ok=True)
     LOG.parent.mkdir(parents=True, exist_ok=True)
     for ev in a.events:
         s = pd.Timestamp(sel[ev]["window_start_utc"])
@@ -54,11 +68,11 @@ def main():
             by_month.setdefault((f"{d.year:04d}", f"{d.month:02d}"), []).append(f"{d.day:02d}")
         parts = sorted(by_month.items())
         for i, ((yy, mm), dd) in enumerate(parts):
-            dst = RAW / (f"era5_{ev}.nc" if len(parts) == 1 else f"era5_{ev}.m{i}.nc")
+            dst = raw / (f"era5_{ev}.nc" if len(parts) == 1 else f"era5_{ev}.m{i}.nc")
             if dst.exists():
                 print("exists", dst.name, flush=True)
                 continue
-            req = {"product_type": ["reanalysis"], "variable": VARIABLES, "year": [yy], "month": [mm],
+            req = {"product_type": ["reanalysis"], "variable": variables, "year": [yy], "month": [mm],
                    "day": dd, "time": [f"{h:02d}:00" for h in range(24)], "area": AREA,
                    "data_format": "netcdf", "download_format": "unarchived"}
             tmp = dst.with_suffix(".part")

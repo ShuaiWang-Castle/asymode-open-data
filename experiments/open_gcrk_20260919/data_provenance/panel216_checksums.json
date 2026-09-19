@@ -1,8 +1,18 @@
 [
  {
+  "file": "data/interim/open_gcrk/panel216_2019-02-24.npz",
+  "sha256": "0db9818d2b00c6be7080d27cfee3b478c3407d0d8b379c2864ad43de1ed30ef8",
+  "bytes": 12882891
+ },
+ {
   "file": "data/interim/open_gcrk/panel216_2019-03-13.npz",
   "sha256": "d2e5f818a00c9b04da93dfcb286762a964caa397d7329173d36bcb29be94050c",
   "bytes": 8769305
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216_2019-11-27.npz",
+  "sha256": "66adb60b2c5fc396e176e36dba913872dc0f086e149b414fbe0ec2914dfffa2e",
+  "bytes": 12353651
  },
  {
   "file": "data/interim/open_gcrk/panel216_2021-03-26.npz",
@@ -10,9 +20,19 @@
   "bytes": 15625717
  },
  {
+  "file": "data/interim/open_gcrk/panel216_2021-08-11.npz",
+  "sha256": "2884912759e4bbd7786e5eeb36269fc034d1aad9c92ad6f49533e27d8141d01f",
+  "bytes": 14838709
+ },
+ {
   "file": "data/interim/open_gcrk/panel216_2021-12-11.npz",
   "sha256": "962c23c361c0d8536f03c585d9f140e7bf51853353fb214cd3bb0f3cd8b4379e",
   "bytes": 23572289
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216_2022-04-13.npz",
+  "sha256": "270005f441e23e60da940582518c578b7470c18aea5a2cef0590e2d191934129",
+  "bytes": 12554747
  },
  {
   "file": "data/interim/open_gcrk/panel216_2022-06-08.npz",
@@ -20,9 +40,24 @@
   "bytes": 13048595
  },
  {
+  "file": "data/interim/open_gcrk/panel216_2022-06-17.npz",
+  "sha256": "b4ca46a11a3c6d9d35b1c0fcfce7aa453b3e55b671e034e60481e3d917cc1c59",
+  "bytes": 17043468
+ },
+ {
   "file": "data/interim/open_gcrk/panel216_2024-02-27.npz",
   "sha256": "fd97a035b62f51f9002090dc4d8a0f53545f95a3d628a39a934e4958e0018d3c",
   "bytes": 12320561
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216_2024-05-08.npz",
+  "sha256": "93e8ff03b17d77f51b4a6334ba0e6eada94bf466508b67c6126807679f45ec56",
+  "bytes": 14220359
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216_2024-06-26.npz",
+  "sha256": "22d1abfd0562e9bf958bc96031ed5561bc7a9be8d69dc7cce7670dfe8cf8f0a0",
+  "bytes": 15436921
  },
  {
   "file": "data/interim/open_gcrk/era5_county_weights_conus.parquet",

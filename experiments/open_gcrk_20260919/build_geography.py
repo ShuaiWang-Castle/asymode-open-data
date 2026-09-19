@@ -234,11 +234,14 @@ def soils(areas: list[str]) -> pd.DataFrame:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--workers", type=int, default=3)
+    ap.add_argument("--events-file", default="selected_events.json", help="events whose panel counties are described")
+    ap.add_argument("--out", default="geography.parquet")
     a = ap.parse_args()
     import requests
     import shapely
     OUT.mkdir(parents=True, exist_ok=True)
-    panel_fips = sorted({str(f) for p in OUT.glob("panel216_*.npz") for f in np.load(p)["fips"]})
+    events = [e["event"] for e in json.loads((HERE / a.events_file).read_text())["events"]]
+    panel_fips = sorted({str(f) for ev in events for f in np.load(OUT / f"panel216_{ev}.npz")["fips"]})
     cty = counties()
     gz = pd.read_csv(GAZ, sep="\t", dtype={"GEOID": str}, encoding="latin-1")
     gz.columns = [c.strip() for c in gz.columns]
@@ -281,11 +284,12 @@ def main():
                              if f in within else np.nan for f in stats.index]
     stats = stats.loc[panel_fips]
     stats.attrs = {}
-    stats.to_parquet(OUT / "geography.parquet")
+    stats.to_parquet(OUT / a.out)
     meta = dict(columns=[c for c in stats.columns if c != "n_land_pixels"], n_counties=len(stats),
                 missing=stats.isna().sum()[lambda s: s > 0].to_dict(),
                 resolution_m=RES, canopy_year=2021, landcover_year=2021)
-    (HERE / "data_provenance" / "geography_meta.json").write_text(json.dumps(meta, indent=1) + "\n")
+    (HERE / "data_provenance" / a.out.replace("geography", "geography_meta").replace(".parquet", ".json")).write_text(
+        json.dumps(meta, indent=1) + "\n")
     print(json.dumps(meta, indent=1))
 
 

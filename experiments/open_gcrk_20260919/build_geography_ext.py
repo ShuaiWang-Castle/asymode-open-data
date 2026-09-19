@@ -465,8 +465,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--limit", type=int, default=0, help="first N counties only (smoke test)")
+    ap.add_argument("--base", default="geography.parquet", help="county list: the rows of this table")
+    ap.add_argument("--out", default="geography_ext.parquet")
     a = ap.parse_args()
-    base = pd.read_parquet(BG.OUT / "geography.parquet")
+    base = pd.read_parquet(BG.OUT / a.base)
     fips = [str(f) for f in (base.index if base.index.name == "fips" else base["fips"])]
     if a.limit:
         fips = fips[:a.limit]
@@ -492,12 +494,13 @@ def main():
     out = soil.join(e5).join(fia).loc[fips]
     out.index.name = "fips"
     if not a.limit:
-        OUT.parent.mkdir(parents=True, exist_ok=True)
-        out.to_parquet(OUT)
-        meta = dict(n_counties=len(out), sha256=sha256(OUT.read_bytes()),
+        dst = BG.OUT / a.out
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        out.to_parquet(dst)
+        meta = dict(n_counties=len(out), sha256=sha256(dst.read_bytes()),
                     nan_counts={c: int(out[c].isna().sum()) for c in out.columns},
                     built_utc=dt.datetime.now(dt.timezone.utc).isoformat())
-        (HERE / "data_provenance" / "geography_ext_meta.json").write_text(json.dumps(meta, indent=1) + "\n")
+        (HERE / "data_provenance" / a.out.replace(".parquet", "_meta.json")).write_text(json.dumps(meta, indent=1) + "\n")
     print(out.describe().T.round(3).to_string())
 
 

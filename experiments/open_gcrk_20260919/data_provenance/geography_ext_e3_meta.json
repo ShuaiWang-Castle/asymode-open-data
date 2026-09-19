@@ -1,0 +1,23 @@
+{
+ "n_counties": 2409,
+ "sha256": "6392b814845e09382beecf6724084dcaf1c7a3be45149b339651b8ab9fdf3f5f",
+ "nan_counts": {
+  "n_land_pixels_60m": 0,
+  "forest_near_developed": 0,
+  "n_samples": 0,
+  "n_soil_samples": 0,
+  "soil_mapped_share": 0,
+  "soil_wet_share": 0,
+  "soil_windthrow_hazard": 1,
+  "forest_wet_coloc": 0,
+  "wet_in_forest": 16,
+  "hazard_in_forest": 8,
+  "windthrow_rated_share": 0,
+  "elev_mean5": 0,
+  "relief5": 0,
+  "n_elev_points": 0,
+  "fia_forest_land_share": 1,
+  "fia_state_evaluation": 0
+ },
+ "built_utc": "2026-09-19T21:09:01.251571+00:00"
+}

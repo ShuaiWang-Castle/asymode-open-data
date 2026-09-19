@@ -29,6 +29,7 @@ counties) and the drivers of those neighbours, used by the recovery inputs.
 """
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import sys
@@ -142,8 +143,15 @@ def drivers(fields, t0: pd.Timestamp, fips: list[str], w: pd.DataFrame) -> np.nd
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--events-file", default="selected_events.json")
+    ap.add_argument("--events", nargs="+", default=None, help="subset of the file's events")
+    ap.add_argument("--gates-out", default="panel_gates.csv")
+    a = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
-    sel = json.loads((HERE / "selected_events.json").read_text())["events"]
+    sel = json.loads((HERE / a.events_file).read_text())["events"]
+    if a.events:
+        sel = [e for e in sel if e["event"] in set(a.events)]
     denom = pd.read_parquet(INTERIM / "eaglei_county_customers_2024.parquet")["customers"]
     w = all_weights()
     conus = sorted(w.fips.unique())
@@ -192,7 +200,7 @@ def main():
         g["observed_share_final"] = float(obs[idx].mean())
         gates.append(g)
         print(g, flush=True)
-    pd.DataFrame(gates).to_csv(HERE / "panel_gates.csv", index=False)
+    pd.DataFrame(gates).to_csv(HERE / a.gates_out, index=False)
     for f in sorted(OUT.glob("panel216_*.npz")) + [OUT / "era5_county_weights_conus.parquet"]:
         prov.append(dict(file=str(f.relative_to(ROOT)), sha256=sha(f), bytes=f.stat().st_size))
     (HERE / "data_provenance").mkdir(exist_ok=True)

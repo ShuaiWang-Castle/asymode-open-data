@@ -1,0 +1,115 @@
+[
+ {
+  "file": "data/interim/open_gcrk/panel216r2_2019-03-13.npz",
+  "sha256": "c8c9c8d6b5d68648c450d4551b252a54860ae5d3028538f88f14407445c18880",
+  "bytes": 9579754,
+  "era5_files": [
+   "era5_2019-03-13.nc",
+   "era5_2019-03-13.nc"
+  ]
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216r2_2021-03-26.npz",
+  "sha256": "cd254f7df85a4597504311601bd56a853945abfe992d77b2d99871b088a8b590",
+  "bytes": 17177191,
+  "era5_files": [
+   "era5_2021-03-26.nc",
+   "era5_2021-03-26.nc"
+  ]
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216r2_2021-12-11.npz",
+  "sha256": "2e5602b18ca9db36f497980dbdc15bdfc685f7d0b9a560fad03bf440e705d8a2",
+  "bytes": 26266719,
+  "era5_files": [
+   "era5_2021-12-11.nc",
+   "era5_2021-12-11.nc"
+  ]
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216r2_2022-06-08.npz",
+  "sha256": "699ed543dd2b076da1ccf4933f170a9600b03f4007fffe438c7e2848e5d6ba3d",
+  "bytes": 14013148,
+  "era5_files": [
+   "era5_2022-06-08.nc",
+   "era5_2022-06-08.nc"
+  ]
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216r2_2024-02-27.npz",
+  "sha256": "7d82d915db24be1037a4794291bfca732e3e31f2b49642e1aa8cedc192f68cda",
+  "bytes": 13544232,
+  "era5_files": [
+   "era5_2024-02-27.m0.nc",
+   "era5_2024-02-27.m1.nc",
+   "era5_2024-02-27.m0.nc",
+   "era5_2024-02-27.m1.nc"
+  ]
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216r2_2019-02-24.npz",
+  "sha256": "04fe333d95b397e3b0d266a8b148c0893d842927c4b11b60423a6aef486d318a",
+  "bytes": 14548295,
+  "era5_files": [
+   "era5_2019-02-24.nc",
+   "era5_2019-02-24.m0.nc",
+   "era5_2019-02-24.m1.nc"
+  ]
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216r2_2019-11-27.npz",
+  "sha256": "0be4c6859dfe0afb99d3cad864b59678563fe19460b802a29c1b0a517b3c6cb7",
+  "bytes": 13672315,
+  "era5_files": [
+   "era5_2019-11-27.nc",
+   "era5_2019-11-27.m0.nc",
+   "era5_2019-11-27.m1.nc"
+  ]
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216r2_2021-08-11.npz",
+  "sha256": "75ef6f6362bada0be779c60b32a8e9d871a4971396df0b31f818c7018a96e19d",
+  "bytes": 16016082,
+  "era5_files": [
+   "era5_2021-08-11.nc",
+   "era5_2021-08-11.nc"
+  ]
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216r2_2022-04-13.npz",
+  "sha256": "c9ea3f2214678ec76a1e93380672be8e6f0d5797234021543e6a77f59e4adbe2",
+  "bytes": 13827456,
+  "era5_files": [
+   "era5_2022-04-13.nc",
+   "era5_2022-04-13.nc"
+  ]
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216r2_2022-06-17.npz",
+  "sha256": "ffe7cf1c554cd3093edc0ca909e3ba7d8951be3ea73ea953323dec9992313d0d",
+  "bytes": 18403867,
+  "era5_files": [
+   "era5_2022-06-17.nc",
+   "era5_2022-06-17.nc"
+  ]
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216r2_2024-05-08.npz",
+  "sha256": "f482ba9b3582a0a9251df71ca6ea5eed6b21e121e7787230a1966490646b2b75",
+  "bytes": 15447540,
+  "era5_files": [
+   "era5_2024-05-08.nc",
+   "era5_2024-05-08.nc"
+  ]
+ },
+ {
+  "file": "data/interim/open_gcrk/panel216r2_2024-06-26.npz",
+  "sha256": "c002f84860742c038ebcb114e4e7bd9e9918b3db9f30ee655b023eb58252801d",
+  "bytes": 16592478,
+  "era5_files": [
+   "era5_2024-06-26.nc",
+   "era5_2024-06-26.m0.nc",
+   "era5_2024-06-26.m1.nc"
+  ]
+ }
+]

@@ -44,9 +44,11 @@ ROOT = HERE.parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from asymode import gcrk_train as G  # noqa: E402
 
-FEATURES = ROOT / "data" / "interim" / "open_gcrk" / "features.npz"
-RUNS = ROOT / "runs" / "open_gcrk_20260919"
-SPLITS = HERE / "splits.json"
+# OPEN_GCRK_ROUND selects a later round (PREREG Amendment 2); unset = round 1 as pre-registered
+ROUND = os.environ.get("OPEN_GCRK_ROUND", "r1")
+FEATURES = ROOT / "data" / "interim" / "open_gcrk" / ("features.npz" if ROUND == "r1" else f"features_{ROUND}.npz")
+RUNS = ROOT / "runs" / "open_gcrk_20260919" / ("" if ROUND == "r1" else ROUND)
+SPLITS = HERE / ("splits.json" if ROUND == "r1" else f"splits_{ROUND}.json")
 K_OUTER, K_INNER, SPLIT_SEED = 5, 3, 20260919
 SEEDS, ARMS = (0, 1, 2, 3, 4), ("W", "GCRK")
 torch.set_num_threads(1)
@@ -80,6 +82,61 @@ def inner_folds(F: dict, dev_units: np.ndarray, seed: int) -> list[dict]:
     lab = _blocks(county_order(F, dev_units), K_INNER, np.random.default_rng(seed))
     fl = np.array([lab[f] for f in F["fips"][dev_units]])
     return [dict(fit=dev_units[fl != j].tolist(), val=dev_units[fl == j].tolist()) for j in range(K_INNER)]
+
+
+def splits_event_inner(base: Path = HERE / "splits.json"):
+    """Round-2 splits (PREREG Amendment 2 (e)): the round-1 outer folds; main keeps its inner
+    folds; every LOEO cell selects t* on inner folds that each leave one development event out."""
+    F = load_features()
+    ev = F["event"].astype(str)
+    sp = json.loads(base.read_text())
+    assert sp["n_units"] == len(ev), "round-2 features must keep round 1's units and order"
+    for k, spec in sp["loeo"].items():
+        dev = np.array(spec["dev"])
+        spec["inner"] = [dict(fit=dev[ev[dev] != e].tolist(), val=dev[ev[dev] == e].tolist(), event=e)
+                         for e in sorted(set(ev[dev]))]
+    sp["loeo_inner"] = "leave one development event out"
+    SPLITS.write_text(json.dumps(sp) + "\n")
+    print({k: [len(i["val"]) for i in v["inner"]] for k, v in sp["loeo"].items()})
+
+
+def splits_events12():
+    """E3 splits (PREREG Amendment 3): 'main' = county-grouped as round 1 (five outer folds, three
+    county-grouped inner folds); 'event' = four outer folds of three events each (events in date
+    order, fold = rank mod 4), with three inner folds of three development events each (rank mod 3)."""
+    F = load_features()
+    n = len(F["fips"]); allu = np.arange(n); ev = F["event"].astype(str)
+    outer_lab = _blocks(county_order(F, allu), K_OUTER, np.random.default_rng(SPLIT_SEED))
+    of = np.array([outer_lab[f] for f in F["fips"]])
+    main = {}
+    for k in range(K_OUTER):
+        held, dev = allu[of == k], allu[of != k]
+        main[str(k + 1)] = dict(outer=held.tolist(), dev=dev.tolist(), inner=inner_folds(F, dev, SPLIT_SEED + 1 + k))
+    events = sorted(set(ev))
+    event = {}
+    for k in range(4):
+        out_ev = [e for i, e in enumerate(events) if i % 4 == k]
+        dev_ev = [e for e in events if e not in out_ev]
+        held, dev = allu[np.isin(ev, out_ev)], allu[~np.isin(ev, out_ev)]
+        inner = []
+        for j in range(3):
+            val_ev = [e for i, e in enumerate(dev_ev) if i % 3 == j]
+            inner.append(dict(fit=dev[~np.isin(ev[dev], val_ev)].tolist(), val=dev[np.isin(ev[dev], val_ev)].tolist(),
+                              events=val_ev))
+        event[str(k + 1)] = dict(events=out_ev, outer=held.tolist(), dev=dev.tolist(), inner=inner)
+    for design in (main, event):
+        cover = np.zeros(n, int)
+        for spec in design.values():
+            cover[spec["outer"]] += 1
+            assert not set(spec["outer"]) & set(spec["dev"])
+            for inn in spec["inner"]:
+                assert not set(inn["fit"]) & set(inn["val"]) and set(inn["fit"]) | set(inn["val"]) == set(spec["dev"])
+        assert (cover == 1).all()
+    for spec in main.values():
+        assert not set(F["fips"][spec["outer"]]) & set(F["fips"][spec["dev"]])
+    SPLITS.write_text(json.dumps(dict(k_outer=K_OUTER, split_seed=SPLIT_SEED, n_units=n, main=main, event=event)) + "\n")
+    print("main outer", [len(v["outer"]) for v in main.values()], "event outer", {k: (v["events"], len(v["outer"]))
+                                                                                 for k, v in event.items()})
 
 
 def make_splits():
@@ -172,14 +229,18 @@ def queue(design: str, workers: int, seeds, arms):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("action", choices=["splits", "worker", "queue"])
-    ap.add_argument("--design", choices=["main", "loeo"], default="main")
+    ap.add_argument("action", choices=["splits", "splits-event-inner", "splits-events12", "worker", "queue"])
+    ap.add_argument("--design", choices=["main", "loeo", "event"], default="main")
     ap.add_argument("--seed", type=int); ap.add_argument("--fold", type=int); ap.add_argument("--arm", choices=ARMS)
     ap.add_argument("--workers", type=int, default=5)
     ap.add_argument("--seeds", default=",".join(map(str, SEEDS))); ap.add_argument("--arms", default=",".join(ARMS))
     a = ap.parse_args()
     if a.action == "splits":
         make_splits()
+    elif a.action == "splits-event-inner":
+        splits_event_inner()
+    elif a.action == "splits-events12":
+        splits_events12()
     elif a.action == "worker":
         worker(a.design, a.seed, a.fold, a.arm)
     else:

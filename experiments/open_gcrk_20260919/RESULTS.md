@@ -367,7 +367,34 @@ unless stated; files `results/frozen_{segments,pathways,reach,origin,inner}_{mai
   signal about where W misses peaks; nothing of it carries across events, and the nine added
   descriptors add nothing.
 
-## 13. Provenance of every number
+## 13. E2: W refit at GCRK's t* (PREREG Amendment 2; diagnostic)
+
+`e2_refit.py`, `e2_evaluate.py`; `results/e2_{main,loeo}.csv`. With the same initialisation and
+full-batch steps this is W's own refit path stopped where GCRK's inner selection stopped (GCRK
+selects fewer steps: median 420 vs 620 in LOEO, 290-420 vs 620 in main). Means over seeds 0-4.
+
+| design | W, own t* | W at GCRK t* | GCRK exit closed | GCRK |
+|---|---:|---:|---:|---:|
+| main RMSE | 0.02630 | 0.02703 | 0.02731 | 0.02644 |
+| main false activity (0.001) | 0.309 | 0.463 | 0.430 | 0.429 |
+| main false activity without background | 0.092 | 0.239 | 0.201 | 0.205 |
+| main mean recovery rate | 0.235 | 0.250 | 0.250 | 0.250 |
+| LOEO RMSE | 0.03144 | 0.03069 | 0.03003 | 0.03063 |
+| LOEO false activity (0.001) | 0.277 | 0.360 | 0.366 | 0.362 |
+
+* Stopped at GCRK's t*, W reproduces the GCRK network's host: RMSE close to the closed exit,
+  the same excess false activity from the gated damage term, the same faster recovery. The
+  closed-exit gap of section 4 is mostly training length (W at GCRK t* - W = +7.3e-4 of the
+  +1.01e-3), not training with the kernel; a small remainder (closed - W at GCRK t* = +2.8e-4,
+  5/5 seeds) is.
+* At matched training length the kernel helps in the main design: GCRK 0.02644 vs W at GCRK t*
+  0.02703 (-2.2%, lower in 5/5 seeds). GCRK's own inner selection stops earlier than W's, and W
+  trained to its own t* ends up better than GCRK.
+* Under event transfer shorter training is itself the gain: W at GCRK t* (0.03069) matches GCRK
+  (0.03063); the kernel adds nothing at matched length, and GCRK's advantage over W in LOEO is a
+  training-length (shrinkage) effect.
+
+## 14. Provenance of every number
 
 | numbers | file | script (inputs) | seeds |
 |---|---|---|---|
@@ -387,3 +414,4 @@ unless stated; files `results/frozen_{segments,pathways,reach,origin,inner}_{mai
 | frozen-checkpoint diagnostics (section 11) | `results/frozen_{segments,pathways,reach,origin,inner}_{main,loeo}.csv` | `diagnostics_frozen.py` (final.pt of every cell, features.npz) | 0-4 |
 | review checks (section 12) | `results/review_*.csv`, `results/review_effective_events_*.json` | `review_checks.py` (outer.npz, final.pt, features.npz, features_geo40.npz) | 0-4 |
 | nine further descriptors (PREREG Amendment 1) | `data/interim/open_gcrk/geography_ext.parquet`, `features_geo40.npz`; `data_provenance/geography_ext_{log.jsonl,meta.json}`, `features_geo40_checksum.json` | `build_geography_ext.py`, `build_features.py --geo-ext` | none |
+| E2 (section 13) | `results/e2_{main,loeo}.csv` | `e2_refit.py`, `e2_evaluate.py` (runs/.../e2/, final.pt) | 0-4 |

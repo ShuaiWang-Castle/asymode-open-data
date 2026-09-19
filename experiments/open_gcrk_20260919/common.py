@@ -2,15 +2,19 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-FEATURES = ROOT / "data" / "interim" / "open_gcrk" / "features.npz"
-RUNS = ROOT / "runs" / "open_gcrk_20260919"
-RESULTS = HERE / "results"
+# OPEN_GCRK_ROUND selects a later round (PREREG Amendment 2); unset = round 1 as pre-registered
+ROUND = os.environ.get("OPEN_GCRK_ROUND", "r1")
+FEATURES = ROOT / "data" / "interim" / "open_gcrk" / ("features.npz" if ROUND == "r1" else f"features_{ROUND}.npz")
+RUNS = ROOT / "runs" / "open_gcrk_20260919" / ("" if ROUND == "r1" else ROUND)
+RESULTS = HERE / "results" / ("" if ROUND == "r1" else ROUND)
+SPLITS_FILE = HERE / ("splits.json" if ROUND == "r1" else f"splits_{ROUND}.json")
 SEEDS = (0, 1, 2, 3, 4)
 SEGMENTS = {"1-6 h": (1, 6), "7-24 h": (7, 24), "25-48 h": (25, 48), "49-144 h": (49, 144)}
 PEAK_MIN = 0.01
@@ -22,7 +26,7 @@ def load_features() -> dict:
 
 
 def load_splits() -> dict:
-    return json.loads((HERE / "splits.json").read_text())
+    return json.loads(SPLITS_FILE.read_text())
 
 
 def cell(design, seed, fold, arm) -> Path:

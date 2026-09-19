@@ -152,16 +152,18 @@ GEO_EXT = ["soil_wet_share", "soil_windthrow_hazard", "forest_wet_coloc", "wet_i
            "forest_near_developed", "elev_mean5", "relief5", "fia_forest_land_share"]
 
 
-def main(geo_ext: bool = False):
+def main(geo_ext: bool = False, events_file: str = "selected_events.json", geo_base: str = "geography.parquet",
+         geo_ext_file: str = "geography_ext.parquet", name: str | None = None):
     """geo_ext: append the nine descriptors of build_geography_ext.py (PREREG Amendment 1) and
-    write features_geo40.npz; the pre-registered features.npz is untouched."""
-    events = json.loads((HERE / "selected_events.json").read_text())["events"]
-    geo = pd.read_parquet(OUT / "geography.parquet")
+    write features_geo40.npz; the pre-registered features.npz is untouched. The other arguments
+    build the round-1 inputs for another event set (PREREG Amendment 3)."""
+    events = json.loads((HERE / events_file).read_text())["events"]
+    geo = pd.read_parquet(OUT / geo_base)
     geo_cols = [c for c in geo.columns if c != "n_land_pixels"]
     if geo_ext:
-        geo = geo.join(pd.read_parquet(OUT / "geography_ext.parquet")[GEO_EXT], how="left")
+        geo = geo.join(pd.read_parquet(OUT / geo_ext_file)[GEO_EXT], how="left")
         geo_cols = geo_cols + GEO_EXT
-    name = "features_geo40" if geo_ext else "features"
+    name = name or ("features_geo40" if geo_ext else "features")
     parts = {k: [] for k in ("xu", "xr", "xo", "geo", "y0", "y", "m", "y_full", "obs_full", "cust", "fips", "event")}
     for e in events:
         z = np.load(OUT / f"panel216_{e['event']}.npz")
@@ -208,4 +210,12 @@ def main(geo_ext: bool = False):
 
 
 if __name__ == "__main__":
-    main(geo_ext="--geo-ext" in sys.argv[1:])
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--geo-ext", action="store_true")
+    ap.add_argument("--events-file", default="selected_events.json")
+    ap.add_argument("--geo-base", default="geography.parquet")
+    ap.add_argument("--geo-ext-file", default="geography_ext.parquet")
+    ap.add_argument("--name", default=None)
+    a = ap.parse_args()
+    main(a.geo_ext, a.events_file, a.geo_base, a.geo_ext_file, a.name)
