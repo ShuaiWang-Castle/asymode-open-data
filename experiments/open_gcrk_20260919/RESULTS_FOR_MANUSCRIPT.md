@@ -58,6 +58,12 @@ A8. `tab:inputs` 两行：
 * Natural geography → `31 public descriptors control the GCRK response and its damage-side readout.`
 * County context → `Customer scale (EAGLE-I), rural--urban code (USDA ERS), population density (Census), utility mix and reliability (EIA-861), and five-nearest-county weather inform recovery.`
 
+A9. `gcrk_technical_companion.tex` 第 39 行第一句（地理输入的维数与预处理）替换为（后面的 "Center and bound it as" 不变）：
+
+```latex
+Let $\bm g_i\in\R^{31}$ be the geographic input, standardized with the fitting counties' means and standard deviations and clipped to $[-5,5]$; a missing soil descriptor is set to the fitting mean.
+```
+
 ---
 
 ## B. 目标、损失与指标只基于停电比例后必须改的方法句子
