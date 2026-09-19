@@ -39,6 +39,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -147,10 +148,20 @@ def statics(fips: list[str]) -> np.ndarray:
     return s[STATIC].to_numpy(float)
 
 
-def main():
+GEO_EXT = ["soil_wet_share", "soil_windthrow_hazard", "forest_wet_coloc", "wet_in_forest", "hazard_in_forest",
+           "forest_near_developed", "elev_mean5", "relief5", "fia_forest_land_share"]
+
+
+def main(geo_ext: bool = False):
+    """geo_ext: append the nine descriptors of build_geography_ext.py (PREREG Amendment 1) and
+    write features_geo40.npz; the pre-registered features.npz is untouched."""
     events = json.loads((HERE / "selected_events.json").read_text())["events"]
     geo = pd.read_parquet(OUT / "geography.parquet")
     geo_cols = [c for c in geo.columns if c != "n_land_pixels"]
+    if geo_ext:
+        geo = geo.join(pd.read_parquet(OUT / "geography_ext.parquet")[GEO_EXT], how="left")
+        geo_cols = geo_cols + GEO_EXT
+    name = "features_geo40" if geo_ext else "features"
     parts = {k: [] for k in ("xu", "xr", "xo", "geo", "y0", "y", "m", "y_full", "obs_full", "cust", "fips", "event")}
     for e in events:
         z = np.load(OUT / f"panel216_{e['event']}.npz")
@@ -183,18 +194,18 @@ def main():
     arr = {k: (np.concatenate(v).astype(np.float32) if k not in ("fips", "event", "obs_full") else
                (np.concatenate(v) if k == "obs_full" else np.array(v))) for k, v in parts.items()}
     assert np.isfinite(arr["xu"]).all() and np.isfinite(arr["xo"]).all() and np.isfinite(arr["y0"]).all()
-    np.savez_compressed(OUT / "features.npz", **arr,
+    np.savez_compressed(OUT / f"{name}.npz", **arr,
                         damage_features=np.array(DAMAGE_FEATURES), recovery_features=np.array(RECOVERY_FEATURES),
                         occurrence_features=np.array(HAZARD), geo_features=np.array(geo_cols),
                         weather_channels=np.array(CH))
-    f = OUT / "features.npz"
+    f = OUT / f"{name}.npz"
     rec = dict(file=str(f.relative_to(ROOT)), sha256=hashlib.sha256(f.read_bytes()).hexdigest(),
                units=int(len(arr["fips"])), counties=int(len(set(arr["fips"]))),
                d_u=int(arr["xu"].shape[-1]), d_r=int(arr["xr"].shape[-1]), d_occ=int(arr["xo"].shape[-1]),
                G=int(arr["geo"].shape[-1]))
-    (HERE / "data_provenance" / "features_checksum.json").write_text(json.dumps(rec, indent=1) + "\n")
+    (HERE / "data_provenance" / f"{name}_checksum.json").write_text(json.dumps(rec, indent=1) + "\n")
     print(rec)
 
 
 if __name__ == "__main__":
-    main()
+    main(geo_ext="--geo-ext" in sys.argv[1:])

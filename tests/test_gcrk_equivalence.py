@@ -66,8 +66,10 @@ def test_initialisation_recipe(tag):
     d = DT[tag]
     lin = nn.Linear(32, 32).to(d)
     lay = GCRKLayer(lin, t("in_center", tag), private_seed=REFERENCE_PRIVATE_SEED).to(d)
+    # the recipe draws and scales in float32 before casting, so float32 rounding (which can
+    # differ across platforms and BLAS builds) bounds the agreement for both dtypes
     for n in ("U", "a0", "l0"):
-        close(getattr(lay, n), FIX[f"{tag}_init_{n}"], tag, f"initial {n}")
+        close(getattr(lay, n), FIX[f"{tag}_init_{n}"], "f32", f"initial {n}")
     for n in ("Vl", "Va", "Vg", "g0", "alpha"):
         assert float(getattr(lay, n).detach().abs().max()) == 0.0
 

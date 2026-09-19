@@ -1,0 +1,10 @@
+{
+ "file": "data/interim/open_gcrk/features_geo40.npz",
+ "sha256": "5fdb827ca7b5503d91a3a1df9f200eeea53ff25437fe0cf2c352eb33f6939baa",
+ "units": 2660,
+ "counties": 1756,
+ "d_u": 40,
+ "d_r": 33,
+ "d_occ": 7,
+ "G": 40
+}

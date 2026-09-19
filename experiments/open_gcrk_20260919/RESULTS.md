@@ -12,14 +12,21 @@ repository: [B] = full protocol, >= 3 seeds, sign consistent.
 * **GCRK does not improve on W.** Full-rollout RMSE is higher in 5 of 5 seeds
   (+0.53% on average; paired differences +2.0e-5 to +3.6e-4). By lead time: 1-6 h and
   49-144 h no consistent difference; 7-24 h no consistent difference (2/5 lower);
-  25-48 h worse in 5/5 (+3.3%). MAE worse in 5/5 (+6.5%). **[B], negative.**
+  25-48 h worse in 5/5 (+3.3%). MAE worse in 5/5 (+6.5%). **[B], negative.** Seed
+  agreement measures initialisation only: resampling counties, the 95% interval of the
+  RMSE change is -1.3% to +2.1% (event x state blocks: -1.5% to +2.8%), so over the
+  sampled counties and storms GCRK and W are indistinguishable; one event carries 78% of
+  the squared outage signal (effective number of events 1.6; section 12).
 * GCRK is slightly better on peaks in 4 of 5 seeds: mean absolute peak-magnitude error
   -0.5%, peak-time error 19.3 h -> 18.3 h. It also predicts non-zero outage more often
-  in hours that are observed at zero (false-activity share 0.31 -> 0.43, 5/5).
+  in hours that are observed at zero (false-activity share 0.31 -> 0.43, 5/5). The extra
+  false activity stays when the kernel exit is closed (0.43); frozen replays place it in
+  the gated damage term of the network trained with the kernel (section 11).
 * The kernel's output is used: closing the exit of the trained GCRK network raises RMSE
   to 0.02731 (5/5 above both W and GCRK). The GCRK - W difference splits into a joint-
   training part (closed - W = +1.01e-3) and a kernel-output part (open - closed =
-  -0.87e-3) that almost cancel.
+  -0.87e-3) that almost cancel. This is an arithmetic split of RMSE between trained
+  configurations, not a causal attribution to parameter blocks.
 * Effects are two-sided and county-concentrated: in every seed GCRK is better in
   1080-1302 of the 2660 county-events and worse in 1358-1580; 1% of the units carry
   52-63% of all gains and 45-60% of all losses; the 2021-12-11 event holds 78% of the
@@ -34,8 +41,14 @@ repository: [B] = full protocol, >= 3 seeds, sign consistent.
 * Leave-one-event-out (robustness, 50 more cells): transferring to an unseen event, both
   trained models lose their edge over the all-zero forecast (W 0.03144, GCRK 0.03063,
   all-zero 0.03049). GCRK is better than W in 4/5 seeds there (-2.5%), and the GCRK network
-  with its kernel exit closed is best (0.03003; below all-zero in 4/5 seeds): the
-  transferable part is the jointly trained host, not the kernel's output. One pre-registered outlier cell (held-out
+  with its kernel exit closed is best (0.03003; below all-zero in 4/5 seeds); arithmetically
+  the gain over W sits in the closed-exit network and the kernel's output adds error on
+  average. Model selection here used county-grouped inner folds inside the training events
+  (as pre-registered), i.e. it tuned t* for new counties of seen storms, not for new storms.
+  All three trained forecasts are too large in amplitude under transfer (oracle scale
+  factors 0.40 W, 0.54 GCRK, 0.68 closed); one common rescaling removes 83% of their RMSE
+  spread, so the ordering mostly reflects how much each overshoots (section 12).
+  One pre-registered outlier cell (held-out
   2024-02-27, seed 4) comes from the kernel output extrapolating to 37-70% outages in ten
   counties of the interior West and the Maine coast whose observed peaks were 0-21%.
 
@@ -43,7 +56,9 @@ repository: [B] = full protocol, >= 3 seeds, sign consistent.
 
 * Data: 5 events chosen by the public-metadata rule (`event_selection.csv`), 2660
   county-events in 1756 counties and 45 states, 216 hours each, 99.94% of county-hours
-  observed (`panel_gates.csv`, `results/panel_description.json`).
+  observed, where observed means a record or an inferred zero while the county's feed was in
+  service (a record within 7 days; `src/asymode/panel.py`) (`panel_gates.csv`,
+  `results/panel_description.json`).
 * Models: W and GCRK re-implemented in `src/asymode/` (GCRK equal to the frozen
   reference layer on synthetic inputs, `tests/test_gcrk_equivalence.py`: float32
   <= 1e-6, float64 <= 1e-12). GCRK adds 574 parameters (31 geographic descriptors).
@@ -115,11 +130,16 @@ OUTER RMSE is lower than W's in 11 of 25 (seed, fold) cells and its best INNER l
 | mean | 0.026298 | 0.027307 | 0.026436 | +1.01e-3 | -8.71e-4 | +1.38e-4 |
 
 The closed configuration is the trained GCRK network with its response contribution
-removed (drop-path exposes it during training). Jointly training the host with the kernel
-makes the host alone worse than W; the kernel's output recovers most but not all of it.
+removed (drop-path exposes it during training). With the exit closed the network trained
+with the kernel is worse than W, and the kernel's output recovers most but not all of the
+gap. The split describes trained configurations; it does not say which parameter block
+causes the difference (section 11 locates where the errors arise).
 The kernel opening tanh(alpha) is -0.83 to +0.88 across cells and its sign is constant
-within a seed (seeds 1 and 2 negative, 0, 3 and 4 positive): the state enters through the
-same W2 as h, so the sign is absorbed by the weights and is not a pathology.
+within a seed (seeds 1 and 2 negative, 0, 3 and 4 positive). The two signs are different
+operators (with W2 shared by h and the state, one amplifies persistent departures and the
+other damps them), and alpha has not converged: it starts at 0 and |alpha| / t* averages
+2.2e-3 per step, about three quarters of the learning rate, with corr(|alpha|, t*) = 0.73.
+Its size at t* reflects the training length more than a learned optimum (section 12).
 
 ## 5. By event (full-rollout RMSE; W and GCRK mean ± sd over seeds)
 
@@ -157,8 +177,8 @@ every unit is forecast by models that never saw its event. 50 cells (5 events x 
   7-24 h -6.5% (4/5), 25-48 h -8.4% (4/5): "GCRK better (4/5)"; 49-144 h and MAE no
   consistent difference; peak magnitude -3.2% (4/5); false activity +32% (0/5 lower).
 * Kernel exit: closed - W = -1.40e-3 (5/5 negative), open - closed = +6.0e-4 (3/5
-  positive). Under event transfer the gain over W comes from the host trained jointly with
-  the kernel and drop-path, not from the kernel's output, which on average adds error.
+  positive). Under event transfer the gain over W appears in the closed-exit network, and
+  the kernel's output adds error on average (arithmetic split, not a causal attribution).
 * Pathology (PREREG 9): one cell exceeds 1.5 times its median, held-out 2024-02-27 with
   seed 4 (GCRK 0.0319 against 0.0194 with the exit closed, ratio 1.63). Its kernel output
   lifts the forecast to 37-70% in ten counties, eight in Utah, California, New Mexico and
@@ -247,17 +267,107 @@ value; no (seed, fold) OUTER RMSE above 1.04 times the median of its arm and fol
 
 * ERA5 reanalysis is used over the whole window, a perfect-weather-forecast setting for
   every model compared; ERA5 gusts at 0.25 degrees do not resolve local convective gusts.
+  The gust channel is the instantaneous gust at each hour ('instantaneous_10m_wind_gust'),
+  not the hour's maximum ('10m_wind_gust_since_previous_post_processing'), and the gust
+  exceedance terms are computed after the county area average, which can remove local
+  exceedances ([mean gust - 15]_+^2 <= mean([gust - 15]_+^2)).
 * The denominator is the publisher's modelled 2024 county customer count applied to
   2019-2024; 4 county-events reach p = 1 for a few hours. Sensitivity (not pre-registered):
   without them GCRK - W is +3.0e-4 on full-rollout RMSE, +3.5e-4 at 25-48 h and +3.7e-4 on
   MAE, higher in 5/5 seeds each (`results/sensitivity_no_cap_main.json`); those units
   favoured GCRK, so the main conclusion does not rest on them.
 * The county set is each event's wind-report footprint; quiet counties outside it are
-  not in the panel.
-* Soil-forest co-location and a national windthrow interpretation could not be rebuilt
-  from public data (PREREG 3); county-share products and root-limiting soils stand in.
+  not in the panel. Storm Events wind reports are partly damage reports, so the panel
+  conditions on a damage proxy in the forecast window and leaves out exposed counties
+  without reported damage, the contrast geography would most need.
+* The pre-registered geography (31 descriptors) has no soil-forest co-location and uses
+  root-limiting soils in place of a windthrow rating. PREREG 3 said SSURGO carries a
+  windthrow-hazard interpretation for two states only; that was wrong: the national rule
+  'FOR - Windthrow Hazard' is published for survey areas in every state (PREREG Amendment 1).
+  Both are rebuilt in `build_geography_ext.py` for a separately labelled round; every result
+  above uses the 31.
 
-## 11. Provenance of every number
+## 11. Frozen-checkpoint diagnostics (post hoc; no retraining)
+
+Every REFIT checkpoint was replayed on its own OUTER units (`diagnostics_frozen.py`; the
+replays reproduce the exported forecasts to < 1e-5). Means over seeds 0-4, main design
+unless stated; files `results/frozen_{segments,pathways,reach,origin,inner}_{main,loeo}.csv`.
+
+* Where the squared error is (share of total; W / GCRK / GCRK exit closed): observed rises
+  39.5% / 39.5% / 41.4%, falls 27.2% / 27.7% / 27.5%, other active hours 30.7% / 30.3% /
+  29.1%, hours observed at zero 2.6% / 2.6% / 2.0%. GCRK's extra squared error over W
+  (+2.8) is in falls (+2.0) and rises (+1.2). In falls GCRK predicts lower p than W (mean
+  0.0223 vs 0.0231, observed 0.0338), and its recovery rate is higher (mean 0.250 vs 0.235).
+* False activity (p > 0.001 in hours observed at zero): W 0.309, GCRK 0.429, exit closed
+  0.430. Rolling each model forward on its own rates with the background rate removed
+  leaves 0.092 (W) and 0.205 (GCRK; 0.201 closed); with the background rate alone, 0.225
+  and 0.227. The extra false activity comes from the gated damage term (occurrence gate x
+  damage sigmoid) of the network trained with the kernel, not from the background rate,
+  the recovery rate or the kernel's output. LOEO: 0.277 / 0.362 / 0.366, the same pattern.
+* Observed rises above 1 pp in an hour (3929 hours): the damage rate each model supplies is
+  a median 9% (W) and 12% (GCRK) of what the observed step needs. There the damage sigmoid
+  averages 0.022 (W), 0.032 (GCRK) and 0.017 (exit closed), and the occurrence gate 0.70 (W)
+  and 0.59 (GCRK); the ceiling b + 0.5 x gate is below the need in only 2.7% (W) and 5.0%
+  (GCRK) of these hours. Peaks are missed because the damage logit stays low, not because
+  of the gate's ceiling; the kernel nearly doubles the damage sigmoid on big rises, which is
+  why closing the exit costs most on rises.
+* Forecast-origin artifact: the path summaries accumulate from hour 72 (zero before) while
+  the kernel's reference is the prefix mean, so the start of accumulation can look like a
+  departure. With every OUTER unit's weather frozen at its hour-71 value, the kernel's
+  effect on the damage logit (open - closed) averages -0.017 (mean absolute 0.028) with the
+  path summaries as trained and -0.003 (0.006) when they accumulate from hour 0; its effect
+  on p averages -2e-5 and exceeds 1 pp in 0.04% of units. The artifact is present in the
+  trained kernels but far too small to explain the results; a new round should still
+  accumulate from hour 0 for W and GCRK alike.
+* Model selection: GCRK's best pooled INNER MSE is below W's in 10/25 cells (LOEO 11/25).
+
+## 12. Checks raised by external review (post hoc; no retraining)
+
+`review_checks.py`; files `results/review_*`. Means over seeds 0-4.
+
+* Sampling uncertainty (cluster bootstrap of the seed-mean squared error of each unit,
+  5000 draws). Main design, GCRK vs W: +0.52% RMSE, 95% interval -1.3% to +2.1% resampling
+  counties (P(worse) 0.73), -1.5% to +2.8% resampling event x state blocks (0.66). Exit
+  closed vs W: +3.8% (counties +1.9% to +5.6%; blocks +0.1% to +7.3%); GCRK vs exit closed:
+  -3.2% (counties -5.1% to -1.3%; blocks -7.4% to +0.4%). LOEO, GCRK vs W: -2.5% (counties
+  -3.9% to -1.2%; blocks -6.7% to +0.9%; five events -13.4% to +6.4%). The 2021-12-11 event
+  holds 77.8% of the all-zero squared error; the other four 8.3%, 2.5%, 4.8% and 6.6%
+  (effective number of events 1.61).
+* Oracle rescaling (each forecast multiplied by the scalar that minimises its own squared
+  error). Main: scale factors 0.96 (W), 1.00 (GCRK), 1.21 (exit closed); RMSE after
+  rescaling 0.02628, 0.02642, 0.02720, the same order. LOEO: 0.40, 0.54, 0.68; RMSE after
+  rescaling 0.02990, 0.02974, 0.02966 (before 0.03144, 0.03063, 0.03003), all below the
+  all-zero 0.03049; per-event rescaling 0.02916, 0.02876, 0.02870. Under event transfer the
+  models carry pattern information but overshoot in amplitude, and most of the LOEO ordering
+  is the size of that overshoot.
+* False activity by threshold (main; W / GCRK / exit closed): p > 0.001 0.309 / 0.429 /
+  0.430; > 0.005 0.067 / 0.085 / 0.079; > 0.01 0.030 / 0.036 / 0.032; > 0.02 0.011 / 0.013
+  / 0.012. The 0.001 threshold sits near the background-rate level, so the pre-registered
+  share overstates the difference; the direction holds at every threshold.
+* Kernel opening alpha: see section 4 (LOEO: |alpha| / t* 2.1e-3, corr 0.58; sign set by
+  seed except in five cells).
+* Trained memory lengths (main; median over cells of the per-county values): shortest
+  coordinate 9.8 h, longest 24.5 h (ratio 2.9); no coordinate's steady-state gain nu /
+  lambda_j is below 0.1, 32% are below 0.5; across counties the memory lengths vary by 9%
+  (coefficient of variation). The dampings did not split into very fast and very slow
+  coordinates, and geography changes them little.
+* Kernel gate (main): share of unit-hours with the gate above 0.5 is 3.6% in the prefix
+  (hours 1-71) and 18%, 24%, 22% and 31% at leads 1-6, 7-24, 25-48 and 49-144 h; the mean
+  deposit norm rises from 0.10 in the prefix to 0.31 at 49-144 h. Holding one input group
+  at its own prefix mean for all hours lowers the forecast-window deposit norm by 43%
+  (wind), 31% (path summaries), 28% (slow thermal, snow and soil inputs), 13% (other) and
+  10% (precipitation). The kernel mostly integrates a growing drift of the weather away from
+  the prefix, not isolated shocks.
+* E0, geographic information in W's held-out errors (ridge on the descriptors; 200
+  permutations of the descriptors within event x state blocks as the null). Main design,
+  county-grouped cross-validation: out-of-fold R2 0.002 for the mean residual (null 95th
+  percentile 0.000, p = 0.005) and 0.031 for the log peak ratio (0.017, p = 0.005) with the
+  31 descriptors; 0.001 and 0.034 with 40. LOEO, event-grouped: R2 -0.16 to -0.19, below
+  the null (p 0.87-0.99). Within seen storms the descriptors carry a small, detectable
+  signal about where W misses peaks; nothing of it carries across events, and the nine added
+  descriptors add nothing.
+
+## 13. Provenance of every number
 
 | numbers | file | script (inputs) | seeds |
 |---|---|---|---|
@@ -274,3 +384,6 @@ value; no (seed, fold) OUTER RMSE above 1.04 times the median of its arm and fol
 | panel descriptives | `results/panel_description.*`, `results/weather_twin_pair.json` | `describe_panel.py` (features.npz) | none |
 | LOEO tables, decomposition, pathology, per cell | `results/*_loeo.*`, `results/loeo_cells.csv` | `evaluate.py loeo`, `make_tables.py loeo`, inline cell check (runs/.../loeo/*/outer.npz) | 0-4 |
 | sensitivities (not pre-registered) | `results/sensitivity_no_cap_main.json`, `results/sensitivity_loeo_without_2024-02-27.json` | inline scripts (outer.npz, features.npz) | 0-4 |
+| frozen-checkpoint diagnostics (section 11) | `results/frozen_{segments,pathways,reach,origin,inner}_{main,loeo}.csv` | `diagnostics_frozen.py` (final.pt of every cell, features.npz) | 0-4 |
+| review checks (section 12) | `results/review_*.csv`, `results/review_effective_events_*.json` | `review_checks.py` (outer.npz, final.pt, features.npz, features_geo40.npz) | 0-4 |
+| nine further descriptors (PREREG Amendment 1) | `data/interim/open_gcrk/geography_ext.parquet`, `features_geo40.npz`; `data_provenance/geography_ext_{log.jsonl,meta.json}`, `features_geo40_checksum.json` | `build_geography_ext.py`, `build_features.py --geo-ext` | none |

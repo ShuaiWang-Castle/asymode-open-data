@@ -227,3 +227,20 @@ unreduced.
 
 Every seed, fold, event and arm; negative and null results; the per-unit and per-event
 gains behind any pooled number; all pathology checks.
+
+## Amendment 1 (2026-09-19, after the main and leave-one-event-out results; PI request)
+
+Nothing above is changed; the pre-registered analysis and its results stand as run.
+
+1. Erratum to section 3. SSURGO publishes the national windthrow-hazard interpretation
+   'FOR - Windthrow Hazard' for survey areas in every state (3,379 survey-area
+   interpretations in Soil Data Access); section 3 said it exists for two states only,
+   which confused it with the state rules of Vermont and Michigan.
+2. Nine further public descriptors are built by `build_geography_ext.py`: soil x land-cover
+   co-location on one sample lattice (gNATSGO map units and Annual NLCD 2021): wet-soil
+   share, windthrow-hazard share, forest-and-wet share, wet share within forest, hazard
+   share within forest; forest within 150 m of developed land; five-point 3DEP elevation
+   mean and range; FIA forest-land share. They enter only a new, separately labelled round.
+3. Frozen-checkpoint diagnostics (`diagnostics_frozen.py`) are post hoc and descriptive.
+4. Any new training round (inputs, geography or model-selection changes) is specified
+   here before it is run, with W and GCRK changed together wherever an input both read.

@@ -23,7 +23,7 @@ We study this setting on five multi-state wind events in public county outage re
 A2. `sec:data` 第一小节正文（事件、日期、县数、训练与测试县的描述）替换为：
 
 ```latex
-We assemble 216-hour windows around five multi-state wind events of 2019--2024 chosen by a fixed rule on NOAA Storm Events metadata: each is driven by strong gusts with convective lines or gust fronts, spans several days, begins after a quiet 72-hour prefix, and brings a second wind, precipitation, or cold-sector wave. An event's county set is its wind-report footprint after data-quality gates, giving 2,660 county-events in 1,756 counties across 45 states. Hourly outage fractions come from EAGLE-I county records, divided by the publisher's modelled 2024 county customer counts; the 0.06\% of county-hours without an observation are excluded from every loss and metric.
+We assemble 216-hour windows around five multi-state wind events of 2019--2024 chosen by a fixed rule on NOAA Storm Events metadata: each is driven by strong gusts with convective lines or gust fronts, spans several days, begins after a quiet 72-hour prefix, and brings a second wind, precipitation, or cold-sector wave. An event's county set is its wind-report footprint after data-quality gates, giving 2,660 county-events in 1,756 counties across 45 states. Hourly outage fractions come from EAGLE-I county records, divided by the publisher's modelled 2024 county customer counts. A missing record is read as zero while the county's feed is in service (a record within seven days); the remaining 0.06\% of county-hours are excluded from every loss and metric.
 ```
 
 A3. Figure 1 换成 `figures/fig1_event_county_impacts_open.pdf`（仍是三联：第一波、第二波、合并；
@@ -103,7 +103,7 @@ C1. 摘要最后两句（数据来源一句与结果数字一句）替换为下�
 "When a whole event is held out, neither model beats the all-zero forecast."：
 
 ```latex
-On 2,660 county-events from five multi-state wind events in public outage records, the trajectory model lowers the RMSE of an all-zero forecast from 0.0305 to 0.0263, whereas adding GCRK to the same host does not lower it further (0.0264; higher in all five seeds); GCRK slightly reduces peak-timing error and increases false activity in quiet hours.
+On 2,660 county-events from five multi-state wind events in public outage records, the trajectory model lowers the RMSE of an all-zero forecast from 0.0305 to 0.0263, whereas adding GCRK to the same host does not lower it further (0.0264; a change of +0.5\%, with a 95\% county-resampling interval of $-1.3$\% to $+2.1$\%); GCRK slightly reduces peak-timing error and increases false activity in quiet hours.
 ```
 
 C2. `tab:results` 换成 `results/table_main_main.tex`（行：All zero、Persistence、TimesFM、Weather host W、
@@ -126,12 +126,12 @@ Errors are pooled over the 382,736 observed held-out county-hours: 15,959, 47,85
 C5. 同小节第三段（与宿主的配对比较数字）替换为：
 
 ```latex
-Both trained models reduce the all-zero RMSE of 0.0305 to 0.0263 (W) and 0.0264 (GCRK); zero-shot TimesFM does not (0.0309), and persistence is worse than zero (0.0321). Against its own host, GCRK does not lower the error. Its full-rollout RMSE is higher in all five seeds (by 0.5\% on average), its 25--48-hour RMSE is higher by 3.3\% in all five seeds, and the other lead-time segments show no consistent difference. The same trained GCRK network with its kernel exit closed reaches 0.0273: the jointly trained host relies on the kernel's output, which recovers most, but not all, of what joint training costs relative to a host trained alone. On MAE both trained models are worse than the all-zero forecast (0.0056 and 0.0060 against 0.0045), because the target is zero in most county-hours.
+Both trained models reduce the all-zero RMSE of 0.0305 to 0.0263 (W) and 0.0264 (GCRK); zero-shot TimesFM does not (0.0309), and persistence is worse than zero (0.0321). Against its own host, GCRK does not lower the error, and the difference is within sampling uncertainty: resampling counties gives a 95\% interval of $-1.3$\% to $+2.1$\% for the change in RMSE, and one event carries 78\% of the squared outage signal. Its full-rollout RMSE is higher in all five seeds (by 0.5\% on average), its 25--48-hour RMSE is higher by 3.3\% in all five seeds, and the other lead-time segments show no consistent difference. The same trained GCRK network with its kernel exit closed reaches 0.0273: with the exit closed, the network trained with the kernel is worse than W, and the kernel's output recovers most, but not all, of the gap. On MAE both trained models are worse than the all-zero forecast (0.0056 and 0.0060 against 0.0045), because the target is zero in most county-hours.
 ```
 接在上段之后加入留一事件（LOEO）的一段（数字见 `RESULTS.md` 第 6 节）：
 
 ```latex
-Holding out each event in turn is harder. Neither W nor GCRK then beats the all-zero forecast (RMSE 0.0314 and 0.0306 against 0.0305). GCRK is better than W in four of five seeds, by 2.5\% overall and by 6.5\% and 8.4\% at 7--24 and 25--48 hours, and the same GCRK network with its kernel exit closed is lowest (0.0300, below the all-zero forecast in four of five seeds). What transfers to an unseen storm is therefore the host trained jointly with the kernel, not the kernel's output: for one held-out event and seed, that output lifts ten counties in the interior West and on the Maine coast to 37--70\% outages where at most 21\% were observed.
+Holding out each event in turn is harder. Neither W nor GCRK then beats the all-zero forecast (RMSE 0.0314 and 0.0306 against 0.0305). GCRK is better than W in four of five seeds, by 2.5\% overall (95\% interval over event-by-state blocks $-6.7$\% to $+0.9$\%) and by 6.5\% and 8.4\% at 7--24 and 25--48 hours, and the same GCRK network with its kernel exit closed is lowest (0.0300, below the all-zero forecast in four of five seeds). All three forecasts overshoot in amplitude under transfer (the RMSE-minimising scale factors are 0.40, 0.54, and 0.68), and one common rescaling removes most of their differences, so the ordering mainly reflects the size of the overshoot. The kernel's output adds error on average: for one held-out event and seed, it lifts ten counties in the interior West and on the Maine coast to 37--70\% outages where at most 21\% were observed.
 ```
 
 C6. `sec:results` 第二小节（个例与阈值诊断两段）替换为：
@@ -184,10 +184,12 @@ On five public wind events, the population-balance trajectory model clearly outp
 
 ## F. 需要 PI 决定的写作问题
 
-1. 结果与原稿叙事相反。按县留出（同一批风暴）时 GCRK 略差于宿主；按事件留出时 GCRK 在 4/5 个
-   seed 好于宿主，但此时两个模型都不优于全零预测，而且好处来自联合训练出的宿主而不是 kernel 输出。
-   是否仍把 GCRK 作为最终方法、贡献怎么表述（例如：人口平衡轨迹模型相对基线的改进；GCRK 作为
-   跨事件的训练正则），由 PI 决定。
+1. 结果与原稿叙事相反。按县留出（同一批风暴）时 GCRK 与宿主在抽样误差内不可区分（按县重抽
+   95% 区间 −1.3% 到 +2.1%）；按事件留出时 GCRK 在 4/5 个 seed 好于宿主，但两个模型都不优于
+   全零预测，差别主要是幅度过冲大小不同（最优缩放后差距缩小 83%）。是否仍把 GCRK 作为最终方法、
+   贡献怎么表述，由 PI 决定。
+4. 两份外部审阅的核对结果见 `RESULTS.md` 第 11、12 节；本清单里的 C1、C5 和 LOEO 段已按其收紧
+   （不确定性区间、幅度过冲、分解只作算术拆分）。
 2. Figure 3 按规则选到的县里 kernel 对预测几乎没有影响；机制展示可以放补充图 S3，但它是事后按
    模型输出选的，正文若引用必须说明。
 3. 评估是"完美天气预报"设定（ERA5 再分析覆盖全窗口），需要在数据节写明。

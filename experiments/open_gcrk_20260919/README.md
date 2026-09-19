@@ -20,13 +20,18 @@ every number: `RESULTS.md`. Figure captions: `CAPTIONS.md`. What changes in the 
 | 10 diagnostics (inference only) | `diagnostics.py concentration|swap|figure3` | `results/`, `results/figure_data/` |
 | 11 figures | `figures.py` | `figures/*.pdf`, `figures/*.png` |
 | 12 source checksums | `record_sources.py` | `data_provenance/SOURCES.md` |
+| 13 frozen-checkpoint diagnostics (post hoc) | `diagnostics_frozen.py` | `results/frozen_*` |
+| 14 nine further descriptors (PREREG Amendment 1; needs rasterio) | `build_geography_ext.py`, then `build_features.py --geo-ext` | `data/interim/open_gcrk/geography_ext.parquet`, `features_geo40.npz`, `data_provenance/geography_ext_*` |
+| 15 checks raised by external review (post hoc) | `review_checks.py` | `results/review_*` |
 
 The model code lives in `src/asymode/` (`asym_host.py`, `gcrk.py`, `gcrk_train.py`); the
 kernel's equivalence to the frozen reference layer is `tests/test_gcrk_equivalence.py`.
 
 ## Large files (not in git)
 
-* `data/raw/era5/`, `data/raw/geography/` — raw public downloads (checksums in `data_provenance/`)
+* `data/raw/era5/`, `data/raw/geography/` — raw public downloads (checksums in `data_provenance/`);
+  step 14 adds `nlcd60/` (Annual NLCD 2021 at 60 m, 0.3 GB), `gnatsgo80/` (gNATSGO map units on
+  the 80 m lattice, 0.4 GB), `gnatsgo_items.json`, `gnatsgo_mapunits.parquet`, `dem_points/`, `fia/`
 * `data/interim/open_gcrk/` — panels, geography table, model inputs
 * `runs/open_gcrk_20260919/` — per cell: `final.pt` (weights, optimiser-free snapshot with the
   fitting-set standardisation and the kernel's calibration), `outer.npz` (OUTER hourly
