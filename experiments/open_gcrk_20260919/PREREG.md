@@ -244,3 +244,40 @@ Nothing above is changed; the pre-registered analysis and its results stand as r
 3. Frozen-checkpoint diagnostics (`diagnostics_frozen.py`) are post hoc and descriptive.
 4. Any new training round (inputs, geography or model-selection changes) is specified
    here before it is run, with W and GCRK changed together wherever an input both read.
+
+## Amendment 2 (2026-09-19, written before any run below; PI instruction to proceed)
+
+**E2, step-matched W refit (diagnostic).** In every main and LOEO cell, W is refit from
+scratch on the cell's development set for exactly the number of steps GCRK selected in that
+cell (same seed, data and optimiser; with the same initialisation and full-batch steps this is
+W's own refit path stopped at GCRK's t*). Its OUTER forecasts are compared with W at its own
+t*, GCRK and GCRK exit closed on RMSE, false activity and the gated-damage pathway. Reading: if
+W at GCRK's t* is close to the closed-exit network, the closed-exit gap is a training-length
+effect; if it stays close to W at its own t*, it comes from training with the kernel.
+
+**R2, input and protocol round (both arms change together).**
+(a) Gust is ERA5 '10m_wind_gust_since_previous_post_processing' (the hour's maximum) instead of
+the instantaneous gust, in every channel and summary that uses gust, own county and neighbours.
+(b) Gust exceedance energy, wet wind, snow-ice load, near-freeze and cold precipitation are
+computed on each ERA5 cell and then area-averaged over the county (their 6 h and 12 h sums
+follow); two damage inputs are added: the county's highest cell gust and the share of county
+area whose cell gust exceeds 15 m/s.
+(c) The five path summaries become trailing 72-hour summaries (maximum gust; sums of gust
+exceedance energy, wet wind and snow-ice load; hours since the 72-hour maximum), defined the
+same way in the prefix and the forecast window.
+(d) GCRK reads the 40 descriptors of Amendment 1.
+(e) LOEO selects t* on inner folds that each leave one development event out (four folds);
+the main design is unchanged.
+Screen: seed 0 only, main and LOEO, both arms (20 cells). Seeds 1-4 follow only if R2's W
+improves on round 1's W at seed 0 by more than round 1's seed-to-seed standard deviation of
+W's RMSE in at least one design (main 0.00036, LOEO 0.00102); otherwise R2 is reported as not
+better and stops. GCRK - W inside R2 at one seed is descriptive only. Evaluation as in round 1,
+plus cluster-bootstrap intervals (counties, event x state blocks) and the oracle rescaling.
+
+**E3, more events (data only here).** Candidate pool: the pre-registered one
+(`event_selection.csv`). Rules F2, F4, F5 and R1 are kept; F1 (convective gusts) and F3 (calm
+prefix) are dropped. The five pre-registered events are kept and the remaining candidates are
+added in decreasing order of forecast-window wind-report counties, skipping any window that
+overlaps one already taken, until there are twelve events. Panels, gates and descriptors are
+built by the same scripts. Which models are trained on the twelve events, and with which
+held-out design, is fixed in a further amendment before any such run.
