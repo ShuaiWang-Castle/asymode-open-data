@@ -5,7 +5,7 @@ this file is read from a file under `results/` that a named script wrote from th
 inputs; the provenance table at the end lists them. Grades follow `README.md` of the
 repository: [B] = full protocol, >= 3 seeds, sign consistent.
 
-## 0. Bottom line (main design: 5 county-grouped folds x 5 seeds x 2 arms, 50 cells, no failure)
+## 0. Bottom line (main design: 5 county-grouped folds x 5 seeds x 2 arms, 50 cells, no failure; leave-one-event-out: 50 more cells)
 
 * Both trained models beat every no-training baseline on RMSE by a wide margin
   (W 0.02630, GCRK 0.02644 against all-zero 0.03049, persistence 0.03207, TimesFM 0.03089).
@@ -31,6 +31,13 @@ repository: [B] = full protocol, >= 3 seeds, sign consistent.
   and +6e-6).
 * Per-unit GCRK - W differences are weakly reproducible across seeds (mean pairwise
   Spearman 0.23): single-seed county-level differences are dominated by initialisation.
+* Leave-one-event-out (robustness, 50 more cells): transferring to an unseen event, both
+  trained models lose their edge over the all-zero forecast (W 0.03144, GCRK 0.03063,
+  all-zero 0.03049). GCRK is better than W in 4/5 seeds there (-2.5%), and the GCRK network
+  with its kernel exit closed is best (0.03003; below all-zero in 4/5 seeds): the
+  transferable part is the jointly trained host, not the kernel's output. One pre-registered outlier cell (held-out
+  2024-02-27, seed 4) comes from the kernel output extrapolating to 37-70% outages in ten
+  counties of the interior West and the Maine coast whose observed peaks were 0-21%.
 
 ## 1. What was run
 
@@ -130,7 +137,49 @@ In 2021-03-26 and 2022-06-08 the trained models are within 3% of the all-zero fo
 
 ## 6. Leave-one-event-out (robustness)
 
-LOEO_PLACEHOLDER
+Each event is held out in turn and the other four train (inner folds county-grouped);
+every unit is forecast by models that never saw its event. 50 cells (5 events x 5 seeds x
+2 arms), no failure; t*: W 220-1280 (median 620), GCRK 220-750 (median 420).
+
+| model | RMSE all | 1-6 h | 7-24 h | 25-48 h | 49-144 h | MAE |
+|---|---:|---:|---:|---:|---:|---:|
+| all-zero | 0.03049 | 0.01502 | 0.02874 | 0.02888 | 0.03190 | 0.00452 |
+| persistence | 0.03207 | 0.01549 | 0.03046 | 0.03069 | 0.03344 | 0.00500 |
+| TimesFM, ERA5 covariates | 0.03089 | 0.01567 | 0.02920 | 0.02884 | 0.03237 | 0.00471 |
+| W | 0.03144 ± 0.00102 | 0.01416 ± 0.00058 | 0.03117 ± 0.00085 | 0.03292 ± 0.00294 | 0.03187 ± 0.00067 | 0.00692 ± 0.00042 |
+| AsymODE + GCRK | 0.03063 ± 0.00140 | 0.01412 ± 0.00044 | 0.02910 ± 0.00144 | 0.02998 ± 0.00132 | 0.03180 ± 0.00160 | 0.00700 ± 0.00049 |
+| GCRK, exit closed | 0.03003 ± 0.00064 | | | | | 0.00672 |
+
+* **Under event transfer neither trained model beats the all-zero forecast on RMSE**
+  (W 0.03144, GCRK 0.03063 against 0.03049); only the GCRK network with its exit closed
+  does, by 1.5% (0.03003; 4/5 seeds below all-zero). By event, the trained models beat all-zero only in 2021-12-11.
+* GCRK vs W (paired, PREREG 9): RMSE -2.5% (4/5 seeds lower), 1-6 h -0.2% (4/5),
+  7-24 h -6.5% (4/5), 25-48 h -8.4% (4/5): "GCRK better (4/5)"; 49-144 h and MAE no
+  consistent difference; peak magnitude -3.2% (4/5); false activity +32% (0/5 lower).
+* Kernel exit: closed - W = -1.40e-3 (5/5 negative), open - closed = +6.0e-4 (3/5
+  positive). Under event transfer the gain over W comes from the host trained jointly with
+  the kernel and drop-path, not from the kernel's output, which on average adds error.
+* Pathology (PREREG 9): one cell exceeds 1.5 times its median, held-out 2024-02-27 with
+  seed 4 (GCRK 0.0319 against 0.0194 with the exit closed, ratio 1.63). Its kernel output
+  lifts the forecast to 37-70% in ten counties, eight in Utah, California, New Mexico and
+  Colorado and two on the Maine coast, whose observed peaks are 0-21%; those ten units carry 87% of the excess squared error. Kept.
+  Sensitivity without that event (all seeds; not pre-registered): W 0.03317, GCRK 0.03195
+  (5/5 lower), exit closed 0.03159 (5/5 lower), all-zero 0.03211
+  (`results/sensitivity_loeo_without_2024-02-27.json`).
+
+| held-out event | units | all-zero | persistence | TimesFM | W | GCRK | GCRK - W | seeds GCRK lower |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2019-03-13 | 321 | 0.02534 | 0.02528 | 0.02529 | 0.03624 ± 0.00508 | 0.02999 ± 0.00266 | -6.3e-3 | 4/5 |
+| 2021-03-26 | 544 | 0.01059 | 0.01094 | 0.01068 | 0.01297 ± 0.00100 | 0.01142 ± 0.00093 | -1.6e-3 | 5/5 |
+| 2021-12-11 | 991 | 0.04408 | 0.04692 | 0.04474 | 0.04233 ± 0.00032 | 0.04192 ± 0.00047 | -4.1e-4 | 4/5 |
+| 2022-06-08 | 385 | 0.01756 | 0.01755 | 0.01767 | 0.02091 ± 0.00349 | 0.02164 ± 0.00412 | +7.3e-4 | 1/5 |
+| 2024-02-27 | 419 | 0.01971 | 0.01989 | 0.01998 | 0.01977 ± 0.00087 | 0.02190 ± 0.00562 | +2.1e-3 | 4/5 |
+
+The two designs answer different questions. Within events (new counties, seen storms)
+GCRK is slightly worse than W; across events (a new storm) it is better than W in four
+of five seeds, but both trained models then fall back to about the all-zero forecast.
+`results/tables_loeo.md`, `table_main_loeo.csv`, `paired_loeo.csv`, `decomposition_loeo.csv`,
+`events_loeo.csv`, `pathology_loeo.csv`, `loeo_cells.csv`.
 
 ## 7. Registered hypotheses (PREREG 10)
 
@@ -223,4 +272,5 @@ value; no (seed, fold) OUTER RMSE above 1.04 times the median of its arm and fol
 | Figure 3S data | `results/figure_data/fig3s_*`, `results/figure3s_choice.json` | `diagnostics.py figure3 --unit 1822 --tag s` | 0 |
 | case-county numbers, segment cell counts | `results/manuscript_numbers_main.json` | inline script recorded in this file's history (outer.npz, features.npz) | 0-4 |
 | panel descriptives | `results/panel_description.*`, `results/weather_twin_pair.json` | `describe_panel.py` (features.npz) | none |
-| LOEO | `results/*_loeo.*` | `evaluate.py loeo`, `make_tables.py loeo` | 0-4 |
+| LOEO tables, decomposition, pathology, per cell | `results/*_loeo.*`, `results/loeo_cells.csv` | `evaluate.py loeo`, `make_tables.py loeo`, inline cell check (runs/.../loeo/*/outer.npz) | 0-4 |
+| sensitivities (not pre-registered) | `results/sensitivity_no_cap_main.json`, `results/sensitivity_loeo_without_2024-02-27.json` | inline scripts (outer.npz, features.npz) | 0-4 |

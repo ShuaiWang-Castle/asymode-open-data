@@ -66,3 +66,12 @@ grouped folds; each county's events are held out together). RMSE over the whole 
 AsymODE + GCRK: mean ± standard deviation over five initialisation seeds, each trained by
 its own inner early stopping and refit. TimesFM is evaluated zero-shot with ERA5
 covariates. Lower is better.
+
+## Table (robustness, leave-one-event-out) — `results/table_main_loeo.tex`
+
+Forecast accuracy when each of the five events is held out in turn and the models are
+trained on the other four (inner folds county-grouped), so that every county-event is
+forecast by models that never saw its storm. Same units, metrics and seeds as the main
+table. Neither trained model beats the all-zero forecast on RMSE here; the GCRK network
+with its kernel exit closed (not shown; 0.03003 ± 0.00064) does in four of five seeds.
+Lower is better.

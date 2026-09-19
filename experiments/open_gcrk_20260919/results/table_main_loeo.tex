@@ -1,0 +1,13 @@
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+&\multicolumn{5}{c}{RMSE of the outage fraction}&\\
+\cmidrule(lr){2-6}
+Model&all&1--6 h&7--24 h&25--48 h&49--144 h&MAE\\
+\midrule
+All zero&0.03049&0.01502&0.02874&0.02888&0.03190&0.00452\\
+Persistence&0.03207&0.01549&0.03046&0.03069&0.03344&0.00500\\
+TimesFM&0.03089&0.01567&0.02920&0.02884&0.03237&0.00471\\
+Weather host W&0.03144\,{\scriptsize$\pm$0.00102}&0.01416\,{\scriptsize$\pm$0.00058}&0.03117\,{\scriptsize$\pm$0.00085}&0.03292\,{\scriptsize$\pm$0.00294}&0.03187\,{\scriptsize$\pm$0.00067}&0.00692\,{\scriptsize$\pm$0.00042}\\
+AsymODE + GCRK&0.03063\,{\scriptsize$\pm$0.00140}&0.01412\,{\scriptsize$\pm$0.00044}&0.02910\,{\scriptsize$\pm$0.00144}&0.02998\,{\scriptsize$\pm$0.00132}&0.03180\,{\scriptsize$\pm$0.00160}&0.00700\,{\scriptsize$\pm$0.00049}\\
+\bottomrule
+\end{tabular}
