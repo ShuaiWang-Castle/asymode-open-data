@@ -199,7 +199,10 @@ value; no (seed, fold) OUTER RMSE above 1.04 times the median of its arm and fol
 * ERA5 reanalysis is used over the whole window, a perfect-weather-forecast setting for
   every model compared; ERA5 gusts at 0.25 degrees do not resolve local convective gusts.
 * The denominator is the publisher's modelled 2024 county customer count applied to
-  2019-2024; 4 county-events reach p = 1 for a few hours.
+  2019-2024; 4 county-events reach p = 1 for a few hours. Sensitivity (not pre-registered):
+  without them GCRK - W is +3.0e-4 on full-rollout RMSE, +3.5e-4 at 25-48 h and +3.7e-4 on
+  MAE, higher in 5/5 seeds each (`results/sensitivity_no_cap_main.json`); those units
+  favoured GCRK, so the main conclusion does not rest on them.
 * The county set is each event's wind-report footprint; quiet counties outside it are
   not in the panel.
 * Soil-forest co-location and a national windthrow interpretation could not be rebuilt
