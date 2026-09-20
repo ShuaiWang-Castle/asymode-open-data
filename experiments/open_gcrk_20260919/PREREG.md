@@ -354,7 +354,7 @@ Arms, all sharing W's initialisation at the same seed:
   (log customers, rural-urban code, log population density, cooperative share, log(1 + utilities),
   log(1 + SAIDI)), standardised on the fitting set and constant over the window. Weight and bias
   start at zero, so at step 0 the arm is exactly W; it adds 7 parameters.
-* **W+G**: the same term on the 40 geographic descriptors (47 parameters). This is the
+* **W+G**: the same term on the 40 geographic descriptors (41 parameters; an earlier draft of this line said 47, which was a miscount corrected before the run). This is the
   level-versus-memory control for geography.
 
 Everything else follows round 1: Adam at 0.003 (host, including the new term) and 0.0003

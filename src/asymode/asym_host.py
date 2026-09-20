@@ -122,12 +122,29 @@ class AsymODE(nn.Module):
         self.smoother = nn.Linear(d_u, 1)
         self.occurrence = nn.Linear(d_occ, 1)
         self.background = nn.Linear(d_u, 1)
+        self.level, self.level_source = None, None
         with torch.no_grad():
             self.damage[-1].bias.fill_(u_bias_init)
             self.smoother.weight.zero_()
             self.smoother.bias.fill_(smoother_bias)
             self.occurrence.bias.fill_(occ_bias)
             self.background.bias.fill_(bkg_bias)
+
+    # ------------------------------------------------- county-level slot (Amendment 5)
+    def attach_level(self, d_ctx: int, source: str = "ctx"):
+        """One linear term on the damage logit, constant over the window and zero at the start.
+
+        `source` names the batch entry it reads ('ctx' = the county context variables, 'geo' = the
+        geographic descriptors). Zero weight and bias make the arm identical to W at step 0.
+        """
+        if getattr(self, "level", None) is not None:
+            raise RuntimeError("level term already attached")
+        self.level_source = source
+        self.level = nn.Linear(d_ctx, 1)
+        with torch.no_grad():
+            self.level.weight.zero_()
+            self.level.bias.zero_()
+        return self.level
 
     # ------------------------------------------------------------------ kernel slot
     @property
@@ -163,6 +180,8 @@ class AsymODE(nn.Module):
         else:
             a2 = layer(h)
         raw = self.damage[4](torch.relu(a2)).squeeze(-1)[:, ORIGIN:]
+        if self.level is not None:
+            raw = raw + self.level(b[self.level_source])
         forget = torch.sigmoid(self.smoother(xu[:, ORIGIN:])).squeeze(-1)
         logit = rate_inertia(raw.contiguous(), forget.contiguous())
         r = R_CAP * torch.sigmoid(self.recovery(b["xr"][:, ORIGIN:])).squeeze(-1)
@@ -173,6 +192,8 @@ class AsymODE(nn.Module):
         p = stock_path(u.contiguous(), r.contiguous(), b["y0"].contiguous())
         out = dict(P=p, u=u, r=r, gate=gate, background=bkg, conditional=cond,
                    raw_logit=raw, logit=logit, forget=forget)
+        if self.level is not None:
+            out["level"] = self.level(b[self.level_source]).squeeze(-1)
         if diagnostics:
             out.update(h1=h, a2=a2, **{"kernel_" + k: v for k, v in kd.items()})
         return out

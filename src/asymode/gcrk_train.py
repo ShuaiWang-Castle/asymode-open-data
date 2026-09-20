@@ -75,6 +75,7 @@ def make_batch(F: dict, idx: np.ndarray, st: dict) -> dict:
              xr=_std(F["xr"][idx], st["xr"], N_WEATHER + N_STATIC),
              xo=_std(F["xo"][idx], st["xo"], 0),
              geo=_std(F["geo"][idx], st["geo"], 0))
+    b["ctx"] = b["xr"][:, 0, N_WEATHER:N_WEATHER + N_STATIC]        # county context, constant in the window
     b = {k: torch.from_numpy(np.ascontiguousarray(v)) for k, v in b.items()}
     b["y0"] = torch.from_numpy(np.ascontiguousarray(F["y0"][idx].astype(np.float32)))
     b["y"] = torch.from_numpy(np.ascontiguousarray(F["y"][idx].astype(np.float32)))
@@ -87,7 +88,7 @@ class Engine:
     """One model on one fitting set (optionally with a validation set)."""
 
     def __init__(self, F: dict, fit_idx, val_idx, seed: int, arm: str, private_seed: int = 1729):
-        assert arm in ("W", "GCRK")
+        assert arm in ("W", "GCRK", "W+C", "W+G")
         self.arm, self.seed, self.step = arm, int(seed), 0
         self.fit_idx = np.sort(np.asarray(fit_idx))
         self.val_idx = None if val_idx is None else np.sort(np.asarray(val_idx))
@@ -98,6 +99,10 @@ class Engine:
         self.model = AsymODE(F["xu"].shape[-1], F["xr"].shape[-1], F["xo"].shape[-1])
         if arm == "GCRK":
             self.model.attach_gcrk(torch.tanh(self.fit["geo"] / 3.0).mean(0), private_seed)
+        elif arm == "W+C":
+            self.model.attach_level(N_STATIC, "ctx")
+        elif arm == "W+G":
+            self.model.attach_level(F["geo"].shape[-1], "geo")
         host, rec = self.model.parameter_groups()
         self.opt = torch.optim.Adam([dict(params=host, lr=LR_HOST), dict(params=rec, lr=LR_RECOVERY)], lr=LR_HOST)
         self.last_loss = float("nan")

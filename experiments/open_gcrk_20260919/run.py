@@ -50,7 +50,7 @@ FEATURES = ROOT / "data" / "interim" / "open_gcrk" / ("features.npz" if ROUND ==
 RUNS = ROOT / "runs" / "open_gcrk_20260919" / ("" if ROUND == "r1" else ROUND)
 SPLITS = HERE / ("splits.json" if ROUND == "r1" else f"splits_{ROUND}.json")
 K_OUTER, K_INNER, SPLIT_SEED = 5, 3, 20260919
-SEEDS, ARMS = (0, 1, 2, 3, 4), ("W", "GCRK")
+SEEDS, ARMS = (0, 1, 2, 3, 4), ("W", "GCRK", "W+C", "W+G")
 torch.set_num_threads(1)
 
 
@@ -195,6 +195,9 @@ def worker(design: str, seed: int, fold: int, arm: str):
     k = e.model.kernel
     kern = {} if k is None else dict(beta=float(torch.tanh(k.alpha).detach()), scale=float(k.scale),
                                      theta=float(k.threshold), ramp=k.ramp(), new_parameters=k.n_new_parameters())
+    if e.model.level is not None:
+        kern = dict(level_source=e.model.level_source, level_weight_norm=float(e.model.level.weight.norm()),
+                    level_bias=float(e.model.level.bias), new_parameters=int(e.model.level.weight.numel() + 1))
     done = dict(design=design, seed=seed, fold=fold, arm=arm, **sel, n_dev=len(spec["dev"]), n_outer=len(spec["outer"]),
                 kernel=kern, seconds=time.monotonic() - t0, completed_utc=dt.datetime.now(dt.timezone.utc).isoformat(),
                 torch=torch.__version__)
