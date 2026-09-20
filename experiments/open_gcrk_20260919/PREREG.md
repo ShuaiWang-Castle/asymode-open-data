@@ -341,3 +341,37 @@ Reading fixed in advance: geography carries usable conditional information at th
 only if the gain exceeds the permutation null's 95th percentile in the county-grouped design; if
 the regressor predicts unit peaks clearly better than W, the host leaves information unused; if
 it does not, the miss of peaks is an information limit of these inputs rather than of the model.
+
+## Amendment 5 (2026-09-20, written before the run; where the county differences enter)
+
+The kernel, its training recipe and the protocol are unchanged; two control arms are added that
+move the county-specific part to the damage *level* instead of the damage *memory*, the split the
+grid-resilience reference makes (a multiplicative unit vulnerability on the intensity, with the
+weather memory shared across units).
+
+Arms, all sharing W's initialisation at the same seed:
+* **W+C**: the damage logit gets one extra term, a linear map of the county's six context variables
+  (log customers, rural-urban code, log population density, cooperative share, log(1 + utilities),
+  log(1 + SAIDI)), standardised on the fitting set and constant over the window. Weight and bias
+  start at zero, so at step 0 the arm is exactly W; it adds 7 parameters.
+* **W+G**: the same term on the 40 geographic descriptors (47 parameters). This is the
+  level-versus-memory control for geography.
+
+Everything else follows round 1: Adam at 0.003 (host, including the new term) and 0.0003
+(recovery), pooled inner early stopping, refit from scratch at t*, open-loop OUTER export.
+
+Run: the twelve-event data with the round-2 inputs, county-grouped design, seed 0, five folds per
+arm (ten cells).
+
+Reading, fixed in advance. The comparison is each arm against W at the same seed on the pooled
+held-out RMSE, with the county-cluster bootstrap interval of the relative change:
+* W+C better than W (interval below zero) and W+G not: the county differences this data supports
+  act on the damage level and are carried by exposure context, not by natural geography, and not
+  through the memory. The paper's geography claim has to be re-stated accordingly.
+* W+G also better: geography does carry a level effect, and the kernel's memory route is the wrong
+  interface for it.
+* Neither better: the unit-level magnitude information found by the unconstrained regressor
+  (Amendment 4, D3) is not reachable by a constant level shift; the next question is the form of
+  the interface, not its position.
+One seed cannot decide the size of any effect; a difference that survives this screen would be
+repeated over five seeds before it is reported as a result.
