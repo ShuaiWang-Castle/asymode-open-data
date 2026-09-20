@@ -1,0 +1,20 @@
+{
+ "design": "main",
+ "seeds": [
+  0
+ ],
+ "gcrk_minus_w_per_seed": [
+  0.00012590138891624067
+ ],
+ "n_gcrk_lower": 0,
+ "county_interval": [
+  -0.011794166415936022,
+  0.021379568437252732
+ ],
+ "reading": "incomplete",
+ "baselines": {
+  "zero": 0.028678288954340204,
+  "zero_event_equal": 0.024461082511324294,
+  "persistence": 0.03078677395774486
+ }
+}

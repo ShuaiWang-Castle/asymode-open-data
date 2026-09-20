@@ -425,7 +425,56 @@ leave-one-event-out design only, inner folds that leave one development event ou
 * The twelve-event round therefore uses the round-2 inputs (rule of Amendment 2) and reports the
   kernel's realised opening in every event-design cell.
 
-## 15. Provenance of every number
+## 15. E3: twelve events with the round-2 inputs (PREREG Amendment 3; seed 0 of five)
+
+Twelve events (Amendment 2 with its note), 6,122 county-events, 2,409 counties, effective number
+of events 4.97 (five-event set: 1.61); round-2 inputs; GCRK reads the 40 descriptors. Two designs:
+county-grouped (five outer folds, three county-grouped inner folds) and event-grouped (four outer
+folds of three events, three inner folds of three development events). **One seed so far** (the PI
+stopped the round after seed 0), so the Amendment 3 verdict rule, which needs five, does not apply.
+`evaluate_e3.py`, `timesfm_baseline.py` (twelve-event panels); `results/e3r2/e3_*`.
+
+| design | all-zero | persistence | TimesFM | W | GCRK | GCRK exit closed |
+|---|---:|---:|---:|---:|---:|---:|
+| county-grouped | 0.02868 | 0.03079 | 0.02890 | 0.02574 | 0.02587 | 0.02649 |
+| event-grouped | 0.02868 | 0.03079 | 0.02890 | 0.02800 | 0.02818 | 0.02792 |
+
+| design | contrast | change | 95% counties | 95% event x state | 95% events |
+|---|---|---:|---|---|---|
+| county-grouped | GCRK vs W | +0.49% | -1.18% to +2.14% | -1.48% to +2.15% | -1.55% to +2.55% |
+| county-grouped | closed vs W | +2.93% | +1.38% to +4.40% | -0.01% to +6.40% | -0.21% to +4.55% |
+| event-grouped | GCRK vs W | +0.66% | +0.10% to +1.36% | -0.39% to +2.44% | -0.51% to +3.16% |
+| event-grouped | closed vs W | -0.27% | -0.41% to -0.13% | -0.71% to +0.28% | -0.81% to +0.39% |
+
+* Zero-shot TimesFM does not beat the all-zero forecast here either (0.02890 with ERA5
+  covariates, 0.02901 from history alone).
+* County-grouped: GCRK and W are not distinguishable at this seed (+0.5%, the county interval
+  covers zero); the kernel's output still pays for joint training (closed is 2.9% worse than W,
+  interval above zero). Both beat the all-zero forecast by 10% and persistence by 16%. The kernel
+  is fully open in all five folds (tanh(alpha) 0.63-0.83). W again trains about twice as long as
+  GCRK (t* 780-1050 against 410-610), so the E2 caveat applies here too: the comparison mixes the
+  kernel with the training length each arm's own selection picks.
+* Event-grouped: GCRK is 0.7% worse than W; only the county-clustered interval excludes zero, and
+  the county clustering is the weakest of the three for a design held out by event. Both trained
+  models beat the all-zero forecast pooled (0.0280 and 0.0282 against 0.0287) -- unlike the
+  five-event leave-one-event-out round, where they did not -- and the overshoot is much smaller
+  (oracle scale 0.80 against 0.40).
+* By fold (event-grouped; the kernel's realised opening is reported because event-held-out
+  selection can stop inside its warm-up):
+
+  | fold | events | tanh(alpha) | t* | W | GCRK | closed | all-zero |
+  |---|---|---:|---:|---:|---:|---:|---:|
+  | 1 | 2019-02-24, 2021-08-11, 2022-06-17 | +0.83 | 640 | 0.03107 | 0.03166 | 0.03106 | 0.03229 |
+  | 2 | 2019-03-13, 2021-12-11, 2024-02-27 | +0.88 | 680 | 0.03501 | 0.03502 | 0.03480 | 0.03640 |
+  | 3 | 2019-11-27, 2022-04-13, 2024-05-08 | +0.07 | 60 | 0.02387 | 0.02387 | 0.02387 | 0.02326 |
+  | 4 | 2021-03-26, 2022-06-08, 2024-06-26 | +0.17 | 170 | 0.01512 | 0.01515 | 0.01509 | 0.01452 |
+
+  In the two folds whose held-out events carry the large outages the trained models beat all-zero
+  by about 4% and the kernel adds error (+1.9%) or nothing (+0.02%); in the two quieter folds
+  selection stops inside the warm-up, the three arms coincide, and all of them are worse than
+  all-zero.
+
+## 16. Provenance of every number
 
 | numbers | file | script (inputs) | seeds |
 |---|---|---|---|
@@ -447,3 +496,4 @@ leave-one-event-out design only, inner folds that leave one development event ou
 | nine further descriptors (PREREG Amendment 1) | `data/interim/open_gcrk/geography_ext.parquet`, `features_geo40.npz`; `data_provenance/geography_ext_{log.jsonl,meta.json}`, `features_geo40_checksum.json` | `build_geography_ext.py`, `build_features.py --geo-ext` | none |
 | E2 (section 13) | `results/e2_{main,loeo}.csv` | `e2_refit.py`, `e2_evaluate.py` (runs/.../e2/, final.pt) | 0-4 |
 | R2 screen (section 14) | `results/r2/screen*.csv`, `screen_decision.json` | `r2_screen_evaluate.py` (runs/.../r2/) | 0 |
+| E3 seed 0 (section 15) | `results/e3r2/e3_*` | `evaluate_e3.py` with OPEN_GCRK_ROUND=e3r2 (runs/.../e3r2/) | 0 |
