@@ -474,7 +474,44 @@ stopped the round after seed 0), so the Amendment 3 verdict rule, which needs fi
   selection stops inside the warm-up, the three arms coincide, and all of them are worse than
   all-zero.
 
-## 16. Provenance of every number
+## 16. Diagnostics of a second external review (PREREG Amendment 4; twelve events, seed 0; no retraining)
+
+`review2_checks.py` with OPEN_GCRK_ROUND=e3r2; `results/e3r2/review2_*.csv`.
+
+* D1, calibration. Pooled over held-out county-hours, W's forecast is a calibrated conditional mean:
+  in bins of predicted p the observed mean follows the prediction (0.0055 -> 0.0058, 0.0170 ->
+  0.0165, 0.0493 -> 0.0503, 0.149 -> 0.125), while the outcomes inside a bin are zero-inflated (44%,
+  28%, 12% and 5% of the cells are exactly zero) with 5-9% of cells above three times the
+  prediction. Missing peaks and false activity are therefore two faces of a mean forecast over
+  cases the inputs do not separate. By unit, the predicted peak ranks well (share of units with an
+  observed peak above 10%: 3.6% in the lowest decile of predicted peak, 50% in the highest) but is
+  below the observed peak in every decile (0.116 vs 0.157 at the top): the peak of a mean path is
+  below the mean of the realised peaks.
+* D2, prefix. Across the twelve events the relative change GCRK vs W rises with the
+  prefix-to-forecast wind-report ratio (Spearman +0.66, p = 0.02): -0.9% on average in the seven
+  events with a calm prefix (-5% in the two large synoptic wind events of 2019), +2.1% in the five
+  without one. Those five are mostly summer convective events, where the kernel is hardly active
+  (gate open in 3-15% of forecast hours against 27-46%), so event type and prefix are confounded;
+  the kernel's prefix reference was designed for a calm prefix, which the twelve-event rule dropped.
+* D3, information ceiling (gradient-boosted regressor on unit-level summaries, fixed settings,
+  same outer folds). County-grouped: the forecast-window mean outage has out-of-fold R2 0.29
+  without geography and 0.31 with the 40 descriptors (RMSE -1.1%, county interval -2.5% to +0.3%);
+  the peak 0.31 and 0.31 (+0.1%, -0.8% to +1.2%, inside the permutation null). Event-grouped:
+  R2 0.04-0.19 only, with a small gain from geography (-0.8% to -2.0%, above the null in three of
+  four targets). So geography carries little conditional information at this resolution wherever it
+  enters; a test of where to put it is unlikely to separate the options.
+* The host leaves unit-level information unused. W's own forecasts imply R2 0.15 for the window
+  mean and 0.09 for the peak, against 0.29 and 0.31 for the regressor (0.23 for both with weather
+  summaries alone). The most useful non-weather group is county context (customers, rural-urban
+  code, density, cooperative share, utilities, SAIDI): without it R2 falls to 0.26 and 0.25. In W
+  that context reaches the recovery network only; the damage network reads weather alone.
+* Carried to the primary metric (diagnostic, not a model): multiplying each unit's W path by the
+  ratio of the regressor's window mean to W's own lowers the hourly RMSE from 0.02574 to 0.02546
+  with weather summaries, 0.02501 (-2.8%) with context and prefix outage added, and 0.02483 (-3.5%)
+  with the descriptors as well; leads of 25-144 h improve and leads of 1-24 h get worse, because a
+  uniform scale also moves the hours anchored by p_71. For comparison, GCRK - W is +0.5%.
+
+## 17. Provenance of every number
 
 | numbers | file | script (inputs) | seeds |
 |---|---|---|---|
@@ -497,3 +534,4 @@ stopped the round after seed 0), so the Amendment 3 verdict rule, which needs fi
 | E2 (section 13) | `results/e2_{main,loeo}.csv` | `e2_refit.py`, `e2_evaluate.py` (runs/.../e2/, final.pt) | 0-4 |
 | R2 screen (section 14) | `results/r2/screen*.csv`, `screen_decision.json` | `r2_screen_evaluate.py` (runs/.../r2/) | 0 |
 | E3 seed 0 (section 15) | `results/e3r2/e3_*` | `evaluate_e3.py` with OPEN_GCRK_ROUND=e3r2 (runs/.../e3r2/) | 0 |
+| second-review diagnostics (section 16) | `results/e3r2/review2_*.csv` | `review2_checks.py` and the two inline ablation / rescaling scripts recorded in the commit message (features_e3r2.npz, runs/.../e3r2/) | 0 |
