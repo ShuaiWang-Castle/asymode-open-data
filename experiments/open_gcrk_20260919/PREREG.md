@@ -317,3 +317,27 @@ round: it measures how far a shrunken model transfers, and cannot test the kerne
 county-grouped design remains the test of the kernel. Both are reported, and each event-design cell
 also reports its kernel opening at t* (ramp x tanh(alpha)) so that a coincidence of the arms is
 visible rather than read as "no kernel effect".
+
+## Amendment 4 (2026-09-20, before the run; diagnostics only, no retraining of W or GCRK)
+
+Three checks of a second external review, on the twelve-event data and the seed-0 cells of E3.
+D1 (descriptive). Is the host a calibrated conditional mean? Held-out units in ten quantile bins of
+the predicted forecast-window peak: mean predicted and observed peak, share of units with an
+observed peak below 1% and above 10%; the same for county-hours in bins of predicted p.
+D2 (descriptive). Does a stormy prefix weaken the kernel? By event: GCRK - W, the pre-registered
+prefix-to-forecast wind-report ratio, and from frozen replays the kernel's forecast-window deposit
+norm and gate occupancy.
+D3 (information ceiling). A gradient-boosted regressor (scikit-learn HistGradientBoostingRegressor,
+fixed settings: 300 iterations, learning rate 0.05, 15 leaves, min 20 samples per leaf, L2 1.0, no
+early stopping, no tuning) predicts each held-out unit's forecast-window peak and mean outage
+(raw, and log(x + 0.002)) from unit-level summaries: forecast-window maximum and mean and prefix
+mean of the 42 damage inputs, forecast-window maximum of the 8 neighbour summaries, the 6 county
+context variables and the 5 prefix-outage summaries. Feature sets: without geography; with the 40
+descriptors; with the descriptors permuted within event x state blocks (20 permutations, the
+null). Folds: the E3 county-grouped and event-grouped outer folds. Reported: out-of-fold RMSE and
+R2, the gain from geography with a county-cluster bootstrap interval and its place in the
+permutation null, and the same unit-level targets implied by W and GCRK (seed 0) for reference.
+Reading fixed in advance: geography carries usable conditional information at this resolution
+only if the gain exceeds the permutation null's 95th percentile in the county-grouped design; if
+the regressor predicts unit peaks clearly better than W, the host leaves information unused; if
+it does not, the miss of peaks is an information limit of these inputs rather than of the model.
