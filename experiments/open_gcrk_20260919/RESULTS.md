@@ -511,7 +511,41 @@ stopped the round after seed 0), so the Amendment 3 verdict rule, which needs fi
   with the descriptors as well; leads of 25-144 h improve and leads of 1-24 h get worse, because a
   uniform scale also moves the hours anchored by p_71. For comparison, GCRK - W is +0.5%.
 
-## 17. Provenance of every number
+## 17. Level versus memory: W+C and W+G (PREREG Amendment 5; twelve events, county-grouped, seed 0)
+
+Two control arms add one zero-initialised linear term to the damage logit, constant over the
+window: W+C reads the six county context variables (7 parameters), W+G the 40 geographic
+descriptors (41). Both are exactly W at step 0 and share W's initialisation at this seed; the
+kernel and the protocol are untouched. Ten cells, no failure. `results/e3r2/level_arms_*.csv`.
+
+| model | RMSE | MAE | 25-48 h | 49-144 h | event-equal | false activity | vs W |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| W | 0.02574 | 0.00612 | 0.03321 | 0.02322 | 0.02268 | 0.377 | - |
+| **W+C** | **0.02553** | **0.00587** | 0.03266 | 0.02306 | 0.02269 | **0.347** | **-0.82%** |
+| W+G | 0.02570 | 0.00617 | 0.03285 | 0.02317 | 0.02268 | 0.421 | -0.15% |
+| GCRK | 0.02587 | 0.00647 | 0.03266 | 0.02351 | 0.02275 | 0.507 | +0.49% |
+| GCRK exit closed | 0.02649 | 0.00626 | 0.03373 | 0.02405 | 0.02299 | 0.509 | +2.93% |
+
+| contrast | change | 95% counties | 95% event x state | 95% events | folds better |
+|---|---:|---|---|---|---:|
+| W+C vs W | -0.82% | -2.49% to +0.79% | -3.28% to +1.30% | -2.53% to +1.94% | 3/5 |
+| W+G vs W | -0.15% | -1.69% to +1.42% | -2.15% to +1.84% | -1.70% to +1.83% | 3/5 |
+| GCRK vs W | +0.49% | -1.15% to +2.11% | -1.47% to +2.16% | -1.51% to +2.49% | 2/5 |
+
+* By the rule fixed in Amendment 5 this is the third branch: **no arm's interval excludes zero**,
+  so a constant level shift does not reach the unit-level magnitude information the unconstrained
+  regressor found (Amendment 4: -2.8% when W's path is rescaled per unit). The ordering of the
+  point estimates is the one the level-versus-memory reading predicts (W+C best, W+G near W, the
+  memory route worst), and W+C is the only arm that improves MAE (-4.1%) and false activity
+  (0.377 -> 0.347) at the same time, but one seed cannot turn that into a result.
+* The fitted term is stable and physically readable: all six coefficients keep their sign in all
+  five folds. More customers (-0.61), denser population (-0.38) and more utilities (-0.40) lower the
+  damage logit; a higher rural-urban code (+0.28) and a worse reliability history (SAIDI, +0.30)
+  raise it. The arm is learning exposure and service structure, not weather.
+* W+C also trains about as long as W (t* 430-850 against 780-1050), unlike GCRK (410-610), so this
+  comparison is not confounded by training length the way the kernel comparison is (section 13).
+
+## 18. Provenance of every number
 
 | numbers | file | script (inputs) | seeds |
 |---|---|---|---|
@@ -535,3 +569,4 @@ stopped the round after seed 0), so the Amendment 3 verdict rule, which needs fi
 | R2 screen (section 14) | `results/r2/screen*.csv`, `screen_decision.json` | `r2_screen_evaluate.py` (runs/.../r2/) | 0 |
 | E3 seed 0 (section 15) | `results/e3r2/e3_*` | `evaluate_e3.py` with OPEN_GCRK_ROUND=e3r2 (runs/.../e3r2/) | 0 |
 | second-review diagnostics (section 16) | `results/e3r2/review2_*.csv` | `review2_checks.py` and the two inline ablation / rescaling scripts recorded in the commit message (features_e3r2.npz, runs/.../e3r2/) | 0 |
+| level arms (section 17) | `results/e3r2/level_arms_main.csv`, `level_arms_bootstrap.csv` | inline script recorded in the Amendment 5 commit (runs/.../e3r2/main/seed0/W+*) | 0 |
