@@ -116,7 +116,7 @@ class Engine:
     """One model on one fitting set (optionally with a validation set)."""
 
     def __init__(self, F: dict, fit_idx, val_idx, seed: int, arm: str, private_seed: int = 1729):
-        assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "W+C", "W+G")
+        assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "W+C", "W+G", "W+Cin", "GCRK+Cin")
         self.arm, self.seed, self.step = arm, int(seed), 0
         self.fit_idx = np.sort(np.asarray(fit_idx))
         self.val_idx = None if val_idx is None else np.sort(np.asarray(val_idx))
@@ -125,7 +125,9 @@ class Engine:
         self.val = None if self.val_idx is None else make_batch(F, self.val_idx, self.stats)
         torch.manual_seed(self.seed)
         self.model = AsymODE(F["xu"].shape[-1], F["xr"].shape[-1], F["xo"].shape[-1])
-        if arm in ("GCRK", "GCRK-S", "GCRK-P"):
+        if arm in ("W+Cin", "GCRK+Cin"):
+            self.model.attach_context_input(N_STATIC)
+        if arm in ("GCRK", "GCRK-S", "GCRK-P", "GCRK+Cin"):
             self.model.attach_gcrk(torch.tanh(self.fit["geo"] / 3.0).mean(0), private_seed)
         elif arm == "W+C":
             self.model.attach_level(N_STATIC, "ctx")
@@ -142,7 +144,7 @@ class Engine:
         if k is None:
             return None
         k.training_step.fill_(self.step)
-        return k.calibrate_(self.model.hidden(self.fit["xu"]), self.step)
+        return k.calibrate_(self.model.hidden(self.fit["xu"], self.fit["ctx"]), self.step)
 
     def train_step(self) -> float:
         k = self.model.kernel

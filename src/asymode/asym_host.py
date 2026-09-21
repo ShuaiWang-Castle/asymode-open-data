@@ -122,7 +122,7 @@ class AsymODE(nn.Module):
         self.smoother = nn.Linear(d_u, 1)
         self.occurrence = nn.Linear(d_occ, 1)
         self.background = nn.Linear(d_u, 1)
-        self.level, self.level_source = None, None
+        self.level, self.level_source, self.ctx_in = None, None, None
         with torch.no_grad():
             self.damage[-1].bias.fill_(u_bias_init)
             self.smoother.weight.zero_()
@@ -164,14 +164,27 @@ class AsymODE(nn.Module):
         host = [p for n, p in self.named_parameters() if not n.startswith("recovery.")]
         return host, rec
 
-    def hidden(self, xu: torch.Tensor) -> torch.Tensor:
-        return torch.relu(self.damage[0](xu))
+    def attach_context_input(self, d_ctx: int):
+        """County context into the first damage layer (PREREG Amendment 7): h = ReLU(W x + A c + b),
+        A zero at the start, so the arm is W at step 0."""
+        if getattr(self, "ctx_in", None) is not None:
+            raise RuntimeError("context input already attached")
+        self.ctx_in = nn.Linear(d_ctx, self.damage[0].out_features, bias=False)
+        with torch.no_grad():
+            self.ctx_in.weight.zero_()
+        return self.ctx_in
+
+    def hidden(self, xu: torch.Tensor, ctx: torch.Tensor | None = None) -> torch.Tensor:
+        a1 = self.damage[0](xu)
+        if self.ctx_in is not None:
+            a1 = a1 + self.ctx_in(ctx)[:, None, :]
+        return torch.relu(a1)
 
     # --------------------------------------------------------------------- forward
     def forward(self, b: dict, exit_open: bool = True, diagnostics: bool = False) -> dict:
         """b: xu [B,216,d_u], xr [B,216,d_r], xo [B,216,d_occ], geo [B,G], y0 [B]."""
         xu = b["xu"]
-        h = self.hidden(xu)
+        h = self.hidden(xu, b.get("ctx"))
         layer = self.damage[2]
         kd = {}
         if isinstance(layer, GCRKLayer):

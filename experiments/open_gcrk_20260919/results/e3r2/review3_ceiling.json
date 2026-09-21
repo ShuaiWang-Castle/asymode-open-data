@@ -1,0 +1,57 @@
+{
+ "state_r2_median": 0.449166361237761,
+ "state_r2": {
+  "elev_mean": 0.7865580652693275,
+  "relief_p95_p5": 0.659544075883068,
+  "slope_mean_deg": 0.4905440642079846,
+  "steep_frac": 0.44067380006520895,
+  "ruggedness_tri": 0.48885724014065823,
+  "aspect_N": 0.08666357801406022,
+  "aspect_NE": 0.13418729927004536,
+  "aspect_E": 0.14812101580848713,
+  "aspect_SE": 0.15023908974866518,
+  "aspect_S": 0.13536226837997,
+  "aspect_SW": 0.11917979286488123,
+  "aspect_W": 0.10873303265724388,
+  "aspect_NW": 0.11499096140818843,
+  "canopy_mean": 0.6320163922822443,
+  "canopy_dense_frac": 0.6219748653479116,
+  "forest_frac": 0.4602338102669551,
+  "developed_frac": 0.2252740260403956,
+  "wetland_frac": 0.4658257053462621,
+  "forest_on_steep_frac": 0.33514350435053264,
+  "canopy_in_developed": 0.6123327669651333,
+  "poorly_drained_share": 0.4500838124155081,
+  "hydric_share": 0.4023231775610583,
+  "shallow_share": 0.35016377224552275,
+  "high_water_table_share": 0.4482489100600139,
+  "root_limiting_share": 0.32224298588032607,
+  "windthrow_susceptibility": 0.37476797208892076,
+  "log_land_area_km2": 0.5463753234816779,
+  "s50_relief_p95_p5": 0.6891576154367295,
+  "s50_canopy_mean": 0.7044862462153504,
+  "s50_windthrow_susceptibility": 0.46784637212673974,
+  "s50_poorly_drained_share": 0.49682348499205686,
+  "soil_wet_share": 0.4726224593899847,
+  "soil_windthrow_hazard": 0.37261694304263604,
+  "forest_wet_coloc": 0.4518085992333143,
+  "wet_in_forest": 0.40684174751626734,
+  "hazard_in_forest": 0.30420517591024776,
+  "forest_near_developed": 0.5991618086911622,
+  "elev_mean5": 0.7574228679700665,
+  "relief5": 0.3583060025505109,
+  "fia_forest_land_share": 0.47367884783925973
+ },
+ "county_effect": {
+  "log window mean": {
+   "counties": 1653,
+   "units": 5366,
+   "icc": 0.17207449658923143
+  },
+  "window mean": {
+   "counties": 1653,
+   "units": 5366,
+   "icc": 0.061637823763054995
+  }
+ }
+}

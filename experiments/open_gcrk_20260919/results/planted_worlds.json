@@ -1,0 +1,43 @@
+{
+ "sigma_unit": 1.0,
+ "sigma_block": 1.0,
+ "kappa": 4.0,
+ "s_A": 0.8,
+ "truth_cell": "main/0/1/GCRK",
+ "n_mc": 200,
+ "worlds": {
+  "T0": {
+   "planted_gap": 0.0,
+   "rmse_zero": 0.015418272402191693,
+   "rmse_truth": 0.012012488728058955,
+   "rmse_neutral_truth": 0.012012488728058955,
+   "neutral_vs_truth_mean_path": 0.0,
+   "unit_r2_truth": 0.19486107599174796,
+   "zero_share": 0.1573721834371473,
+   "mean_outage": 0.0035776830408692324,
+   "real_mean_outage": 0.004520999267697334
+  },
+  "TB": {
+   "planted_gap": 0.07266628449153267,
+   "rmse_zero": 0.012939791816655275,
+   "rmse_truth": 0.010235118985144225,
+   "rmse_neutral_truth": 0.010978867053123401,
+   "neutral_vs_truth_mean_path": 0.0029603727397652345,
+   "unit_r2_truth": 0.1752757069491785,
+   "zero_share": 0.15514871869905103,
+   "mean_outage": 0.003138029558843437,
+   "real_mean_outage": 0.004520999267697334
+  },
+  "TA": {
+   "planted_gap": 0.07231763772345245,
+   "rmse_zero": 0.017081439731240197,
+   "rmse_truth": 0.013376378486778582,
+   "rmse_neutral_truth": 0.014343726580237219,
+   "neutral_vs_truth_mean_path": 0.005069034609371705,
+   "unit_r2_truth": 0.19845256965982316,
+   "zero_share": 0.151268759667238,
+   "mean_outage": 0.003956033044463911,
+   "real_mean_outage": 0.004520999267697334
+  }
+ }
+}

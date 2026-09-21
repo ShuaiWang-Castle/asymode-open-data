@@ -50,7 +50,7 @@ FEATURES = ROOT / "data" / "interim" / "open_gcrk" / ("features.npz" if ROUND ==
 RUNS = ROOT / "runs" / "open_gcrk_20260919" / ("" if ROUND == "r1" else ROUND)
 SPLITS = HERE / ("splits.json" if ROUND == "r1" else f"splits_{ROUND}.json")
 K_OUTER, K_INNER, SPLIT_SEED = 5, 3, 20260919
-SEEDS, ARMS = (0, 1, 2, 3, 4), ("W", "GCRK", "W+C", "W+G", "GCRK-S", "GCRK-P")
+SEEDS, ARMS = (0, 1, 2, 3, 4), ("W", "GCRK", "W+C", "W+G", "GCRK-S", "GCRK-P", "W+Cin", "GCRK+Cin")
 torch.set_num_threads(1)
 
 

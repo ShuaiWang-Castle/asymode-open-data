@@ -22,11 +22,12 @@ def main():
     ap.add_argument("--seeds", nargs="+", type=int, default=list(R.SEEDS))
     ap.add_argument("--arms", nargs="+", default=list(R.ARMS))
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--folds", nargs="+", type=int, default=None, help="restrict to these outer folds")
     a = ap.parse_args()
     sp = json.loads(R.SPLITS.read_text())
     tasks = [(s, arm, d, int(f)) for s in a.seeds for arm in a.arms for d in a.designs for f in sorted(sp[d], key=int)
-             if not (R.cell_dir(d, s, int(f), arm) / "DONE.json").exists()]
-    tasks.sort(key=lambda x: (x[0], x[1] != "GCRK", x[2], x[3]))
+             if not (R.cell_dir(d, s, int(f), arm) / "DONE.json").exists() and (a.folds is None or int(f) in a.folds)]
+    tasks.sort(key=lambda x: (x[0], not x[1].startswith("GCRK"), x[2], x[3]))
     logs = R.RUNS / "logs"; logs.mkdir(parents=True, exist_ok=True)
     live = []
     print(f"round {R.ROUND}: {len(tasks)} cells pending, {a.workers} workers", flush=True)
