@@ -496,3 +496,19 @@ the coupling (fast overfit of the maps stopping the host early), and a slow cond
 of the kernel on data like these. GCRK-slow better than GCRK-S (county interval below zero): geography
 carries usable response information once it is learned slowly. GCRK-slow no better than GCRK: the
 coupling is not the mechanism.
+
+## Amendment 10 (2026-09-21, before the runs; confirmation of the context-aware host)
+
+Screen result (Amendment 7, seed 0, twelve events, county-grouped): W+Cin 0.02513 against W 0.02574,
+-2.4%, with the county, event-by-state and event intervals all below zero (-3.8% to -0.9%, -3.6% to
+-1.1%, -3.4% to -0.5%), lower in five of five folds, MAE -5.6%. This meets the standing rule for going
+beyond one seed.
+
+Confirmation: W and W+Cin on seeds 1-4, same data, design, folds and protocol, giving five seeds per arm.
+Verdict rule (as Amendment 3): "W+Cin better" only if the county-cluster interval of the relative RMSE
+change, computed from the seed-mean squared error of every unit, excludes zero and at least four of five
+seeds agree; otherwise "not distinguishable". Reported with it: per-seed paired differences, lead
+segments, MAE, false activity, event-equal RMSE, the event-by-state and event intervals.
+Also at seed 0: W+Cin on the event-grouped design (four folds), against the W of that design, to see
+whether the gain is confined to new counties of seen storms.
+The 2 x 2 cell GCRK+Cin of Amendment 7 runs first, as registered.
