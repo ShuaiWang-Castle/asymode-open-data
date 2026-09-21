@@ -639,7 +639,50 @@ the shared kernel gets 510 and W 650 (section 13 measured what that costs the ho
 conditioning - true, permuted and regime-level geography - are 2.7-2.9% worse than the same kernel
 without geography, each with an interval that excludes zero.
 
-## 20. Provenance of every number
+## 20. One clock for two components: GCRK-slow (PREREG Amendment 9; five events, seed 0)
+
+The kernel, its 40-descriptor input and the protocol are unchanged; only the four conditioning maps
+(U, Vl, Va, Vg) take one tenth of the host's Adam step. `results/r2/arms_slow_*.csv`.
+
+| arm | RMSE | vs W | median t* | false activity |
+|---|---:|---:|---:|---:|
+| W | 0.02597 | - | 650 | 0.267 |
+| GCRK-S, shared kernel | 0.02570 | -1.1% | 510 | 0.305 |
+| **GCRK-slow** | **0.02581** | -0.6% | 510 | 0.315 |
+| GCRK-K8 | 0.02638 | +1.6% | 360 | 0.353 |
+| GCRK | 0.02644 | +1.8% | 360 | 0.371 |
+
+GCRK-slow against GCRK: -2.4%, with the county, event-by-state and event intervals all below zero
+(-3.8% to -0.9%, -3.2% to -1.3%, -2.8% to -0.5%). Against GCRK-S: +0.4% (-0.6% to +1.4%). First branch
+of the rule fixed in advance: the harm of the conditioning is the coupling - maps that overfit fast turn
+the inner loss up early and the whole model is refit for 360 steps - and a conditioning learned slowly is
+the safe form of the kernel on data like these. It is then as good as the shared kernel and no better,
+which is what findings 1 and 2 of section 18 predict: the geography adds nothing the host lacks.
+
+## 21. A context-aware host, and the shared kernel on twelve events (PREREG Amendments 7, 8, 10; seed 0)
+
+W+Cin: the six county context variables enter the first layer of the damage network, h = ReLU(W x +
+A c + b), A zero at the start (192 parameters; W at step 0). Twelve events, county-grouped.
+`results/e3r2/arms_twelve_*.csv`.
+
+| arm | RMSE | vs W | MAE | event-equal | false activity | median t* |
+|---|---:|---:|---:|---:|---:|---:|
+| W | 0.02574 | - | 0.00612 | 0.02268 | 0.377 | 880 |
+| GCRK | 0.02587 | +0.5% | 0.00647 | 0.02275 | 0.507 | 410 |
+| GCRK-S, shared kernel | 0.02570 | -0.2% | 0.00645 | 0.02270 | 0.479 | 570 |
+| W+C, constant level term | 0.02553 | -0.8% | 0.00587 | 0.02269 | 0.347 | 750 |
+| W+G | 0.02570 | -0.1% | 0.00617 | 0.02268 | 0.421 | 410 |
+| **W+Cin** | **0.02513** | **-2.4%** | **0.00578** | **0.02231** | **0.325** | 740 |
+
+* W+Cin against W: -2.4%; county interval -3.8% to -0.9%, event-by-state -3.6% to -1.1%, event -3.4% to
+  -0.5%; lower in five of five folds. The first contrast of this campaign whose interval excludes zero
+  under every clustering. Against the constant level term W+C: -1.6% (county -2.9% to -0.1%): the context
+  does more through the network's non-linearity with the weather than as a shift.
+* The shared kernel's advantage on the five-event panel is not repeated: GCRK-S against W -0.2% (-1.5% to
+  +1.1%). A shared response memory is neutral here.
+* One seed. The five-seed confirmation of W+Cin against W is registered in Amendment 10.
+
+## 22. Provenance of every number
 
 | numbers | file | script (inputs) | seeds |
 |---|---|---|---|
@@ -666,3 +709,5 @@ without geography, each with an interval that excludes zero.
 | level arms (section 17) | `results/e3r2/level_arms_main.csv`, `level_arms_bootstrap.csv` | inline script recorded in the Amendment 5 commit (runs/.../e3r2/main/seed0/W+*) | 0 |
 | why the kernel does not help (section 18) | `results/review3_inner_curves.csv`, `results/r2/controls_*.csv`, `results/e3r2/review3_{timing,footprint,redundancy}.csv`, `review3_ceiling.json`, `results/planted_{worlds.json,recovery.csv,maps_TB.csv}` | `review3_*.py`, `evaluate_controls.py`, `make_planted_worlds.py`, `make_planted_clean.py`, `evaluate_planted.py` | 0 (round-1 traces: 0-4) |
 | regime-conditioned kernel (section 19) | `results/r2/controls_*.csv` | `evaluate_controls.py` with OPEN_GCRK_ROUND=r2 (runs/.../r2/main/seed0/*/GCRK-K8) | 0 |
+| slow conditioning (section 20) | `results/r2/arms_slow_*.csv` | `evaluate_arms.py` with OPEN_GCRK_ROUND=r2 | 0 |
+| context-aware host, shared kernel on twelve events (section 21) | `results/e3r2/arms_twelve_*.csv` | `evaluate_arms.py` with OPEN_GCRK_ROUND=e3r2 | 0 |
