@@ -441,3 +441,29 @@ Reading, fixed in advance (county-cluster interval of the relative RMSE change):
   permuted controls are then run on that host before anything is claimed.
 * Neither: no further host or geography modules on these data; the limits found in Amendment 6
   (repeatable county effect, timing probe) are the explanation to report.
+
+## Amendment 8 (2026-09-21, before the runs; conditioning that cannot fingerprint)
+
+Result that motivates it (A6.1, five-event panel, seed 0): the shared kernel is the best arm
+(GCRK-S 0.02570 against W 0.02597), the geography-conditioned kernel is worse than the shared one
+(+2.9%, county interval +0.8% to +4.9%) and indistinguishable from the kernel conditioned on
+permuted descriptors (-0.5%, -2.2% to +1.1%), which lowers the training loss as much as true
+geography does (-30% against -26% at step 400). The conditioning identifies counties; it does not
+transfer geography.
+
+**GCRK-K8, regime-conditioned kernel.** The kernel's equations, parameterisation and training recipe
+are unchanged; only its geographic input changes, from the county's 40 descriptors to the one-hot
+indicator of the county's geographic regime. Regimes: k-means with K = 8 (seeded, 20 restarts) on
+the standardised 40 descriptors of all panel counties (static covariates only; no outage enters),
+missing soil values at the column median. Every regime holds hundreds of counties, so a county
+cannot be singled out, while memory, interaction and gain can still differ by terrain, canopy and
+soil type. Five-event panel, round-2 inputs, county-grouped, seed 0, against W, GCRK-S, GCRK and
+GCRK-P of the same seed.
+Reading: GCRK-K8 better than GCRK-S (county interval below zero): geography carries transferable
+response information at the regime level, and the regime kernel is the form to develop. GCRK-K8
+about equal to GCRK-S: once fingerprinting is removed the conditioning is harmless and empty on
+these data. GCRK-K8 worse than GCRK-S: even coarse conditioning overfits here.
+
+**GCRK-S on the twelve events** (county-grouped, seed 0), added to the arms of Amendment 7 and run
+before GCRK+Cin: is the small advantage of a shared response kernel over W repeated on the larger
+panel?
