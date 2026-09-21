@@ -52,6 +52,34 @@ def _moments(a: np.ndarray):
     return np.nanmean(flat, 0), np.nanstd(flat, 0) + 1e-6
 
 
+PERMUTATION_SEED = 20260920
+
+
+def geo_variant(F: dict, arm: str) -> dict:
+    """Geography controls (PREREG Amendment 6): the features with the geographic input replaced.
+
+    GCRK-S  every unit gets the same vector (zeros; standardisation maps it to the neutral code), so
+            one set of kernel parameters serves all counties.
+    GCRK-P  counties exchange descriptor vectors by one fixed seeded permutation; a county keeps its
+            donor's vector in all its events.
+    Any other arm returns F unchanged.
+    """
+    if arm not in ("GCRK-S", "GCRK-P"):
+        return F
+    F = dict(F)
+    geo = np.array(F["geo"], dtype=np.float32, copy=True)
+    if arm == "GCRK-S":
+        geo[:] = 0.0
+    else:
+        fips = np.asarray(F["fips"]).astype(str)
+        counties = np.unique(fips)
+        first = {c: int(np.where(fips == c)[0][0]) for c in counties}
+        donor = dict(zip(counties, np.random.default_rng(PERMUTATION_SEED).permutation(counties)))
+        geo = np.stack([F["geo"][first[donor[c]]] for c in fips]).astype(np.float32)
+    F["geo"] = geo
+    return F
+
+
 def fit_stats(F: dict, idx: np.ndarray) -> dict:
     """Standardisation statistics from the fitting units only."""
     st = {}
@@ -88,7 +116,7 @@ class Engine:
     """One model on one fitting set (optionally with a validation set)."""
 
     def __init__(self, F: dict, fit_idx, val_idx, seed: int, arm: str, private_seed: int = 1729):
-        assert arm in ("W", "GCRK", "W+C", "W+G")
+        assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "W+C", "W+G")
         self.arm, self.seed, self.step = arm, int(seed), 0
         self.fit_idx = np.sort(np.asarray(fit_idx))
         self.val_idx = None if val_idx is None else np.sort(np.asarray(val_idx))
@@ -97,7 +125,7 @@ class Engine:
         self.val = None if self.val_idx is None else make_batch(F, self.val_idx, self.stats)
         torch.manual_seed(self.seed)
         self.model = AsymODE(F["xu"].shape[-1], F["xr"].shape[-1], F["xo"].shape[-1])
-        if arm == "GCRK":
+        if arm in ("GCRK", "GCRK-S", "GCRK-P"):
             self.model.attach_gcrk(torch.tanh(self.fit["geo"] / 3.0).mean(0), private_seed)
         elif arm == "W+C":
             self.model.attach_level(N_STATIC, "ctx")

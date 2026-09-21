@@ -50,7 +50,7 @@ FEATURES = ROOT / "data" / "interim" / "open_gcrk" / ("features.npz" if ROUND ==
 RUNS = ROOT / "runs" / "open_gcrk_20260919" / ("" if ROUND == "r1" else ROUND)
 SPLITS = HERE / ("splits.json" if ROUND == "r1" else f"splits_{ROUND}.json")
 K_OUTER, K_INNER, SPLIT_SEED = 5, 3, 20260919
-SEEDS, ARMS = (0, 1, 2, 3, 4), ("W", "GCRK", "W+C", "W+G")
+SEEDS, ARMS = (0, 1, 2, 3, 4), ("W", "GCRK", "W+C", "W+G", "GCRK-S", "GCRK-P")
 torch.set_num_threads(1)
 
 
@@ -178,7 +178,7 @@ def cell_dir(design, seed, fold, arm) -> Path:
 
 def worker(design: str, seed: int, fold: int, arm: str):
     t0 = time.monotonic()
-    F = load_features()
+    F = G.geo_variant(load_features(), arm)
     spec = json.loads(SPLITS.read_text())[design][str(fold)]
     d = cell_dir(design, seed, fold, arm)
     if (d / "DONE.json").exists():
