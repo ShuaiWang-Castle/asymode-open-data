@@ -467,3 +467,15 @@ these data. GCRK-K8 worse than GCRK-S: even coarse conditioning overfits here.
 **GCRK-S on the twelve events** (county-grouped, seed 0), added to the arms of Amendment 7 and run
 before GCRK+Cin: is the small advantage of a shared response kernel over W repeated on the larger
 panel?
+
+Note to Amendment 6.3 (2026-09-21, after world TB, before TBc): in TB the geography-conditioned
+kernel recovers +0.01 of the planted effect (GCRK against GCRK-S, error to the true mean path
+0.00343 against 0.00344; planted signal 0.00288), although the truth lies in GCRK's own model class.
+To separate "the protocol cannot learn a geography-conditioned memory" from "it cannot at this noise
+level and sample size", a noise-free copy of TB is added (TBc: same truth, same maps, sigma_unit =
+sigma_block = 0; the neutral-geography truth's error is 41% of the all-zero error, the truth's is
+zero up to quantisation). Arms GCRK, GCRK-S and W, folds 1-3. It takes the place of the null world
+T0, whose question (does the conditioning create a difference where none was planted?) TB has
+already answered in the negative. Reading: if GCRK falls far below GCRK-S in TBc, the method and its
+training can learn the effect and the limit in TB is statistical; if not, the limit is in the
+optimisation or the architecture.

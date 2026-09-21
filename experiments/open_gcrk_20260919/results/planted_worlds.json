@@ -38,6 +38,14 @@
    "zero_share": 0.151268759667238,
    "mean_outage": 0.003956033044463911,
    "real_mean_outage": 0.004520999267697334
+  },
+  "TBc": {
+   "kappa": 4.0,
+   "planted_gap": 60.223280927014336,
+   "rmse_zero": 0.009990060148787375,
+   "rmse_truth": 6.661181566316943e-05,
+   "rmse_neutral_truth": 0.0040781939034047155,
+   "neutral_vs_truth_mean_path": 0.0040776483692139065
   }
  }
 }

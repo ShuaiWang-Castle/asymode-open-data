@@ -21,7 +21,7 @@ ARMS = ("W", "GCRK-S", "GCRK", "GCRK-P", "W+G")
 
 def main():
     rows = []
-    for world in ("T0", "TB", "TA"):
+    for world in ("T0", "TB", "TA", "TBc"):
         os.environ["OPEN_GCRK_ROUND"] = f"syn{world}"
         for mod in ("common",):
             sys.modules.pop(mod, None)
