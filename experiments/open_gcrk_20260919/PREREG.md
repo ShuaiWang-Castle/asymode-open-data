@@ -375,3 +375,50 @@ held-out RMSE, with the county-cluster bootstrap interval of the relative change
   the interface, not its position.
 One seed cannot decide the size of any effect; a difference that survives this screen would be
 repeated over five seeds before it is reported as a result.
+
+## Amendment 6 (2026-09-20, before the runs; why the kernel does not help here)
+
+Observation that motivates it (existing round-1 selection traces, descriptive): once the kernel is
+fully open, GCRK's training loss falls below W's (-10.6% at step 400, 24 of 25 cell pairs) while
+its held-out inner loss rises above W's (+1.5%). Three explanations are separated below: the
+descriptors act as county fingerprints (capacity without transferable content); the data carry no
+geography-conditioned memory to learn; or the protocol cannot learn such an effect even when it
+exists.
+
+**A6.1 Fingerprint controls on real data** (five-event panel, round-2 inputs, county-grouped,
+seed 0, the kernel and protocol unchanged):
+* GCRK-S, shared kernel: every county's geographic input is the neutral code, so one set of kernel
+  parameters serves all counties (memory without geography).
+* GCRK-P, permuted geography: counties exchange descriptor vectors by one fixed permutation
+  (seeded; a county keeps its donor's vector in all its events), so the vectors stay unique
+  fingerprints but carry no true geography.
+Reported against W and GCRK of the R2 screen: OUTER RMSE with county-cluster intervals, and the
+training and inner loss curves at matched steps. Reading: if GCRK-P matches GCRK in training-loss
+reduction and OUTER RMSE, the conditioning works as a fingerprint, not as geography; if GCRK-S
+matches both, the kernel's effect is a shared memory and geography is not used.
+
+**A6.2 Timing probe (model-free).** For held-out units of the twelve-event data with a forecast-
+window peak of at least 1%: the lag from the gust-energy peak to the outage peak, the time the
+outage stays above half its peak, and the ratio of window mean to peak. The Amendment-4 regressor
+(same settings and folds) predicts each from the unit-level weather summaries, without and with the
+40 descriptors and with the within-event-and-state permutation null. Reading: geography-conditioned
+memory requires that geography changes timing or persistence; if it adds nothing here, the
+mechanism the kernel represents has no support in these data.
+
+**A6.3 Planted-effect recovery (semi-synthetic).** Inputs, initial states, masks and folds are the
+real ones of the five-event panel; only the forecast-window outage paths are generated, from a
+trained GCRK network (R2 screen, fold 1) used as the ground truth with its kernel opening set to
+0.9, in three worlds: T0, shared kernel (neutral geography for every county); TB, geography-
+conditioned memory (true descriptors, with the code-to-damping and code-to-gain maps replaced by
+seeded random maps scaled so that memory lengths and gains vary widely across counties); TA, T0 plus
+a geography level term on the damage logit (seeded random direction). Unobserved heterogeneity is
+added as log-normal multipliers on the damage rate, per unit and per event-by-state block, with
+variances calibrated so that the ratio of the truth's RMSE to the all-zero RMSE and the unit-level
+R2 of the truth match the real data's W. The planted effect size of a world is the relative RMSE
+gap, on the noisy paths, between the truth and the same truth with neutral geography. Arms W,
+GCRK-S, GCRK and W+G are trained with the unchanged protocol (seed 0; outer folds 1-3 first, 4-5
+only if the reading is ambiguous). Reported: each arm's RMSE against the noisy paths and against the
+true mean paths, and the share of the planted gap that GCRK recovers relative to GCRK-S.
+Reading: if GCRK recovers most of a planted memory effect of a few percent under this protocol, the
+method can learn what it is built for and the real data do not contain it at a detectable size; if
+it does not, the failure is in the method or its training, and that is where to work next.
