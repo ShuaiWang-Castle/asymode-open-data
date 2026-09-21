@@ -55,6 +55,21 @@ def _moments(a: np.ndarray):
 PERMUTATION_SEED = 20260920
 
 
+def regime_onehot(F: dict, k: int) -> np.ndarray:
+    """One-hot geographic regime of every unit (PREREG Amendment 8): k-means (seeded, 20 restarts) on the
+    standardised descriptors of all panel counties, missing values at the column median. Static covariates
+    only; no outage enters."""
+    from sklearn.cluster import KMeans
+    fips = np.asarray(F["fips"]).astype(str)
+    counties, first = np.unique(fips, return_index=True)
+    g = np.asarray(F["geo"], dtype=np.float64)[first]
+    g = np.where(np.isnan(g), np.nanmedian(g, 0), g)
+    z = (g - g.mean(0)) / (g.std(0) + 1e-9)
+    lab = KMeans(n_clusters=k, n_init=20, random_state=PERMUTATION_SEED).fit_predict(z)
+    of = dict(zip(counties, lab))
+    return np.eye(k, dtype=np.float32)[[of[c] for c in fips]]
+
+
 def geo_variant(F: dict, arm: str) -> dict:
     """Geography controls (PREREG Amendment 6): the features with the geographic input replaced.
 
@@ -64,12 +79,14 @@ def geo_variant(F: dict, arm: str) -> dict:
             donor's vector in all its events.
     Any other arm returns F unchanged.
     """
-    if arm not in ("GCRK-S", "GCRK-P"):
+    if arm not in ("GCRK-S", "GCRK-P", "GCRK-K8"):
         return F
     F = dict(F)
     geo = np.array(F["geo"], dtype=np.float32, copy=True)
     if arm == "GCRK-S":
         geo[:] = 0.0
+    elif arm == "GCRK-K8":
+        geo = regime_onehot(F, 8)
     else:
         fips = np.asarray(F["fips"]).astype(str)
         counties = np.unique(fips)
@@ -116,7 +133,7 @@ class Engine:
     """One model on one fitting set (optionally with a validation set)."""
 
     def __init__(self, F: dict, fit_idx, val_idx, seed: int, arm: str, private_seed: int = 1729):
-        assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "W+C", "W+G", "W+Cin", "GCRK+Cin")
+        assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "W+C", "W+G", "W+Cin", "GCRK+Cin")
         self.arm, self.seed, self.step = arm, int(seed), 0
         self.fit_idx = np.sort(np.asarray(fit_idx))
         self.val_idx = None if val_idx is None else np.sort(np.asarray(val_idx))
@@ -127,7 +144,7 @@ class Engine:
         self.model = AsymODE(F["xu"].shape[-1], F["xr"].shape[-1], F["xo"].shape[-1])
         if arm in ("W+Cin", "GCRK+Cin"):
             self.model.attach_context_input(N_STATIC)
-        if arm in ("GCRK", "GCRK-S", "GCRK-P", "GCRK+Cin"):
+        if arm in ("GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK+Cin"):
             self.model.attach_gcrk(torch.tanh(self.fit["geo"] / 3.0).mean(0), private_seed)
         elif arm == "W+C":
             self.model.attach_level(N_STATIC, "ctx")
