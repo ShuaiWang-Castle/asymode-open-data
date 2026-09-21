@@ -479,3 +479,20 @@ T0, whose question (does the conditioning create a difference where none was pla
 already answered in the negative. Reading: if GCRK falls far below GCRK-S in TBc, the method and its
 training can learn the effect and the limit in TB is statistical; if not, the limit is in the
 optimisation or the architecture.
+
+## Amendment 9 (2026-09-21, before the run; one clock for two components)
+
+Results that motivate it: every form of geographic conditioning (true, permuted, regime-level) is
+2.7-2.9% worse than the same kernel without geography, fits the training set faster, turns the inner
+loss up earlier and has the whole model refit for 360 steps where the shared kernel gets 510 and W 650.
+The conditioning and the host share one learning rate and one stopping clock.
+
+**GCRK-slow.** The kernel, its inputs (the 40 descriptors) and the protocol are unchanged; the four
+conditioning maps (U, Vl, Va, Vg) are given one tenth of the host's Adam step (0.0003, the recovery
+network's step); every other parameter keeps its step. Five-event panel, round-2 inputs, county-grouped,
+seed 0, against W, GCRK-S, GCRK of the same seed.
+Reading: GCRK-slow about equal to GCRK-S and clearly better than GCRK: the harm of the conditioning is
+the coupling (fast overfit of the maps stopping the host early), and a slow conditioning is the safe form
+of the kernel on data like these. GCRK-slow better than GCRK-S (county interval below zero): geography
+carries usable response information once it is learned slowly. GCRK-slow no better than GCRK: the
+coupling is not the mechanism.

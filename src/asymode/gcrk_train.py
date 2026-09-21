@@ -133,7 +133,7 @@ class Engine:
     """One model on one fitting set (optionally with a validation set)."""
 
     def __init__(self, F: dict, fit_idx, val_idx, seed: int, arm: str, private_seed: int = 1729):
-        assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "W+C", "W+G", "W+Cin", "GCRK+Cin")
+        assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "W+C", "W+G", "W+Cin", "GCRK+Cin")
         self.arm, self.seed, self.step = arm, int(seed), 0
         self.fit_idx = np.sort(np.asarray(fit_idx))
         self.val_idx = None if val_idx is None else np.sort(np.asarray(val_idx))
@@ -144,14 +144,21 @@ class Engine:
         self.model = AsymODE(F["xu"].shape[-1], F["xr"].shape[-1], F["xo"].shape[-1])
         if arm in ("W+Cin", "GCRK+Cin"):
             self.model.attach_context_input(N_STATIC)
-        if arm in ("GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK+Cin"):
+        if arm in ("GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "GCRK+Cin"):
             self.model.attach_gcrk(torch.tanh(self.fit["geo"] / 3.0).mean(0), private_seed)
         elif arm == "W+C":
             self.model.attach_level(N_STATIC, "ctx")
         elif arm == "W+G":
             self.model.attach_level(F["geo"].shape[-1], "geo")
         host, rec = self.model.parameter_groups()
-        self.opt = torch.optim.Adam([dict(params=host, lr=LR_HOST), dict(params=rec, lr=LR_RECOVERY)], lr=LR_HOST)
+        groups = [dict(params=host, lr=LR_HOST), dict(params=rec, lr=LR_RECOVERY)]
+        if arm == "GCRK-slow":        # PREREG Amendment 9: the conditioning maps take one tenth of the host's step
+            k = self.model.kernel
+            maps = [k.U, k.Vl, k.Va, k.Vg]
+            ids = {id(p) for p in maps}
+            groups = [dict(params=[p for p in host if id(p) not in ids], lr=LR_HOST), dict(params=maps, lr=0.1 * LR_HOST),
+                      dict(params=rec, lr=LR_RECOVERY)]
+        self.opt = torch.optim.Adam(groups, lr=LR_HOST)
         self.last_loss = float("nan")
         self.refresh()
 
