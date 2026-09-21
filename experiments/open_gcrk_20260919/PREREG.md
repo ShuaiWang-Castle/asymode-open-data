@@ -422,3 +422,22 @@ true mean paths, and the share of the planted gap that GCRK recovers relative to
 Reading: if GCRK recovers most of a planted memory effect of a few percent under this protocol, the
 method can learn what it is built for and the real data do not contain it at a detectable size; if
 it does not, the failure is in the method or its training, and that is where to work next.
+
+## Amendment 7 (2026-09-20, before the run; a context-aware host and the kernel's margin on it)
+
+Proposed by the second external review. One change to the host, registered as its own version: the
+six county context variables enter the first layer of the damage network,
+h = ReLU(W_x x + A c + b), with A (32 x 6, 192 parameters) zero at the start, so the arm is W at
+step 0 and the context can act through the network's own non-linearity with the weather instead of
+as a constant shift (W+C, Amendment 5). No extra head, state or loss; the kernel's equations and
+parameterisation are untouched and the kernel reads the same hidden sequence h.
+
+Arms: W+Cin (context-aware host) and GCRK+Cin (the same host with the unchanged kernel), against
+W, W+C and GCRK of the same seed. Twelve events, round-2 inputs, county-grouped, seed 0, five folds.
+Reading, fixed in advance (county-cluster interval of the relative RMSE change):
+* W+Cin better than W, GCRK+Cin not better than W+Cin: the gain belongs to the host's use of county
+  context, not to the kernel.
+* GCRK+Cin also better than W+Cin: the kernel has a margin on an informed host, and the shared and
+  permuted controls are then run on that host before anything is claimed.
+* Neither: no further host or geography modules on these data; the limits found in Amendment 6
+  (repeatable county effect, timing probe) are the explanation to report.
