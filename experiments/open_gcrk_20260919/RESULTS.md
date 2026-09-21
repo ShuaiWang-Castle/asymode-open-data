@@ -545,7 +545,78 @@ kernel and the protocol are untouched. Ten cells, no failure. `results/e3r2/leve
 * W+C also trains about as long as W (t* 430-850 against 780-1050), unlike GCRK (410-610), so this
   comparison is not confounded by training length the way the kernel comparison is (section 13).
 
-## 18. Provenance of every number
+## 18. Why the kernel does not help on these data (PREREG Amendment 6 with its note; seed 0)
+
+Scripts `review3_*.py`, `evaluate_controls.py`, `make_planted_*.py`, `evaluate_planted.py`; files
+`results/review3_inner_curves.csv`, `results/r2/controls_*.csv`, `results/e3r2/review3_*`,
+`results/planted_*.{json,csv}`. Four findings, ordered from the most basic.
+
+**1. The geography is already in the weather the host reads.** A regressor given only the prefix and
+forecast-window means of the 14 ERA5 channels predicts the descriptors of counties it has never seen:
+mean elevation R2 0.997 (0.994 from surface pressure alone), canopy 0.84, forest share 0.79, slope
+0.86, relief 0.83, wet-soil share 0.76, hydric share 0.72; median over the 40 descriptors 0.72, 29
+above 0.5; only the eight aspect shares (0.14-0.29) and developed land (0.40) are not encoded.
+Conditioning on geography therefore gives the model little it does not have, which is what the
+unconstrained regressor of section 16 measured (-1.1%, interval across zero).
+
+**2. What weather leaves unexplained is not a property of the county.** In the out-of-fold residuals
+of the forecast-window mean outage (weather, neighbours and prefix outage as inputs), the repeatable
+county effect over the 1,653 counties seen in two or more events has an intraclass correlation of
+0.06 on the scale of the loss (0.17 on the log scale): about 94% of it is specific to the county in
+that event. No static county descriptor, of any kind and through any interface, can explain more than
+that share. Consistent with it: geography does not predict the timing of the response (lag from gust
+peak to outage peak: R2 0.39 without, 0.37 with geography; hours above half peak 0.24 and 0.24; only
+the mean-to-peak ratio moves, -1.2%, interval touching zero); two coordinates (latitude, longitude)
+help the pooled regressor more than the 40 descriptors (-1.8% against -1.1%); and the descriptors are
+45% state (median R2 on state alone; elevation and canopy 70-80%). A guess that descriptors work as a
+proxy of one storm's footprint inside a single event was tested and is wrong here (+2.0% on average,
+better in 2 of 12 events).
+
+**3. The conditioning identifies counties instead of transferring geography.** Round-1 traces: once
+the kernel is open, GCRK's training loss is 10.6% below W's at step 400 (24 of 25 cell pairs) while
+its held-out inner loss is 1.5% above. Controls on the five-event panel (round-2 inputs):
+
+| arm | RMSE | vs W | median t* | training / inner loss vs W at step 400 |
+|---|---:|---:|---:|---|
+| W | 0.02597 | - | 650 | - |
+| GCRK | 0.02644 | +1.8% | 360 | -26% / +1.4% |
+| GCRK-S, shared kernel (no geography) | **0.02570** | -1.1% | 510 | -15% / -0.6% |
+| GCRK-P, descriptors permuted across counties | 0.02658 | +2.3% | 510 | -30% / +6.2% |
+
+GCRK against GCRK-S: +2.9% (county interval +0.8% to +4.9%); GCRK against GCRK-P: -0.5% (-2.2% to
++1.1%). Vectors with no geographic meaning lower the training loss as much as true geography and
+generalise as badly; the same kernel without geography is the best arm (interval against W across
+zero) and does not stop early.
+
+**4. At this noise and sample size a real geographic effect of 7% could not be learned either.**
+Semi-synthetic worlds on the real inputs and folds (truth: a trained GCRK network; log-normal unit and
+event-by-state heterogeneity calibrated to the real data; folds 1-3):
+
+| world (planted gap) | W | GCRK-S | GCRK | W+G | share of the planted effect recovered |
+|---|---:|---:|---:|---:|---|
+| TB, geography-conditioned memory (7.3%) | 0.01006 | 0.01014 | 0.01020 | 0.01028 | GCRK vs GCRK-S +0.01 |
+| TA, geography level term (7.2%) | 0.01356 | 0.01358 | 0.01348 | 0.01365 | GCRK vs GCRK-S +0.21; W+G vs W +0.06 |
+| TBc, TB without noise | 0.00085 | 0.00079 | 0.00075 | - | see below |
+
+In TB the learned county memory lengths barely vary where training stops early (spread 0.02 and 0.13 h
+against 2.9 h in the truth) and, where it runs longer, vary against the truth (Spearman -0.10): what
+grows is noise. Without noise (TBc) the order is GCRK < GCRK-S < W and all arms are still improving
+at the 1,600-step cap (kernel opening 0.35), so the optimisation path exists but is slow: the
+conditioning maps start at zero and an Adam step of 0.003 needs more than a thousand consistent steps
+to reach the planted weights, while selection stops at 400-800. TBc also shows finding 1 from another
+side: W, which has no geographic input, reaches 0.00085 where the best geography-blind predictor of
+the truth's own form has 0.00395, because the weather channels reveal the geography.
+
+Reading. The failure is over-determined: the information the kernel is conditioned on is largely
+redundant with its host's inputs (1); the variance left over is not a county property (2); the
+conditioning's capacity is spent on identifying counties, which costs about 3% against the same
+kernel without geography (3); and effects several times larger than any this panel could contain are
+not learnable at its noise level (4), while the evaluation cannot detect differences below about 2%
+(section 12). What helps on these data is what changes the information or removes noise: better
+weather inputs (-2.9%, section 14), a shared response kernel (-1.1%, not yet distinguishable), county
+context on the damage level (-0.8%, not distinguishable, section 17).
+
+## 19. Provenance of every number
 
 | numbers | file | script (inputs) | seeds |
 |---|---|---|---|
@@ -570,3 +641,4 @@ kernel and the protocol are untouched. Ten cells, no failure. `results/e3r2/leve
 | E3 seed 0 (section 15) | `results/e3r2/e3_*` | `evaluate_e3.py` with OPEN_GCRK_ROUND=e3r2 (runs/.../e3r2/) | 0 |
 | second-review diagnostics (section 16) | `results/e3r2/review2_*.csv` | `review2_checks.py` and the two inline ablation / rescaling scripts recorded in the commit message (features_e3r2.npz, runs/.../e3r2/) | 0 |
 | level arms (section 17) | `results/e3r2/level_arms_main.csv`, `level_arms_bootstrap.csv` | inline script recorded in the Amendment 5 commit (runs/.../e3r2/main/seed0/W+*) | 0 |
+| why the kernel does not help (section 18) | `results/review3_inner_curves.csv`, `results/r2/controls_*.csv`, `results/e3r2/review3_{timing,footprint,redundancy}.csv`, `review3_ceiling.json`, `results/planted_{worlds.json,recovery.csv,maps_TB.csv}` | `review3_*.py`, `evaluate_controls.py`, `make_planted_worlds.py`, `make_planted_clean.py`, `evaluate_planted.py` | 0 (round-1 traces: 0-4) |
