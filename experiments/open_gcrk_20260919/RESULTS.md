@@ -616,7 +616,30 @@ not learnable at its noise level (4), while the evaluation cannot detect differe
 weather inputs (-2.9%, section 14), a shared response kernel (-1.1%, not yet distinguishable), county
 context on the damage level (-0.8%, not distinguishable, section 17).
 
-## 19. Provenance of every number
+## 19. A conditioning that cannot single out a county: GCRK-K8 (PREREG Amendment 8; five events, seed 0)
+
+The unchanged kernel reads the one-hot indicator of the county's geographic regime instead of its 40
+descriptors (k-means, K = 8, on the standardised descriptors of all panel counties; regimes of 86 to
+413 counties: open plains, forested mountains, wet lowlands, arid high relief, forested hills, ...).
+`results/r2/controls_*.csv`.
+
+| arm | RMSE | vs W | median t* | training loss vs W at step 400 |
+|---|---:|---:|---:|---:|
+| W | 0.02597 | - | 650 | - |
+| GCRK-S, shared kernel | **0.02570** | -1.1% | 510 | -15% |
+| GCRK-K8, eight regimes | 0.02638 | +1.6% | 360 | -19% |
+| GCRK, 40 descriptors | 0.02644 | +1.8% | 360 | -26% |
+| GCRK-P, permuted descriptors | 0.02658 | +2.3% | 510 | -30% |
+
+GCRK-K8 against GCRK-S: +2.7% (county interval +0.9% to +4.6%); against GCRK: -0.2% (-1.4% to
++1.0%). By the rule fixed in advance this is the third branch: even conditioning that cannot identify a
+county overfits here. It fits the training set better than the shared kernel, its inner loss turns up
+at the same early step as the full conditioning, and the whole model is then refit for 360 steps where
+the shared kernel gets 510 and W 650 (section 13 measured what that costs the host). All three forms of
+conditioning - true, permuted and regime-level geography - are 2.7-2.9% worse than the same kernel
+without geography, each with an interval that excludes zero.
+
+## 20. Provenance of every number
 
 | numbers | file | script (inputs) | seeds |
 |---|---|---|---|
@@ -642,3 +665,4 @@ context on the damage level (-0.8%, not distinguishable, section 17).
 | second-review diagnostics (section 16) | `results/e3r2/review2_*.csv` | `review2_checks.py` and the two inline ablation / rescaling scripts recorded in the commit message (features_e3r2.npz, runs/.../e3r2/) | 0 |
 | level arms (section 17) | `results/e3r2/level_arms_main.csv`, `level_arms_bootstrap.csv` | inline script recorded in the Amendment 5 commit (runs/.../e3r2/main/seed0/W+*) | 0 |
 | why the kernel does not help (section 18) | `results/review3_inner_curves.csv`, `results/r2/controls_*.csv`, `results/e3r2/review3_{timing,footprint,redundancy}.csv`, `review3_ceiling.json`, `results/planted_{worlds.json,recovery.csv,maps_TB.csv}` | `review3_*.py`, `evaluate_controls.py`, `make_planted_worlds.py`, `make_planted_clean.py`, `evaluate_planted.py` | 0 (round-1 traces: 0-4) |
+| regime-conditioned kernel (section 19) | `results/r2/controls_*.csv` | `evaluate_controls.py` with OPEN_GCRK_ROUND=r2 (runs/.../r2/main/seed0/*/GCRK-K8) | 0 |

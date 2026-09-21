@@ -8,7 +8,7 @@ import json
 import numpy as np, pandas as pd
 import common as C
 
-ARMS = ("W", "GCRK", "GCRK-S", "GCRK-P")
+ARMS = ("W", "GCRK", "GCRK-S", "GCRK-P", "GCRK-K8")
 F = C.load_features(); n = len(F["y"]); m = F["m"].astype(bool); y = F["y"].astype(float); z = m & (y == 0)
 sp = C.load_splits()["main"]; rng = np.random.default_rng(20260921)
 preds = {}
@@ -32,7 +32,7 @@ u, inv = np.unique(F["fips"].astype(str), return_inverse=True)
 w = rng.multinomial(len(u), np.full(len(u), 1 / len(u)), size=5000)
 bt = []
 sse = {a: C.unit_sse(P, F) for a, P in preds.items()}
-for a, b in (("GCRK", "W"), ("GCRK-S", "W"), ("GCRK-P", "W"), ("GCRK", "GCRK-S"), ("GCRK", "GCRK-P")):
+for a, b in (("GCRK", "W"), ("GCRK-S", "W"), ("GCRK-P", "W"), ("GCRK-K8", "W"), ("GCRK", "GCRK-S"), ("GCRK", "GCRK-P"), ("GCRK-K8", "GCRK-S"), ("GCRK-K8", "GCRK")):
     if a in sse and b in sse:
         r = np.sqrt((w @ np.bincount(inv, sse[a])) / (w @ np.bincount(inv, sse[b]))) - 1
         bt.append(dict(contrast=f"{a} vs {b}", change=float(np.sqrt(sse[a].sum() / sse[b].sum()) - 1), ci_lo=float(np.quantile(r, .025)),
