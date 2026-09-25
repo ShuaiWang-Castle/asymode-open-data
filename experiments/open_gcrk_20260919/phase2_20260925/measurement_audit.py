@@ -157,6 +157,8 @@ def audit(raw: pd.DataFrame, panel: dict, locf_quarters: int = 4,
     duplicated = in_window.duplicated(["fips", "ts"], keep=False)
     conflicting_pairs = int(in_window.loc[duplicated].groupby(["fips", "ts"], dropna=False)
                             .customers_out.nunique(dropna=False).gt(1).sum())
+    conflict_keys = in_window.loc[duplicated].groupby(["fips", "ts"], dropna=False) \
+        .customers_out.nunique(dropna=False).loc[lambda x: x > 1].index
     duplicate_extra_rows = int(in_window.duplicated(["fips", "ts"]).sum())
     bad_count_rows = int((in_window.customers_out.isna() | (in_window.customers_out < 0)).sum())
     den_by_fips = dict(zip(panel["fips"], panel["denominator"]))
@@ -174,6 +176,15 @@ def audit(raw: pd.DataFrame, panel: dict, locf_quarters: int = 4,
     counts[ci, qi] = unique.customers_out.to_numpy(float)
     raw_positive = raw_present & np.isfinite(counts) & (counts > 0)
     explicit_nonpositive = raw_present & ~raw_positive
+    quarantined = raw_present & (~np.isfinite(counts) | (counts < 0) |
+                                 (counts > panel["denominator"][:, None]))
+    for fips, ts in conflict_keys:
+        c = pd.Index(panel["fips"]).get_indexer([fips])[0]
+        q = grid.get_indexer([ts])[0]
+        if c >= 0 and q >= 0:
+            quarantined[c, q] = True
+    valid_source = raw_present & ~quarantined
+    valid_positive = raw_positive & valid_source
     counts = np.nan_to_num(counts, nan=0.0)
 
     # The existing code groups *national source rows* by timestamp (duplicates
@@ -236,30 +247,33 @@ def audit(raw: pd.DataFrame, panel: dict, locf_quarters: int = 4,
     positive_only_y = np.full((n, HOURS), np.nan)
     np.divide(positive_q.sum(axis=-1), pos_n, out=positive_only_y, where=pos_n > 0)
 
-    # Capped forward carry after an actual positive row; never overwrite any
-    # source row. The cap counts elapsed 15-minute slots. A proxy-no-run slot
-    # interrupts the carry even if global collection later resumes. An explicit
-    # nonpositive source row resets the carry. This scenario
-    # is useful for sensitivity but is never labelled as true outage.
+    # B retains every valid on-grid source row, independently of A's inferred
+    # run/service mask. Conflicting, invalid and above-denominator rows are
+    # quarantined. A proxy-no-run slot interrupts carry but cannot erase a
+    # valid source row itself. Carry is a separate assumption: it requires a
+    # national run, stops at the forecast origin, and never overwrites a row.
     carried_counts = np.zeros_like(counts)
     for i in range(n):
         last_positive_q = -locf_quarters - 1
         last_positive_value = 0.0
         for q in range(len(grid)):
+            if q == ORIGIN * QUARTERS_PER_HOUR:
+                last_positive_q = -locf_quarters - 1
+                last_positive_value = 0.0
             if not global_run_proxy[q]:
                 last_positive_q = -locf_quarters - 1
                 last_positive_value = 0.0
-            elif used_positive[i, q]:
+            elif valid_positive[i, q]:
                 last_positive_q = q
                 last_positive_value = counts[i, q]
-            elif explicit_nonpositive[i, q]:
+            elif raw_present[i, q]:
                 last_positive_q = -locf_quarters - 1
                 last_positive_value = 0.0
-            elif inferred_mask15[i, q] and (q - last_positive_q <= locf_quarters):
+            elif q - last_positive_q <= locf_quarters:
                 carried_counts[i, q] = last_positive_value
-    # B does not relabel all longer, unrecorded gaps as zero. A supplied raw
-    # row or a short carried positive is evidence under B; otherwise unknown.
-    locf_mask15 = (raw_present & inferred_mask15) | (carried_counts > 0)
+    # A supplied raw row or a short carried positive is evidence under B;
+    # otherwise the quarter is unknown, including long recovery gaps.
+    locf_mask15 = valid_source | (carried_counts > 0)
     locf_y = _ratio_mean(counts + carried_counts, locf_mask15, panel["denominator"])
     locf_valid_hour = locf_mask15.reshape(n, HOURS, QUARTERS_PER_HOUR).any(axis=-1)
     locf_changed_hour = (carried_counts > 0).reshape(n, HOURS, QUARTERS_PER_HOUR).any(axis=-1)
@@ -277,10 +291,12 @@ def audit(raw: pd.DataFrame, panel: dict, locf_quarters: int = 4,
             "reconstructed_proxy_observed_hours": int(inferred_mask_hour[s].sum()),
             "saved_and_reconstructed_A_hours": int(a_support.sum()),
             "B_valid_hours": int(locf_valid_hour[s].sum()),
+            "B_valid_hours_outside_saved_A": int((locf_valid_hour[s] & ~saved_mask_hour[s]).sum()),
             "matched_support_hours_A_and_B": int(m.sum()),
             "mask_disagreement_hours": int((saved_mask_hour[s] != inferred_mask_hour[s]).sum()),
             "source_positive_hours_on_matched_support": int(positive_support.sum()),
             "source_positive_quarters_on_proxy_mask": int(used_positive[q].sum()),
+            "quarantined_source_quarters": int(quarantined[q].sum()),
             "hours_with_only_assumed_zero_quarters": int(all_assumed_zero_hour[s].sum()),
             "hours_without_source_positive_row": int(no_source_positive_hour[s].sum()),
             "hours_with_at_least_one_assumed_zero_quarter": int(some_assumed_zero_hour[s].sum()),
@@ -314,7 +330,7 @@ def audit(raw: pd.DataFrame, panel: dict, locf_quarters: int = 4,
                 if service_mode == "centered" else
                 f"any source row in the preceding {service_days} days, ending at this slot"
             ) + "; not verified county coverage",
-            "locf_scenario": f"B uses source rows and positive values carried at most {locf_quarters} subsequent 15-minute slots without bridging a global no-run proxy; longer gaps are unknown, not zero; B's observed hours are selected toward positive reports",
+            "locf_scenario": f"B uses valid source rows regardless of A's proxy mask and positive values carried at most {locf_quarters} subsequent 15-minute slots without bridging a global no-run proxy or the forecast origin; conflicting/invalid rows are quarantined; longer gaps are unknown, not zero; B's observed hours are selected toward positive reports",
             "positive_only": "selects hours with positive source records; biased evaluation subset, not an alternative truth",
             "sensitivity_support": "A/B numerical contrasts use only county-hours valid under both target masks and the saved panel; A proxy counts use the saved-and-reconstructed A mask",
         },
@@ -368,12 +384,14 @@ def _self_test() -> None:
         ("00001", grid[72 * 4 + 2], 20),
         ("00001", grid[73 * 4], 0),  # explicit zero resets forward carry
         ("00002", grid[100 * 4], 250),  # quarter-level ratio is capped at one
+        ("00002", grid[ORIGIN * 4 - 1], 20),  # carry must not cross forecast origin
         ("00002", grid[200 * 4], 50),  # actual row, but below global-run proxy threshold
         ("00002", grid[72 * 4] + pd.Timedelta(minutes=7), 5),  # off-grid row
     ])
     raw = pd.DataFrame(rows, columns=["fips", "ts", "customers_out"])
     y = np.zeros((2, HOURS), dtype=np.float32)
     y[0, 72] = (0.4 + 0.2) / 4
+    y[1, ORIGIN - 1] = (20 / 200) / 4
     y[1, 100] = 1 / 4
     obs = np.ones_like(y, dtype=bool)
     obs[:, 200] = False
@@ -401,15 +419,17 @@ def _self_test() -> None:
     checks = result["input_checks"]
     assert checks["global_no_run_proxy_quarters"] == 5, checks
     assert checks["label_reconciliation_ok"], checks
-    assert checks["source_positive_quarters_within_panel_counties_window"] == 4, checks
+    assert checks["source_positive_quarters_within_panel_counties_window"] == 5, checks
     assert checks["source_positive_quarters_excluded_by_proxy_mask"] == 1, checks
     assert checks["above_panel_denominator_source_rows"] == 1, checks
+    assert result["lead_segments"]["25_48h"]["quarantined_source_quarters"] == 1
     assert checks["off_grid_source_rows_within_panel_counties_window"] == 1, checks
     assert no_carry["lead_segments"]["full_1_144h"]["locf_changed_quarters"] == 0
     assert duplicate_check["input_checks"]["duplicate_conflicting_count_pairs"] == 1
+    assert duplicate_check["lead_segments"]["1_6h"]["quarantined_source_quarters"] == 1
     assert duplicate_check["input_checks"]["label_reconciliation_ok"]
     assert past_only["input_checks"]["centered_service_quarters_without_past_service_evidence"] > 0
-    assert past_only["prefix_0_71h"]["reconstructed_proxy_observed_hours"] == 0
+    assert past_only["prefix_0_71h"]["reconstructed_proxy_observed_hours"] == 1
     assert gap_with_carry["input_checks"]["label_reconciliation_ok"]
     # Source at q0, a missing national run at q1: q2/q3 must not inherit q0.
     assert gap_with_carry["lead_segments"]["49_144h"]["locf_changed_quarters"] == 0
@@ -425,6 +445,8 @@ def _self_test() -> None:
     first = result["lead_segments"]["1_6h"]
     assert first["saved_and_reconstructed_A_hours"] == 12, first
     assert first["matched_support_hours_A_and_B"] == 2, first
+    assert result["prefix_0_71h"]["B_valid_hours"] > 0
+    assert result["lead_segments"]["49_144h"]["B_valid_hours_outside_saved_A"] == 1
     assert first["source_positive_hours_on_matched_support"] == 1, first
     assert first["hours_with_only_assumed_zero_quarters"] == 10, first
     assert first["hours_without_source_positive_row"] == 11, first

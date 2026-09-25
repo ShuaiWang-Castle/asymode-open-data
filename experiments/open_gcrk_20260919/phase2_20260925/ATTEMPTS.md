@@ -36,6 +36,40 @@ leakage, and a finite-difference gradient. Outcome: audit self-test and seven
 unit tests pass. These establish only code behavior on synthetic inputs; no
 prediction improvement or physical mechanism was measured.
 
+## Attempt 03: audit scenario B against its registered source-row rule (2026-09-25)
+
+Input: the branch's `measurement_audit.py` (pre-edit SHA-256
+`bfc201d4c121a458dddbeed56d8df6af0398ac8c2ec83c3b0114bed4d4ee976d`),
+`src/asymode/panel.py`, and `PREPROCESSING_PROTOCOL.md`; **synthetic rows only**.
+No original national 15-minute parquet, 216-hour research panel, or saved
+checkpoint was available in this checkout. Inspection found a protocol/code
+contradiction: B filtered actual positive source rows through A's inferred
+national-run/county-service mask, so it could discard a recorded count when
+fewer than five national rows happened to exist at that timestamp. B also
+carried a positive count across the hour-71/72 forecast origin despite the
+explicit no-cross-origin rule. These were code defects, **not** observed
+real-data frequencies or evidence that B improves accuracy.
+
+Correction: B now retains valid on-grid source rows independently of A's
+proxy mask; carry is limited to proxy-run slots and reset at the forecast
+origin or a no-run slot. Conflicting duplicates, nonfinite/negative counts,
+and counts exceeding the panel denominator are quarantined from B rather
+than interpreted as zeros or clipped positives. The script reports B-only
+county-hours and quarantined quarters; numerical A/B contrasts remain on
+their common support. A's historic reconstruction and original result files
+were not changed. A separate source row at a no-run slot, a pre-origin
+positive, an above-denominator count, and a conflicting duplicate are covered
+by synthetic assertions. The synthetic self-test and all seven bounded-state
+unit tests pass; `git diff --check` passes. Corrected script SHA-256:
+`9c6b58487c600ff486b214307684513de17dc588a95255bfcbb40754073b2f93`.
+
+Negative and next gate: no real-source B-only count, invalid-row prevalence,
+label sensitivity, or predictive comparison can be stated from this synthetic
+check. The original national public yearly EAGLE-I parquet(s), matching
+216-hour panel and their SHA-256 digests must be restored before running the
+row-level audit. Stop if A fails exact mask/label reconciliation or if source
+quality flags are nonzero; investigate the relevant rows before any fit.
+
 ## Repository and access snapshot
 
 - Local checkout: `open_data_work`, branch `research/open-gcrk-data-mechanism-20260925`, HEAD `da465857e6dbc266e1f2fad104d049c68076ad11`. The remote branch `research/open-gcrk-5seed-20260919` is at the **same SHA**. The remote `main` is `8dd47c5ccd829611f27b69a3d64c274a0a24c400` (2026-09-03); the research commit is dated 2026-09-21. GitHub reports **no common ancestor** between these histories; use explicit refs, not `git merge main` or a naive ahead/behind count.

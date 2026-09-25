@@ -56,6 +56,13 @@ not an operational 144-hour weather forecast.
    mark subsequent absent slots unknown (even when a national run exists).
    Do not carry through a national-collection outage, the forecast origin, or
    an event boundary. The zero after recovery is not source-certified by B.
+   Retain explicit zero/nonpositive source rows for quality review as well;
+   a valid explicit zero resets carry. B's source-row inclusion is independent
+   of A's inferred run/service mask: a positive row outside that mask remains
+   a B observation, while a no-run proxy slot prevents extending its value
+   into later slots. Count B-only county-hours separately and compare A with
+   B only on their predeclared common valid support. Carry never crosses the
+   hour-71/72 forecast origin, even when the source cadence is continuous.
    Target C conditions on actually recorded positive source rows only and
    must never be called a full outage-trajectory ground truth. Keep a fixed
    UTC hourly clock across counties: no hour of model maximum or future
