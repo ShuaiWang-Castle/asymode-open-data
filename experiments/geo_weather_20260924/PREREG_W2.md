@@ -68,3 +68,20 @@ nothing beyond the cell-level feature); or a gain that appears only in the count
    seeds 0-2, event-grouped) is run; fail with power >= 0.8 -> the channel is absent at a size that matters on
    ice storms too, and the framework's claim rests on its interface and audits only; not testable -> more
    independent near-freezing events are needed, no claim either way.
+
+## Amendment 2 (2026-09-25 09:25, before any W2d feature exists)
+
+* Test code frozen at commit 239fd7d (`audit_f1.py`, sha256 72ebcfcd...6814 of the working-tree file as sent by the
+  formal contributor): `--single "C1:p_tw-1.5*one@48" --min-eff-events 8 --require-event-flip --power-target 0.045`,
+  raw scale. Command: `audit_f1.py --features data/interim/geo_weather/features_w2d.npz --splits
+  experiments/geo_weather_20260924/splits_w2d.json --base "runs/geo_weather_20260924/w2d_base/fold{fold:02d}/outer.npz"
+  --eih-prefix eih_w2d_ --single "C1:p_tw-1.5*one@48" --min-eff-events 8 --require-event-flip --power-target 0.045
+  --out experiments/geo_weather_20260924/results/F1_w2d`.
+* W2d events after the gates (no outcome read): 12 of the 18 selected, with 106 to 696 county-events each; the three
+  early-2014 episodes have no EAGLE-I record (the 2014 file starts 2014-11-01) and 2014-12-31, 2015-12-26 and
+  2020-12-30 keep no county after the gates.
+* Known before any feature (design only, from the formal contributor): with these event sizes the effective
+  number of events is capped at 9.28 for any feature and reached only by a feature spread in proportion to units;
+  on W1 the registered feature had 3.5 effective events of 8. The likely outcome is therefore "not testable".
+  **The criteria of amendment 1 are kept unchanged**; relaxing the event rule would leave power as the binding
+  constraint, and only more independent near-freezing events would raise both.
