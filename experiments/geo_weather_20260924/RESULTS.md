@@ -3,7 +3,7 @@
 Every number points to a file under `results/` or `data_provenance/`; the attempt log is `RESEARCH_LOG.md`, the
 design `DESIGN.md` (v1), the literature `LITERATURE.md`.
 
-## 0. Summary of the first night (2026-09-24 23:30 to 2026-09-25 10:00)
+## 0. Summary of the first night (2026-09-24 23:30 to 2026-09-25 03:10 EDT; updated as the night continues)
 
 * **Framework.** DESIGN v1: the county damage input as an exposure-weighted integral of local, weather-gated,
   fading-memory hazards with shared parameters, entering the host as a non-negative competing hazard, with two
@@ -11,16 +11,17 @@ design `DESIGN.md` (v1), the literature `LITERATURE.md`.
   host misses, with its own power analysis).
 * **Wind panel (12 events).** F0 and F1 close the sub-county geography channels (effects worth 2% of pooled RMSE
   would have been detected; none is there); the trained hazard arm agrees (+0.73%). Population weighting of the
-  host inputs -0.25%; canopy as county context +1.78%, as hazard-gated inputs +1.19% (fold 1): no gain.
+  host inputs -0.25%; canopy as county context +1.58%, as hazard-gated inputs +1.17% (folds 1-2): no gain.
   Literature-guided target cleaning looked like a gain on the screen (-2.66% vs base, -3.40% vs its placebo) but
-  did not survive folds 3-4 (-0.36% over folds 1-4): a screen false positive, now a program.md rule.
+  is +0.01% over all five folds ([-1.81, +1.83]): a screen false positive, now a program.md rule.
 * **Winter ice-storm panel W1 (8 events).** F0 finds sub-county content only where the phase physics predicts it
   (near-freezing precipitation, <= 1.9% of outage-weighted county-hours). County-grouped screens are inside the
   noise (two seeds); holding out whole storms, the hazard arm cuts the host's error by 8.5%, but on unseen ice
   storms neither beats the all-zero forecast.
 * **Pre-registered test (PREREG_W2.md).** The strongest W1 feature (48-h near-freezing precipitation, elevation
-  bands against cells) is registered for 12 independent ice storms (2015-2025) with frozen test code (239fd7d);
-  the design predicts "not testable" (too few effective events), and the criteria were kept.
+  bands against cells) was registered for 12 independent ice storms (2015-2025) with frozen test code (239fd7d);
+  the registered test ran and returned **not testable** (7.5 effective events, 8 required), decided from the design;
+  the W2d residual alignment is unread and kept for an enlarged confirmatory panel.
 
 Screen protocol (program.md): county-grouped outer folds 1-2 of the twelve-event wind panel (2,489 held-out
 county-events), a fixed 900 training steps on all development units, seed 0, paired initialisation; pooled hourly
@@ -81,17 +82,17 @@ matched; 3.8% of the sum of squared targets). The gain sits on the unflagged hou
 themselves get +0.94% worse, as they are no longer fitted) and in both phases (rise to the peak -3.74%, decay after
 it -2.04%; `results/diag/clean_split.json`): the artefacts distorted the learned response everywhere.
 
-**Not confirmed on the other folds.** Folds 3 and 4 of the same design give +0.63% ([-1.00, +2.40]) and +2.53%
-([-2.77, +8.40]); pooled over folds 1-4 the change is -0.36% (county [-2.40, +1.86], 6/12 events;
-`results/screen_clean_folds1to4.json`). The screen's two folds produced a false positive that its own placebo did
+**Not confirmed on the other folds.** Folds 3, 4 and 5 of the same design give +0.63% ([-1.00, +2.40]), +2.53%
+([-2.77, +8.40]) and +1.43% ([-1.05, +3.86]); over all five folds the change is +0.01% (county [-1.81, +1.83],
+event x state [-1.44, +1.35], 5/12 events; `results/screen_clean_5fold.json`). The screen's two folds produced a false positive that its own placebo did
 not catch, because the placebo shares the same two folds. Lesson for program.md: a screen keep needs the other
 folds (or another seed) before it is called a gain.
 
 **Canopy.** The data-pattern note (`notes/DATA_PATTERNS.md`) finds canopy x wind the one robust geographic signal
 in the base's residuals (same sign in 11 of 12 events). Giving the host canopy as a seventh county context did not
-transfer: fold 1 +1.78% against the cleaned base (county [-0.51, +4.65]; `runs/.../cleancan`); neither did the
-hazard-gated version, gust ramps x canopy as three extra damage inputs with zero-initialised weights (+1.19%,
-[-1.06, +3.27]). The association was found in-sample, so this is the expected failure mode of geography that the
+transfer: +1.58% against the cleaned base over folds 1-2 (county [-0.41, +3.51]); neither did the
+hazard-gated version, gust ramps x canopy as three extra damage inputs with zero-initialised weights (+1.17%,
+[-0.91, +3.14]; `results/screen_S4_canopy.json`). The association was found in-sample, so this is the expected failure mode of geography that the
 host can use as a county signature.
 
 ## 3. The winter ice-storm panel W1
@@ -135,3 +136,20 @@ mostly shrinks the host's false alarm; it beats the null clearly on one storm. T
 open problem this panel exposes.
 
 (Further rows are added as the screens finish.)
+
+Three seeds on folds 1-2 (`results/w1_seeds3_f12.json`): Hq -0.77 / -5.23 / -5.93% (seed-averaged prediction
+-2.79%, county [-9.96, +4.23]); Hp +4.11 / -6.22 / -3.11% (seed-averaged -0.92%, [-8.93, +7.12]). The bands are
+ahead of the plain cells in two of three seeds, inside the noise.
+
+## 4. The pre-registered test on independent ice storms (W2d)
+
+`PREREG_W2.md` (header and amendment 1 committed at 02:02-02:03 EDT, test code frozen at 239fd7d and amendment 2 at
+03:06, all before any W2d feature existed; the times typed inside the file were wrong, see its erratum). Panel: the
+ice-storm episodes of 2014-2025 with at least 20 counties, disjoint from W1; after the gates 12 events, 4,049
+county-events. The registered single test (the 48-h near-freezing precipitation feature, elevation bands against
+cells, residual alignment with the W2d base) returned **not testable** (`results/F1_w2d/H1a.md`): effective clusters
+event x state 30.5 and county 114.3 pass, but effective events 7.5 fall short of 8 because the feature's mass is
+uneven across events. Decided from the design; no residual was read. By the registered decision table: more
+independent near-freezing events are needed, no claim either way. The W2d residuals stay unread (the F0 audit of
+W2d, which weights by the observed outages, was computed by the build chain and set aside unread) so that an
+enlarged panel containing W2d can still be the confirmatory test.

@@ -85,3 +85,21 @@ nothing beyond the cell-level feature); or a gain that appears only in the count
   on W1 the registered feature had 3.5 effective events of 8. The likely outcome is therefore "not testable".
   **The criteria of amendment 1 are kept unchanged**; relaxing the event rule would leave power as the binding
   constraint, and only more independent near-freezing events would raise both.
+
+## Erratum on times (2026-09-25 03:45 EDT)
+
+The clock times written above ("05:25" in the header, "05:40" in amendment 1, "09:25" in amendment 2) were
+estimated without reading the system clock and are wrong. The authoritative times are the commits (EDT): the
+header c8dc7d4 at 02:02, amendment 1 2283a4e at 02:03, the frozen test code 239fd7d and amendment 2 b96d9f5 at
+03:06. The order is as registered: the W2d features were built after 03:10 (log experiments/geo_weather_20260924/
+logs/chain_w2d.log), and the test ran at 03:42 with the frozen code.
+
+## Outcome of H1a on W2d (recorded, not an amendment)
+
+`results/F1_w2d/H1a.md` (formal contributor, audit_f1.py at 239fd7d, HEAD 2645983): 4,049 county-events, 12
+events, 272 event x state clusters; the contrast is nonzero in 261 blocks and in all 12 events; effective clusters
+event x state 30.5, county 114.3, events **7.5 (< 8)**: **not testable**, decided from the design; power and the
+test were not computed, and no residual-derived number exists. By the decision table: more independent
+near-freezing events are needed, no claim either way. The W2d residual alignment stays unread, so an enlarged
+panel that contains W2d can still serve as the confirmatory test if its amendment (new events, criteria
+unchanged) is committed before anything is read.

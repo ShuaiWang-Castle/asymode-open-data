@@ -1,0 +1,23 @@
+{
+ "test": "C1:p_tw-1.5*one@48",
+ "contrast": "C1 quad-pop (sub-grid)",
+ "feature": "p_tw-1.5*one@48",
+ "sign": 1,
+ "n_units": 4049,
+ "n_events": 12,
+ "n_event_state": 272,
+ "eff_clusters": {
+  "event_state": 30.49686891458862,
+  "county": 114.29133491808362,
+  "event": 7.531872825423251
+ },
+ "nonzero_event_state": 261,
+ "nonzero_events": 12,
+ "min_eff_clusters": 20,
+ "min_eff_events": 8.0,
+ "require_event_flip": true,
+ "residual_scale": "raw",
+ "diagnostic_power": false,
+ "eligible": false,
+ "verdict": "not testable (eligibility, decided from the design before any residual was read)"
+}

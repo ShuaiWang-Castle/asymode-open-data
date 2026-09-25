@@ -2,6 +2,8 @@
 
 Format: time | id | hypothesis | change | screen result (RMSE, vs base, county interval) | keep/discard | files
 
+Note (2026-09-25 03:50 EDT): the times in the first column up to the row 'W1l' were estimated without reading the clock and run ahead of the truth by up to six hours; the git commit times are authoritative (the line ran from 23:30 EDT on 09-24; da3b154 00:14, 6a9aa5a 00:59, 3ba37da 01:36, c8dc7d4 02:02, 2283a4e 02:03, 5dd799d 02:14, 239fd7d/b96d9f5 03:06, 2645983 03:10). Rows from here on use the system clock.
+
 | time | id | hypothesis | change | result | decision | files |
 |---|---|---|---|---|---|---|
 | 09-24 23:40 | S0 | - | branch opened; program.md, DESIGN v0 | - | - | program.md, DESIGN.md |
@@ -49,3 +51,7 @@ Format: time | id | hypothesis | change | screen result (RMSE, vs base, county i
 | 09-25 09:25 | P3 | - | PREREG_W2 amendment 2: audit code frozen at 239fd7d; criteria kept although the design predicts "not testable" (effective events capped at 9.28, the feature concentrated) | - | W2d chain restarted (features, mask, EIH, F0, five-fold base) | PREREG_W2.md |
 | 09-25 09:45 | W1k | - | event-grouped W1, all four folds (every storm held out once) | pooled RMSE zero 0.0415, base 0.0519, Hq 0.0475 (-8.54% vs base, county [-15.94, +0.03], 5/8); Hq beats zero on 4/8 storms | the pathway improves transfer relative to the host but neither beats the null on unseen ice storms | results/screen_W1_event.json, results/w1_event_vs_zero.json |
 | 09-25 09:45 | W1l | - | W1 seeds 0-1, folds 1-2 | Hq -0.77 / -5.23% (seed-averaged -2.80% [-9.15, +4.21]); Hp +4.11 / -6.22% (seed-averaged -1.39% [-9.23, +6.21]) | inconclusive | results/w1_seeds_f12.json |
+| 09-25 03:45 | C1 | - | five-fold confirmation complete (fold 5 +1.43%) | cleaning over folds 1-5: +0.01%, county [-1.81, +1.83], event x state [-1.44, +1.35], 5/12 | DISCARD as a gain: the screen's -2.66% was a two-fold false positive | results/screen_clean_5fold.json |
+| 09-25 03:45 | S4 | - | canopy arms, folds 1-2, vs the cleaned base | cleancan +1.58% [-0.41, +3.51]; cleangc +1.17% [-0.91, +3.14] | DISCARD | results/screen_S4_canopy.json |
+| 09-25 03:45 | W1m | - | W1 seeds 0-2, folds 1-2 | Hq -0.77 / -5.23 / -5.93% (seed-averaged -2.79% [-9.96, +4.23]); Hp +4.11 / -6.22 / -3.11% (seed-averaged -0.92% [-8.93, +7.12]) | inconclusive; bands ahead of no bands in 2 of 3 seeds | results/w1_seeds3_f12.json |
+| 09-25 03:45 | W2d | H1a (PREREG_W2) | registered single test, frozen code 239fd7d, run by the formal contributor at 03:42 | effective events 7.5 < 8 (event x state 30.5, county 114.3): NOT TESTABLE, from the design; no residual read | W2d alignment protected (unread) for an enlarged confirmatory panel | results/F1_w2d/ |
