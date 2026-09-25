@@ -5,7 +5,9 @@ modulators, no downscaling). With it the contrast hrrr - pop splits into
   hrrr - hrrr_coarse   the resolution (3 km cells and HRRR-terrain downscaling) from one source
 (suggested by the formal contributor). HRRR cells are assigned to the ERA5 cell containing their centre (inverse
 Lambert conformal projection of the HRRR grid); the coarse value is the plain mean over those HRRR cells.
-Output: data/interim/geo_weather/eih_<tag>hrrr_coarse.npz.
+Missing HRRR hours (neither mirror has the file) leave the instantaneous (tau = 0) features NaN at those hours; a
+window missing more than 5% of its hours marks its units unit_ok = False (PREREG_W2 amendment 4).
+Output: data/interim/geo_weather/eih_<tag>hrrr_coarse.npz (phi, names, fips, event, missing_hours, unit_ok).
 usage: python build_eih_hrrr_coarse.py --feat data/interim/geo_weather/features_w1.npz \
        --events-file experiments/geo_weather_20260924/selected_events_winter_build.json --tag w1_
 """
@@ -66,6 +68,8 @@ def main():
     by = {f: d.reset_index(drop=True) for f, d in nodes.groupby("fips")}
     sel = {e["event"]: e for e in json.loads((ROOT / a.events_file).read_text())["events"]}
     phi = np.zeros((len(fips_u), T - ORIGIN, len(NAMES)), np.float16)
+    unit_ok = np.ones(len(fips_u), bool)
+    inst0 = [i for i, n in enumerate(NAMES) if n.endswith("@0")]
     missing = {}
     for ev in sorted(set(ev_u)):
         t0e = time.time()
@@ -112,12 +116,19 @@ def main():
             ps = psi(tc[None], tdc[None], rh[None], g["p"][None], g["g"][None], g["cape"][None], np.zeros(len(nd)), month)[0]
             inst[s] = (S @ (mods[:, :, None] * ps[:, None, :]).reshape(len(nd), -1)).reshape(len(units), len(MOD), len(PSI))
         x = inst.reshape(T, len(units), -1)
+        miss_s = [s for s, g in enumerate(got) if g is None]
         for j, u in enumerate(units):
             phi[u] = np.concatenate([filt(x[:, j], tau)[ORIGIN:] for tau in TAUS], -1).astype(np.float16)
+            for s in miss_s:                  # a missing HRRR hour: the instantaneous features are NaN, not zero
+                if s >= ORIGIN:
+                    phi[u, s - ORIGIN, inst0] = np.nan
+        if len(miss_s) > 0.05 * T:            # PREREG_W2 amendment 4 coverage rule: > 5% missing hours drops the event
+            unit_ok[units] = False
         print(ev, len(units), "units", len(nd), "cells; missing hours", len(missing[ev]), f"{time.time() - t0e:.0f} s", flush=True)
     np.savez(OUT / f"eih_{a.tag}hrrr_coarse.npz", phi=phi, names=np.array(NAMES), fips=fips_u, event=ev_u,
-             missing_hours=np.array(json.dumps(missing)))
-    print("saved", phi.shape)
+             missing_hours=np.array(json.dumps(missing)), unit_ok=unit_ok)
+    print("saved", phi.shape, "units dropped by the coverage rule:", int((~unit_ok).sum()))
+    print("HRRR_COARSE_BUILD_DONE", flush=True)
 
 
 if __name__ == "__main__":
