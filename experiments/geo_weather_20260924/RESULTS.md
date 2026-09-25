@@ -23,6 +23,12 @@ design `DESIGN.md` (v1), the literature `LITERATURE.md`.
   the registered test returned **not testable** on W2d (7.5 effective events, 8 required) and, on the enlarged
   panel W2e (29 storms), **uninformative** (eligible, but power 0.795 < 0.8): decided before any residual alignment
   was read, both kept unread.
+* **Confirmed (PREREG_W2 amendments 4-5, section 4).** A second pre-registered hypothesis on the same unread W2e
+  residuals, motivated by the HRRR audits: HRRR-source near-freezing precipitation on the ERA5 grid, minus ERA5's,
+  aligns with where the ERA5-driven host under-predicts. On 23 independent winter storms (10,971 county-events;
+  eligible, 12 effective events; power 0.84 at the registered effect) it **passes**: part correlation +0.070, p =
+  0.0005, exact event sign-flip p = 0.004. It is information, not yet a forecast gain; the weather source carries
+  it, not km-scale resolution.
 
 * **Km-scale weather (HRRR, section 5).** HRRR changes the hazard features far more than ERA5 downscaling does (up
   to 33% of outage-weighted county-hours on the wind panel, 19.6% on the ice storms, vs < 2%), but the controlled
@@ -176,6 +182,18 @@ The registered run (`results/F1_w2e/H1a.md`): **eligible** (effective clusters e
 events 9.9), false-positive rate 0.045-0.067, but **power at the registered effect (part correlation 0.045) is 0.795
 at its minimum over the four synthetic noise designs, below the registered 0.8**: the verdict is "uninformative" and
 the test was not computed. The rule was not relaxed; the W2e residuals stay unread for a still larger panel.
+
+**H2a on W2e: pass** (amendments 4-5: hypothesis committed at 06:16 EDT, test and feature code frozen by hash at
+06:20, all before any W2e HRRR feature existed; `results/F1_w2e_hrrr/H2a.md`). The single feature is instantaneous
+precipitation under the wet-bulb hat at -1.5 C; the contrast is HRRR (cycle t-1, forecast hour 1) averaged onto the
+ERA5 cells against ERA5 (C8 = hrrr_coarse - pop). Six 2015-2017 storms missed more than 5% of their HRRR hours and
+were dropped by the registered coverage rule, leaving 23 storms and 10,971 county-events. Eligible (effective
+clusters event x state 47.1, county 463.0, events 12.0), false-positive rate 0.043-0.073, power 0.838 at the
+registered part correlation 0.117. Test: part correlation +0.070, t +3.11, p = 0.0005 (synthetic null 0.0010), event
+level t +1.94, exact event-flip p = 0.004. The confirmed effect is a third of the exploratory W1 value (0.234), as the
+winner's-curse discount anticipated. What it shows: where HRRR puts more near-freezing precipitation than ERA5, the
+host (which reads ERA5) under-predicts, on storms it never saw. What it does not show: a forecast gain (that needs
+its own pre-registered trained test, H2b), or operational skill (both weathers are used as perfect-prognosis inputs).
 
 ## 5. Km-scale weather: HRRR at customer nodes
 

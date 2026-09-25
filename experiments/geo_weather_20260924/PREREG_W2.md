@@ -175,3 +175,22 @@ with the host's residuals and the resolution contrast did not (formal contributo
   experiments/geo_weather_20260924/splits_w2e.json --base "runs/geo_weather_20260924/w2e_base/fold{fold:02d}/outer.npz"
   --eih-prefix eih_w2e_ --single "C8:p_tw-1.5*one@0" --min-eff-events 8 --require-event-flip --power-target 0.117 --out
   experiments/geo_weather_20260924/results/F1_w2e_hrrr`.
+
+## Outcome of H2a on W2e (recorded 2026-09-25 06:53 EDT, not an amendment)
+
+`results/F1_w2e_hrrr/H2a.md` (run once by the formal contributor's watcher at 06:51:57 EDT; HEAD 3c17935; both hashes
+verified; the power record `H1a_power.json` was written at 06:51:55, before the test). Coverage rule: six events
+missed more than 5% of their HRRR hours and were dropped (2015-02-01, 2015-03-03, 2016-01-21, 2016-12-23, 2017-01-13,
+2017-02-07; 1,843 units); kept: 23 events, 10,971 county-events, largest missing share in a kept event 0.042.
+**Eligible** (effective clusters event x state 47.1, county 463.0, events 12.0); false-positive rate of the single
+test 0.043-0.073 (cluster multiplier null); **power at part correlation 0.117: minimum 0.838 (informative)**.
+**Test: part correlation +0.070, t (event x state) +3.11, p = 0.0005 (multiplier; synthetic 0.0010); event level
+t +1.94, exact event sign-flip p = 0.004. Verdict: pass.**
+
+Limits, as the decision table and the formal contributor state them: (1) the information is the weather source (HRRR
+near-freezing precipitation on the ERA5 grid exceeding ERA5's where the ERA5-driven host under-predicts), not km-scale
+resolution (the resolution contrast C7 was null in the exploratory panels); (2) the confirmed part correlation, 0.070,
+is smaller than the exploratory 0.234 on W1, the winner's curse the discount anticipated; (3) alignment shows
+information, not a forecast gain: an RMSE claim needs its own pre-registered trained test (H2b); (4) both ERA5 and the
+HRRR 1-h forecasts are used as perfect-prognosis weather over the whole window, so this concerns which weather
+analysis carries outage-relevant near-freezing precipitation, not operational forecast skill.
