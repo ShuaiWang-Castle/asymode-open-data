@@ -34,8 +34,8 @@ design `DESIGN.md` (v1), the literature `LITERATURE.md`.
   to 33% of outage-weighted county-hours on the wind panel, 19.6% on the ice storms, vs < 2%), but the controlled
   split shows this is the weather *source*, not sub-county resolution (resolution part <= 5%). Trained, the picture
   is weak: on unseen ice storms the HRRR pathways looked best with seed 0 (-18.7% vs the host) but a second seed
-  reversed it (+13.4%; seed-averaged -4.2% [-11.1, +2.6]); on the wind panel the HRRR pathway beats its ERA5 twin
-  (-1.95%, intervals below zero) but not the host (-0.94%). Every single-seed trained result on these panels
+  reversed it (+13.4%; seed-averaged -4.2% [-11.1, +2.6]); on the wind panel (one seed) the HRRR pathway beats its
+  ERA5 twin (-1.95%, intervals below zero) but not the host (-0.94%). Every single-seed trained result on these panels
   should be read with this seed variance in mind.
 
 Screen protocol (program.md): county-grouped outer folds 1-2 of the twelve-event wind panel (2,489 held-out
@@ -197,6 +197,13 @@ winner's-curse discount anticipated. What it shows: where HRRR puts more near-fr
 host (which reads ERA5) under-predicts, on storms it never saw. What it does not show: a forecast gain (that needs
 its own pre-registered trained test, H2b), or operational skill (both weathers are used as perfect-prognosis inputs).
 
+**H2b, the trained test (running).** Amendment 6 (6f08514, 06:54 EDT) registers it: the 23 kept W2e events,
+event-grouped five folds, 900 steps, arms host / HRRR-source pathway (hrrr_coarse) / its ERA5 twin (pop); a forecast
+gain only if the pathway beats both the twin and the host with event-cluster intervals below zero. Amendment 7
+(d82a6ae, 07:25 EDT; no H2b run had finished when it was committed) tightens that rule after the seed-1 reversal on
+W1, which is information from another panel and not from W2e: the claim also needs the seed-averaged predictions
+over seeds 0, 1 and 2 to agree. Seed 0 is running; seeds 1-2 are queued after it.
+
 ## 5. Km-scale weather: HRRR at customer nodes
 
 The audits said the ERA5 route to sub-county geography is nearly empty. The one data upgrade both reviewers named
@@ -246,7 +253,9 @@ against the seed-1 host give +20.10% (3 km) and +13.40% (coarse); the seed-avera
 storms, trained transfer is dominated by seed and storm variance. The same caution applies to the other single-seed
 event-grouped rows of section 3 (Hq, H2q, Hqn).
 
-**Wind panel, trained** (`results/screen_S5_hrrr_wind.json`, `results/screen_S5_hrrr_vs_twin.json`, folds 1-2, seed 0):
+**Wind panel, trained, one seed** (`results/screen_S5_hrrr_wind.json`, `results/screen_S5_hrrr_vs_twin.json`, folds
+1-2, seed 0 only; after the W1 reversal a single seed of a trained arm is not a result until replicated):
 the pathway on HRRR averaged to the ERA5 cells beats the identical pathway on ERA5 (-1.95%, county [-3.83, -0.25],
 event [-5.53, -0.29], 9/12 events) but not the host without a pathway (-0.94%, [-4.55, +2.11]); the 3 km version is
--1.66% against its ERA5 twin and -0.65% against the host.
+-1.66% against its ERA5 twin and -0.65% against the host. Read with H2a, this is consistent: the HRRR source carries information the ERA5
+inputs lack, but the added pathway does not yet beat the tuned host.
