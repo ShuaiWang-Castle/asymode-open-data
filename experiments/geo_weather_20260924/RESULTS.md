@@ -3,7 +3,7 @@
 Every number points to a file under `results/` or `data_provenance/`; the attempt log is `RESEARCH_LOG.md`, the
 design `DESIGN.md` (v1), the literature `LITERATURE.md`.
 
-## 0. Summary of the first night (2026-09-24 23:30 to 2026-09-25 03:10 EDT; updated as the night continues)
+## 0. Summary of the first night (2026-09-24 23:30 to 2026-09-25 06:05 EDT)
 
 * **Framework.** DESIGN v1: the county damage input as an exposure-weighted integral of local, weather-gated,
   fading-memory hazards with shared parameters, entering the host as a non-negative competing hazard, with two
@@ -20,8 +20,15 @@ design `DESIGN.md` (v1), the literature `LITERATURE.md`.
   storms neither beats the all-zero forecast.
 * **Pre-registered test (PREREG_W2.md).** The strongest W1 feature (48-h near-freezing precipitation, elevation
   bands against cells) was registered for 12 independent ice storms (2015-2025) with frozen test code (239fd7d);
-  the registered test ran and returned **not testable** (7.5 effective events, 8 required), decided from the design;
-  the W2d residual alignment is unread and kept for an enlarged confirmatory panel.
+  the registered test returned **not testable** on W2d (7.5 effective events, 8 required) and, on the enlarged
+  panel W2e (29 storms), **uninformative** (eligible, but power 0.795 < 0.8): decided before any residual alignment
+  was read, both kept unread.
+
+* **Km-scale weather (HRRR, section 5).** HRRR changes the hazard features far more than ERA5 downscaling does (up
+  to 33% of outage-weighted county-hours on the wind panel, 19.6% on the ice storms, vs < 2%), but the controlled
+  split shows this is the weather *source*, not sub-county resolution (resolution part <= 5%). On unseen ice storms
+  the pathway fed by HRRR averaged to 31 km transfers best of all arms (-18.7% vs the host, within 2% of the
+  all-zero forecast), and the 3 km version is worse than it (+4.8%, interval above zero).
 
 Screen protocol (program.md): county-grouped outer folds 1-2 of the twelve-event wind panel (2,489 held-out
 county-events), a fixed 900 training steps on all development units, seed 0, paired initialisation; pooled hourly
@@ -163,6 +170,13 @@ independent near-freezing events are needed, no claim either way. The W2d residu
 W2d, which weights by the observed outages, was computed by the build chain and set aside unread) so that an
 enlarged panel containing W2d can still be the confirmatory test.
 
+**W2e** (amendment 3, committed at 03:47 EDT before any W2e data): W2d plus 17 further near-freezing winter storms by
+a metadata rule (ice >= 10 or heavy snow / winter storm / blizzard >= 300 counties), 29 events, 12,814 county-events.
+The registered run (`results/F1_w2e/H1a.md`): **eligible** (effective clusters event x state 43.2, county 132.1,
+events 9.9), false-positive rate 0.045-0.067, but **power at the registered effect (part correlation 0.045) is 0.795
+at its minimum over the four synthetic noise designs, below the registered 0.8**: the verdict is "uninformative" and
+the test was not computed. The rule was not relaxed; the W2e residuals stay unread for a still larger panel.
+
 ## 5. Km-scale weather: HRRR at customer nodes
 
 The audits said the ERA5 route to sub-county geography is nearly empty. The one data upgrade both reviewers named
@@ -199,3 +213,9 @@ On the wind panel (`results/F0_hrrr_split/`) the same split gives a source part 
 a definition difference: HRRR's instantaneous gust against ERA5's hourly maximum) and a resolution part up to 5.1%,
 largest for rain and convective features (4.8%), where storm cells are smaller than a county; ERA5 elevation
 downscaling changes nothing (no feature reaches 1%).
+
+**Trained, the same split** (event-grouped W1, every storm held out once; `results/screen_W1_event_hrrr_split.json`,
+`results/screen_W1_event_hrrr_fine_vs_coarse.json`): the pathway fed by HRRR averaged onto the ERA5 cells
+(hrrr_coarse) reaches 0.0422 pooled RMSE (-18.66% against the base, county [-26.10, -11.03]), within 2% of the all-zero
+forecast (0.0415), and the 3 km version is worse than it (+4.79%, county [+0.56, +9.48], event x state [+1.14,
++11.18]). Resolving the county does not help; the better weather source does.

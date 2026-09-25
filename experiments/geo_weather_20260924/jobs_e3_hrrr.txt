@@ -2,3 +2,5 @@
 --label H_popk --data e3r2 --arm W+Cin+H --phi pop --keep ^(gust|p_tw|convective) --folds 1
 --label H_hrrr --data e3r2 --arm W+Cin+H --phi hrrr --keep ^(gust|p_tw|convective) --folds 2
 --label H_popk --data e3r2 --arm W+Cin+H --phi pop --keep ^(gust|p_tw|convective) --folds 2
+--label H_hrrrc --data e3r2 --arm W+Cin+H --phi hrrr_coarse --keep ^(gust|p_tw|convective) --folds 1
+--label H_hrrrc --data e3r2 --arm W+Cin+H --phi hrrr_coarse --keep ^(gust|p_tw|convective) --folds 2

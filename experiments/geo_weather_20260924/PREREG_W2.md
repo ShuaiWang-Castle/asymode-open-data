@@ -122,3 +122,14 @@ amendments 1-2 stay unchanged**.
   900 steps, seed 0, five folds) are built on the whole of W2e exactly as for W1 and W2d.
 * The registered command is run once on W2e with `--features features_w2e.npz --splits splits_w2e.json --base
   runs/geo_weather_20260924/w2e_base/... --eih-prefix eih_w2e_`, eligibility first. W2d alone is not re-tested.
+
+## Outcome of H1a on W2e (recorded 2026-09-25 06:03 EDT, not an amendment)
+
+`results/F1_w2e/H1a.md` (run by the formal contributor's watcher at 06:03:10 EDT with audit_f1.py at 239fd7d, sha checked;
+HEAD a3d0f10): 12,814 county-events, 29 events, 774 event x state clusters; the contrast is nonzero in 748 blocks and
+all 29 events. **Eligible**: effective clusters event x state 43.2, county 132.1, events 9.9. Single-test
+false-positive rate on synthetic fields 0.045-0.067 (the cluster multiplier null is used). **Power at part
+correlation 0.045: 0.822, 0.795, 0.838, 0.869 over the four synthetic noise designs; minimum 0.795 < 0.8, so the
+verdict is "uninformative" and the test was not computed.** The rule stays as registered (the minimum is the
+registered power); the W2e residual alignment is unread. By the decision table: no claim either way; a larger
+independent panel (more near-freezing winter storms, or more years) would raise the power above the registered bar.
