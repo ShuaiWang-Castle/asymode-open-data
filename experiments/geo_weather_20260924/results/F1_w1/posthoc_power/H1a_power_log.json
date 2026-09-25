@@ -1,0 +1,84 @@
+{
+ "test": "C1:p_tw-1.5*one@48",
+ "contrast": "C1 quad-pop (sub-grid)",
+ "feature": "p_tw-1.5*one@48",
+ "sign": 1,
+ "n_units": 3098,
+ "n_events": 8,
+ "n_event_state": 202,
+ "eff_clusters": {
+  "event_state": 13.509269724000081,
+  "county": 69.97141900807323,
+  "event": 3.53752945565246
+ },
+ "nonzero_event_state": 198,
+ "nonzero_events": 8,
+ "min_eff_clusters": 20,
+ "min_eff_events": 8.0,
+ "require_event_flip": true,
+ "residual_scale": "log",
+ "diagnostic_power": true,
+ "eligible": false,
+ "correlogram": {
+  "bins_km": [
+   12.5,
+   37.5,
+   62.5,
+   87.5,
+   125.0,
+   175.0,
+   250.0,
+   350.0,
+   500.0
+  ],
+  "rho": [
+   0.6059022228908931,
+   0.27078622220004633,
+   0.17995860959934484,
+   0.09038393901379571,
+   0.07369210226265725,
+   0.04324739005647241,
+   0.031222624521949398,
+   -0.01726709549359667,
+   -0.00924020366930529
+  ],
+  "pairs": [
+   236.0,
+   4044.0,
+   5329.0,
+   6998.0,
+   16269.0,
+   18823.0,
+   42393.0,
+   47097.0,
+   94841.0
+  ],
+  "c": 0.4746992259582308,
+  "ell_km": 66.16983103324935
+ },
+ "fpr_single_test": {
+  "homo l": 0.059,
+  "homo 2l": 0.06,
+  "hetero l": 0.046,
+  "hetero 2l": 0.058
+ },
+ "fpr_joint_with_event_flip": {
+  "homo l": 0.032,
+  "homo 2l": 0.029,
+  "hetero l": 0.023,
+  "hetero 2l": 0.029
+ },
+ "null_used": "cluster multiplier",
+ "power_target_part_corr": 0.045,
+ "power": {
+  "homo l": 0.404,
+  "homo 2l": 0.381,
+  "hetero l": 0.227,
+  "hetero 2l": 0.23
+ },
+ "power_min": 0.227,
+ "n_syn": 1000,
+ "n_mult_per_draw": 999,
+ "informative": false,
+ "verdict": "diagnostic power only: not eligible, so the test was not computed"
+}

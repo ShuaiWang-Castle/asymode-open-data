@@ -28,6 +28,7 @@ exactly the county x event residual, and it is not recoverable from county means
    the county interval below zero, and beats its placebo (same structure, geography permuted across
    counties) - the two-numbers rule: against the base (can it deliver) and against the placebo (is the
    information there).
+3a. (Added 2026-09-25 after the cleaning screen: -2.66% on folds 1-2, -0.36% on folds 1-4.) A screen keep, and its placebo, share the screen's two folds, so a keep is provisional until the other three folds (or a second seed on all five) agree; only then is it called a gain.
 3. Survivors go to the full protocol (five folds, inner early stopping, refit) before any claim; several
    seeds only after a clear single-seed gain.
 4. Immutable: targets, masks, folds, the evaluation code, the outer split. The data pipeline is

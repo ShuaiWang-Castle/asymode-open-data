@@ -3,6 +3,25 @@
 Every number points to a file under `results/` or `data_provenance/`; the attempt log is `RESEARCH_LOG.md`, the
 design `DESIGN.md` (v1), the literature `LITERATURE.md`.
 
+## 0. Summary of the first night (2026-09-24 23:30 to 2026-09-25 10:00)
+
+* **Framework.** DESIGN v1: the county damage input as an exposure-weighted integral of local, weather-gated,
+  fading-memory hazards with shared parameters, entering the host as a non-negative competing hazard, with two
+  audits that need no training (F0: what sub-county geography can change; F1: whether that aligns with what the
+  host misses, with its own power analysis).
+* **Wind panel (12 events).** F0 and F1 close the sub-county geography channels (effects worth 2% of pooled RMSE
+  would have been detected; none is there); the trained hazard arm agrees (+0.73%). Population weighting of the
+  host inputs -0.25%; canopy as county context +1.78%, as hazard-gated inputs +1.19% (fold 1): no gain.
+  Literature-guided target cleaning looked like a gain on the screen (-2.66% vs base, -3.40% vs its placebo) but
+  did not survive folds 3-4 (-0.36% over folds 1-4): a screen false positive, now a program.md rule.
+* **Winter ice-storm panel W1 (8 events).** F0 finds sub-county content only where the phase physics predicts it
+  (near-freezing precipitation, <= 1.9% of outage-weighted county-hours). County-grouped screens are inside the
+  noise (two seeds); holding out whole storms, the hazard arm cuts the host's error by 8.5%, but on unseen ice
+  storms neither beats the all-zero forecast.
+* **Pre-registered test (PREREG_W2.md).** The strongest W1 feature (48-h near-freezing precipitation, elevation
+  bands against cells) is registered for 12 independent ice storms (2015-2025) with frozen test code (239fd7d);
+  the design predicts "not testable" (too few effective events), and the criteria were kept.
+
 Screen protocol (program.md): county-grouped outer folds 1-2 of the twelve-event wind panel (2,489 held-out
 county-events), a fixed 900 training steps on all development units, seed 0, paired initialisation; pooled hourly
 RMSE of the open-loop rollouts; intervals are cluster-bootstrap 95% (counties; event x state), 2,000 draws.
@@ -62,10 +81,18 @@ matched; 3.8% of the sum of squared targets). The gain sits on the unflagged hou
 themselves get +0.94% worse, as they are no longer fitted) and in both phases (rise to the peak -3.74%, decay after
 it -2.04%; `results/diag/clean_split.json`): the artefacts distorted the learned response everywhere.
 
+**Not confirmed on the other folds.** Folds 3 and 4 of the same design give +0.63% ([-1.00, +2.40]) and +2.53%
+([-2.77, +8.40]); pooled over folds 1-4 the change is -0.36% (county [-2.40, +1.86], 6/12 events;
+`results/screen_clean_folds1to4.json`). The screen's two folds produced a false positive that its own placebo did
+not catch, because the placebo shares the same two folds. Lesson for program.md: a screen keep needs the other
+folds (or another seed) before it is called a gain.
+
 **Canopy.** The data-pattern note (`notes/DATA_PATTERNS.md`) finds canopy x wind the one robust geographic signal
 in the base's residuals (same sign in 11 of 12 events). Giving the host canopy as a seventh county context did not
-transfer: fold 1 +1.78% against the cleaned base (county [-0.51, +4.65]; `runs/.../cleancan`). The association
-was found in-sample, so this is the expected failure mode of static geography through the host's first layer.
+transfer: fold 1 +1.78% against the cleaned base (county [-0.51, +4.65]; `runs/.../cleancan`); neither did the
+hazard-gated version, gust ramps x canopy as three extra damage inputs with zero-initialised weights (+1.19%,
+[-1.06, +3.27]). The association was found in-sample, so this is the expected failure mode of geography that the
+host can use as a county signature.
 
 ## 3. The winter ice-storm panel W1
 
@@ -92,5 +119,19 @@ testable (fewer than 20 effective event x state clusters for every feature), not
 descriptive feature is the 48-h memory of precipitation near a wet-bulb temperature of -1.5 C. That single
 feature is pre-registered for an independent panel (`PREREG_W2.md`, committed before any W2 data): 18 ice-storm
 episodes 2014-2025 disjoint from W1.
+
+**Event-grouped W1, all eight storms held out in turn** (four folds of two storms; `results/screen_W1_event.json`,
+`results/w1_event_vs_zero.json`): pooled RMSE all-zero 0.0415, base 0.0519, hazard arm 0.0475 (-8.54% against the
+base, county [-15.94, +0.03], event x state [-18.28, +5.87], 5/8 storms). The arm beats the all-zero forecast on four
+storms (2020-10-25, 2023-01-30, 2023-02-20, 2024-12-13) and loses on four; the base beats it on none by more than
+the arm does. Neither transfers to unseen ice storms with skill over the null; the physics-gated pathway mainly
+shrinks the host's false alarms.
+
+First two folds (four unseen storms; `results/screen_W1_event_f12.json`), for the record: the hazard arm is -13.57% against the base (county [-23.64, -1.62], event x state
+[-24.06, +9.04], 3/4 storms). But on unseen ice storms the host has no skill over the all-zero forecast: RMSE
+zero / base / hazard arm = 0.0414 / 0.0884 / 0.0719 (2018-11-13, a threefold false alarm), 0.0465 / 0.0502 /
+0.0428 (2023-01-30), 0.0270 / 0.0270 / 0.0283 (2019-02-05), 0.0431 / 0.0428 / 0.0420 (2023-02-20). The pathway
+mostly shrinks the host's false alarm; it beats the null clearly on one storm. Transfer to unseen ice storms is the
+open problem this panel exposes.
 
 (Further rows are added as the screens finish.)
