@@ -354,6 +354,93 @@ and its canonical manifest, then and only then unlock EAGLE-I source-mask
 auditing. The resulting cohort hash must be copied unchanged into every arm of
 the comparator bundle.
 
+## Attempt 09: hash-verified NOAA recovery and fresh multi-hazard cohort lock (2026-09-25)
+
+Source recovery: the public-derived event catalogs were extracted from the
+independent public `main` commit
+`8dd47c5ccd829611f27b69a3d64c274a0a24c400` into ignored `data/`; the Git
+histories were not merged. `event_days_stratified.parquet` is 10,972 bytes and
+matched SHA-256
+`09c7f3277723c2fa9591f67902905e53091b913eaeb585e014d6cd47c221c876`.
+`storm_events_county.parquet` is 11,633,999 bytes and matched SHA-256
+`89c953fc25256e87c5d00961f13cb952a1cb251eff6813d7c81b43f75275e85f`.
+These hashes also match `data/SHA256SUMS.txt` from that commit. The release
+README states that raw upstream downloads are omitted, so this proves byte
+identity to the public-derived release, not an independent rebuild from the
+NOAA yearly CSV files. No old 168-hour panel, driver array, outage row or model
+artifact was read.
+
+Sanitization and reproducibility: the event parquet contains NOAA impact
+columns (`DEATHS_DIRECT`, `INJURIES_DIRECT`, `DAMAGE_PROPERTY`) that are
+forbidden for selection. `weather_cohort_screen.py` requests only the eleven
+allow-listed identity/meteorological columns and therefore does not load those
+fields. The published anchor file has a `dominant` family column but the script
+that generated it is absent from the public release. The new screen reads only
+its `day` column and recomputes convective, winter, wet, synoptic-wind and
+tropical families directly from explicit `EVENT_TYPE` sets. The audited run
+used Python 3 with pandas, NumPy and temporary `pyarrow==21.0.0`.
+
+Protocol correction: the previous freshness gate rejected the 40 previously
+screened dates only by exact anchor. That allowed an adjacent date to reuse
+almost the same storm window. The gate now rejects any candidate 216-hour
+window overlapping the conservative 216-hour window around either the 29
+outcome-inspected anchors or any of the 40 earlier metadata-screen anchors. A
+new unit test confirms that 2024-11-21 is rejected because it overlaps the
+prior 2024-11-20 screen. This correction changes no historical result.
+
+The weather-only rule was frozen before any new outcome access: 216 hourly
+timestamps, 72-hour prefix, public release ranges only, at least 100 forecast
+counties and five states in a hazard family, prefix/forecast family-county
+ratio at most 0.25, and 5th--95th percentile forecast span at least 24 hours.
+Six fixed selection slots are convective, winter, wet, wind, convective and
+winter; each slot ranks by family county count, then state count, then earlier
+anchor, while rejecting overlap with already selected windows. This balances
+weather regimes and does not require a second wave, so the cohort is not
+selected specifically to favor the proposed process graph.
+
+Availability result: the input anchor table has 436 rows. The screen excluded
+148 anchor days for overlap with prior outcome/weather-screen windows and 134
+for falling outside the documented public release ranges. It found 74
+qualifying family rows across 53 unique anchor days: 16 convective, 22 winter,
+25 wet and 11 wind. **No tropical anchor passed all unchanged filters**; the
+thresholds were not relaxed. The locked, mutually nonoverlapping anchors are:
+
+- 2018-02-19, wet, 255 forecast family counties in 17 states;
+- 2019-01-28, winter, 759 counties in 33 states;
+- 2019-06-16, convective, 739 counties in 37 states;
+- 2020-01-11, wind, 226 counties in 25 states;
+- 2020-04-08, convective, 916 counties in 32 states; and
+- 2022-01-29, winter, 1,059 counties in 38 states.
+
+The committed candidate has raw-file SHA-256
+`8f0a2c58fbc5d229bcbd776a4e268a1746bf48888270f7d7843f3325154b2a57`
+and canonical JSON SHA-256
+`28563c0dc9affaa3b7ba5cbcbf51600b637ae519a9a481bec6fea70cfa51df97`.
+It records `outcome_access_before_lock: []`, seeds 0--4, new panel/split/weather
+identifiers, exact windows, selection metrics and the three source identities.
+The deterministic replay matched the candidate as a parsed JSON object; its
+ignored full screen summary has SHA-256
+`a64045eef9b4cc73fc76acb5e17311dd6a6d148a5e864a03253362b02983a60c`.
+The rule SHA-256 is
+`b049af586f3cecd7500b230c921e4c45f7be60efc7eaeb3072e40ed63cf68737`
+and the selector SHA-256 is
+`7067dbc49e05956f62cc94e3efb3e1032f953cc332db539e9e7e05b6325f08d0`.
+
+Verification: the candidate gate returned `ok: true`, verified all candidate
+source bytes plus all tracked exclusion sources, and emitted the canonical
+hash above. All 34 phase-2 unit tests pass, including four new screening tests
+and the adjacent-date freshness regression; JSON parsing and
+`git diff --check` pass.
+
+Negative boundary and next gate: these counts describe NOAA reports, not
+outages, eligible model counties or prediction skill. The raw 15-minute
+EAGLE-I files, their source observation masks, ERA5 inputs and new 216-hour
+panels are still absent. For the six locked windows, retrieve and hash those
+inputs, audit missing-versus-zero support before constructing targets, and
+record any unsupported locked event as attrition without replacement. Only
+then may every comparator arm use the same cohort hash; no model effectiveness
+claim is made here.
+
 ## Repository and access snapshot
 
 - Local checkout: `open_data_work`, branch `research/open-gcrk-data-mechanism-20260925`, HEAD `da465857e6dbc266e1f2fad104d049c68076ad11`. The remote branch `research/open-gcrk-5seed-20260919` is at the **same SHA**. The remote `main` is `8dd47c5ccd829611f27b69a3d64c274a0a24c400` (2026-09-03); the research commit is dated 2026-09-21. GitHub reports **no common ancestor** between these histories; use explicit refs, not `git merge main` or a naive ahead/behind count.

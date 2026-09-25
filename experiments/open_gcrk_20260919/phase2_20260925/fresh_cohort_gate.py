@@ -99,15 +99,20 @@ def verify_tracked_sources(protocol: dict, root: Path = ROOT) -> list[str]:
     return errors
 
 
-def _historical_windows(protocol: dict) -> list[tuple[datetime, datetime, str]]:
+def _excluded_windows(protocol: dict) -> list[tuple[datetime, datetime, str, str]]:
     cfg = protocol["historical_window_convention"]
     hours = int(cfg["window_hours"])
     offset = int(cfg["window_start_offset_hours"])
     out = []
-    for event_id in protocol["outcome_inspected_event_ids"]:
-        anchor = datetime.fromisoformat(event_id).replace(tzinfo=timezone.utc)
-        start = anchor + timedelta(hours=offset)
-        out.append((start, start + timedelta(hours=hours), event_id))
+    groups = (
+        ("historical event", protocol["outcome_inspected_event_ids"]),
+        ("prior weather screen", protocol["weather_metadata_screened_event_ids"]),
+    )
+    for role, event_ids in groups:
+        for event_id in event_ids:
+            anchor = datetime.fromisoformat(event_id).replace(tzinfo=timezone.utc)
+            start = anchor + timedelta(hours=offset)
+            out.append((start, start + timedelta(hours=hours), role, event_id))
     return out
 
 
@@ -188,7 +193,7 @@ def validate_candidate(candidate: dict, protocol: dict) -> list[str]:
 
     inspected = set(protocol["outcome_inspected_event_ids"])
     screened = set(protocol["weather_metadata_screened_event_ids"])
-    historical_windows = _historical_windows(protocol)
+    excluded_windows = _excluded_windows(protocol)
     candidate_windows: list[tuple[datetime, datetime, str]] = []
     seen: set[str] = set()
     for index, event in enumerate(events):
@@ -215,10 +220,10 @@ def validate_candidate(candidate: dict, protocol: dict) -> list[str]:
         if anchor - start != timedelta(hours=72):
             errors.append(f"event {event_id} window must start 72 hours before anchor")
         stop_exclusive = end + timedelta(hours=1)
-        for old_start, old_stop, old_id in historical_windows:
+        for old_start, old_stop, old_role, old_id in excluded_windows:
             if start < old_stop and old_start < stop_exclusive:
                 errors.append(
-                    f"event {event_id} window overlaps historical event {old_id}"
+                    f"event {event_id} window overlaps {old_role} {old_id}"
                 )
         candidate_windows.append((start, stop_exclusive, event_id))
 
@@ -308,6 +313,12 @@ def self_test(protocol: dict) -> dict:
     case["events"][0]["window_start_utc"] = "2024-11-17T00:00:00Z"
     case["events"][0]["window_end_utc"] = "2024-11-25T23:00:00Z"
     cases["weather_screen_reuse"] = case
+
+    case = copy.deepcopy(accepted)
+    case["events"][0]["event_id"] = "2024-11-21"
+    case["events"][0]["window_start_utc"] = "2024-11-18T00:00:00Z"
+    case["events"][0]["window_end_utc"] = "2024-11-26T23:00:00Z"
+    cases["weather_screen_window_overlap"] = case
 
     case = copy.deepcopy(accepted)
     case["selection_fields_used"].append("customers_out_peak")

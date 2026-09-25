@@ -52,6 +52,16 @@ class FreshCohortGateTest(unittest.TestCase):
         errors = gate.validate_candidate(candidate, self.protocol)
         self.assertTrue(any("overlaps historical" in error for error in errors))
 
+    def test_rejects_prior_weather_screen_window_overlap_with_different_anchor(self):
+        candidate = self.valid()
+        candidate["events"][0] = {
+            "event_id": "2024-11-21",
+            "window_start_utc": "2024-11-18T00:00:00Z",
+            "window_end_utc": "2024-11-26T23:00:00Z"
+        }
+        errors = gate.validate_candidate(candidate, self.protocol)
+        self.assertTrue(any("overlaps prior weather screen" in error for error in errors))
+
     def test_rejects_outcome_field(self):
         candidate = self.valid()
         candidate["selection_fields_used"].append("outage_peak")

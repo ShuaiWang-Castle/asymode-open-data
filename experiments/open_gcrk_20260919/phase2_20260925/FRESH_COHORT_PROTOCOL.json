@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "prospective_no_cohort_selected",
+  "status": "noaa_cohort_locked_outcomes_unopened",
   "purpose": "Freeze a weather-only, selection-fresh confirmatory event cohort before any outage-label or model-result access.",
   "historical_window_convention": {
     "event_anchor": "UTC calendar day",
@@ -139,6 +139,12 @@
     "wind_county_count",
     "wind_state_count",
     "convective_county_count",
+    "hazard_family",
+    "family_county_count",
+    "family_state_count",
+    "family_span_hours",
+    "prefix_family_count",
+    "prefix_to_forecast_family_ratio",
     "wind_span_hours",
     "prefix_wind_count",
     "second_wave_ratio",
@@ -197,6 +203,7 @@
     "source_sha256_required": true,
     "windows_must_not_overlap_each_other": true,
     "windows_must_not_overlap_historical_windows": true,
+    "windows_must_not_overlap_prior_weather_screen_windows": true,
     "new_panel_id_required": true,
     "new_split_id_required": true,
     "new_weather_information_set_id_required": true

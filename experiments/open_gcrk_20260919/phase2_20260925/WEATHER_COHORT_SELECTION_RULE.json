@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "purpose": "Select an outcome-blind, multi-hazard NOAA cohort for confirmatory model comparison.",
+  "anchor_source": {
+    "path": "data/interim/event_days_stratified.parquet",
+    "sha256": "09c7f3277723c2fa9591f67902905e53091b913eaeb585e014d6cd47c221c876",
+    "columns_read": ["day"],
+    "note": "The tracked dominant-family field is not used because its generating script is absent from the public release."
+  },
+  "event_source": {
+    "path": "data/interim/storm_events_county.parquet",
+    "sha256": "89c953fc25256e87c5d00961f13cb952a1cb251eff6813d7c81b43f75275e85f",
+    "columns_read": [
+      "EPISODE_ID", "EVENT_ID", "STATE", "fips", "CZ_NAME", "EVENT_TYPE",
+      "cz_type", "t_begin_utc", "t_end_utc", "MAGNITUDE", "MAGNITUDE_TYPE"
+    ]
+  },
+  "public_release_ranges": {
+    "2018": "2018-12-31T23:00:00Z",
+    "2019": "2019-12-31T23:00:00Z",
+    "2020": "2020-12-31T23:00:00Z",
+    "2021": "2021-12-31T23:00:00Z",
+    "2022": "2022-11-12T23:00:00Z",
+    "2024": "2024-12-31T23:00:00Z"
+  },
+  "window": {"hours": 216, "prefix_hours": 72, "anchor_hour_utc": 0},
+  "hazard_families": {
+    "convective": ["Hail", "Lightning", "Thunderstorm Wind", "Tornado"],
+    "wet": ["Flash Flood", "Flood", "Heavy Rain"],
+    "wind": ["High Wind", "Strong Wind"],
+    "winter": [
+      "Blizzard", "Extreme Cold/Wind Chill", "Heavy Snow", "Ice Storm",
+      "Winter Storm", "Winter Weather"
+    ],
+    "tropical": ["Hurricane", "Hurricane (Typhoon)", "Tropical Storm"]
+  },
+  "hard_filters": {
+    "minimum_forecast_family_counties": 100,
+    "minimum_forecast_family_states": 5,
+    "maximum_prefix_to_forecast_family_county_ratio": 0.25,
+    "minimum_forecast_family_span_5_95_hours": 24.0
+  },
+  "selection_slots": ["convective", "winter", "wet", "wind", "convective", "winter"],
+  "ranking": [
+    "forecast_family_counties_desc", "forecast_family_states_desc", "event_anchor_utc_asc"
+  ],
+  "exclusions": {
+    "overlap_outcome_inspected_216h_windows": true,
+    "overlap_weather_metadata_screened_216h_windows": true,
+    "overlap_already_selected_216h_windows": true
+  },
+  "no_replacement_after_outcome_unlock": true
+}

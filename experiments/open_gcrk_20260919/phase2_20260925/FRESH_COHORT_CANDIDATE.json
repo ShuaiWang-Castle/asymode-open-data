@@ -1,0 +1,110 @@
+{
+  "events": [
+    {
+      "event_id": "2018-02-19",
+      "forecast_family_counties": 255,
+      "forecast_family_counties_by_day": [11, 44, 64, 92, 41, 67],
+      "forecast_family_span_5_95_hours": 112.2,
+      "forecast_family_states": 17,
+      "hazard_family": "wet",
+      "prefix_to_forecast_family_county_ratio": 0.2,
+      "selection_slot": 2,
+      "window_end_utc": "2018-02-24T23:00:00Z",
+      "window_start_utc": "2018-02-16T00:00:00Z"
+    },
+    {
+      "event_id": "2019-01-28",
+      "forecast_family_counties": 759,
+      "forecast_family_counties_by_day": [149, 338, 317, 4, 130, 21],
+      "forecast_family_span_5_95_hours": 105.0,
+      "forecast_family_states": 33,
+      "hazard_family": "winter",
+      "prefix_to_forecast_family_county_ratio": 0.104084,
+      "selection_slot": 5,
+      "window_end_utc": "2019-02-02T23:00:00Z",
+      "window_start_utc": "2019-01-25T00:00:00Z"
+    },
+    {
+      "event_id": "2019-06-16",
+      "forecast_family_counties": 739,
+      "forecast_family_counties_by_day": [139, 91, 78, 102, 292, 133],
+      "forecast_family_span_5_95_hours": 138.0,
+      "forecast_family_states": 37,
+      "hazard_family": "convective",
+      "prefix_to_forecast_family_county_ratio": 0.200271,
+      "selection_slot": 4,
+      "window_end_utc": "2019-06-21T23:00:00Z",
+      "window_start_utc": "2019-06-13T00:00:00Z"
+    },
+    {
+      "event_id": "2020-01-11",
+      "forecast_family_counties": 226,
+      "forecast_family_counties_by_day": [108, 81, 8, 14, 9, 52],
+      "forecast_family_span_5_95_hours": 135.0,
+      "forecast_family_states": 25,
+      "hazard_family": "wind",
+      "prefix_to_forecast_family_county_ratio": 0.106195,
+      "selection_slot": 3,
+      "window_end_utc": "2020-01-16T23:00:00Z",
+      "window_start_utc": "2020-01-08T00:00:00Z"
+    },
+    {
+      "event_id": "2020-04-08",
+      "forecast_family_counties": 916,
+      "forecast_family_counties_by_day": [248, 229, 26, 28, 139, 385],
+      "forecast_family_span_5_95_hours": 131.0,
+      "forecast_family_states": 32,
+      "hazard_family": "convective",
+      "prefix_to_forecast_family_county_ratio": 0.075328,
+      "selection_slot": 0,
+      "window_end_utc": "2020-04-13T23:00:00Z",
+      "window_start_utc": "2020-04-05T00:00:00Z"
+    },
+    {
+      "event_id": "2022-01-29",
+      "forecast_family_counties": 1059,
+      "forecast_family_counties_by_day": [148, 2, 7, 60, 447, 451],
+      "forecast_family_span_5_95_hours": 134.0,
+      "forecast_family_states": 38,
+      "hazard_family": "winter",
+      "prefix_to_forecast_family_county_ratio": 0.21813,
+      "selection_slot": 1,
+      "window_end_utc": "2022-02-03T23:00:00Z",
+      "window_start_utc": "2022-01-26T00:00:00Z"
+    }
+  ],
+  "lock_utc": "2026-09-25T11:08:44Z",
+  "outcome_access_before_lock": [],
+  "panel_id": "panel216_noaa_fresh_v1",
+  "purpose": "confirmatory_process_graph",
+  "schema_version": 1,
+  "seeds": [0, 1, 2, 3, 4],
+  "selection_fields_used": [
+    "event_anchor_utc", "event_type", "begin_utc", "end_utc", "state_fips",
+    "county_fips", "hazard_family", "family_county_count", "family_state_count",
+    "family_span_hours", "prefix_family_count", "prefix_to_forecast_family_ratio"
+  ],
+  "selection_rule_sha256": "b049af586f3cecd7500b230c921e4c45f7be60efc7eaeb3072e40ed63cf68737",
+  "source_files": [
+    {
+      "path": "data/interim/event_days_stratified.parquet",
+      "public_url": "https://github.com/ShuaiWang-Castle/asymode-open-data/blob/8dd47c5ccd829611f27b69a3d64c274a0a24c400/data/interim/event_days_stratified.parquet",
+      "role": "noaa_storm_events",
+      "sha256": "09c7f3277723c2fa9591f67902905e53091b913eaeb585e014d6cd47c221c876"
+    },
+    {
+      "path": "data/interim/storm_events_county.parquet",
+      "public_url": "https://github.com/ShuaiWang-Castle/asymode-open-data/blob/8dd47c5ccd829611f27b69a3d64c274a0a24c400/data/interim/storm_events_county.parquet",
+      "role": "noaa_storm_events",
+      "sha256": "89c953fc25256e87c5d00961f13cb952a1cb251eff6813d7c81b43f75275e85f"
+    },
+    {
+      "path": "experiments/open_gcrk_20260919/phase2_20260925/WEATHER_COHORT_SELECTION_RULE.json",
+      "public_url": "https://github.com/ShuaiWang-Castle/asymode-open-data/blob/research/open-gcrk-data-mechanism-20260925/experiments/open_gcrk_20260919/phase2_20260925/WEATHER_COHORT_SELECTION_RULE.json",
+      "role": "weather_selection_rule",
+      "sha256": "b049af586f3cecd7500b230c921e4c45f7be60efc7eaeb3072e40ed63cf68737"
+    }
+  ],
+  "split_id": "county_event_noaa_fresh_v1",
+  "weather_information_set_id": "era5_reanalysis_noaa_fresh_v1"
+}

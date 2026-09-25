@@ -13,22 +13,26 @@ overwritten. The status of each proposed intervention is recorded in
 | [`COMPARATOR_PROTOCOL.md`](COMPARATOR_PROTOCOL.md) | Prospective pilot/confirmation boundary and capacity-matched comparator ladder | Design only; no process-state model trained |
 | [`COMPARATOR_PROTOCOL.json`](COMPARATOR_PROTOCOL.json) | Machine-readable artifact, information-set, cell, capacity, and fresh-cohort requirements | Frozen gate specification |
 | [`comparator_protocol_gate.py`](comparator_protocol_gate.py) | Refuse mixed panels/splits/weather sets, missing cells, unmatched generic/structured capacity, or historical OUTER reuse | Metadata gate; does not certify source truth |
-| [`FRESH_COHORT_PROTOCOL.md`](FRESH_COHORT_PROTOCOL.md) | Outcome/selection freshness boundary and label-lock sequence for a future confirmatory event cohort | Design only; no new cohort selected |
+| [`FRESH_COHORT_PROTOCOL.md`](FRESH_COHORT_PROTOCOL.md) | Outcome/selection freshness boundary and label-lock sequence for a confirmatory event cohort | Six NOAA-only anchors locked; outcomes remain unopened |
 | [`FRESH_COHORT_PROTOCOL.json`](FRESH_COHORT_PROTOCOL.json) | Frozen 29-event outcome exclusion, 40-date weather-screen exclusion, field allow-list and source rules | Machine-readable gate specification |
-| [`fresh_cohort_gate.py`](fresh_cohort_gate.py) | Verify tracked exclusions, candidate source bytes, allowed weather-only fields and nonoverlapping 216-hour windows | Self-test only; source payloads unavailable |
+| [`fresh_cohort_gate.py`](fresh_cohort_gate.py) | Verify tracked exclusions, candidate source bytes, allowed weather-only fields and nonoverlapping 216-hour windows | Candidate and source-byte gate passed |
+| [`WEATHER_COHORT_SELECTION_RULE.json`](WEATHER_COHORT_SELECTION_RULE.json) | Frozen multi-hazard NOAA definitions, thresholds, quotas and ranking | Weather-only rule; no outcomes |
+| [`weather_cohort_screen.py`](weather_cohort_screen.py) | Read only allow-listed NOAA fields, reproduce the screen and emit the locked manifest | Run on hash-verified public-derived catalogs |
+| [`FRESH_COHORT_CANDIDATE.json`](FRESH_COHORT_CANDIDATE.json) | Six nonoverlapping NOAA anchors and immutable input identities | Locked before EAGLE-I access |
 | [`MECHANISM_DESIGN.md`](MECHANISM_DESIGN.md) | Bounded weather-to-geography process graph, strong baselines, and falsification gates | Hypothesis, not trained model |
 | [`measurement_audit.py`](measurement_audit.py) | Native-resolution evidence audit on original public EAGLE-I rows and saved panels | Run only when raw inputs are restored |
 | [`provenance_gate.py`](provenance_gate.py) | Refuse mixed/incomplete E3R2 artifact cohorts and distinguish replay identity from source-level rebuild provenance | Manifest audit available; file hashes require restored artifacts |
 | [`mechanism_information_audit.py`](mechanism_information_audit.py) | Synthetic collision test against the actual E3R2 damage information set and the host's existing scalar memory | Necessity test only; not a fitted comparison |
 | [`process_graph_prototype.py`](process_graph_prototype.py) | Tiny synthetic-only dynamic-state feasibility checks | No real-data effectiveness claim |
 
-The current checkout has tracked results and scripts but **not** the raw
-EAGLE-I 15-minute records, nine-day ERA5 fields, 216-hour processed panels,
-or saved model checkpoints. An older, differently configured 168-hour panel
-on another branch cannot stand in for them. Refit and label-sensitivity
-numbers will be reported only after restoring and hashing the actual public
-inputs. The separate experimental histories of `main` and the research
-branch are not merged by this study.
+The public `main` release's county-resolved NOAA event catalog and stratified
+anchor catalog were restored into ignored `data/` for the selection audit and
+matched their published SHA-256 values. The checkout still has **no** raw
+EAGLE-I 15-minute records, nine-day ERA5 fields, 216-hour processed panels, or
+saved model checkpoints. No old 168-hour panel was read for the fresh cohort.
+Refit and label-sensitivity numbers will be reported only after restoring and
+hashing the actual public inputs. The separate experimental histories of
+`main` and the research branch are not merged by this study.
 
 Run the synthetic checks from the repository root (NumPy and pandas only):
 
@@ -43,7 +47,25 @@ PYTHONDONTWRITEBYTECODE=1 python experiments/open_gcrk_20260919/phase2_20260925/
 PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s experiments/open_gcrk_20260919/phase2_20260925 -p 'test_comparator_protocol_gate.py' -v
 PYTHONDONTWRITEBYTECODE=1 python experiments/open_gcrk_20260919/phase2_20260925/fresh_cohort_gate.py --self-test
 PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s experiments/open_gcrk_20260919/phase2_20260925 -p 'test_fresh_cohort_gate.py' -v
+PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s experiments/open_gcrk_20260919/phase2_20260925 -p 'test_weather_cohort_screen.py' -v
 ```
+
+With the two hash-verified public-derived NOAA parquet files restored at the
+paths named in the rule, reproduce the locked cohort before opening outcomes:
+
+```bash
+python experiments/open_gcrk_20260919/phase2_20260925/weather_cohort_screen.py \
+  --lock-utc 2026-09-25T11:08:44Z \
+  --candidate-out runs/fresh_cohort_replay.json \
+  --screen-out runs/weather_cohort_screen_replay.json
+python experiments/open_gcrk_20260919/phase2_20260925/fresh_cohort_gate.py \
+  --candidate experiments/open_gcrk_20260919/phase2_20260925/FRESH_COHORT_CANDIDATE.json \
+  --verify-tracked-sources
+```
+
+Parquet execution currently requires PyArrow; the audited run used
+`pyarrow==21.0.0`. The selection script verifies both source hashes before
+reading and requests only the explicit column allow-list.
 
 After restoring a candidate E3R2 artifact directory, stream all twelve R1
 panels, twelve R2 panels and the feature array through the locked hashes. A

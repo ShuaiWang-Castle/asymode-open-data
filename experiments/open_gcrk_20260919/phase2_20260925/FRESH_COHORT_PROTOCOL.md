@@ -1,8 +1,9 @@
 # Prospective fresh-cohort gate
 
-**Status:** no confirmatory cohort has been selected. This protocol defines
-what must be frozen before any new outage target, observation mask, panel gate,
-checkpoint or model result is opened.
+**Status:** a six-event NOAA-only candidate cohort was locked on 2026-09-25
+before any new outage target, observation mask, panel gate, checkpoint or
+model result was opened. Passing the identity gate does not establish target
+availability or model performance.
 
 ## Why the earlier event table is not enough
 
@@ -32,10 +33,9 @@ historical 216-hour window: 2018-03-02, 2020-06-09, 2020-11-15, 2020-12-25,
 2021-01-14, 2022-01-04, 2022-02-18, 2022-11-05, 2024-04-06, 2024-11-20 and
 2024-12-19. The deterministic top six by forecast-window wind-county count
 are 2020-06-09, 2018-03-02, 2022-11-05, 2020-11-15, 2024-04-06 and
-2021-01-14. This is an availability audit, not a frozen cohort: all 11 were
-already present in the 40-row metadata screen, and the underlying NOAA/ERA5
-payload is absent here. No EAGLE-I label or county mask was used to derive
-this list.
+2021-01-14. This remains a historical availability audit, not the newly
+locked cohort: all 11 were already present in the 40-row metadata screen.
+No EAGLE-I label or county mask was used to derive this list.
 
 ## Locked selection boundary
 
@@ -43,8 +43,9 @@ A confirmatory cohort must contain three to six nonoverlapping 216-hour
 windows selected only from a newly hashed NOAA Storm Events and/or ERA5
 weather snapshot. Each window begins 72 hours before its event anchor. It must
 not overlap the conservative 216-hour window around any of the 29 historical
-anchors, and its anchor must not appear in the 40-date historical weather
-screen.
+anchors **or any of the 40 prior weather-screen anchors**. Excluding only the
+exact weather-screen date is insufficient because shifting an anchor by one
+day can reuse the same storm window.
 
 Selection uses an allow-list, not merely a deny-list. NOAA event type, UTC
 times, county/state identity, meteorological magnitude and weather-derived
@@ -70,7 +71,9 @@ Run the gate before accessing EAGLE-I rows or constructing targets:
 ```bash
 PYTHONDONTWRITEBYTECODE=1 python \
   experiments/open_gcrk_20260919/phase2_20260925/fresh_cohort_gate.py \
-  --candidate runs/fresh_cohort_candidate.json --verify-tracked-sources
+  --candidate \
+    experiments/open_gcrk_20260919/phase2_20260925/FRESH_COHORT_CANDIDATE.json \
+  --verify-tracked-sources
 ```
 
 Passing is necessary but not sufficient. The script verifies internal
@@ -81,11 +84,20 @@ the signed-off access boundary must be appended to `ATTEMPTS.md` before data
 construction. The later model bundle must separately pass
 `comparator_protocol_gate.py`.
 
-## Current blocker
+## Locked NOAA cohort and remaining blocker
 
-This checkout lacks `storm_events_county.parquet`,
-`event_days_stratified.parquet`, the raw NOAA yearly detail files, the new ERA5
-weather snapshot, and the raw EAGLE-I/216-hour artifacts. Consequently no real
-selection-fresh candidate list is emitted here. The 11-date audit above can be
-retained as an explicitly metadata-screened sensitivity only; promoting it to
-the stronger selection-fresh claim would defeat the gate.
+The public-derived catalogs at `main` commit
+`8dd47c5ccd829611f27b69a3d64c274a0a24c400` were restored without importing
+its old 168-hour panels. Their SHA-256 values matched the release ledger. The
+published anchor catalog's `dominant` field is not used because its generating
+script is absent from the release; the new screen reads only `day` from that
+file and recomputes each hazard family from allow-listed Storm Events fields.
+
+The locked anchors are 2018-02-19 (wet), 2019-01-28 (winter), 2019-06-16
+(convective), 2020-01-11 (wind), 2020-04-08 (convective), and 2022-01-29
+(winter). No tropical anchor passed the unchanged county, state, prefix and
+duration filters. The raw EAGLE-I rows, ERA5 inputs, source masks and 216-hour
+panels remain unavailable, so these are **weather-selected event identities,
+not usable training examples or empirical results**. If a locked event lacks
+outcome support, record attrition and do not replace it after labels are
+opened.
