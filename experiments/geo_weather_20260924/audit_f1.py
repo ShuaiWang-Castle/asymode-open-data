@@ -88,7 +88,7 @@ REG = dict(
     blocks="event x state x relief tercile (relief_p95_p5; cut points over counties)",
     family="Westfall-Young max-T over features within a contrast (Rademacher multiplier bootstrap of cluster scores), "
            "Bonferroni over the five contrasts",
-    n_mult=4000, n_syn=1000,
+    n_mult=4000, n_syn=1000, n_mult_syn=999,
     syn_field="per event: Gaussian field over county centroids, covariance c exp(-d / l) + (1 - c) I, (c, l) fitted to the "
               "correlogram of the event-demeaned residual; four variants: homoscedastic l, 2 l; heteroscedastic "
               "|residual| x field, l, 2 l",
@@ -121,7 +121,7 @@ REG = dict(
               e="X0 + quad summaries stays inside its within-block permutation null for every target and scale of the "
                 "main design"),
 )
-QUICK = dict(n_mult=499, n_syn=100, ceiling_n_perm=2, n_boot=200)
+QUICK = dict(n_mult=499, n_syn=100, n_mult_syn=199, ceiling_n_perm=2, n_boot=200)
 
 
 def log(msg: str) -> None:
@@ -321,6 +321,24 @@ def score_t(Sc: np.ndarray) -> np.ndarray:
     return np.where(den > 0, Sc.sum(0) / np.where(den > 0, den, 1.0), np.nan)
 
 
+def sign_flips(E: int, rng) -> np.ndarray:
+    """All 2^E sign patterns over E clusters (a random 65,536 of them when E > 16)."""
+    if E <= 16:
+        return (((np.arange(2 ** E)[:, None] >> np.arange(E)[None, :]) & 1) * 2 - 1).astype(np.float64)
+    return rng.choice(np.array([-1.0, 1.0]), size=(65536, E))
+
+
+def flip_p(Se: np.ndarray, t: np.ndarray, sg: int, flips: np.ndarray):
+    """Exact sign-flip p-values over clusters (single and max-T) from cluster sums Se [E, F]."""
+    ok = np.isfinite(t)
+    den = np.sqrt((Se[:, ok] ** 2).sum(0))
+    Tb = sg * (flips @ Se[:, ok]) / np.where(den > 0, den, 1.0)
+    p1, pm = np.full(len(t), np.nan), np.full(len(t), np.nan)
+    p1[ok] = (Tb >= sg * t[ok][None, :]).mean(0)
+    pm[ok] = (Tb.max(1)[None, :] >= sg * t[ok][:, None]).mean(1)
+    return p1, pm
+
+
 def mult_maxT(Sc: np.ndarray, t: np.ndarray, sg: int, B: int, rng):
     """Westfall-Young max-T p-values and single-test p-values from a Rademacher multiplier bootstrap of cluster scores."""
     ok = np.isfinite(t)
@@ -337,7 +355,10 @@ def mult_maxT(Sc: np.ndarray, t: np.ndarray, sg: int, B: int, rng):
     return p_single, p_max, float(np.quantile(mx, 0.95))
 
 
-def audit_c(F, P, m, S, names, reg, rng):
+def audit_c(F, P, m, S, names, reg, rng, contrasts=None, only=None):
+    contrasts = CONTRASTS if contrasts is None else contrasts
+    jj = np.arange(len(names)) if only is None else np.array([names.index(x) for x in only])
+    names = [names[j] for j in jj]
     y = F["y"].astype(np.float64)
     keep = m.sum(1) > 0
     lab, es = unit_blocks(F)
@@ -346,6 +367,9 @@ def audit_c(F, P, m, S, names, reg, rng):
     M = cluster_matrix(cid)
     Mc = cluster_matrix(np.unique(F["fips"].astype(str)[keep], return_inverse=True)[1])
     ev = F["event"].astype(str)[keep]
+    eid = np.unique(ev, return_inverse=True)[1]
+    Me = cluster_matrix(eid)
+    flips = sign_flips(int(eid.max() + 1), rng)
     lat, lon = county_centroids(F["fips"].astype(str)[keep])
     r = window_mean(y - P, m)[keep]
     Zc = demean(np.column_stack([window_mean(P, m)[keep], np.log(np.maximum(F["cust"].astype(np.float64), 1))[keep]]), bid)
@@ -360,8 +384,8 @@ def audit_c(F, P, m, S, names, reg, rng):
         syn[tag] = resid(demean(R, bid), Zc)
     rows, fam = [], {}
     sg = reg["sign"]
-    for cname, hi, lo, ctrl in CONTRASTS:
-        wm = {v: S[v][0][keep] for v in (hi, lo) + ((ctrl,) if ctrl else ())}
+    for cname, hi, lo, ctrl in contrasts:
+        wm = {v: S[v][0][keep][:, jj] for v in (hi, lo) + ((ctrl,) if ctrl else ())}
         Dm = np.zeros((len(r), len(names)))
         ok = np.zeros(len(names), bool)
         for j in range(len(names)):
@@ -377,8 +401,12 @@ def audit_c(F, P, m, S, names, reg, rng):
         Sc = np.asarray(M @ (rr[:, None] * Dm))                                   # [G, F] cluster scores
         ge_es = eff_clusters(np.asarray(M @ (Dm ** 2)))
         ge_cty = eff_clusters(np.asarray(Mc @ (Dm ** 2)))
+        ge_ev = eff_clusters(np.asarray(Me @ (Dm ** 2)))
         t = np.where(ok, score_t(Sc), np.nan)
         p_single, p_mult, crit = mult_maxT(Sc, t, sg, reg["n_mult"], rng)
+        Se = np.asarray(Me @ (rr[:, None] * Dm))
+        t_ev = np.where(ok, score_t(Se), np.nan)
+        pe_single, pe_max = flip_p(Se, t_ev, sg, flips)
         fwer, p_syn = {}, {}
         for tag, Rs in syn.items():
             ts = np.full((Rs.shape[1], len(names)), np.nan)
@@ -394,17 +422,141 @@ def audit_c(F, P, m, S, names, reg, rng):
                           null_used=f"synthetic field ({worst})" if use_syn else "cluster multiplier")
         for j, nm in enumerate(names):
             rows.append(dict(contrast=cname, feature=nm, part_corr=pc[j], t=t[j], eff_clusters_es=ge_es[j],
-                             eff_clusters_county=ge_cty[j], p_single=p_single[j],
+                             eff_clusters_county=ge_cty[j], eff_clusters_event=ge_ev[j], p_single=p_single[j],
                              p_maxT_mult=p_mult[j], p_maxT_syn=p_syn[worst][j], p_maxT=p_use[j],
-                             p_final=min(1.0, len(CONTRASTS) * p_use[j]) if np.isfinite(p_use[j]) else np.nan))
+                             p_final=min(1.0, len(contrasts) * p_use[j]) if np.isfinite(p_use[j]) else np.nan,
+                             t_event=t_ev[j], p_single_event_flip=pe_single[j], p_maxT_event_flip=pe_max[j],
+                             p_final_event_flip=min(1.0, len(contrasts) * pe_max[j]) if np.isfinite(pe_max[j]) else np.nan))
         log(f"(c) {cname}: {int(ok.sum())} features, null {fam[cname]['null_used']}, FWER syn "
             + ", ".join(f"{k} {v:.3f}" for k, v in fwer.items()))
     A = pd.DataFrame(rows)
     A["eligible"] = np.minimum(A["eff_clusters_es"], A["eff_clusters_county"]) >= reg["min_eff_clusters"]
+    if reg.get("min_eff_events") is not None:
+        A["eligible"] &= A["eff_clusters_event"] >= reg["min_eff_events"]
     A["pass"] = (A["p_final"] < 0.05) & (sg * A["t"] > 0) & A["eligible"]
+    if reg.get("require_event_flip"):
+        A["pass"] &= A["p_final_event_flip"] < 0.05
     info = dict(n_units=int(keep.sum()), n_blocks=int(bid.max() + 1), singleton_blocks=int((np.bincount(bid) == 1).sum()),
-                n_clusters=int(cid.max() + 1), correlogram=cg, families=fam, killed=bool(not A["pass"].any()))
+                n_clusters=int(cid.max() + 1), n_events=int(eid.max() + 1), correlogram=cg, families=fam,
+                killed=bool(not A["pass"].any()))
     return A, info
+
+
+# ------------------------------------------------------- single pre-registered test (power first, then the test)
+def unit_residual(F, P, m, scale: str):
+    """Window-mean residual and window-mean prediction on the chosen scale (log: log(x + 0.002), as the D3 targets)."""
+    y = F["y"].astype(np.float64)
+    if scale == "log":
+        return window_mean(np.log(y + 0.002) - np.log(P + 0.002), m), window_mean(np.log(P + 0.002), m)
+    return window_mean(y - P, m), window_mean(P, m)
+
+
+def single_h1a(F, P, m, S, names, feat, contrast, reg, rng, target, out: Path, scale="raw", diagnostic=False):
+    """One registered (contrast, feature) test. Order: eligibility (design only) -> power at the target part correlation
+    (noise from the residual's marginal properties only: per-event spread, correlogram, magnitudes; never its alignment
+    with the feature) -> written to disk -> the test itself, only if power >= 0.8."""
+    cname, hi, lo, ctrl = contrast
+    j = names.index(feat)
+    sg = reg["sign"]
+    keep = m.sum(1) > 0
+    lab, es = unit_blocks(F)
+    bid = np.unique(lab[keep], return_inverse=True)[1]
+    cid = np.unique(es[keep], return_inverse=True)[1]
+    fid = np.unique(F["fips"].astype(str)[keep], return_inverse=True)[1]
+    ev = F["event"].astype(str)[keep]
+    eid = np.unique(ev, return_inverse=True)[1]
+    M, Mc, Me = cluster_matrix(cid), cluster_matrix(fid), cluster_matrix(eid)
+    flips = sign_flips(int(eid.max() + 1), rng)
+    r_all, pbar = unit_residual(F, P, m, scale)
+    Zc = demean(np.column_stack([pbar[keep], np.log(np.maximum(F["cust"].astype(np.float64), 1))[keep]]), bid)
+    wm = {v: S[v][0][keep][:, j] for v in (hi, lo) + ((ctrl,) if ctrl else ())}
+    Zj = [Zc, demean(wm[lo], bid)[:, None]]
+    if ctrl:
+        Zj.append(demean(wm[ctrl] - wm[lo], bid)[:, None])
+    raw = wm[hi] - wm[lo]
+    D = resid(demean(raw, bid), np.concatenate(Zj, 1))
+    geff = {k: float(eff_clusters(np.asarray(Mx @ (D ** 2))[:, None])[0]) for k, Mx in
+            (("event_state", M), ("county", Mc), ("event", Me))}
+    res = dict(test=f"{cname.split()[0]}:{feat}", contrast=cname, feature=feat, sign=sg, n_units=int(keep.sum()),
+               n_events=int(eid.max() + 1), n_event_state=int(cid.max() + 1), eff_clusters=geff,
+               nonzero_event_state=int((np.bincount(cid, np.abs(raw)) > 0).sum()),
+               nonzero_events=int((np.bincount(eid, np.abs(raw)) > 0).sum()), min_eff_clusters=reg["min_eff_clusters"],
+               min_eff_events=reg.get("min_eff_events"), require_event_flip=bool(reg.get("require_event_flip")),
+               residual_scale=scale, diagnostic_power=bool(diagnostic))
+    res["eligible"] = bool(geff["event_state"] >= reg["min_eff_clusters"] and geff["county"] >= reg["min_eff_clusters"]
+                           and (reg.get("min_eff_events") is None or geff["event"] >= reg["min_eff_events"]))
+    if not res["eligible"] and not diagnostic:
+        res["verdict"] = "not testable (eligibility, decided from the design before any residual was read)"
+        (out / "H1a_power.json").write_text(json.dumps(res, indent=1) + "\n")
+        return res
+    # noise model: the residual's marginal properties only
+    r = r_all[keep]
+    r_ev = r - pd.Series(r).groupby(ev).transform("mean").to_numpy()
+    lat, lon = county_centroids(F["fips"].astype(str)[keep])
+    cg = correlogram(r_ev, ev, lat, lon)
+    nD, B0 = np.linalg.norm(D), reg["n_mult_syn"]
+    W0 = rng.choice(np.array([-1.0, 1.0]), size=(B0, M.shape[0]))
+
+    def stats(R):
+        """Per column of R (residual draws, already residualised): t, multiplier p (own draws), exact event-flip p."""
+        Sc, Se = np.asarray(M @ (R * D[:, None])), np.asarray(Me @ (R * D[:, None]))
+        t, te = score_t(Sc), score_t(Se)
+        den = np.sqrt((Sc ** 2).sum(0))
+        pm = (1 + (sg * (W0 @ Sc) / den >= sg * t[None, :]).sum(0)) / (B0 + 1)
+        dene = np.sqrt((Se ** 2).sum(0))
+        pf = (sg * (flips @ Se) / np.where(dene > 0, dene, 1.0) >= sg * te[None, :]).mean(0)
+        return t, pm, pf
+
+    h0, h1, fpr, powr = {}, {}, {}, {}
+    for tag, mult, het in (("homo l", 1.0, False), ("homo 2l", 2.0, False), ("hetero l", 1.0, True), ("hetero 2l", 2.0, True)):
+        R = synthetic_fields(r_ev, ev, lat, lon, cg["c"], mult * cg["ell_km"], reg["n_syn"], rng).astype(np.float64)
+        if het:
+            R = np.abs(r_ev)[:, None] * R
+        R0 = resid(demean(R, bid), Zc)
+        h0[tag] = stats(R0)
+        fpr[tag] = float((h0[tag][1] < 0.05).mean())
+        rho = float(target)
+        beta = rho * np.linalg.norm(R0, axis=0) / (nD * np.sqrt(1 - rho ** 2))
+        h1[tag] = stats(R0 + D[:, None] * beta[None, :])
+    worst = max(fpr, key=fpr.get)
+    use_syn = fpr[worst] > 0.10
+    t0w = sg * h0[worst][0]
+    for tag in h1:
+        t1, pm1, pf1 = h1[tag]
+        ps1 = (1 + (t0w[None, :] >= sg * t1[:, None]).sum(1)) / (len(t0w) + 1)
+        pu = ps1 if use_syn else pm1
+        ok = (pu < 0.05) & (sg * t1 > 0)
+        if reg.get("require_event_flip"):
+            ok &= pf1 < 0.05
+        powr[tag] = float(ok.mean())
+    res.update(correlogram=cg, fpr_single_test=fpr, fpr_joint_with_event_flip={k: float(((v[1] < .05) & (v[2] < .05)).mean())
+               for k, v in h0.items()}, null_used=f"synthetic field ({worst})" if use_syn else "cluster multiplier",
+               power_target_part_corr=float(target), power=powr, power_min=float(min(powr.values())),
+               n_syn=int(reg["n_syn"]), n_mult_per_draw=int(B0))
+    res["informative"] = bool(res["power_min"] >= 0.8)
+    if not res["eligible"]:
+        res["verdict"] = "diagnostic power only: not eligible, so the test was not computed"
+        (out / "H1a_power.json").write_text(json.dumps(res, indent=1) + "\n")
+        return res
+    if not res["informative"]:
+        res["verdict"] = "uninformative (power below 0.8): the test was not computed"
+        (out / "H1a_power.json").write_text(json.dumps(res, indent=1) + "\n")
+        return res
+    (out / "H1a_power.json").write_text(json.dumps(res, indent=1) + "\n")          # on disk before the test is computed
+    log(f"power {res['power_min']:.3f} (target part corr {target}); computing the registered test")
+    rr = resid(demean(r, bid), Zc)
+    Sc, Se = np.asarray(M @ (rr * D))[:, None], np.asarray(Me @ (rr * D))[:, None]
+    t, te = score_t(Sc)[0], score_t(Se)[0]
+    Wb = rng.choice(np.array([-1.0, 1.0]), size=(reg["n_mult"], M.shape[0]))
+    p_mult = float((1 + (sg * (Wb @ Sc[:, 0]) / np.sqrt((Sc ** 2).sum()) >= sg * t).sum()) / (reg["n_mult"] + 1))
+    p_syn = float((1 + (t0w >= sg * t).sum()) / (len(t0w) + 1))
+    p_flip = float((sg * (flips @ Se[:, 0]) / np.sqrt((Se ** 2).sum()) >= sg * te).mean())
+    p_used = p_syn if use_syn else p_mult
+    passed = bool(p_used < 0.05 and sg * t > 0 and (p_flip < 0.05 or not reg.get("require_event_flip")))
+    res.update(part_corr=float(rr @ D / (np.linalg.norm(rr) * nD)), t_event_state=float(t), t_event=float(te),
+               p_multiplier=p_mult, p_synthetic=p_syn, p_used=p_used, p_event_flip=p_flip, passed=passed,
+               verdict="pass" if passed else "fail (power >= 0.8)")
+    return res
 
 
 # ------------------------------------------------------------------------ (c) hour level and (d) power
@@ -500,11 +652,12 @@ def _hour_one(H, cname, nm, a_, b_, feats, pcs, S_es, S_ev, drows):
     drows.append(dict(kind="ladder", contrast=cname, feature=nm, **H.power(a_ - b_, b_)))
 
 
-def audit_hourly(F, P, u, r, m, reg, rng, paths, names):
+def audit_hourly(F, P, u, r, m, reg, rng, paths, names, contrasts=None, only=None):
+    contrasts = CONTRASTS if contrasts is None else contrasts
     H = Hourly(F, P, u, r, m, reg, rng)
     sg = reg["sign"]
     hrows, drows = [], []
-    for cname, hi, lo, ctrl in CONTRASTS:
+    for cname, hi, lo, ctrl in contrasts:
         if ctrl:
             continue
         log(f"(c-hour, d) {cname}")
@@ -512,7 +665,7 @@ def audit_hourly(F, P, u, r, m, reg, rng, paths, names):
         B, nb = load_phi(paths[lo], F)
         jb = {n_: i for i, n_ in enumerate(nb)}
         feats, pcs, S_es, S_ev = [], [], [], []
-        pairs = [(ja, jb[nm], nm) for ja, nm in enumerate(na) if nm in jb]
+        pairs = [(ja, jb[nm], nm) for ja, nm in enumerate(na) if nm in jb and (only is None or nm in only)]
         for q0 in range(0, len(pairs), 16):
             chunk = pairs[q0:q0 + 16]
             Ac = np.asarray(A[:, :, [c[0] for c in chunk]], np.float32)
@@ -545,7 +698,7 @@ def audit_hourly(F, P, u, r, m, reg, rng, paths, names):
         except ValueError:
             continue
         ref = f"{psi}*one@{tau}"
-        if mod != "one" and ref in jb:
+        if mod != "one" and ref in jb and (only is None or nm in only):
             todo.append((ja, jb[ref], nm, mod))
     for q0 in range(0, len(todo), 16):
         chunk = todo[q0:q0 + 16]
@@ -560,8 +713,9 @@ def audit_hourly(F, P, u, r, m, reg, rng, paths, names):
     gc.collect()
     Hd = pd.DataFrame(hrows)
     if len(Hd):
-        Hd["p_final"] = np.minimum(1.0, (len(CONTRASTS) - 1) * Hd["p_maxT"])
-        Hd["p_final_event_flip"] = np.minimum(1.0, (len(CONTRASTS) - 1) * Hd["p_maxT_event_flip"])
+        k = max(1, sum(1 for c in contrasts if not c[3]))
+        Hd["p_final"] = np.minimum(1.0, k * Hd["p_maxT"])
+        Hd["p_final_event_flip"] = np.minimum(1.0, k * Hd["p_maxT_event_flip"])
     return Hd, pd.DataFrame(drows)
 
 
@@ -679,6 +833,19 @@ def write_md(path, meta, A, info_c, Hd, Dd, E, Pr, info_e, reg):
             L.append(f"| {cname} | {fam['features_tested']} ({ne}) | {fw} | {fam['null_used']} | {'' if b is None else b.feature} | "
                      f"{'' if b is None else fmt(b.part_corr, '+.3f')} | {'' if b is None else fmt(b.t, '+.2f')} | "
                      f"{'' if b is None else fmt(b.p_maxT)} | {'' if b is None else fmt(b.p_final)} |")
+        if meta.get("single"):
+            r1 = A.iloc[0]
+            L += ["", f"**Single pre-registered test `{meta['single']}`** (one-sided, direction {reg['sign']:+d}; no max-T, no "
+                  "Bonferroni):", "",
+                  "| part corr | t (event x state) | p multiplier | p synthetic | p used | t (event) | p exact event flip | "
+                  "eff. clusters event x state / county / event | eligible | pass |", "|---:|---:|---:|---:|---:|---:|---:|---|---|---|",
+                  f"| {fmt(r1.part_corr, '+.4f')} | {fmt(r1.t, '+.2f')} | {fmt(r1.p_single)} | {fmt(r1.p_maxT_syn)} | "
+                  f"{fmt(r1.p_final)} | {fmt(r1.t_event, '+.2f')} | {fmt(r1.p_single_event_flip)} | "
+                  f"{r1.eff_clusters_es:.1f} / {r1.eff_clusters_county:.1f} / {r1.eff_clusters_event:.1f} | "
+                  f"{'yes' if r1.eligible else 'no'} | {'yes' if r1['pass'] else 'no'} |",
+                  "", f"Eligibility: ≥ {reg['min_eff_clusters']} effective clusters at event x state and county level"
+                  + (f", ≥ {meta['min_eff_events']} effective events" if meta.get("min_eff_events") else "")
+                  + ("; a pass also needs the exact event sign-flip p < 0.05" if meta.get("require_event_flip") else "") + "."]
         L += ["", f"**(c) verdict: {'KILL' if info_c['killed'] else 'not killed'}** — rule: {reg['kill']['c']}.", ""]
         if Hd is not None and len(Hd):
             L += ["Hour level (secondary; unit- and lead-demeaned cells; Bonferroni over four contrasts; best feature with at "
@@ -751,6 +918,13 @@ def main():
     ap.add_argument("--base", default=None, help="per-fold base outer.npz pattern with {fold}, relative to the repository "
                     "root (default: open_gcrk layout, W+Cin, main, seed 0); must hold idx, P and, for (d), u and r")
     ap.add_argument("--design", default="main", help="splits design of the base's outer folds")
+    ap.add_argument("--single", default=None, help='one pre-registered test "C<k>:<feature>" (no max-T, no Bonferroni)')
+    ap.add_argument("--min-eff-events", type=float, default=None, help="also require this many effective event clusters")
+    ap.add_argument("--require-event-flip", action="store_true", help="a pass also needs exact event sign-flip p < 0.05")
+    ap.add_argument("--scale", choices=("raw", "log"), default="raw", help="residual scale of the single test")
+    ap.add_argument("--diagnostic-power", action="store_true", help="compute power even when ineligible (never the test)")
+    ap.add_argument("--power-target", type=float, default=None, help="with --single: power check at this part correlation "
+                    "first; the test is computed only if power >= 0.8 (writes H1a_power.json, then H1a.json and H1a.md)")
     ap.add_argument("--out", type=Path, default=OUT)
     ap.add_argument("--parts", default="cde", help="subset of c, d, e (hour-level alignment runs with d)")
     ap.add_argument("--designs", default="main", help="(e): main[,event]")
@@ -761,8 +935,20 @@ def main():
     reg.update(ceiling_n_perm=REG["ceiling"]["n_perm"], n_boot=REG["ceiling"]["n_boot"])
     if args.quick:
         reg.update(QUICK)
+    reg.update(min_eff_events=args.min_eff_events, require_event_flip=bool(args.require_event_flip))
+    contrasts, only = CONTRASTS, None
+    if args.single:
+        ck, feat = args.single.split(":", 1)
+        contrasts = [c for c in CONTRASTS if c[0].split()[0] == ck]
+        if not contrasts:
+            raise SystemExit(f"--single: no contrast {ck}")
+        only = [feat]
     rng = np.random.default_rng(args.seed)
-    paths = {v: args.eih_dir / f"{args.eih_prefix}{v}.npz" for v in VARIANTS}
+    need = VARIANTS
+    if args.single:
+        c0 = [c for c in CONTRASTS if c[0].split()[0] == args.single.split(":", 1)[0]]
+        need = tuple(v for v in VARIANTS if c0 and v in (c0[0][1], c0[0][2], c0[0][3]))
+    paths = {v: args.eih_dir / f"{args.eih_prefix}{v}.npz" for v in need}
     miss = [p.name for p in paths.values() if not p.exists()]
     if miss:
         raise SystemExit(f"missing input files: {miss}")
@@ -802,12 +988,12 @@ def main():
     m = F["m"].astype(bool)
     log(f"base loaded: {n} units")
     S, names, bad = {}, None, {}
-    for v in VARIANTS:
+    for v in paths:
         phi, nm = load_phi(paths[v], F)
         if names is None:
             names = nm
         elif nm != names:
-            raise SystemExit(f"eih_{v}.npz: feature names differ from eih_{VARIANTS[0]}.npz")
+            raise SystemExit(f"{paths[v].name}: feature names differ from the first input's")
         wm, mx, mn, nb = summaries(phi, m)
         S[v] = (wm, mx, mn)
         if nb:
@@ -816,17 +1002,50 @@ def main():
         gc.collect()
         log(f"summaries {v}")
     meta = dict(generated=time.strftime("%Y-%m-%d %H:%M:%S"), panel=feat_path.name, splits=sp_path.name, base=base_desc,
+                variants_loaded=list(paths),
+                single=args.single, min_eff_events=args.min_eff_events, require_event_flip=bool(args.require_event_flip),
                 eih_prefix=args.eih_prefix, variants=list(VARIANTS), n_units=int(n),
                 n_features=len(names), features=names, nonfinite=bad, quick=bool(args.quick), seed=args.seed,
                 inputs={p.name: sha256(p) for p in paths.values()},
                 git=subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--short", "HEAD"], capture_output=True,
                                    text=True).stdout.strip())
+    if args.single and args.power_target is not None:
+        args.out.mkdir(parents=True, exist_ok=True)
+        res = single_h1a(F, P, m, S, names, only[0], contrasts[0], reg, rng, args.power_target, args.out,
+                         scale=args.scale, diagnostic=args.diagnostic_power)
+        res.update(meta=meta, registered=REG, runtime_s=round(time.time() - t0, 1))
+        (args.out / "H1a.json").write_text(json.dumps(res, indent=1, default=float) + "\n")
+        L = [f"# Registered single test {res['test']}", "", f"Generated {meta['generated']} by `audit_f1.py` (git {meta['git']}). "
+             f"Panel `{meta['panel']}`, base {meta['base']}, residual scale {res['residual_scale']}. Order of operations: "
+             "eligibility from the design, then power "
+             f"(written to `H1a_power.json` before the test), then the test.", "",
+             f"* Units {res['n_units']}, events {res['n_events']}, event x state clusters {res['n_event_state']}; nonzero contrast "
+             f"in {res['nonzero_event_state']} event x state blocks and {res['nonzero_events']} events.",
+             "* Effective clusters: event x state {event_state:.1f}, county {county:.1f}, event {event:.1f}; ".format(**res["eff_clusters"])
+             + f"required ≥ {res['min_eff_clusters']} / ≥ {res['min_eff_clusters']} / ≥ {res['min_eff_events']}: "
+             f"**{'eligible' if res['eligible'] else 'not eligible'}**."]
+        if "power" in res:
+            L += [f"* Single-test false-positive rate on synthetic fields: "
+                  + ", ".join(f"{k} {v:.3f}" for k, v in res["fpr_single_test"].items()) + f"; null used: {res['null_used']}.",
+                  f"* Power at part correlation {res['power_target_part_corr']}: "
+                  + ", ".join(f"{k} {v:.3f}" for k, v in res["power"].items()) + f"; minimum {res['power_min']:.3f} "
+                  f"(**{'informative' if res['informative'] else 'uninformative'}**)."]
+        if "p_used" in res:
+            L += [f"* Test: part corr {res['part_corr']:+.4f}, t (event x state) {res['t_event_state']:+.2f}, p multiplier "
+                  f"{res['p_multiplier']:.4f}, p synthetic {res['p_synthetic']:.4f}, p used {res['p_used']:.4f}; t (event) "
+                  f"{res['t_event']:+.2f}, exact event-flip p {res['p_event_flip']:.4f}."]
+        L += ["", f"**Verdict: {res['verdict']}.**", ""]
+        (args.out / "H1a.md").write_text("\n".join(L) + "\n")
+        log(f"H1a: {res['verdict']}")
+        return
     A = info_c = Hd = Dd = E = Pr = None
     info_e = dict(d3_reproduction={}, killed=None)
     if "c" in args.parts:
-        A, info_c = audit_c(F, P, m, S, names, reg, rng)
+        if only and only[0] not in names:
+            raise SystemExit(f"--single: feature {only[0]} not in the inputs")
+        A, info_c = audit_c(F, P, m, S, names, reg, rng, contrasts, only)
     if "d" in args.parts:
-        Hd, Dd = audit_hourly(F, P, u, r, m, reg, rng, paths, names)
+        Hd, Dd = audit_hourly(F, P, u, r, m, reg, rng, paths, names, contrasts, only)
     if "e" in args.parts:
         E, Pr, info_e = audit_e(F, S, [d.strip() for d in args.designs.split(",")], reg, rng, sp, default_panel)
     args.out.mkdir(parents=True, exist_ok=True)
@@ -834,7 +1053,7 @@ def main():
                      (Pr, "ceiling_contrasts.csv")):
         if df is not None:
             df.to_csv(args.out / name, index=False)
-    tag = "".join(sorted(set(args.parts) & set("cde")))
+    tag = "".join(sorted(set(args.parts) & set("cde"))) + ("_single" if args.single else "")
     write_md(args.out / f"F1_{tag}.md", meta, A, info_c, Hd, Dd, E, Pr, info_e, REG)
 
     def recs(d):

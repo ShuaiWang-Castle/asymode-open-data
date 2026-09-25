@@ -43,15 +43,17 @@ def era5_ready(ev: str) -> bool:
 
 
 def eaglei_covers(e: dict) -> bool:
-    """Data gate: the EAGLE-I file on disk for the window's year must reach one day past the window's end
-    (the local 2022 file ends on 2022-11-12, so the 2022-12-13 episode has no outage record here)."""
+    """Data gate: the EAGLE-I record on disk must span the window with a day to spare on each side (the local 2022
+    file ends on 2022-11-12; the 2014 file starts on 2014-11-01)."""
     import pyarrow.compute as pc
     import pyarrow.parquet as pq
     t0 = pd.Timestamp(e["window_start_utc"]); t1 = t0 + pd.Timedelta(hours=215)
     fs = [ROOT / "data" / "interim" / f"eaglei_outages_{y}.parquet" for y in sorted({t0.year, t1.year})]
     if not all(f.exists() for f in fs):
         return False
-    ok = pd.Timestamp(pc.max(pq.read_table(fs[-1], columns=["ts"]).column("ts")).as_py()) >= t1 + pd.Timedelta(days=1)
+    lo = pd.Timestamp(pc.min(pq.read_table(fs[0], columns=["ts"]).column("ts")).as_py())
+    hi = pd.Timestamp(pc.max(pq.read_table(fs[-1], columns=["ts"]).column("ts")).as_py())
+    ok = lo <= t0 - pd.Timedelta(days=1) and hi >= t1 + pd.Timedelta(days=1)     # the record spans the whole window
     if not ok:
         print("EAGLE-I gate: no outage record for", e["event"], flush=True)
     return ok
@@ -116,7 +118,9 @@ def main():
         if not f.exists():
             np.savez_compressed(f, **V.panel(e["event"], pd.Timestamp(e["window_start_utc"]), w))
         print("round-2 panel", e["event"], flush=True)
-    arr = V.features(build, prefix="panel216w")
+    nonempty = [e for e in build if len(np.load(BP.OUT / f"panel216_{e['event']}.npz")["fips"]) > 0]
+    print("events with counties after the gates:", [e["event"] for e in nonempty], flush=True)
+    arr = V.features(nonempty, prefix="panel216w")
     f = OUT / f"features_{a.tag}.npz"
     np.savez_compressed(f, **arr)
     sp = splits(arr)
