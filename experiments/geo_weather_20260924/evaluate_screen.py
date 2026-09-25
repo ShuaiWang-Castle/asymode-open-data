@@ -51,7 +51,8 @@ def main():
     fips, ev = z["fips"].astype(str), z["event"].astype(str)
     ib, sb = unit_errors(a.base, a.folds, y, m)
     n = m[ib].sum(1)
-    rows = [dict(label=a.base, rmse=float(np.sqrt(sb.sum() / n.sum())), units=int(len(ib)))]
+    rows = [dict(label=a.base, rmse=float(np.sqrt(sb.sum() / n.sum())), units=int(len(ib)),
+                 zero_rmse=float(np.sqrt(((y[ib] ** 2) * m[ib]).sum() / n.sum())))]
     for L in a.labels:
         il, sl = unit_errors(L, a.folds, y, m)
         assert np.array_equal(il, ib), f"{L}: units differ from the base"
@@ -60,21 +61,23 @@ def main():
         rng = np.random.default_rng(SEED)
         ci_c, pc = cluster_ratio(sl, sb, n, fips[ib], rng)
         ci_e, pe = cluster_ratio(sl, sb, n, np.char.add(ev[ib], np.char.add("_", np.array([f[:2] for f in fips[ib]]))), rng)
+        ci_ev, _ = cluster_ratio(sl, sb, n, ev[ib], rng)
         per_event = {}
         for e in sorted(set(ev[ib])):
             k = ev[ib] == e
             per_event[e] = round(float(np.sqrt(sl[k].sum() / n[k].sum()) / np.sqrt(sb[k].sum() / n[k].sum()) - 1), 4)
         rows.append(dict(label=L, rmse=rmse, rel_vs_base=rel, county_ci=ci_c, county_p_better=pc,
-                         event_state_ci=ci_e, event_state_p_better=pe,
+                         event_state_ci=ci_e, event_state_p_better=pe, event_ci=ci_ev,
                          events_better=int(sum(v < 0 for v in per_event.values())), per_event=per_event))
     for r in rows:
         if "rel_vs_base" in r:
             print(f"{r['label']:<28} RMSE {r['rmse']:.6f}  {100 * r['rel_vs_base']:+.2f}%  county "
                   f"[{100 * r['county_ci'][0]:+.2f}, {100 * r['county_ci'][1]:+.2f}]  event x state "
-                  f"[{100 * r['event_state_ci'][0]:+.2f}, {100 * r['event_state_ci'][1]:+.2f}]  "
+                  f"[{100 * r['event_state_ci'][0]:+.2f}, {100 * r['event_state_ci'][1]:+.2f}]  event "
+                  f"[{100 * r['event_ci'][0]:+.2f}, {100 * r['event_ci'][1]:+.2f}]  "
                   f"events better {r['events_better']}/{len(r['per_event'])}")
         else:
-            print(f"{r['label']:<28} RMSE {r['rmse']:.6f}  (base, {r['units']} units)")
+            print(f"{r['label']:<28} RMSE {r['rmse']:.6f}  (base, {r['units']} units; all-zero {r['zero_rmse']:.6f})")
     if a.out:
         p = HERE / a.out
         p.parent.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,15 @@
+--label h2b_base --data w2e23 --arm W+Cin --design event --folds 1
+--label h2b_Hc --data w2e23 --arm W+Cin+H --phi hrrr_coarse --keep ^(gust|p_tw|convective) --design event --folds 1
+--label h2b_Hp --data w2e23 --arm W+Cin+H --phi pop --keep ^(gust|p_tw|convective) --design event --folds 1
+--label h2b_base --data w2e23 --arm W+Cin --design event --folds 2
+--label h2b_Hc --data w2e23 --arm W+Cin+H --phi hrrr_coarse --keep ^(gust|p_tw|convective) --design event --folds 2
+--label h2b_Hp --data w2e23 --arm W+Cin+H --phi pop --keep ^(gust|p_tw|convective) --design event --folds 2
+--label h2b_base --data w2e23 --arm W+Cin --design event --folds 3
+--label h2b_Hc --data w2e23 --arm W+Cin+H --phi hrrr_coarse --keep ^(gust|p_tw|convective) --design event --folds 3
+--label h2b_Hp --data w2e23 --arm W+Cin+H --phi pop --keep ^(gust|p_tw|convective) --design event --folds 3
+--label h2b_base --data w2e23 --arm W+Cin --design event --folds 4
+--label h2b_Hc --data w2e23 --arm W+Cin+H --phi hrrr_coarse --keep ^(gust|p_tw|convective) --design event --folds 4
+--label h2b_Hp --data w2e23 --arm W+Cin+H --phi pop --keep ^(gust|p_tw|convective) --design event --folds 4
+--label h2b_base --data w2e23 --arm W+Cin --design event --folds 5
+--label h2b_Hc --data w2e23 --arm W+Cin+H --phi hrrr_coarse --keep ^(gust|p_tw|convective) --design event --folds 5
+--label h2b_Hp --data w2e23 --arm W+Cin+H --phi pop --keep ^(gust|p_tw|convective) --design event --folds 5
