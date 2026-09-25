@@ -111,6 +111,18 @@ inspected during the earlier research campaign. Reusing them for design
 selection is **exploratory**, even if they are event-disjoint within a new
 fit. A confirmatory transfer claim needs additional weather-selected events
 locked before viewing their outcome data, or a clearly stated external cohort.
+The prospective [`FRESH_COHORT_PROTOCOL.md`](FRESH_COHORT_PROTOCOL.md) now
+implements the stronger boundary: exclude the conservative union of 29 event
+anchors from G1/G2/G3 and both open-GCRK selected-event files, exclude any new
+216-hour window that overlaps their conservative 216-hour windows, and use a
+field allow-list over newly hashed NOAA/ERA5 inputs. It also rejects all 40
+dates in the historical weather screen for a *selection-fresh* claim. The old
+strict rule leaves zero outcome-fresh candidates; the wider pre-existing E3
+weather rule leaves 11 nonoverlapping, outcome-fresh but already
+metadata-screened dates. Those 11 are a separately labelled sensitivity, not
+the stronger selection-fresh confirmation. EAGLE-I source support is assessed
+only after the cohort manifest is frozen; failure after unlock produces
+attrition, not event replacement.
 
 ERA5 areal means and county-grid high-quantile/max gust already exist in the
 round-2 inputs. Retain these as strong baselines; test any new high-resolution

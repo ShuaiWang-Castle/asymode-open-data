@@ -278,6 +278,82 @@ INNER/FIT-only timing pilot, implement the generic and structured states with
 audited identical budgets, and separately freeze a genuinely new
 weather-selected cohort before any confirmatory OUTER evaluation.
 
+## Attempt 08: executable weather-only fresh-cohort boundary (2026-09-25)
+
+Input: tracked event manifests, event-selection code/table and result identity
+files only. No panel array, outage row, target value, checkpoint, trained
+parameter, prediction or fold metric was opened for selecting a new event.
+The historical G3 target-inspection record
+`results/d7_target_shape_g3.json` has SHA-256
+`e55be68bdb4ff17eb1a0a88a2d5b4746bc84edb1ced024eee035497f6ceb3d8f`;
+the E3R2 seed result identity
+`experiments/open_gcrk_20260919/results/e3r2/e3_seeds_main.csv` has SHA-256
+`8ebc06ee5e7953cf91243330b8eb485f8f5835a8238fea1bdf105f78dfca4370`.
+These files are evidence that their event families are historical, not inputs
+to the new weather screen.
+
+Selection audit: the union of the G1, G2 and G3 panel manifests plus
+`selected_events.json` and `selected_events_e3.json` contains 29 event
+anchors whose outcomes may have been inspected. The sorted newline-terminated
+union has SHA-256
+`209cade895e8d51f32758b772dc82b4f57c4993f8ff8ad043899cdb29c2cd037`.
+The five source hashes are frozen in `FRESH_COHORT_PROTOCOL.json`; its verifier
+recomputes both every file hash and the union. Candidate exclusion uses the
+entire conservative 216-hour window around every anchor, so shifting a date by
+one day cannot silently reuse the same storm/outage period.
+
+The earlier event pipeline is reproducible but not strictly label-blind.
+`select_events.py` (SHA-256
+`14c8c4c649338b22e92a88df22b4ccefa1541c89b5fbe38cb4aec49f74fcb365`)
+finds candidate years by scanning EAGLE-I parquet filenames and uses the known
+archive boundary for F5. `select_events_e3.py` (SHA-256
+`2fdc7aa22f890ed6ef1f4e9d5bc17de8d4e5fbd42f9121a458e3ff9e16bd44d4`)
+also excludes 2024-05-26 after an outage-observation G4 gap removed every
+county. In addition, `storm_events_county.parquet` produced by
+`build_event_catalog.py` (SHA-256
+`03b1442dee3a2f42f0f1d53166942dab7e1872feac945ca7eea292c1de5bb1ba`)
+retains NOAA property damage, death and injury columns even though its weather
+aggregations do not use them. A new selection therefore needs a positive
+field allow-list, not only a blacklist.
+
+Negative/availability result: the original strict F1--F5 plus R1 rule leaves
+zero outcome-fresh dates. The weather-only parts of the already documented
+wider E3 rule leave 11 dates that are outcome-fresh and do not overlap the 29
+historical windows: 2018-03-02, 2020-06-09, 2020-11-15, 2020-12-25,
+2021-01-14, 2022-01-04, 2022-02-18, 2022-11-05, 2024-04-06, 2024-11-20 and
+2024-12-19. The deterministic top six by forecast-window wind-county count
+would be 2020-06-09, 2018-03-02, 2022-11-05, 2020-11-15, 2024-04-06 and
+2021-01-14. All 11 already appear in the old 40-row weather metadata screen,
+so they are only an outcome-fresh, metadata-screened sensitivity; they are not
+promoted to the stronger selection-fresh confirmation. No county EAGLE-I mask
+was consulted for this audit.
+
+Added `FRESH_COHORT_PROTOCOL.json` (SHA-256
+`7e5a2627759f4dd57ff469435ff6d89511b179b9948c2d564513956eb75e2337`),
+`FRESH_COHORT_PROTOCOL.md` (SHA-256
+`01b733f57def047b87fe057ee344e9fcf3ce565beb471bbc9e1508c73e9721a1`),
+`fresh_cohort_gate.py` (SHA-256
+`a43bf9b20544f19092399296205e0a2e3bd408d16992fe0ae66fbbf9dcb60790`)
+and `test_fresh_cohort_gate.py` (SHA-256
+`3c561afefb942c60c3d91ad6bf38d03731a8c703c6e92867e08a11164a3fc19c`).
+The gate rejects historical anchors, adjacent overlapping windows, dates from
+the earlier 40-row screen, non-allow-listed fields, EAGLE-I/result/checkpoint
+source paths, nonempty pre-lock outcome access, source hash mismatches,
+overlapping candidate windows, wrong origin/window length, fewer than three
+events and any seed set other than 0--4. It emits a canonical JSON hash for a
+future cohort manifest. The standalone self-test accepted one valid synthetic
+manifest and rejected nine invalid cases; all 11 fresh-cohort unit tests and
+all 29 phase-2 unit tests pass. JSON parsing and `git diff --check` pass.
+
+No real cohort, panel or empirical improvement is claimed. The checkout still
+lacks the county-resolved NOAA catalog, event-day catalog, raw NOAA files, new
+ERA5 snapshot, raw EAGLE-I rows and 216-hour payloads. Next gate: restore or
+redownload and hash NOAA plus ERA5, construct a sanitized weather-only
+candidate table, freeze three to six selection-fresh nonoverlapping windows
+and its canonical manifest, then and only then unlock EAGLE-I source-mask
+auditing. The resulting cohort hash must be copied unchanged into every arm of
+the comparator bundle.
+
 ## Repository and access snapshot
 
 - Local checkout: `open_data_work`, branch `research/open-gcrk-data-mechanism-20260925`, HEAD `da465857e6dbc266e1f2fad104d049c68076ad11`. The remote branch `research/open-gcrk-5seed-20260919` is at the **same SHA**. The remote `main` is `8dd47c5ccd829611f27b69a3d64c274a0a24c400` (2026-09-03); the research commit is dated 2026-09-21. GitHub reports **no common ancestor** between these histories; use explicit refs, not `git merge main` or a naive ahead/behind count.

@@ -48,6 +48,13 @@ be reported.
   after preprocessing, architecture and stopping rules are frozen. The gate
   explicitly rejects the historical E3R2 panel or split hashes.
 
+The event list for a confirmatory bundle must first pass
+`fresh_cohort_gate.py`. Its canonical manifest SHA-256 becomes the
+`cohort_manifest_sha256` shared by every arm. The comparator gate does not
+replace that source-level check and cannot promote the 29 outcome-inspected
+anchors, an overlapping 216-hour window, or the old 40-date metadata screen to
+a selection-fresh cohort.
+
 `comparator_protocol_gate.py` validates a bundle manifest against
 `COMPARATOR_PROTOCOL.json`. Passing does **not** prove that a cohort is fresh or
 that the listed files exist; source manifests, hashes and human review still do
