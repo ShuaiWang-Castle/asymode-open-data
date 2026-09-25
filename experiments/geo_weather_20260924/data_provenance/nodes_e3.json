@@ -1,0 +1,8 @@
+{
+ "counties": 2409,
+ "missing": [],
+ "K": 16,
+ "C_MAX": 24,
+ "max_dropped_pop_share": 0.15154132403784004,
+ "nodes_nonempty_median": 16.0
+}

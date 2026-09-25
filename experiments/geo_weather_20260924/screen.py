@@ -1,0 +1,94 @@
+"""Quick screen (program.md): outer folds 1-2 of the county-grouped design of the twelve-event panel, a fixed
+number of training steps on all development units, seed 0, then the held-out counties' open-loop rollouts.
+
+  python screen.py --label base_e3r2 --data e3r2 --arm W+Cin
+  python screen.py --label pop_v3p   --data v3p  --arm W+Cin
+Every arm of the same seed shares the host initialisation (paired init). Outputs (not in git):
+runs/geo_weather_20260924/<label>/fold0<k>/{outer.npz, DONE.json}; evaluate with evaluate_screen.py.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import sys
+import time
+from pathlib import Path
+
+for _n in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
+    os.environ.setdefault(_n, "2")
+
+import numpy as np
+import torch
+
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+from asymode import gcrk_train as G  # noqa: E402
+
+RUNS = ROOT / "runs" / "geo_weather_20260924"
+SPLITS = ROOT / "experiments" / "open_gcrk_20260919" / "splits_e3r2.json"
+DATA = {"e3r2": ROOT / "data" / "interim" / "open_gcrk" / "features_e3r2.npz",
+        "v3p": ROOT / "data" / "interim" / "geo_weather" / "features_v3p.npz"}
+
+
+def load(data: str) -> dict:
+    z = np.load(DATA[data])
+    return {k: z[k] for k in z.files}
+
+
+def attach_phi(F: dict, variant: str, keep: str | None = None) -> dict:
+    """Exposure-integrated hazard features eih_<variant>.npz (build_eih.py) as F['phi']; `keep` = a regex on the
+    feature names to use a subset."""
+    import re
+    z = np.load(ROOT / "data" / "interim" / "geo_weather" / f"eih_{variant}.npz")
+    assert np.array_equal(z["fips"], F["fips"]) and np.array_equal(z["event"], F["event"])
+    names = z["names"].astype(str)
+    cols = np.arange(len(names)) if keep is None else np.array([i for i, n in enumerate(names) if re.search(keep, n)])
+    F = dict(F); F["phi"] = z["phi"][..., cols]; F["phi_names"] = names[cols]
+    return F
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--label", required=True)
+    ap.add_argument("--data", default="e3r2", choices=sorted(DATA))
+    ap.add_argument("--arm", default="W+Cin")
+    ap.add_argument("--phi", default=None, help="exposure-integrated hazard variant (arm W+Cin+H)")
+    ap.add_argument("--keep", default=None, help="regex on hazard feature names")
+    ap.add_argument("--folds", nargs="+", type=int, default=[1, 2])
+    ap.add_argument("--steps", type=int, default=900)
+    ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--threads", type=int, default=2)
+    a = ap.parse_args()
+    torch.set_num_threads(a.threads)
+    F = load(a.data)
+    if a.phi:
+        F = attach_phi(F, a.phi, a.keep)
+    sp = json.loads(SPLITS.read_text())
+    assert sp["n_units"] == len(F["fips"])
+    for k in a.folds:
+        out = RUNS / a.label / f"fold{k:02d}"
+        if (out / "DONE.json").exists():
+            continue
+        out.mkdir(parents=True, exist_ok=True)
+        dev, held = np.array(sp["main"][str(k)]["dev"]), np.array(sp["main"][str(k)]["outer"])
+        t0 = time.time()
+        log = lambda s: print(f"[{a.label} f{k}] {s}", flush=True)  # noqa: E731
+        e = G.refit(F, dev, a.steps, a.seed, a.arm, log=log)
+        res = G.export(e, F, held)
+        np.savez_compressed(out / "outer.npz", **res)
+        torch.save(dict(model_state=e.model.state_dict(), stats=e.stats, arm=a.arm, steps=a.steps), out / "final.pt")
+        extra = {}
+        if e.model.haz_beta is not None:
+            beta = e.model.haz_beta.detach().numpy()
+            top = np.argsort(-beta)[:12]
+            extra = dict(beta_nonzero=int((beta > 0).sum()), beta_top={str(F["phi_names"][i]): float(beta[i]) for i in top})
+        (out / "DONE.json").write_text(json.dumps(dict(label=a.label, data=a.data, arm=a.arm, phi=a.phi, keep=a.keep, fold=k,
+                                                       steps=a.steps, seed=a.seed, fit_loss=e.last_loss,
+                                                       seconds=round(time.time() - t0, 1), **extra), indent=1) + "\n")
+        log(f"done in {time.time() - t0:.0f} s, fit loss {e.last_loss:.4e}")
+
+
+if __name__ == "__main__":
+    main()

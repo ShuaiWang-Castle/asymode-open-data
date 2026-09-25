@@ -123,6 +123,8 @@ class AsymODE(nn.Module):
         self.occurrence = nn.Linear(d_occ, 1)
         self.background = nn.Linear(d_u, 1)
         self.level, self.level_source, self.ctx_in = None, None, None
+        self.mech, self.mech_in = None, None
+        self.haz_beta = None
         with torch.no_grad():
             self.damage[-1].bias.fill_(u_bias_init)
             self.smoother.weight.zero_()
@@ -174,17 +176,54 @@ class AsymODE(nn.Module):
             self.ctx_in.weight.zero_()
         return self.ctx_in
 
-    def hidden(self, xu: torch.Tensor, ctx: torch.Tensor | None = None) -> torch.Tensor:
+    def attach_mechanisms(self, module: nn.Module, d_m: int):
+        """Local geo-weather mechanism intensities into the first damage layer (geo_weather_20260924 DESIGN):
+        h = ReLU(W x + A c + M z + b), z the standardised county intensities of `module`, M zero at the
+        start, so the arm equals its base at step 0. `set_mechanism_scale` fixes the standardisation."""
+        if getattr(self, "mech", None) is not None:
+            raise RuntimeError("mechanisms already attached")
+        self.mech = module
+        self.mech_in = nn.Linear(d_m, self.damage[0].out_features, bias=False)
+        with torch.no_grad():
+            self.mech_in.weight.zero_()
+        self.register_buffer("mech_mu", torch.zeros(d_m))
+        self.register_buffer("mech_sd", torch.ones(d_m))
+        return self.mech
+
+    @torch.no_grad()
+    def set_mechanism_scale(self, b: dict):
+        lam = self.mech(b["nw"], b["na"], b["nr"])[:, ORIGIN:]
+        self.mech_mu.copy_(lam.mean((0, 1)))
+        self.mech_sd.copy_(lam.std((0, 1)) + 1e-6)
+
+    def mechanism_inputs(self, b: dict) -> torch.Tensor:
+        z = (self.mech(b["nw"], b["na"], b["nr"]) - self.mech_mu) / self.mech_sd
+        z = torch.cat([torch.zeros_like(z[:, :ORIGIN]), z[:, ORIGIN:]], 1)    # only the rollout hours are read
+        return z.clamp(-10.0, 10.0)
+
+    def attach_hazard(self, d_phi: int):
+        """Exposure-integrated hazard features as a competing hazard (geo_weather_20260924 DESIGN v1):
+        u = cap (1 - (1 - u_host / cap) exp(-beta . phi_t)), beta >= 0 (projected after every step), zero at the
+        start, so the arm equals its base at step 0 and d u / d beta = (cap - u_host) phi_t there."""
+        if getattr(self, "haz_beta", None) is not None:
+            raise RuntimeError("hazard already attached")
+        self.haz_beta = nn.Parameter(torch.zeros(d_phi))
+        return self.haz_beta
+
+    def hidden(self, xu: torch.Tensor, ctx: torch.Tensor | None = None, mech: torch.Tensor | None = None) -> torch.Tensor:
         a1 = self.damage[0](xu)
         if self.ctx_in is not None:
             a1 = a1 + self.ctx_in(ctx)[:, None, :]
+        if self.mech_in is not None:
+            a1 = a1 + self.mech_in(mech)
         return torch.relu(a1)
 
     # --------------------------------------------------------------------- forward
     def forward(self, b: dict, exit_open: bool = True, diagnostics: bool = False) -> dict:
         """b: xu [B,216,d_u], xr [B,216,d_r], xo [B,216,d_occ], geo [B,G], y0 [B]."""
         xu = b["xu"]
-        h = self.hidden(xu, b.get("ctx"))
+        mz = self.mechanism_inputs(b) if self.mech is not None else None
+        h = self.hidden(xu, b.get("ctx"), mz)
         layer = self.damage[2]
         kd = {}
         if isinstance(layer, GCRKLayer):
@@ -202,11 +241,19 @@ class AsymODE(nn.Module):
         bkg = BKG_CAP * torch.sigmoid(self.background(xu[:, ORIGIN:])).squeeze(-1)
         cond = U_CAP * torch.sigmoid(logit)
         u = torch.clamp(gate * cond + bkg, 0.0, U_CAP + BKG_CAP)
+        if self.haz_beta is not None:
+            cap = U_CAP + BKG_CAP
+            lam = b["phi"] @ self.haz_beta                                     # [B, 144], >= 0
+            u = u - (cap - u) * torch.expm1(-lam)                              # = cap - (cap - u) exp(-lam)
         p = stock_path(u.contiguous(), r.contiguous(), b["y0"].contiguous())
         out = dict(P=p, u=u, r=r, gate=gate, background=bkg, conditional=cond,
                    raw_logit=raw, logit=logit, forget=forget)
+        if self.haz_beta is not None:
+            out["hazard"] = lam
         if self.level is not None:
             out["level"] = self.level(b[self.level_source]).squeeze(-1)
+        if mz is not None:
+            out["mech_z"] = mz
         if diagnostics:
             out.update(h1=h, a2=a2, **{"kernel_" + k: v for k, v in kd.items()})
         return out

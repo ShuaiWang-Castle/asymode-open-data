@@ -24,6 +24,7 @@ import numpy as np
 import torch
 
 from .asym_host import AsymODE, masked_se, trajectory_loss
+from .geo_mech import MECH, LocalMechanisms
 
 POLICY = dict(min_steps=400, patience_steps=200, max_steps=1600, eval_every=10)
 LR_HOST, LR_RECOVERY = 3e-3, 3e-4
@@ -53,6 +54,12 @@ def _moments(a: np.ndarray):
 
 
 PERMUTATION_SEED = 20260920
+# local geo-weather mechanism arms (geo_weather_20260924): base + LocalMechanisms(**kwargs) into the first damage
+# layer. The node inputs (nw, na, nr) come from F; their variants (county mean, placebo) are built by the runner.
+HAZARD_ARMS = ("W+Cin+H",)       # exposure-integrated hazard features F["phi"] [U,144,J] as a competing hazard
+LR_HAZARD = 0.1 * 3e-3           # slow clock for beta (REVIEW_formal 2.7), fixed from the first run
+MECH_ARMS = {"W+Cin+M": dict(), "W+Cin+M0": dict(), "W+Cin+MP": dict(), "W+Cin+Mw": dict(),
+             "W+Cin+M-dz": dict(use_dz=False), "W+Cin+M-can": dict(use_canopy=False)}
 
 
 def regime_onehot(F: dict, k: int) -> np.ndarray:
@@ -103,6 +110,10 @@ def fit_stats(F: dict, idx: np.ndarray) -> dict:
     for k in ("xu", "xr", "xo"):
         st[k] = _moments(F[k][idx])
     st["geo"] = _moments(F["geo"][idx])
+    if "phi" in F:                   # per-feature scale: the fitting units' 99th percentile of the active hours
+        ph = F["phi"][idx].astype(np.float32).reshape(-1, F["phi"].shape[-1])
+        q = np.array([np.percentile(c[c > 0], 99) if (c > 0).any() else 1.0 for c in ph.T])
+        st["phi_scale"] = (1.0 / np.maximum(q, 1e-6)).astype(np.float32)
     return st
 
 
@@ -114,7 +125,7 @@ def _std(a, mom, noclip: int):
     return z.astype(np.float32)
 
 
-def make_batch(F: dict, idx: np.ndarray, st: dict) -> dict:
+def make_batch(F: dict, idx: np.ndarray, st: dict, nodes: bool = False) -> dict:
     idx = np.asarray(idx)
     b = dict(xu=_std(F["xu"][idx], st["xu"], N_WEATHER),
              xr=_std(F["xr"][idx], st["xr"], N_WEATHER + N_STATIC),
@@ -125,6 +136,11 @@ def make_batch(F: dict, idx: np.ndarray, st: dict) -> dict:
     b["y0"] = torch.from_numpy(np.ascontiguousarray(F["y0"][idx].astype(np.float32)))
     b["y"] = torch.from_numpy(np.ascontiguousarray(F["y"][idx].astype(np.float32)))
     b["m"] = torch.from_numpy(np.ascontiguousarray(F["m"][idx].astype(np.float32)))
+    if "phi_scale" in st:
+        b["phi"] = torch.from_numpy(np.ascontiguousarray(F["phi"][idx].astype(np.float32) * st["phi_scale"]))
+    if nodes:                                      # physical units, no standardisation (geo_mech reads them as is)
+        for k in ("nw", "na", "nr"):
+            b[k] = torch.from_numpy(np.ascontiguousarray(F[k][idx].astype(np.float32)))
     b["idx"] = idx
     return b
 
@@ -133,17 +149,25 @@ class Engine:
     """One model on one fitting set (optionally with a validation set)."""
 
     def __init__(self, F: dict, fit_idx, val_idx, seed: int, arm: str, private_seed: int = 1729):
-        assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "W+C", "W+G", "W+Cin", "GCRK+Cin")
+        assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "W+C", "W+G", "W+Cin", "GCRK+Cin",
+                       *MECH_ARMS, *HAZARD_ARMS)
+        assert (arm in HAZARD_ARMS) == ("phi" in F), "hazard arms need F['phi'] and only they may have it"
         self.arm, self.seed, self.step = arm, int(seed), 0
+        self.nodes = arm in MECH_ARMS
         self.fit_idx = np.sort(np.asarray(fit_idx))
         self.val_idx = None if val_idx is None else np.sort(np.asarray(val_idx))
         self.stats = fit_stats(F, self.fit_idx)
-        self.fit = make_batch(F, self.fit_idx, self.stats)
-        self.val = None if self.val_idx is None else make_batch(F, self.val_idx, self.stats)
+        self.fit = make_batch(F, self.fit_idx, self.stats, self.nodes)
+        self.val = None if self.val_idx is None else make_batch(F, self.val_idx, self.stats, self.nodes)
         torch.manual_seed(self.seed)
         self.model = AsymODE(F["xu"].shape[-1], F["xr"].shape[-1], F["xo"].shape[-1])
-        if arm in ("W+Cin", "GCRK+Cin"):
+        if arm in ("W+Cin", "GCRK+Cin") or arm in MECH_ARMS or arm in HAZARD_ARMS:
             self.model.attach_context_input(N_STATIC)
+        if arm in HAZARD_ARMS:
+            self.model.attach_hazard(F["phi"].shape[-1])
+        if arm in MECH_ARMS:
+            self.model.attach_mechanisms(LocalMechanisms(**MECH_ARMS[arm]), len(MECH))
+            self.model.set_mechanism_scale(self.fit)
         if arm in ("GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "GCRK+Cin"):
             self.model.attach_gcrk(torch.tanh(self.fit["geo"] / 3.0).mean(0), private_seed)
         elif arm == "W+C":
@@ -152,6 +176,10 @@ class Engine:
             self.model.attach_level(F["geo"].shape[-1], "geo")
         host, rec = self.model.parameter_groups()
         groups = [dict(params=host, lr=LR_HOST), dict(params=rec, lr=LR_RECOVERY)]
+        if arm in HAZARD_ARMS:
+            hb = self.model.haz_beta
+            groups = [dict(params=[p for p in host if p is not hb], lr=LR_HOST), dict(params=[hb], lr=LR_HAZARD),
+                      dict(params=rec, lr=LR_RECOVERY)]
         if arm == "GCRK-slow":        # PREREG Amendment 9: the conditioning maps take one tenth of the host's step
             k = self.model.kernel
             maps = [k.U, k.Vl, k.Va, k.Vg]
@@ -187,6 +215,9 @@ class Engine:
             if p.grad is not None and not torch.isfinite(p.grad).all():
                 raise RuntimeError(f"nonfinite gradient {n}")
         self.opt.step()
+        if self.model.haz_beta is not None:
+            with torch.no_grad():
+                self.model.haz_beta.clamp_(min=0.0)
         self.step += 1
         if k is not None:
             k.training_step.fill_(self.step)
@@ -255,7 +286,7 @@ def refit(F: dict, dev_idx, steps: int, seed: int, arm: str, log=None) -> Engine
 @torch.no_grad()
 def export(e: Engine, F: dict, idx) -> dict:
     """Open-loop OUTER rollouts from the observed p_71 (kernel open, and closed for GCRK)."""
-    b = make_batch(F, idx, e.stats)
+    b = make_batch(F, idx, e.stats, e.nodes)
     e.model.eval()
     out = e.model(b, diagnostics=False)
     res = dict(idx=np.asarray(idx), P=out["P"].numpy(), u=out["u"].numpy(), r=out["r"].numpy(),

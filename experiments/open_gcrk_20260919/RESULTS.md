@@ -563,8 +563,12 @@ unconstrained regressor of section 16 measured (-1.1%, interval across zero).
 of the forecast-window mean outage (weather, neighbours and prefix outage as inputs), the repeatable
 county effect over the 1,653 counties seen in two or more events has an intraclass correlation of
 0.06 on the scale of the loss (0.17 on the log scale): about 94% of it is specific to the county in
-that event. No static county descriptor, of any kind and through any interface, can explain more than
-that share. Consistent with it: geography does not predict the timing of the response (lag from gust
+that event. An additive (constant) county effect of any static descriptor can explain at most that
+share. (Correction, 2026-09-25: an earlier version said "of any kind and through any interface"; that is
+wrong. The intraclass correlation bounds additive county effects only; a descriptor that interacts with
+the event's weather varies from event to event and is not bounded by it - section 21, where the county
+context entering the damage network does more than the constant level term, is an instance.)
+Consistent with it: geography does not predict the timing of the response (lag from gust
 peak to outage peak: R2 0.39 without, 0.37 with geography; hours above half peak 0.24 and 0.24; only
 the mean-to-peak ratio moves, -1.2%, interval touching zero); two coordinates (latitude, longitude)
 help the pooled regressor more than the 40 descriptors (-1.8% against -1.1%); and the descriptors are
