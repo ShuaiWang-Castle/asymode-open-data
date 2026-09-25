@@ -120,3 +120,15 @@ for reference.
   added diffuse hazard (mean bias up, peaks not sharper).
 * The largest gain of the night is not geographic: training on EAGLE-I targets without their collection artefacts
   (-2.66% vs base, -3.40% vs a matched placebo).
+
+## 9. What the audits pointed to: the weather, not the geography (2026-09-25 05:00 EDT)
+
+F0 separates the two ways sub-county information can enter: through static geography under a coarse weather field
+(ERA5 cells, elevation-band downscaling) or through weather that itself resolves the county (HRRR, 3 km). On both
+panels the first is nearly empty (< 2% of outage-weighted county-hours) and the second is large (wind panel 33%,
+ice storms 19.6%), and on unseen ice storms the pathway fed by HRRR transfers best (-14.8% vs the host; ERA5 bands
+-8.5%). In the framework's terms the exposure integral is the right interface, but on these data its information
+comes from sub-county *forcing*, with geography acting as modulators and memories of that forcing; the node set
+should be (county x high-resolution weather cell) rather than (county x coarse cell x elevation band). HRRR also
+brings what ERA5 cannot diagnose from 2 m variables (categorical freezing rain, reflectivity-driven convective
+timing); those enter as new dictionary elements, not as new geography.

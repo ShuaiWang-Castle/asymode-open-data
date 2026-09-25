@@ -1,0 +1,8 @@
+--label w1es1_base --data w1 --arm W+Cin --design event --seed 1 --folds 1
+--label w1es1_Hh --data w1 --arm W+Cin+H --phi hrrr --keep ^(gust|p_tw|convective) --design event --seed 1 --folds 1
+--label w1es1_base --data w1 --arm W+Cin --design event --seed 1 --folds 2
+--label w1es1_Hh --data w1 --arm W+Cin+H --phi hrrr --keep ^(gust|p_tw|convective) --design event --seed 1 --folds 2
+--label w1es1_base --data w1 --arm W+Cin --design event --seed 1 --folds 3
+--label w1es1_Hh --data w1 --arm W+Cin+H --phi hrrr --keep ^(gust|p_tw|convective) --design event --seed 1 --folds 3
+--label w1es1_base --data w1 --arm W+Cin --design event --seed 1 --folds 4
+--label w1es1_Hh --data w1 --arm W+Cin+H --phi hrrr --keep ^(gust|p_tw|convective) --design event --seed 1 --folds 4

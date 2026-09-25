@@ -188,3 +188,14 @@ resolution.
 pathway 0.0443: -14.76% against the base (county [-22.53, -6.65], event x state [-29.88, +5.41], 6/8 storms), the best
 transfer of any arm. It beats the all-zero forecast on three storms (2023-01-30, 2023-02-20, 2020-10-25; 2019-02-05 is
 a tie) and still loses on 2018-11-13 and 2022-02-02, so pooled it remains 7% above the null.
+
+**Resolution or source?** (`results/F0_w1_hrrr_split/`; variant `hrrr_coarse` = HRRR averaged onto the ERA5 cells,
+then the `pop` construction, `build_eih_hrrr_coarse.py`, suggested by the formal contributor). On W1 the
+HRRR-ERA5 contrast splits into a large *source* part (hrrr_coarse - pop: 31 features material, up to 18.6% of the
+outage-weighted county-hours, correlations 0.61-0.77) and a small *resolution* part (hrrr - hrrr_coarse: up to 2.5%,
+correlations 0.97-0.99), of the same size as the ERA5 elevation downscaling (1.9%). Even at 3 km, what varies inside
+a county changes the county's hazard features little; what changes them is a better weather model of the storm.
+On the wind panel (`results/F0_hrrr_split/`) the same split gives a source part up to 32.1% (the gust ramps, partly
+a definition difference: HRRR's instantaneous gust against ERA5's hourly maximum) and a resolution part up to 5.1%,
+largest for rain and convective features (4.8%), where storm cells are smaller than a county; ERA5 elevation
+downscaling changes nothing (no feature reaches 1%).

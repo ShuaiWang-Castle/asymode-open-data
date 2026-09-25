@@ -37,7 +37,7 @@ def main():
     pairs = PAIRS if not a.pairs else [tuple(x.split("-")) for x in a.pairs]
     F = np.load(ROOT / a.feat)
     y, m, ev = np.nan_to_num(F["y"]).astype(np.float64), F["m"].astype(bool), F["event"].astype(str)
-    have = {v: GW / f"eih_{a.prefix}{v}.npz" for v in ("area", "pop", "quad", "mean", "pooled", "other", "quadn", "hrrr")}
+    have = {v: GW / f"eih_{a.prefix}{v}.npz" for v in ("area", "pop", "quad", "mean", "pooled", "other", "quadn", "hrrr", "hrrr_coarse")}
     have = {k: p for k, p in have.items() if p.exists()}
     names = np.load(next(iter(have.values())))["names"].astype(str)
     inst = [i for i, n in enumerate(names) if n.endswith("@0")]

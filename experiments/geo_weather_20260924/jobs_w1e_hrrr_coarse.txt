@@ -1,0 +1,4 @@
+--label w1e_Hhc --data w1 --arm W+Cin+H --phi hrrr_coarse --keep ^(gust|p_tw|convective) --design event --folds 1
+--label w1e_Hhc --data w1 --arm W+Cin+H --phi hrrr_coarse --keep ^(gust|p_tw|convective) --design event --folds 2
+--label w1e_Hhc --data w1 --arm W+Cin+H --phi hrrr_coarse --keep ^(gust|p_tw|convective) --design event --folds 3
+--label w1e_Hhc --data w1 --arm W+Cin+H --phi hrrr_coarse --keep ^(gust|p_tw|convective) --design event --folds 4
