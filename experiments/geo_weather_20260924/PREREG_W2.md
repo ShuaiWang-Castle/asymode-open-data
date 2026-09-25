@@ -103,3 +103,22 @@ test were not computed, and no residual-derived number exists. By the decision t
 near-freezing events are needed, no claim either way. The W2d residual alignment stays unread, so an enlarged
 panel that contains W2d can still serve as the confirmatory test if its amendment (new events, criteria
 unchanged) is committed before anything is read.
+
+## Amendment 3 (2026-09-25 03:47 EDT, before any W2e panel, feature or outcome; W2d residuals unread)
+
+Following the decision table ("more independent near-freezing events are needed"), the confirmatory panel is
+enlarged; **the hypothesis, the feature, the test code (239fd7d), the base specification and every criterion of
+amendments 1-2 stay unchanged**.
+
+* **Panel W2e = W2d plus new near-freezing winter-storm episodes**, Storm Events metadata only, 2014-11-01 to
+  2025-12-31 (the EAGLE-I years on disk from 2014-11): for day d, count the counties with an Ice Storm report
+  beginning in [d, d + 3 days) (ice) and those with a Heavy Snow, Winter Storm or Blizzard report (snow); a day
+  qualifies if ice >= 10 or snow >= 300; episodes are greedy local maxima of the count of counties with any of the
+  four types, at least 10 days apart.
+* Exclusions (as before): windows that overlap the wind panel, W1 or W2d; episodes whose outages are dominated by
+  operator load shedding (2021-02-13; 2022-12-21, TVA and Duke rotating outages on 2022-12-24); windows without an
+  EAGLE-I record spanning them; the node-availability rule; the data gates G1-G4.
+* Footprint, window, round-2 inputs with area weights, county-grouped splits (seed 20260919), and the base (W+Cin,
+  900 steps, seed 0, five folds) are built on the whole of W2e exactly as for W1 and W2d.
+* The registered command is run once on W2e with `--features features_w2e.npz --splits splits_w2e.json --base
+  runs/geo_weather_20260924/w2e_base/... --eih-prefix eih_w2e_`, eligibility first. W2d alone is not re-tested.
