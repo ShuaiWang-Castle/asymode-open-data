@@ -210,3 +210,12 @@ analysis carries outage-relevant near-freezing precipitation, not operational fo
   zero; otherwise no gain is claimed. The all-zero forecast is reported beside every arm.
 * Code: screen.py / gcrk_train.py / asym_host.py at the commit of this amendment; the subset files are built by
   make_w2e23.py (committed with this amendment).
+
+## Amendment 7 (2026-09-25 07:25 EDT, before any H2b run has finished or been read)
+
+On W1 (not W2e), a second seed reversed the trained unseen-storm result of the HRRR pathway (seed 0 -14.8%, seed 1
++20.1% against the same seed's base): with few storms, trained transfer is seed-dependent. H2b's rule of amendment 6
+is kept, and made stricter: **a forecast gain is claimed only if, in addition, the seed-averaged predictions over
+seeds 0, 1 and 2 (the mean of the three rollouts per arm) give both contrasts negative with event-cluster intervals
+below zero.** Seeds 1 and 2 (30 further runs, same design) are queued after seed 0; if they are not run, no gain is
+claimed.
