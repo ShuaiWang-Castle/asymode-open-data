@@ -70,6 +70,56 @@ check. The original national public yearly EAGLE-I parquet(s), matching
 row-level audit. Stop if A fails exact mask/label reconciliation or if source
 quality flags are nonzero; investigate the relevant rows before any fit.
 
+## Attempt 04: distinguish artifact replay from public-source rebuild (2026-09-25)
+
+Input: tracked provenance only; no raw or derived data payload was available.
+The audited files and their SHA-256 digests were: `panel216_checksums.json`
+`708ac1e0861e9a272768f4e9a01f38a1eac70a0723c30a96478d61e837429a9b`,
+`panel216r2_checksums.json`
+`438277daffaadb4f4bd11b0dcdf2328f6e0bdd3a02b26bfb8238ca9e33c3380f`,
+`features_e3r2_checksum.json`
+`05b4138db12007ab16e474724f68f568dd5112878435001c863d891888cdff7e`,
+`sources.json`
+`d31747bd4d7d688a4d86d2b1c600bbcf4a5e2862ea4e46204ddf8fb9c135888a`,
+and `era5_fetch_log.jsonl`
+`6393a7a756ffaa2975c86b8c9e647463b5d3fcef08978b1ef10820a5a49214fe`.
+
+Finding: the locked E3R2 derived cohort is internally enumerated: all 12
+weather-selected events have one R1 216-hour panel hash, one R2 panel hash,
+and the final feature manifest fixes 6,122 county-events, 2,409 counties,
+`d_u=42`, `G=40`, and SHA-256
+`32c14c55038c16c4fccdd9e96e6c03f4dffeded8e0dd051553b02f0d92e86178`.
+Thus a recovered artifact can be accepted or rejected byte-for-byte. This is
+an **identity/replay** statement only; none of those payloads exists here and
+none was hashed during this attempt.
+
+The stricter rebuild audit is incomplete. The separate hourly-maximum-gust
+(`era5_fg10`) download log contains hashes and CDS request bodies for all 12
+events. `sources.json` contains the main multivariable ERA5 files for only the
+original five events. The seven added events lacking a tracked main-ERA5
+source entry are `2019-02-24`, `2019-11-27`, `2021-08-11`, `2022-04-13`,
+`2022-06-17`, `2024-05-08`, and `2024-06-26`. This may be an unmerged
+provenance record rather than a missing historical download, but it currently
+prevents independent source reconstruction. Also, `panel216r2_checksums.json`
+stores only ERA5 basenames; where the main and `era5_fg10` directories use the
+same name, its `era5_files` list is ambiguous and contains duplicate strings.
+The derived-panel SHA remains unambiguous.
+
+Added `provenance_gate.py` (SHA-256
+`88af3e2ae51ff1a0940b93e35e4309f23f32eb02f95eeaff9f6ecdb8a9128413`)
+to enforce the exact 12-event/216-hour cohort, report upstream source gaps,
+and optionally stream all 25 restored artifacts through size and SHA-256
+checks. Its manifest self-test passes. No data were downloaded, no training
+was run, and no accuracy or mechanism conclusion changed.
+
+Next gate: locate the seven main-ERA5 request/hash records on the originating
+machine or redownload those public windows with archived CDS request JSON and
+new hashes. Do not edit the historical derived hashes. Then restore the 12 R1
+panels, 12 R2 panels and `features_e3r2.npz`; require
+`local_files_all_verified=true` before replay. A rebuild that yields different
+hashes is a new versioned panel and requires matched W/W+Cin controls rather
+than reuse of any historical checkpoint or score.
+
 ## Repository and access snapshot
 
 - Local checkout: `open_data_work`, branch `research/open-gcrk-data-mechanism-20260925`, HEAD `da465857e6dbc266e1f2fad104d049c68076ad11`. The remote branch `research/open-gcrk-5seed-20260919` is at the **same SHA**. The remote `main` is `8dd47c5ccd829611f27b69a3d64c274a0a24c400` (2026-09-03); the research commit is dated 2026-09-21. GitHub reports **no common ancestor** between these histories; use explicit refs, not `git merge main` or a naive ahead/behind count.
