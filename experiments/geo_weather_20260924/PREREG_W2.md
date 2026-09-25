@@ -194,3 +194,19 @@ is smaller than the exploratory 0.234 on W1, the winner's curse the discount ant
 information, not a forecast gain: an RMSE claim needs its own pre-registered trained test (H2b); (4) both ERA5 and the
 HRRR 1-h forecasts are used as perfect-prognosis weather over the whole window, so this concerns which weather
 analysis carries outage-relevant near-freezing precipitation, not operational forecast skill.
+
+## Amendment 6 (2026-09-25 06:54 EDT): H2b, the trained test of the H2a channel (no W2e training run has started)
+
+* **Panel:** W2e restricted to the 23 events kept by the coverage rule (unit_ok = True; 10,971 county-events), the same
+  units for every arm; missing HRRR hours (at most 4.2% of a kept event's observed hours) enter the pathway as zeros.
+* **Design:** event-grouped, five outer folds (events in date order, fold = rank mod 5), no inner folds; each arm is
+  trained for 900 steps on the other folds' events and exports the held-out events' rollouts. Seed 0.
+* **Arms:** base W+Cin; **Hc** = W+Cin+H with eih_w2e_hrrr_coarse (HRRR on the ERA5 grid), trigger set
+  `^(gust|p_tw|convective)` as on W1; **Hp** = the same arm with eih_w2e_pop (its ERA5 twin).
+* **Primary contrasts:** Hc against Hp (the source) and Hc against base, pooled hourly RMSE over all held-out
+  county-events, relative change with event-cluster bootstrap intervals (2,000 draws, seed 20260924; the county and
+  event x state intervals reported beside them).
+* **Decision:** a forecast gain is claimed only if both contrasts are negative with their event-cluster intervals below
+  zero; otherwise no gain is claimed. The all-zero forecast is reported beside every arm.
+* Code: screen.py / gcrk_train.py / asym_host.py at the commit of this amendment; the subset files are built by
+  make_w2e23.py (committed with this amendment).
