@@ -161,3 +161,17 @@ with the host's residuals and the resolution contrast did not (formal contributo
   audit_f1.py functions (239fd7d); its hash is recorded in amendment 5, committed before any W2e HRRR feature is built.
 * Decision table: pass -> the weather-source channel (not sub-county resolution) is supported on independent winter
   storms; fail with power >= 0.8 -> absent at the registered size; not testable or uninformative -> no claim.
+
+## Amendment 5 (2026-09-25 06:20 EDT, before any W2e HRRR feature exists)
+
+* Test code frozen at commit d7900b7: `audit_f1_hrrr.py` sha256 6cb852edd1e099db94fc65226211199856b34d9a179caec07926aae0e7d03276
+  and the `audit_f1.py` it imports, sha256 72ebcfcdaa3bc474b2f50d5ec1a382043a99ca2a171f81849e2ae52687f16814 (239fd7d).
+* Feature code frozen at d7900b7: `build_eih_hrrr_coarse.py` now implements amendment 4's coverage rule: a missing HRRR
+  hour (neither mirror) leaves the instantaneous features NaN at that hour; a window missing more than 5% of its hours
+  marks its units `unit_ok = False`. The wrapper drops unit_ok = False units, uses a unit-hour in the window means
+  only if it is observed and both variants are finite there (the same mask for the residual and the contrast), drops
+  units without a valid hour, and reports every exclusion and each kept event's share of missing observed hours.
+* Command (run once): `audit_f1_hrrr.py --features data/interim/geo_weather/features_w2e.npz --splits
+  experiments/geo_weather_20260924/splits_w2e.json --base "runs/geo_weather_20260924/w2e_base/fold{fold:02d}/outer.npz"
+  --eih-prefix eih_w2e_ --single "C8:p_tw-1.5*one@0" --min-eff-events 8 --require-event-flip --power-target 0.117 --out
+  experiments/geo_weather_20260924/results/F1_w2e_hrrr`.
