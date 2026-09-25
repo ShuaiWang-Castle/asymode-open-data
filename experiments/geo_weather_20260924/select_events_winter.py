@@ -33,11 +33,24 @@ FOOT = ["Ice Storm", "Winter Storm", "Heavy Snow", "Winter Weather", "Sleet", "F
 
 
 def main():
+    import argparse
+    global MIN_COUNTIES
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--min-counties", type=int, default=MIN_COUNTIES)
+    ap.add_argument("--out", default="selected_events_winter.json")
+    ap.add_argument("--end", default="2025-01-01", help="first day not in the pool")
+    ap.add_argument("--start", default="2018-01-01")
+    ap.add_argument("--se-extra", default=None, help="another county table of Storm Events (e.g. 2014-2017)")
+    ap.add_argument("--exclude-events-file", default=None, help="drop the events of this selection (disjoint panel)")
+    a = ap.parse_args()
+    MIN_COUNTIES = a.min_counties
     se = pd.read_parquet(SE)
+    if a.se_extra:
+        se = pd.concat([pd.read_parquet(ROOT / a.se_extra), se], ignore_index=True)
     se["t"] = pd.to_datetime(se.t_begin_utc)
-    se = se[(se.t >= "2018-01-01") & (se.t < "2025-01-01")]
+    se = se[(se.t >= a.start) & (se.t < a.end)]
     ice = se[se.EVENT_TYPE == "Ice Storm"]
-    days = pd.date_range("2018-01-01", "2024-12-31", freq="D")
+    days = pd.date_range(a.start, pd.Timestamp(a.end) - pd.Timedelta(days=1), freq="D")
     cnt = {d: ice[(ice.t >= d) & (ice.t < d + pd.Timedelta(days=3))].fips.nunique() for d in days}
     order = sorted((d for d in days if cnt[d] >= MIN_COUNTIES), key=lambda d: (-cnt[d], d))
     wind = json.loads((ROOT / "experiments/open_gcrk_20260919/selected_events_e3.json").read_text())["events"]
@@ -58,12 +71,17 @@ def main():
                         window_end_utc=str(e), footprint_counties=int(fc.fips.nunique()),
                         footprint_states=int(fc.fips.str[:2].nunique()), footprint_fips=sorted(fc.fips.unique().tolist()),
                         top_types=fc.EVENT_TYPE.value_counts().head(4).index.tolist()))
+    if a.exclude_events_file:
+        drop = {e["event"] for e in json.loads((HERE / a.exclude_events_file).read_text())["events"]}
+        for r in log:
+            if r["decision"] == "selected" and r["day"] in drop:
+                r["decision"] = "excluded: in the panel the hypothesis was chosen on (disjointness)"
     ev = [dict(event=r["day"], window_start_utc=r["window_start_utc"], window_end_utc=r["window_end_utc"],
                footprint_counties=r["footprint_counties"], top_types=r["top_types"], footprint_fips=r["footprint_fips"])
           for r in log if r["decision"] == "selected"]
     out = dict(rule=__doc__.split("Rules, fixed before any panel is built:")[1].split("Output:")[0].strip(),
                events=sorted(ev, key=lambda r: r["event"]), log=log)
-    (HERE / "selected_events_winter.json").write_text(json.dumps(out, indent=1) + "\n")
+    (HERE / a.out).write_text(json.dumps(out, indent=1) + "\n")
     for r in log:
         print({k: v for k, v in r.items() if k != "footprint_fips"})
 

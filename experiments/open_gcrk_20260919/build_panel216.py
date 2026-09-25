@@ -162,10 +162,11 @@ def main():
         t0 = pd.Timestamp(e["window_start_utc"])
         t1 = t0 + pd.Timedelta(hours=T - 1)
         year = t0.year
-        pq = INTERIM / f"eaglei_outages_{year}.parquet"
-        df = pd.read_parquet(pq, columns=["fips", "ts", "customers_out"],
-                             filters=[("ts", ">=", t0 - pd.Timedelta(days=9)),
-                                      ("ts", "<=", t1 + pd.Timedelta(days=9))])
+        # a window that crosses New Year reads both yearly files (every window before 2026-09-25 lies in one year)
+        df = pd.concat([pd.read_parquet(INTERIM / f"eaglei_outages_{y}.parquet", columns=["fips", "ts", "customers_out"],
+                                        filters=[("ts", ">=", t0 - pd.Timedelta(days=9)),
+                                                 ("ts", "<=", t1 + pd.Timedelta(days=9))])
+                        for y in sorted({t0.year, t1.year})], ignore_index=True)
         df["fips"] = df.fips.astype(str).str.zfill(5)
         foot = [f for f in e["footprint_fips"] if f in set(conus)]
         g = dict(event=ev, footprint=len(e["footprint_fips"]), in_conus_grid=len(foot))

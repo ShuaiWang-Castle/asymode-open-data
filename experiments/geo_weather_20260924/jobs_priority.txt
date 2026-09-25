@@ -1,0 +1,9 @@
+--label base_e3r2 --data e3r2 --arm W+Cin --folds 3
+--label clean_e3r2 --data e3r2 --arm W+Cin --train-mask --folds 3
+--label cleangc --data e3r2 --arm W+Cin --train-mask --xu-phi ^gust_x(10|15|20)[*]canopy@0$ --folds 1
+--label base_e3r2 --data e3r2 --arm W+Cin --folds 4
+--label clean_e3r2 --data e3r2 --arm W+Cin --train-mask --folds 4
+--label cleancan --data e3r2 --arm W+Cin --train-mask --ctx-geo canopy_mean --folds 2
+--label base_e3r2 --data e3r2 --arm W+Cin --folds 5
+--label clean_e3r2 --data e3r2 --arm W+Cin --train-mask --folds 5
+--label cleangc --data e3r2 --arm W+Cin --train-mask --xu-phi ^gust_x(10|15|20)[*]canopy@0$ --folds 2

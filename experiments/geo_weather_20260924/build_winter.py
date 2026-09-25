@@ -48,10 +48,10 @@ def eaglei_covers(e: dict) -> bool:
     import pyarrow.compute as pc
     import pyarrow.parquet as pq
     t0 = pd.Timestamp(e["window_start_utc"]); t1 = t0 + pd.Timedelta(hours=215)
-    f = ROOT / "data" / "interim" / f"eaglei_outages_{t0.year}.parquet"
-    if not f.exists():
+    fs = [ROOT / "data" / "interim" / f"eaglei_outages_{y}.parquet" for y in sorted({t0.year, t1.year})]
+    if not all(f.exists() for f in fs):
         return False
-    ok = pd.Timestamp(pc.max(pq.read_table(f, columns=["ts"]).column("ts")).as_py()) >= t1 + pd.Timedelta(days=1)
+    ok = pd.Timestamp(pc.max(pq.read_table(fs[-1], columns=["ts"]).column("ts")).as_py()) >= t1 + pd.Timedelta(days=1)
     if not ok:
         print("EAGLE-I gate: no outage record for", e["event"], flush=True)
     return ok
@@ -90,19 +90,25 @@ def splits(F) -> dict:
 
 
 def main():
-    sel = json.loads((HERE / "selected_events_winter.json").read_text())["events"]
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--events-file", default="selected_events_winter.json")
+    ap.add_argument("--tag", default="w1")
+    a = ap.parse_args()
+    sel = json.loads((HERE / a.events_file).read_text())["events"]
     have = set(np.load(OUT / "nodes_e3.npz")["fips"].astype(str))
     ready = [e for e in sel if era5_ready(e["event"]) and eaglei_covers(e)]
     print("ERA5 ready:", [e["event"] for e in ready], flush=True)
     build = [dict(e, footprint_fips=[f for f in e["footprint_fips"] if f in have]) for e in ready]
-    (HERE / "selected_events_winter_build.json").write_text(json.dumps(dict(events=build), indent=1) + "\n")
+    bf = f"selected_events_{a.tag}_build.json" if a.tag != "w1" else "selected_events_winter_build.json"
+    (HERE / bf).write_text(json.dumps(dict(events=build), indent=1) + "\n")
     todo = [e["event"] for e in build if not (BP.OUT / f"panel216_{e['event']}.npz").exists()]
     if todo:
         ck = OG / "data_provenance" / "panel216_checksums.json"
         keep = ck.read_bytes()
         subprocess.run([sys.executable, "-u", "build_panel216.py", "--events-file",
-                        "../geo_weather_20260924/selected_events_winter_build.json", "--events", *todo,
-                        "--gates-out", "../geo_weather_20260924/panel_gates_winter.csv"], cwd=OG, check=True)
+                        f"../geo_weather_20260924/{bf}", "--events", *todo,
+                        "--gates-out", f"../geo_weather_20260924/panel_gates_{a.tag}.csv"], cwd=OG, check=True)
         ck.write_bytes(keep)                     # the wind panel's provenance file stays as committed
     w = BP.all_weights()
     for e in build:
@@ -111,14 +117,14 @@ def main():
             np.savez_compressed(f, **V.panel(e["event"], pd.Timestamp(e["window_start_utc"]), w))
         print("round-2 panel", e["event"], flush=True)
     arr = V.features(build, prefix="panel216w")
-    f = OUT / "features_w1.npz"
+    f = OUT / f"features_{a.tag}.npz"
     np.savez_compressed(f, **arr)
     sp = splits(arr)
-    (HERE / "splits_w1.json").write_text(json.dumps(sp) + "\n")
+    (HERE / f"splits_{a.tag}.json").write_text(json.dumps(sp) + "\n")
     rec = dict(file=str(f.relative_to(ROOT)), sha256=hashlib.sha256(f.read_bytes()).hexdigest(), units=int(len(arr["fips"])),
                counties=int(len(set(arr["fips"]))), events={e: int((arr["event"] == e).sum()) for e in sorted(set(arr["event"]))},
                outer_sizes={k: len(v["outer"]) for k, v in sp["main"].items()})
-    (HERE / "data_provenance" / "features_w1.json").write_text(json.dumps(rec, indent=1) + "\n")
+    (HERE / "data_provenance" / f"features_{a.tag}.json").write_text(json.dumps(rec, indent=1) + "\n")
     print(json.dumps(rec))
 
 

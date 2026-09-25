@@ -106,3 +106,17 @@ zero-initialised matrix. Retired for the reasons in the two reviews: zero gradie
 most intense hours, loss of monotonicity, a static canopy offset in calm air, weak identification of thresholds
 and time constants, and strata that do not change the weather. The module stays in `src/asymode/geo_mech.py`
 for reference.
+
+## 8. Status after the first night (2026-09-25; RESULTS.md)
+
+* The audits are part of the framework, not an afterthought: because every county enters only through its
+  exposure measure, what sub-county geography *can* change is computable before training (F0), and whether it
+  aligns with what the host misses is testable before training (F1). On the twelve-event wind panel both say no
+  (sub-grid content < 1% of outage-weighted county-hours; effects worth 2% of pooled RMSE would have been detected),
+  and the trained arm agrees (+0.73%, interval +-4%). On ice storms F0 finds content exactly where the phase
+  physics puts it (near-freezing precipitation), and the trained arms are too noisy on eight events to decide;
+  the single strongest feature is pre-registered for 18 independent ice-storm episodes (`PREREG_W2.md`).
+* v1.1 of the dictionary: plain rain is a load (antecedent wetness), not a trigger; the pathway with rain triggers
+  added diffuse hazard (mean bias up, peaks not sharper).
+* The largest gain of the night is not geographic: training on EAGLE-I targets without their collection artefacts
+  (-2.66% vs base, -3.40% vs a matched placebo).

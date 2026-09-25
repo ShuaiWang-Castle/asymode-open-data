@@ -62,4 +62,35 @@ matched; 3.8% of the sum of squared targets). The gain sits on the unflagged hou
 themselves get +0.94% worse, as they are no longer fitted) and in both phases (rise to the peak -3.74%, decay after
 it -2.04%; `results/diag/clean_split.json`): the artefacts distorted the learned response everywhere.
 
+**Canopy.** The data-pattern note (`notes/DATA_PATTERNS.md`) finds canopy x wind the one robust geographic signal
+in the base's residuals (same sign in 11 of 12 events). Giving the host canopy as a seventh county context did not
+transfer: fold 1 +1.78% against the cleaned base (county [-0.51, +4.65]; `runs/.../cleancan`). The association
+was found in-sample, so this is the expected failure mode of static geography through the host's first layer.
+
+## 3. The winter ice-storm panel W1
+
+Eight ice-storm episodes selected from Storm Events metadata only (`select_events_winter.py`: at least 40 counties
+with Ice Storm reports in three days; 2021-02-13 excluded for operator load shedding; 2022-12-13 dropped by the
+EAGLE-I coverage gate), 3,098 county-events, 1,626 counties; ERA5 from the ARCO-ERA5 store (identical to the CDS
+files to packing precision, `data_provenance/arco_verify.json`); EAGLE-I 2023 added from figshare. The W1 base has
+modest skill (MSE skill 0.16 against the all-zero forecast; negative in four smaller events,
+`results/w1_base_skill.json`).
+
+Hazard arms (W+Cin+H; triggers gust, wet-bulb-hat precipitation and convective, plain rain excluded as a load),
+seed 0, folds 1-2 (`results/screen_W1_seed0.json`):
+
+| arm | nodes | vs W1 base | county interval | events better |
+|---|---|---|---|---|
+| Hq | own cell x elevation-band nodes | -0.77% | [-6.89, +5.55] | 5/8 |
+| Hp | own cells, no bands | +4.11% | [-3.53, +13.40] | 4/8 |
+| Ho (placebo) | another county's bands, same relief stratum | +0.74% | [-9.31, +14.14] | 4/8 |
+
+Fold 1 alone gave Hq -9.61% (event x state [-16.91, -1.73], 8/8 events) and seed 1 repeated the sign (-5.37%),
+but fold 2 reversed (+4.45%): a handful of county-events decide these numbers (65% of the Hq-Hp difference on
+fold 1 sat in five county-events). The residual audit on W1 (`results/F1_w1/`) finds the sub-grid contrast not
+testable (fewer than 20 effective event x state clusters for every feature), not absent; its strongest
+descriptive feature is the 48-h memory of precipitation near a wet-bulb temperature of -1.5 C. That single
+feature is pre-registered for an independent panel (`PREREG_W2.md`, committed before any W2 data): 18 ice-storm
+episodes 2014-2025 disjoint from W1.
+
 (Further rows are added as the screens finish.)
