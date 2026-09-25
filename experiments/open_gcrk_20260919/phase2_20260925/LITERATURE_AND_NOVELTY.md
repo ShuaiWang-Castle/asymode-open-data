@@ -26,6 +26,42 @@ These steps are recommendations **to preregister and test**; no cited paper esta
 5. **Weather spatial and temporal alignment:** Precompute reproducible county-grid area overlaps and a documented fallback for small counties; audit weather means alongside within-county extremes or high quantiles for damaging wind/precipitation as a paired sensitivity. Cumulative features use weather up to the current update interval only. For example, precipitation valid 12:00 UTC describes preceding accumulation and should be aligned with the weather interval ending 12:00 UTC; document analogous gust valid-time semantics. Fit feature scales solely on training folds. Use independent meteorological reports to inspect potential ERA5 misspecification without using outage labels to select events or predictors.
 6. **Claims and splits:** Hold out whole counties/regions and whole meteorological episodes, grouping all county-hours of an episode consistently. Keep preprocessing rules common to all model arms and seeds. Report event-wise and lead-wise ambiguity and both county-balanced and clearly named customer-weighted errors on matched test cells. Call future-ERA5-conditioned rollout a retrospective hindcast. A true time-71 operational experiment needs archived forecasts initialized no later than that time, with equivalent information sets for its comparators.
 
+## Architecture and novelty claim matrix
+
+This independent check used the versioned primary sources in
+[`PRIMARY_LITERATURE_SNAPSHOT.json`](PRIMARY_LITERATURE_SNAPSHOT.json). It
+changes the burden of proof for the proposed process graph; it does not report
+a model result.
+
+| Proposed wording or capability | Closest verified prior art | Decision for this project |
+| --- | --- | --- |
+| A learned state integrates an arbitrary multivariate weather path and supports gradients through time. | Kidger et al.'s [Neural CDE](https://proceedings.neurips.cc/paper/2020/hash/4a5876b450b45371f6cfe5047ac8cd45-Abstract.html) is a general path-driven state model, proves universal approximation, and supports adjoint backpropagation. Rackauckas et al.'s [UDE v4](https://arxiv.org/html/2001.04385) covers learned closures, forcing, delays, constraints, and sensitivities in differential equations. | **Occupied.** Do not claim novelty from path memory, a neural ODE/PINN name, or differentiable weather sensitivities. Use a parameter-matched generic path-state control. |
+| Historical weather accumulates, decays, interacts nonlinearly, and varies by location. | Zhu et al. [v3](https://arxiv.org/html/2109.09711v3), Sections 3.1–3.2, use learned discounted histories of 34 HRRR variables, a DNN for nonlinear weather effects, geographic vulnerability, location-specific decay/recovery, and decaying spatial outage kernels. | **Occupied in a close outage model.** Add a Zhu-style discounted multi-weather accumulation plus static-vulnerability control; a new state must provide more than a flexible decay kernel. |
+| Customer stocks obey a conservation law and neural weather/context rates drive failure and restoration. | Chen et al. [GDF-NODE v3](https://arxiv.org/html/2502.18321), Equations 3–5, conserve unaffected + outaged + restored customers and use neural failure/restoration rates based on local weather and socioeconomic covariates. | **Occupied in outage forecasting.** Customer balance and a neural dynamical host cannot be the originality claim. The relevant distinction is the additional, prospectively specified process graph and its transfer/falsification protocol. |
+| Rain before wind, wind direction, and season modify wind-outage risk. | Manning et al. [version of record](https://www.nature.com/articles/s43247-025-02176-6) test 30-day antecedent rainfall, wind-direction deviation and season jointly, with leave-one-year-out evaluation; they also caution that association does not establish causation. | **Occupied as a statistical outage-risk hypothesis.** A wetness/load state must be described as a predictive proxy and must beat direct causal-summary inputs; it is not evidence of identified tree or root physics. |
+| A bounded, geography-conditioned process graph improves public county outage-stock transfer. | No checked source establishes this exact conjunction, but every individual ingredient above has close precedent. | **Candidate design/evaluation contribution only.** Do not use “first” or “novel architecture” without a broader systematic search. Promotion requires fresh event transfer and wins over static-summary, discounted-kernel, fragility, and generic-state controls. |
+
+The safe claim ladder is now fixed:
+
+1. If the graph does not beat W+Cin, report a negative result.
+2. If it beats W+Cin but not the generic path-state control, state only that
+   extra recurrent capacity helped.
+3. If it beats the generic state but not the discounted-kernel or causal-summary
+   control, do not attribute the gain to the proposed topology.
+4. If it beats all capacity-matched controls on fresh event and county transfer,
+   describe evidence for the **inductive bias** of the bounded graph, not
+   identification of physical mechanisms.
+5. Physical labels or causal claims require independent component, vegetation,
+   soil/road, or crew observations; outage stocks alone cannot provide them.
+
+The primary implementation comparison should therefore include W+Cin,
+W+Cin plus the same causal summaries, a Zhu-style learned discounted-weather
+state, a parameter-matched generic bounded path state, and the structured
+graph. A full Neural CDE solver is optional: on regular hourly inputs the
+generic discrete control can test the relevant capacity more cheaply, but its
+update must accept the same weather path, geography, initial information,
+residual budget, seeds, and stopping rule.
+
 ## Version and interpretation log
 
 - **Saki et al.:** The journal page states **accepted 2026-09-16; published 2026-09-19** as an accepted early-access paper **subject to further edits**, as of this note's 2026-09-25 check. Its archival analysis data are **Zenodo record 22651795, version 2, published 2026-09-08**, with the three sensitivity CSV MD5 digests listed above. If the eventual Version of Record or Zenodo data change, retain a dated snapshot and reconcile the processing claims against the new version before updating citations. The paper is citable now; “early-access” is a *version* caveat, not a claim that the research lacks peer review. [Publisher page](https://www.nature.com/articles/s41597-026-08356-z) · [Zenodo record](https://zenodo.org/records/22651795).

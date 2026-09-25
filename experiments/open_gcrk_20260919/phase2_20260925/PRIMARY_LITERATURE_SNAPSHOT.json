@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "verified_utc": "2026-09-25T08:28:00Z",
+  "scope": "Primary-source audit of claims adjacent to bounded geography-conditioned weather states for county outage-stock forecasting.",
+  "sources": [
+    {
+      "key": "zhu_grid_resilience",
+      "title": "Quantifying Grid Resilience Against Extreme Weather Using Large-Scale Customer Power Outage Data",
+      "stable_id": "arXiv:2109.09711v3",
+      "primary_url": "https://arxiv.org/html/2109.09711v3",
+      "version_date": "2025-08-05",
+      "checked_locations": [
+        "Sections 3.1-3.2",
+        "Appendix 6-8"
+      ],
+      "occupied_claims": [
+        "learned discounted histories of multiple weather variables",
+        "nonlinear weather-to-outage mapping",
+        "geographic-unit vulnerability and recovery parameters",
+        "spatial outage interaction with decaying kernels"
+      ],
+      "transfer_limit": "Three-hour HRRR/service-territory Poisson model and mostly one-step evaluation are not the same estimand or information set as a 144-hour county-stock rollout."
+    },
+    {
+      "key": "chen_gdf_node",
+      "title": "Global-Decision-Focused Neural ODEs for Proactive Grid Resilience Management",
+      "stable_id": "arXiv:2502.18321v3; related DOI 10.1109/TSG.2025.3642407",
+      "primary_url": "https://arxiv.org/html/2502.18321",
+      "version_date": "2025-12-08",
+      "checked_locations": [
+        "Sections II-B and III-A",
+        "Section V-A1"
+      ],
+      "occupied_claims": [
+        "customer-conserving unaffected/outaged/restored dynamics",
+        "neural failure and restoration rates",
+        "local weather and socioeconomic covariates",
+        "differentiable outage-dynamics training"
+      ],
+      "transfer_limit": "The real-data study uses one Massachusetts Nor'easter sequence and does not establish geography-conditioned ordered latent weather pathways or cross-event public-data transfer."
+    },
+    {
+      "key": "kidger_neural_cde",
+      "title": "Neural Controlled Differential Equations for Irregular Time Series",
+      "stable_id": "NeurIPS 2020, paper 4a5876b450b45371f6cfe5047ac8cd45",
+      "primary_url": "https://proceedings.neurips.cc/paper/2020/hash/4a5876b450b45371f6cfe5047ac8cd45-Abstract.html",
+      "version_date": "2020",
+      "checked_locations": [
+        "Abstract",
+        "Paper"
+      ],
+      "occupied_claims": [
+        "general learnable state driven by a multivariate observation path",
+        "subsequent observations alter continuous-time trajectories",
+        "universal approximation for time-series functionals",
+        "adjoint-based gradients through path-dependent dynamics"
+      ],
+      "transfer_limit": "A generic Neural CDE does not itself impose outage-stock conservation, bounded interpretable proxy states, or geography-specific falsification tests."
+    },
+    {
+      "key": "rackauckas_ude",
+      "title": "Universal Differential Equations for Scientific Machine Learning",
+      "stable_id": "arXiv:2001.04385v4",
+      "primary_url": "https://arxiv.org/html/2001.04385",
+      "version_date": "2021-11-02",
+      "checked_locations": [
+        "Abstract",
+        "Section 1"
+      ],
+      "occupied_claims": [
+        "mechanistic differential equations augmented by learned closures",
+        "automatic differentiation and adjoint sensitivities",
+        "forced, delayed, stochastic, and constrained learned dynamics"
+      ],
+      "transfer_limit": "This is a general SciML formalism, not an outage-specific empirical result."
+    },
+    {
+      "key": "manning_antecedent_rain",
+      "title": "Antecedent rainfall, wind direction and seasonal effects may amplify the risk of wind-driven power outages in the UK",
+      "stable_id": "DOI 10.1038/s43247-025-02176-6; version of record 2025-03-26",
+      "primary_url": "https://www.nature.com/articles/s43247-025-02176-6",
+      "version_date": "2025-03-26",
+      "checked_locations": [
+        "Results",
+        "Methods: statistical model",
+        "Discussion"
+      ],
+      "occupied_claims": [
+        "antecedent rainfall, unusual wind direction, and season jointly modify wind-outage risk",
+        "leave-one-year-out validation of those predictors",
+        "explicit warning that association and causation are not equivalent"
+      ],
+      "transfer_limit": "Region-level fault-exceedance classification with proprietary fault data is not an hourly customer-outage trajectory model."
+    }
+  ],
+  "claim_gate": {
+    "rejected_as_standalone_novelty": [
+      "neural ODE or PINN label",
+      "learned weather memory or temporal ordering",
+      "geography-conditioned weather interaction",
+      "bounded latent state",
+      "automatic-differentiation sensitivity",
+      "customer-stock conservation"
+    ],
+    "candidate_contribution_if_supported": "A small, predeclared bounded process graph inside a customer-conserving county rollout, evaluated on auditable public data with capacity-matched generic path-state controls and fresh county/event transfer tests.",
+    "required_controls": [
+      "W+Cin",
+      "W+Cin plus causal summaries",
+      "Zhu-style discounted multi-weather accumulation plus static vulnerability",
+      "parameter-matched generic bounded path-state control",
+      "low-rank static fragility mixture",
+      "true, matched-donor, and permuted geography interventions"
+    ]
+  }
+}

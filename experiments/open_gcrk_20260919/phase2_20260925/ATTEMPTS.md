@@ -167,6 +167,58 @@ mechanism interpretation only if the structured graph beats generic recurrent
 capacity and its ordering/geography ablations on fresh event transfer without
 increasing false activity.
 
+## Attempt 06: primary-source novelty and comparator audit (2026-09-25)
+
+Input: five versioned primary publications only; no outage label, panel,
+checkpoint, trained parameter, fold result, or weather payload was read. The
+frozen source/claim manifest is `PRIMARY_LITERATURE_SNAPSHOT.json`, SHA-256
+`e173df372807eaa03994260a6551ca744d100cb2477ae3e926fb144b004933ea`.
+Its exact identities are Zhu et al. arXiv `2109.09711v3` (2025-08-05), Chen
+et al. arXiv `2502.18321v3` / related DOI `10.1109/TSG.2025.3642407`
+(2025-12-08), Kidger et al. NeurIPS 2020 paper
+`4a5876b450b45371f6cfe5047ac8cd45`, Rackauckas et al. arXiv
+`2001.04385v4` (2021-11-02), and Manning et al. DOI
+`10.1038/s43247-025-02176-6` (version of record 2025-03-26). JSON parsing and
+repository whitespace checks pass.
+
+Finding: the candidate's individual ingredients are already substantially
+occupied. Zhu et al. use learned discounted histories of 34 HRRR variables,
+a nonlinear weather network, geographic vulnerability, location-specific
+decay/recovery, and decaying spatial outage kernels. Chen et al. conserve
+unaffected + outaged + restored customer stocks while neural rates depend on
+local weather and socioeconomic covariates. Neural CDEs already supply a
+general path-driven differentiable state with a universal-approximation
+result, and UDEs already cover learned closures and sensitivities in forced or
+constrained differential equations. Manning et al. already test antecedent
+rainfall, wind direction, and season jointly and explicitly limit causal
+interpretation.
+
+Negative novelty result: neither “complex geography-weather interaction,”
+“weather memory/order,” “bounded differentiable state,” “customer
+conservation,” nor “PINN/neural ODE” is a defensible standalone originality
+claim. The exact conjunction in the proposed process graph was not found in
+these five sources, but this bounded audit is not a systematic priority search
+and cannot support “first” language. The candidate is therefore framed as a
+design-and-evaluation contribution only.
+
+The comparison gate is tightened. In addition to W+Cin, causal summaries, the
+static fragility mixture and the parameter-matched generic bounded state, a
+Zhu-style learned discounted multi-weather accumulation plus static
+vulnerability must be included. A full Neural CDE solver is optional for the
+regular hourly setting, but the generic control must consume the identical
+weather path and geography with the same initialization, residual budget,
+seeds, split and stopping rule. If the graph only beats W+Cin, attribute the
+result to added state capacity; if it fails to beat the generic and
+discounted-kernel controls, do not claim support for the process topology.
+
+No code, data transformation, training, or empirical score was produced in
+this attempt. The current raw-data and 216-hour artifact blockers are
+unchanged. Next literature gate: broaden the search to outage fragility,
+conditional neural dynamics/hypernetworks, and multivariate hazard-state
+models before drafting any priority claim. Next empirical gate: after exact
+artifact verification, preregister the INNER/FIT-only comparator ladder and
+lock fresh weather-selected event transfer before inspecting outcomes.
+
 ## Repository and access snapshot
 
 - Local checkout: `open_data_work`, branch `research/open-gcrk-data-mechanism-20260925`, HEAD `da465857e6dbc266e1f2fad104d049c68076ad11`. The remote branch `research/open-gcrk-5seed-20260919` is at the **same SHA**. The remote `main` is `8dd47c5ccd829611f27b69a3d64c274a0a24c400` (2026-09-03); the research commit is dated 2026-09-21. GitHub reports **no common ancestor** between these histories; use explicit refs, not `git merge main` or a naive ahead/behind count.
