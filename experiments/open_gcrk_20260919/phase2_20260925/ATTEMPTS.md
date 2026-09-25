@@ -520,3 +520,52 @@ test -f experiments/open_gcrk_20260919/splits_e3r2.json
 ```
 
 Do **not** run the registered 5-seed confirmation (`--seeds 0 1 2 3 4` across `main event`) until the single-cell cost is measured and the whole protocol fits the agreed compute budget. An existing `DONE.json` makes queue scripts skip that cell; inspect checkpoint identity before trusting a resumed run. Keep attempts on a new branch under `research/`, and record the exact source tree rather than silently updating this historical result branch.
+
+
+## Attempt 10: EAGLE-I release and acquisition-path audit (2026-09-25)
+
+Input: official OSTI/ORNL catalog metadata, the primary Scientific Data
+descriptor, the public Figshare record, the locked fresh-cohort manifest, and
+the independent public `main` tree. No outage row, derived target, checkpoint,
+prediction or fold metric was read.
+
+The six locked events use only 2018, 2019, 2020 and 2022. All four annual
+positive-record tables belong to DOI `10.13139/ORNLNCCS/1975202`. The OSTI
+download resolves to ORNL Globus collection
+`57618e0a-2c99-45ff-9694-24141b92fa17`, path
+`/gen101/world-shared/doi-data/ORNLNCCS/202305/10.13139_ORNLNCCS_1975202/`.
+The published Figshare DOI `10.6084/m9.figshare.24237376` now displays
+version 4 dated 2026-02-25 and includes later years, so the DOI and annual
+basename alone are not immutable file identities. The exact provider version,
+file ID when available, byte length and locally computed SHA-256 must be
+recorded before use.
+
+The primary descriptor reports 21,776,807, 24,074,123, 25,545,518 and
+25,796,466 rows for the required 2018, 2019, 2020 and 2022 files. These counts
+are metadata checks, not hashes. It explicitly states that zero-outage rows are
+omitted and missing entries conflate true zeros with collection gaps. This
+independently supports keeping source-positive, inferred-zero and unknown masks
+separate.
+
+Availability/negative result: the branch and public `main` tree contain no
+raw annual outage table. The existing coverage-history artifact and old
+168-hour panels cannot certify 15-minute source support for the new 216-hour
+cohort. OSTI and the ORNL catalog were reachable, but direct Figshare
+API/downloader calls returned HTTP 403 in this runtime; a later live-page check
+was interrupted by execution-environment loss. No EAGLE-I payload was
+downloaded, no raw checksum was computed, no locked event was opened, and no
+real-data result changed.
+
+Added `EAGLEI_SOURCE_ACQUISITION.md`, which maps the locked cohort to the
+historic release and defines a fail-closed acceptance record: provider
+snapshot, file ID, retrieval time, byte count, SHA-256, schema/time range,
+duplicate/off-grid/FIPS/value checks, and explicit prohibition on mixing
+provider snapshots. This documentation-only change adds no executable code, so
+no new code test was applicable. The earlier 34 phase-2 tests remain the last
+completed executable verification.
+
+Next gate: retrieve the four pinned annual files through ORNL Globus or a
+version-pinned Figshare path, compute their local hashes, and run
+`measurement_audit.py` on the six locked windows. An unsupported locked event
+is attrition without replacement; do not substitute an old panel or another
+event.
