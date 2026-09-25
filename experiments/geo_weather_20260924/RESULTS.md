@@ -32,9 +32,11 @@ design `DESIGN.md` (v1), the literature `LITERATURE.md`.
 
 * **Km-scale weather (HRRR, section 5).** HRRR changes the hazard features far more than ERA5 downscaling does (up
   to 33% of outage-weighted county-hours on the wind panel, 19.6% on the ice storms, vs < 2%), but the controlled
-  split shows this is the weather *source*, not sub-county resolution (resolution part <= 5%). On unseen ice storms
-  the pathway fed by HRRR averaged to 31 km transfers best of all arms (-18.7% vs the host, within 2% of the
-  all-zero forecast), and the 3 km version is worse than it (+4.8%, interval above zero).
+  split shows this is the weather *source*, not sub-county resolution (resolution part <= 5%). Trained, the picture
+  is weak: on unseen ice storms the HRRR pathways looked best with seed 0 (-18.7% vs the host) but a second seed
+  reversed it (+13.4%; seed-averaged -4.2% [-11.1, +2.6]); on the wind panel the HRRR pathway beats its ERA5 twin
+  (-1.95%, intervals below zero) but not the host (-0.94%). Every single-seed trained result on these panels
+  should be read with this seed variance in mind.
 
 Screen protocol (program.md): county-grouped outer folds 1-2 of the twelve-event wind panel (2,489 held-out
 county-events), a fixed 900 training steps on all development units, seed 0, paired initialisation; pooled hourly
@@ -237,3 +239,14 @@ downscaling changes nothing (no feature reaches 1%).
 (hrrr_coarse) reaches 0.0422 pooled RMSE (-18.66% against the base, county [-26.10, -11.03]), within 2% of the all-zero
 forecast (0.0415), and the 3 km version is worse than it (+4.79%, county [+0.56, +9.48], event x state [+1.14,
 +11.18]). Resolving the county does not help; the better weather source does.
+
+**Seed replication undoes the trained transfer result** (`results/w1e_hrrr_seeds.json`). With seed 1 the same arms
+against the seed-1 host give +20.10% (3 km) and +13.40% (coarse); the seed-averaged predictions give +1.00%
+([-6.20, +9.39]) and -4.19% ([-11.10, +2.61]). The seed-0 gains on unseen ice storms were not robust; with eight
+storms, trained transfer is dominated by seed and storm variance. The same caution applies to the other single-seed
+event-grouped rows of section 3 (Hq, H2q, Hqn).
+
+**Wind panel, trained** (`results/screen_S5_hrrr_wind.json`, `results/screen_S5_hrrr_vs_twin.json`, folds 1-2, seed 0):
+the pathway on HRRR averaged to the ERA5 cells beats the identical pathway on ERA5 (-1.95%, county [-3.83, -0.25],
+event [-5.53, -0.29], 9/12 events) but not the host without a pathway (-0.94%, [-4.55, +2.11]); the 3 km version is
+-1.66% against its ERA5 twin and -0.65% against the host.
