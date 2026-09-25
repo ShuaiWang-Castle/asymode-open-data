@@ -1,0 +1,2 @@
+--label w1_Ho --data w1 --arm W+Cin+H --phi other --keep ^(gust|p_tw|convective) --folds 1
+--label w1_Ho --data w1 --arm W+Cin+H --phi other --keep ^(gust|p_tw|convective) --folds 2

@@ -28,11 +28,38 @@ kill rule of DESIGN section 3 the quadrature is dropped for this panel. Exposure
 through the modulators: people live under less canopy than the county's area average (gust x canopy: 12% of the
 outage-weighted county-hours differ materially).
 
+**F1: residual structure** (`results/F1/F1_cd.md`, `audit_f1.py`, by the formal contributor). Cluster-robust score
+tests of each ladder contrast against the W+Cin held-out residuals, max-T over the 160 features and Bonferroni
+over contrasts, with the false-positive rate calibrated on synthetic residual fields: nothing passes (the
+strongest, pop - area gust_x10 x canopy, has a final p of 0.145). The power analysis propagates each regressor
+through the base's own damage and recovery rates: any of these effects worth 2% of pooled RMSE would have been
+detected (power about 1). On this panel the sub-grid and exposure geography channels are absent at a size that
+matters, not undetectable.
+
+**F0 on the winter panel W1** (`results/F0_w1/`; section 3). The same audit on eight ice-storm events: the
+elevation bands now change eight features by more than the materiality threshold, all near-freezing
+precipitation (wet-bulb hats at -1.5, 0, +1.5 C), in up to 1.93% of the outage-weighted county-hours and two to
+three events; pop - area reaches 7.2%. Small, but the quadrature passes F0 there, as the phase physics predicts.
+
 ## 2. Screens on the wind panel
 
 | arm | change | RMSE | vs base | county interval | event x state interval | events better | file |
 |---|---|---|---|---|---|---|---|
 | base | W+Cin, round-2 inputs (area weights) | 0.023914 | - | - | - | - | results/screen_S1.json |
 | pop | every host input population-weighted (data v3p) | 0.023854 | -0.25% | [-3.66, +2.96] | [-4.60, +3.74] | 5/12 | results/screen_S1.json |
+| clean | training loss without EAGLE-I artefact hours (evaluation unchanged) | 0.023278 | -2.66% | [-5.74, -0.06] | [-6.14, +0.16] | 6/12 | results/screen_S2a.json |
+| clean placebo | as many hours dropped at random, same event and outage-level bin | 0.024098 | +0.77% | [-0.53, +2.28] | [-0.46, +2.03] | 4/12 | results/screen_S2c.json |
+| clean vs its placebo | (second number of the two-numbers rule) | - | -3.40% | [-6.55, -0.63] | [-7.00, -0.37] | 11/12 | results/screen_S2c_vs_placebo.json |
+| hazard (area) | W+Cin+H on eih_area (competing hazard, 160 features) | 0.024089 | +0.73% | [-3.48, +4.41] | [-3.36, +4.06] | 6/12 | results/screen_S2b.json |
+
+**Target cleaning** (`build_train_mask.py`; LITERATURE_preprocessing change 4). EAGLE-I stores no zero rows and its
+scrapers time out in storms, so hourly series carry artefacts that no weather input explains: one-hour dips and
+spikes, plateaus of an identical non-zero count for four days or more (stale maps), fractions at the denominator.
+They are 0.40% of the observed forecast hours but 5.1% of the sum of squared targets. Dropping them from the
+training loss only, with the evaluation targets and masks unchanged, is the first change of this line that clears
+the screen. Its placebo drops as many hours in the same event and outage-level bin at random (3,410 of 3,531
+matched; 3.8% of the sum of squared targets). The gain sits on the unflagged hours (-2.89%; the flagged hours
+themselves get +0.94% worse, as they are no longer fitted) and in both phases (rise to the peak -3.74%, decay after
+it -2.04%; `results/diag/clean_split.json`): the artefacts distorted the learned response everywhere.
 
 (Further rows are added as the screens finish.)

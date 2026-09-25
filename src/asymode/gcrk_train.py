@@ -111,6 +111,8 @@ def fit_stats(F: dict, idx: np.ndarray) -> dict:
     for k in ("xu", "xr", "xo"):
         st[k] = _moments(F[k][idx])
     st["geo"] = _moments(F["geo"][idx])
+    if "ctx_extra" in F:             # extra static county context (e.g. canopy), standardised on the fitting units
+        st["ctx_extra"] = _moments(F["ctx_extra"][idx])
     if "phi" in F:                   # per-feature scale: the fitting units' 99th percentile of the active hours
         ph = F["phi"][idx].astype(np.float32).reshape(-1, F["phi"].shape[-1])
         q = np.array([np.percentile(c[c > 0], 99) if (c > 0).any() else 1.0 for c in ph.T])
@@ -133,6 +135,8 @@ def make_batch(F: dict, idx: np.ndarray, st: dict, nodes: bool = False) -> dict:
              xo=_std(F["xo"][idx], st["xo"], 0),
              geo=_std(F["geo"][idx], st["geo"], 0))
     b["ctx"] = b["xr"][:, 0, N_WEATHER:N_WEATHER + N_STATIC]        # county context, constant in the window
+    if "ctx_extra" in st:
+        b["ctx"] = np.concatenate([b["ctx"], _std(F["ctx_extra"][idx], st["ctx_extra"], 0)], -1)
     b = {k: torch.from_numpy(np.ascontiguousarray(v)) for k, v in b.items()}
     b["y0"] = torch.from_numpy(np.ascontiguousarray(F["y0"][idx].astype(np.float32)))
     b["y"] = torch.from_numpy(np.ascontiguousarray(F["y"][idx].astype(np.float32)))
@@ -163,9 +167,12 @@ class Engine:
         self.fit = make_batch(F, self.fit_idx, self.stats, self.nodes)
         self.val = None if self.val_idx is None else make_batch(F, self.val_idx, self.stats, self.nodes)
         torch.manual_seed(self.seed)
-        self.model = AsymODE(F["xu"].shape[-1], F["xr"].shape[-1], F["xo"].shape[-1])
+        k_extra = int(F.get("xu_extra", 0))          # appended damage inputs get zero weights (paired init)
+        self.model = AsymODE(F["xu"].shape[-1] - k_extra, F["xr"].shape[-1], F["xo"].shape[-1])
+        if k_extra:
+            self.model.expand_damage_inputs(k_extra)
         if arm in ("W+Cin", "GCRK+Cin") or arm in MECH_ARMS or arm in HAZARD_ARMS:
-            self.model.attach_context_input(N_STATIC)
+            self.model.attach_context_input(N_STATIC + (F["ctx_extra"].shape[-1] if "ctx_extra" in F else 0))
         if arm in HAZARD_ARMS:
             self.model.attach_hazard(F["phi"].shape[-1])
         if arm == "W+Cin+H2":

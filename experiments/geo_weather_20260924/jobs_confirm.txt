@@ -1,0 +1,6 @@
+--label base_e3r2 --data e3r2 --arm W+Cin --folds 3
+--label clean_e3r2 --data e3r2 --arm W+Cin --train-mask --folds 3
+--label base_e3r2 --data e3r2 --arm W+Cin --folds 4
+--label clean_e3r2 --data e3r2 --arm W+Cin --train-mask --folds 4
+--label base_e3r2 --data e3r2 --arm W+Cin --folds 5
+--label clean_e3r2 --data e3r2 --arm W+Cin --train-mask --folds 5

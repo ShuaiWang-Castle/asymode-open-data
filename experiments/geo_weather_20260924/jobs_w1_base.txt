@@ -1,0 +1,5 @@
+--label w1_base --data w1 --arm W+Cin --folds 1
+--label w1_base --data w1 --arm W+Cin --folds 2
+--label w1_base --data w1 --arm W+Cin --folds 3
+--label w1_base --data w1 --arm W+Cin --folds 4
+--label w1_base --data w1 --arm W+Cin --folds 5

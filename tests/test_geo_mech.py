@@ -81,3 +81,13 @@ def test_hazard_slots_start_at_base_and_get_gradient():
     assert torch.equal(base(b)["P"], arm(b)["P"])
     ((arm(b)["P"] - torch.rand(5, 144) * 0.5) ** 2).mean().backward()
     assert (arm.haz_a.grad.abs() > 0).all()
+
+
+def test_expanded_damage_inputs_start_at_base():
+    torch.manual_seed(3)
+    b = dict(xu=torch.randn(5, 216, 7), xr=torch.randn(5, 216, 6), xo=torch.randn(5, 216, 3),
+             y0=torch.rand(5) * 0.1, ctx=torch.randn(5, 2))
+    b2 = dict(b, xu=torch.cat([b["xu"], torch.rand(5, 216, 3)], -1))
+    torch.manual_seed(11); base = AsymODE(7, 6, 3); base.attach_context_input(2)
+    torch.manual_seed(11); arm = AsymODE(7, 6, 3); arm.expand_damage_inputs(3); arm.attach_context_input(2)
+    assert torch.equal(base(b)["P"], arm(b2)["P"])

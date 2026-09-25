@@ -61,7 +61,11 @@ def main():
     ap.add_argument("--keep", default=None, help="regex on hazard feature names")
     ap.add_argument("--train-mask", action="store_true", help="drop EAGLE-I artefact-flagged hours from the training loss")
     ap.add_argument("--mask-placebo", action="store_true", help="with --train-mask: the matched random placebo mask")
+    ap.add_argument("--ctx-geo", nargs="*", default=None, help="geographic descriptors added to the county context")
+    ap.add_argument("--xu-phi", default=None, help="regex of eih features appended to the damage inputs (hours 72+)")
+    ap.add_argument("--xu-phi-variant", default="area")
     ap.add_argument("--folds", nargs="+", type=int, default=[1, 2])
+    ap.add_argument("--design", default="main", choices=["main", "event"], help="county-grouped or event-grouped folds")
     ap.add_argument("--steps", type=int, default=900)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--threads", type=int, default=2)
@@ -70,6 +74,18 @@ def main():
     F = load(a.data)
     if a.phi:
         F = attach_phi(F, PANEL[a.data] + a.phi, a.keep)
+    if a.ctx_geo:
+        gi = [list(F["geo_features"].astype(str)).index(g) for g in a.ctx_geo]
+        F = dict(F); F["ctx_extra"] = F["geo"][:, gi].astype(np.float32)
+    if a.xu_phi:
+        import re
+        z = np.load(ROOT / "data" / "interim" / "geo_weather" / f"eih_{PANEL[a.data]}{a.xu_phi_variant}.npz")
+        assert np.array_equal(z["fips"], F["fips"]) and np.array_equal(z["event"], F["event"])
+        names = z["names"].astype(str); cols = [i for i, n in enumerate(names) if re.search(a.xu_phi, n)]
+        extra = np.zeros(F["xu"].shape[:2] + (len(cols),), np.float32)
+        extra[:, 72:] = z["phi"][..., cols].astype(np.float32)
+        F = dict(F); F["xu"] = np.concatenate([F["xu"], extra], -1); F["xu_extra"] = len(cols)
+        print("appended to xu:", list(names[cols]), flush=True)
     if a.train_mask:
         tm = ("train_mask_e3" if PANEL[a.data] == "" else f"train_mask_{PANEL[a.data].rstrip('_')}") + \
              ("_placebo" if a.mask_placebo else "") + ".npz"
@@ -82,7 +98,7 @@ def main():
         if (out / "DONE.json").exists():
             continue
         out.mkdir(parents=True, exist_ok=True)
-        dev, held = np.array(sp["main"][str(k)]["dev"]), np.array(sp["main"][str(k)]["outer"])
+        dev, held = np.array(sp[a.design][str(k)]["dev"]), np.array(sp[a.design][str(k)]["outer"])
         t0 = time.time()
         log = lambda s: print(f"[{a.label} f{k}] {s}", flush=True)  # noqa: E731
         e = G.refit(F, dev, a.steps, a.seed, a.arm, log=log)
@@ -94,7 +110,7 @@ def main():
             beta = e.model.haz_beta.detach().numpy()
             top = np.argsort(-beta)[:12]
             extra = dict(beta_nonzero=int((beta > 0).sum()), beta_top={str(F["phi_names"][i]): float(beta[i]) for i in top})
-        (out / "DONE.json").write_text(json.dumps(dict(label=a.label, data=a.data, arm=a.arm, phi=a.phi, keep=a.keep, train_mask=a.train_mask, mask_placebo=a.mask_placebo, fold=k,
+        (out / "DONE.json").write_text(json.dumps(dict(label=a.label, data=a.data, arm=a.arm, phi=a.phi, keep=a.keep, train_mask=a.train_mask, mask_placebo=a.mask_placebo, ctx_geo=a.ctx_geo, xu_phi=a.xu_phi, design=a.design, fold=k,
                                                        steps=a.steps, seed=a.seed, fit_loss=e.last_loss,
                                                        seconds=round(time.time() - t0, 1), **extra), indent=1) + "\n")
         log(f"done in {time.time() - t0:.0f} s, fit loss {e.last_loss:.4e}")

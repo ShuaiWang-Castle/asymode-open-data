@@ -132,6 +132,22 @@ class AsymODE(nn.Module):
             self.occurrence.bias.fill_(occ_bias)
             self.background.bias.fill_(bkg_bias)
 
+    def expand_damage_inputs(self, k: int):
+        """Append k damage inputs with zero weights in every layer that reads x^U (first damage layer, smoother,
+        background), so a model built with the base's input width keeps its initialisation and equals the base at
+        step 0 (paired initialisation)."""
+        for name in ("smoother", "background"):
+            old = getattr(self, name)
+            new = nn.Linear(old.in_features + k, old.out_features)
+            with torch.no_grad():
+                new.weight.zero_(); new.weight[:, :old.in_features] = old.weight; new.bias.copy_(old.bias)
+            setattr(self, name, new)
+        old = self.damage[0]
+        new = nn.Linear(old.in_features + k, old.out_features)
+        with torch.no_grad():
+            new.weight.zero_(); new.weight[:, :old.in_features] = old.weight; new.bias.copy_(old.bias)
+        self.damage[0] = new
+
     # ------------------------------------------------- county-level slot (Amendment 5)
     def attach_level(self, d_ctx: int, source: str = "ctx"):
         """One linear term on the damage logit, constant over the window and zero at the start.
