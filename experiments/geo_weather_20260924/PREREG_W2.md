@@ -133,3 +133,31 @@ correlation 0.045: 0.822, 0.795, 0.838, 0.869 over the four synthetic noise desi
 verdict is "uninformative" and the test was not computed.** The rule stays as registered (the minimum is the
 registered power); the W2e residual alignment is unread. By the decision table: no claim either way; a larger
 independent panel (more near-freezing winter storms, or more years) would raise the power above the registered bar.
+
+## Amendment 4 (2026-09-25 06:16 EDT): a second, separate hypothesis H2 on W2e (HRRR weather source)
+
+Written before any HRRR feature of W2e exists and before any W2e residual alignment has been read (H1a on W2e was
+not computed). Motivation, exploratory and not evidence: on W1 and on the wind panel the HRRR-source contrast aligned
+with the host's residuals and the resolution contrast did not (formal contributor, `results/F1_w1_hrrr/`,
+`results/F1_hrrr/`); W2e is disjoint from both panels.
+
+* **H2a (no training).** Contrast C8 = f(hrrr_coarse) - f(pop) for the single feature f = `p_tw-1.5*one@0`
+  (instantaneous precipitation under the wet-bulb hat at -1.5 C, half-width 1.5 C, modulator one): HRRR weather
+  (cycle t-1, forecast hour 1: TMP and DPT at 2 m, surface GUST, 0-1 h APCP, surface CAPE) averaged onto the ERA5
+  0.25-degree cells and then the `pop` construction, minus the ERA5 `pop` variant. Registered direction: positive
+  (more HRRR-source near-freezing precipitation than ERA5 shows goes with under-prediction, y - P > 0).
+* Feature code frozen: build_eih_hrrr_coarse.py at a3d0f10, build_eih_hrrr.py at 2b2826c, build_eih.py at 6a9aa5a.
+  HRRR coverage rule, fixed now: an event whose window misses more than 5% of its HRRR hours on both mirrors is
+  dropped before the test; the missing hours are reported.
+* Base: the existing W2e base (W+Cin, 900 steps, seed 0, five county-grouped folds, runs/geo_weather_20260924/w2e_base).
+* Statistic, eligibility and null exactly as H1a: one-sided, alpha 0.05, single test; nuisance = event x state x
+  relief-tercile blocks + base window-mean prediction + log customers + the pop variant's own window-mean intensity
+  of the feature; >= 20 effective clusters at event x state and county level and >= 8 effective events; the exact
+  event sign-flip p must also be below 0.05 for a pass; synthetic-field null if its false-positive rate > 0.10.
+* **Power gate:** at part correlation 0.117 (half of the exploratory W1 value 0.234, a winner's-curse discount), the
+  minimum power over the synthetic noise designs must be >= 0.8, otherwise "uninformative" and the test is not
+  computed.
+* Test code: the formal contributor's audit_f1_hrrr.py with a single-test mode for C8 that calls the frozen
+  audit_f1.py functions (239fd7d); its hash is recorded in amendment 5, committed before any W2e HRRR feature is built.
+* Decision table: pass -> the weather-source channel (not sub-county resolution) is supported on independent winter
+  storms; fail with power >= 0.8 -> absent at the registered size; not testable or uninformative -> no claim.
