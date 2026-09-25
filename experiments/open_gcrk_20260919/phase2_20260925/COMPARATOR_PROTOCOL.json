@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "frozen_utc": "2026-09-25T09:18:00Z",
+  "status": "prospective_gate_before_new_process-model_runs",
+  "historical_exploratory_identity": {
+    "cohort_id": "e3r2-12event-216h",
+    "panel_sha256": "32c14c55038c16c4fccdd9e96e6c03f4dffeded8e0dd051553b02f0d92e86178",
+    "split_sha256": "9c3cfba1cd3563520fa50a0363e2fc8d571b1013d4f695ed4f5147e0bc80a34c",
+    "units": 6122,
+    "counties": 2409,
+    "events": 12,
+    "window_hours": 216,
+    "origin_hour": 72,
+    "rollout_hours": 144,
+    "d_u": 42,
+    "d_r": 33,
+    "d_occ": 7,
+    "d_geo": 40,
+    "weather_information_set": "realized_ERA5_reanalysis_hindcast"
+  },
+  "locked_source_hashes": {
+    "build_features.py": "e50af1d447cf15ba2cf44b3dd551d1e49e692075173e17c5267f4256c78cb176",
+    "build_features_r2.py": "4b935354275ac2dacd34a5b43d3996ce86649b19b1a52d3a168ba2b37708b0e5",
+    "asym_host.py": "da366c4a7b4bda278fc24180448f8f5a9863d163e5099ddd5357aa4d2982daa1",
+    "gcrk_train.py": "f293cfbebc1bf327fd065a447c1904b6f662567d1c4a8d17a4fb7d499b288b1c"
+  },
+  "host_budget_audit": {
+    "damage_hidden_width": 32,
+    "context_dimension": 6,
+    "w_cin_new_parameters": 192,
+    "gcrk_code_dimension": 4,
+    "gcrk_new_parameters_at_geo40": 610,
+    "interpretation": "These are architecture counts, not evidence that either arm is better. New comparator families require their own audited counts."
+  },
+  "required_arms": [
+    "W+Cin",
+    "W+Cin+causal_summaries",
+    "discounted_weather_static_vulnerability",
+    "static_fragility_mixture",
+    "generic_bounded_path_state",
+    "structured_process_graph"
+  ],
+  "phases": {
+    "pilot": {
+      "allowed_cohort_status": "historical_exploratory",
+      "required_scope": "inner_fit_only",
+      "allowed_seeds": [0],
+      "outer_artifacts_forbidden": true,
+      "purpose": "Timing, optimization stability, exact parameter audit, and selection of a locked architecture without reading OUTER labels."
+    },
+    "confirmatory": {
+      "allowed_cohort_status": "fresh_weather_selected_before_label_or_model_result_inspection",
+      "required_scope": "outer_once_after_lock",
+      "required_seeds": [0, 1, 2, 3, 4],
+      "historical_panel_forbidden": true,
+      "historical_split_forbidden": true,
+      "purpose": "One locked evaluation on counties/events not used to select preprocessing, topology, hyperparameters, or representative cases."
+    }
+  },
+  "matched_capacity_groups": {
+    "path_state": [
+      "generic_bounded_path_state",
+      "structured_process_graph"
+    ]
+  },
+  "common_identity_fields": [
+    "cohort_id",
+    "cohort_manifest_sha256",
+    "panel_sha256",
+    "split_sha256",
+    "weather_information_set",
+    "feature_name_sha256",
+    "observation_support_sha256",
+    "normalization_spec_sha256",
+    "host_source_sha256",
+    "training_protocol_sha256",
+    "residual_amplitude_cap",
+    "expected_fold_ids"
+  ],
+  "required_cell_fields": [
+    "arm",
+    "seed",
+    "fold",
+    "new_parameter_count",
+    "candidate_source_sha256",
+    "input_view_sha256",
+    "initialization_pair_id",
+    "optimizer_group_id",
+    "stopping_rule_id"
+  ]
+}

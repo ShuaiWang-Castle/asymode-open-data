@@ -8,6 +8,15 @@ County customer outages are stocks resulting from simultaneous disruptions and r
 
 The first comparison is the current **W+Cin host**, not the weather-only W. W+Cin injects six county context variables into the first damage layer, `ReLU(W_x x_{i,t} + A c_i + b)`, with `A` initially zero (192 additional parameters). It already lets county context interact nonlinearly with weather. A proposed mechanism must beat this informed host and a parameter-matched direct-input control before we attribute any improvement to process structure. The recovery network, occurrence gate, background rate, customer denominator, and forecast origin should otherwise be held fixed in the initial comparison.
 
+At the E3R2 dimensions, the existing GCRK adds 610 parameters whereas W+Cin
+adds 192. This count difference is not a result, but it makes an unqualified
+head-to-head comparison insufficient for a topology claim. The prospective
+[`COMPARATOR_PROTOCOL.md`](COMPARATOR_PROTOCOL.md) therefore requires exact
+new-parameter, input-view, initialization, optimizer, stopping-rule and
+residual-cap matching between the generic bounded state and structured graph.
+Its executable gate restricts the already inspected E3R2 cohort to INNER/FIT
+pilots and rejects its panel/split hashes in a confirmatory bundle.
+
 In round E3R2, W+Cin is also **not memoryless**. Its damage network receives 42
 hourly inputs, including 6/12/24-hour windows and 72-hour path summaries, and
 its raw damage logit passes through a learned scalar recurrence

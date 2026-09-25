@@ -10,6 +10,9 @@ overwritten. The status of each proposed intervention is recorded in
 | [`PREPROCESSING_PROTOCOL.md`](PREPROCESSING_PROTOCOL.md) | Prospective row-level observation audit, alternative outage labels, and frozen comparison support | Design only; raw source files unavailable in this checkout |
 | [`LITERATURE_AND_NOVELTY.md`](LITERATURE_AND_NOVELTY.md) | Relevant primary sources, methods that transfer or do not, and the novelty boundary | Evidence review |
 | [`PRIMARY_LITERATURE_SNAPSHOT.json`](PRIMARY_LITERATURE_SNAPSHOT.json) | Versioned primary-source identities, occupied claims, transfer limits, and required controls | Source/claim manifest; no empirical result |
+| [`COMPARATOR_PROTOCOL.md`](COMPARATOR_PROTOCOL.md) | Prospective pilot/confirmation boundary and capacity-matched comparator ladder | Design only; no process-state model trained |
+| [`COMPARATOR_PROTOCOL.json`](COMPARATOR_PROTOCOL.json) | Machine-readable artifact, information-set, cell, capacity, and fresh-cohort requirements | Frozen gate specification |
+| [`comparator_protocol_gate.py`](comparator_protocol_gate.py) | Refuse mixed panels/splits/weather sets, missing cells, unmatched generic/structured capacity, or historical OUTER reuse | Metadata gate; does not certify source truth |
 | [`MECHANISM_DESIGN.md`](MECHANISM_DESIGN.md) | Bounded weather-to-geography process graph, strong baselines, and falsification gates | Hypothesis, not trained model |
 | [`measurement_audit.py`](measurement_audit.py) | Native-resolution evidence audit on original public EAGLE-I rows and saved panels | Run only when raw inputs are restored |
 | [`provenance_gate.py`](provenance_gate.py) | Refuse mixed/incomplete E3R2 artifact cohorts and distinguish replay identity from source-level rebuild provenance | Manifest audit available; file hashes require restored artifacts |
@@ -33,6 +36,8 @@ PYTHONDONTWRITEBYTECODE=1 python experiments/open_gcrk_20260919/phase2_20260925/
 PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s experiments/open_gcrk_20260919/phase2_20260925 -p 'test_process_graph_prototype.py' -v
 PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s experiments/open_gcrk_20260919/phase2_20260925 -p 'test_mechanism_information_audit.py' -v
 python -m json.tool experiments/open_gcrk_20260919/phase2_20260925/PRIMARY_LITERATURE_SNAPSHOT.json >/dev/null
+PYTHONDONTWRITEBYTECODE=1 python experiments/open_gcrk_20260919/phase2_20260925/comparator_protocol_gate.py --self-test
+PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s experiments/open_gcrk_20260919/phase2_20260925 -p 'test_comparator_protocol_gate.py' -v
 ```
 
 After restoring a candidate E3R2 artifact directory, stream all twelve R1

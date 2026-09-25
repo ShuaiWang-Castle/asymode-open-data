@@ -219,6 +219,65 @@ models before drafting any priority claim. Next empirical gate: after exact
 artifact verification, preregister the INNER/FIT-only comparator ladder and
 lock fresh weather-selected event transfer before inspecting outcomes.
 
+## Attempt 07: executable comparator-identity and fresh-cohort gate (2026-09-25)
+
+Input: tracked source and manifest metadata only. No panel payload, outage
+label, checkpoint, trained parameter or fold result was read. The relevant
+source hashes are `asym_host.py`
+`da366c4a7b4bda278fc24180448f8f5a9863d163e5099ddd5357aa4d2982daa1`,
+`gcrk_train.py`
+`f293cfbebc1bf327fd065a447c1904b6f662567d1c4a8d17a4fb7d499b288b1c`,
+`gcrk.py`
+`2cd3922dca7834733ced3c81ca3bda2b201ec52cac2704320d114fd7d6245ade`,
+and `splits_e3r2.json`
+`9c3cfba1cd3563520fa50a0363e2fc8d571b1013d4f695ed4f5147e0bc80a34c`.
+
+Source-level budget finding: E3R2 W+Cin adds exactly `6 * 32 = 192`
+zero-initialized context-input weights. At `d=32`, geographic code rank `r=4`
+and `G=40`, GCRK adds `rG + 3dr + 2d + 2 = 610` trainable parameters beyond
+the wrapped host layer. These counts do not show which model predicts better,
+but they establish that a direct W+Cin-versus-state comparison does not isolate
+process topology from additional capacity.
+
+Added a prospective six-arm ladder: W+Cin, causal summaries, Zhu-style
+discounted multi-weather/static vulnerability, static fragility mixture,
+generic bounded path state, and structured process graph. The generic and
+structured states must match exactly on new-parameter count, input-view hash,
+initialization pair, optimizer groups, stopping rule and residual-amplitude
+cap. All six arms must have identical seed/fold cell sets and common panel,
+split, weather-information, feature-name, observation-support, normalization,
+host and training-protocol identities.
+
+The critical phase boundary is now executable. The already inspected E3R2
+panel/split is allowed only for `inner_fit_only`, seed-0 pilots and is forbidden
+from producing an OUTER artifact. A confirmatory bundle must use a different
+panel and split, a hashed weather-only event-selection rule locked before label
+or result inspection, and seeds 0–4. This metadata gate cannot prove that a
+source is truthful or a cohort is genuinely fresh; it only rejects internal
+inconsistency. Source manifests and review remain mandatory.
+
+Artifacts: `COMPARATOR_PROTOCOL.json` SHA-256
+`37091751bfb52a63e3825bc318ee2d963e7d1e5db3633cad611b7779372f59cc`,
+`COMPARATOR_PROTOCOL.md`
+`4a19bd58be4c97047d53f0522a4480d48ca67cace918edd1106920d70605e482`,
+`comparator_protocol_gate.py`
+`fa19d476ac2fde8923353a6e68d12ad750a7bf45783e7f28f8ce3a86846624ae`,
+and `test_comparator_protocol_gate.py`
+`dc1620768b6cc6e140c254a222026dc2da35b2281b799f193d103e8af7dc5784`.
+The standalone self-test accepted two internally valid pilot/confirmation
+examples and rejected eight mixed or post-selected examples. Nine unit tests
+pass, covering historical-panel reuse, OUTER leakage in a pilot, missing arm or
+fold cells, identity overrides, unmatched inputs/capacity, and corrupted
+source-derived parameter counts.
+
+Negative boundary: this attempt does not implement or train any of the new
+arms, does not establish that a 610-parameter model overfits, and does not make
+E3R2 confirmatory again. The raw EAGLE-I records and 216-hour payload remain
+absent. Next gate: recover and verify the historical artifacts for an
+INNER/FIT-only timing pilot, implement the generic and structured states with
+audited identical budgets, and separately freeze a genuinely new
+weather-selected cohort before any confirmatory OUTER evaluation.
+
 ## Repository and access snapshot
 
 - Local checkout: `open_data_work`, branch `research/open-gcrk-data-mechanism-20260925`, HEAD `da465857e6dbc266e1f2fad104d049c68076ad11`. The remote branch `research/open-gcrk-5seed-20260919` is at the **same SHA**. The remote `main` is `8dd47c5ccd829611f27b69a3d64c274a0a24c400` (2026-09-03); the research commit is dated 2026-09-21. GitHub reports **no common ancestor** between these histories; use explicit refs, not `git merge main` or a naive ahead/behind count.
