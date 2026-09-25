@@ -120,6 +120,53 @@ panels, 12 R2 panels and `features_e3r2.npz`; require
 hashes is a new versioned panel and requires matched W/W+Cin controls rather
 than reuse of any historical checkpoint or score.
 
+## Attempt 05: does temporal order establish a new-state capability? (2026-09-25)
+
+Input: synthetic weather only and the tracked feature/host definitions;
+`build_features.py` SHA-256
+`e50af1d447cf15ba2cf44b3dd551d1e49e692075173e17c5267f4256c78cb176`,
+`build_features_r2.py`
+`4b935354275ac2dacd34a5b43d3996ce86649b19b1a52d3a168ba2b37708b0e5`,
+and `asym_host.py`
+`da366c4a7b4bda278fc24180448f8f5a9863d163e5099ddd5357aa4d2982daa1`.
+No outage label, trained parameter, panel, checkpoint, fold, or OUTER result was
+read. This is an information/capacity audit, not a fitted baseline comparison.
+
+The E3R2 W+Cin damage host has 42 hourly weather/causal-summary inputs and a
+learned scalar logit recurrence. The audit placed equal 20 mm rain pulses at
+post-origin hours 80 and 98, followed by the same 25 m/s wind at hour 144,
+with identical geography, total rain and current weather. Both rain pulses lie
+outside the response hour's 24-hour windows but inside its 72-hour window.
+The complete 42-dimensional R2 damage vector at hour 144 is exactly identical
+(maximum absolute difference `0.0`). The proposed bounded wetness state still
+differs (`0.0172894` versus `0.0487708`, absolute difference `0.0314813`) because
+it retains timing through decay.
+
+Negative necessity result: this collision does **not** establish unique memory
+for the process graph. The full W+Cin host sees the earlier post-origin hourly
+sequence before the response hour. A legal capacity witness in which its damage
+MLP emits a rain pulse and its existing scalar smoother has constant forget
+`0.95` also distinguishes the histories at hour 144 (`0.0018762` versus
+`0.0047234`, difference `0.0028472`). These are constructed internal states,
+not learned values or prediction errors. Thus a rain-order plot alone cannot
+justify a new process state or a novelty claim.
+
+Added `mechanism_information_audit.py` (SHA-256
+`d83ab75b013bdf9c053615b4b27cfc4d76d3aa9538895830a845c4a2ad46ce95`)
+and two unit tests (`test_mechanism_information_audit.py`, SHA-256
+`275500491846503cd21aa2b93dd156d91017a16239741d5d2736a19c2222aae6`).
+The standalone self-test and both unit tests pass. The mechanism protocol now
+requires a parameter-matched generic bounded-state or multi-smoother control,
+in addition to W+Cin, causal summaries and the low-rank fragility mixture.
+
+Next gate: after verified data are restored, run an INNER/FIT-only timing and
+optimization pilot with identical inputs, split, seed, stopping rule and
+residual budget for W+Cin, the generic-state control and the structured graph.
+Do not use already inspected OUTER labels for topology selection. Promote a
+mechanism interpretation only if the structured graph beats generic recurrent
+capacity and its ordering/geography ablations on fresh event transfer without
+increasing false activity.
+
 ## Repository and access snapshot
 
 - Local checkout: `open_data_work`, branch `research/open-gcrk-data-mechanism-20260925`, HEAD `da465857e6dbc266e1f2fad104d049c68076ad11`. The remote branch `research/open-gcrk-5seed-20260919` is at the **same SHA**. The remote `main` is `8dd47c5ccd829611f27b69a3d64c274a0a24c400` (2026-09-03); the research commit is dated 2026-09-21. GitHub reports **no common ancestor** between these histories; use explicit refs, not `git merge main` or a naive ahead/behind count.

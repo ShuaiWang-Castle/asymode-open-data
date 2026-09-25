@@ -12,6 +12,7 @@ overwritten. The status of each proposed intervention is recorded in
 | [`MECHANISM_DESIGN.md`](MECHANISM_DESIGN.md) | Bounded weather-to-geography process graph, strong baselines, and falsification gates | Hypothesis, not trained model |
 | [`measurement_audit.py`](measurement_audit.py) | Native-resolution evidence audit on original public EAGLE-I rows and saved panels | Run only when raw inputs are restored |
 | [`provenance_gate.py`](provenance_gate.py) | Refuse mixed/incomplete E3R2 artifact cohorts and distinguish replay identity from source-level rebuild provenance | Manifest audit available; file hashes require restored artifacts |
+| [`mechanism_information_audit.py`](mechanism_information_audit.py) | Synthetic collision test against the actual E3R2 damage information set and the host's existing scalar memory | Necessity test only; not a fitted comparison |
 | [`process_graph_prototype.py`](process_graph_prototype.py) | Tiny synthetic-only dynamic-state feasibility checks | No real-data effectiveness claim |
 
 The current checkout has tracked results and scripts but **not** the raw
@@ -27,7 +28,9 @@ Run the synthetic checks from the repository root (NumPy and pandas only):
 ```bash
 PYTHONDONTWRITEBYTECODE=1 python experiments/open_gcrk_20260919/phase2_20260925/measurement_audit.py --self-test
 PYTHONDONTWRITEBYTECODE=1 python experiments/open_gcrk_20260919/phase2_20260925/provenance_gate.py --self-test
+PYTHONDONTWRITEBYTECODE=1 python experiments/open_gcrk_20260919/phase2_20260925/mechanism_information_audit.py --self-test
 PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s experiments/open_gcrk_20260919/phase2_20260925 -p 'test_process_graph_prototype.py' -v
+PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s experiments/open_gcrk_20260919/phase2_20260925 -p 'test_mechanism_information_audit.py' -v
 ```
 
 After restoring a candidate E3R2 artifact directory, stream all twelve R1

@@ -8,6 +8,13 @@ County customer outages are stocks resulting from simultaneous disruptions and r
 
 The first comparison is the current **W+Cin host**, not the weather-only W. W+Cin injects six county context variables into the first damage layer, `ReLU(W_x x_{i,t} + A c_i + b)`, with `A` initially zero (192 additional parameters). It already lets county context interact nonlinearly with weather. A proposed mechanism must beat this informed host and a parameter-matched direct-input control before we attribute any improvement to process structure. The recovery network, occurrence gate, background rate, customer denominator, and forecast origin should otherwise be held fixed in the initial comparison.
 
+In round E3R2, W+Cin is also **not memoryless**. Its damage network receives 42
+hourly inputs, including 6/12/24-hour windows and 72-hour path summaries, and
+its raw damage logit passes through a learned scalar recurrence
+`lbar_t = f_t lbar_(t-1) + (1-f_t) l_t`. Consequently, showing that a proposed
+state distinguishes rain-before-wind from wind-before-rain establishes neither
+an information advantage nor a unique dynamic capability over the full host.
+
 The experimental question is narrow: **do geographically conditioned, ordered intermediate states improve transfer to unseen counties and unseen events beyond static context and ordinary causal weather summaries?** An answer of no is useful. Existing customer records do not supply component failures, line-adjacent trees, or crew deployments.
 
 ## A minimal bounded dynamical family
@@ -55,6 +62,15 @@ Automatic differentiation can report `d p_hat(i,t) / d x(i,tau)` for `tau <= t` 
 1. **W+Cin + causal summaries:** give the same host strictly past-looking cumulative precipitation, gust duration/path maximum, directional wind deviation, and seasonal leaf-cover proxies. Match the proposed model's parameter count where practical. This tests whether explicit intermediate states add anything beyond well-constructed inputs.
 2. **Low-rank fragility mixture:** let `K` positive, geography-conditioned susceptibility weights multiply a few positive weather-load functions before the same bounded damage-rate readout. This is a cheap, strong structural control with no recursively updated state. Compare it directly with the process graph; neither a generic interaction nor a fragility mixture alone is an originality claim.
 
+3. **Parameter-matched generic-state control:** attach the same number of
+   bounded recurrent coordinates, with the same weather/geography information,
+   initialization, residual scale and parameter budget, but without named
+   wetness/load nodes or a predeclared process graph. A second diagnostic may
+   replace these coordinates with `K` ordinary learned leaky smoothers. This
+   separates gains from extra recurrent capacity from gains due to the claimed
+   geography-conditioned topology. If the generic states match or beat the
+   graph, report a capacity result rather than a mechanism result.
+
 A gridded, within-county exposure model may be considered later if higher-resolution weather and defensible customer/line exposure proxies become available. Aggregating county-average forest to a purported feeder-specific tree threat would invent information. County adjacency is likewise not the electrical network.
 
 ## Identifiability, prior work, and a credible novelty claim
@@ -69,6 +85,15 @@ The *potential* contribution, if the comparisons succeed, is a **small bounded p
 
 - **Data and scale gate:** Audit observation availability, outage denominator, UTC alignment, 30-day antecedent weather availability, and whether ERA5 resolves the event's gust footprint. Preserve outage-data masks; do not convert an unobserved feed into a true zero. Convective downbursts can be sub-grid, so compare local NOAA reports or a higher-resolution public weather product where feasible. No architectural comparison can repair label/forcing mismatch.
 - **Synthetic recovery:** Plant a known order-dependent wetness → wind mechanism, a direct-weather mechanism, and a no-geography mechanism. Confirm the optimizer recovers the *predictive distinction* under the actual horizon, noise, and sample size. Test gradient direction and exact residual-closed parity with W+Cin.
+- **Information-set collision:** `mechanism_information_audit.py` constructs
+  two synthetic histories with identical total rain, current wind-hour weather,
+  and the same 42-dimensional E3R2 damage feature vector at the wind hour. The
+  two rain pulses and the response all occur after the forecast origin. The
+  bounded wetness state differs by 0.0315, demonstrating information not present
+  in that *single response-hour vector*. But a legal scalar host-smoother
+  capacity witness also differs (0.00285), because the full host sees the prior
+  hourly sequence. This is a negative necessity result: temporal-order plots
+  alone cannot promote the process graph. It is not a trained comparison.
 - **Temporal-order control:** Within credible weather ranges and matched gust peaks, compare rain-before-wind with wind-before-rain. A wetness explanation predicts a difference only when the hypothesized antecedent path can act; report controls for a direct rainfall effect, season, and unusual wind direction. Do not present simulated reorderings as observed causal experiments.
 - **Geography and negative controls:** Swap geography among counties matched on climate and basic context as well as unrestricted donors; compare to sham or permuted geography and a parameter-matched static readout. Inspect false activity in observed-zero hours. Weather sensitivity should not be attributed to geography if donor maps perform equally well.
 - **Generalization and uncertainty:** Keep county-grouped outer folds and event-held-out tests, paired seeds `0..4`, and the fixed open-loop trajectory metrics. Report pooled RMSE/MAE, event-equal and per-event errors, horizon segments, peak errors, and false activity. Cluster uncertainty at least by event or event-by-state as well as county; a few large storms can dominate pooled RMSE. Report every event and seed, including adverse effects. If the model wins only after a global amplitude rescaling, characterize the result as calibration, not a demonstrated mechanism.
@@ -79,7 +104,11 @@ The *potential* contribution, if the comparisons succeed, is a **small bounded p
 
 First run only data auditing, deterministic toy tests, and an INNER/FIT-only one-fold, one-seed timing and optimization pilot against W+Cin and the two simple controls. No OUTER outcomes should be used to tune the graph or its hyperparameters. Record wall time for feature construction, one inner fit, refit, and inference, CPU/thread settings, memory peak, and model parameter counts. Extrapolate conservatively to **every planned outer county and event fold, three inner folds, and all five seeds**, with a safety margin for refits and diagnostic inference. If the projected local total exceeds approximately 24 hours, or higher-resolution data cannot be obtained, record the obstacle and propose a concrete reduced scope to the PI before launching confirmatory training; do not silently omit folds, events, or seeds. Run the final comparison only after the new protocol and stop/failure criteria are registered.
 
-Promotion requires a stable margin over W+Cin and both simpler controls on the held-out tests without worse false activity, a temporally specific and geography-sensitive ablation signal, and uncertainty intervals that justify the strength of the wording. Otherwise report the failure and retain W+Cin as the defensible host.
+Promotion requires a stable margin over W+Cin, the direct/summary and fragility
+controls, and the parameter-matched generic-state control on held-out tests
+without worse false activity, a temporally specific and geography-sensitive
+ablation signal, and uncertainty intervals that justify the strength of the
+wording. Otherwise report the failure and retain W+Cin as the defensible host.
 
 ## Primary sources for measurement decisions
 
