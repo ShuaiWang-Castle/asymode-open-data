@@ -31,9 +31,11 @@ SPLITS = ROOT / "experiments" / "open_gcrk_20260919" / "splits_e3r2.json"
 DATA = {"e3r2": ROOT / "data" / "interim" / "open_gcrk" / "features_e3r2.npz",
         "v3p": ROOT / "data" / "interim" / "geo_weather" / "features_v3p.npz",
         "w1": ROOT / "data" / "interim" / "geo_weather" / "features_w1.npz",
-        "w2d": ROOT / "data" / "interim" / "geo_weather" / "features_w2d.npz"}
-SPLIT_FILES = {"e3r2": SPLITS, "v3p": SPLITS, "w1": HERE / "splits_w1.json", "w2d": HERE / "splits_w2d.json"}
-PANEL = {"e3r2": "", "v3p": "", "w1": "w1_", "w2d": "w2d_"}   # prefix of the panel's eih_ and train_mask files
+        "w2d": ROOT / "data" / "interim" / "geo_weather" / "features_w2d.npz",
+        "w2e": ROOT / "data" / "interim" / "geo_weather" / "features_w2e.npz"}
+SPLIT_FILES = {"e3r2": SPLITS, "v3p": SPLITS, "w1": HERE / "splits_w1.json", "w2d": HERE / "splits_w2d.json",
+               "w2e": HERE / "splits_w2e.json"}
+PANEL = {"e3r2": "", "v3p": "", "w1": "w1_", "w2d": "w2d_", "w2e": "w2e_"}   # prefix of the eih_ and train_mask files
 
 
 def load(data: str) -> dict:

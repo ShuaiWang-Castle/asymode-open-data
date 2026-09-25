@@ -1,0 +1,13 @@
+{
+ "source": "NOAA HRRR wrfsfcf01 (AWS noaa-hrrr-bdp-pds; GCS mirror), byte ranges of the records TMP:2 m above ground:1 hour fcst, DPT:2 m above ground:1 hour fcst, GUST:surface:1 hour fcst, APCP:surface:0-1 hour acc fcst, CAPE:surface:1 hour fcst, HGT:surface:1 hour fcst",
+ "missing_hours": {
+  "2018-11-13": 0,
+  "2019-02-05": 0,
+  "2020-10-25": 0,
+  "2022-02-02": 0,
+  "2023-01-30": 0,
+  "2023-02-20": 0,
+  "2023-12-24": 0,
+  "2024-12-13": 0
+ }
+}

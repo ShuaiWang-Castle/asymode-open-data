@@ -32,17 +32,19 @@ def main():
     ap.add_argument("--feat", default=str(FEAT.relative_to(ROOT)))
     ap.add_argument("--prefix", default="", help="eih_<prefix><variant>.npz")
     ap.add_argument("--out", default="F0")
+    ap.add_argument("--pairs", nargs="*", default=None, help='contrasts as "a-b" (default: the ladder)')
     a = ap.parse_args()
+    pairs = PAIRS if not a.pairs else [tuple(x.split("-")) for x in a.pairs]
     F = np.load(ROOT / a.feat)
     y, m, ev = np.nan_to_num(F["y"]).astype(np.float64), F["m"].astype(bool), F["event"].astype(str)
-    have = {v: GW / f"eih_{a.prefix}{v}.npz" for v in ("area", "pop", "quad", "mean", "pooled", "other", "quadn")}
+    have = {v: GW / f"eih_{a.prefix}{v}.npz" for v in ("area", "pop", "quad", "mean", "pooled", "other", "quadn", "hrrr")}
     have = {k: p for k, p in have.items() if p.exists()}
     names = np.load(next(iter(have.values())))["names"].astype(str)
     inst = [i for i, n in enumerate(names) if n.endswith("@0")]
     Z = {k: np.load(p)["phi"][..., inst].astype(np.float32) for k, p in have.items()}
     w = np.where(m, y, 0.0)
     rows = []
-    for va, vb in PAIRS:
+    for va, vb in pairs:
         if va not in Z or vb not in Z:
             continue
         for j, i in enumerate(inst):

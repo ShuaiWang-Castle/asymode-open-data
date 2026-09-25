@@ -137,6 +137,15 @@ open problem this panel exposes.
 
 (Further rows are added as the screens finish.)
 
+Two refinements of the pathway on the same event-grouped design (`results/screen_W1_event_refinements.json`,
+`results/w1_event_refinements_vs_zero.json`): four non-negative load x trigger slots on top of the linear hazard
+(H2q; the framework's chain-reaction form) -0.28% against the base (county [-9.51, +10.42]), and modulators
+normalised to mean one within the county (Hqn; geography only redistributes hazard inside the county) -1.42%
+([-11.10, +9.26]). Both were far ahead after the first two folds (-19.3% and -22.8%) and lost it on the largest
+storm, 2022-02-02 (RMSE 0.0575 and 0.0602 against the base's 0.0342 and the all-zero 0.0297), while fixing the worst
+false alarm of 2018-11-13 (0.0633 and 0.0541 against 0.0884). On eight storms, transfer is storm-dependent and
+erratic for every arm.
+
 Three seeds on folds 1-2 (`results/w1_seeds3_f12.json`): Hq -0.77 / -5.23 / -5.93% (seed-averaged prediction
 -2.79%, county [-9.96, +4.23]); Hp +4.11 / -6.22 / -3.11% (seed-averaged -0.92%, [-8.93, +7.12]). The bands are
 ahead of the plain cells in two of three seeds, inside the noise.
@@ -153,3 +162,29 @@ uneven across events. Decided from the design; no residual was read. By the regi
 independent near-freezing events are needed, no claim either way. The W2d residuals stay unread (the F0 audit of
 W2d, which weights by the observed outages, was computed by the build chain and set aside unread) so that an
 enlarged panel containing W2d can still be the confirmatory test.
+
+## 5. Km-scale weather: HRRR at customer nodes
+
+The audits said the ERA5 route to sub-county geography is nearly empty. The one data upgrade both reviewers named
+as the real test is weather that resolves the county: HRRR (NOAA's 3 km hourly model, public on AWS; only the
+needed GRIB2 records are read by byte range, `build_eih_hrrr.py`). Nodes are (county, HRRR cell) pairs with
+population weights (`build_nodes_hrrr.py`; 592,769 nodes for W1's 1,626 counties, median 222 per county), the
+dictionary, modulators and memory bank are those of the ERA5 variants, and the weather at valid hour t comes from the
+cycle t-1 forecast hour 1 (TMP and DPT at 2 m, surface GUST, 0-1 h APCP, surface CAPE; lapse from HRRR's terrain to the
+node's population-weighted elevation). No HRRR hour was missing for the eight W1 storms.
+
+A column-order bug in the first HRRR build (psi-major columns under modulator-major names) was caught by near-zero
+HRRR-ERA5 correlations; `check_eih_layout.py` (nested gust ramps, modulator ordering) now gates every feature file,
+and every ERA5 file passes it.
+
+**F0 on W1** (`results/F0_w1_hrrr/`): hrrr - pop is material for 34 features, in up to 19.6% of the outage-weighted
+county-hours (gust above 10 m/s), with HRRR-ERA5 correlations of 0.5-0.77 for gust, rain and near-freezing
+precipitation (0.20 for the convective feature); the ERA5 elevation downscaling (quad - pop) reaches 1.9%. The
+sub-county weather content is about ten times the downscaling content; part of it is model difference, not
+resolution.
+
+**Transfer to unseen ice storms** (event-grouped W1, seed 0; `results/screen_W1_event_hrrr.json`,
+`results/w1_event_hrrr_vs_zero.json`): pooled RMSE all-zero 0.0415, base 0.0519, ERA5-band pathway 0.0475, HRRR
+pathway 0.0443: -14.76% against the base (county [-22.53, -6.65], event x state [-29.88, +5.41], 6/8 storms), the best
+transfer of any arm. It beats the all-zero forecast on three storms (2023-01-30, 2023-02-20, 2020-10-25; 2019-02-05 is
+a tie) and still loses on 2018-11-13 and 2022-02-02, so pooled it remains 7% above the null.

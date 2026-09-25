@@ -1,0 +1,8 @@
+--label w1e_H2q --data w1 --arm W+Cin+H2 --phi quad --keep ^(gust|p_tw|convective) --design event --folds 1
+--label w1e_Hqn --data w1 --arm W+Cin+H --phi quadn --keep ^(gust|p_tw|convective) --design event --folds 1
+--label w1e_H2q --data w1 --arm W+Cin+H2 --phi quad --keep ^(gust|p_tw|convective) --design event --folds 2
+--label w1e_Hqn --data w1 --arm W+Cin+H --phi quadn --keep ^(gust|p_tw|convective) --design event --folds 2
+--label w1e_H2q --data w1 --arm W+Cin+H2 --phi quad --keep ^(gust|p_tw|convective) --design event --folds 3
+--label w1e_Hqn --data w1 --arm W+Cin+H --phi quadn --keep ^(gust|p_tw|convective) --design event --folds 3
+--label w1e_H2q --data w1 --arm W+Cin+H2 --phi quad --keep ^(gust|p_tw|convective) --design event --folds 4
+--label w1e_Hqn --data w1 --arm W+Cin+H --phi quadn --keep ^(gust|p_tw|convective) --design event --folds 4
