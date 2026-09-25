@@ -56,7 +56,8 @@ def _moments(a: np.ndarray):
 PERMUTATION_SEED = 20260920
 # local geo-weather mechanism arms (geo_weather_20260924): base + LocalMechanisms(**kwargs) into the first damage
 # layer. The node inputs (nw, na, nr) come from F; their variants (county mean, placebo) are built by the runner.
-HAZARD_ARMS = ("W+Cin+H",)       # exposure-integrated hazard features F["phi"] [U,144,J] as a competing hazard
+HAZARD_ARMS = ("W+Cin+H", "W+Cin+H2")   # exposure-integrated hazard features F["phi"] [U,144,J]; H2 adds slots
+HAZARD_SLOTS = 4
 LR_HAZARD = 0.1 * 3e-3           # slow clock for beta (REVIEW_formal 2.7), fixed from the first run
 MECH_ARMS = {"W+Cin+M": dict(), "W+Cin+M0": dict(), "W+Cin+MP": dict(), "W+Cin+Mw": dict(),
              "W+Cin+M-dz": dict(use_dz=False), "W+Cin+M-can": dict(use_canopy=False)}
@@ -136,6 +137,8 @@ def make_batch(F: dict, idx: np.ndarray, st: dict, nodes: bool = False) -> dict:
     b["y0"] = torch.from_numpy(np.ascontiguousarray(F["y0"][idx].astype(np.float32)))
     b["y"] = torch.from_numpy(np.ascontiguousarray(F["y"][idx].astype(np.float32)))
     b["m"] = torch.from_numpy(np.ascontiguousarray(F["m"][idx].astype(np.float32)))
+    if "m_train" in F:               # training weights (artefact-flagged hours dropped); evaluation keeps b["m"]
+        b["m_train"] = torch.from_numpy(np.ascontiguousarray(F["m_train"][idx].astype(np.float32)))
     if "phi_scale" in st:
         b["phi"] = torch.from_numpy(np.ascontiguousarray(F["phi"][idx].astype(np.float32) * st["phi_scale"]))
     if nodes:                                      # physical units, no standardisation (geo_mech reads them as is)
@@ -165,6 +168,11 @@ class Engine:
             self.model.attach_context_input(N_STATIC)
         if arm in HAZARD_ARMS:
             self.model.attach_hazard(F["phi"].shape[-1])
+        if arm == "W+Cin+H2":
+            names = [str(n) for n in F["phi_names"]]
+            trig = [i for i, n in enumerate(names) if n.endswith("@0")]
+            load = [i for i, n in enumerate(names) if "*one@" in n and not n.endswith("@0")]
+            self.model.attach_hazard_slots(trig, load, HAZARD_SLOTS)
         if arm in MECH_ARMS:
             self.model.attach_mechanisms(LocalMechanisms(**MECH_ARMS[arm]), len(MECH))
             self.model.set_mechanism_scale(self.fit)
@@ -177,8 +185,8 @@ class Engine:
         host, rec = self.model.parameter_groups()
         groups = [dict(params=host, lr=LR_HOST), dict(params=rec, lr=LR_RECOVERY)]
         if arm in HAZARD_ARMS:
-            hb = self.model.haz_beta
-            groups = [dict(params=[p for p in host if p is not hb], lr=LR_HOST), dict(params=[hb], lr=LR_HAZARD),
+            hp = self.model.hazard_params(); ids = {id(p) for p in hp}
+            groups = [dict(params=[p for p in host if id(p) not in ids], lr=LR_HOST), dict(params=hp, lr=LR_HAZARD),
                       dict(params=rec, lr=LR_RECOVERY)]
         if arm == "GCRK-slow":        # PREREG Amendment 9: the conditioning maps take one tenth of the host's step
             k = self.model.kernel
@@ -207,7 +215,7 @@ class Engine:
         self.model.train()
         self.opt.zero_grad(set_to_none=True)
         out = self.model(self.fit)
-        loss = trajectory_loss(out["P"], self.fit["y"], self.fit["m"])
+        loss = trajectory_loss(out["P"], self.fit["y"], self.fit.get("m_train", self.fit["m"]))
         if not torch.isfinite(loss):
             raise RuntimeError("nonfinite training loss")
         loss.backward()
@@ -217,7 +225,8 @@ class Engine:
         self.opt.step()
         if self.model.haz_beta is not None:
             with torch.no_grad():
-                self.model.haz_beta.clamp_(min=0.0)
+                for p in self.model.hazard_params():
+                    p.clamp_(min=0.0)
         self.step += 1
         if k is not None:
             k.training_step.fill_(self.step)

@@ -110,15 +110,18 @@ def relief_donors(nodes: pd.DataFrame, counties: np.ndarray) -> dict:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--variants", nargs="+", default=list(VARIANTS))
+    ap.add_argument("--feat", default=str(FEAT.relative_to(ROOT)), help="feature file (unit order), under the repo root")
+    ap.add_argument("--events-file", default="experiments/open_gcrk_20260919/selected_events_e3.json")
+    ap.add_argument("--tag", default="", help="output eih_<tag><variant>.npz")
     a = ap.parse_args()
-    F = np.load(FEAT)
+    F = np.load(ROOT / a.feat)
     fips_u, ev_u = F["fips"].astype(str), F["event"].astype(str)
     nodes = pd.read_parquet(OUT / "nodes_cs.parquet")
     by = {f: d.reset_index(drop=True) for f, d in nodes.groupby("fips")}
     counties = np.array(sorted(set(fips_u)))
     assert set(counties) <= set(by), "counties without nodes"
     donor = relief_donors(nodes[nodes.fips.isin(set(counties))], counties)
-    sel = {e["event"]: e for e in json.loads((ROOT / "experiments/open_gcrk_20260919/selected_events_e3.json").read_text())["events"]}
+    sel = {e["event"]: e for e in json.loads((ROOT / a.events_file).read_text())["events"]}
     phi = {v: np.zeros((len(fips_u), T - ORIGIN, len(NAMES)), np.float16) for v in a.variants}
     for ev in sorted(set(ev_u)):
         t0 = pd.Timestamp(sel[ev]["window_start_utc"])
@@ -177,11 +180,11 @@ def main():
                     phi[v][u] = integrate(ps, w / w.sum(), modulators(att, leaf))
         print(ev, int((ev_u == ev).sum()), "units", flush=True)
     for v in a.variants:
-        np.savez(OUT / f"eih_{v}.npz", phi=phi[v], names=np.array(NAMES), fips=fips_u, event=ev_u)
+        np.savez(OUT / f"eih_{a.tag}{v}.npz", phi=phi[v], names=np.array(NAMES), fips=fips_u, event=ev_u)
     meta = dict(names=NAMES, variants=a.variants, donor_self_share=float(np.mean([donor[c] == c for c in counties])),
                 active_share={v: np.round((phi[v].astype(np.float32) > 1e-4).mean((0, 1))[:len(PSI) * len(MOD)], 3).tolist()
                               for v in a.variants})
-    (HERE / "data_provenance" / "eih.json").write_text(json.dumps(meta, indent=1) + "\n")
+    (HERE / "data_provenance" / f"eih{('_' + a.tag.rstrip('_')) if a.tag else ''}.json").write_text(json.dumps(meta, indent=1) + "\n")
     print("saved", {v: phi[v].shape for v in a.variants})
 
 

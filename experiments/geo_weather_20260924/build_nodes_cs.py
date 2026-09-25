@@ -101,7 +101,7 @@ def main():
     C = BG.counties()
     jobs = [(f, C.geometry[f], zc) for f in fips]
     parts, missing = [], []
-    with ProcessPoolExecutor(3, initializer=SN._init) as ex:
+    with ProcessPoolExecutor(2, initializer=SN._init) as ex:
         for n, (f, r) in enumerate(ex.map(one, jobs, chunksize=8), 1):
             (missing.append(f) if r is None else parts.append(r))
             if n % 300 == 0:

@@ -1,0 +1,8 @@
+--label w1_base --data w1 --arm W+Cin --folds 1
+--label w1_base --data w1 --arm W+Cin --folds 2
+--label w1_H_quad --data w1 --arm W+Cin+H --phi quad --folds 1
+--label w1_H_quad --data w1 --arm W+Cin+H --phi quad --folds 2
+--label w1_H_pop --data w1 --arm W+Cin+H --phi pop --folds 1
+--label w1_H_pop --data w1 --arm W+Cin+H --phi pop --folds 2
+--label w1_H_other --data w1 --arm W+Cin+H --phi other --folds 1
+--label w1_H_other --data w1 --arm W+Cin+H --phi other --folds 2

@@ -1,0 +1,2 @@
+--label clean_placebo --data e3r2 --arm W+Cin --train-mask --mask-placebo --folds 1
+--label clean_placebo --data e3r2 --arm W+Cin --train-mask --mask-placebo --folds 2

@@ -69,3 +69,15 @@ def test_hazard_arm_starts_at_its_base_and_gets_gradient():
     y = torch.rand(5, 144) * 0.5
     ((arm(b)["P"] - y) ** 2).mean().backward()
     assert arm.haz_beta.grad is not None and (arm.haz_beta.grad.abs() > 0).all()
+
+
+def test_hazard_slots_start_at_base_and_get_gradient():
+    torch.manual_seed(3)
+    b = dict(xu=torch.randn(5, 216, 7), xr=torch.randn(5, 216, 6), xo=torch.randn(5, 216, 3),
+             y0=torch.rand(5) * 0.1, ctx=torch.randn(5, 2), phi=torch.rand(5, 144, 6))
+    torch.manual_seed(11); base = AsymODE(7, 6, 3); base.attach_context_input(2)
+    torch.manual_seed(11); arm = AsymODE(7, 6, 3); arm.attach_context_input(2); arm.attach_hazard(6)
+    arm.attach_hazard_slots([0, 1, 2], [3, 4], 2)
+    assert torch.equal(base(b)["P"], arm(b)["P"])
+    ((arm(b)["P"] - torch.rand(5, 144) * 0.5) ** 2).mean().backward()
+    assert (arm.haz_a.grad.abs() > 0).all()

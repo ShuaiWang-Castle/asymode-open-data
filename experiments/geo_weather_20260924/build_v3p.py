@@ -95,14 +95,14 @@ def panel(event: str, t0: pd.Timestamp, w: pd.DataFrame) -> dict:
                 era5_files=np.array(names))
 
 
-def features(events: list[dict]) -> dict:
+def features(events: list[dict], prefix: str = "panel216v3p") -> dict:
     geo = pd.read_parquet(BF.OUT / "geography_e3.parquet")
     geo_cols = [c for c in geo.columns if c != "n_land_pixels"]
     geo = geo.join(pd.read_parquet(BF.OUT / "geography_ext_e3.parquet")[BF.GEO_EXT], how="left")
     geo_cols = geo_cols + BF.GEO_EXT
     parts = {k: [] for k in ("xu", "xr", "xo", "geo", "y0", "y", "m", "y_full", "obs_full", "cust", "fips", "event")}
     for e in events:                                   # as build_features_r2.main, from the v3p panels
-        z = np.load(OUT / f"panel216v3p_{e['event']}.npz")
+        z = np.load(OUT / f"{prefix}_{e['event']}.npz")
         fips = [str(f) for f in z["fips"]]
         X, Xn = z["X"].astype(np.float64), z["X_nbr"].astype(np.float64)
         assert list(z["channels"]) == BF.CH

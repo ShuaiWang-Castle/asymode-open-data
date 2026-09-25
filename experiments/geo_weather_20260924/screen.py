@@ -29,7 +29,10 @@ from asymode import gcrk_train as G  # noqa: E402
 RUNS = ROOT / "runs" / "geo_weather_20260924"
 SPLITS = ROOT / "experiments" / "open_gcrk_20260919" / "splits_e3r2.json"
 DATA = {"e3r2": ROOT / "data" / "interim" / "open_gcrk" / "features_e3r2.npz",
-        "v3p": ROOT / "data" / "interim" / "geo_weather" / "features_v3p.npz"}
+        "v3p": ROOT / "data" / "interim" / "geo_weather" / "features_v3p.npz",
+        "w1": ROOT / "data" / "interim" / "geo_weather" / "features_w1.npz"}
+SPLIT_FILES = {"e3r2": SPLITS, "v3p": SPLITS, "w1": HERE / "splits_w1.json"}
+PANEL = {"e3r2": "", "v3p": "", "w1": "w1_"}           # prefix of the panel's eih_ and train_mask files
 
 
 def load(data: str) -> dict:
@@ -56,6 +59,8 @@ def main():
     ap.add_argument("--arm", default="W+Cin")
     ap.add_argument("--phi", default=None, help="exposure-integrated hazard variant (arm W+Cin+H)")
     ap.add_argument("--keep", default=None, help="regex on hazard feature names")
+    ap.add_argument("--train-mask", action="store_true", help="drop EAGLE-I artefact-flagged hours from the training loss")
+    ap.add_argument("--mask-placebo", action="store_true", help="with --train-mask: the matched random placebo mask")
     ap.add_argument("--folds", nargs="+", type=int, default=[1, 2])
     ap.add_argument("--steps", type=int, default=900)
     ap.add_argument("--seed", type=int, default=0)
@@ -64,8 +69,13 @@ def main():
     torch.set_num_threads(a.threads)
     F = load(a.data)
     if a.phi:
-        F = attach_phi(F, a.phi, a.keep)
-    sp = json.loads(SPLITS.read_text())
+        F = attach_phi(F, PANEL[a.data] + a.phi, a.keep)
+    if a.train_mask:
+        tm = ("train_mask_e3" if PANEL[a.data] == "" else f"train_mask_{PANEL[a.data].rstrip('_')}") + \
+             ("_placebo" if a.mask_placebo else "") + ".npz"
+        F = dict(F); F["m_train"] = np.load(ROOT / "data" / "interim" / "geo_weather" / tm)["m_train"]
+        assert F["m_train"].shape == F["m"].shape and (F["m_train"] <= F["m"]).all()
+    sp = json.loads(SPLIT_FILES[a.data].read_text())
     assert sp["n_units"] == len(F["fips"])
     for k in a.folds:
         out = RUNS / a.label / f"fold{k:02d}"
@@ -84,7 +94,7 @@ def main():
             beta = e.model.haz_beta.detach().numpy()
             top = np.argsort(-beta)[:12]
             extra = dict(beta_nonzero=int((beta > 0).sum()), beta_top={str(F["phi_names"][i]): float(beta[i]) for i in top})
-        (out / "DONE.json").write_text(json.dumps(dict(label=a.label, data=a.data, arm=a.arm, phi=a.phi, keep=a.keep, fold=k,
+        (out / "DONE.json").write_text(json.dumps(dict(label=a.label, data=a.data, arm=a.arm, phi=a.phi, keep=a.keep, train_mask=a.train_mask, mask_placebo=a.mask_placebo, fold=k,
                                                        steps=a.steps, seed=a.seed, fit_loss=e.last_loss,
                                                        seconds=round(time.time() - t0, 1), **extra), indent=1) + "\n")
         log(f"done in {time.time() - t0:.0f} s, fit loss {e.last_loss:.4e}")

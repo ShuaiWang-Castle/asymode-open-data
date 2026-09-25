@@ -1,0 +1,10 @@
+--label clean_e3r2 --data e3r2 --arm W+Cin --train-mask --folds 1
+--label clean_e3r2 --data e3r2 --arm W+Cin --train-mask --folds 2
+--label H_quad --data e3r2 --arm W+Cin+H --phi quad --folds 1
+--label H_quad --data e3r2 --arm W+Cin+H --phi quad --folds 2
+--label H_pop --data e3r2 --arm W+Cin+H --phi pop --folds 1
+--label H_pop --data e3r2 --arm W+Cin+H --phi pop --folds 2
+--label H_area --data e3r2 --arm W+Cin+H --phi area --folds 1
+--label H_area --data e3r2 --arm W+Cin+H --phi area --folds 2
+--label H_mean --data e3r2 --arm W+Cin+H --phi mean --folds 1
+--label H_mean --data e3r2 --arm W+Cin+H --phi mean --folds 2

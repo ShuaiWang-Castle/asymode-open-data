@@ -124,7 +124,7 @@ class AsymODE(nn.Module):
         self.background = nn.Linear(d_u, 1)
         self.level, self.level_source, self.ctx_in = None, None, None
         self.mech, self.mech_in = None, None
-        self.haz_beta = None
+        self.haz_beta, self.haz_a, self.haz_b = None, None, None
         with torch.no_grad():
             self.damage[-1].bias.fill_(u_bias_init)
             self.smoother.weight.zero_()
@@ -210,6 +210,29 @@ class AsymODE(nn.Module):
         self.haz_beta = nn.Parameter(torch.zeros(d_phi))
         return self.haz_beta
 
+    def attach_hazard_slots(self, trig_idx, load_idx, slots: int):
+        """Load x trigger slots on top of the linear hazard (DESIGN v1 section 4): slot r adds
+        (a_r . phi_trig)(b_r . [1, phi_load]) with a_r, b_r >= 0; a = 0 and b = (1, 0, ..., 0) at the start, so the
+        arm equals its base at step 0 and d/d a_r = phi_trig there (no saddle)."""
+        assert self.haz_beta is not None, "attach_hazard first"
+        self.register_buffer("haz_trig", torch.as_tensor(trig_idx, dtype=torch.long))
+        self.register_buffer("haz_load", torch.as_tensor(load_idx, dtype=torch.long))
+        self.haz_a = nn.Parameter(torch.zeros(slots, len(trig_idx)))
+        b = torch.zeros(slots, 1 + len(load_idx)); b[:, 0] = 1.0
+        self.haz_b = nn.Parameter(b)
+        return self.haz_a, self.haz_b
+
+    def hazard_params(self):
+        return [p for p in (self.haz_beta, self.haz_a, self.haz_b) if p is not None]
+
+    def hazard(self, phi: torch.Tensor) -> torch.Tensor:
+        lam = phi @ self.haz_beta
+        if self.haz_a is not None:
+            trig = phi[..., self.haz_trig] @ self.haz_a.T                                  # [B, T, R]
+            load = torch.cat([torch.ones_like(phi[..., :1]), phi[..., self.haz_load]], -1) @ self.haz_b.T
+            lam = lam + (trig * load).sum(-1)
+        return lam
+
     def hidden(self, xu: torch.Tensor, ctx: torch.Tensor | None = None, mech: torch.Tensor | None = None) -> torch.Tensor:
         a1 = self.damage[0](xu)
         if self.ctx_in is not None:
@@ -243,7 +266,7 @@ class AsymODE(nn.Module):
         u = torch.clamp(gate * cond + bkg, 0.0, U_CAP + BKG_CAP)
         if self.haz_beta is not None:
             cap = U_CAP + BKG_CAP
-            lam = b["phi"] @ self.haz_beta                                     # [B, 144], >= 0
+            lam = self.hazard(b["phi"])                                          # [B, 144], >= 0
             u = u - (cap - u) * torch.expm1(-lam)                              # = cap - (cap - u) exp(-lam)
         p = stock_path(u.contiguous(), r.contiguous(), b["y0"].contiguous())
         out = dict(P=p, u=u, r=r, gate=gate, background=bkg, conditional=cond,
