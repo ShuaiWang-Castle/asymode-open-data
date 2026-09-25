@@ -42,3 +42,29 @@ the cells without bands, both population-weighted.
 
 H1a not passing with >= 20 effective clusters; or H1b's quad arm not beating its pop twin (the elevation bands add
 nothing beyond the cell-level feature); or a gain that appears only in the county-grouped design.
+
+## Amendment 1 (2026-09-25 05:40, before any W2 panel or outcome; after the formal contributor's checklist)
+
+1. **Disjoint from W1.** The feature was chosen on W1, so the confirmatory panel W2 excludes W1's eight events
+   (overlap would carry the winner's curse). W1 + W2 pooled is secondary only. Disjoint candidates under the rule
+   above: 2018-02-19, 2019-01-10, 2020-11-09, 2020-12-30, 2022-02-22 (Storm Events 2018-2024 on disk), plus the
+   2025 episodes with >= 20 counties (2025-01-03, 2025-03-28; EAGLE-I 2025 is public on figshare), plus 2014-2017
+   episodes once those Storm Events years are added with the same code. Seven known so far.
+2. **Feature frozen:** variant quad against pop (contrast C1), hat centre -1.5 C, half-width 1.5 C, unit-gain
+   exponential filter tau = 48 h, modulator one, as in build_eih.py at commit 6a9aa5a; test code audit_f1.py at
+   commit 6a9aa5a plus its announced --single mode.
+3. **Base frozen:** W+Cin, 900 steps, seed 0, county-grouped main design of W2 (five outer folds, seed 20260919);
+   out-of-fold predictions of one seed.
+4. **Statistic:** one-sided (positive), alpha 0.05, a single test; nuisance = event x state x relief-tercile blocks
+   + base window-mean prediction + log customers + the pop variant's own window-mean intensity of the feature.
+5. **Eligibility (decided before reading):** >= 20 effective clusters at event x state and at county level, and
+   >= 8 effective events (G_eff,event, as audit_f1 counts it); the exact event sign-flip p is reported beside the
+   multiplier p, and a pass needs both below 0.05. Otherwise the result is "not testable".
+6. **Null rule:** if the synthetic-field false-positive rate of this single test exceeds 0.10, the synthetic-field
+   p replaces the multiplier p (as in F1).
+7. **Power before outcomes:** plant the feature's effect in W2 at half of W1's descriptive part correlation
+   (0.045) and require power >= 0.8 under this design; otherwise W2 is declared uninformative before reading.
+8. **Decision table:** pass -> the elevation-phase channel is supported on independent events and H1b (trained,
+   seeds 0-2, event-grouped) is run; fail with power >= 0.8 -> the channel is absent at a size that matters on
+   ice storms too, and the framework's claim rests on its interface and audits only; not testable -> more
+   independent near-freezing events are needed, no claim either way.
