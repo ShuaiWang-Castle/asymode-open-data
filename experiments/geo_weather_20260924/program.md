@@ -31,6 +31,10 @@ exactly the county x event residual, and it is not recoverable from county means
 3a. (Added 2026-09-25 after the cleaning screen: -2.66% on folds 1-2, -0.36% on folds 1-4.) A screen keep, and its placebo, share the screen's two folds, so a keep is provisional until the other three folds (or a second seed on all five) agree; only then is it called a gain.
 3. Survivors go to the full protocol (five folds, inner early stopping, refit) before any claim; several
    seeds only after a clear single-seed gain.
+3b. (Added 2026-09-26 with DATASET_DESIGN v1 section 9.2; replaces rules 1-3 on the designed panel.) The metric is the
+   regime-balanced skill of DATASET_DESIGN section 1, on event folds. A single-seed five-fold screen may discard, never
+   keep; a keep needs three seeds (seed-averaged predictions) on all five folds beside its twin; a confirmation uses
+   five seeds on all of development; the seed count is recalibrated by the Stage 0 A/A run.
 4. Immutable: targets, masks, folds, the evaluation code, the outer split. The data pipeline is
    versioned (data_v3, ...): a new version is a new directory, never an in-place edit.
 5. Every attempt gets a line in RESEARCH_LOG.md (hypothesis, change, result, keep/discard, file).

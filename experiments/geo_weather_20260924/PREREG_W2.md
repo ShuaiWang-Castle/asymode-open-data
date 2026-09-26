@@ -230,3 +230,14 @@ only adds a condition, so seeds 1-2 cannot change the verdict (the PI paused the
 fold 1 complete). No forecast gain from the HRRR weather source is claimed. Recorded beside it, single seed and not a
 claim: both pathways (HRRR and ERA5 features) are about 1.6% below the host with county intervals below zero and
 event intervals touching zero.
+
+## Amendment 8 (2026-09-26 04:44 EDT): H1a withdrawn; H2b closed
+
+* **H1a is withdrawn.** It stayed open for a larger panel of near-freezing winter storms with the registered criteria
+  unchanged (outcomes on W2d and W2e). DATASET_DESIGN v1 builds a different panel: warning-based systems of five regimes,
+  different gates, winter storms of 2018-07 onwards. It is not that enlargement, and the programme no longer tests
+  single features confirmatorily. C10 stays unproven. The W2d and W2e alignments of C1 stay unread. Reopening H1a needs
+  a new registration.
+* **H2b is closed.** It failed at seed 0 by amendment 6's rule (outcome of H2b), and amendment 7 only adds a condition,
+  so the verdict is final. The seed-1 fold-1 runs (complete) and the removed fold-2 runs are not part of any test; they
+  stay unread.

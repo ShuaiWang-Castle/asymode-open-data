@@ -13,6 +13,7 @@ into another idea).
 | I06 | Load x trigger slots (chain reactions) | active, untested at scale | W1 event-grouped single seed: -0.28% vs base |
 | I07 | Within-county normalised susceptibility | parked | W1 single seed -1.42%; no fingerprinting by construction |
 | I08 | Target cleaning of EAGLE-I artefacts | abandoned as a gain | C03 |
-| I09 | Stratified, warning-based episode panel for the whole system | active (design) | DATASET_DESIGN v0, under review |
+| I09 | Designed panel of parent weather systems for the whole system | active (design registered) | DATASET_DESIGN v1: five regimes, sealed confirmation tranche, pre-window gates, near-miss controls, regime-balanced estimand |
 | I10 | Remove the bound on GCRK's opening (beta = alpha instead of tanh(alpha)); and the non-negativity clip of the EIH coefficients (signed hazard) | active (PI request 2026-09-26) | to test on the new panel with three seeds |
 | I11 | Host peak magnitude (predicted peaks 0.18x observed above 20%) | active | the largest error budget (notes/DATA_PATTERNS.md) |
+| I12 | Hazard dictionary for every regime (local gust exceedance, phase-resolved precipitation, temperature-gated loads, node-level compound products, antecedent wetness, convective organisation) | active (design) | from the physical review of the panel design (contrib/REVIEW_dataset_physics.md section 5) |

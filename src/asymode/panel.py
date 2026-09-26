@@ -14,7 +14,10 @@ The rule used here, stated so it can be argued with:
      a timestamp with national records is one where collection happened.
   2. A county is *in service* on a day if it has at least one record within a
      window of +/- `service_days` around that day. A county that never reports
-     across a fortnight is treated as unobserved, not as quiet.
+     across a fortnight is treated as unobserved, not as quiet. (This centred rule
+     reads up to a week of the forecast window, so it selects quiet counties out;
+     `service_rule="pre_window"` decides service from the 30 days before the
+     window starts, see experiments/geo_weather_20260924/DATASET_DESIGN.md.)
   3. A cell that is missing, at a collection-run timestamp, in a county that is in
      service, is a true zero.
   4. Everything else is left missing and carried as an explicit mask. It is never
@@ -48,9 +51,23 @@ def in_service(df: pd.DataFrame, service_days: int = 7) -> pd.DataFrame:
     return near
 
 
+def in_service_before(df: pd.DataFrame, before, fips: list[str], lookback_days: int = 30) -> pd.Series:
+    """Outcome-independent service status (DATASET_DESIGN v1, gate G3): a county is in service for the whole window
+    if it has at least one positive record in the `lookback_days` before `before` (the start of the window, so the
+    prefix is not read either). Explicit zero rows (published from 2022) and blank counts do not count as records, so
+    the rule means the same in every year. Unlike the centred rule it never reads the forecast window, so quiet
+    counties are not dropped for being quiet."""
+    before = pd.Timestamp(before)
+    past = df[(df["ts"] >= before - pd.Timedelta(days=lookback_days)) & (df["ts"] < before)]
+    past = past[past["customers_out"].fillna(0) > 0]
+    seen = set(past["fips"].unique())
+    return pd.Series([f in seen for f in fips], index=fips)
+
+
 def build_panel(df: pd.DataFrame, t0, t1, fips: list[str] | None = None,
                 freq: str = "15min", service_days: int = 7,
-                min_counties: int = 5) -> dict:
+                min_counties: int = 5, service_rule: str = "centred",
+                lookback_days: int = 30) -> dict:
     """Dense (county x time) arrays of outage counts and an observation mask.
 
     Returns `fips`, `ts`, `counts` (float, NaN where unobserved) and `observed`
@@ -69,12 +86,16 @@ def build_panel(df: pd.DataFrame, t0, t1, fips: list[str] | None = None,
                                 min_counties=min_counties)
     ts_ran = pd.Index(ts).isin(ran)
 
-    svc = in_service(df[(df["ts"] >= t0 - pd.Timedelta(days=service_days + 1)) &
-                        (df["ts"] <= t1 + pd.Timedelta(days=service_days + 1))],
-                     service_days=service_days)
-    svc = svc.reindex(columns=fips, fill_value=False)
-    day_of = pd.Index(ts).floor("D")
-    svc_ct = svc.reindex(index=day_of, fill_value=False).to_numpy().T   # (C, T)
+    if service_rule == "pre_window":      # reads only the 30 days before t0 (DATASET_DESIGN v1, G3)
+        s_pre = in_service_before(df, t0, fips, lookback_days).to_numpy()
+        svc_ct = np.repeat(s_pre[:, None], len(ts), 1)
+    else:                                 # the original centred +-service_days rule
+        svc = in_service(df[(df["ts"] >= t0 - pd.Timedelta(days=service_days + 1)) &
+                            (df["ts"] <= t1 + pd.Timedelta(days=service_days + 1))],
+                         service_days=service_days)
+        svc = svc.reindex(columns=fips, fill_value=False)
+        day_of = pd.Index(ts).floor("D")
+        svc_ct = svc.reindex(index=day_of, fill_value=False).to_numpy().T   # (C, T)
 
     fi = {f: i for i, f in enumerate(fips)}
     ti = {t: i for i, t in enumerate(ts)}
