@@ -1,0 +1,198 @@
+{
+ "status": "POST_HOC_AFTER_INDEPENDENT_REVIEW",
+ "completeness": {
+  "expected": 5760,
+  "missing": 0,
+  "incomplete_or_nonfinite": 0,
+  "examples": []
+ },
+ "A8192": {
+  "K8_triggered": false,
+  "K8_reason": "passed",
+  "K7_triggered": false,
+  "winners_feedback_cells": {
+   "NET": 10,
+   "ASYM": 2
+  },
+  "resolved_winners": {
+   "NET": 10,
+   "ASYM": 0
+  },
+  "table": [
+   {
+    "predictor": "envelope (registered)",
+    "MAE_all_feedback_cells_1e-6": 4.560744666666668,
+    "resolved_correct": 10,
+    "resolved": 10
+   },
+   {
+    "predictor": "classical x_Q - S (registered)",
+    "MAE_all_feedback_cells_1e-6": 22.727630416666663,
+    "resolved_correct": 6,
+    "resolved": 10
+   },
+   {
+    "predictor": "-S",
+    "MAE_all_feedback_cells_1e-6": 7.782107249999999,
+    "resolved_correct": 10,
+    "resolved": 10
+   },
+   {
+    "predictor": "-(S+F)",
+    "MAE_all_feedback_cells_1e-6": 7.31042825,
+    "resolved_correct": 10,
+    "resolved": 10
+   },
+   {
+    "predictor": "no-feedback offset - S",
+    "MAE_all_feedback_cells_1e-6": 7.1913092500000015,
+    "resolved_correct": 10,
+    "resolved": 10
+   },
+   {
+    "predictor": "no-feedback offset - (S+F)",
+    "MAE_all_feedback_cells_1e-6": 6.719630250000001,
+    "resolved_correct": 10,
+    "resolved": 10
+   },
+   {
+    "predictor": "always NET (sign only)",
+    "MAE_all_feedback_cells_1e-6": null,
+    "resolved_correct": 10,
+    "resolved": 10
+   },
+   {
+    "predictor": "always ASYM (sign only)",
+    "MAE_all_feedback_cells_1e-6": null,
+    "resolved_correct": 0,
+    "resolved": 10
+   }
+  ]
+ },
+ "B32768": {
+  "K8_triggered": false,
+  "K8_reason": "passed",
+  "K7_triggered": false,
+  "winners_feedback_cells": {
+   "NET": 9,
+   "ASYM": 3
+  },
+  "resolved_winners": {
+   "NET": 8,
+   "ASYM": 0
+  },
+  "table": [
+   {
+    "predictor": "envelope (registered)",
+    "MAE_all_feedback_cells_1e-6": 1.767003916666667,
+    "resolved_correct": 8,
+    "resolved": 8
+   },
+   {
+    "predictor": "classical x_Q - S (registered)",
+    "MAE_all_feedback_cells_1e-6": 12.711306833333333,
+    "resolved_correct": 6,
+    "resolved": 8
+   },
+   {
+    "predictor": "-S",
+    "MAE_all_feedback_cells_1e-6": 3.1672269999999996,
+    "resolved_correct": 8,
+    "resolved": 8
+   },
+   {
+    "predictor": "-(S+F)",
+    "MAE_all_feedback_cells_1e-6": 3.1672269999999996,
+    "resolved_correct": 8,
+    "resolved": 8
+   },
+   {
+    "predictor": "no-feedback offset - S",
+    "MAE_all_feedback_cells_1e-6": 3.0775764166666657,
+    "resolved_correct": 8,
+    "resolved": 8
+   },
+   {
+    "predictor": "no-feedback offset - (S+F)",
+    "MAE_all_feedback_cells_1e-6": 3.0775764166666657,
+    "resolved_correct": 8,
+    "resolved": 8
+   },
+   {
+    "predictor": "always NET (sign only)",
+    "MAE_all_feedback_cells_1e-6": null,
+    "resolved_correct": 8,
+    "resolved": 8
+   },
+   {
+    "predictor": "always ASYM (sign only)",
+    "MAE_all_feedback_cells_1e-6": null,
+    "resolved_correct": 0,
+    "resolved": 8
+   }
+  ]
+ },
+ "B8192": {
+  "K8_triggered": false,
+  "K8_reason": "passed",
+  "K7_triggered": false,
+  "winners_feedback_cells": {
+   "NET": 9,
+   "ASYM": 3
+  },
+  "resolved_winners": {
+   "NET": 8,
+   "ASYM": 2
+  },
+  "table": [
+   {
+    "predictor": "envelope (registered)",
+    "MAE_all_feedback_cells_1e-6": 3.5590644166666667,
+    "resolved_correct": 10,
+    "resolved": 10
+   },
+   {
+    "predictor": "classical x_Q - S (registered)",
+    "MAE_all_feedback_cells_1e-6": 12.1926755,
+    "resolved_correct": 5,
+    "resolved": 10
+   },
+   {
+    "predictor": "-S",
+    "MAE_all_feedback_cells_1e-6": 4.935427499999999,
+    "resolved_correct": 8,
+    "resolved": 10
+   },
+   {
+    "predictor": "-(S+F)",
+    "MAE_all_feedback_cells_1e-6": 4.935427499999999,
+    "resolved_correct": 8,
+    "resolved": 10
+   },
+   {
+    "predictor": "no-feedback offset - S",
+    "MAE_all_feedback_cells_1e-6": 5.09063,
+    "resolved_correct": 8,
+    "resolved": 10
+   },
+   {
+    "predictor": "no-feedback offset - (S+F)",
+    "MAE_all_feedback_cells_1e-6": 5.09063,
+    "resolved_correct": 8,
+    "resolved": 10
+   },
+   {
+    "predictor": "always NET (sign only)",
+    "MAE_all_feedback_cells_1e-6": null,
+    "resolved_correct": 8,
+    "resolved": 10
+   },
+   {
+    "predictor": "always ASYM (sign only)",
+    "MAE_all_feedback_cells_1e-6": null,
+    "resolved_correct": 2,
+    "resolved": 10
+   }
+  ]
+ }
+}

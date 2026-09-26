@@ -1,0 +1,12 @@
+{
+  "protocol": "Generality run (experiment plan, revision 3): law B, recovery mobilisation, restore probability R(1 + eta K/M).\n\nSame design as B4' otherwise: H24, M16, L32, U .06, R .20, two forcing paths, training K {0,4,8,12}, interpolation\nK {2,6,10,14}, rho {0,1}, 40 replications, validation n/4. The stored panels hold MAX_N = 1024 training panels, so the\nruns use the prefixes n = 64 and n = 1024. Law A reuses the B4' data (gamma indices 0..3).\n",
+  "eta": [
+    0.0,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "reps": 40,
+  "seed": 20260927,
+  "source_sha256": "5815e81e0d675226e331e3d73a99f98eb45744634163a82b24906ba547fc2b9e"
+}

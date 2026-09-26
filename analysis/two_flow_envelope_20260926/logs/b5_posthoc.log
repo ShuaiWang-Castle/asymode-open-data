@@ -1,0 +1,32 @@
+completeness: 5760 fits expected, 0 missing, 0 incomplete or non-finite
+== A8192: K7 False; K8 False (passed); feedback cells NET-better 10/12; resolved 10 (NET 10, ASYM 0)
+                     predictor  MAE_all_feedback_cells_1e-6  resolved_correct  resolved
+         envelope (registered)                        4.561                10        10
+classical x_Q - S (registered)                       22.728                 6        10
+                            -S                        7.782                10        10
+                        -(S+F)                        7.310                10        10
+        no-feedback offset - S                        7.191                10        10
+    no-feedback offset - (S+F)                        6.720                10        10
+        always NET (sign only)                          NaN                10        10
+       always ASYM (sign only)                          NaN                 0        10
+== B32768: K7 False; K8 False (passed); feedback cells NET-better 9/12; resolved 8 (NET 8, ASYM 0)
+                     predictor  MAE_all_feedback_cells_1e-6  resolved_correct  resolved
+         envelope (registered)                        1.767                 8         8
+classical x_Q - S (registered)                       12.711                 6         8
+                            -S                        3.167                 8         8
+                        -(S+F)                        3.167                 8         8
+        no-feedback offset - S                        3.078                 8         8
+    no-feedback offset - (S+F)                        3.078                 8         8
+        always NET (sign only)                          NaN                 8         8
+       always ASYM (sign only)                          NaN                 0         8
+== B8192: K7 False; K8 False (passed); feedback cells NET-better 9/12; resolved 10 (NET 8, ASYM 2)
+                     predictor  MAE_all_feedback_cells_1e-6  resolved_correct  resolved
+         envelope (registered)                        3.559                10        10
+classical x_Q - S (registered)                       12.193                 5        10
+                            -S                        4.935                 8        10
+                        -(S+F)                        4.935                 8        10
+        no-feedback offset - S                        5.091                 8        10
+    no-feedback offset - (S+F)                        5.091                 8        10
+        always NET (sign only)                          NaN                 8        10
+       always ASYM (sign only)                          NaN                 2        10
+nice -n 5 python3.11 source/b5_posthoc.py  4.25s user 0.88s system 68% cpu 7.542 total

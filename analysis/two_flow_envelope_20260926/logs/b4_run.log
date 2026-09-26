@@ -3,3 +3,6 @@ B4' finished 2026-09-26T09:46:28Z status=0 fits=    4320
 B4'-S launch 2026-09-26T09:49:18Z workers=6
 B4'-S finished 2026-09-26T14:15:17Z status=0 fits=    2160
 B5 launch 2026-09-26T14:20:38Z workers=6
+B5 finished 2026-09-26T19:48:18Z status=1 fits=    4844
+B5 launch 2026-09-26T19:48:28Z workers=6
+B5 finished 2026-09-26T23:44:49Z status=0 fits=    5760

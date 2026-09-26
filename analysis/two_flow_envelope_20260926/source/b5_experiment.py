@@ -92,7 +92,8 @@ def main():
     if args.profile:
         jobs = [('B', 8192, 2, 0, 1024, 0, k) for k in KINDS]
     else:
-        jobs = [j for i, j in enumerate(jobs) if i % args.workers == args.worker]
+        # complete (NET, ASYM, ASYM_STATE) triplets per worker, so the slow state-reading fits are spread evenly
+        jobs = [j for i, j in enumerate(jobs) if (i // len(KINDS)) % args.workers == args.worker]
     cache = {}
     for job in jobs:
         law, target, fi, ri, n, rep, kind = job
