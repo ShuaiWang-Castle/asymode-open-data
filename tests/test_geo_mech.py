@@ -91,3 +91,25 @@ def test_expanded_damage_inputs_start_at_base():
     torch.manual_seed(11); base = AsymODE(7, 6, 3); base.attach_context_input(2)
     torch.manual_seed(11); arm = AsymODE(7, 6, 3); arm.expand_damage_inputs(3); arm.attach_context_input(2)
     assert torch.equal(base(b)["P"], arm(b2)["P"])
+
+
+def test_signed_hazard_starts_near_base_and_can_lower_the_rate():
+    torch.manual_seed(3)
+    b = dict(xu=torch.randn(5, 216, 7), xr=torch.randn(5, 216, 6), xo=torch.randn(5, 216, 3),
+             y0=torch.rand(5) * 0.1, ctx=torch.randn(5, 2), phi=torch.rand(5, 144, 4))
+    torch.manual_seed(11); base = AsymODE(7, 6, 3); base.attach_context_input(2)
+    torch.manual_seed(11); arm = AsymODE(7, 6, 3); arm.attach_context_input(2); arm.attach_hazard(4); arm.haz_signed = True
+    assert torch.allclose(base(b)["P"], arm(b)["P"], atol=1e-6)
+    with torch.no_grad():
+        arm.haz_beta.fill_(-1.0)
+    assert (arm(b)["u"] <= base(b)["u"] + 1e-7).all()
+
+
+def test_gcrk_open_has_no_bound():
+    from asymode.gcrk import GCRKLayer
+    lin = torch.nn.Linear(8, 8)
+    k = GCRKLayer(lin, torch.zeros(3))
+    with torch.no_grad():
+        k.alpha.fill_(3.0)
+    k.bounded_opening = False
+    assert float(k.alpha) == 3.0 and k.bounded_opening is False

@@ -125,6 +125,7 @@ class AsymODE(nn.Module):
         self.level, self.level_source, self.ctx_in = None, None, None
         self.mech, self.mech_in = None, None
         self.haz_beta, self.haz_a, self.haz_b = None, None, None
+        self.haz_signed = False           # True: signed coefficients, a logit shift of the damage rate
         with torch.no_grad():
             self.damage[-1].bias.fill_(u_bias_init)
             self.smoother.weight.zero_()
@@ -282,8 +283,12 @@ class AsymODE(nn.Module):
         u = torch.clamp(gate * cond + bkg, 0.0, U_CAP + BKG_CAP)
         if self.haz_beta is not None:
             cap = U_CAP + BKG_CAP
-            lam = self.hazard(b["phi"])                                          # [B, 144], >= 0
-            u = u - (cap - u) * torch.expm1(-lam)                              # = cap - (cap - u) exp(-lam)
+            lam = self.hazard(b["phi"])                                          # [B, 144]
+            if self.haz_signed:           # no clip on the coefficients: raise or lower the damage rate in logit space
+                q = (u / cap).clamp(1e-6, 1 - 1e-6)
+                u = cap * torch.sigmoid(torch.logit(q) + lam)
+            else:
+                u = u - (cap - u) * torch.expm1(-lam)                          # = cap - (cap - u) exp(-lam), lam >= 0
         p = stock_path(u.contiguous(), r.contiguous(), b["y0"].contiguous())
         out = dict(P=p, u=u, r=r, gate=gate, background=bkg, conditional=cond,
                    raw_logit=raw, logit=logit, forget=forget)

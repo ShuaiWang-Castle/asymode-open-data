@@ -56,7 +56,7 @@ def _moments(a: np.ndarray):
 PERMUTATION_SEED = 20260920
 # local geo-weather mechanism arms (geo_weather_20260924): base + LocalMechanisms(**kwargs) into the first damage
 # layer. The node inputs (nw, na, nr) come from F; their variants (county mean, placebo) are built by the runner.
-HAZARD_ARMS = ("W+Cin+H", "W+Cin+H2")   # exposure-integrated hazard features F["phi"] [U,144,J]; H2 adds slots
+HAZARD_ARMS = ("W+Cin+H", "W+Cin+H2", "W+Cin+Hs")   # EIH features F["phi"] [U,144,J]; H2 slots; Hs signed
 HAZARD_SLOTS = 4
 LR_HAZARD = 0.1 * 3e-3           # slow clock for beta (REVIEW_formal 2.7), fixed from the first run
 MECH_ARMS = {"W+Cin+M": dict(), "W+Cin+M0": dict(), "W+Cin+MP": dict(), "W+Cin+Mw": dict(),
@@ -156,7 +156,8 @@ class Engine:
     """One model on one fitting set (optionally with a validation set)."""
 
     def __init__(self, F: dict, fit_idx, val_idx, seed: int, arm: str, private_seed: int = 1729):
-        assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "W+C", "W+G", "W+Cin", "GCRK+Cin",
+        assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "GCRK-open", "GCRK+Cin-open",
+                       "W+C", "W+G", "W+Cin", "GCRK+Cin",
                        *MECH_ARMS, *HAZARD_ARMS)
         assert (arm in HAZARD_ARMS) == ("phi" in F), "hazard arms need F['phi'] and only they may have it"
         self.arm, self.seed, self.step = arm, int(seed), 0
@@ -171,10 +172,11 @@ class Engine:
         self.model = AsymODE(F["xu"].shape[-1] - k_extra, F["xr"].shape[-1], F["xo"].shape[-1])
         if k_extra:
             self.model.expand_damage_inputs(k_extra)
-        if arm in ("W+Cin", "GCRK+Cin") or arm in MECH_ARMS or arm in HAZARD_ARMS:
+        if arm in ("W+Cin", "GCRK+Cin", "GCRK+Cin-open") or arm in MECH_ARMS or arm in HAZARD_ARMS:
             self.model.attach_context_input(N_STATIC + (F["ctx_extra"].shape[-1] if "ctx_extra" in F else 0))
         if arm in HAZARD_ARMS:
             self.model.attach_hazard(F["phi"].shape[-1])
+            self.model.haz_signed = arm == "W+Cin+Hs"
         if arm == "W+Cin+H2":
             names = [str(n) for n in F["phi_names"]]
             trig = [i for i, n in enumerate(names) if n.endswith("@0")]
@@ -183,8 +185,10 @@ class Engine:
         if arm in MECH_ARMS:
             self.model.attach_mechanisms(LocalMechanisms(**MECH_ARMS[arm]), len(MECH))
             self.model.set_mechanism_scale(self.fit)
-        if arm in ("GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "GCRK+Cin"):
+        if arm in ("GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "GCRK+Cin", "GCRK-open", "GCRK+Cin-open"):
             self.model.attach_gcrk(torch.tanh(self.fit["geo"] / 3.0).mean(0), private_seed)
+            if arm.endswith("-open"):     # PI 2026-09-26: no bound on the kernel's opening (beta = alpha)
+                self.model.kernel.bounded_opening = False
         elif arm == "W+C":
             self.model.attach_level(N_STATIC, "ctx")
         elif arm == "W+G":
@@ -230,7 +234,7 @@ class Engine:
             if p.grad is not None and not torch.isfinite(p.grad).all():
                 raise RuntimeError(f"nonfinite gradient {n}")
         self.opt.step()
-        if self.model.haz_beta is not None:
+        if self.model.haz_beta is not None and not self.model.haz_signed:
             with torch.no_grad():
                 for p in self.model.hazard_params():
                     p.clamp_(min=0.0)

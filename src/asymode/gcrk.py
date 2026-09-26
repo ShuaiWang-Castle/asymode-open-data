@@ -189,6 +189,7 @@ class GCRKLayer(nn.Module):
         self.a0 = nn.Parameter((INTERACTION_BOUND * a0 / a0.norm()).to(w.dtype))
         self.g0 = nn.Parameter(w.new_zeros(()))
         self.alpha = nn.Parameter(w.new_zeros(()))
+        self.bounded_opening = True       # beta = tanh(alpha); False: beta = alpha (no bound on the opening)
         self._drop = torch.Generator().manual_seed(int(private_seed) + 1)
         self.last_mask = 1.0
         self.last_calibration: dict = {}
@@ -239,7 +240,7 @@ class GCRKLayer(nn.Module):
         lam, a, gain = self.condition(g)
         nu = lam.amin(dim=-1, keepdim=True)
         state = response_sequence(nu[:, None] * d, lam, a)
-        beta = torch.tanh(self.alpha)
+        beta = torch.tanh(self.alpha) if self.bounded_opening else self.alpha
         mask = 1.0
         if self.training:
             mask = float(torch.rand((), generator=self._drop) >= DROP_PATH)
