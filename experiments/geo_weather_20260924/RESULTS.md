@@ -202,7 +202,13 @@ event-grouped five folds, 900 steps, arms host / HRRR-source pathway (hrrr_coars
 gain only if the pathway beats both the twin and the host with event-cluster intervals below zero. Amendment 7
 (d82a6ae, 07:25 EDT; no H2b run had finished when it was committed) tightens that rule after the seed-1 reversal on
 W1, which is information from another panel and not from W2e: the claim also needs the seed-averaged predictions
-over seeds 0, 1 and 2 to agree. Seed 0 is running; seeds 1-2 are queued after it.
+over seeds 0, 1 and 2 to agree. **Outcome: H2b fails at seed 0** (`results/h2b_seed0_vs_twin.json`,
+`results/h2b_seed0_vs_base.json`): on the 23 unseen storms the HRRR-source pathway is +0.11% against its ERA5 twin
+(event interval [-1.13, +2.36]) and -1.57% against the host (event interval [-5.46, +0.07]); the registered rule needs
+both below zero, so no forecast gain from the weather source is claimed, whatever seeds 1-2 would show (paused by the
+PI). The information of H2a does not become a trained gain over the same pathway on ERA5. Recorded, single seed and not
+a claim: either pathway sits about 1.6% below the host (county interval below zero, event interval touching zero), an
+interface effect rather than a source effect.
 
 ## 5. Km-scale weather: HRRR at customer nodes
 

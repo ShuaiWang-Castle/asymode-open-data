@@ -16,4 +16,5 @@ Status values: **verified** (pre-registered test passed, or a no-training audit 
 | C08 | The HRRR-source pathway lowers RMSE on unseen ice storms | unproven (seed 0 -18.7%, seed 1 +13.4%, seed-averaged -4.2% [-11.1, +2.6]) | results/w1e_hrrr_seeds.json | - |
 | C09 | The HRRR-source pathway beats its ERA5 twin on the wind panel | unproven (one seed: -1.95%, intervals below zero) | results/screen_S5_hrrr_vs_twin.json | - |
 | C10 | ERA5 elevation-band near-freezing precipitation aligns with host residuals (H1) | unproven (W2d not testable; W2e uninformative, power 0.795) | results/F1_w2d, results/F1_w2e | formal contributor |
-| C11 | The HRRR-source pathway lowers RMSE on 23 unseen winter storms (H2b) | pending (seed 0 done, unread; seeds 1-2 paused by the PI) | PREREG_W2 amendments 6-7 | - |
+| C11 | The HRRR-source pathway lowers RMSE on 23 unseen winter storms beyond its ERA5 twin (H2b) | **refuted** (registered rule fails at seed 0: Hc vs Hp +0.11% [-1.13, +2.36]) | results/h2b_seed0_vs_twin.json; PREREG_W2 outcome of H2b | - |
+| C12 | An exposure-integrated hazard pathway (either weather source) lowers RMSE on unseen winter storms relative to the host | unproven (one seed: about -1.6%, county interval below zero, event interval touching zero) | results/h2b_seed0_vs_base.json | - |

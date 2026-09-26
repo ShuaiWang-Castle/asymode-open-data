@@ -219,3 +219,14 @@ is kept, and made stricter: **a forecast gain is claimed only if, in addition, t
 seeds 0, 1 and 2 (the mean of the three rollouts per arm) give both contrasts negative with event-cluster intervals
 below zero.** Seeds 1 and 2 (30 further runs, same design) are queued after seed 0; if they are not run, no gain is
 claimed.
+
+## Outcome of H2b (recorded 2026-09-26 03:36 EDT, not an amendment)
+
+Seed 0 (`results/h2b_seed0_vs_base.json`, `results/h2b_seed0_vs_twin.json`; 23 events, 10,971 county-events, event-grouped
+five folds): all-zero RMSE 0.027619, base 0.027196, Hc (HRRR source) 0.026769, Hp (ERA5 twin) 0.026740. Hc against Hp
+**+0.11%** (event-cluster interval [-1.13, +2.36]); Hc against base -1.57% (event-cluster interval [-5.46, +0.07]).
+Amendment 6's rule requires both contrasts negative with event-cluster intervals below zero: **H2b fails**; amendment 7
+only adds a condition, so seeds 1-2 cannot change the verdict (the PI paused them at 10:59 on 2026-09-25, with seed 1
+fold 1 complete). No forecast gain from the HRRR weather source is claimed. Recorded beside it, single seed and not a
+claim: both pathways (HRRR and ERA5 features) are about 1.6% below the host with county intervals below zero and
+event intervals touching zero.
