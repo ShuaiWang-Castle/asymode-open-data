@@ -34,7 +34,11 @@ exactly the county x event residual, and it is not recoverable from county means
 3b. (Added 2026-09-26 with DATASET_DESIGN v1 section 9.2; replaces rules 1-3 on the designed panel.) The metric is the
    regime-balanced skill of DATASET_DESIGN section 1, on event folds. A single-seed five-fold screen may discard, never
    keep; a keep needs three seeds (seed-averaged predictions) on all five folds beside its twin; a confirmation uses
-   five seeds on all of development; the seed count is recalibrated by the Stage 0 A/A run.
+   five seeds on all of development; the seed count is recalibrated by the Stage 0 A/A run. Keep (DATASET_DESIGN
+   amendment 2 S10): seed-averaged over three seeds on the five event folds, the regime-balanced gain exceeds 1% against
+   the host and is positive against the twin, each gain with its 95% family-cluster bootstrap interval above zero, and
+   no non-headline regime loses more than 2%. Discard: a single-seed five-fold screen whose regime-balanced gain
+   against the host is <= 0.
 4. Immutable: targets, masks, folds, the evaluation code, the outer split. The data pipeline is
    versioned (data_v3, ...): a new version is a new directory, never an in-place edit.
 5. Every attempt gets a line in RESEARCH_LOG.md (hypothesis, change, result, keep/discard, file).

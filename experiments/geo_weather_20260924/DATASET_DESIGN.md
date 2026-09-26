@@ -404,3 +404,181 @@ Each step is committed before the next starts.
   first-order π; the audit of §4.6 covers the rest.
 * **Keeping canopy-poor states that fail coverage, with coverage weights** (phys. 2). Not adopted: an under-counted
   numerator is a bias that no weight removes. The low-canopy tercile is guaranteed by §4.6 from states that pass.
+
+## Amendment 1 (2026-09-26 05:08 EDT): frame construction details, before any draw
+
+Written after a first, outcome-blind build of the frame (`panel_v1/build_frame.py`; no outage value read, no draw
+made). Each item either pins down an implementation detail that §3 left open or corrects a rule that the build showed
+to be wrong.
+
+1. **Tropical products join their storm by event number.** The VTEC event number of a TR, HU, SS or EW product
+   names its storm: 1000 + n for Atlantic storm n, 2000 + n for eastern Pacific storm n (95% of the frame's tropical
+   W events match a HURDAT2 storm this way). Such an event joins that storm's TC system whatever its time or distance.
+   A storm that has such events but no span forms a TC system from its events alone, with onset at their earliest
+   begin; this covers potential tropical cyclones that were never named, and tracks that stay beyond 300 km. Other
+   phenomena keep the rule of §3.4. Reason: tropical warnings come up to two days before tropical-storm winds, and
+   often while the centre is beyond 300 km or the track has ended. In the first build, the time-and-distance rule
+   split Helene (2024), Lee (2023), Henri (2021), Hilary (2023) and others into a TC system plus a separate "tropical"
+   system. A wider time window (72 h) fixed Helene and Henri, but not Lee (the storm passed offshore) or Hilary (its
+   track ends at dissipation).
+2. **County vintage.** The units are the 2020 counties (Census Gazetteer and cartographic boundaries 2020), which
+   EAGLE-I reports through May 2025; Connecticut keeps its eight counties. EAGLE-I switches Connecticut to planning
+   regions between 2025-05-29 and 2025-06-02, and the two vintages do not nest. Connecticut county-events whose window
+   ends after 2025-05-29 are therefore excluded. VTEC keeps the eight Connecticut county codes through 2025. County
+   adjacency (shared boundary or corner) is computed from the 2020 boundaries, since no 2020 adjacency file is
+   published.
+3. **Exposure.**
+   * SV, TO and FF use their initial polygon (STATUS NEW in `<year>_tsmf_sbw.zip`).
+   * Other products use their UGC rows. County UGCs give a = 1. Zone UGCs use the IEM UGC snapshot of the month of
+     INIT_ISS; a zone missing from the snapshot falls back to the NWS zone-county correlation file with a = 1. The
+     share of fallback rows is recorded.
+   * The 3 km nodes are the WorldPop 2020 1 km cells aggregated to HRRR cells within each county (`build_nodes3k.py`,
+     all 3,108 counties).
+4. **Time fields.** Checked on the 2018 and 2019 tables: ISSUED is the VTEC event begin and INIT_ISS the first
+   issuance (WS.W median ISSUED − INIT_ISS 13 h in 2018, 14.7 h in 2019), as the IEM documentation states.
+5. **Gate S-b** reads only the national set of collection-run timestamps (timestamps with at least 5 reporting
+   counties), a property of the calendar, not of any county's records.
+6. **Build order.** Gate S-d needs the operator exclusions (§7), so steps 1 and 2 of §12 are committed together: the
+   frame file is built and committed only after `operator_exclusions.csv` is.
+
+## Amendment 2 (2026-09-26 05:37 EDT): the v1 review, before any draw
+
+From the independent review `contrib/REVIEW_dataset_design_v1.md` (items B1, S1-S13, M1-M14). No draw has been made
+and no outcome read. Every item below is adopted unless it says otherwise.
+
+**B1 (blocking): no input from outage records inside the frame.** The host's county context takes SAIDI from EIA-861
+**2017**, the last year before the frame; the 2023 value is computed from 2023 interruptions. The construction is the
+same as for 2023 (first SAIDI column, utility mean, counties of the utility's service territory, county mean). A county
+whose utilities did not report reliability in 2017 (275 counties) takes its state's median 2017 county value, flagged
+(`panel_v1/statics_v1.py`). No model input may be computed from outage records dated inside 2018-07-12..2025-12-31,
+other than the county-event's own prefix.
+
+**Sets and sources (S1).**
+* In §4.2 and §4.4(4), a system's counties are its S1, S2 and S3 counties in the frame file (before G3-G5 and before
+  county sampling). A used window's counties are its listed footprint.
+* In §9.1, a system's counties are its sampled counties. In §3.4(2), they are its S1 counties.
+* The used windows are every event in `experiments/open_gcrk_20260919/selected_events*.json` and
+  `experiments/geo_weather_20260924/selected_events*.json`, and every main-line `data/interim/panel_<day>.npz` (only its
+  county list and timestamps are read), as compiled by `panel_v1/used_windows.py`: 125 windows.
+
+**Frame rules (S2, S4, S6, S12, M1, M2).**
+* **Compound (S2).** A non-TC system is compound if at least 20% of its S1 customers are in counties whose multi-label
+  vector holds a regime other than the system's regime. This covers ice then wind in the same county.
+* **Coverage (S4).** S-d and M_s use the year's **maximum** coverage ≥ 0.8. At the county-sample step (step 4 for D, C's
+  build for C), a state whose minimum is below 0.8 keeps its counties only if at least 80% of its 2024 modelled customers
+  are in counties with a positive record in the 30 days before the window. That read is pre-window and takes the C mask
+  (S8). The frame lists every state-year concerned. G2 of §6 is replaced accordingly.
+* **S-e (S6).** National collection runs cover the origin hour and at least 90% of the prefix hours.
+* **Linking (M1).** For linking, an event's interval ends at min(last EXPIRED, INIT_ISS + 168 h). Long areal flood
+  warnings and a few record errors chained unrelated storms over up to 92 days.
+* **TC families (M2).** A graph family linked by §3.4(2) to an event of a TC system joins that TC system's family, not
+  its system.
+* **As built (S12).**
+  * TC systems are not segmented.
+  * S2 counties are ring counties, either touched by the system (a < 0.1) or under a listed A or Y product of any system
+    during the forecast window. Advisory counties outside the ring are not in the domain.
+  * A W event with no county at a ≥ 0.1 creates no system and acts as an advisory.
+  * M_s leaves out operator-excluded counties.
+  * Typing and region use all S1 customers, ungated.
+  * The season class uses the origin month (UTC). Sort ties keep frame order.
+  * S1 membership includes zone extensions, so S1 partly reacts to damage reports. The stratum breakdown of §1 is
+    therefore descriptive, not a covariate breakdown. S1 remains a sampling stratum with known π, so the domain estimand
+    stays unbiased.
+
+**Coverage audit (S3, M8).**
+* **(i) Counties.** The audit uses the S1-S3 counties that pass G1-G2 and are not operator-excluded.
+* **(ii) Cells.** A system is in a deficient geography cell if at least half of those counties lie in the deficient
+  tercile.
+* **(iii) Supplements.** Conditions are checked in the order relief, canopy, drainage, density, coast, season,
+  compound. Each failing condition gets one PPS draw of 3 systems (fewer if the cell has fewer), from the cell's D-frame
+  systems not yet in D. A D-wide compound failure is supplemented in the regime whose D frame holds the most compound
+  systems. A condition that still fails is recorded, and nothing more is drawn.
+* **(iv) π.** Each system's D π is the share of 10,000 replays of the D draw, the audit and the supplements that
+  include it (uniform starts, the realised C draw fixed). This replaces 1 − (1 − π₁)(1 − π₂).
+* **Axes (M8).** Computed by `panel_v1/county_axes.py` for all 3,108 counties:
+  * relief: the SD of 3DEP elevation over land pixels, 150 m;
+  * canopy: mean USFS tree canopy cover;
+  * drainage: the share of gNATSGO map units drained somewhat poorly, poorly or very poorly;
+  * density: log modelled customers per km² of land (Gazetteer 2020);
+  * coast: km from the Gazetteer internal point to the Natural Earth 1:10m coastline.
+
+**C's population (S5).** C's inference population is the frame minus the used systems. The draw log reports, per
+regime, the used share of systems and of M. D results shown beside C results are also reported on D minus used
+systems. §1's claim population for C says so.
+
+**Estimand and loss (S7, M9-M13).**
+* **(a) Regime of a county-event.** In MSE_r, Z_r and the loss, a county-event belongs to its system's regime. Labels
+  are used for breakdowns only.
+* **(b) R.** Every loss, Stage 0's included, averages over the five regimes (R = 5). A regime with Z_r = 0 in a run's
+  training folds is left out of that run. The primary estimand averages over the headline regimes.
+* **(c) Frame weighting.** The frame-weighted estimand pools the regimes with the design weights w of §5.4. N_h enter
+  only a post-stratified check, with weights w · N_h / Σ_{sampled s in h} 1/π_s.
+* **Stage 0 details (M9).** Bootstrap: 2,000 draws, seed 20260924. Non-inferiority is judged on the seed-averaged point
+  estimate. The worst regime is taken over all five.
+* **Trimming (M10).** The median is over the county-event weights of the regime in the tranche. Trimmed and untrimmed
+  values are both reported per regime.
+* **Groups (M11).** The "largest system" of a group has the most sampled county-events; a group's origin is its
+  earliest origin.
+* **Power (M12).** The Kish design effect of w on C's sample is recomputed, outcome-free, before the confirmatory
+  registration.
+* **Loss weighting (M13).** The Z_r-normalised loss matches skill against zero. Gain against the host weights regimes by
+  1/SSE_r(host) instead.
+
+**Sealing (S8, S11, S13, M4).**
+* **Skipped reads (S8).** Every EAGLE-I read outside the confirmatory script (G3 of D, the §11 diagnostic, any audit)
+  skips the county-hours of C windows: C's S1-S3 counties × [window start, window end + 7 d]. A lookback cut this way
+  uses the hours that remain. No table spanning a C window is materialised. The G3 lookback switch of §6 is decided on
+  D's pre-window records and then applies to every tranche.
+* **National collection runs (M4).** The national collection-run set (S-b, S-e, G4, G5, the forecast mask) counts every
+  row, zero and blank rows included, and is not a read of any tranche. A 5-county threshold detects only a total
+  collection failure, not a partial one (a stated limit).
+* **Spent (S11).** One confirmatory registration per tranche. A tranche is spent when that registration's sequence
+  stops.
+* **Committed files (S13).**
+  * The frame, the exclusions and the tranche list (system, regime, family, tranche, π) are force-added under
+    `data_provenance/frame_v1/`, each with its SHA-256, at the steps §12 names.
+  * `panel_v1/draw.py` is committed before it runs, and it runs once.
+
+**Weather and screening (S9, S10).**
+* **Missing HRRR hours (S9).** They enter the HRRR inputs as zeros, as in H2b, and are listed. They never change the
+  loss or metric mask. This replaces the masking sentence of §8.
+* **Keep and discard (S10).** Program.md rule 3b gets this criterion.
+  * Keep: seed-averaged over three seeds on the five event folds, the regime-balanced gain exceeds 1% against the host
+    and is positive against the twin. Each of the two gains needs its 95% family-cluster bootstrap interval above zero.
+    No non-headline regime may lose more than 2%.
+  * Discard: a single-seed, five-fold screen whose regime-balanced gain against the host is ≤ 0.
+
+**Operator exclusions (M7).**
+* Rows whose narrative attributes the shed to damage in the reporting utility's own system are flagged and kept.
+* A PSPS event without a county list excludes the IOU's EIA-861 territory for its window.
+* All times are converted to UTC.
+* The 2024-2025 gap in DOE-417 summaries is a stated limit.
+
+**Diagnostics and limits (M5, M6, M14).**
+* **§11 addition (M5).** The share of blank-masked county-hours for h_c ≥ 1 against h_c < 1, on D.
+* **Outside the claim population (M6).** Windows containing Dec 31 of 2018-2021 (S-b); HRRR-gap windows (S-c);
+  Connecticut after 2025-05-29; used systems (for C); operator-excluded county-events.
+* **Storage (M14).** A CONUS window is 365 MB (main 236 + extra 108 + gust 22), so deletion after features is mandatory
+  at about 28 GB free.
+* **P (M14).** P is the whole next EAGLE-I release (all qualifying systems), not a draw.
+* **SQ.W (M14).** Snow squall warnings (polygons from 2018) are not sampled (brief; §14).
+* **EAGLE-I versions (M14).** The local 2018-2021 files differ from the v4 files only in the header name of the count
+  column (`sum` for `customers_out`, 10 bytes). The first and last 200 bytes were compared for 2018, and the sizes for
+  every year. The 2024 file matches v4 exactly.
+
+**§14 additions (review section 4), not adopted and why.**
+* **Ring π graded by distance.** Replaced by PPS on h_c, which grades by weather, not distance.
+* **Heat and flood-only negative-control strata.** Heat is not sampled; flood-only systems are full heavy-rain systems,
+  judged by the Stage 0 rule.
+* **2015-2018 as a secondary frame.** Dropped: coverage is imputed, and HRRR has gaps.
+* **The host must beat zero in every regime.** At least three headline regimes are required; the rest are
+  non-inferiority strata.
+* **A frequency-weighted headline (physical review).** The statistical review's regime-balanced headline is followed.
+  The frame-weighted value is secondary.
+* **A hazard vector per county-hour.** Kept per county-event; S2 fixes the compound case.
+* **Damaging and quiet sides reported separately.** Replaced by h_c classes, never outcome subsets.
+* **Sub-regimes (derecho against pulse storms, wet against dry snow).** Not stratified; the dictionary is meant to
+  separate them.
+* **HRRR results before and after 2019.** Split at HRRR v4 (2020-12-02) instead.
+* **Membership from products issued before the hazard (statistical revision 3).** Not adopted: zone extensions count
+  (S12).
