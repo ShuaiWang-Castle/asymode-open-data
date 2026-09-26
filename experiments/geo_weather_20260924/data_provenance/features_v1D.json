@@ -1,0 +1,50 @@
+{
+ "file": "data/interim/panel_v1/features_v1D.npz",
+ "sha256": "f043bb39e8abd48183670e2acc3c0cecebd7107ea9be0e28771912cfee358c48",
+ "units": 8457,
+ "systems": 81,
+ "by_regime": {
+  "tropical": 1633,
+  "winter": 1899,
+  "synoptic_wind": 1824,
+  "convective": 1727,
+  "heavy_rain": 1374
+ },
+ "event_fold_sizes": {
+  "1": {
+   "tropical": 537,
+   "winter": 459,
+   "synoptic_wind": 312,
+   "convective": 388,
+   "heavy_rain": 411
+  },
+  "2": {
+   "tropical": 145,
+   "winter": 396,
+   "synoptic_wind": 617,
+   "convective": 515,
+   "heavy_rain": 427
+  },
+  "3": {
+   "tropical": 376,
+   "winter": 507,
+   "synoptic_wind": 272,
+   "convective": 305,
+   "heavy_rain": 309
+  },
+  "4": {
+   "tropical": 295,
+   "winter": 257,
+   "synoptic_wind": 235,
+   "convective": 304,
+   "heavy_rain": 45
+  },
+  "5": {
+   "tropical": 280,
+   "winter": 280,
+   "synoptic_wind": 388,
+   "convective": 215,
+   "heavy_rain": 182
+  }
+ }
+}

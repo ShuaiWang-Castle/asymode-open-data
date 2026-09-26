@@ -84,7 +84,7 @@ def features(tranche: str) -> dict:
                stratum=rows.stratum.to_numpy().astype(str), pi_s=pi_s.astype(np.float32), pi_c=pi_c.astype(np.float32),
                w=w.astype(np.float32), w_raw=w_raw.astype(np.float32), h_c=rows.h.to_numpy(np.float32),
                used=dr.loc[arr["event"], "used"].to_numpy(bool),
-               origin=np.array(pd.to_datetime(dr.loc[arr["event"], "origin"]).astype(str)))
+               origin=np.array(pd.to_datetime(dr.loc[arr["event"], "origin"]).astype(str)).astype("U19"))
     assert np.isfinite(arr["xr"]).all(), "non-finite recovery inputs (statics or history)"
     return arr
 
