@@ -76,3 +76,22 @@ Only 2 of 18 settings resolve the sign of NET − ASYM beyond Monte Carlo half-w
   - NET beats ASYM_STATE in several high-noise (ρ = 1) cells.
 - suggested_claim_revision (pending revision 3): "The two-flow source-pool form helps trained networks through a lower training floor. The classical restriction on state access adds little and costs the excluded signal. The flexible net-flow model gains with event noise."
 - confidence: medium
+
+
+---
+
+## 独立审查后的更正（2026-09-26；以上原判定保留，按本节更正）
+
+- **C3′ 降级为“描述性”。** K6 已触发，按计划应降级，“字面触发但斜率小”不能追认通过。
+  - 早停主实验中，30 个有反馈格点全部是 NET 胜；24 个可分辨格点也全是 NET 胜，“始终选 NET”同样 24/24。
+  - 事后基线 −(S+F) 的 MAE 为 5.81e−6，低于包络的 6.55e−6。
+  - 固定 3000 步消融出现两种胜者（NET 18，ASYM 2），但包络 MAE 21.0e−6 差于经典式 15.2e−6。
+  - 可以保留的描述性结论：NET 在被排除方向上的数据噪声响应 β_Q ≈ 0.041，分层 bootstrap 95% 区间 [0.026, 0.060]，远小于理想饱和估计量的 1。因此理想估计量的方差惩罚不能直接移植到这个训练程序下的网络。
+- **更正数字。** “NET 吃下 92–99.5% 的信号”是误读：0.0055–0.08 是跨 γ 的回归斜率。逐格 e_N^Q/S 为 0.52%–97.5%。
+- **C5 改写。** 限制速率读状态，不是获得较低共同部分误差的必要条件。
+  - 截距：ASYM_STATE 4.70e−6，ASYM 6.23e−6，NET 7.42e−6。
+  - 分层 bootstrap 95% 区间，以五个初始化为条件：ASYM_STATE − ASYM 为 [−2.58, −0.47]e−6，ASYM_STATE − NET 为 [−3.86, −1.55]e−6，NET − ASYM 为 [−0.05, +2.45]e−6（包含 0）。
+  - 截距是外推值，不是测得的不可约地板。分支结构、输出映射、初始化和优化的作用都没有分离，所以不能写成“主要来自两流参数化”。
+- **标签更正。** NET 是无界增量更新，不是“有界净流”。
+- **冻结凭证。** 公开的 hash 与本地修改时间只证明版本对应，不证明时间顺序。
+

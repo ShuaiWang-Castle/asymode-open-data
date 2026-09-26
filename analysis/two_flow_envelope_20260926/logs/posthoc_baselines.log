@@ -1,0 +1,30 @@
+== original_early_stop: feedback cells NET-better 30/30; resolved 24 (NET 24, ASYM 0)
+              predictor  MAE_all30_1e-6  resolved_correct  resolved
+               envelope           6.547                24        24
+      classical x_Q - S          25.907                22        24
+                     -S          12.670                24        24
+                 -(S+F)           5.813                24        24
+      gamma0 offset - S          12.915                24        24
+  gamma0 offset - (S+F)           5.953                24        24
+ always NET (sign only)             NaN                24        24
+always ASYM (sign only)             NaN                 0        24
+   per-cell e_N^Q / S range: 0.0052 .. 0.9750
+   aN_minus_aA: 95% bootstrap [-0.052, +2.451]e-6
+   aS_minus_aA: 95% bootstrap [-2.584, -0.466]e-6
+   aS_minus_aN: 95% bootstrap [-3.858, -1.545]e-6
+   betaQ_NET: 95% bootstrap [+0.026, +0.060]
+== fixed_3000_ablation: feedback cells NET-better 22/30; resolved 20 (NET 18, ASYM 2)
+              predictor  MAE_all30_1e-6  resolved_correct  resolved
+               envelope          21.014                20        20
+      classical x_Q - S          15.208                19        20
+                     -S          18.431                18        20
+                 -(S+F)          26.782                18        20
+      gamma0 offset - S          12.947                20        20
+  gamma0 offset - (S+F)          19.038                20        20
+ always NET (sign only)             NaN                18        20
+always ASYM (sign only)             NaN                 2        20
+   per-cell e_N^Q / S range: 0.0025 .. 1.5553
+   aN_minus_aA: 95% bootstrap [+6.239, +15.995]e-6
+   aS_minus_aA: 95% bootstrap [-6.053, -0.874]e-6
+   aS_minus_aN: 95% bootstrap [-18.645, -10.371]e-6
+   betaQ_NET: 95% bootstrap [+0.058, +0.109]

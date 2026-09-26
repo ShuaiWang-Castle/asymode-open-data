@@ -2,7 +2,7 @@
 # Launch B4' workers (resumable: completed fits are skipped) and wait for all of them.
 set -u
 B="$(cd "$(dirname "$0")/.." && pwd)"
-REPO="$HOME/asymode-open-data-work"
+REPO="${REPO:-$HOME/asymode-open-data-work}"
 WORKERS=${WORKERS:-6}
 cd "$B" || exit 1
 echo "B4'-S launch $(date -u +%FT%TZ) workers=$WORKERS" >> logs/b4_run.log
