@@ -1,0 +1,21 @@
+{
+ "note": "The plan was frozen in local revisions before each run. The public copy redacts two references to another manuscript under double-blind review; the SHA-256 and modification time of the unredacted local original are recorded here. Timestamps are UTC file modification times of the local copies.",
+ "plan_unredacted_sha256": "9481cfa8ebda02b14826ac21a08d72192e345bc3f17de67ad1a32299eb4c905d",
+ "plan_last_modified_utc": "2026-09-26T14:17:57Z",
+ "run_log_utc": [
+  "B4' launch 2026-09-26T05:58:32Z workers=6",
+  "B4' finished 2026-09-26T09:46:28Z status=0 fits=    4320",
+  "B4'-S launch 2026-09-26T09:49:18Z workers=6",
+  "B4'-S finished 2026-09-26T14:15:17Z status=0 fits=    2160",
+  "B5 launch 2026-09-26T14:20:38Z workers=6"
+ ],
+ "as_run_script_sha256": {
+  "b1_exact_anatomy.py": "d43d986410cf7de4881027118f61c4471d55d46c4b6b4ce132f32a5506872249",
+  "x2_training_envelopes.py": "d7cab7bf6f7a8cfd7c9f04d568b529704b4aa0b794b152131d7c5b9054cb40f6"
+ },
+ "public_script_changes": "b1_exact_anatomy.py and x2_training_envelopes.py: input directory only (inputs/neural_bridge).",
+ "bridge_inputs_sha256": {
+  "design.npz": "7ffc5c0b862168269477257b8cd9f9cd476ba29c48c741b2a4eade941abce9e5",
+  "neural_summary.csv": "7d91ad3ab3eeaad332d5cb1d7810006dd68aaf90faafdf8a3c8ce09ca877e9bf"
+ }
+}
