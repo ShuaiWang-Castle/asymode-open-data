@@ -582,3 +582,23 @@ systems. §1's claim population for C says so.
 * **HRRR results before and after 2019.** Split at HRRR v4 (2020-12-02) instead.
 * **Membership from products issued before the hazard (statistical revision 3).** Not adopted: zone extensions count
   (S12).
+
+## Amendment 3 (2026-09-26 06:17 EDT): the D inclusion probabilities, before any draw output exists
+
+The first execution of `panel_v1/draw.py` (committed at 4f0d785; the frame at fc66002) stopped at its own consistency
+check before writing any output. One system of the registered D draw had an inclusion frequency of 0 in the 10,000
+replays: a small convective system whose inclusion probability is of order 10⁻⁴, below the resolution of 10,000 replays.
+No tranche list, π or other output was written.
+
+**Change.** The replay share of amendment 2 S3 (iv) is replaced by an estimator of the same probability with no
+resolution floor:
+
+  π_D(s) = π_base(s) + P̂(s enters only through a supplement),
+
+* π_base(s) is the exact first-order probability of the systematic PPS base draw of §4.4, including the certainty
+  steps;
+* P̂ is the share of the 10,000 replays (seed 20260928) in which s is not in the base draw but is added by an audit
+  supplement.
+
+The audit, the supplements and the seeds are unchanged. The C and D selections are fixed by the registered seeds
+(20260926, 20260927), so the re-execution selects the same systems. Only their π change.

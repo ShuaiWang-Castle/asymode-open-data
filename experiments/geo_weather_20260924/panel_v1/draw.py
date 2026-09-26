@@ -2,7 +2,8 @@
 systematic PPS within each regime on the size measure M, the frame sorted by period, region and origin (implicit
 stratification); units with pi >= 1 are taken with certainty, iteratively. D is audited for geography, season and
 compound coverage and supplemented (amendment 2 S3); D's inclusion probabilities are the inclusion frequencies of
-10,000 replays of the D draw, the audit and the supplements with the realised C fixed. C is never supplemented.
+10,000 replays of the D draw, the audit and the supplements with the realised C fixed, as the exact first-order pi of
+the base draw plus the replay share of supplement-only entries (amendment 3). C is never supplemented.
 
 Reads the committed frame (systems.parquet, system_counties.parquet), county_axes.parquet, the operator exclusions and
 data_provenance/used_windows.json; no outcome. Runs once.
@@ -107,13 +108,17 @@ def _supp(A, sel, mask, rng):
     return len(idx)
 
 
-def draw_D(audit, rng, log=None):
-    """The D draw, the audit and the supplements (amendment 2 S3 (iii)); returns the set of D systems."""
+def draw_D(audit, rng, log=None, base_out=None):
+    """The D draw, the audit and the supplements (amendment 2 S3 (iii)); returns the set of D systems. `base_out`, if
+    given, receives the base-draw set and the exact first-order pi of the base draw (amendment 3)."""
     sel = {}
     for r in REGIMES:
         A = audit.F[r]
-        s_, _ = pps_systematic(A["M"], min(N_D, len(A["M"])), rng)
+        s_, pi_ = pps_systematic(A["M"], min(N_D, len(A["M"])), rng)
         sel[r] = s_
+        if base_out is not None:
+            base_out["set"] |= set(A["sys"][s_])
+            base_out["pi"].update(dict(zip(A["sys"], pi_)))
     for r in REGIMES:
         A = audit.F[r]
         if not len(A["M"]):
@@ -194,20 +199,26 @@ def main() -> None:
               for r in REGIMES}
     audit = Audit(frames, sc, excluded)
     log = []
-    Dset = draw_D(audit, rngD, log)                            # the registered D draw
+    base = dict(set=set(), pi={})
+    Dset = draw_D(audit, rngD, log, base)                      # the registered D draw
     el.loc[el.system.isin(Dset), "tranche"] = "D"
-    hits = defaultdict(int)                                    # amendment 2 S3 (iv): pi by replays
+    supp = defaultdict(int)                                    # amendment 3: supplement-only entries in the replays
     for i in range(REPLAYS):
-        for s_ in draw_D(audit, rngR):
-            hits[s_] += 1
-    el["pi_D"] = el.system.map(lambda s: hits.get(s, 0) / REPLAYS)
+        b = dict(set=set(), pi={})
+        for s_ in draw_D(audit, rngR, None, b) - b["set"]:
+            supp[s_] += 1
+    el["pi_base"] = el.system.map(lambda s: base["pi"].get(s, 0.0))
+    el["pi_supp"] = el.system.map(lambda s: supp.get(s, 0) / REPLAYS)
+    el["pi_D"] = el.pi_base + el.pi_supp
+    el["via_supplement"] = el.system.isin(Dset - base["set"])
     el.loc[el.tranche == "D", "pi"] = el.loc[el.tranche == "D", "pi_D"]
     for r in REGIMES:
         g = el[(el.regime == r) & (el.tranche == "D")]
         alloc[r].update({"D": int(len(g)), "D_frame": int(len(frames[r])), "D_used": int(g.used.sum()),
                          "D_min_pi": round(float(g.pi.min()), 5) if len(g) else None})
     assert (el.loc[el.tranche == "D", "pi"] > 0).all()
-    out = el[["system", "regime", "family", "origin", "window_start", "tranche", "pi", "pi_C", "pi_D", "used",
+    out = el[["system", "regime", "family", "origin", "window_start", "tranche", "pi", "pi_C", "pi_D", "pi_base",
+              "pi_supp", "via_supplement", "used",
               "blocked_by_C", "M", "season", "compound", "region", "period"]]
     out.to_parquet(OUT / "draws.parquet", index=False)
     fv = EXP / "data_provenance" / "frame_v1"
