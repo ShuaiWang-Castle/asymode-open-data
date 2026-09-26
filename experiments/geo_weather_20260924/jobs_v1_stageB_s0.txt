@@ -1,0 +1,25 @@
+--label v1_host_s0 --arm W+Cin --data v1D --design event --design-weights --seed 0 --steps 900 --folds 1
+--label v1_host_s0 --arm W+Cin --data v1D --design event --design-weights --seed 0 --steps 900 --folds 2
+--label v1_host_s0 --arm W+Cin --data v1D --design event --design-weights --seed 0 --steps 900 --folds 3
+--label v1_host_s0 --arm W+Cin --data v1D --design event --design-weights --seed 0 --steps 900 --folds 4
+--label v1_host_s0 --arm W+Cin --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5
+--label v1_Hera5_s0 --arm W+Cin+H --phi era52 --keep ^(?!(g_mean|g_max|shear_mean|lai_mean)$) --data v1D --design event --design-weights --seed 0 --steps 900 --folds 1
+--label v1_Hera5_s0 --arm W+Cin+H --phi era52 --keep ^(?!(g_mean|g_max|shear_mean|lai_mean)$) --data v1D --design event --design-weights --seed 0 --steps 900 --folds 2
+--label v1_Hera5_s0 --arm W+Cin+H --phi era52 --keep ^(?!(g_mean|g_max|shear_mean|lai_mean)$) --data v1D --design event --design-weights --seed 0 --steps 900 --folds 3
+--label v1_Hera5_s0 --arm W+Cin+H --phi era52 --keep ^(?!(g_mean|g_max|shear_mean|lai_mean)$) --data v1D --design event --design-weights --seed 0 --steps 900 --folds 4
+--label v1_Hera5_s0 --arm W+Cin+H --phi era52 --keep ^(?!(g_mean|g_max|shear_mean|lai_mean)$) --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5
+--label v1_Hsera5_s0 --arm W+Cin+Hs --phi era52 --keep ^(?!(g_mean|g_max|shear_mean|lai_mean)$) --data v1D --design event --design-weights --seed 0 --steps 900 --folds 1
+--label v1_Hsera5_s0 --arm W+Cin+Hs --phi era52 --keep ^(?!(g_mean|g_max|shear_mean|lai_mean)$) --data v1D --design event --design-weights --seed 0 --steps 900 --folds 2
+--label v1_Hsera5_s0 --arm W+Cin+Hs --phi era52 --keep ^(?!(g_mean|g_max|shear_mean|lai_mean)$) --data v1D --design event --design-weights --seed 0 --steps 900 --folds 3
+--label v1_Hsera5_s0 --arm W+Cin+Hs --phi era52 --keep ^(?!(g_mean|g_max|shear_mean|lai_mean)$) --data v1D --design event --design-weights --seed 0 --steps 900 --folds 4
+--label v1_Hsera5_s0 --arm W+Cin+Hs --phi era52 --keep ^(?!(g_mean|g_max|shear_mean|lai_mean)$) --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5
+--label v1_gcrkopen_s0 --arm GCRK+Cin-open --data v1D --design event --design-weights --seed 0 --steps 900 --folds 1
+--label v1_gcrkopen_s0 --arm GCRK+Cin-open --data v1D --design event --design-weights --seed 0 --steps 900 --folds 2
+--label v1_gcrkopen_s0 --arm GCRK+Cin-open --data v1D --design event --design-weights --seed 0 --steps 900 --folds 3
+--label v1_gcrkopen_s0 --arm GCRK+Cin-open --data v1D --design event --design-weights --seed 0 --steps 900 --folds 4
+--label v1_gcrkopen_s0 --arm GCRK+Cin-open --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5
+--label v1_gcrk_s0 --arm GCRK+Cin --data v1D --design event --design-weights --seed 0 --steps 900 --folds 1
+--label v1_gcrk_s0 --arm GCRK+Cin --data v1D --design event --design-weights --seed 0 --steps 900 --folds 2
+--label v1_gcrk_s0 --arm GCRK+Cin --data v1D --design event --design-weights --seed 0 --steps 900 --folds 3
+--label v1_gcrk_s0 --arm GCRK+Cin --data v1D --design event --design-weights --seed 0 --steps 900 --folds 4
+--label v1_gcrk_s0 --arm GCRK+Cin --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5

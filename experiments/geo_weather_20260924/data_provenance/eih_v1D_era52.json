@@ -1,0 +1,33 @@
+{
+ "file": "data/interim/geo_weather/eih_v1D_era52.npz",
+ "sha256": "31a0ea17c338ff8188f1d34ccf16b1e51d5440651f80f88f18906b436396b253",
+ "units": 8457,
+ "features": [
+  "g_mean",
+  "g_exc_mean",
+  "rain_mean",
+  "frz_mean",
+  "sleet_mean",
+  "snow_mean",
+  "ice_mean",
+  "wetsnow_mean",
+  "ice_wind_mean",
+  "snow_wind_mean",
+  "wet_wind_mean",
+  "lai_mean",
+  "g_max",
+  "g_exc_max",
+  "ice_max",
+  "wetsnow_max",
+  "ice_wind_max",
+  "snow_wind_max",
+  "g_gt25_share",
+  "g_exc_gt0_share",
+  "ice_gt6_share",
+  "wetsnow_gt10_share",
+  "canopy*g_exc",
+  "canopy*ice_wind",
+  "canopy*snow_wind",
+  "drain*wet_wind"
+ ]
+}
