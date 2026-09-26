@@ -1,0 +1,26 @@
+{
+ "frame_counts.csv": {
+  "bytes": 3272,
+  "sha256": "e167f04eda694c96e2a1e76c00758d6d9696efec241b4b9ff779b8a1371b1cc0"
+ },
+ "frame_state_years_min_below.csv": {
+  "bytes": 332,
+  "sha256": "96d2244ae37e87e67050209882068d582a89c39fd7d971e04489c3ecf6b85c33"
+ },
+ "system_counties.parquet": {
+  "bytes": 4250230,
+  "sha256": "d369b3dc11568b59242ef86f60c5dbc1b3b007148229214795d6d35f8c5cff58"
+ },
+ "systems.parquet": {
+  "bytes": 2865624,
+  "sha256": "2aafe947e4a5a799826dd60b72fc7d2c27920edfeeba96ef85763506e6798666"
+ },
+ "data_provenance/operator_exclusions.csv": {
+  "bytes": 6010303,
+  "sha256": "52174e2d6f21a764d58a8dda9c4815895106b96ef0a344f43f8d4474b43ac928"
+ },
+ "data_provenance/operator_exclusions_README.md": {
+  "bytes": 31173,
+  "sha256": "099742c1919dc8f03d38815d1061b35c49f9d9714f56180a8ef94f00a3b7dfa4"
+ }
+}

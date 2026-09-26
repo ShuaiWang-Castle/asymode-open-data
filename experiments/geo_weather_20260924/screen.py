@@ -33,10 +33,11 @@ DATA = {"e3r2": ROOT / "data" / "interim" / "open_gcrk" / "features_e3r2.npz",
         "w1": ROOT / "data" / "interim" / "geo_weather" / "features_w1.npz",
         "w2d": ROOT / "data" / "interim" / "geo_weather" / "features_w2d.npz",
         "w2e": ROOT / "data" / "interim" / "geo_weather" / "features_w2e.npz",
-        "w2e23": ROOT / "data" / "interim" / "geo_weather" / "features_w2e23.npz"}
+        "w2e23": ROOT / "data" / "interim" / "geo_weather" / "features_w2e23.npz",
+        "v1D": ROOT / "data" / "interim" / "panel_v1" / "features_v1D.npz"}
 SPLIT_FILES = {"e3r2": SPLITS, "v3p": SPLITS, "w1": HERE / "splits_w1.json", "w2d": HERE / "splits_w2d.json",
-               "w2e": HERE / "splits_w2e.json", "w2e23": HERE / "splits_w2e23.json"}
-PANEL = {"e3r2": "", "v3p": "", "w1": "w1_", "w2d": "w2d_", "w2e": "w2e_", "w2e23": "w2e23_"}   # prefix of the eih_ and train_mask files
+               "w2e": HERE / "splits_w2e.json", "w2e23": HERE / "splits_w2e23.json", "v1D": HERE / "splits_v1D.json"}
+PANEL = {"e3r2": "", "v3p": "", "w1": "w1_", "w2d": "w2d_", "w2e": "w2e_", "w2e23": "w2e23_", "v1D": "v1D_"}   # prefix of the eih_ and train_mask files
 
 
 def load(data: str) -> dict:
@@ -56,6 +57,24 @@ def attach_phi(F: dict, variant: str, keep: str | None = None) -> dict:
     return F
 
 
+def design_weighted(F: dict, dev: np.ndarray) -> dict:
+    """DATASET_DESIGN v1 section 1 and amendment 2 S7: the training loss weighs county-event i of regime r by
+    w_i / Z_r, Z_r = the design-weighted all-zero SSE of r over the training units (regimes with Z_r = 0 left out),
+    scaled so the mean weight over observed training cells is 1."""
+    w, reg = F["w"].astype(float), F["regime"].astype(str)
+    m, y = F["m"].astype(float), F["y"].astype(float)
+    u = np.zeros(len(w))
+    for r in sorted(set(reg[dev])):
+        ii = dev[reg[dev] == r]
+        Z = float((w[ii, None] * m[ii] * y[ii] ** 2).sum())
+        if Z > 0:
+            u[ii] = w[ii] / Z
+    scale = m[dev].sum() / max((m[dev] * u[dev, None]).sum(), 1e-300)
+    Ff = dict(F)
+    Ff["m_train"] = (m * (u * scale)[:, None]).astype(np.float32)
+    return Ff
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--label", required=True)
@@ -73,6 +92,7 @@ def main():
     ap.add_argument("--steps", type=int, default=900)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--threads", type=int, default=2)
+    ap.add_argument("--design-weights", action="store_true", help="DATASET_DESIGN v1 loss (design weights, regime-normalised)")
     a = ap.parse_args()
     torch.set_num_threads(a.threads)
     F = load(a.data)
@@ -105,8 +125,9 @@ def main():
         dev, held = np.array(sp[a.design][str(k)]["dev"]), np.array(sp[a.design][str(k)]["outer"])
         t0 = time.time()
         log = lambda s: print(f"[{a.label} f{k}] {s}", flush=True)  # noqa: E731
-        e = G.refit(F, dev, a.steps, a.seed, a.arm, log=log)
-        res = G.export(e, F, held)
+        Ff = design_weighted(F, dev) if a.design_weights else F
+        e = G.refit(Ff, dev, a.steps, a.seed, a.arm, log=log)
+        res = G.export(e, Ff, held)
         np.savez_compressed(out / "outer.npz", **res)
         torch.save(dict(model_state=e.model.state_dict(), stats=e.stats, arm=a.arm, steps=a.steps), out / "final.pt")
         extra = {}
@@ -114,7 +135,7 @@ def main():
             beta = e.model.haz_beta.detach().numpy()
             top = np.argsort(-beta)[:12]
             extra = dict(beta_nonzero=int((beta > 0).sum()), beta_top={str(F["phi_names"][i]): float(beta[i]) for i in top})
-        (out / "DONE.json").write_text(json.dumps(dict(label=a.label, data=a.data, arm=a.arm, phi=a.phi, keep=a.keep, train_mask=a.train_mask, mask_placebo=a.mask_placebo, ctx_geo=a.ctx_geo, xu_phi=a.xu_phi, design=a.design, fold=k,
+        (out / "DONE.json").write_text(json.dumps(dict(label=a.label, data=a.data, arm=a.arm, phi=a.phi, keep=a.keep, train_mask=a.train_mask, mask_placebo=a.mask_placebo, ctx_geo=a.ctx_geo, xu_phi=a.xu_phi, design=a.design, design_weights=a.design_weights, fold=k,
                                                        steps=a.steps, seed=a.seed, fit_loss=e.last_loss,
                                                        seconds=round(time.time() - t0, 1), **extra), indent=1) + "\n")
         log(f"done in {time.time() - t0:.0f} s, fit loss {e.last_loss:.4e}")

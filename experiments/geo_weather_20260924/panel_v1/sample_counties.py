@@ -40,14 +40,17 @@ def pop_weights() -> pd.DataFrame:
 
 
 def hazard_index(system: str, fips: list[str], W: pd.DataFrame) -> pd.DataFrame:
-    ds = xr.open_dataset(ROOT / "data" / "raw" / "era5_v1" / f"{system}.nc", engine="h5netcdf")
-    lat, lon = ds.latitude.values, ds.longitude.values
+    import fetch_era5_v1 as FE
+    pm, pg, px = FE.paths(system)
+    dm, dg, dx = (xr.open_dataset(p, engine="h5netcdf") for p in (pm, pg, px))
+    lat, lon = dm.latitude.values, dm.longitude.values
     r0, c0 = int(round((90.0 - lat[0]) / 0.25)), int(round((lon[0] % 360.0) / 0.25))
     sl = slice(PREFIX_H, None)                                    # forecast hours only
-    fg = ds.fg10.values[sl]; tp = ds.tp.values[sl] * 1000.0; sf = ds.sf.values[sl] * 1000.0
-    pt = np.rint(ds.ptype.values[sl])
+    fg = dg.fg10.values[sl]; tp = dm.tp.values[sl] * 1000.0; sf = dm.sf.values[sl] * 1000.0
+    pt = np.rint(dx.ptype.values[sl])
     frz = np.where(np.isin(pt, (3, 12)), tp, 0.0)
-    ds.close()
+    for d in (dm, dg, dx):
+        d.close()
     out = []
     for f in fips:
         g = W[W.fips == f]
@@ -90,53 +93,45 @@ def pps_within(h: np.ndarray, n: int, rng) -> tuple[np.ndarray, np.ndarray]:
     return s_, p_
 
 
-def main() -> None:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--tranche", default="D")
-    ap.add_argument("--exclusions", default="data_provenance/operator_exclusions.csv")
-    a = ap.parse_args()
-    import build_frame as BF
-    dr = pd.read_parquet(OUT / "draws.parquet")
-    sy = pd.read_parquet(OUT / "systems.parquet").set_index("system")
-    sc = pd.read_parquet(OUT / "system_counties.parquet")
-    st = GT.FixedGates(BF.load_exclusions(a.exclusions))
-    cmask = GT.CMask() if a.tranche != "C" else None       # amendment 2 S8: D reads skip C's county-hours
-    W = pop_weights()
-    rows = []
-    for s in dr[dr.tranche == a.tranche].system:
-        origin, w1 = pd.Timestamp(sy.at[s, "origin"]), pd.Timestamp(sy.at[s, "window_end"])
-        d = sc[sc.system == s].copy()
-        g = pd.DataFrame([st(f, origin, w1) for f in d.fips], index=d.index)
-        d = pd.concat([d, g], axis=1)
-        dyn = GT.dynamic_gates(origin, d.fips.to_list(), cmask).set_index("fips")
-        d = d.join(dyn, on="fips")
-        d["gated"] = d.G1 & d.G2 & d.G2_in_data & ~d.excluded & d.G3 & d.G4 & d.G5
-        hz = hazard_index(s, d.fips.to_list(), W).set_index("fips")
-        d = d.join(hz, on="fips")
-        dom = d[d.gated]
-        alloc = allocate({k: int((dom.stratum == k).sum()) for k in STRATA})
-        rng = np.random.default_rng(SEED0 + int(s[1:]))
-        d["sampled"], d["pi_c"] = False, 0.0
-        for k in STRATA:
-            idx = dom.index[dom.stratum == k]
-            if alloc[k] == 0 or len(idx) == 0:
-                continue
-            sel, pi = pps_within(d.loc[idx, "h"].to_numpy(), alloc[k], rng)
-            d.loc[idx, "pi_c"] = pi
-            d.loc[idx[sel], "sampled"] = True
-        rows.append(d)
-        print(s, sy.at[s, "regime"], "domain", len(d), "gated", int(d.gated.sum()), "alloc", alloc,
-              "sampled", int(d.sampled.sum()), flush=True)
-    out = pd.concat(rows, ignore_index=True)
-    out.to_parquet(OUT / f"county_sample_{a.tranche}.parquet", index=False)
-    drop = out.groupby("stratum")[["G1", "G2", "G2_in_data", "G3", "G4", "G5"]].apply(lambda x: (~x.astype(bool)).mean()).round(4)
+def gate_domain(s: str, sy, sc, st, cmask) -> pd.DataFrame:
+    """Step 4 (a): G1-G5, the in-data coverage check and the exclusions for one system's S1-S3 counties (pre-window
+    data only, no weather)."""
+    origin, w1 = pd.Timestamp(sy.at[s, "origin"]), pd.Timestamp(sy.at[s, "window_end"])
+    d = sc[sc.system == s].copy()
+    g = pd.DataFrame([st(f, origin, w1) for f in d.fips], index=d.index)
+    d = pd.concat([d, g], axis=1)
+    dyn = GT.dynamic_gates(origin, d.fips.to_list(), cmask).set_index("fips")
+    d = d.join(dyn, on="fips")
+    d["gated"] = d.G1 & d.G2 & d.G2_in_data & ~d.excluded & d.G3 & d.G4 & d.G5
+    return d
+
+
+def sample_one(s: str, d: pd.DataFrame, W: pd.DataFrame) -> pd.DataFrame:
+    """Step 4 (b): the hazard index of the gated domain and the county sample of section 5.3 (needs the system's ERA5)."""
+    d = d.copy()
+    hz = hazard_index(s, d.fips[d.gated].to_list(), W).set_index("fips")
+    d = d.join(hz, on="fips")
+    dom = d[d.gated]
+    alloc = allocate({k: int((dom.stratum == k).sum()) for k in STRATA})
+    rng = np.random.default_rng(SEED0 + int(s[1:]))
+    d["sampled"], d["pi_c"] = False, 0.0
+    for k in STRATA:
+        idx = dom.index[dom.stratum == k]
+        if alloc[k] == 0 or len(idx) == 0:
+            continue
+        sel, pi = pps_within(d.loc[idx, "h"].to_numpy(), alloc[k], rng)
+        d.loc[idx, "pi_c"] = pi
+        d.loc[idx[sel], "sampled"] = True
+    return d
+
+
+def gate_audit(out: pd.DataFrame, tranche: str) -> dict:
+    drop = out.groupby("stratum")[["G1", "G2", "G2_in_data", "G3", "G4", "G5"]].apply(
+        lambda x: (~x.astype(bool)).mean()).round(4)
     ex = out.groupby("stratum").excluded.mean().round(4)
-    (EXP / "data_provenance" / f"gate_audit_{a.tranche}.json").write_text(json.dumps(
-        dict(drop_rates=drop.to_dict(orient="index"), excluded=ex.to_dict(),
-             g3_drop_share_of_otherwise_gated=float(((out.G1 & out.G2 & ~out.excluded) & ~out.G3).sum()
-                                                    / max((out.G1 & out.G2 & ~out.excluded).sum(), 1))), indent=1) + "\n")
-    print(drop.to_string())
-
-
-if __name__ == "__main__":
-    main()
+    base = out.G1 & out.G2 & out.G2_in_data & ~out.excluded
+    rec = dict(drop_rates=drop.to_dict(orient="index"), excluded=ex.to_dict(),
+               g3_drop_share_of_otherwise_gated=float((base & ~out.G3).sum() / max(base.sum(), 1)),
+               lookback_days=GT.LOOKBACK_D)
+    (EXP / "data_provenance" / f"gate_audit_{tranche}.json").write_text(json.dumps(rec, indent=1) + "\n")
+    return rec
