@@ -1,0 +1,134 @@
+{
+ "frame_sha256": "2aafe947e4a5a799826dd60b72fc7d2c27920edfeeba96ef85763506e6798666",
+ "system_counties_sha256": "d369b3dc11568b59242ef86f60c5dbc1b3b007148229214795d6d35f8c5cff58",
+ "seeds": {
+  "C": 20260926,
+  "D": 20260927,
+  "replay": 20260928
+ },
+ "replays": 10000,
+ "allocation": {
+  "tropical": {
+   "C": 19,
+   "C_frame": 35,
+   "frame": 54,
+   "used_share_systems": 0.3519,
+   "used_share_M": 0.5266,
+   "D": 15,
+   "D_frame": 18,
+   "D_used": 11,
+   "D_min_pi": 0.88531
+  },
+  "winter": {
+   "C": 20,
+   "C_frame": 302,
+   "frame": 1018,
+   "used_share_systems": 0.7033,
+   "used_share_M": 0.8339,
+   "D": 15,
+   "D_frame": 877,
+   "D_used": 13,
+   "D_min_pi": 0.00945
+  },
+  "synoptic_wind": {
+   "C": 20,
+   "C_frame": 345,
+   "frame": 726,
+   "used_share_systems": 0.5248,
+   "used_share_M": 0.689,
+   "D": 18,
+   "D_frame": 623,
+   "D_used": 15,
+   "D_min_pi": 0.0178
+  },
+  "convective": {
+   "C": 20,
+   "C_frame": 11046,
+   "frame": 14258,
+   "used_share_systems": 0.2253,
+   "used_share_M": 0.3377,
+   "D": 15,
+   "D_frame": 11050,
+   "D_used": 9,
+   "D_min_pi": 8e-05
+  },
+  "heavy_rain": {
+   "C": 20,
+   "C_frame": 3664,
+   "frame": 4774,
+   "used_share_systems": 0.2325,
+   "used_share_M": 0.3727,
+   "D": 18,
+   "D_frame": 3527,
+   "D_used": 12,
+   "D_min_pi": 0.00308
+  }
+ },
+ "audit_cuts": {
+  "relief_sd": [
+   20.73600437432199,
+   44.299446197809765
+  ],
+  "canopy": [
+   14.975498813102217,
+   46.62104666406185
+  ],
+  "poorly_drained": [
+   0.05606568119885032,
+   0.3228512555999532
+  ],
+  "log_cust_density": [
+   1.9881450334456041,
+   3.0873006591295904
+  ],
+  "coast_km": [
+   247.32918404685222,
+   721.8246883989608
+  ]
+ },
+ "audit_log": [
+  {
+   "regime": "tropical",
+   "condition": "canopy",
+   "tercile": 0,
+   "share_before": 0.0324,
+   "cell": 0,
+   "share_after": 0.0324
+  },
+  {
+   "regime": "tropical",
+   "condition": "log_cust_density",
+   "tercile": 0,
+   "share_before": 0.1471,
+   "cell": 0,
+   "share_after": 0.1471
+  },
+  {
+   "regime": "tropical",
+   "condition": "coast_km",
+   "tercile": 2,
+   "share_before": 0.0034,
+   "cell": 0,
+   "share_after": 0.0034
+  },
+  {
+   "regime": "synoptic_wind",
+   "condition": "season",
+   "share_before": 0.2,
+   "cell": 186,
+   "share_after": 0.3333
+  },
+  {
+   "regime": "heavy_rain",
+   "condition": "coast_km",
+   "tercile": 2,
+   "share_before": 0.0864,
+   "cell": 972,
+   "share_after": 0.1687
+  }
+ ],
+ "n_eligible": 20830,
+ "n_used": 5438,
+ "n_blocked": 4636,
+ "tranches_sha256": "c126469dd87f118144de998489645475934c602f09e52200cdf150523824eb7e"
+}
