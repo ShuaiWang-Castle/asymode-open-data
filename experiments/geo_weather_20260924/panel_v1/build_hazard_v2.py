@@ -67,8 +67,16 @@ def hrrr_fields(t0, rows, cols, threads):
         return {k: v for k, v in HRRR_KEYS.items()
                 if (v not in SLOW and v not in ONCE) or (v in SLOW and i % 6 == 0) or (v in ONCE and i == PREFIX_H)}
 
+    def safe(i):                          # a truncated record (no final 7777) is fetched again; after 3 tries the
+        for _ in range(3):                # hour counts as missing (zeros, listed; DATASET_DESIGN amendment 2 S9)
+            try:
+                return fetch(hours[i], keys_at(i), rows, cols)
+            except Exception:
+                time.sleep(2)
+        return None
+
     with ThreadPoolExecutor(threads) as ex:
-        res = list(ex.map(lambda i: fetch(hours[i], keys_at(i), rows, cols), range(T)))
+        res = list(ex.map(safe, range(T)))
     miss = [str(h) for h, r in zip(hours, res) if r is None]
     N = len(rows)
     z = {k: np.zeros((T, N), np.float32) for k in HRRR_KEYS.values()}
