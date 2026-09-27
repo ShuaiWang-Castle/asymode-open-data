@@ -630,3 +630,10 @@ Host MSE against the all-zero forecast, with 80% family-cluster intervals:
     non-headline regime worse. They remain candidates.
 * The mechanical-subset candidate's seeds 1-2 were already running and complete its keep test. The full-dictionary
   candidate is not carried further: it equals the mechanical subset within ±0.3%, and §9.3 puts the host first.
+
+## Outcome of the Stage 0 A/A run (recorded 2026-09-27, not an amendment)
+
+Host seeds 3-5 against host seeds 0-2, each seed-averaged, on the primary estimand (the headline regimes tropical and
+winter; `results/v1/stage0_aa_s345_vs_s012.json`): −0.16%, 95% family-cluster interval [−0.41, +0.34]. Per regime:
+tropical −0.8%, winter +0.5%, synoptic wind +0.7%, convective −1.0%, heavy rain +1.8%. |A/A| < 1%, so keeps need three
+seeds (§9.2), and the three-seed keep test of the HRRR mechanical-load candidate stands as run.
