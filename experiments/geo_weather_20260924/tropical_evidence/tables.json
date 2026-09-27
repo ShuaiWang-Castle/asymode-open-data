@@ -1,0 +1,325 @@
+{
+ "per_regime": {
+  "convective": {
+   "county_events": 1727.0,
+   "zero_MSE": 4.6e-05,
+   "host_MSE": 4.5e-05,
+   "host_vs_zero": -0.026801,
+   "peak_ge_10pct": 0.041691
+  },
+  "heavy_rain": {
+   "county_events": 1374.0,
+   "zero_MSE": 3.7e-05,
+   "host_MSE": 4e-05,
+   "host_vs_zero": 0.063314,
+   "peak_ge_10pct": 0.049491
+  },
+  "synoptic_wind": {
+   "county_events": 1824.0,
+   "zero_MSE": 0.000201,
+   "host_MSE": 0.000227,
+   "host_vs_zero": 0.127132,
+   "peak_ge_10pct": 0.094298
+  },
+  "tropical": {
+   "county_events": 1633.0,
+   "zero_MSE": 0.003369,
+   "host_MSE": 0.002983,
+   "host_vs_zero": -0.114545,
+   "peak_ge_10pct": 0.161053
+  },
+  "winter": {
+   "county_events": 1899.0,
+   "zero_MSE": 0.000622,
+   "host_MSE": 0.000606,
+   "host_vs_zero": -0.026644,
+   "peak_ge_10pct": 0.079516
+  }
+ },
+ "per_system": {
+  "S00034": {
+   "county_events": 140.0,
+   "zero_MSE": 0.00709,
+   "host_MSE": 0.006086,
+   "host_vs_zero": -0.141647,
+   "peak_ge_10pct": 0.357143,
+   "storm": "MICHAEL",
+   "origin": "2018-10-09",
+   "region": "southeast"
+  },
+  "S00006": {
+   "county_events": 52.0,
+   "zero_MSE": 8e-06,
+   "host_MSE": 9e-06,
+   "host_vs_zero": 0.028468,
+   "peak_ge_10pct": 0.019231,
+   "storm": "THREE",
+   "origin": "2019-07-22",
+   "region": "southeast"
+  },
+  "S00023": {
+   "county_events": 140.0,
+   "zero_MSE": 0.00309,
+   "host_MSE": 0.002891,
+   "host_vs_zero": -0.06417,
+   "peak_ge_10pct": 0.292857,
+   "storm": "ISAIAS",
+   "origin": "2020-08-01",
+   "region": "northeast"
+  },
+  "S00046": {
+   "county_events": 140.0,
+   "zero_MSE": 0.006115,
+   "host_MSE": 0.005516,
+   "host_vs_zero": -0.098055,
+   "peak_ge_10pct": 0.321429,
+   "storm": "DELTA",
+   "origin": "2020-10-09",
+   "region": "southeast"
+  },
+  "S00047": {
+   "county_events": 140.0,
+   "zero_MSE": 0.006214,
+   "host_MSE": 0.005554,
+   "host_vs_zero": -0.106345,
+   "peak_ge_10pct": 0.371429,
+   "storm": "ZETA",
+   "origin": "2020-10-28",
+   "region": "southeast"
+  },
+  "S00008": {
+   "county_events": 140.0,
+   "zero_MSE": 2.7e-05,
+   "host_MSE": 2.7e-05,
+   "host_vs_zero": -0.005223,
+   "peak_ge_10pct": 0.021429,
+   "storm": "CLAUDETTE",
+   "origin": "2021-06-18",
+   "region": "southeast"
+  },
+  "S00011": {
+   "county_events": 117.0,
+   "zero_MSE": 5e-06,
+   "host_MSE": 5e-06,
+   "host_vs_zero": 0.05086,
+   "peak_ge_10pct": 0.0,
+   "storm": "DANNY",
+   "origin": "2021-06-28",
+   "region": "southeast"
+  },
+  "S00001": {
+   "county_events": 34.0,
+   "zero_MSE": 2e-06,
+   "host_MSE": 4e-06,
+   "host_vs_zero": 1.231548,
+   "peak_ge_10pct": 0.0,
+   "storm": "ALEX",
+   "origin": "2022-06-03",
+   "region": "southeast"
+  },
+  "S00009": {
+   "county_events": 140.0,
+   "zero_MSE": 1.9e-05,
+   "host_MSE": 1.9e-05,
+   "host_vs_zero": -0.024914,
+   "peak_ge_10pct": 0.014286,
+   "storm": "COLIN",
+   "origin": "2022-07-01",
+   "region": "southeast"
+  },
+  "S00053": {
+   "county_events": 15.0,
+   "zero_MSE": 5.5e-05,
+   "host_MSE": 5.5e-05,
+   "host_vs_zero": -0.006373,
+   "peak_ge_10pct": 0.133333,
+   "storm": "(no best track) (no span)",
+   "origin": "2022-08-19",
+   "region": "plains_mountain"
+  },
+  "S00042": {
+   "county_events": 140.0,
+   "zero_MSE": 4.8e-05,
+   "host_MSE": 4.7e-05,
+   "host_vs_zero": -0.022185,
+   "peak_ge_10pct": 0.05,
+   "storm": "NICOLE",
+   "origin": "2022-11-09",
+   "region": "southeast"
+  },
+  "S00040": {
+   "county_events": 140.0,
+   "zero_MSE": 0.000122,
+   "host_MSE": 0.000139,
+   "host_vs_zero": 0.142716,
+   "peak_ge_10pct": 0.107143,
+   "storm": "OPHELIA",
+   "origin": "2023-09-22",
+   "region": "southeast"
+  },
+  "S00052": {
+   "county_events": 59.0,
+   "zero_MSE": 3.7e-05,
+   "host_MSE": 3.9e-05,
+   "host_vs_zero": 0.062061,
+   "peak_ge_10pct": 0.033898,
+   "storm": "ALBERTO (no span)",
+   "origin": "2024-06-18",
+   "region": "plains_mountain"
+  },
+  "S00054": {
+   "county_events": 96.0,
+   "zero_MSE": 6e-06,
+   "host_MSE": 3.8e-05,
+   "host_vs_zero": 5.618968,
+   "peak_ge_10pct": 0.0,
+   "storm": "(no best track) (no span)",
+   "origin": "2024-09-15",
+   "region": "southeast"
+  },
+  "S00037": {
+   "county_events": 140.0,
+   "zero_MSE": 0.013854,
+   "host_MSE": 0.011825,
+   "host_vs_zero": -0.146444,
+   "peak_ge_10pct": 0.307143,
+   "storm": "MILTON",
+   "origin": "2024-10-09",
+   "region": "southeast"
+  }
+ },
+ "by_stratum": {
+  "S1": {
+   "county_events": 720.0,
+   "zero_MSE": 0.01014,
+   "host_MSE": 0.008976,
+   "host_vs_zero": -0.114708,
+   "peak_ge_10pct": 0.293056
+  },
+  "S2": {
+   "county_events": 507.0,
+   "zero_MSE": 0.001312,
+   "host_MSE": 0.001155,
+   "host_vs_zero": -0.12032,
+   "peak_ge_10pct": 0.074951
+  },
+  "S3": {
+   "county_events": 406.0,
+   "zero_MSE": 0.000488,
+   "host_MSE": 0.000442,
+   "host_vs_zero": -0.093721,
+   "peak_ge_10pct": 0.034483
+  }
+ },
+ "by_geography": {
+  "tree canopy %": {
+   "lower third (< 11.8)": {
+    "county_events": 76.0,
+    "zero_MSE": 0.006392,
+    "host_MSE": 0.005781,
+    "host_vs_zero": -0.095542,
+    "peak_ge_10pct": 0.105263
+   },
+   "middle third": {
+    "county_events": 551.0,
+    "zero_MSE": 0.00346,
+    "host_MSE": 0.002986,
+    "host_vs_zero": -0.137225,
+    "peak_ge_10pct": 0.177858
+   },
+   "upper third (> 45)": {
+    "county_events": 1006.0,
+    "zero_MSE": 0.0032,
+    "host_MSE": 0.002865,
+    "host_vs_zero": -0.10476,
+    "peak_ge_10pct": 0.156064
+   }
+  },
+  "distance to coast km": {
+   "lower third (< 303)": {
+    "county_events": 1407.0,
+    "zero_MSE": 0.003778,
+    "host_MSE": 0.003347,
+    "host_vs_zero": -0.113957,
+    "peak_ge_10pct": 0.157072
+   },
+   "middle third": {
+    "county_events": 226.0,
+    "zero_MSE": 0.001806,
+    "host_MSE": 0.001591,
+    "host_vs_zero": -0.119244,
+    "peak_ge_10pct": 0.185841
+   }
+  },
+  "poorly drained share": {
+   "lower third (< 0.0469)": {
+    "county_events": 263.0,
+    "zero_MSE": 0.001022,
+    "host_MSE": 0.000906,
+    "host_vs_zero": -0.113138,
+    "peak_ge_10pct": 0.13308
+   },
+   "middle third": {
+    "county_events": 589.0,
+    "zero_MSE": 0.003353,
+    "host_MSE": 0.002973,
+    "host_vs_zero": -0.113114,
+    "peak_ge_10pct": 0.149406
+   },
+   "upper third (> 0.282)": {
+    "county_events": 781.0,
+    "zero_MSE": 0.005165,
+    "host_MSE": 0.004566,
+    "host_vs_zero": -0.115871,
+    "peak_ge_10pct": 0.179257
+   }
+  },
+  "relief (SD of elevation) m": {
+   "lower third (< 21.4)": {
+    "county_events": 1015.0,
+    "zero_MSE": 0.00442,
+    "host_MSE": 0.003876,
+    "host_vs_zero": -0.122972,
+    "peak_ge_10pct": 0.167488
+   },
+   "middle third": {
+    "county_events": 370.0,
+    "zero_MSE": 0.002503,
+    "host_MSE": 0.002179,
+    "host_vs_zero": -0.129429,
+    "peak_ge_10pct": 0.140541
+   },
+   "upper third (> 44.7)": {
+    "county_events": 248.0,
+    "zero_MSE": 0.002277,
+    "host_MSE": 0.002119,
+    "host_vs_zero": -0.069445,
+    "peak_ge_10pct": 0.165323
+   }
+  },
+  "log customers per km2": {
+   "lower third (< 1.76)": {
+    "county_events": 163.0,
+    "zero_MSE": 0.006635,
+    "host_MSE": 0.005858,
+    "host_vs_zero": -0.117108,
+    "peak_ge_10pct": 0.208589
+   },
+   "middle third": {
+    "county_events": 484.0,
+    "zero_MSE": 0.003944,
+    "host_MSE": 0.003527,
+    "host_vs_zero": -0.105617,
+    "peak_ge_10pct": 0.159091
+   },
+   "upper third (> 2.93)": {
+    "county_events": 986.0,
+    "zero_MSE": 0.002481,
+    "host_MSE": 0.002179,
+    "host_vs_zero": -0.121755,
+    "peak_ge_10pct": 0.154158
+   }
+  }
+ },
+ "note": "host W+Cin seed 0, five event folds of the development tranche; design-weighted MSE; single seed; descriptive, not a registered test"
+}

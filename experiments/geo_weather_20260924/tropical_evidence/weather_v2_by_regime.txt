@@ -1,0 +1,10 @@
+regime                                 convective heavy_rain synoptic_wind tropical winter
+gust above local p98 (any node)               56%        55%           98%      70%    62%
+freezing rain > 0.5 mm/h (county mean)         0%         1%            4%       0%    22%
+ice load > 6 mm (any node)                     0%         1%            5%       0%    21%
+wet-snow load > 10 mm (any node)               0%        11%           13%       0%    19%
+snowfall > 1 mm/h                              1%        13%           18%       0%    54%
+rain > 10 mm/h                                 3%         3%            3%      15%     0%
+ice x wind > 1                                 0%         1%            6%       0%    16%
+wet snow x wind > 1                            1%        13%           23%       0%    35%
+canopy x exceedance > 0                       54%        52%           96%      68%    59%
