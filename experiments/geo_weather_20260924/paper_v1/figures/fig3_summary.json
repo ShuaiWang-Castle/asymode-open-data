@@ -1,22 +1,9 @@
 {
- "gcrk": {
-  "seeds": [
-   0
-  ],
-  "counties": 2410,
-  "raised_by_more_than_0p1": 0.11286307053941909,
-  "lowered_by_more_than_0p1": 0.04107883817427386,
-  "mean_abs_change_points": 0.8225014805793762
- },
- "pathway": {
-  "seeds": [
-   0,
-   1,
-   2
-  ],
-  "counties": 2410,
-  "raised_by_more_than_0p1": 0.4904564315352697,
-  "lowered_by_more_than_0p1": 0.0,
-  "mean_abs_change_points": 1.109666109085083
- }
+ "seeds": [
+  0
+ ],
+ "counties": 2410,
+ "raised_by_more_than_0p1": 0.11286307053941909,
+ "lowered_by_more_than_0p1": 0.04107883817427386,
+ "mean_abs_change_points": 0.8225014805793762
 }

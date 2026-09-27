@@ -74,19 +74,23 @@ Two to five lines to the PI, in Chinese:
 
 If nothing finished and nothing failed, say nothing.
 
-## Paper phase (from 2026-09-27 14:20; the PI's choice of five forecasters)
+## Paper phase (from 2026-09-27 14:20; revised 15:10)
 
-The PI asked for an open-data manuscript with five forecasters on the development tranche: all zero, TimesFM (zero-shot, weather covariates), AsymODE (host W+Cin), AsymODE + GCRK (opening bounded) and
-AsymODE + geography x weather (the HRRR mechanical-load pathway). Each learned model uses five initializations (seeds
-0-4), averaged in forecast space. Every wake-up in this phase:
+The PI asked for an open-data manuscript with four forecasters on the development tranche: all zero, TimesFM
+(zero-shot, weather covariates), AsymODE (host W+Cin) and AsymODE + GCRK. The geography x weather pathway (hazard
+features as a competing hazard) was removed by the PI on 2026-09-27: geography enters only through GCRK or a kernel
+architecture in the hidden layer, never through hand-built hazard features. Learned models use five initializations,
+averaged in forecast space, but only for a design with a single-seed gain over the host. Every wake-up in this phase:
 
-1. **Look.** Check `jobs_v1_paper.txt` (pathway seeds 3-4, then GCRK seeds 1-4; one process, nice 15) and
-   `runs/geo_weather_20260924/timesfm_v1D/`.
-2. **Evaluate.** Run `paper_v1/evaluate_paper.py` whenever a model's set of seeds grows. It writes
-   `results/v1/paper_tables.json`: pooled MAE and RMSE at +1, +6, +24 and +48 hours, design-weighted and
+1. **Look.** Check `runs/geo_weather_20260924/timesfm_v1D/` and the running job, if any. The paper queue
+   `jobs_v1_paper.txt` is stopped. No GCRK seeds 1-4 run until a GCRK design beats the host at seed 0 (the bounded
+   GCRK: +0.7%). The next design is a kernel extension (spatial coupling of the response state), under discussion
+   with the PI. It runs only once its design is written in `aris/IDEAS.md` and agreed.
+2. **Evaluate.** Run `paper_v1/evaluate_paper.py` whenever a model's set of seeds grows or TimesFM finishes. It
+   writes `results/v1/paper_tables.json`: pooled MAE and RMSE at +1, +6, +24 and +48 hours, design-weighted and
    unweighted, by regime, and RMSE against AsymODE with family-cluster intervals.
 3. **Figures and text.** Whenever a model's set of seeds grows, rerun, in this order and at nice 15:
-   `paper_v1/counterfactual_v1.py` (GCRK and pathway counterfactuals, then `summary`), `paper_v1/figures_v1.py`
+   `paper_v1/counterfactual_v1.py` (GCRK counterfactuals, then `summary`), `paper_v1/figures_v1.py`
    (Figures 1-4), `paper_v1/evaluate_paper.py`. They write `paper_v1/generated/*.tex`, and `main.tex` quotes numbers
    only through those macros, so nothing is copied by hand. `describe_v1.py` and `twins_v1.py` depend on the data
    only and are rerun only if the panel changes. Descriptive analyses use the development tranche only. Text that

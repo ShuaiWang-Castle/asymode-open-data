@@ -6,7 +6,6 @@ last observed hour.
   TimesFM         zero-shot, the 14 host weather channels as past and future covariates (paper_v1/timesfm_v1.py)
   AsymODE         the host W+Cin, seeds 0-4 averaged in forecast space
   AsymODE + GCRK  the geography-conditioned response kernel, opening bounded, seeds 0-4 averaged
-  AsymODE + geography x weather   the node-level hazard pathway from HRRR (mechanical-load subset), seeds 0-4 averaged
 
 Horizon h: the error of the path at hours 72 + h .. 215 (the target hours that a forecast issued at origins 72.. with
 lead h would reach), for h = 1, 6, 24, 48. Errors pooled over the observed held-out county-hours with the design
@@ -32,9 +31,7 @@ from evaluate_v1 import REGIMES, RUNS  # noqa: E402
 FEAT = ROOT / "data" / "interim" / "panel_v1" / "features_v1D.npz"
 HORIZONS = (1, 6, 24, 48)
 SEEDS = (0, 1, 2, 3, 4)
-MODELS = [("All zero", None), ("TimesFM", "timesfm"), ("AsymODE", "v1_host_s{}"), ("AsymODE + GCRK", "v1_gcrk_s{}"),
-          ("AsymODE + geography x weather", "v1_Hmech_hrrr_s{}")]
-ERA5_TWIN = "v1_Hmech_era5_s{}"      # the same pathway with its hazards from ERA5 (robustness only)
+MODELS = [("All zero", None), ("TimesFM", "timesfm"), ("AsymODE", "v1_host_s{}"), ("AsymODE + GCRK", "v1_gcrk_s{}")]
 B, SEED = 2000, 20260924
 
 
@@ -134,21 +131,13 @@ def main() -> None:
             key = "rmse_vs_asymode" if ref == "AsymODE" else "rmse_vs_zero"
             res[nm][key] = dict(point=point, ci95=ci, by_regime_h1=byr)
     # paired seeds: each learned model against AsymODE of the same initialisation (full path, h = 1)
-    for nm in ("AsymODE + GCRK", "AsymODE + geography x weather"):
+    for nm in ("AsymODE + GCRK",):
         if nm in per_sums and "AsymODE" in per_sums:
             res[nm]["per_seed_vs_asymode_h1"] = {
                 str(s): pooled(per_sums[nm][s], w)["RMSE+1"] / pooled(per_sums["AsymODE"][s], w)["RMSE+1"] - 1
                 for s in per_sums[nm] if s in per_sums["AsymODE"]}
     # robustness (weighted, full path h = 1 unless stated)
     rob = {}
-    P_era5, _, used_era5 = model_paths(ERA5_TWIN, n, F)
-    if P_era5 is not None and "AsymODE + geography x weather" in sums and "AsymODE" in sums:
-        Se, Sh = row_sums(P_era5, y, m), sums["AsymODE + geography x weather"]
-        rob["era5_twin"] = dict(seeds=used_era5, weighted=pooled(Se, w))
-        for key, (a, b) in (("era5_vs_host", (Se, sums["AsymODE"])), ("hrrr_vs_era5", (Sh, Se))):
-            d = rel_draws(a, b)
-            rob["era5_twin"][key] = dict(point=pooled(a, w)["RMSE+1"] / pooled(b, w)["RMSE+1"] - 1,
-                                         ci95=[float(np.quantile(d[:, 0], q)) for q in (0.025, 0.975)])
     if "AsymODE" in sums:
         sysv = F["system"].astype(str)
         sse = pd_sum(sysv, w[:, None] * sums["AsymODE"][1][:, :1])
@@ -194,8 +183,7 @@ def main() -> None:
     write_latex(res)
 
 
-KEY = {"All zero": "Zero", "TimesFM": "TimesFM", "AsymODE": "Host", "AsymODE + GCRK": "GCRK",
-       "AsymODE + geography x weather": "Path"}
+KEY = {"All zero": "Zero", "TimesFM": "TimesFM", "AsymODE": "Host", "AsymODE + GCRK": "GCRK"}
 HWORD = {1: "One", 6: "Six", 24: "TwentyFour", 48: "FortyEight"}
 RWORD = {"tropical": "Tropical", "winter": "Winter", "synoptic_wind": "Synoptic", "convective": "Convective",
          "heavy_rain": "Rain"}
@@ -248,12 +236,6 @@ def write_latex(res: dict) -> None:
             mac.append(rf"\newcommand{{\{k}SeedsBetter}}{{{sum(v < 0 for v in vals)}}}")
             mac.append(rf"\newcommand{{\{k}SeedRange}}{{{pct(min(vals))}\% to {pct(max(vals))}\%}}")
     rob = res.get("robustness", {})
-    if "era5_twin" in rob:
-        e = rob["era5_twin"]
-        mac.append(rf"\newcommand{{\SeedsEra}}{{{len(e['seeds'])}}}")
-        for key, nm in (("era5_vs_host", "EraVsHost"), ("hrrr_vs_era5", "HrrrVsEra")):
-            mac.append(rf"\newcommand{{\{nm}}}{{{pct(e[key]['point'])}\%}}")
-            mac.append(rf"\newcommand{{\{nm}CI}}{{[{pct(e[key]['ci95'][0])}, {pct(e[key]['ci95'][1])}]}}")
     for k, word in (("3", "Three"), ("5", "Five")):
         for nm, kk in KEY.items():
             v = rob.get("drop_worst_systems", {}).get(k, {}).get(nm)
