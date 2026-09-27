@@ -175,6 +175,30 @@ def response_sequence_st_loop(f, lam, a, cw, cu, nbr):
     return torch.stack(out, 1)
 
 
+class _Pattern:
+    """Fixed sparsity of the neighbour mixing, P and P^T as CSR with per-hour values (the pattern is built once)."""
+
+    def __init__(self, nbr: torch.Tensor):
+        B, k = nbr.shape
+        self.B, self.k = B, k
+        self.flat = nbr.reshape(-1)
+        rows = torch.arange(B, device=nbr.device).repeat_interleave(k)
+        self.crow = torch.arange(0, B * k + 1, k, device=nbr.device)
+        self.order = torch.argsort(nbr, dim=1)                                   # columns sorted within each row
+        self.col = torch.gather(nbr, 1, self.order).reshape(-1)
+        key = self.flat * B + rows                                                # transposed rows = neighbours
+        self.tperm = torch.argsort(key)
+        self.tcol = rows[self.tperm]
+        counts = torch.bincount(self.flat, minlength=B)
+        self.tcrow = torch.cat([counts.new_zeros(1), counts.cumsum(0)])
+
+    def P(self, c: torch.Tensor) -> torch.Tensor:
+        return torch.sparse_csr_tensor(self.crow, self.col, torch.gather(c, 1, self.order).reshape(-1), (self.B, self.B))
+
+    def PT(self, c: torch.Tensor) -> torch.Tensor:
+        return torch.sparse_csr_tensor(self.tcrow, self.tcol, c.reshape(-1)[self.tperm], (self.B, self.B))
+
+
 class _ResponseST(torch.autograd.Function):
     """The coupled recurrence with a hand-written adjoint. With z_t = M_t^{-T}(G_t + P_{t+1}^T z_{t+1}), the
     gradients of f, lam and a are those of _Response, and dL/dc_ik,t = z_i,t . (e_nbr(i,k),t-1 - e_i,t-1)."""
@@ -182,10 +206,13 @@ class _ResponseST(torch.autograd.Function):
     @staticmethod
     def forward(ctx, f, lam, a, cw, cu, nbr):
         invd = 1.0 / (1.0 + lam)
+        pat = _Pattern(nbr)
         state = torch.zeros_like(f[:, 0])
         out = torch.empty_like(f)
         for t in range(f.shape[1]):
-            state = _solve(_mix(state, cw + cu[:, t], nbr) + f[:, t], f[:, t], invd, a)
+            c = cw + cu[:, t]
+            mixed = state * (1.0 - c.sum(-1, keepdim=True)) + pat.P(c) @ state
+            state = _solve(mixed + f[:, t], f[:, t], invd, a)
             out[:, t] = state
         ctx.save_for_backward(f, lam, a, cw, cu, nbr, out)
         return out
@@ -194,13 +221,14 @@ class _ResponseST(torch.autograd.Function):
     def backward(ctx, grad):
         f, lam, a, cw, cu, nbr, e = ctx.saved_tensors
         invd = 1.0 / (1.0 + lam)
+        pat = _Pattern(nbr)
+        B, k, D = nbr.shape[0], nbr.shape[1], f.shape[-1]
         gf = torch.empty_like(f)
         glam = torch.zeros_like(lam)
         ga = torch.zeros_like(a)
         gcu = torch.zeros_like(cu)
         adj = torch.zeros_like(f[:, 0])
         grad = grad.contiguous()
-        flat = nbr.reshape(-1)
         for t in range(f.shape[1] - 1, -1, -1):
             ft, et = f[:, t], e[:, t]
             z = _solve(grad[:, t] + adj, ft, invd, -a)
@@ -214,9 +242,9 @@ class _ResponseST(torch.autograd.Function):
             c = cw + cu[:, t]
             if t > 0:
                 prev = e[:, t - 1]
-                gcu[:, t] = (z.unsqueeze(1) * (prev[nbr] - prev.unsqueeze(1))).sum(-1)
-            adj = z * (1.0 - c.sum(-1, keepdim=True))
-            adj = adj.index_add(0, flat, (c.unsqueeze(-1) * z.unsqueeze(1)).reshape(-1, z.shape[-1]))
+                pn = prev.index_select(0, pat.flat).view(B, k, D)
+                gcu[:, t] = torch.bmm(pn, z.unsqueeze(-1)).squeeze(-1) - (z * prev).sum(-1, keepdim=True)
+            adj = z * (1.0 - c.sum(-1, keepdim=True)) + pat.PT(c) @ z
         return gf, glam, ga, gcu.sum(1), gcu, None
 
 
