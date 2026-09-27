@@ -98,6 +98,10 @@ def main():
     F = load(a.data)
     if a.phi:
         F = attach_phi(F, PANEL[a.data] + a.phi, a.keep)
+    if a.arm == "STGCRK+Cin":        # neighbour table of the spatio-temporal GCRK (panel_v1/space_v1.py)
+        zs = np.load(ROOT / "data" / "interim" / "panel_v1" / f"space_{a.data}.npz")
+        assert np.array_equal(zs["fips"], F["fips"]) and np.array_equal(zs["system"], F["system"])
+        F = dict(F); F["space"] = dict(nbr=zs["nbr"], wd=zs["wd"], up=zs["up"])
     if a.ctx_geo:
         gi = [list(F["geo_features"].astype(str)).index(g) for g in a.ctx_geo]
         F = dict(F); F["ctx_extra"] = F["geo"][:, gi].astype(np.float32)

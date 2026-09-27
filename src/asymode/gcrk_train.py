@@ -148,6 +148,15 @@ def make_batch(F: dict, idx: np.ndarray, st: dict, nodes: bool = False) -> dict:
     if nodes:                                      # physical units, no standardisation (geo_mech reads them as is)
         for k in ("nw", "na", "nr"):
             b[k] = torch.from_numpy(np.ascontiguousarray(F[k][idx].astype(np.float32)))
+    if "space" in F:                 # neighbour table of the spatio-temporal GCRK, remapped to the batch's rows
+        sp = F["space"]
+        row = np.full(len(F["y"]), -1, np.int64); row[idx] = np.arange(len(idx))
+        nb = sp["nbr"][idx].astype(np.int64)
+        r = np.where(nb >= 0, row[np.maximum(nb, 0)], -1)
+        ok = r >= 0
+        b["space"] = dict(nbr=torch.from_numpy(np.where(ok, r, np.arange(len(idx))[:, None])),
+                          wd=torch.from_numpy(np.where(ok, sp["wd"][idx], 0.0).astype(np.float32)),
+                          up=torch.from_numpy(np.where(ok[:, None, :], sp["up"][idx].astype(np.float32), 0.0).astype(np.float32)))
     b["idx"] = idx
     return b
 
@@ -157,9 +166,10 @@ class Engine:
 
     def __init__(self, F: dict, fit_idx, val_idx, seed: int, arm: str, private_seed: int = 1729):
         assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "GCRK-open", "GCRK+Cin-open",
-                       "W+C", "W+G", "W+Cin", "GCRK+Cin",
+                       "W+C", "W+G", "W+Cin", "GCRK+Cin", "STGCRK+Cin",
                        *MECH_ARMS, *HAZARD_ARMS)
         assert (arm in HAZARD_ARMS) == ("phi" in F), "hazard arms need F['phi'] and only they may have it"
+        assert (arm == "STGCRK+Cin") == ("space" in F), "the spatio-temporal arm needs F['space'] and only it may have it"
         self.arm, self.seed, self.step = arm, int(seed), 0
         self.nodes = arm in MECH_ARMS
         self.fit_idx = np.sort(np.asarray(fit_idx))
@@ -172,7 +182,7 @@ class Engine:
         self.model = AsymODE(F["xu"].shape[-1] - k_extra, F["xr"].shape[-1], F["xo"].shape[-1])
         if k_extra:
             self.model.expand_damage_inputs(k_extra)
-        if arm in ("W+Cin", "GCRK+Cin", "GCRK+Cin-open") or arm in MECH_ARMS or arm in HAZARD_ARMS:
+        if arm in ("W+Cin", "GCRK+Cin", "GCRK+Cin-open", "STGCRK+Cin") or arm in MECH_ARMS or arm in HAZARD_ARMS:
             self.model.attach_context_input(N_STATIC + (F["ctx_extra"].shape[-1] if "ctx_extra" in F else 0))
         if arm in HAZARD_ARMS:
             self.model.attach_hazard(F["phi"].shape[-1])
@@ -185,10 +195,13 @@ class Engine:
         if arm in MECH_ARMS:
             self.model.attach_mechanisms(LocalMechanisms(**MECH_ARMS[arm]), len(MECH))
             self.model.set_mechanism_scale(self.fit)
-        if arm in ("GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "GCRK+Cin", "GCRK-open", "GCRK+Cin-open"):
+        if arm in ("GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "GCRK+Cin", "GCRK-open", "GCRK+Cin-open",
+                   "STGCRK+Cin"):
             self.model.attach_gcrk(torch.tanh(self.fit["geo"] / 3.0).mean(0), private_seed)
             if arm.endswith("-open"):     # PI 2026-09-26: no bound on the kernel's opening (beta = alpha)
                 self.model.kernel.bounded_opening = False
+            if arm == "STGCRK+Cin":       # PI 2026-09-27: neighbouring counties' response states coupled in the kernel
+                self.model.kernel.attach_space()
         elif arm == "W+C":
             self.model.attach_level(N_STATIC, "ctx")
         elif arm == "W+G":
@@ -234,6 +247,8 @@ class Engine:
             if p.grad is not None and not torch.isfinite(p.grad).all():
                 raise RuntimeError(f"nonfinite gradient {n}")
         self.opt.step()
+        if k is not None:
+            k.project_()
         if self.model.haz_beta is not None and not self.model.haz_signed:
             with torch.no_grad():
                 for p in self.model.hazard_params():

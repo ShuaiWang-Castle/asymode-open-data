@@ -267,7 +267,7 @@ class AsymODE(nn.Module):
         layer = self.damage[2]
         kd = {}
         if isinstance(layer, GCRKLayer):
-            ans = layer(h, b["geo"], diagnostics=diagnostics, exit_open=exit_open)
+            ans = layer(h, b["geo"], diagnostics=diagnostics, exit_open=exit_open, space=b.get("space"))
             a2, kd = ans if diagnostics else (ans, {})
         else:
             a2 = layer(h)

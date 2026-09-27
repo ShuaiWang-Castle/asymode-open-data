@@ -96,3 +96,20 @@ averaged in forecast space, but only for a design with a single-seed gain over t
    only and are rerun only if the panel changes. Descriptive analyses use the development tranche only. Text that
    states a direction (abstract, Sections 5.2-5.4, conclusion) is reread against the new numbers each time.
 4. **Record, push and report**, as above.
+
+## Kernel comparison (from 2026-09-27 15:45; PI: kernels first, the paper waits)
+
+The PI asked to compare plain AsymODE, AsymODE + GCRK (temporal kernel) and AsymODE + spatio-temporal GCRK (I14)
+before any more writing, and only then to move on (a recovery-side kernel is the next idea). Every wake-up:
+
+1. **Look.** `jobs_v1_stgcrk_s0.txt` (STGCRK+Cin, seed 0, five event folds; one process, nice 15; queue log
+   `logs/queue_v1_stgcrk.log`) and TimesFM (`runs/geo_weather_20260924/timesfm_v1D/`).
+2. **Evaluate.** When the five folds of `v1_stgcrk_s0` are done, run `compare_kernels_v1.py --seed 0` (paired seed 0:
+   pooled MAE and RMSE at +1/+6/+24/+48 h, relative RMSE with family-cluster intervals overall, by regime, by initial
+   state and without the three worst systems, large-outage peaks, the learned coupling per fold) and
+   `evaluate_v1.py --arm v1_stgcrk_s0 --host v1_host_s0` and `--host v1_gcrk_s0` for the regime-balanced numbers.
+3. **Decide by rule** (single seed first). The spatio-temporal kernel is a candidate if it beats the host and the
+   temporal GCRK at seed 0 (regime-balanced and pooled +1 h). Only then: seeds 1-2 of it, of GCRK and of the host, and
+   the spatial null (neighbours replaced at matched distance). Otherwise report and discuss the next kernel with the PI.
+4. **Record, push and report**, as in sections 5 and 6. When TimesFM finishes, rerun `paper_v1/evaluate_paper.py`
+   so its tables are current, but do not edit the manuscript.

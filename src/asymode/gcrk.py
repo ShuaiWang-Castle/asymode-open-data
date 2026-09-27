@@ -45,6 +45,7 @@ SCALE_FLOOR = 1e-4
 DROP_PATH = 0.2
 WARMUP_STEPS = 200
 CALIBRATION_EVERY = 10
+KAPPA_MAX = 0.5          # spatio-temporal GCRK: each of the static and the upwind neighbour shares is at most 1/2
 
 
 def prefix_reference(h: torch.Tensor, prefix: int = PREFIX_HOURS) -> torch.Tensor:
@@ -152,6 +153,82 @@ def response_sequence(f: torch.Tensor, lam: torch.Tensor, a: torch.Tensor) -> to
     return _Response.apply(f.contiguous(), lam.contiguous(), a.contiguous())
 
 
+# ------------------------------------------------------------- spatio-temporal coupling
+# The states of neighbouring counties are mixed before each hour's solve:
+#     e_t = M_t^{-1} (P_t e_{t-1} + f_t),   (P_t e)_i = (1 - sum_k c_ik,t) e_i + sum_k c_ik,t e_nbr(i,k),
+# with c_ik,t = cw_ik + cu_ik,t >= 0 and sum_k c_ik,t <= 1. P_t is a Markov mixing of neighbour states, so the largest
+# county state norm cannot grow through it and GCRK's unit bound on the state still holds. cw is the static,
+# symmetric-in-spirit share (distance x geography similarity); cu the directional share from upwind neighbours.
+def _mix(prev: torch.Tensor, c: torch.Tensor, nbr: torch.Tensor) -> torch.Tensor:
+    """prev [B, D], c [B, k] >= 0 with row sums <= 1, nbr [B, k] row indices into prev."""
+    return prev * (1.0 - c.sum(-1, keepdim=True)) + (c.unsqueeze(-1) * prev[nbr]).sum(1)
+
+
+def response_sequence_st_loop(f, lam, a, cw, cu, nbr):
+    """Plain spatio-temporal recurrence, differentiated by autograd. Reference for tests."""
+    invd = 1.0 / (1.0 + lam)
+    state = torch.zeros_like(f[:, 0])
+    out = []
+    for t in range(f.shape[1]):
+        state = _solve(_mix(state, cw + cu[:, t], nbr) + f[:, t], f[:, t], invd, a)
+        out.append(state)
+    return torch.stack(out, 1)
+
+
+class _ResponseST(torch.autograd.Function):
+    """The coupled recurrence with a hand-written adjoint. With z_t = M_t^{-T}(G_t + P_{t+1}^T z_{t+1}), the
+    gradients of f, lam and a are those of _Response, and dL/dc_ik,t = z_i,t . (e_nbr(i,k),t-1 - e_i,t-1)."""
+
+    @staticmethod
+    def forward(ctx, f, lam, a, cw, cu, nbr):
+        invd = 1.0 / (1.0 + lam)
+        state = torch.zeros_like(f[:, 0])
+        out = torch.empty_like(f)
+        for t in range(f.shape[1]):
+            state = _solve(_mix(state, cw + cu[:, t], nbr) + f[:, t], f[:, t], invd, a)
+            out[:, t] = state
+        ctx.save_for_backward(f, lam, a, cw, cu, nbr, out)
+        return out
+
+    @staticmethod
+    def backward(ctx, grad):
+        f, lam, a, cw, cu, nbr, e = ctx.saved_tensors
+        invd = 1.0 / (1.0 + lam)
+        gf = torch.empty_like(f)
+        glam = torch.zeros_like(lam)
+        ga = torch.zeros_like(a)
+        gcu = torch.zeros_like(cu)
+        adj = torch.zeros_like(f[:, 0])
+        grad = grad.contiguous()
+        flat = nbr.reshape(-1)
+        for t in range(f.shape[1] - 1, -1, -1):
+            ft, et = f[:, t], e[:, t]
+            z = _solve(grad[:, t] + adj, ft, invd, -a)
+            ae = (a * et).sum(-1, keepdim=True)
+            az = (a * z).sum(-1, keepdim=True)
+            fe = (ft * et).sum(-1, keepdim=True)
+            zf = (z * ft).sum(-1, keepdim=True)
+            gf[:, t] = (1.0 - ae) * z + az * et
+            glam -= z * et
+            ga += fe * z - zf * et
+            c = cw + cu[:, t]
+            if t > 0:
+                prev = e[:, t - 1]
+                gcu[:, t] = (z.unsqueeze(1) * (prev[nbr] - prev.unsqueeze(1))).sum(-1)
+            adj = z * (1.0 - c.sum(-1, keepdim=True))
+            adj = adj.index_add(0, flat, (c.unsqueeze(-1) * z.unsqueeze(1)).reshape(-1, z.shape[-1]))
+        return gf, glam, ga, gcu.sum(1), gcu, None
+
+
+def response_sequence_st(f, lam, a, cw, cu, nbr):
+    """Spatio-temporal response states. f [B, T, D]; lam, a [B, D]; cw [B, k]; cu [B, T, k]; nbr [B, k] (long)."""
+    B, T, D = f.shape
+    if cw.shape != nbr.shape or cu.shape != (B, T, nbr.shape[1]) or nbr.shape[0] != B:
+        raise ValueError("coupling must be cw [B, k], cu [B, T, k] and nbr [B, k]")
+    return _ResponseST.apply(f.contiguous(), lam.contiguous(), a.contiguous(), cw.contiguous(), cu.contiguous(),
+                             nbr.contiguous())
+
+
 # ------------------------------------------------------------------------------ layer
 class GCRKLayer(nn.Module):
     """Replaces the damage network's second linear layer, reusing its W2 and b2.
@@ -193,12 +270,41 @@ class GCRKLayer(nn.Module):
         self._drop = torch.Generator().manual_seed(int(private_seed) + 1)
         self.last_mask = 1.0
         self.last_calibration: dict = {}
+        self.space_on = False
+
+    def attach_space(self):
+        """Spatio-temporal GCRK: couple the response states of neighbouring counties (_ResponseST). Three scalars,
+        all zero at the start, so the layer equals GCRK at step 0: kappa_s, the static share taken from the
+        neighbours (weights exp(-distance / 50 km) x exp(-gamma |code_i - code_j|^2), normalised), kappa_a, the share
+        taken from upwind neighbours (weights from the data, scaled by wind speed), and gamma >= 0, how strongly
+        geographic similarity selects the neighbours. project_() keeps them in their ranges after every step."""
+        w = self.weight
+        self.kappa_s = nn.Parameter(w.new_zeros(()))
+        self.kappa_a = nn.Parameter(w.new_zeros(()))
+        self.geo_sim = nn.Parameter(w.new_zeros(()))
+        self.space_on = True
+
+    @torch.no_grad()
+    def project_(self):
+        if self.space_on:
+            self.kappa_s.clamp_(0.0, KAPPA_MAX); self.kappa_a.clamp_(0.0, KAPPA_MAX); self.geo_sim.clamp_(min=0.0)
+
+    def code_of(self, g: torch.Tensor) -> torch.Tensor:
+        z = torch.tanh(g / 3.0) - self.geo_center
+        z = z / torch.sqrt(0.1 ** 2 + z.square().sum(-1, keepdim=True))
+        return torch.tanh(F.linear(z, self.U))
+
+    def coupling(self, code: torch.Tensor, space: dict):
+        """(cw [B, k], cu [B, T, k]) from the batch's neighbour table space = {nbr, wd, up}."""
+        nbr, wd, up = space["nbr"], space["wd"], space["up"]
+        sim = torch.exp(-self.geo_sim.clamp(min=0.0) * (code.unsqueeze(1) - code[nbr]).square().sum(-1))
+        w = wd * sim
+        wn = w / w.sum(-1, keepdim=True).clamp_min(1e-12)
+        return self.kappa_s.clamp(0.0, KAPPA_MAX) * wn, self.kappa_a.clamp(0.0, KAPPA_MAX) * up
 
     # geography -> (dissipation, interaction, readout gain)
     def condition(self, g: torch.Tensor):
-        z = torch.tanh(g / 3.0) - self.geo_center
-        z = z / torch.sqrt(0.1 ** 2 + z.square().sum(-1, keepdim=True))
-        code = torch.tanh(F.linear(z, self.U))
+        code = self.code_of(g)
         lam = self.lambda_min + (self.lambda_max - self.lambda_min) * torch.sigmoid(self.l0 + F.linear(code, self.Vl))
         w = self.a0 + F.linear(code, self.Va)
         a = INTERACTION_BOUND * w / torch.sqrt(1.0 + w.square().sum(-1, keepdim=True))
@@ -223,8 +329,9 @@ class GCRKLayer(nn.Module):
         return min(1.0, float(self.training_step) / WARMUP_STEPS)
 
     def forward(self, h: torch.Tensor, g: torch.Tensor, diagnostics: bool = False,
-                exit_open: bool = True):
-        """h: [B, T, d] first hidden sequence; g: [B, G] standardised geography.
+                exit_open: bool = True, space: dict | None = None):
+        """h: [B, T, d] first hidden sequence; g: [B, G] standardised geography; space: the batch's neighbour table
+        (spatio-temporal GCRK only).
 
         exit_open=False evaluates the same network with the response contribution
         removed, which is the configuration drop-path exposes during training.
@@ -239,7 +346,13 @@ class GCRKLayer(nn.Module):
         d = gate * q
         lam, a, gain = self.condition(g)
         nu = lam.amin(dim=-1, keepdim=True)
-        state = response_sequence(nu[:, None] * d, lam, a)
+        if self.space_on:
+            if space is None:
+                raise RuntimeError("spatio-temporal GCRK needs the batch's neighbour table")
+            cw, cu = self.coupling(self.code_of(g), space)
+            state = response_sequence_st(nu[:, None] * d, lam, a, cw, cu, space["nbr"])
+        else:
+            state = response_sequence(nu[:, None] * d, lam, a)
         beta = torch.tanh(self.alpha) if self.bounded_opening else self.alpha
         mask = 1.0
         if self.training:
@@ -251,7 +364,9 @@ class GCRKLayer(nn.Module):
             return out, dict(reference=ref, departure=v, q=q, gate=gate.squeeze(-1), deposit=d,
                              state=state, damping=lam, nu=nu, interaction=a, coordinate_gain=gain,
                              beta=beta, scale=self.scale, threshold=self.threshold,
-                             effect=effect, ramp=h.new_tensor(self.ramp()))
+                             effect=effect, ramp=h.new_tensor(self.ramp()),
+                             **({"kappa_s": self.kappa_s.detach(), "kappa_a": self.kappa_a.detach(),
+                                 "geo_sim": self.geo_sim.detach()} if self.space_on else {}))
         return out
 
     def n_new_parameters(self) -> int:
