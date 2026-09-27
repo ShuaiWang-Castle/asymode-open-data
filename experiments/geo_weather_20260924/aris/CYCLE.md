@@ -85,6 +85,10 @@ AsymODE + geography x weather (the HRRR mechanical-load pathway). Each learned m
 2. **Evaluate.** Run `paper_v1/evaluate_paper.py` whenever a model's set of seeds grows. It writes
    `results/v1/paper_tables.json`: pooled MAE and RMSE at +1, +6, +24 and +48 hours, design-weighted and
    unweighted, by regime, and RMSE against AsymODE with family-cluster intervals.
-3. **Figures and text.** Once all five models are complete, regenerate `paper_v1/figures_v1.py` and fill the numbers
-   into `paper_v1/main.tex`. Descriptive analyses use the development tranche only.
+3. **Figures and text.** Whenever a model's set of seeds grows, rerun, in this order and at nice 15:
+   `paper_v1/counterfactual_v1.py` (GCRK and pathway counterfactuals, then `summary`), `paper_v1/figures_v1.py`
+   (Figures 1-4), `paper_v1/evaluate_paper.py`. They write `paper_v1/generated/*.tex`, and `main.tex` quotes numbers
+   only through those macros, so nothing is copied by hand. `describe_v1.py` and `twins_v1.py` depend on the data
+   only and are rerun only if the panel changes. Descriptive analyses use the development tranche only. Text that
+   states a direction (abstract, Sections 5.2-5.4, conclusion) is reread against the new numbers each time.
 4. **Record, push and report**, as above.
