@@ -13,6 +13,7 @@
 % every number of Sections 5-6 comes from these generated files (paper_v1/evaluate_paper.py, counterfactual_v1.py,
 % figures_v1.py); a model that is still missing falls back to a red dash
 \input{generated/numbers.tex}
+\input{generated/numbers_data.tex}
 \input{generated/numbers_cf.tex}
 \IfFileExists{generated/numbers_fig4.tex}{\input{generated/numbers_fig4.tex}}{}
 \providecommand{\TimesFMVsHostOne}{\pending{--}}\providecommand{\TimesFMVsHostOneCI}{\pending{--}}
@@ -86,13 +87,16 @@ The frame lists every weather system defined by National Weather Service warning
 between July 2018 and December 2025, from the Iowa Environmental Mesonet VTEC archive and the NHC best
 tracks~\cite{landsea2013}: warnings linked in space and time form a system, tropical warnings join their storm, and each
 system is typed as convective, synoptic wind, tropical cyclone, winter or heavy rain. Of 28,229 systems, 20,830 pass
-outcome-independent data gates. A development tranche of 81 systems (15 per regime, plus 6 added to fill season and
-geography cells) was drawn by probability-proportional-to-size sampling; a separate tranche of 99 systems is sealed for
-a later confirmatory test and is not used here. Within each system, at most 140 counties are drawn from three strata:
-counties under a warning, counties under an advisory or watch, and a ring of counties within 200~km with no product,
-by probability proportional to a weather hazard index, so that near misses are represented. The panel holds 8,457
-county-events in 2,410 counties of 42 states. Every metric and loss carries the design weight
-$w=1/(\pi_{\text{system}}\,\pi_{\text{county}})$, so the sample stands for the frame.
+outcome-independent data gates. A development tranche of 81 systems was drawn with probability proportional to the
+customers under warnings: 15 per regime, and a registered supplementary draw that added three synoptic-wind systems of
+an under-represented season and three heavy-rain systems far from the coast when the geography and season audit of the
+first draw failed; a separate tranche of 99 systems is sealed for a later confirmatory test and is not used here. Within each
+system, at most 140 counties are drawn, 90 under a warning, 25 under an advisory or watch and 25 from a ring within
+200~km that received no product, with probability proportional to a reanalysis hazard index that never enters a model,
+so that near misses are represented. The panel holds \NEvents\ county-events in \NCounties\ counties of \NStates\
+states. Every metric
+and loss carries the design weight $w=1/(\pi_{\text{system}}\,\pi_{\text{county}})$, trimmed at ten times its
+regime's median, so that the sample stands for the frame.
 
 Let $p_{i,t}$ denote the fraction of customers without service in county-event $i$ at hour $t=0,\dots,215$, from
 EAGLE-I county records divided by the publisher's 2024 modelled customers~\cite{brelsford2024}. The forecast origin is
@@ -111,10 +115,10 @@ systems, (c) all 81 systems. A county that appears in several systems shows its 
 \subsection{Initiation, renewed growth and geographic context}
 \label{sec:context}
 County records aggregate concurrent interruption and restoration; their difference determines the change in outage
-stock, and the two gross processes are latent. Renewed growth is common: in 2,213 of the 8,457 county-events (26\%)
-the outage fraction rises by at least two percentage points within two hours during the forecast window, most often in
-tropical (37\%) and synoptic-wind (31\%) systems; 1,639 of the 5,802 county-events with no customers out at hour 71
-later reach at least 2\%. Forecasts must therefore support both renewed growth and initiation from a fully served
+stock, and the two gross processes are latent. Renewed growth is common: in \NRenewed\ of the \NEvents\ county-events
+(\ShareRenewed) the outage fraction rises by at least two percentage points within two hours during the forecast
+window, most often in tropical (\ShareRenewedTropical) and synoptic-wind (\ShareRenewedSynoptic) systems;
+\NInitiated\ of the \NServedAtOrigin\ county-events with no customers out at hour 71 later reach at least 2\%. Forecasts must therefore support both renewed growth and initiation from a fully served
 state.
 
 County differences also motivate a conditional weather response. We call two neighbouring counties of the same
@@ -176,9 +180,24 @@ The damage and recovery networks have independent parameters and inputs, shared 
 Damage is a two-hidden-layer MLP of width 32 over the weather inputs, with a learned logit smoother, a weather-based
 occurrence gate and a small background rate; recovery is an independent two-hidden-layer MLP of width 16 over selected
 weather, the observed prefix and the county context, recomputed at every forecast hour. The asymmetry lies in the
-allocation of information, neural structure and source populations.
+allocation of information, neural structure and source populations. Figure~\ref{fig:model} shows the two rate
+networks, the two routes for geography of Section~\ref{sec:routes} and the balance that joins them.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig2_model_v1.pdf}
+\caption{AsymODE and the two routes for geography. The damage network reads weather; GCRK, inside it, turns the
+departures of its first hidden representation $h_{i,t}$ into one bounded response state whose dissipation,
+interaction and readout gain are set by the county's descriptors. The geography $\times$ weather pathway forms
+mechanical hazards at 3~km population nodes, modulated by canopy and drainage there, and adds them to the damage rate
+as a competing hazard with non-negative coefficients. The recovery network reads selected weather, the observed
+prefix and the county context. The population balance applies damage to customers still served and recovery to
+customers out.}
+\label{fig:model}
+\end{figure*}
 
 \section{Two Routes for Geography}
+\label{sec:routes}
 \subsection{A geography-conditioned response kernel}
 GCRK sits inside the damage network and advances one bounded response state through a dissipative, input-dependent
 operator. Departures of the damage network's hidden representation from its causal prefix reference drive the state; a
@@ -248,8 +267,8 @@ weather pathway changes RMSE by \PathVsHostOne\ at +1~h \PathVsHostOneCI\ and by
 GCRK changes it by \GCRKVsHostOne\ \GCRKVsHostOneCI.
 
 \paragraph{Robustness.} The pathway improves on AsymODE in \PathSeedsBetter\ of \SeedsPath\ paired initializations
-(\PathSeedRange\ at +1~h), for the \NServed\ county-events that start fully served (\PathVsHostServed) and for the
-\NStock\ that start with customers out (\PathVsHostStock). Its gain rests largely on the systems in which AsymODE errs
+(\PathSeedRange\ at +1~h), for the \NServed\ county-events that start with at most 0.1\% of customers out
+(\PathVsHostServed) and for the \NStock\ that start with more (\PathVsHostStock). Its gain rests largely on the systems in which AsymODE errs
 most: without the three largest, all winter systems, it falls to \PathVsHostDropThree, and to \PathVsHostDropFive\
 without five. The same pathway built from ERA5 instead of HRRR hazards changes AsymODE's RMSE by \EraVsHost\
 \EraVsHostCI\ (\SeedsEra\ initializations), and the HRRR pathway's advantage over this twin, \HrrrVsEra\
@@ -267,9 +286,9 @@ pathway forecasts of \FigFourPathA\ and \FigFourPathB, and \FigFourNameC\ and \F
 county-events whose outage fraction exceeds 10\% in the forecast window, the median forecast peak is \HostPeakRatio\
 of the observed peak for AsymODE, \GCRKPeakRatio\ with GCRK and \PathPeakRatio\ with the pathway (\TimesFMPeakRatio\
 for TimesFM), and \HostHalfPeak, \GCRKHalfPeak\ and \PathHalfPeak\ of them reach half the observed peak. Where
-customers are already out at the origin, the balance carries the stock and its restoration forward, and the
+more than 0.1\% of customers are out at the origin, the balance carries the stock and its restoration forward, and the
 all-zero forecast falls further behind: its RMSE relative to AsymODE's is \ZeroVsHostStock\ on these county-events,
-against \ZeroVsHostServed\ on those that start fully served.
+against \ZeroVsHostServed\ on the others.
 
 \begin{figure*}[t]
 \centering
