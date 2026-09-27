@@ -39,12 +39,21 @@ write `results/v1/screen_s<seed>_<arm>_vs_<ref>.json`.
 * **Stage 0 (DATASET_DESIGN 9.3).** Host seeds 1-2 are needed anyway: they decide the headline regimes. Seeds 3-5 are
   the A/A run, which decides the seed count.
 
+## 3b. After Stage 0 (2026-09-27)
+
+* The headline regimes are tropical and winter. The keep test's regime-balanced gain averages over these two.
+  Synoptic wind, convective and heavy rain may not get worse by more than 2% (seed-averaged point estimate).
+* Fewer than three regimes qualify, so the next new work is the host itself (idea I11). It needs a written design
+  before it runs. The only pathway work that continues is the running candidate test: the HRRR mechanical subset,
+  seed 2, against its ERA5 twin and the host.
+
 ## 4. Queue the next work, in this order (skip what is done)
 
 1. The seed-0 queue `jobs_v1_stageB_s0b.txt`: GCRK open, mechanical ERA5, GCRK bounded, mechanical HRRR, full HRRR.
 2. Host seeds 1-2, five folds each (Stage 0).
-3. Seeds 1-2 of every candidate and its twin (step 3).
-4. The A/A host seeds 3-5.
+3. Seeds 1-2 of every candidate and its twin (step 3). After Stage 0, only the HRRR mechanical subset (see 3b).
+4. The A/A host seeds 3-5 (`jobs_v1_aa_s345.txt`, queued after the candidate).
+5. Then the host work of I11, once its design is written.
 
 A new design (a new arm or feature set) is not started by a wake-up. It needs a line in `aris/IDEAS.md` and a reason
 written before it runs. The sealed tranche C is never built, read or evaluated.

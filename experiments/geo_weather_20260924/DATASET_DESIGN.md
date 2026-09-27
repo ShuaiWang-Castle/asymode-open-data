@@ -602,3 +602,31 @@ resolution floor:
 
 The audit, the supplements and the seeds are unchanged. The C and D selections are fixed by the registered seeds
 (20260926, 20260927), so the re-execution selects the same systems. Only their π change.
+
+## Outcome of Stage 0 (recorded 2026-09-27, not an amendment)
+
+Host W+Cin, seeds 0-2 seed-averaged, five event folds of the development tranche (`results/v1/stage0_host_s012.json`).
+Host MSE against the all-zero forecast, with 80% family-cluster intervals:
+
+| regime | host / zero − 1 | 80% interval | headline |
+|---|---|---|---|
+| tropical | −11.0% | [−12.9, −8.7] | yes |
+| winter | −2.8% | [−5.6, −0.1] | yes |
+| convective | −2.9% | [−5.9, +0.2] | no |
+| synoptic wind | +8.6% | [−1.6, +22.1] | no |
+| heavy rain | +5.7% | [+0.1, +18.5] | no |
+
+**Consequences under §9.3 and amendment 2 (S7, S10).**
+* The headline regimes are tropical and winter. The primary estimand averages over these two. Synoptic wind, convective
+  and heavy rain are non-inferiority strata, with a 2% margin on the seed-averaged point estimate.
+* Fewer than three regimes qualify, so the host itself (idea I11) is the next object of work, before any new pathway
+  arm.
+* The seed-0 screens ran before this outcome and used all five regimes.
+  * Re-read with the headline set, the ERA5 pathways (full, signed, mechanical) and GCRK with an unbounded opening
+    improve the headline regimes by 1.4-2.9%. Each breaks the 2% margin in heavy rain or synoptic wind, by 10-11.5%,
+    against a host seed-to-seed spread of 1.1% (heavy rain) and 6.6% (synoptic wind). None becomes a candidate. GCRK
+    with a bounded opening stays discarded (+1.1% on the headline regimes).
+  * The HRRR pathways (mechanical subset, full dictionary) improve the headline regimes by 4.6%, with no
+    non-headline regime worse. They remain candidates.
+* The mechanical-subset candidate's seeds 1-2 were already running and complete its keep test. The full-dictionary
+  candidate is not carried further: it equals the mechanical subset within ±0.3%, and §9.3 puts the host first.
