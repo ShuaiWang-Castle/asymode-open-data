@@ -1,0 +1,30 @@
+--label v1_host_s1 --arm W+Cin --data v1D --design event --design-weights --seed 1 --steps 900 --folds 1
+--label v1_host_s1 --arm W+Cin --data v1D --design event --design-weights --seed 1 --steps 900 --folds 2
+--label v1_host_s1 --arm W+Cin --data v1D --design event --design-weights --seed 1 --steps 900 --folds 3
+--label v1_host_s1 --arm W+Cin --data v1D --design event --design-weights --seed 1 --steps 900 --folds 4
+--label v1_host_s1 --arm W+Cin --data v1D --design event --design-weights --seed 1 --steps 900 --folds 5
+--label v1_Hmech_hrrr_s1 --arm W+Cin+H --phi hrrr2 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 1 --steps 900 --folds 1
+--label v1_Hmech_hrrr_s1 --arm W+Cin+H --phi hrrr2 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 1 --steps 900 --folds 2
+--label v1_Hmech_hrrr_s1 --arm W+Cin+H --phi hrrr2 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 1 --steps 900 --folds 3
+--label v1_Hmech_hrrr_s1 --arm W+Cin+H --phi hrrr2 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 1 --steps 900 --folds 4
+--label v1_Hmech_hrrr_s1 --arm W+Cin+H --phi hrrr2 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 1 --steps 900 --folds 5
+--label v1_Hmech_era5_s1 --arm W+Cin+H --phi era52 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 1 --steps 900 --folds 1
+--label v1_Hmech_era5_s1 --arm W+Cin+H --phi era52 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 1 --steps 900 --folds 2
+--label v1_Hmech_era5_s1 --arm W+Cin+H --phi era52 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 1 --steps 900 --folds 3
+--label v1_Hmech_era5_s1 --arm W+Cin+H --phi era52 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 1 --steps 900 --folds 4
+--label v1_Hmech_era5_s1 --arm W+Cin+H --phi era52 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 1 --steps 900 --folds 5
+--label v1_host_s2 --arm W+Cin --data v1D --design event --design-weights --seed 2 --steps 900 --folds 1
+--label v1_host_s2 --arm W+Cin --data v1D --design event --design-weights --seed 2 --steps 900 --folds 2
+--label v1_host_s2 --arm W+Cin --data v1D --design event --design-weights --seed 2 --steps 900 --folds 3
+--label v1_host_s2 --arm W+Cin --data v1D --design event --design-weights --seed 2 --steps 900 --folds 4
+--label v1_host_s2 --arm W+Cin --data v1D --design event --design-weights --seed 2 --steps 900 --folds 5
+--label v1_Hmech_hrrr_s2 --arm W+Cin+H --phi hrrr2 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 2 --steps 900 --folds 1
+--label v1_Hmech_hrrr_s2 --arm W+Cin+H --phi hrrr2 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 2 --steps 900 --folds 2
+--label v1_Hmech_hrrr_s2 --arm W+Cin+H --phi hrrr2 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 2 --steps 900 --folds 3
+--label v1_Hmech_hrrr_s2 --arm W+Cin+H --phi hrrr2 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 2 --steps 900 --folds 4
+--label v1_Hmech_hrrr_s2 --arm W+Cin+H --phi hrrr2 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 2 --steps 900 --folds 5
+--label v1_Hmech_era5_s2 --arm W+Cin+H --phi era52 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 2 --steps 900 --folds 1
+--label v1_Hmech_era5_s2 --arm W+Cin+H --phi era52 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 2 --steps 900 --folds 2
+--label v1_Hmech_era5_s2 --arm W+Cin+H --phi era52 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 2 --steps 900 --folds 3
+--label v1_Hmech_era5_s2 --arm W+Cin+H --phi era52 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 2 --steps 900 --folds 4
+--label v1_Hmech_era5_s2 --arm W+Cin+H --phi era52 --keep ^(g_exc|g_gt25|ice|wetsnow|snow_wind|wet_wind|canopy|drain) --data v1D --design event --design-weights --seed 2 --steps 900 --folds 5
