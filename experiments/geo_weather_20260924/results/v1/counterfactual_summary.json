@@ -1,0 +1,126 @@
+{
+ "GCRK": {
+  "model": "gcrk",
+  "own": "P_own",
+  "counterfactual": "P_mean_geo",
+  "seeds": [
+   0
+  ],
+  "by_regime": {
+   "all": {
+    "mse_change": 0.025336216177824555,
+    "mean_abs_peak_change_pp": 0.26419879585056105,
+    "share_peak_moved_gt_half_pp": 0.04079460801702731
+   },
+   "tropical": {
+    "mse_change": 0.009542945191039598,
+    "mean_abs_peak_change_pp": 0.7803937587618288,
+    "share_peak_moved_gt_half_pp": 0.09246785058175137
+   },
+   "winter": {
+    "mse_change": 0.049661815832702905,
+    "mean_abs_peak_change_pp": 0.37656804602990435,
+    "share_peak_moved_gt_half_pp": 0.06687730384412849
+   },
+   "synoptic_wind": {
+    "mse_change": 0.019347341183354017,
+    "mean_abs_peak_change_pp": 0.09465165258645133,
+    "share_peak_moved_gt_half_pp": 0.022478070175438597
+   },
+   "convective": {
+    "mse_change": 0.0006052859517886588,
+    "mean_abs_peak_change_pp": 0.011342778484691333,
+    "share_peak_moved_gt_half_pp": 0.0023161551823972205
+   },
+   "heavy_rain": {
+    "mse_change": -0.00889051971306376,
+    "mean_abs_peak_change_pp": 0.03828958972240968,
+    "share_peak_moved_gt_half_pp": 0.01601164483260553
+   }
+  }
+ },
+ "Mod": {
+  "model": "pathway",
+  "own": "P_own",
+  "counterfactual": "P_unmodulated",
+  "seeds": [
+   0,
+   1,
+   2
+  ],
+  "by_regime": {
+   "all": {
+    "mse_change": -0.007832086362690727,
+    "mean_abs_peak_change_pp": 0.4497218111164911,
+    "share_peak_moved_gt_half_pp": 0.1522998699302353
+   },
+   "tropical": {
+    "mse_change": -0.039043417429003635,
+    "mean_abs_peak_change_pp": 1.3116223782367105,
+    "share_peak_moved_gt_half_pp": 0.2669932639314146
+   },
+   "winter": {
+    "mse_change": -0.015687316815806818,
+    "mean_abs_peak_change_pp": 0.28692593698668395,
+    "share_peak_moved_gt_half_pp": 0.17272248551869404
+   },
+   "synoptic_wind": {
+    "mse_change": 0.0862489031012752,
+    "mean_abs_peak_change_pp": 0.43101532140242754,
+    "share_peak_moved_gt_half_pp": 0.20230263157894737
+   },
+   "convective": {
+    "mse_change": 0.00035067825498846794,
+    "mean_abs_peak_change_pp": 0.03140015234309505,
+    "share_peak_moved_gt_half_pp": 0.011001737116386797
+   },
+   "heavy_rain": {
+    "mse_change": -0.006696177650538537,
+    "mean_abs_peak_change_pp": 0.20097936628773752,
+    "share_peak_moved_gt_half_pp": 0.09898107714701601
+   }
+  }
+ },
+ "Haz": {
+  "model": "pathway",
+  "own": "P_own",
+  "counterfactual": "P_no_hazard",
+  "seeds": [
+   0,
+   1,
+   2
+  ],
+  "by_regime": {
+   "all": {
+    "mse_change": -0.03261410265461162,
+    "mean_abs_peak_change_pp": 0.668482742574141,
+    "share_peak_moved_gt_half_pp": 0.23211540735485398
+   },
+   "tropical": {
+    "mse_change": -0.045451177690964406,
+    "mean_abs_peak_change_pp": 1.4006726174258592,
+    "share_peak_moved_gt_half_pp": 0.27127985303123087
+   },
+   "winter": {
+    "mse_change": -0.06751968637233319,
+    "mean_abs_peak_change_pp": 0.9205046569140899,
+    "share_peak_moved_gt_half_pp": 0.42022116903633494
+   },
+   "synoptic_wind": {
+    "mse_change": 0.09958628059727692,
+    "mean_abs_peak_change_pp": 0.6666643294170571,
+    "share_peak_moved_gt_half_pp": 0.2883771929824561
+   },
+   "convective": {
+    "mse_change": 0.0007116336965304892,
+    "mean_abs_peak_change_pp": 0.040349209644482804,
+    "share_peak_moved_gt_half_pp": 0.01447596988998263
+   },
+   "heavy_rain": {
+    "mse_change": -0.010664465706045845,
+    "mean_abs_peak_change_pp": 0.24187991579366222,
+    "share_peak_moved_gt_half_pp": 0.12445414847161572
+   }
+  }
+ }
+}

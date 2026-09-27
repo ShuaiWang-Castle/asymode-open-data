@@ -1,0 +1,359 @@
+% AsymODE on public data: the manuscript with five forecasters on the development tranche of the designed panel
+% (DATASET_DESIGN.md v1). Numbers marked \pending{} are filled in when every
+% forecaster has five initializations (aris/CYCLE.md, paper phase). Compile on Overleaf (pdflatex).
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx,booktabs,xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{natbib}
+\setcitestyle{numbers,square}
+\newcommand{\pending}[1]{\textcolor{red}{#1}}
+\newcommand{\R}{\mathbb{R}}
+% every number of Sections 5-6 comes from these generated files (paper_v1/evaluate_paper.py, counterfactual_v1.py,
+% figures_v1.py); a model that is still missing falls back to a red dash
+\input{generated/numbers.tex}
+\input{generated/numbers_cf.tex}
+\IfFileExists{generated/numbers_fig4.tex}{\input{generated/numbers_fig4.tex}}{}
+\providecommand{\TimesFMVsHostOne}{\pending{--}}\providecommand{\TimesFMVsHostOneCI}{\pending{--}}
+\providecommand{\TimesFMVsHostFortyEight}{\pending{--}}\providecommand{\TimesFMVsHostFortyEightCI}{\pending{--}}
+\providecommand{\TimesFMVsZeroOne}{\pending{--}}\providecommand{\TimesFMVsZeroFortyEight}{\pending{--}}
+\providecommand{\TimesFMPeakRatio}{\pending{--}}\providecommand{\TimesFMHalfPeak}{\pending{--}}
+\providecommand{\TimesFMVsHostDropThree}{\pending{--}}
+
+\title{Asymmetric Outage Dynamics with Geography and Weather:\\ County-Level Forecasts from Public Data}
+\author{\pending{Authors to be confirmed}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Successive storms can cause new interruptions while earlier outages are still being restored, so an outage forecast
+must track both the continuing effect of weather and the customers still without service. We develop AsymODE, a
+population-balance forecaster in which damage acts on customers still served and recovery on customers already out,
+each with its own neural rate and inputs, and we compare two ways for fixed geography to enter it: a
+Geography-Conditioned Response Kernel (GCRK) that lets terrain, soil and land cover set how a bounded memory of weather
+fades, interacts and is read out, and a geography $\times$ weather pathway that multiplies weather-driven mechanical
+loads by canopy and drainage at 3~km population nodes before integrating them over each county. We evaluate on public
+data only: EAGLE-I county outage records, ERA5 and HRRR weather, and a designed panel of 81 weather systems of five
+regimes drawn with known probabilities from 20,830 NWS-warning-defined systems of 2018--2025, with every system held
+out in turn. From one open-loop trajectory per county-event, every forecaster stays close to the all-zero forecast in
+pooled RMSE: AsymODE's RMSE relative to it is \HostVsZeroOne\ at +1~hour and \HostVsZeroFortyEight\ at +48~hours,
+with gains in tropical-cyclone, convective and winter systems and losses in synoptic windstorms and heavy rain, and
+zero-shot TimesFM's relative to AsymODE is \TimesFMVsHostOne\ and \TimesFMVsHostFortyEight. The geography $\times$
+weather pathway changes AsymODE's RMSE by \PathVsHostOne\ to \PathVsHostFortyEight\ across horizons, mostly in
+winter and tropical systems and concentrated in the systems with the largest errors; GCRK does not improve on
+AsymODE. Neighbouring counties with nearly the same weather but very different outages remain unresolved, and the
+largest outages are forecast at a small fraction of their size.
+\end{abstract}
+
+\section{Introduction}
+When a second storm arrives, new interruptions can occur while customers affected by the first are still waiting for
+service. A forecast of the number without power must therefore anticipate both the next disruption and the evolution of
+the existing outage stock: a high but declining outage level calls for different preparation from a low level about to
+rise. Public county outage records now make this problem measurable across the United States and across weather
+regimes, from convective lines to tropical cyclones and ice storms~\cite{brelsford2024}.
+
+Two lines of work inform such forecasts. Weather-based outage prediction has established the importance of local
+exposure: weather combined with soil, vegetation and utility assets predicts storm outages~\cite{cerrai2019}, tracked
+storms and forest characteristics predict damage categories~\cite{tervo2021}, and dynamic prediction exploits evolving
+weather sequences~\cite{alpay2020}. Process-based models describe how outages unfold: Dobson~\cite{dobson2023}
+connects outage and restoration processes to resilience curves, and Zhu et al.~\cite{zhu2025} place discounted weather
+accumulation, a nonlinear weather response and outage-history triggering inside a spatiotemporal model of customer
+outages. Together they indicate that the effect of weather outlasts the hour in which it occurs and depends on the
+environment it meets.
+
+An open-loop forecast through a later storm raises two design questions. The first is which population each process
+acts on. We adopt a population balance in which damage acts on customers still served and recovery on customers
+currently out, so the two processes can respond to different information, operate simultaneously, and start an outage
+in a fully served county. The second is how fixed geography should enter a response that changes hour by hour.
+Supplied as ordinary features, terrain, vegetation and soil descriptors act as county-specific intercepts. We compare
+two structured routes instead. GCRK lets a county's geography shape the geometry of a single fading response
+state~\cite{zhu2021hotspots}; the geography $\times$ weather pathway lets geography modulate the physical hazard where
+the customers are, before any county averaging.
+
+Our contributions are threefold. (i) A population-balance forecaster whose damage and recovery rates read different
+information and act on different source populations. (ii) Two routes for geography, a conditioned temporal kernel and a
+node-level hazard pathway with temperature-gated ice and wet-snow loads, compared on the same host. (iii) A public,
+designed benchmark: weather systems of five regimes drawn with recorded inclusion probabilities, observation gates that
+never read the forecast window, and an event-held-out evaluation in which every forecast concerns a storm the model
+has not seen.
+
+\section{Data and Empirical Motivation}
+\subsection{Weather systems drawn from a public frame}
+The frame lists every weather system defined by National Weather Service warnings in the contiguous United States
+between July 2018 and December 2025, from the Iowa Environmental Mesonet VTEC archive and the NHC best
+tracks~\cite{landsea2013}: warnings linked in space and time form a system, tropical warnings join their storm, and each
+system is typed as convective, synoptic wind, tropical cyclone, winter or heavy rain. Of 28,229 systems, 20,830 pass
+outcome-independent data gates. A development tranche of 81 systems (15 per regime, plus 6 added to fill season and
+geography cells) was drawn by probability-proportional-to-size sampling; a separate tranche of 99 systems is sealed for
+a later confirmatory test and is not used here. Within each system, at most 140 counties are drawn from three strata:
+counties under a warning, counties under an advisory or watch, and a ring of counties within 200~km with no product,
+by probability proportional to a weather hazard index, so that near misses are represented. The panel holds 8,457
+county-events in 2,410 counties of 42 states. Every metric and loss carries the design weight
+$w=1/(\pi_{\text{system}}\,\pi_{\text{county}})$, so the sample stands for the frame.
+
+Let $p_{i,t}$ denote the fraction of customers without service in county-event $i$ at hour $t=0,\dots,215$, from
+EAGLE-I county records divided by the publisher's 2024 modelled customers~\cite{brelsford2024}. The forecast origin is
+hour 72, six hours before the first warning's expected onset; outage observations are used through hour 71, and ERA5
+weather~\cite{hersbach2020} is supplied for all 216 hours, so every compared forecast is conditioned on the realised
+weather. Figure~\ref{fig:impacts} maps the county impacts of the development systems.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig1_impacts_v1.pdf}
+\caption{County-level peak outage fractions in the development tranche: (a) tropical-cyclone systems, (b) winter
+systems, (c) all 81 systems. A county that appears in several systems shows its largest peak.}
+\label{fig:impacts}
+\end{figure*}
+
+\subsection{Initiation, renewed growth and geographic context}
+\label{sec:context}
+County records aggregate concurrent interruption and restoration; their difference determines the change in outage
+stock, and the two gross processes are latent. Renewed growth is common: in 2,213 of the 8,457 county-events (26\%)
+the outage fraction rises by at least two percentage points within two hours during the forecast window, most often in
+tropical (37\%) and synoptic-wind (31\%) systems; 1,639 of the 5,802 county-events with no customers out at hour 71
+later reach at least 2\%. Forecasts must therefore support both renewed growth and initiation from a fully served
+state.
+
+County differences also motivate a conditional weather response. We call two neighbouring counties of the same
+system weather twins when both serve at least 5,000 customers, their hourly reanalysis gusts and precipitation over the
+forecast window correlate at no less than 0.95 and 0.90, and their maximum gusts and precipitation totals differ by at
+most 10\% and 25\%. The twins with the largest difference in 3-hour peak outage fraction are, among tropical systems,
+Vernon and Sabine parishes, Louisiana, in Hurricane Delta (2020): maximum gusts of 22.9 and 22.1~m\,s$^{-1}$ and 127
+and 133~mm of precipitation, yet peaks of 83\% and 14\%. Among winter systems they are Nantucket and Dukes counties,
+Massachusetts, in the blizzard of late January 2022: gusts of 33.5 and 32.9~m\,s$^{-1}$, correlated at 0.99, and peaks
+of 83\% and 8\%.
+
+Geography and weather regime are strongly confounded. Tropical systems land on dense-canopy, flat, poorly drained and
+densely served coastal counties (median canopy 49\%, 93~km from the coast); synoptic windstorms land on open, rugged,
+well-drained inland counties (16\%, 724~km). A geographic effect can therefore only be learned within regimes, and the
+design audits the geography of every regime. We use 40 public county descriptors of terrain (USGS 3DEP), tree canopy and
+land cover (USFS NLCD, 2021), soils (SSURGO and gNATSGO), forest land (FIA) and their co-location, and 3~km population
+nodes (WorldPop) carrying elevation, canopy and poor drainage. Table~\ref{tab:inputs} summarizes which information
+reaches which process.
+
+\begin{table}[t]
+\centering\small
+\caption{Information routes. Outage-derived inputs use hours 0--71 only; county identifiers are not inputs.}
+\label{tab:inputs}
+\begin{tabular}{@{}p{0.27\columnwidth}p{0.66\columnwidth}@{}}
+\toprule
+Information & Role\\
+\midrule
+Local weather & ERA5 channels and causal summaries for damage; selected weather for recovery.\\
+Natural geography & 40 descriptors control the GCRK response and its damage-side readout.\\
+Geography $\times$ weather & HRRR mechanical loads modulated by canopy and drainage at 3~km nodes enter the damage
+rate as a competing hazard.\\
+Observed outages & Prefix summaries inform recovery; $p_{i,71}$ initializes the stock.\\
+County context & Customer scale, rural--urban code, population density, utility mix and 2017 reliability (EIA-861), and
+the weather of the five nearest counties inform recovery.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{One trajectory, scored along its path}
+The prediction target is $p_{i,t}$ itself. From the observed $p_{i,71}$ each model produces one open-loop path over hours
+72--215, and every metric is computed on that path. As in forecasts issued at later origins, we score each lead $h$ by
+the error of the path at hours $72+h,\dots,215$ and report $h=1,6,24,48$.
+
+\section{Asymmetric Neural Outage Dynamics}
+\subsection{Transitions from different source populations}
+Let $u_{i,t}$ be the fraction of the previously served population interrupted during hour $t$ and $r_{i,t}$ the fraction of
+the previously outaged population restored. The two rates drive the hourly population balance
+\begin{equation}
+p_{i,t}=p_{i,t-1}+u_{i,t}(1-p_{i,t-1})-r_{i,t}\,p_{i,t-1}, \label{eq:balance}
+\end{equation}
+the hourly counterpart of $\dot p=\lambda_U(1-p)-\lambda_R p$ with bounded one-step transition
+fractions~\cite{chen2018}. Because $p_{i,t}=(1-p_{i,t-1})u_{i,t}+p_{i,t-1}(1-r_{i,t})$ is a convex combination of values in
+$[0,1]$, the stock stays valid, and at $p_{i,t-1}=0$ the balance gives $p_{i,t}=u_{i,t}$, so an outage can start in a fully
+served county; contagion-only inflow proportional to $p(1-p)$, as in unforced epidemic models~\cite{kermack1927}, would
+leave zero absorbing.
+
+\subsection{Process-specific neural mappings}
+The damage and recovery networks have independent parameters and inputs, shared across counties within each process.
+Damage is a two-hidden-layer MLP of width 32 over the weather inputs, with a learned logit smoother, a weather-based
+occurrence gate and a small background rate; recovery is an independent two-hidden-layer MLP of width 16 over selected
+weather, the observed prefix and the county context, recomputed at every forecast hour. The asymmetry lies in the
+allocation of information, neural structure and source populations.
+
+\section{Two Routes for Geography}
+\subsection{A geography-conditioned response kernel}
+GCRK sits inside the damage network and advances one bounded response state through a dissipative, input-dependent
+operator. Departures of the damage network's hidden representation from its causal prefix reference drive the state; a
+four-dimensional code of the county's descriptors sets the dissipation rates, a skew-symmetric interaction direction
+and a readout gain, so geography changes how a weather sequence is processed rather than what level is predicted. The
+state has an explicit, ordered response kernel and a unit bound, with an $O(d)$ solve per county-hour. The kernel's
+opening is bounded (a $\tanh$ of a learned scalar); on this panel, an unbounded opening improved tropical systems but
+worsened synoptic wind and heavy rain.
+
+\subsection{A geography $\times$ weather pathway at 3~km nodes}
+The pathway forms physical hazards where the customers are. At each node (county $\times$ HRRR cell, weighted by its
+population) and hour it computes, from HRRR weather~\cite{dowell2022}: the gust exceedance of the local 98th
+percentile, $\max(0,g/g_{98}-1)^3$~\cite{klawa2003}; ice and wet-snow loads as temperature-gated states that accumulate
+freezing rain, and snowfall between $-1$ and $+3\,^\circ$C, and melt or shed with warmth and wind~\cite{jones1998,iso12494};
+the products load $\times$ gust$^2$ and antecedent wetness $\times$ exceedance; and each hazard multiplied by the
+node's canopy or poor-drainage share. The products are formed before integration, because the county mean of a
+product is not the product of the county means. Their population-weighted county means, maxima and exceedance shares
+enter the damage rate as a competing hazard with non-negative coefficients,
+\begin{equation}
+u_{i,t}\leftarrow c-(c-u_{i,t})\exp\!\big(-\bm\beta^\top\bm\phi_{i,t}\big),\qquad \bm\beta\ge 0, \label{eq:hazard}
+\end{equation}
+where $c$ is the cap of the damage rate, so a zero hazard leaves the host unchanged and a larger hazard can only raise
+the damage rate. The coefficients take one tenth of the host's step size.
+
+\section{Forecasting Results and Interpretation}
+\subsection{Training}
+Every learned model minimizes the design-weighted MSE of $p$ over hours 72--215, with each regime normalized by its
+all-zero error in the training folds so that no regime dominates. Training uses Adam for 900 steps with paired
+initialization: models of the same seed start from the same host parameters, and every added component starts at
+zero, so that at step 0 each extension equals AsymODE. Five initializations are averaged in forecast space.
+
+\subsection{Event-held-out evaluation}
+Whole weather systems are held out: families of linked systems, joined when they share a county within 16 days, form
+five folds, balanced by regime. Every county-event is forecast by models that never saw its storm. We include TimesFM, a
+decoder-only foundation model for time series~\cite{das2024}, zero-shot from its official checkpoint, with the observed
+customers out over hours 0--71 as context and the same 14 weather channels over all 216 hours as covariates.
+Table~\ref{tab:accuracy} compares the five forecasters.
+
+\begin{table*}[t]
+\centering\small
+\caption{Forecast accuracy on the development tranche, every weather system held out (five folds), in percentage
+points of customers. Errors of the one open-loop path per county-event are pooled over the held-out county-hours with
+the design weights; learned models average five initializations ($^{\dagger k}$: provisional, $k$ of five so far).
+Lower is better; the best value in each column is in bold.}
+\label{tab:accuracy}
+\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+ & \multicolumn{4}{c}{MAE} & \multicolumn{4}{c}{RMSE}\\
+\cmidrule(lr){2-5}\cmidrule(l){6-9}
+Model & +1 h & +6 h & +24 h & +48 h & +1 h & +6 h & +24 h & +48 h\\
+\midrule
+\input{generated/table2.tex}
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Three features stand out. First, the all-zero forecast has the lowest MAE at every horizon: in most county-hours no
+customer is out, and models fitted to squared error spread small positive fractions over them. Second, on RMSE every
+forecaster stays close to the all-zero forecast. Relative to it, AsymODE's RMSE changes by \HostVsZeroOne\ at +1~h
+(95\% family-cluster interval \HostVsZeroOneCI) and by \HostVsZeroFortyEight\ at +48~h \HostVsZeroFortyEightCI; it
+gains in tropical-cyclone (\HostVsZeroTropical), convective (\HostVsZeroConvective) and winter (\HostVsZeroWinter)
+systems and loses in synoptic-wind (\HostVsZeroSynoptic) and heavy-rain (\HostVsZeroRain) systems. Zero-shot TimesFM's
+RMSE relative to AsymODE is \TimesFMVsHostOne\ at +1~h \TimesFMVsHostOneCI\ and \TimesFMVsHostFortyEight\ at +48~h
+\TimesFMVsHostFortyEightCI. Third, the two routes for geography differ. Relative to AsymODE, the geography $\times$
+weather pathway changes RMSE by \PathVsHostOne\ at +1~h \PathVsHostOneCI\ and by \PathVsHostFortyEight\ at +48~h
+\PathVsHostFortyEightCI, mostly in winter (\PathVsHostWinter) and tropical (\PathVsHostTropical) systems, whereas
+GCRK changes it by \GCRKVsHostOne\ \GCRKVsHostOneCI.
+
+\paragraph{Robustness.} The pathway improves on AsymODE in \PathSeedsBetter\ of \SeedsPath\ paired initializations
+(\PathSeedRange\ at +1~h), for the \NServed\ county-events that start fully served (\PathVsHostServed) and for the
+\NStock\ that start with customers out (\PathVsHostStock). Its gain rests largely on the systems in which AsymODE errs
+most: without the three largest, all winter systems, it falls to \PathVsHostDropThree, and to \PathVsHostDropFive\
+without five. The same pathway built from ERA5 instead of HRRR hazards changes AsymODE's RMSE by \EraVsHost\
+\EraVsHostCI\ (\SeedsEra\ initializations), and the HRRR pathway's advantage over this twin, \HrrrVsEra\
+\HrrrVsEraCI, is not resolved on this tranche.
+
+\subsection{Forecasting performance}
+Figure~\ref{fig:traj} shows eight held-out counties: the two weather-twin pairs of Section~\ref{sec:context}, then, for each of the
+other regimes and once more for tropical systems, the county-event with at least 10,000 customers and the largest
+observed peak. The twins are not resolved. Each model forecasts nearly the same path for the two counties of a pair,
+as their weather is nearly the same: \FigFourNameA\ and \FigFourNameB\ reach \FigFourObsA\ and \FigFourObsB\ against
+pathway forecasts of \FigFourPathA\ and \FigFourPathB, and \FigFourNameC\ and \FigFourNameD\ reach \FigFourObsC\ and
+\FigFourObsD\ against \FigFourPathC\ and \FigFourPathD. The large outages of the other regimes are missed:
+\FigFourNameE\ (synoptic wind), \FigFourNameF\ (convective) and \FigFourNameG\ (heavy rain) reach \FigFourObsE,
+\FigFourObsF\ and \FigFourObsG, while no model forecasts more than \FigFourMaxEFG. Across the panel, of the \NLarge\
+county-events whose outage fraction exceeds 10\% in the forecast window, the median forecast peak is \HostPeakRatio\
+of the observed peak for AsymODE, \GCRKPeakRatio\ with GCRK and \PathPeakRatio\ with the pathway (\TimesFMPeakRatio\
+for TimesFM), and \HostHalfPeak, \GCRKHalfPeak\ and \PathHalfPeak\ of them reach half the observed peak. Where
+customers are already out at the origin, the balance carries the stock and its restoration forward, and the
+all-zero forecast falls further behind: its RMSE relative to AsymODE's is \ZeroVsHostStock\ on these county-events,
+against \ZeroVsHostServed\ on those that start fully served.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig4_trajectories_v1.pdf}
+\caption{Outage trajectories for eight held-out counties: the top weather-twin pair of the tropical-cyclone and of the
+winter systems (top row), then the county-event with at least 10,000 customers and the largest observed 3-hour peak
+among synoptic-wind, convective, heavy-rain and tropical-cyclone systems. Each is forecast by models that never saw
+its storm, in one open-loop rollout from hour 71; learned models average five initializations and TimesFM is
+zero-shot with the weather as covariates. Shading marks the 72 observed hours.}
+\label{fig:traj}
+\end{figure*}
+
+\subsection{Model interpretation}
+Figure~\ref{fig:geo} compares predicted peaks with and without each route's geography, in the trained models and
+without refitting. In GCRK, replacing a county's descriptors by the fitting counties' mean moves its predicted peak by
+\CfGCRKDpeak\ points on average and by more than half a point in \CfGCRKMoved\ of the county-events; with its own
+descriptors the model's design-weighted MSE is \CfGCRKAll\ relative to the mean descriptors (\CfGCRKTropical\ in
+tropical and \CfGCRKWinter\ in winter systems). In the pathway, removing the canopy and drainage modulation while
+keeping the weather hazards moves the peak by \CfModDpeak\ points on average and by more than half a point in
+\CfModMoved\ of the county-events. The modulation lowers the MSE in tropical (\CfModTropical) and winter
+(\CfModWinter) systems and raises it in synoptic-wind systems (\CfModSynoptic); the hazards as a whole change it by
+\CfHazAll, with \CfHazWinter\ in winter, \CfHazTropical\ in tropical and \CfHazSynoptic\ in synoptic-wind systems.
+These changes show each model's sensitivity to its geographic inputs; they do not establish county-specific
+vulnerability, and the synoptic-wind result shows that a modulation learned mostly from other regimes can transfer
+with the wrong sign.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig3_geography_v1.pdf}
+\caption{Effect of geography on predicted peak outage fractions, per county the largest over its held-out events.
+Top: AsymODE + GCRK with (a) the fitting counties' mean descriptors and (c) each county's own descriptors; (b) the
+change of the peak, in percentage points (red, an increase). Bottom: the geography $\times$ weather pathway (d)
+without its canopy and drainage modulation and (f) with it; (e) the change, non-negative by construction since the
+hazard coefficients are. Panels (a), (c), (d) and (f) share the colour scale. Nothing is refitted: each trained model
+is re-run with one input changed.}
+\label{fig:geo}
+\end{figure*}
+
+\section{Conclusion}
+AsymODE combines a bounded population balance with two process-specific neural rates: damage acts on customers still
+served, recovery on customers out, so the model supports both initiation from a fully served state and the
+restoration of an existing stock. On a designed, event-held-out public benchmark of 81 weather systems of five
+regimes, one open-loop forecast per county-event stays close to the all-zero forecast in pooled RMSE, gains where the
+outage signal is strong (tropical cyclones, winter storms) and loses in synoptic windstorms and heavy rain. Of the two
+routes for geography, the node-level geography $\times$ weather pathway improves on the host, mostly in winter and
+tropical systems and concentrated in the systems with the largest errors, while the geography-conditioned kernel
+does not. Weather twins, neighbouring counties with nearly the same weather and very different outcomes, stay
+unresolved, and the largest outages are forecast at a small fraction of their size. Both point to what public data
+leave out, namely the location of customers along exposed lines, the condition of the equipment and the course of
+the repair, and to where a forecast of this kind has to improve. The sealed confirmatory tranche of 99 systems is
+reserved to test the registered claims once they are fixed.
+
+\bibliographystyle{unsrtnat}
+\begin{thebibliography}{99}
+\bibitem{alpay2020} B.~A. Alpay, D.~Wanik, P.~Watson, D.~Cerrai, G.~Liang, and E.~Anagnostou. Dynamic modeling of power
+outages caused by thunderstorms. \emph{Forecasting}, 2(2):151--162, 2020.
+\bibitem{brelsford2024} C.~Brelsford et al. A dataset of recorded electricity outages by United States county
+2014--2022. \emph{Scientific Data}, 11:271, 2024.
+\bibitem{cerrai2019} D.~Cerrai, D.~W. Wanik, M.~A.~E. Bhuiyan, X.~Zhang, J.~Yang, M.~E.~B. Frediani, and E.~N.
+Anagnostou. Predicting storm outages through new representations of weather and vegetation. \emph{IEEE Access},
+7:29639--29654, 2019.
+\bibitem{chen2018} R.~T.~Q. Chen, Y.~Rubanova, J.~Bettencourt, and D.~K. Duvenaud. Neural ordinary differential
+equations. In \emph{NeurIPS}, 2018.
+\bibitem{das2024} A.~Das, W.~Kong, R.~Sen, and Y.~Zhou. A decoder-only foundation model for time-series forecasting. In
+\emph{ICML}, 2024.
+\bibitem{dobson2023} I.~Dobson. Models, metrics, and their formulas for typical electric power system resilience
+events. \emph{IEEE Transactions on Power Systems}, 38(6):5949--5952, 2023.
+\bibitem{dowell2022} D.~C. Dowell et al. The High-Resolution Rapid Refresh (HRRR): an hourly updating convection-allowing
+forecast model. Part I. \emph{Weather and Forecasting}, 37(8), 2022.
+\bibitem{hersbach2020} H.~Hersbach et al. The ERA5 global reanalysis. \emph{Quarterly Journal of the Royal
+Meteorological Society}, 146:1999--2049, 2020.
+\bibitem{iso12494} ISO 12494:2017. \emph{Atmospheric icing of structures}.
+\bibitem{jones1998} K.~F. Jones. A simple model for freezing rain ice loads. \emph{Atmospheric Research}, 46:87--97, 1998.
+\bibitem{kermack1927} W.~O. Kermack and A.~G. McKendrick. A contribution to the mathematical theory of epidemics.
+\emph{Proceedings of the Royal Society A}, 115:700--721, 1927.
+\bibitem{klawa2003} M.~Klawa and U.~Ulbrich. A model for the estimation of storm losses and the identification of
+severe winter storms in Germany. \emph{Natural Hazards and Earth System Sciences}, 3:725--732, 2003.
+\bibitem{landsea2013} C.~W. Landsea and J.~L. Franklin. Atlantic hurricane database uncertainty and presentation of a
+new database format. \emph{Monthly Weather Review}, 141(10):3576--3592, 2013.
+\bibitem{tervo2021} R.~Tervo, I.~L\'ang, A.~Jung, and A.~M\"akel\"a. Predicting power outages caused by extratropical
+storms. \emph{Natural Hazards and Earth System Sciences}, 21:607--627, 2021.
+\bibitem{zhu2021hotspots} S.~Zhu, A.~Bukharin, L.~Xie, S.~Yang, P.~Keskinocak, and Y.~Xie. Early detection of COVID-19
+hotspots using spatio-temporal data. In \emph{ICML Time Series Workshop}, 2021.
+\bibitem{zhu2025} S.~Zhu, R.~Yao, Y.~Xie, F.~Qiu, Y.~Qiu, and X.~Wu. Quantifying grid resilience against extreme weather
+using large-scale customer power outage data. arXiv:2109.09711v3, 2025.
+\end{thebibliography}
+\end{document}

@@ -61,7 +61,7 @@ written before it runs. The sealed tranche C is never built, read or evaluated.
 ## 5. Record and push
 
 * One line per decision in `RESEARCH_LOG.md`. `aris/CLAIMS.md` changes only with a reviewer receipt.
-* Before every commit, a trace scan for competition names, private paths and the PI's email.
+* Before every commit, a scan for non-public names, private paths and the PI's email.
 * Commit with the attribution line, then push `research/geo-weather-process-20260924` and fast-forward
   `research/tropical-evidence-20260926`. Never push main.
 
@@ -73,3 +73,18 @@ Two to five lines to the PI, in Chinese:
 * what runs next, and when it should finish.
 
 If nothing finished and nothing failed, say nothing.
+
+## Paper phase (from 2026-09-27 14:20; the PI's choice of five forecasters)
+
+The PI asked for an open-data manuscript with five forecasters on the development tranche: all zero, TimesFM (zero-shot, weather covariates), AsymODE (host W+Cin), AsymODE + GCRK (opening bounded) and
+AsymODE + geography x weather (the HRRR mechanical-load pathway). Each learned model uses five initializations (seeds
+0-4), averaged in forecast space. Every wake-up in this phase:
+
+1. **Look.** Check `jobs_v1_paper.txt` (pathway seeds 3-4, then GCRK seeds 1-4; one process, nice 15) and
+   `runs/geo_weather_20260924/timesfm_v1D/`.
+2. **Evaluate.** Run `paper_v1/evaluate_paper.py` whenever a model's set of seeds grows. It writes
+   `results/v1/paper_tables.json`: pooled MAE and RMSE at +1, +6, +24 and +48 hours, design-weighted and
+   unweighted, by regime, and RMSE against AsymODE with family-cluster intervals.
+3. **Figures and text.** Once all five models are complete, regenerate `paper_v1/figures_v1.py` and fill the numbers
+   into `paper_v1/main.tex`. Descriptive analyses use the development tranche only.
+4. **Record, push and report**, as above.

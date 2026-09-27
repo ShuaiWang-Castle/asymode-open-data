@@ -1,0 +1,58 @@
+[
+ {
+  "unit": 1230,
+  "fips": "22115",
+  "system": "S00046",
+  "regime": "tropical",
+  "origin": "2020-10-09 03:00:00"
+ },
+ {
+  "unit": 1260,
+  "fips": "22085",
+  "system": "S00046",
+  "regime": "tropical",
+  "origin": "2020-10-09 03:00:00"
+ },
+ {
+  "unit": 4115,
+  "fips": "25019",
+  "system": "S02284",
+  "regime": "winter",
+  "origin": "2022-01-28 18:00:00"
+ },
+ {
+  "unit": 4148,
+  "fips": "25007",
+  "system": "S02284",
+  "regime": "winter",
+  "origin": "2022-01-28 18:00:00"
+ },
+ {
+  "unit": 3394,
+  "fips": "36123",
+  "system": "S01262",
+  "regime": "synoptic_wind",
+  "origin": "2024-01-06 00:00:00"
+ },
+ {
+  "unit": 4453,
+  "fips": "40019",
+  "system": "S02387",
+  "regime": "convective",
+  "origin": "2024-04-27 08:00:00"
+ },
+ {
+  "unit": 5525,
+  "fips": "06103",
+  "system": "S04322",
+  "regime": "heavy_rain",
+  "origin": "2019-02-12 00:00:00"
+ },
+ {
+  "unit": 1201,
+  "fips": "22037",
+  "system": "S00046",
+  "regime": "tropical",
+  "origin": "2020-10-09 03:00:00"
+ }
+]
