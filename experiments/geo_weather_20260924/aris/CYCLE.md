@@ -61,7 +61,9 @@ written before it runs. The sealed tranche C is never built, read or evaluated.
 ## 5. Record and push
 
 * One line per decision in `RESEARCH_LOG.md`. `aris/CLAIMS.md` changes only with a reviewer receipt.
-* Before every commit, a scan for non-public names, private paths and the PI's email.
+* Before every commit, a scan for private paths and the PI's email. The PI lifted the internal firewall on 2026-09-28
+  (FIREWALL.md removed). The GitHub repository is public, so non-public data and numbers measured on it still stay out
+  of every commit unless the PI confirms they may be published.
 * Commit with the attribution line, then push `research/geo-weather-process-20260924` and fast-forward
   `research/tropical-evidence-20260926`. Never push main.
 
