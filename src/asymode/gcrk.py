@@ -319,8 +319,32 @@ class GCRKLayer(nn.Module):
 
     def code_of(self, g: torch.Tensor) -> torch.Tensor:
         z = torch.tanh(g / 3.0) - self.geo_center
-        z = z / torch.sqrt(0.1 ** 2 + z.square().sum(-1, keepdim=True))
+        # I18: a fit-only scalar retains between-county radial information.
+        # Legacy checkpoints retain the original per-county normalization.
+        den = self.geo_rms_scale if hasattr(self, "geo_rms_scale") else torch.sqrt(
+            0.1 ** 2 + z.square().sum(-1, keepdim=True))
+        z = z / den
         return torch.tanh(F.linear(z, self.U))
+
+    @torch.no_grad()
+    def attach_geo_rms(self, fit_geo: torch.Tensor):
+        """I18: freeze a single geography scale from standardized fitting rows.
+
+        s = sqrt(0.1^2 + mean_fit ||tanh(g/3) - geo_center||^2).
+        Rows are county-events, unweighted, just like the existing geo_center.
+        This is called once, before any optimization; the scalar is checkpointed
+        and never recalibrated from held-out rows or changing hidden states.
+        """
+        if hasattr(self, "geo_rms_scale"):
+            raise RuntimeError("geography RMS scale is already attached")
+        if fit_geo.ndim != 2 or fit_geo.shape[0] == 0 or fit_geo.shape[1] != self.geo_center.numel():
+            raise ValueError("expected nonempty fitting geography [N, G]")
+        x = torch.tanh(fit_geo.to(self.geo_center) / 3.0) - self.geo_center
+        scale = torch.sqrt(0.1 ** 2 + x.square().sum(-1).mean())
+        if not bool(torch.isfinite(scale)):
+            raise ValueError("fitting geography must give a finite scale")
+        self.register_buffer("geo_rms_scale", scale.detach().clone())
+        return self
 
     def coupling(self, code: torch.Tensor, space: dict):
         """(cw [B, k], cu [B, T, k]) from the batch's neighbour table space = {nbr, wd, up}."""

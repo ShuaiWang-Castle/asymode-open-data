@@ -31,3 +31,9 @@ into another idea).
 No proposal is queued. Frozen constant-geography substitutions are dependence diagnostics, not trained NULLs.
 The registered primary estimand after Stage 0 is tropical/winter balanced MSE; all-five balance and pooled RMSE
 are reported separately. The prospective single-seed screen must be explicit and frozen before a PI-approved run.
+
+## I18 geographic-kernel screen (2026-09-28; authorized before training)
+
+| id | idea | status | note |
+|---|---|---|---|
+| I18 | Replace the county-specific geography norm in GCRK with one frozen training-fold RMS norm, retaining radial geography information; all rate/kernel parameters and recurrence otherwise unchanged | registered, seed-0 five-fold screen authorized by PI in this chat | notes/I18_GEO_RMS_SCREEN_20260928.md; arm GCRK+Cin-georms, label v1_gcrk_georms_s0; compare host and original GCRK; no recovery work or extra seeds now |

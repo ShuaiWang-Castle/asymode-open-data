@@ -140,3 +140,22 @@ Once a design is approved: implement only that design, adapt optional kernel met
 checks for the new recurrence. Seed 0 and five existing event folds come first; more seeds and information NULLs
 only for survivors. Respect the PI's existing maximum of three low-priority training processes and reduce load
 when necessary; never touch another session's processes.
+
+## I18 execution phase (2026-09-28; supersedes the paused state above)
+
+The PI authorized this chat to run experiments and asked to prioritize the geographic kernel.
+I18 is the first screen: fixed fit-only geography RMS normalization in the existing damage-side GCRK;
+I15-I17 remain deferred. The exact design and gates are frozen in
+`notes/I18_GEO_RMS_SCREEN_20260928.md`. Run label `v1_gcrk_georms_s0`, seed 0, five event folds, 900 steps.
+
+`run_i18_screen.py --workers 1 --threads 2` is a finite queue: starts at nice >=15, owns only its own
+children, validates completed metadata/exports, and evaluates host and original GCRK after all folds.
+Its ignored run-folder `WORKERS` file may be atomically changed to 2 only after memory/CPU headroom
+is verified; reducing it to 1 stops future overlap, not another process. Source hashes and a runner
+lock prevent mixed implementations and duplicate queues. No automatic seed or NULL expansion.
+
+Follow the current run's status and own logs; report only completed folds, failures, resource issues or
+final results. Never relaunch a live runner; inspect an interrupted partial fold without overwriting it.
+When all folds finish, verify the four `screen_i18_s0_{headline,all5}_vs_{host,gcrk}.json` reports,
+`kernels_georms_s0.json`, and `screen_i18_s0_verdict.json`; record, scan, commit and push both research
+branches. A candidate is provisional only; a failed screen gets no extra seeds. C and the paper stay untouched.
