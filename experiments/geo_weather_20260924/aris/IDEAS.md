@@ -36,10 +36,23 @@ are reported separately. The prospective single-seed screen must be explicit and
 
 | id | idea | status | note |
 |---|---|---|---|
-| I18 | Replace the county-specific geography norm in GCRK with one frozen training-fold RMS norm, retaining radial geography information; all rate/kernel parameters and recurrence otherwise unchanged | running since 14:55 ET, code/design 395350d; seed-0 five-fold screen authorized by PI in this chat | notes/I18_GEO_RMS_SCREEN_20260928.md; arm GCRK+Cin-georms, label v1_gcrk_georms_s0; compare host and original GCRK; no recovery work or extra seeds now |
+| I18 | Replace the county-specific geography norm in GCRK with one frozen training-fold RMS norm, retaining radial geography information; all rate/kernel parameters and recurrence otherwise unchanged | completed five folds; screen failed, no seed or NULL expansion | Headline MSE vs host −2.358% [95% −5.081,+1.218], vs GCRK −3.445% [−7.744,−0.071]; all-five vs host −0.366%; pooled +1 RMSE vs host −0.484%. Only failed gate: synoptic wind +2.0745% vs host exceeds frozen +2% limit. Original registration unchanged; full results and export validation in notes/I18_GEO_RMS_RESULTS_20260928.md. |
 
 ## I19 geographic read-in (2026-09-28; design requested, no training queued)
 
 | id | idea | status | note |
 |---|---|---|---|
-| I19 | On the fixed I18 base, let geography set a bounded diagonal metric on hidden weather departure before both deposition normalization and its gate; 128 added parameters, identity initialization, same recurrence and one damage MLP | proposed after PI requested the next geographic-kernel design; implementation and training not started | notes/I19_GEO_READIN_PROPOSAL_20260928.md; existing lambda/a/Omega already condition the kernel; the new hypothesis is independent geographic input selection. Three-fold gains are concentrated and do not establish the cause of failure. I18 completes unchanged. |
+| I19 | On the fixed I18 base, let geography set a bounded diagonal metric on hidden weather departure before both deposition normalization and its gate; 128 added parameters, identity initialization, same recurrence and one damage MLP | parked by latest PI direction: data analysis first; implementation and training not started | notes/I19_GEO_READIN_PROPOSAL_20260928.md remains the historical proposal based on three folds. Full I18 results supersede its interim performance narrative. Existing lambda/a/Omega already condition the kernel; the input-selection hypothesis is not an identified bottleneck. |
+
+## Current priority after I18 (2026-09-28)
+
+The PI requested data-first analysis of weather order, overlap/compound exposure, and geography before choosing
+the next kernel architecture. Use D only, existing family-held-out structure and explicit controls for severity,
+duration, initial outage and repeated counties; distinguish sequence, cross-weather alignment and geography
+correspondence NULLs. I19 is paused, and no proposal or historical queue authorizes another training run.
+I18's primary gain does not eliminate the large-peak gap: median predicted/observed peak is 8.94% on the
+726 observed-large cases, versus 9.03% for original GCRK. This is descriptive, not a selection rule.
+
+D01 fixes the first data-analysis scope before fitting: additive controls, individual weather/geography,
+compound exposure, directional order, compound/geography, then order/geography; event-held-out ridge probes
+with future-severity and same-window sensitivities. See `notes/D01_DATA_FIRST_PROTOCOL_20260928.md`.

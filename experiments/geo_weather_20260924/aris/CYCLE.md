@@ -1,5 +1,10 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
+**Current state, 2026-09-28 after I18:** all five I18 folds are complete and scored; the frozen screen failed
+only the synoptic-wind +2% guardrail. No seed/NULL expansion or next-arm training is queued. The PI now asks
+for data-first analysis of weather order, overlap and geography; I19 is parked. This state supersedes all
+older automatic queue/next-design directions below. C and paper work remain prohibited.
+
 Long-running work on the designed panel follows the ARIS split (Auto-claude-code-research-in-sleep,
 `skills/shared-references/external-cadence.md`). The scheduler only decides **when** to look. It never decides a result:
 * keep and discard follow program.md rule 3b and DATASET_DESIGN amendment 2 S10;
@@ -118,7 +123,7 @@ before any more writing, and only then to move on (a recovery-side kernel is the
 4. **Record, push and report**, as in sections 5 and 6. When TimesFM finishes, rerun `paper_v1/evaluate_paper.py`
    so its tables are current, but do not edit the manuscript.
 
-## Frozen diagnostic phase (2026-09-28; current operating state)
+## Frozen diagnostic phase (2026-09-28; historical, superseded below)
 
 No training job is running or queued by this review. I15-I17 are proposed only; a scheduler must not treat the
 proposal document as authorization. The next dependent step is PI discussion of
@@ -141,7 +146,7 @@ checks for the new recurrence. Seed 0 and five existing event folds come first; 
 only for survivors. Respect the PI's existing maximum of three low-priority training processes and reduce load
 when necessary; never touch another session's processes.
 
-## I18 execution phase (2026-09-28; supersedes the paused state above)
+## I18 execution phase (2026-09-28; completed, retained as the execution record)
 
 The PI authorized this chat to run experiments and asked to prioritize the geographic kernel.
 I18 is the first screen: fixed fit-only geography RMS normalization in the existing damage-side GCRK;
@@ -174,3 +179,28 @@ PI subsequently requested the next geographic-kernel design while I18 runs. I19 
 written in `notes/I19_GEO_READIN_PROPOSAL_20260928.md` as a proposal only; no new arm
 is implemented or queued. Finish and report I18, then pause its monitor as specified;
 the proposal must not cause automatic next-version training.
+
+## I18 closed; data-first analysis (2026-09-28; current operating state)
+
+The finite I18 queue completed all five 900-step folds and scored both comparators. Independent single-thread
+`validate_exports()` and source-manifest/coverage checks passed: 8,457 D county-events, 81 systems, 80 families,
+each held-out unit once, the same indices as host/GCRK, finite exports and bounded predictions. See
+`results/v1/i18_s0_export_validation.json` and `notes/I18_GEO_RMS_RESULTS_20260928.md`.
+
+Frozen verdict: `screen_failed_no_seed_expansion`. Tropical/winter balanced MSE is −2.358% [95% −5.081,+1.218]
+vs host and −3.445% [−7.744,−0.071] vs original GCRK; all-five is −0.366% [−4.208,+5.544] vs host.
+Pooled +1 RMSE is −0.484% [−1.530,+0.639] vs host. The sole failed gate is synoptic wind +2.0745% vs host,
+above the prospectively frozen +2% maximum; do not relax it after seeing this result. No extra I18 seed or NULL.
+The I18 follow-up monitor is paused after result delivery and independent verification; the empty, evaluated queue must not be relaunched.
+
+The PI's latest priority is to examine weather sequence and overlap interacting with geography in the data
+before implementing the next architecture. I19 is parked; I15-I17 remain deferred. Use D only and preserve
+family grouping, repeated-county identity, outcome-blind weather definitions and separate severity/order/
+alignment controls. Zero-outage cases remain in scope. This exploratory analysis does not authorize new
+neural training or paper edits; any later model design, data-source change and screening plan must be explicit
+before its first run. Earlier three-fold I18 numbers remain historical observations only.
+
+D01 is the bounded statistical analysis in `notes/D01_DATA_FIRST_PROTOCOL_20260928.md` and
+`analyze_data_relationships_v1.py`: six nested ridge probes, three fixed historical specifications,
+existing event folds and same-state geographic correspondence controls. Fitting these diagnostic regressions
+is within the PI's data-analysis request; it does not restart a neural experiment or change its evaluation.

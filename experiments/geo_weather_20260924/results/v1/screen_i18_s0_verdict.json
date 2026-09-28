@@ -1,0 +1,21 @@
+{
+  "label": "v1_gcrk_georms_s0",
+  "seed": 0,
+  "folds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "gates": {
+    "headline_gt_1pct_vs_host": true,
+    "headline_better_than_gcrk": true,
+    "pooled_h1_better_than_host": true,
+    "pooled_h1_better_than_gcrk": true,
+    "all5_nonworse_than_host": true,
+    "nonheadline_noninferior": false
+  },
+  "verdict": "screen_failed_no_seed_expansion",
+  "note": "Single-seed development screen only; no trained NULL or extra seeds authorized by this runner."
+}

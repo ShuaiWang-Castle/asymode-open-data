@@ -1,0 +1,245 @@
+{
+  "label": "v1_gcrk_georms_s0",
+  "checked_at": "2026-09-28T17:29:03.592444-04:00",
+  "validation": "existing validate_exports() completed; independent fold coverage, comparator indices, source manifest, summary arithmetic and gate checks passed",
+  "resources": {
+    "nice": 15,
+    "torch_threads": 1
+  },
+  "source_manifest_matches": true,
+  "units": 8457,
+  "systems": 81,
+  "families": 80,
+  "per_regime": {
+    "convective": {
+      "units": 1727,
+      "systems": 15,
+      "families": 15
+    },
+    "heavy_rain": {
+      "units": 1374,
+      "systems": 18,
+      "families": 18
+    },
+    "synoptic_wind": {
+      "units": 1824,
+      "systems": 18,
+      "families": 18
+    },
+    "tropical": {
+      "units": 1633,
+      "systems": 15,
+      "families": 15
+    },
+    "winter": {
+      "units": 1899,
+      "systems": 15,
+      "families": 15
+    }
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "units": 2107,
+      "systems": 20,
+      "families": 19,
+      "per_regime": {
+        "convective": 388,
+        "heavy_rain": 411,
+        "synoptic_wind": 312,
+        "tropical": 537,
+        "winter": 459
+      },
+      "metadata_matches": true,
+      "all_export_arrays_finite": true,
+      "prediction_min": 1.2514503396232612e-05,
+      "prediction_max": 0.17544005811214447
+    },
+    {
+      "fold": 2,
+      "units": 2100,
+      "systems": 20,
+      "families": 20,
+      "per_regime": {
+        "convective": 515,
+        "heavy_rain": 427,
+        "synoptic_wind": 617,
+        "tropical": 145,
+        "winter": 396
+      },
+      "metadata_matches": true,
+      "all_export_arrays_finite": true,
+      "prediction_min": 3.5456619116303045e-06,
+      "prediction_max": 0.6352688670158386
+    },
+    {
+      "fold": 3,
+      "units": 1769,
+      "systems": 16,
+      "families": 16,
+      "per_regime": {
+        "convective": 305,
+        "heavy_rain": 309,
+        "synoptic_wind": 272,
+        "tropical": 376,
+        "winter": 507
+      },
+      "metadata_matches": true,
+      "all_export_arrays_finite": true,
+      "prediction_min": 8.8668803073233e-06,
+      "prediction_max": 0.10512623190879822
+    },
+    {
+      "fold": 4,
+      "units": 1136,
+      "systems": 13,
+      "families": 13,
+      "per_regime": {
+        "convective": 304,
+        "heavy_rain": 45,
+        "synoptic_wind": 235,
+        "tropical": 295,
+        "winter": 257
+      },
+      "metadata_matches": true,
+      "all_export_arrays_finite": true,
+      "prediction_min": 1.114211499952944e-05,
+      "prediction_max": 0.5142076015472412
+    },
+    {
+      "fold": 5,
+      "units": 1345,
+      "systems": 12,
+      "families": 12,
+      "per_regime": {
+        "convective": 215,
+        "heavy_rain": 182,
+        "synoptic_wind": 388,
+        "tropical": 280,
+        "winter": 280
+      },
+      "metadata_matches": true,
+      "all_export_arrays_finite": true,
+      "prediction_min": 1.784031519491691e-05,
+      "prediction_max": 0.5141788721084595
+    }
+  ],
+  "comparators_same_heldout_indices_each_fold": true,
+  "every_D_unit_once": true,
+  "balanced_reports": {
+    "headline_vs_host_w": {
+      "balanced_gain": -0.023581179163182142,
+      "ci95": [
+        -0.050809946482724994,
+        0.012176243146718137
+      ]
+    },
+    "headline_vs_host_w_raw": {
+      "balanced_gain": -0.02333004372809322,
+      "ci95": [
+        -0.050205474688870926,
+        0.012211268377681229
+      ]
+    },
+    "headline_vs_gcrk_w": {
+      "balanced_gain": -0.03445434041550971,
+      "ci95": [
+        -0.0774443450925072,
+        -0.0007140283641937582
+      ]
+    },
+    "headline_vs_gcrk_w_raw": {
+      "balanced_gain": -0.03528674410972038,
+      "ci95": [
+        -0.07890018746757095,
+        -0.0007133356510830994
+      ]
+    },
+    "all5_vs_host_w": {
+      "balanced_gain": -0.0036550791343947565,
+      "ci95": [
+        -0.04208071018304731,
+        0.05544010853740597
+      ]
+    },
+    "all5_vs_host_w_raw": {
+      "balanced_gain": -0.004952216633658901,
+      "ci95": [
+        -0.042991436141536915,
+        0.05467619881453688
+      ]
+    },
+    "all5_vs_gcrk_w": {
+      "balanced_gain": -0.010538723715367149,
+      "ci95": [
+        -0.034065750531534336,
+        0.011497151645901964
+      ]
+    },
+    "all5_vs_gcrk_w_raw": {
+      "balanced_gain": -0.011123710022819778,
+      "ci95": [
+        -0.034732909058293335,
+        0.011256754240434949
+      ]
+    }
+  },
+  "pooled_h1": {
+    "GCRK-RMS vs AsymODE": {
+      "point": -0.004840192285920475,
+      "ci95": [
+        -0.015296256022126614,
+        0.006394409069887541
+      ]
+    },
+    "GCRK-RMS vs GCRK": {
+      "point": -0.009250430491352879,
+      "ci95": [
+        -0.024945522784515832,
+        0.0018993122965903903
+      ]
+    }
+  },
+  "large_outages": {
+    "n": 726,
+    "AsymODE": {
+      "median_peak_ratio": 0.08031799292546368,
+      "share_half_peak": 0.026170798898071626
+    },
+    "GCRK": {
+      "median_peak_ratio": 0.09030334114752167,
+      "share_half_peak": 0.081267217630854
+    },
+    "GCRK-RMS": {
+      "median_peak_ratio": 0.08936136374911795,
+      "share_half_peak": 0.06473829201101929
+    }
+  },
+  "gates": {
+    "headline_gt_1pct_vs_host": true,
+    "headline_better_than_gcrk": true,
+    "pooled_h1_better_than_host": true,
+    "pooled_h1_better_than_gcrk": true,
+    "all5_nonworse_than_host": true,
+    "nonheadline_noninferior": false
+  },
+  "verdict": "screen_failed_no_seed_expansion",
+  "runner_status_at_check": {
+    "active": {},
+    "pending": [],
+    "done": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "failed": false,
+    "evaluated": true
+  },
+  "limitations": [
+    "No bootstrap resampling rerun; confidence intervals verified by reading scored reports.",
+    "No new inference or training; export validation does not itself independently reconstruct checkpoint predictions.",
+    "Single seed: family intervals do not include optimization randomness."
+  ]
+}
