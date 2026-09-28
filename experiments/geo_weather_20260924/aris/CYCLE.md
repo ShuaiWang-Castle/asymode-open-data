@@ -117,3 +117,26 @@ before any more writing, and only then to move on (a recovery-side kernel is the
    the spatial null (neighbours replaced at matched distance). Otherwise report and discuss the next kernel with the PI.
 4. **Record, push and report**, as in sections 5 and 6. When TimesFM finishes, rerun `paper_v1/evaluate_paper.py`
    so its tables are current, but do not edit the manuscript.
+
+## Frozen diagnostic phase (2026-09-28; current operating state)
+
+No training job is running or queued by this review. I15-I17 are proposed only; a scheduler must not treat the
+proposal document as authorization. The next dependent step is PI discussion of
+`notes/KERNEL_PROPOSALS_20260928.md`, preferably I15's minimal recovery-history kernel without stock feedback.
+Do not regenerate or edit `paper_v1/`; do not build, read or evaluate C.
+
+Completed: seed-0 comparison reproduced; ten kernel checkpoints rebuilt without graph edges lost; trajectory
+onset/magnitude/recovery diagnostics, latent-code and readout diagnostics, primary literature notes, and candidate
+stability/initialization/screening plans. See `notes/KERNEL_REVIEW_20260928.md` for the decision-facing summary.
+
+Metric clarification: the post-Stage-0 registered primary is the tropical/winter balanced MSE, not the all-five
+mean. Re-reading ST on that primary gives -1.28% [-3.27,+1.72] vs host and -2.38% [-4.84,-0.29] vs GCRK;
+all-five vs host remains +0.30%, heavy rain +2.60%. Preserve the earlier no-more-seeds decision; do not silently
+change the historical screen or reopen its queue. Any prospective screen clarification is discussed and recorded
+before training. Frozen geography constants (standardized g=0, exact z=0, fitted mean z) are not matched trained NULLs.
+
+Once a design is approved: implement only that design, adapt optional kernel metadata handling in
+`compare_kernels_v1.py` before passing it a recovery-only arm, preserve score definitions, and run correctness
+checks for the new recurrence. Seed 0 and five existing event folds come first; more seeds and information NULLs
+only for survivors. Respect the PI's existing maximum of three low-priority training processes and reduce load
+when necessary; never touch another session's processes.
