@@ -1,0 +1,4 @@
+--label v1_stgcrk_s0 --arm STGCRK+Cin --data v1D --design event --design-weights --seed 0 --steps 900 --folds 2
+--label v1_stgcrk_s0 --arm STGCRK+Cin --data v1D --design event --design-weights --seed 0 --steps 900 --folds 3
+--label v1_stgcrk_s0 --arm STGCRK+Cin --data v1D --design event --design-weights --seed 0 --steps 900 --folds 4
+--label v1_stgcrk_s0 --arm STGCRK+Cin --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5

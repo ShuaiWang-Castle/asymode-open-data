@@ -25,11 +25,53 @@ from evaluate_paper import B, FEAT, HORIZONS, SEED, pd_sum, pooled, rollout, row
 from evaluate_v1 import REGIMES, RUNS  # noqa: E402
 
 
+def fold_report(seed: int, st: str, folds: list[int]) -> None:
+    """Early read while folds are still running: the three models on the held-out county-events of the finished
+    folds only (the same systems for every model), pooled RMSE and MAE, overall and by regime."""
+    F = np.load(FEAT)
+    y, m, w, reg = F["y"].astype(float), F["m"].astype(float), F["w"].astype(float), F["regime"].astype(str)
+    labels = {"AsymODE": f"v1_host_s{seed}", "GCRK": f"v1_gcrk_s{seed}", "ST-GCRK": st.format(seed)}
+    idx, P = [], {nm: np.zeros((len(y), 144)) for nm in labels}
+    for k in folds:
+        for nm, lab in labels.items():
+            z = np.load(RUNS / lab / f"fold{k:02d}" / "outer.npz")
+            P[nm][z["idx"]] = z["P"]
+        idx.append(z["idx"])
+    idx = np.sort(np.concatenate(idx))
+    S = {nm: row_sums(p, y, m) for nm, p in P.items()}
+    S["All zero"] = row_sums(np.zeros_like(y), y, m)
+    out = {"folds": folds, "n": int(len(idx)), "systems": int(len(set(F["system"][idx])))}
+    for nm, s in S.items():
+        out[nm] = pooled(s, w, idx)
+    base = out["AsymODE"]
+    print(f"folds {folds}: {out['n']} county-events, {out['systems']} systems")
+    for nm in ("All zero", "AsymODE", "GCRK", "ST-GCRK"):
+        v = out[nm]
+        print(f"  {nm:8s} RMSE+1 {100 * v['RMSE+1']:.3f}  +48 {100 * v['RMSE+48']:.3f}  MAE+1 {100 * v['MAE+1']:.3f}  "
+              f"vs AsymODE {100 * (v['RMSE+1'] / base['RMSE+1'] - 1):+.2f}% (+1), {100 * (v['RMSE+48'] / base['RMSE+48'] - 1):+.2f}% (+48)")
+    for r in REGIMES:
+        ii = idx[reg[idx] == r]
+        if len(ii) == 0:
+            continue
+        b = pooled(S["AsymODE"], w, ii)["RMSE+1"]
+        print(f"  {r:13s} n={len(ii):5d}  GCRK {100 * (pooled(S['GCRK'], w, ii)['RMSE+1'] / b - 1):+.2f}%  "
+              f"ST-GCRK {100 * (pooled(S['ST-GCRK'], w, ii)['RMSE+1'] / b - 1):+.2f}%  (vs AsymODE, +1)")
+    for k in folds:
+        f = RUNS / labels["ST-GCRK"] / f"fold{k:02d}" / "final.pt"
+        st_ = torch.load(f, weights_only=False)["model_state"]
+        print(f"  fold {k} coupling: kappa_s {float(st_['damage.2.kappa_s']):.4f}, kappa_a {float(st_['damage.2.kappa_a']):.4f}, "
+              f"gamma {float(st_['damage.2.geo_sim']):.4f}, opening {float(torch.tanh(st_['damage.2.alpha'])):.3f}")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--st", default="v1_stgcrk_s{}")
+    ap.add_argument("--folds", nargs="*", type=int, default=None, help="early read on these finished folds only")
     a = ap.parse_args()
+    if a.folds:
+        fold_report(a.seed, a.st, a.folds)
+        return
     F = np.load(FEAT)
     y, m, w = F["y"].astype(float), F["m"].astype(float), F["w"].astype(float)
     reg, fam, sysv = F["regime"].astype(str), F["family"].astype(str), F["system"].astype(str)

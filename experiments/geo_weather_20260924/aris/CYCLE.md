@@ -102,8 +102,10 @@ averaged in forecast space, but only for a design with a single-seed gain over t
 The PI asked to compare plain AsymODE, AsymODE + GCRK (temporal kernel) and AsymODE + spatio-temporal GCRK (I14)
 before any more writing, and only then to move on (a recovery-side kernel is the next idea). Every wake-up:
 
-1. **Look.** `jobs_v1_stgcrk_s0.txt` (STGCRK+Cin, seed 0, five event folds; one process, nice 15; queue log
-   `logs/queue_v1_stgcrk.log`) and TimesFM (`runs/geo_weather_20260924/timesfm_v1D/`).
+1. **Look.** `jobs_v1_stgcrk_s0.txt` (STGCRK+Cin, seed 0, five event folds). The PI approved a speed-up on
+   2026-09-27 19:05: fold 1 continues at nice 20 (it cannot be reniced upwards), folds 2-5 run two at a time at nice 10
+   (`jobs_v1_stgcrk_s0_f2345.txt`, `logs/queue_v1_stgcrk_f2345.log`), so at most three training processes. If the
+   machine keeps no idle CPU for the PI's own work, go back to two. TimesFM is done.
 2. **Evaluate.** When the five folds of `v1_stgcrk_s0` are done, run `compare_kernels_v1.py --seed 0` (paired seed 0:
    pooled MAE and RMSE at +1/+6/+24/+48 h, relative RMSE with family-cluster intervals overall, by regime, by initial
    state and without the three worst systems, large-outage peaks, the learned coupling per fold) and
