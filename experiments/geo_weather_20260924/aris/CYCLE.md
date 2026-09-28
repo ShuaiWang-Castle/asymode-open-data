@@ -211,3 +211,22 @@ see `notes/D01_DATA_FIRST_RESULTS_20260928.md`. Poor/uncertain performance again
 reference limits interpretation: do not promote this negative probe into a no-physical-interaction claim.
 The finite diagnostic process has exited. No next-version neural run, extra I18 seed or trained neural NULL
 is authorized by these results; I18's monitor remains paused and this chat remains open.
+
+## D02 county-structure exploration (PI correction; current priority)
+
+The PI explicitly asked to broaden the data investigation across county structure and direction instead of
+narrowing on the basis of an overall statistic. Follow `notes/D02_COUNTY_COMPLEXITY_SCOPE_20260928.md`:
+current-event-outcome-blind county types, weather-anchored dynamics, and within-county/within-system/two-way
+association decompositions. Global MSE is not an exclusion gate for this atlas. Preserve negative, weak and
+unsupported cells, and distinguish sign cancellation, lag/threshold mixing and event composition.
+This authorizes the described statistical exploration, not a new neural arm. D only; C and paper unchanged.
+
+D02 is complete: the outcome-blind county structure/continuous map, six weather-anchor dynamics,
+and all 56-driver association decompositions are saved with support and uncertainty. See
+`notes/D02_COUNTY_COMPLEXITY_RESULTS_20260928.md`. Six types are coarse navigation partitions
+(mean silhouette 0.173), not six natural mechanisms. The atlas shows timing/composition differences,
+support-dependent directions and order associations; it does not establish causal geographic mechanisms,
+robust cancellation or a model-selection winner. In particular, an overall statistic remains no exclusion
+gate. Sparse numerical projections and absorbed controls passed independent weighted-dummy checks;
+final source hashes match and finite statistics/explicit missing cells are retained. Finite statistical
+processes have exited; no neural queue is pending, I18 monitoring remains paused, chat stays open.

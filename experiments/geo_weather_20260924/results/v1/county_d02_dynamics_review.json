@@ -1,0 +1,1351 @@
+{
+  "curve_fields_checked": 1440,
+  "partitions_and_support_checks_passed": true,
+  "interpretation": "Peak of cohort mean is distinct from distribution of individual peak lags. Type comparisons do not control storm composition or exposure.",
+  "descriptive_type_patterns": {
+    "gust": {
+      "T0": {
+        "support": {
+          "county_events": 2372,
+          "counties": 692,
+          "systems": 67,
+          "merged_event_groups": 55,
+          "design_weight": 286906.9
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 28,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 2344,
+          "zero_with_complete_forecast": 27,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 2372,
+          "weather_peak_at_search_boundary": 16
+        },
+        "stock_curve_peak_offset_hours": 1,
+        "stock_curve_peak_percent": 0.2831784,
+        "net_change_at_weather_peak_percentage_points": 0.1052428,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -53.92552,
+          -22.0,
+          6.0,
+          67.0,
+          96.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 2246,
+          "counties": 687,
+          "systems": 67,
+          "merged_event_groups": 55,
+          "design_weight": 268772.1
+        }
+      },
+      "T1": {
+        "support": {
+          "county_events": 1120,
+          "counties": 278,
+          "systems": 53,
+          "merged_event_groups": 45,
+          "design_weight": 80377.3
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 10,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1110,
+          "zero_with_complete_forecast": 10,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1120,
+          "weather_peak_at_search_boundary": 2
+        },
+        "stock_curve_peak_offset_hours": 1,
+        "stock_curve_peak_percent": 0.3649422,
+        "net_change_at_weather_peak_percentage_points": 0.01032977,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -50.0,
+          -5.0,
+          17.0,
+          68.0,
+          105.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1080,
+          "counties": 276,
+          "systems": 52,
+          "merged_event_groups": 44,
+          "design_weight": 77595.33
+        }
+      },
+      "T2": {
+        "support": {
+          "county_events": 1103,
+          "counties": 235,
+          "systems": 73,
+          "merged_event_groups": 61,
+          "design_weight": 61961.99
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 10,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1093,
+          "zero_with_complete_forecast": 10,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1103,
+          "weather_peak_at_search_boundary": 3
+        },
+        "stock_curve_peak_offset_hours": 6,
+        "stock_curve_peak_percent": 0.2096746,
+        "net_change_at_weather_peak_percentage_points": 0.027009609999999996,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -53.78812,
+          -15.0,
+          7.0,
+          50.0,
+          94.02039
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1045,
+          "counties": 232,
+          "systems": 73,
+          "merged_event_groups": 61,
+          "design_weight": 57419.67
+        }
+      },
+      "T3": {
+        "support": {
+          "county_events": 873,
+          "counties": 237,
+          "systems": 51,
+          "merged_event_groups": 44,
+          "design_weight": 85799.0
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 27,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 846,
+          "zero_with_complete_forecast": 27,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 873,
+          "weather_peak_at_search_boundary": 23
+        },
+        "stock_curve_peak_offset_hours": -22,
+        "stock_curve_peak_percent": 0.222675,
+        "net_change_at_weather_peak_percentage_points": 0.01612587,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -63.58064,
+          -11.13492,
+          16.09568,
+          95.37315,
+          125.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 748,
+          "counties": 227,
+          "systems": 51,
+          "merged_event_groups": 44,
+          "design_weight": 60137.81
+        }
+      },
+      "T4": {
+        "support": {
+          "county_events": 1592,
+          "counties": 531,
+          "systems": 52,
+          "merged_event_groups": 44,
+          "design_weight": 86478.59
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 129,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1463,
+          "zero_with_complete_forecast": 124,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1592,
+          "weather_peak_at_search_boundary": 35
+        },
+        "stock_curve_peak_offset_hours": 0,
+        "stock_curve_peak_percent": 0.2683155,
+        "net_change_at_weather_peak_percentage_points": 0.03530751,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -67.5,
+          -22.0,
+          9.0,
+          45.0,
+          95.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1337,
+          "counties": 507,
+          "systems": 51,
+          "merged_event_groups": 43,
+          "design_weight": 76059.81
+        }
+      },
+      "T5": {
+        "support": {
+          "county_events": 1397,
+          "counties": 437,
+          "systems": 63,
+          "merged_event_groups": 52,
+          "design_weight": 124690.9
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 63,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1334,
+          "zero_with_complete_forecast": 57,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1397,
+          "weather_peak_at_search_boundary": 9
+        },
+        "stock_curve_peak_offset_hours": -8,
+        "stock_curve_peak_percent": 0.1540409,
+        "net_change_at_weather_peak_percentage_points": 0.012634079999999999,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -55.0,
+          -22.0,
+          1.0,
+          44.72631,
+          74.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1234,
+          "counties": 418,
+          "systems": 61,
+          "merged_event_groups": 50,
+          "design_weight": 109827.0
+        }
+      }
+    },
+    "precip": {
+      "T0": {
+        "support": {
+          "county_events": 2348,
+          "counties": 692,
+          "systems": 67,
+          "merged_event_groups": 55,
+          "design_weight": 286871.3
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 28,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 2344,
+          "zero_with_complete_forecast": 27,
+          "weather_absent": 24,
+          "weather_flat": 0,
+          "weather_peak_defined": 2348,
+          "weather_peak_at_search_boundary": 60
+        },
+        "stock_curve_peak_offset_hours": 2,
+        "stock_curve_peak_percent": 0.2501725,
+        "net_change_at_weather_peak_percentage_points": 0.020577440000000002,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -54.0,
+          -13.0,
+          6.0,
+          43.0,
+          86.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 2181,
+          "counties": 686,
+          "systems": 67,
+          "merged_event_groups": 55,
+          "design_weight": 258901.5
+        }
+      },
+      "T1": {
+        "support": {
+          "county_events": 1116,
+          "counties": 278,
+          "systems": 53,
+          "merged_event_groups": 45,
+          "design_weight": 80371.85
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 10,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1110,
+          "zero_with_complete_forecast": 10,
+          "weather_absent": 4,
+          "weather_flat": 0,
+          "weather_peak_defined": 1116,
+          "weather_peak_at_search_boundary": 31
+        },
+        "stock_curve_peak_offset_hours": 15,
+        "stock_curve_peak_percent": 0.3024082,
+        "net_change_at_weather_peak_percentage_points": 0.08435685,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -88.19538,
+          -31.28365,
+          4.13286,
+          57.45674,
+          104.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1049,
+          "counties": 275,
+          "systems": 52,
+          "merged_event_groups": 44,
+          "design_weight": 76008.99
+        }
+      },
+      "T2": {
+        "support": {
+          "county_events": 1102,
+          "counties": 235,
+          "systems": 73,
+          "merged_event_groups": 61,
+          "design_weight": 61960.23
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 10,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1093,
+          "zero_with_complete_forecast": 10,
+          "weather_absent": 1,
+          "weather_flat": 0,
+          "weather_peak_defined": 1102,
+          "weather_peak_at_search_boundary": 44
+        },
+        "stock_curve_peak_offset_hours": 5,
+        "stock_curve_peak_percent": 0.2146133,
+        "net_change_at_weather_peak_percentage_points": 0.03311147,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -52.0,
+          -6.0,
+          9.0,
+          56.45736,
+          98.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1003,
+          "counties": 232,
+          "systems": 73,
+          "merged_event_groups": 61,
+          "design_weight": 56448.81
+        }
+      },
+      "T3": {
+        "support": {
+          "county_events": 873,
+          "counties": 237,
+          "systems": 51,
+          "merged_event_groups": 44,
+          "design_weight": 85799.0
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 27,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 846,
+          "zero_with_complete_forecast": 27,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 873,
+          "weather_peak_at_search_boundary": 11
+        },
+        "stock_curve_peak_offset_hours": 10,
+        "stock_curve_peak_percent": 0.27614750000000005,
+        "net_change_at_weather_peak_percentage_points": 0.003154042,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -25.87265,
+          3.545931,
+          21.0,
+          83.68442,
+          118.1205
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 760,
+          "counties": 231,
+          "systems": 50,
+          "merged_event_groups": 43,
+          "design_weight": 75262.23
+        }
+      },
+      "T4": {
+        "support": {
+          "county_events": 1592,
+          "counties": 531,
+          "systems": 52,
+          "merged_event_groups": 44,
+          "design_weight": 86478.59
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 129,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1463,
+          "zero_with_complete_forecast": 124,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1592,
+          "weather_peak_at_search_boundary": 51
+        },
+        "stock_curve_peak_offset_hours": 1,
+        "stock_curve_peak_percent": 0.2442128,
+        "net_change_at_weather_peak_percentage_points": 0.025094929999999998,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -52.45117,
+          -18.0,
+          16.94301,
+          51.5,
+          101.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1320,
+          "counties": 508,
+          "systems": 51,
+          "merged_event_groups": 43,
+          "design_weight": 75623.48
+        }
+      },
+      "T5": {
+        "support": {
+          "county_events": 1396,
+          "counties": 437,
+          "systems": 63,
+          "merged_event_groups": 52,
+          "design_weight": 124689.9
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 63,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1334,
+          "zero_with_complete_forecast": 57,
+          "weather_absent": 1,
+          "weather_flat": 0,
+          "weather_peak_defined": 1396,
+          "weather_peak_at_search_boundary": 43
+        },
+        "stock_curve_peak_offset_hours": 3,
+        "stock_curve_peak_percent": 0.1244853,
+        "net_change_at_weather_peak_percentage_points": 0.03824929,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -55.0,
+          -9.0,
+          6.0,
+          46.01487,
+          88.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1203,
+          "counties": 418,
+          "systems": 61,
+          "merged_event_groups": 50,
+          "design_weight": 107861.5
+        }
+      }
+    },
+    "cold": {
+      "T0": {
+        "support": {
+          "county_events": 2372,
+          "counties": 692,
+          "systems": 67,
+          "merged_event_groups": 55,
+          "design_weight": 286906.9
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 28,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 2344,
+          "zero_with_complete_forecast": 27,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 2372,
+          "weather_peak_at_search_boundary": 201
+        },
+        "stock_curve_peak_offset_hours": -22,
+        "stock_curve_peak_percent": 0.1098489,
+        "net_change_at_weather_peak_percentage_points": 0.008994354,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -89.5,
+          -47.0,
+          -19.0,
+          35.49051,
+          62.39721
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 2064,
+          "counties": 675,
+          "systems": 66,
+          "merged_event_groups": 54,
+          "design_weight": 238930.6
+        }
+      },
+      "T1": {
+        "support": {
+          "county_events": 1120,
+          "counties": 278,
+          "systems": 53,
+          "merged_event_groups": 45,
+          "design_weight": 80377.3
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 10,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1110,
+          "zero_with_complete_forecast": 10,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1120,
+          "weather_peak_at_search_boundary": 113
+        },
+        "stock_curve_peak_offset_hours": -24,
+        "stock_curve_peak_percent": 0.1578014,
+        "net_change_at_weather_peak_percentage_points": 0.00072866,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -70.0,
+          -60.33369,
+          -15.0,
+          33.77611,
+          54.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 971,
+          "counties": 274,
+          "systems": 53,
+          "merged_event_groups": 45,
+          "design_weight": 76125.27
+        }
+      },
+      "T2": {
+        "support": {
+          "county_events": 1103,
+          "counties": 235,
+          "systems": 73,
+          "merged_event_groups": 61,
+          "design_weight": 61961.99
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 10,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1093,
+          "zero_with_complete_forecast": 10,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1103,
+          "weather_peak_at_search_boundary": 114
+        },
+        "stock_curve_peak_offset_hours": -17,
+        "stock_curve_peak_percent": 0.1197051,
+        "net_change_at_weather_peak_percentage_points": 0.003351572,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -102.5423,
+          -65.0,
+          -30.0,
+          28.0,
+          60.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 938,
+          "counties": 230,
+          "systems": 73,
+          "merged_event_groups": 61,
+          "design_weight": 51560.4
+        }
+      },
+      "T3": {
+        "support": {
+          "county_events": 873,
+          "counties": 237,
+          "systems": 51,
+          "merged_event_groups": 44,
+          "design_weight": 85799.0
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 27,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 846,
+          "zero_with_complete_forecast": 27,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 873,
+          "weather_peak_at_search_boundary": 52
+        },
+        "stock_curve_peak_offset_hours": -23,
+        "stock_curve_peak_percent": 0.25276909999999997,
+        "net_change_at_weather_peak_percentage_points": -0.006241722999999999,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -70.0,
+          -35.0,
+          -18.0,
+          54.0,
+          89.25682
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 718,
+          "counties": 229,
+          "systems": 50,
+          "merged_event_groups": 43,
+          "design_weight": 73977.29
+        }
+      },
+      "T4": {
+        "support": {
+          "county_events": 1592,
+          "counties": 531,
+          "systems": 52,
+          "merged_event_groups": 44,
+          "design_weight": 86478.59
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 129,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1463,
+          "zero_with_complete_forecast": 124,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1592,
+          "weather_peak_at_search_boundary": 48
+        },
+        "stock_curve_peak_offset_hours": 14,
+        "stock_curve_peak_percent": 0.12875,
+        "net_change_at_weather_peak_percentage_points": -0.002890879,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -90.5,
+          -55.00511,
+          -16.71893,
+          32.0,
+          59.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1325,
+          "counties": 505,
+          "systems": 50,
+          "merged_event_groups": 42,
+          "design_weight": 70793.05
+        }
+      },
+      "T5": {
+        "support": {
+          "county_events": 1397,
+          "counties": 437,
+          "systems": 63,
+          "merged_event_groups": 52,
+          "design_weight": 124690.9
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 63,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1334,
+          "zero_with_complete_forecast": 57,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1397,
+          "weather_peak_at_search_boundary": 150
+        },
+        "stock_curve_peak_offset_hours": -20,
+        "stock_curve_peak_percent": 0.05257089,
+        "net_change_at_weather_peak_percentage_points": -0.0016142760000000002,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -107.1431,
+          -87.4184,
+          -39.0,
+          3.0,
+          45.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1101,
+          "counties": 411,
+          "systems": 59,
+          "merged_event_groups": 48,
+          "design_weight": 89134.93
+        }
+      }
+    },
+    "snowfall": {
+      "T0": {
+        "support": {
+          "county_events": 1922,
+          "counties": 660,
+          "systems": 59,
+          "merged_event_groups": 48,
+          "design_weight": 119703.1
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 28,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 2344,
+          "zero_with_complete_forecast": 27,
+          "weather_absent": 450,
+          "weather_flat": 0,
+          "weather_peak_defined": 1922,
+          "weather_peak_at_search_boundary": 526
+        },
+        "stock_curve_peak_offset_hours": 15,
+        "stock_curve_peak_percent": 0.2551831,
+        "net_change_at_weather_peak_percentage_points": -0.0123669,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -62.5,
+          -42.5,
+          -4.5,
+          35.07728,
+          68.50208
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1328,
+          "counties": 538,
+          "systems": 49,
+          "merged_event_groups": 39,
+          "design_weight": 91144.82
+        }
+      },
+      "T1": {
+        "support": {
+          "county_events": 898,
+          "counties": 277,
+          "systems": 43,
+          "merged_event_groups": 35,
+          "design_weight": 36588.28
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 10,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1110,
+          "zero_with_complete_forecast": 10,
+          "weather_absent": 222,
+          "weather_flat": 0,
+          "weather_peak_defined": 898,
+          "weather_peak_at_search_boundary": 350
+        },
+        "stock_curve_peak_offset_hours": 11,
+        "stock_curve_peak_percent": 0.40228319999999995,
+        "net_change_at_weather_peak_percentage_points": 0.03008841,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -55.5,
+          -36.86854,
+          10.61696,
+          58.95494,
+          81.5
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 519,
+          "counties": 220,
+          "systems": 34,
+          "merged_event_groups": 27,
+          "design_weight": 17757.12
+        }
+      },
+      "T2": {
+        "support": {
+          "county_events": 914,
+          "counties": 232,
+          "systems": 65,
+          "merged_event_groups": 54,
+          "design_weight": 48175.76
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 10,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1093,
+          "zero_with_complete_forecast": 10,
+          "weather_absent": 189,
+          "weather_flat": 0,
+          "weather_peak_defined": 914,
+          "weather_peak_at_search_boundary": 195
+        },
+        "stock_curve_peak_offset_hours": -22,
+        "stock_curve_peak_percent": 0.08160411000000001,
+        "net_change_at_weather_peak_percentage_points": -0.0010257909999999999,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -86.61441,
+          -44.96842,
+          -1.0,
+          46.79518,
+          82.56376
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 676,
+          "counties": 203,
+          "systems": 56,
+          "merged_event_groups": 46,
+          "design_weight": 36188.64
+        }
+      },
+      "T3": {
+        "support": {
+          "county_events": 828,
+          "counties": 232,
+          "systems": 50,
+          "merged_event_groups": 43,
+          "design_weight": 84243.11
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 27,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 846,
+          "zero_with_complete_forecast": 27,
+          "weather_absent": 45,
+          "weather_flat": 0,
+          "weather_peak_defined": 828,
+          "weather_peak_at_search_boundary": 100
+        },
+        "stock_curve_peak_offset_hours": 24,
+        "stock_curve_peak_percent": 0.661566,
+        "net_change_at_weather_peak_percentage_points": 0.006428775,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -59.5,
+          -44.80467,
+          -6.0,
+          50.61375,
+          75.34836
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 637,
+          "counties": 220,
+          "systems": 44,
+          "merged_event_groups": 37,
+          "design_weight": 68964.76
+        }
+      },
+      "T4": {
+        "support": {
+          "county_events": 1307,
+          "counties": 508,
+          "systems": 44,
+          "merged_event_groups": 37,
+          "design_weight": 63343.2
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 129,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1463,
+          "zero_with_complete_forecast": 124,
+          "weather_absent": 285,
+          "weather_flat": 0,
+          "weather_peak_defined": 1307,
+          "weather_peak_at_search_boundary": 99
+        },
+        "stock_curve_peak_offset_hours": 1,
+        "stock_curve_peak_percent": 0.1390965,
+        "net_change_at_weather_peak_percentage_points": 0.02137584,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -49.2148,
+          -17.0,
+          14.0,
+          53.0,
+          77.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1024,
+          "counties": 446,
+          "systems": 37,
+          "merged_event_groups": 30,
+          "design_weight": 54646.08
+        }
+      },
+      "T5": {
+        "support": {
+          "county_events": 1171,
+          "counties": 426,
+          "systems": 54,
+          "merged_event_groups": 44,
+          "design_weight": 70619.38
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 63,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1334,
+          "zero_with_complete_forecast": 57,
+          "weather_absent": 226,
+          "weather_flat": 0,
+          "weather_peak_defined": 1171,
+          "weather_peak_at_search_boundary": 193
+        },
+        "stock_curve_peak_offset_hours": 13,
+        "stock_curve_peak_percent": 0.08117788000000001,
+        "net_change_at_weather_peak_percentage_points": 0.0008294231000000001,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -85.53634,
+          -62.5,
+          -10.31306,
+          22.64679,
+          58.5456
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 864,
+          "counties": 375,
+          "systems": 42,
+          "merged_event_groups": 33,
+          "design_weight": 55472.18
+        }
+      }
+    },
+    "soil": {
+      "T0": {
+        "support": {
+          "county_events": 2372,
+          "counties": 692,
+          "systems": 67,
+          "merged_event_groups": 55,
+          "design_weight": 286906.9
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 28,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 2344,
+          "zero_with_complete_forecast": 27,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 2372,
+          "weather_peak_at_search_boundary": 226
+        },
+        "stock_curve_peak_offset_hours": -1,
+        "stock_curve_peak_percent": 0.20501629999999998,
+        "net_change_at_weather_peak_percentage_points": -0.00546153,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -52.0,
+          -14.0,
+          8.0,
+          65.1504,
+          102.4207
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 2055,
+          "counties": 679,
+          "systems": 65,
+          "merged_event_groups": 53,
+          "design_weight": 255830.3
+        }
+      },
+      "T1": {
+        "support": {
+          "county_events": 1120,
+          "counties": 278,
+          "systems": 53,
+          "merged_event_groups": 45,
+          "design_weight": 80377.3
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 10,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1110,
+          "zero_with_complete_forecast": 10,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1120,
+          "weather_peak_at_search_boundary": 96
+        },
+        "stock_curve_peak_offset_hours": 3,
+        "stock_curve_peak_percent": 0.3589668,
+        "net_change_at_weather_peak_percentage_points": 0.03176457,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -90.09257,
+          -11.0,
+          14.60812,
+          74.0,
+          107.1602
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 988,
+          "counties": 268,
+          "systems": 51,
+          "merged_event_groups": 43,
+          "design_weight": 44920.63
+        }
+      },
+      "T2": {
+        "support": {
+          "county_events": 1103,
+          "counties": 235,
+          "systems": 73,
+          "merged_event_groups": 61,
+          "design_weight": 61961.99
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 10,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1093,
+          "zero_with_complete_forecast": 10,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1103,
+          "weather_peak_at_search_boundary": 173
+        },
+        "stock_curve_peak_offset_hours": 2,
+        "stock_curve_peak_percent": 0.1729,
+        "net_change_at_weather_peak_percentage_points": 0.01160254,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -76.0,
+          -8.766578,
+          6.0,
+          58.666,
+          99.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 884,
+          "counties": 232,
+          "systems": 71,
+          "merged_event_groups": 59,
+          "design_weight": 50905.57
+        }
+      },
+      "T3": {
+        "support": {
+          "county_events": 873,
+          "counties": 237,
+          "systems": 51,
+          "merged_event_groups": 44,
+          "design_weight": 85799.0
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 27,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 846,
+          "zero_with_complete_forecast": 27,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 873,
+          "weather_peak_at_search_boundary": 157
+        },
+        "stock_curve_peak_offset_hours": 11,
+        "stock_curve_peak_percent": 0.3495999,
+        "net_change_at_weather_peak_percentage_points": -0.04236986,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -21.0,
+          0.0,
+          13.21041,
+          88.06931,
+          123.1403
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 629,
+          "counties": 219,
+          "systems": 50,
+          "merged_event_groups": 43,
+          "design_weight": 62311.15
+        }
+      },
+      "T4": {
+        "support": {
+          "county_events": 1592,
+          "counties": 531,
+          "systems": 52,
+          "merged_event_groups": 44,
+          "design_weight": 86478.59
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 129,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1463,
+          "zero_with_complete_forecast": 124,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1592,
+          "weather_peak_at_search_boundary": 299
+        },
+        "stock_curve_peak_offset_hours": 0,
+        "stock_curve_peak_percent": 0.2444389,
+        "net_change_at_weather_peak_percentage_points": 0.01309223,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -73.09966,
+          -36.5,
+          6.0,
+          44.0,
+          93.31904
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1112,
+          "counties": 489,
+          "systems": 50,
+          "merged_event_groups": 42,
+          "design_weight": 62278.08
+        }
+      },
+      "T5": {
+        "support": {
+          "county_events": 1397,
+          "counties": 437,
+          "systems": 63,
+          "merged_event_groups": 52,
+          "design_weight": 124690.9
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 63,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1334,
+          "zero_with_complete_forecast": 57,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1397,
+          "weather_peak_at_search_boundary": 281
+        },
+        "stock_curve_peak_offset_hours": -9,
+        "stock_curve_peak_percent": 0.12407209999999999,
+        "net_change_at_weather_peak_percentage_points": -0.0009158342999999999,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -60.28315,
+          -20.0,
+          1.122843,
+          44.5,
+          90.19433
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 991,
+          "counties": 412,
+          "systems": 60,
+          "merged_event_groups": 50,
+          "design_weight": 89594.54
+        }
+      }
+    },
+    "cape": {
+      "T0": {
+        "support": {
+          "county_events": 2372,
+          "counties": 692,
+          "systems": 67,
+          "merged_event_groups": 55,
+          "design_weight": 286906.9
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 28,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 2344,
+          "zero_with_complete_forecast": 27,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 2372,
+          "weather_peak_at_search_boundary": 110
+        },
+        "stock_curve_peak_offset_hours": 8,
+        "stock_curve_peak_percent": 0.1901929,
+        "net_change_at_weather_peak_percentage_points": 0.0138438,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -61.29002,
+          -6.0,
+          13.23383,
+          56.0,
+          96.69924
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 2155,
+          "counties": 683,
+          "systems": 67,
+          "merged_event_groups": 55,
+          "design_weight": 251302.9
+        }
+      },
+      "T1": {
+        "support": {
+          "county_events": 1120,
+          "counties": 278,
+          "systems": 53,
+          "merged_event_groups": 45,
+          "design_weight": 80377.3
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 10,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1110,
+          "zero_with_complete_forecast": 10,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1120,
+          "weather_peak_at_search_boundary": 44
+        },
+        "stock_curve_peak_offset_hours": -17,
+        "stock_curve_peak_percent": 0.3072706,
+        "net_change_at_weather_peak_percentage_points": -0.01176952,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -72.0,
+          -24.0,
+          15.0,
+          72.533,
+          107.8759
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1040,
+          "counties": 275,
+          "systems": 53,
+          "merged_event_groups": 45,
+          "design_weight": 65227.52
+        }
+      },
+      "T2": {
+        "support": {
+          "county_events": 1103,
+          "counties": 235,
+          "systems": 73,
+          "merged_event_groups": 61,
+          "design_weight": 61961.99
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 10,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1093,
+          "zero_with_complete_forecast": 10,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1103,
+          "weather_peak_at_search_boundary": 42
+        },
+        "stock_curve_peak_offset_hours": 6,
+        "stock_curve_peak_percent": 0.1634804,
+        "net_change_at_weather_peak_percentage_points": 0.009975741,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -78.0,
+          -20.0,
+          11.0,
+          56.89085,
+          106.0
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1009,
+          "counties": 232,
+          "systems": 72,
+          "merged_event_groups": 60,
+          "design_weight": 55381.36
+        }
+      },
+      "T3": {
+        "support": {
+          "county_events": 873,
+          "counties": 237,
+          "systems": 51,
+          "merged_event_groups": 44,
+          "design_weight": 85799.0
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 27,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 846,
+          "zero_with_complete_forecast": 27,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 873,
+          "weather_peak_at_search_boundary": 30
+        },
+        "stock_curve_peak_offset_hours": 5,
+        "stock_curve_peak_percent": 0.289433,
+        "net_change_at_weather_peak_percentage_points": -0.04036183,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -22.87536,
+          5.0,
+          20.42174,
+          93.81256,
+          122.6549
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 742,
+          "counties": 229,
+          "systems": 51,
+          "merged_event_groups": 44,
+          "design_weight": 71346.2
+        }
+      },
+      "T4": {
+        "support": {
+          "county_events": 1592,
+          "counties": 531,
+          "systems": 52,
+          "merged_event_groups": 44,
+          "design_weight": 86478.59
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 129,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1463,
+          "zero_with_complete_forecast": 124,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1592,
+          "weather_peak_at_search_boundary": 46
+        },
+        "stock_curve_peak_offset_hours": 19,
+        "stock_curve_peak_percent": 0.167497,
+        "net_change_at_weather_peak_percentage_points": 0.034739900000000004,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -64.00593,
+          -14.0,
+          14.5,
+          62.0,
+          100.5345
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1326,
+          "counties": 508,
+          "systems": 51,
+          "merged_event_groups": 43,
+          "design_weight": 70716.57
+        }
+      },
+      "T5": {
+        "support": {
+          "county_events": 1397,
+          "counties": 437,
+          "systems": 63,
+          "merged_event_groups": 52,
+          "design_weight": 124690.9
+        },
+        "statuses": {
+          "no_observed_forecast": 0,
+          "observed_zero": 63,
+          "observed_positive_flat": 0,
+          "observed_positive_varying": 1334,
+          "zero_with_complete_forecast": 57,
+          "weather_absent": 0,
+          "weather_flat": 0,
+          "weather_peak_defined": 1397,
+          "weather_peak_at_search_boundary": 62
+        },
+        "stock_curve_peak_offset_hours": -13,
+        "stock_curve_peak_percent": 0.1342826,
+        "net_change_at_weather_peak_percentage_points": 0.0062068390000000005,
+        "complete_interior_peak_lag_quantiles_hours": [
+          -37.0,
+          -22.0,
+          6.0,
+          49.0,
+          92.75535
+        ],
+        "complete_interior_peak_lag_support": {
+          "county_events": 1182,
+          "counties": 418,
+          "systems": 60,
+          "merged_event_groups": 49,
+          "design_weight": 104318.5
+        }
+      }
+    }
+  }
+}

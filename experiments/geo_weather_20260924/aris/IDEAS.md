@@ -64,3 +64,20 @@ so the result cannot rule out physical weather/geography mechanisms or within-co
 should distinguish inadequate summaries from inadequate spatial support, with narrowly specified comparisons;
 it does not justify selecting an architecture merely by adding more county-level cross-products.
 See `notes/D01_DATA_FIRST_RESULTS_20260928.md`. I19 remains parked; no neural expansion is queued.
+
+PI correction: D01's overall result must not narrow the investigation prematurely. D02 retains the broad
+weather/geography space and asks whether county structure reveals opposing directions, shifted timing,
+different thresholds or event-composition effects. Current-event-outcome-blind structural types and full
+support/uncertainty maps come before another architecture choice; overall MSE is not the atlas's gate.
+See `notes/D02_COUNTY_COMPLEXITY_SCOPE_20260928.md`.
+
+D02 completed a full county-response atlas rather than ranking one kernel: 2,410 counties, continuous
+46D structure plus six coarse partitions; six weather-anchor trajectories; 56 drivers across all five
+regimes/six types, three responses and all fixed-effect/history sensitivities. Timing differs within and
+between regimes. Full-range mean-gust associations in tropical events differ in amplitude, while restricting
+weather support can change signs. Apparent raw rain-sign cancellation in heavy-rain events disappears after
+joint county/system-phase/history adjustment; that adjustment cannot identify which component explains it.
+Tropical gust/rain order associations remain hypotheses, with broad common-support intervals. No single
+example is the next-design gate. Preserve continuous within-type variation, nonlinear support/density,
+multi-peak and longer-history possibilities; do not turn six clusters into six asserted physical mechanisms.
+See `notes/D02_COUNTY_COMPLEXITY_RESULTS_20260928.md`; all weak, null and undefined cells remain in the outputs.
