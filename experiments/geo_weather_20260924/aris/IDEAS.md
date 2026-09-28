@@ -37,3 +37,9 @@ are reported separately. The prospective single-seed screen must be explicit and
 | id | idea | status | note |
 |---|---|---|---|
 | I18 | Replace the county-specific geography norm in GCRK with one frozen training-fold RMS norm, retaining radial geography information; all rate/kernel parameters and recurrence otherwise unchanged | running since 14:55 ET, code/design 395350d; seed-0 five-fold screen authorized by PI in this chat | notes/I18_GEO_RMS_SCREEN_20260928.md; arm GCRK+Cin-georms, label v1_gcrk_georms_s0; compare host and original GCRK; no recovery work or extra seeds now |
+
+## I19 geographic read-in (2026-09-28; design requested, no training queued)
+
+| id | idea | status | note |
+|---|---|---|---|
+| I19 | On the fixed I18 base, let geography set a bounded diagonal metric on hidden weather departure before both deposition normalization and its gate; 128 added parameters, identity initialization, same recurrence and one damage MLP | proposed after PI requested the next geographic-kernel design; implementation and training not started | notes/I19_GEO_READIN_PROPOSAL_20260928.md; existing lambda/a/Omega already condition the kernel; the new hypothesis is independent geographic input selection. Three-fold gains are concentrated and do not establish the cause of failure. I18 completes unchanged. |

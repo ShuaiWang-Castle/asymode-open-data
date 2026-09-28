@@ -169,3 +169,8 @@ PI update, 15:36 ET: parallel execution explicitly authorized. The live queue no
 two workers, each with two threads and nice 15. This supersedes the initial one-worker
 resource preference; the registered model, steps, folds and source hashes stay fixed.
 Monitor resource pressure; reduce future overlap if a material resource issue appears.
+
+PI subsequently requested the next geographic-kernel design while I18 runs. I19 is
+written in `notes/I19_GEO_READIN_PROPOSAL_20260928.md` as a proposal only; no new arm
+is implemented or queued. Finish and report I18, then pause its monitor as specified;
+the proposal must not cause automatic next-version training.
