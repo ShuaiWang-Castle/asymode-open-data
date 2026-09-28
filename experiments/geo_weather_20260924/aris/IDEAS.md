@@ -56,3 +56,11 @@ I18's primary gain does not eliminate the large-peak gap: median predicted/obser
 D01 fixes the first data-analysis scope before fitting: additive controls, individual weather/geography,
 compound exposure, directional order, compound/geography, then order/geography; event-held-out ridge probes
 with future-severity and same-window sensitivities. See `notes/D01_DATA_FIRST_PROTOCOL_20260928.md`.
+
+D01 completed all three specifications on five event folds. Joint geographic modulation increases headline
+burden MSE by +3.292%, +3.227%, +5.249% (all merged-event intervals above zero; 0/5 folds improve in each).
+No probe satisfies its exploratory candidate rule. The probes also lack a stable advantage over persistence,
+so the result cannot rule out physical weather/geography mechanisms or within-county co-location. Next evidence
+should distinguish inadequate summaries from inadequate spatial support, with narrowly specified comparisons;
+it does not justify selecting an architecture merely by adding more county-level cross-products.
+See `notes/D01_DATA_FIRST_RESULTS_20260928.md`. I19 remains parked; no neural expansion is queued.

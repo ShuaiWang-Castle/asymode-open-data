@@ -204,3 +204,10 @@ D01 is the bounded statistical analysis in `notes/D01_DATA_FIRST_PROTOCOL_202609
 `analyze_data_relationships_v1.py`: six nested ridge probes, three fixed historical specifications,
 existing event folds and same-state geographic correspondence controls. Fitting these diagnostic regressions
 is within the PI's data-analysis request; it does not restart a neural experiment or change its evaluation.
+
+D01 is now complete, including all three specifications and independent output/arithmetic verification.
+The primary joint geographic modulation fails its exploratory candidate criteria in every specification;
+see `notes/D01_DATA_FIRST_RESULTS_20260928.md`. Poor/uncertain performance against the descriptive persistence
+reference limits interpretation: do not promote this negative probe into a no-physical-interaction claim.
+The finite diagnostic process has exited. No next-version neural run, extra I18 seed or trained neural NULL
+is authorized by these results; I18's monitor remains paused and this chat remains open.

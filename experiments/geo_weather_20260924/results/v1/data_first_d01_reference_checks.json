@@ -1,0 +1,431 @@
+{
+  "meta": {
+    "analysis": "D01 burden probe reference check",
+    "status": "descriptive extra after first result",
+    "exploratory": true,
+    "refit": false,
+    "created_utc": "2026-09-28T23:07:17.560600+00:00",
+    "target": "Mean observed outage stock fraction during [anchor, anchor+24); requires >=22/24 observed future hours",
+    "persistence": "y_full[unit, anchor-1], constant over next 24 hours",
+    "weight": "w[unit]/number_of_retained_anchors_for_that_unit",
+    "relative_mse": "Within-regime weighted MSE(new)/MSE(reference)-1; negative means lower error; headline is equal mean of tropical and winter relative changes, all5 is equal mean over five regimes",
+    "scope": "Scoring existing OOF predictions only. Post-first-result descriptive point estimates and merged-event-cluster percentile confidence intervals for A/F versus persistence; no new fit or model selection. Not an hourly-trajectory score or a causal test.",
+    "feature_arrays_read": [
+      "y_full",
+      "obs_full",
+      "w",
+      "w_raw",
+      "regime",
+      "system",
+      "family",
+      "origin",
+      "fips"
+    ],
+    "specifications_checked": [
+      "past_only",
+      "future_adjusted",
+      "aligned_exposure"
+    ],
+    "not_checked": [],
+    "source_feature": "data/interim/panel_v1/features_v1D.npz",
+    "updated_utc": "2026-09-28T23:11:41.427007+00:00",
+    "reference_bootstrap": {
+      "status": "post-first-result descriptive reference",
+      "event_draws": 2000,
+      "seed": 20260928,
+      "merged_groups": 68,
+      "group_rule": "Union systems with the same family, or sharing a sampled county with origins at most 16 days apart; transitively close unions.",
+      "stratification": "Each merged group is assigned to the regime with the largest total design weight. Sample groups with replacement within each stratum, preserving stratum group counts.",
+      "stratum_group_counts": {
+        "tropical": 14,
+        "winter": 13,
+        "synoptic_wind": 9,
+        "convective": 15,
+        "heavy_rain": 17
+      },
+      "interval": "2.5th and 97.5th percentiles of within-regime relative MSE averaged equally over tropical and winter; paired model and persistence draws.",
+      "function": "analyze_data_relationships_v1.py:merged_groups and clustered_draws, reused without fitting or weather loading",
+      "multiplicity": "Six descriptive intervals; no simultaneous-coverage adjustment."
+    }
+  },
+  "audit": {
+    "units": 8457,
+    "retained_units": 8457,
+    "rows": 50302,
+    "retained_anchor_count_distribution": {
+      "2": 15,
+      "3": 85,
+      "4": 54,
+      "5": 17,
+      "6": 8286
+    },
+    "systems": 81,
+    "families": 80,
+    "row_key_unique": true,
+    "persistence_and_target_finite": true,
+    "per_unit_weight_conservation": true,
+    "per_regime_rows": {
+      "tropical": 9769,
+      "winter": 11325,
+      "synoptic_wind": 10814,
+      "convective": 10301,
+      "heavy_rain": 8093
+    },
+    "bootstrap_validation": {
+      "past_only": {
+        "original_F_vs_D_headline_ci_reproduced": true
+      },
+      "future_adjusted": {
+        "original_F_vs_D_headline_ci_reproduced": true
+      },
+      "aligned_exposure": {
+        "original_F_vs_D_headline_ci_reproduced": true
+      }
+    }
+  },
+  "reference_mse": {
+    "persistence": {
+      "per_regime": {
+        "tropical": 0.0008993681180677663,
+        "winter": 0.00026591691744663856,
+        "synoptic_wind": 0.00013270916793356487,
+        "convective": 2.6766531855611036e-05,
+        "heavy_rain": 4.394952714876694e-05
+      },
+      "headline_balanced_mse": 0.0005826425177572024,
+      "all5_balanced_mse": 0.00027374205249046954
+    },
+    "zero": {
+      "per_regime": {
+        "tropical": 0.0030288041039816843,
+        "winter": 0.0005025149639567485,
+        "synoptic_wind": 0.0001033365459231027,
+        "convective": 1.79934706318729e-05,
+        "heavy_rain": 1.9222708792009013e-05
+      },
+      "headline_balanced_mse": 0.0017656595339692164,
+      "all5_balanced_mse": 0.0007343743586570835
+    }
+  },
+  "reference_relative_mse": {
+    "persistence_vs_zero": {
+      "per_regime": {
+        "tropical": -0.7030616417597125,
+        "winter": -0.4708278628106166,
+        "synoptic_wind": 0.28424234377177293,
+        "convective": 0.48756915234562337,
+        "heavy_rain": 1.2863337120852085
+      },
+      "headline": -0.5869447522851645,
+      "all5": 0.17685114072645516
+    }
+  },
+  "specifications": {
+    "past_only": {
+      "source_oof": "runs/geo_weather_20260924/data_first_d01/past_only_oof.npz",
+      "row_and_target_reconstruction_exact": true,
+      "matches_original_per_regime_mse": true,
+      "mse": {
+        "A": {
+          "per_regime": {
+            "tropical": 0.0010587040361269395,
+            "winter": 0.00024072625005573415,
+            "synoptic_wind": 0.00012248181217367905,
+            "convective": 2.5794270985888996e-05,
+            "heavy_rain": 4.766219695885931e-05
+          },
+          "headline_balanced_mse": 0.0006497151430913368,
+          "all5_balanced_mse": 0.0002990737132602202
+        },
+        "F": {
+          "per_regime": {
+            "tropical": 0.001142886214270098,
+            "winter": 0.00025419652804186565,
+            "synoptic_wind": 0.00013704612904136843,
+            "convective": 2.9799863975920396e-05,
+            "heavy_rain": 6.003484067163588e-05
+          },
+          "headline_balanced_mse": 0.0006985413711559818,
+          "all5_balanced_mse": 0.00032479271520017764
+        }
+      },
+      "relative_mse": {
+        "A_vs_persistence": {
+          "per_regime": {
+            "tropical": 0.17716429441761394,
+            "winter": -0.09473134553750018,
+            "synoptic_wind": -0.0770659323627566,
+            "convective": -0.03632375217554484,
+            "heavy_rain": 0.0844757623335779
+          },
+          "headline": 0.04121647444005688,
+          "all5": 0.010703805335078042,
+          "headline_ci95": [
+            -0.11039011561026946,
+            0.4112591880343284
+          ],
+          "valid_event_draws": 2000
+        },
+        "A_vs_zero": {
+          "per_regime": {
+            "tropical": -0.6504547670365473,
+            "winter": -0.5209570513875216,
+            "synoptic_wind": 0.1852710101692696,
+            "convective": 0.43353505911183565,
+            "heavy_rain": 1.4794734953625657
+          },
+          "headline": -0.5857059092120345,
+          "all5": 0.1853735492439204
+        },
+        "F_vs_persistence": {
+          "per_regime": {
+            "tropical": 0.2707657646632109,
+            "winter": -0.044075380826888666,
+            "synoptic_wind": 0.03268019214749862,
+            "convective": 0.11332555658208987,
+            "heavy_rain": 0.36599514412114065
+          },
+          "headline": 0.11334519191816111,
+          "all5": 0.14773825533741028,
+          "headline_ci95": [
+            -0.05036014345772928,
+            0.7371053821525415
+          ],
+          "valid_event_draws": 2000
+        },
+        "F_vs_zero": {
+          "per_regime": {
+            "tropical": -0.6226609001329426,
+            "winter": -0.4941513262802173,
+            "synoptic_wind": 0.3262116303301885,
+            "convective": 0.6561487544895388,
+            "heavy_rain": 2.123120748548857
+          },
+          "headline": -0.55840611320658,
+          "all5": 0.39773378139108484
+        },
+        "F_vs_A": {
+          "per_regime": {
+            "tropical": 0.07951436404372503,
+            "winter": 0.055956830561738835,
+            "synoptic_wind": 0.1189100374105927,
+            "convective": 0.155290025146386,
+            "heavy_rain": 0.25959029382250876
+          },
+          "headline": 0.06773559730273193,
+          "all5": 0.13385231019699026
+        }
+      },
+      "raw_weight_headline_relative_mse": {
+        "A_vs_persistence": 0.03858757365361737,
+        "A_vs_zero": -0.5841392369808628,
+        "F_vs_persistence": 0.11034162799447506,
+        "F_vs_zero": -0.5568694174191671
+      }
+    },
+    "future_adjusted": {
+      "source_oof": "runs/geo_weather_20260924/data_first_d01/future_adjusted_oof.npz",
+      "row_and_target_reconstruction_exact": true,
+      "matches_original_per_regime_mse": true,
+      "mse": {
+        "A": {
+          "per_regime": {
+            "tropical": 0.0009818210760568103,
+            "winter": 0.00024518880287141125,
+            "synoptic_wind": 0.00014598040419419586,
+            "convective": 2.6959937291832368e-05,
+            "heavy_rain": 4.921970869199959e-05
+          },
+          "headline_balanced_mse": 0.0006135049394641107,
+          "all5_balanced_mse": 0.0002898339858212498
+        },
+        "F": {
+          "per_regime": {
+            "tropical": 0.0010099666294929002,
+            "winter": 0.0002611064971585259,
+            "synoptic_wind": 0.00015710499698758998,
+            "convective": 3.2246260384043824e-05,
+            "heavy_rain": 6.383351903378206e-05
+          },
+          "headline_balanced_mse": 0.000635536563325713,
+          "all5_balanced_mse": 0.0003048515806113684
+        }
+      },
+      "relative_mse": {
+        "A_vs_persistence": {
+          "per_regime": {
+            "tropical": 0.09167876460440771,
+            "winter": -0.07794958957203924,
+            "synoptic_wind": 0.10000240727358545,
+            "convective": 0.00722564422109806,
+            "heavy_rain": 0.11991440830280964
+          },
+          "headline": 0.00686458751618424,
+          "all5": 0.048174326965972326,
+          "headline_ci95": [
+            -0.14098161910222323,
+            0.37902967996922515
+          ],
+          "valid_event_draws": 2000
+        },
+        "A_vs_zero": {
+          "per_regime": {
+            "tropical": -0.6758386999125818,
+            "winter": -0.5120766137174879,
+            "synoptic_wind": 0.41266966967162166,
+            "convective": 0.49831779779475327,
+            "heavy_rain": 1.5604980663526726
+          },
+          "headline": -0.5939576568150349,
+          "all5": 0.2567140440377956
+        },
+        "F_vs_persistence": {
+          "per_regime": {
+            "tropical": 0.12297357356045446,
+            "winter": -0.01808993701605288,
+            "synoptic_wind": 0.1838292669142334,
+            "convective": 0.20472314299037886,
+            "heavy_rain": 0.4524278911513382
+          },
+          "headline": 0.05244181827220079,
+          "all5": 0.1891727875200704,
+          "headline_ci95": [
+            -0.09478510064538605,
+            0.5786748578401463
+          ],
+          "valid_event_draws": 2000
+        },
+        "F_vs_zero": {
+          "per_regime": {
+            "tropical": -0.6665460707197299,
+            "winter": -0.4804005534430227,
+            "synoptic_wind": 0.5203236723675548,
+            "convective": 0.792108984629353,
+            "heavy_rain": 2.3207348519121305
+          },
+          "headline": -0.5734733120813763,
+          "all5": 0.4972441769492571
+        },
+        "F_vs_A": {
+          "per_regime": {
+            "tropical": 0.028666682883940586,
+            "winter": 0.06492015173899546,
+            "synoptic_wind": 0.07620606926526396,
+            "convective": 0.1960806894685534,
+            "heavy_rain": 0.29690972844294516
+          },
+          "headline": 0.04679341731146802,
+          "all5": 0.1325566643599397
+        }
+      },
+      "raw_weight_headline_relative_mse": {
+        "A_vs_persistence": 0.00344009581738447,
+        "A_vs_zero": -0.592784706082771,
+        "F_vs_persistence": 0.04957534779801742,
+        "F_vs_zero": -0.5718155938192089
+      }
+    },
+    "aligned_exposure": {
+      "source_oof": "runs/geo_weather_20260924/data_first_d01/aligned_exposure_oof.npz",
+      "row_and_target_reconstruction_exact": true,
+      "matches_original_per_regime_mse": true,
+      "mse": {
+        "A": {
+          "per_regime": {
+            "tropical": 0.000955861163334093,
+            "winter": 0.00023638943345438655,
+            "synoptic_wind": 0.00014955825663404265,
+            "convective": 2.8371937414149756e-05,
+            "heavy_rain": 4.71894045591863e-05
+          },
+          "headline_balanced_mse": 0.0005961252983942397,
+          "all5_balanced_mse": 0.0002834740390791716
+        },
+        "F": {
+          "per_regime": {
+            "tropical": 0.0010066747557920675,
+            "winter": 0.0002598715401017631,
+            "synoptic_wind": 0.00015605354853686742,
+            "convective": 3.2006951490823595e-05,
+            "heavy_rain": 5.058649830424397e-05
+          },
+          "headline_balanced_mse": 0.0006332731479469153,
+          "all5_balanced_mse": 0.00030103865884515313
+        }
+      },
+      "relative_mse": {
+        "A_vs_persistence": {
+          "per_regime": {
+            "tropical": 0.06281415154864334,
+            "winter": -0.11104026128077116,
+            "synoptic_wind": 0.12696250728444425,
+            "convective": 0.059978093807554034,
+            "heavy_rain": 0.07371814034432123
+          },
+          "headline": -0.02411305486606391,
+          "all5": 0.04248652634083834,
+          "headline_ci95": [
+            -0.17730911834288043,
+            0.35240449869575635
+          ],
+          "valid_event_draws": 2000
+        },
+        "A_vs_zero": {
+          "per_regime": {
+            "tropical": -0.6844097107246018,
+            "winter": -0.52958727518663,
+            "synoptic_wind": 0.4472929716978886,
+            "convective": 0.5767907145102327,
+            "heavy_rain": 1.4548779815466588
+          },
+          "headline": -0.6069984929556158,
+          "all5": 0.2529929363687097
+        },
+        "F_vs_persistence": {
+          "per_regime": {
+            "tropical": 0.11931336631638945,
+            "winter": -0.022734083272789807,
+            "synoptic_wind": 0.17590631428711023,
+            "convective": 0.19578254155156882,
+            "heavy_rain": 0.15101348264820258
+          },
+          "headline": 0.04828964152179982,
+          "all5": 0.12385632430609625,
+          "headline_ci95": [
+            -0.12796116692753062,
+            0.5644302836782081
+          ],
+          "valid_event_draws": 2000
+        },
+        "F_vs_zero": {
+          "per_regime": {
+            "tropical": -0.6676329266496018,
+            "winter": -0.4828581062431202,
+            "synoptic_wind": 0.5101486811161056,
+            "convective": 0.7788092217255624,
+            "heavy_rain": 1.6316009284431892
+          },
+          "headline": -0.575245516446361,
+          "all5": 0.354013559678427
+        },
+        "F_vs_A": {
+          "per_regime": {
+            "tropical": 0.05316001361613454,
+            "winter": 0.09933653253544295,
+            "synoptic_wind": 0.04342984499156244,
+            "convective": 0.1281200512891647,
+            "heavy_rain": 0.07198848505911837
+          },
+          "headline": 0.07624827307578874,
+          "all5": 0.0792069854982846
+        }
+      },
+      "raw_weight_headline_relative_mse": {
+        "A_vs_persistence": -0.027573038714718612,
+        "A_vs_zero": -0.6059816453247215,
+        "F_vs_persistence": 0.04513702110084894,
+        "F_vs_zero": -0.5738250668538956
+      }
+    }
+  }
+}

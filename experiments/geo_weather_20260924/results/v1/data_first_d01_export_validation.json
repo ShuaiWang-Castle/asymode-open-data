@@ -1,0 +1,53 @@
+{
+  "specifications": {
+    "past_only": {
+      "rows": 50302,
+      "models": 9,
+      "responses": 2,
+      "fold_rows": [
+        12445,
+        12489,
+        10491,
+        6816,
+        8061
+      ],
+      "row_once": true,
+      "predictions_finite_and_bounded": true,
+      "matches_original_unit_outer_split": true
+    },
+    "future_adjusted": {
+      "rows": 50302,
+      "models": 9,
+      "responses": 2,
+      "fold_rows": [
+        12445,
+        12489,
+        10491,
+        6816,
+        8061
+      ],
+      "row_once": true,
+      "predictions_finite_and_bounded": true,
+      "matches_original_unit_outer_split": true
+    },
+    "aligned_exposure": {
+      "rows": 50302,
+      "models": 9,
+      "responses": 2,
+      "fold_rows": [
+        12445,
+        12489,
+        10491,
+        6816,
+        8061
+      ],
+      "row_once": true,
+      "predictions_finite_and_bounded": true,
+      "matches_original_unit_outer_split": true
+    }
+  },
+  "source_sha256_matches": true,
+  "protocol_sha256_matches": true,
+  "checks": "No refit: row/target/export/source integrity only",
+  "same_targets_units_anchors_across_specifications": true
+}

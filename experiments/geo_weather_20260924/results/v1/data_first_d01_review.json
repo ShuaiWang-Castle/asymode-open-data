@@ -1,0 +1,769 @@
+{
+  "review": "Independent compact-output review of D01",
+  "reviewed_utc": "2026-09-28T23:10:58.009605+00:00",
+  "scope": "Read scored JSON and small source/protocol files only; no feature/OOF loading, fitting, inference or bootstrap rerun.",
+  "frozen_commit": "7d7fd94",
+  "checks": {
+    "all_passed": true,
+    "contrast_response_arithmetic_checks": 54,
+    "shared_audit_metadata_across_three_specs": true,
+    "same_reported_fold_row_counts": true,
+    "nested_dimensions_and_null_parameter_counts_correct": true,
+    "all_reported_event_draws_valid": true,
+    "source_and_protocol": {
+      "source_sha256": {
+        "sha256": "3f1396e66e07c8e9bfa03599ace72168281f0b600f39fffdce01f17e44420b84",
+        "matches_current_file": true,
+        "matches_frozen_commit_7d7fd94": true
+      },
+      "protocol_sha256": {
+        "sha256": "8ce6f361f7350b6443630cc6ecdffbe60e7f63b65a62ce3c89fae9433bc0ac85",
+        "matches_current_file": true,
+        "matches_frozen_commit_7d7fd94": true
+      }
+    },
+    "data_hash_identical_across_reports": "f043bb39e8abd48183670e2acc3c0cecebd7107ea9be0e28771912cfee358c48",
+    "data_hash_recomputed_by_this_review": false,
+    "reference_json_arithmetic_and_original_MSE_agreement": true
+  },
+  "audit": {
+    "units": 8457,
+    "rows": 50302,
+    "proposed_rows": 50742,
+    "systems": 81,
+    "families": 80,
+    "merged_groups": 68,
+    "counties": 2410,
+    "merged_group_bootstrap_strata": {
+      "tropical": 14,
+      "winter": 13,
+      "synoptic_wind": 9,
+      "convective": 15,
+      "heavy_rain": 17
+    },
+    "fold_test_rows": [
+      12445,
+      12489,
+      10491,
+      6816,
+      8061
+    ]
+  },
+  "results": {
+    "past_only": {
+      "primary": {
+        "headline": 0.032924923242397375,
+        "headline_ci95": [
+          0.009850651012264355,
+          0.14051856141690627
+        ],
+        "all5": 0.04882949896558597,
+        "all5_ci95": [
+          0.024521421770094528,
+          0.10068001336300904
+        ],
+        "per_regime": {
+          "tropical": 0.017978279626245097,
+          "winter": 0.04787156685854965,
+          "synoptic_wind": 0.055859034290613785,
+          "convective": 0.09232338736708301,
+          "heavy_rain": 0.030115226685438312
+        },
+        "fold_headline": [
+          0.08317368317659302,
+          0.17649951624519444,
+          0.01420447988351825,
+          0.06478891041610357,
+          0.011550055638060663
+        ],
+        "raw_headline": 0.03265471958972899,
+        "county_headline_ci95": [
+          0.020339454920060035,
+          0.053559081846227985
+        ],
+        "biggest_benefit_system": {
+          "system": "S00058",
+          "headline_contribution": -0.0013396688053291944,
+          "all5_contribution": -0.0005358675221316777
+        },
+        "headline_without_biggest": 0.03631658133980864,
+        "valid_event_draws": 2000
+      },
+      "primary_fold_improvements": 0,
+      "geography_controls": {
+        "F_vs_F_null1": {
+          "headline": 0.02833202031083326,
+          "headline_ci95": [
+            0.009178876926579062,
+            0.12058697840841126
+          ],
+          "fold_headline": [
+            0.08176985068987641,
+            0.06072240107046545,
+            0.004322750826152633,
+            -0.06563256891054486,
+            0.011943085364025885
+          ],
+          "raw_headline": 0.028167256086273684
+        },
+        "F_vs_F_null2": {
+          "headline": 0.021601056537947083,
+          "headline_ci95": [
+            0.0037119194835656248,
+            0.09888674106526883
+          ],
+          "fold_headline": [
+            0.06954559884541411,
+            0.2214782458638559,
+            0.0061752616388,
+            0.04147316459309247,
+            0.006296651056550973
+          ],
+          "raw_headline": 0.021435973565996025
+        },
+        "F_vs_F_null3": {
+          "headline": 0.03128734688816903,
+          "headline_ci95": [
+            0.005306306459174008,
+            0.09016766505726713
+          ],
+          "fold_headline": [
+            0.060597550012507884,
+            0.25192686759342053,
+            0.027239322089811724,
+            0.016323039475391488,
+            0.0404909442065749
+          ],
+          "raw_headline": 0.030636007382315644
+        }
+      },
+      "burden_incremental_contrasts": {
+        "B_vs_A": {
+          "headline": 0.0010555392131756935,
+          "headline_ci95": [
+            -0.005365495544662935,
+            0.019538513809303455
+          ],
+          "fold_headline": [
+            0.010156189094575052,
+            0.017724845878918927,
+            0.007452989483240358,
+            0.1714757715388855,
+            0.0009640338175884722
+          ]
+        },
+        "C_vs_B": {
+          "headline": 0.02227532090594464,
+          "headline_ci95": [
+            0.005052242766362558,
+            0.06960848023719936
+          ],
+          "fold_headline": [
+            0.01804920015304068,
+            0.15290234016205967,
+            0.01732426943435761,
+            -0.15779997129339457,
+            -0.002159734483467346
+          ]
+        },
+        "D_vs_C": {
+          "headline": 0.010395760451079372,
+          "headline_ci95": [
+            -0.009969186934380068,
+            0.029779222331334405
+          ],
+          "fold_headline": [
+            -0.0019229672839809475,
+            0.0472075869964963,
+            0.005847762233061049,
+            -0.02905603132870732,
+            0.02976826660162457
+          ]
+        },
+        "E_vs_D": {
+          "headline": 0.014461787351725375,
+          "headline_ci95": [
+            -0.012416176282708653,
+            0.10168019063541264
+          ],
+          "fold_headline": [
+            0.05415755344221934,
+            0.13796539942772745,
+            0.004265324185318109,
+            0.020571288514884323,
+            -0.010326580318244516
+          ]
+        },
+        "F_vs_E": {
+          "headline": 0.01853174763549892,
+          "headline_ci95": [
+            -0.0011281374928596916,
+            0.04733244721202455
+          ],
+          "fold_headline": [
+            0.026680951895856175,
+            0.03225551647666308,
+            0.009894254417982307,
+            0.04343750139459002,
+            0.02533904579039531
+          ]
+        }
+      },
+      "secondary_F_vs_D": {
+        "headline": 0.003106392012854786,
+        "headline_ci95": [
+          -0.00014754789841608799,
+          0.00746398065092023
+        ],
+        "fold_headline": [
+          0.002937318735554806,
+          -0.0011978332564591687,
+          0.0016531761709077109,
+          0.002828274498385519,
+          0.020409253950308792
+        ]
+      },
+      "candidate_condition_readout": {
+        "primary_improves": false,
+        "primary_interval_excludes_zero_in_improving_direction": false,
+        "at_least_four_folds_improve": false,
+        "improves_without_largest_benefit_system": false,
+        "beats_all_three_geography_controls_by_point": false
+      },
+      "ridge_grid_edge_counts": {
+        "burden_at_lower": 0,
+        "burden_at_upper": 0,
+        "secondary_at_upper": 43,
+        "model_fold_combinations": 45
+      }
+    },
+    "future_adjusted": {
+      "primary": {
+        "headline": 0.03227490404389166,
+        "headline_ci95": [
+          0.00796023946966164,
+          0.11905787212715359
+        ],
+        "all5": 0.06631876702877655,
+        "all5_ci95": [
+          0.034112586597791594,
+          0.11202171209164116
+        ],
+        "per_regime": {
+          "tropical": 0.016580678900092183,
+          "winter": 0.04796912918769114,
+          "synoptic_wind": 0.026322606792329006,
+          "convective": 0.16093768158626065,
+          "heavy_rain": 0.07978373867750976
+        },
+        "fold_headline": [
+          0.06175675233041922,
+          0.12216985034655725,
+          0.02135783482690723,
+          0.7148418026895234,
+          0.013687558960449209
+        ],
+        "raw_headline": 0.03273429184949517,
+        "county_headline_ci95": [
+          0.019080926588750144,
+          0.0520618356444438
+        ],
+        "biggest_benefit_system": {
+          "system": "S00047",
+          "headline_contribution": -0.002120703731856346,
+          "all5_contribution": -0.0008482814927425385
+        },
+        "headline_without_biggest": 0.038179745876931626,
+        "valid_event_draws": 2000
+      },
+      "primary_fold_improvements": 0,
+      "geography_controls": {
+        "F_vs_F_null1": {
+          "headline": 0.02976886108419763,
+          "headline_ci95": [
+            0.012077940037380473,
+            0.096786372530582
+          ],
+          "fold_headline": [
+            0.07295000677340902,
+            -0.011131061312762591,
+            0.008634452149061334,
+            0.3821763136317551,
+            0.01711539552154162
+          ],
+          "raw_headline": 0.029748220995215235
+        },
+        "F_vs_F_null2": {
+          "headline": 0.019105458193478142,
+          "headline_ci95": [
+            0.001673114833304057,
+            0.0805891785792725
+          ],
+          "fold_headline": [
+            0.06334206507363083,
+            0.14067239204412718,
+            0.007851015458380628,
+            0.7081928746978684,
+            0.0016921151618015662
+          ],
+          "raw_headline": 0.019142658731287843
+        },
+        "F_vs_F_null3": {
+          "headline": 0.025617879243691632,
+          "headline_ci95": [
+            0.007082977038592053,
+            0.08065523133291327
+          ],
+          "fold_headline": [
+            0.06281157786680513,
+            0.1478487824492788,
+            0.03590515493812141,
+            0.52016995673646,
+            0.01671155997572482
+          ],
+          "raw_headline": 0.025352459238558
+        }
+      },
+      "burden_incremental_contrasts": {
+        "B_vs_A": {
+          "headline": 0.0035107725956403657,
+          "headline_ci95": [
+            -0.004350402615823462,
+            0.02472275190060346
+          ],
+          "fold_headline": [
+            0.033694838530054005,
+            0.10957305745446078,
+            0.00901881221808587,
+            0.04451943337346165,
+            0.0025132757657413962
+          ]
+        },
+        "C_vs_B": {
+          "headline": 0.009734717570031748,
+          "headline_ci95": [
+            0.004726353150571167,
+            0.02011534619400136
+          ],
+          "fold_headline": [
+            0.016193647280960954,
+            0.1390938493079536,
+            0.016450911174688,
+            0.009582936464590741,
+            0.0014085097203900832
+          ]
+        },
+        "D_vs_C": {
+          "headline": 0.0007886491771607052,
+          "headline_ci95": [
+            -0.005798631513352845,
+            0.009490057594074466
+          ],
+          "fold_headline": [
+            -0.0035565196567855506,
+            0.0041818823568720576,
+            0.005890672813586906,
+            -0.027744736304753603,
+            3.145203349341763e-05
+          ]
+        },
+        "E_vs_D": {
+          "headline": 0.021134525043302044,
+          "headline_ci95": [
+            0.0047972595670226605,
+            0.07749067365749827
+          ],
+          "fold_headline": [
+            0.03235875098839236,
+            0.1291522802245315,
+            0.009965351861360938,
+            0.5124132601028344,
+            0.01980335830695501
+          ]
+        },
+        "F_vs_E": {
+          "headline": 0.010913240820460968,
+          "headline_ci95": [
+            0.0018937382866353312,
+            0.04026693831780102
+          ],
+          "fold_headline": [
+            0.02775772303224966,
+            -0.006360904039741155,
+            0.011233080110673366,
+            0.10855874756787709,
+            -0.005941565285603023
+          ]
+        }
+      },
+      "secondary_F_vs_D": {
+        "headline": -0.0012148574110517063,
+        "headline_ci95": [
+          -0.01397632024261101,
+          0.007608952391945105
+        ],
+        "fold_headline": [
+          0.0023000014340445185,
+          -0.017987767123729403,
+          0.0008844640456931452,
+          0.017163829034170353,
+          0.013422673625058446
+        ]
+      },
+      "candidate_condition_readout": {
+        "primary_improves": false,
+        "primary_interval_excludes_zero_in_improving_direction": false,
+        "at_least_four_folds_improve": false,
+        "improves_without_largest_benefit_system": false,
+        "beats_all_three_geography_controls_by_point": false
+      },
+      "ridge_grid_edge_counts": {
+        "burden_at_lower": 4,
+        "burden_at_upper": 0,
+        "secondary_at_upper": 32,
+        "model_fold_combinations": 45
+      }
+    },
+    "aligned_exposure": {
+      "primary": {
+        "headline": 0.052492726698201264,
+        "headline_ci95": [
+          0.010862316932326069,
+          0.19898460702055396
+        ],
+        "all5": 0.046893470323408695,
+        "all5_ci95": [
+          -0.002934588227622061,
+          0.12909834242524654
+        ],
+        "per_regime": {
+          "tropical": 0.04189834856683383,
+          "winter": 0.0630871048295687,
+          "synoptic_wind": 0.07626353298426314,
+          "convective": 0.04267688577274309,
+          "heavy_rain": 0.010541479463634706
+        },
+        "fold_headline": [
+          0.015206065559682846,
+          0.571548134015364,
+          0.05455859237196414,
+          0.06679025121408799,
+          0.02106278936653283
+        ],
+        "raw_headline": 0.05338200839219143,
+        "county_headline_ci95": [
+          0.03237540838899089,
+          0.0802653365798318
+        ],
+        "biggest_benefit_system": {
+          "system": "S00034",
+          "headline_contribution": -0.0042864608253967516,
+          "all5_contribution": -0.0017145843301587006
+        },
+        "headline_without_biggest": 0.07084909841605735,
+        "valid_event_draws": 2000
+      },
+      "primary_fold_improvements": 0,
+      "geography_controls": {
+        "F_vs_F_null1": {
+          "headline": 0.007105591722532556,
+          "headline_ci95": [
+            -0.01636758260138553,
+            0.047919046714718506
+          ],
+          "fold_headline": [
+            -0.03789540331326202,
+            0.406484941460158,
+            0.02201752899983145,
+            -0.14078134330821418,
+            0.02000225546148482
+          ],
+          "raw_headline": 0.007822805146719292
+        },
+        "F_vs_F_null2": {
+          "headline": 0.02187992542539885,
+          "headline_ci95": [
+            -0.010056196744079936,
+            0.13733862924215165
+          ],
+          "fold_headline": [
+            -0.022144060098828522,
+            0.7469533877383343,
+            0.023255320781752298,
+            -0.028448514350377152,
+            0.01858336802720939
+          ],
+          "raw_headline": 0.022796312632328064
+        },
+        "F_vs_F_null3": {
+          "headline": -0.006341826566967246,
+          "headline_ci95": [
+            -0.03809247038965631,
+            0.04250372882631723
+          ],
+          "fold_headline": [
+            0.008522046420382123,
+            0.6153718367120278,
+            0.012558441819150556,
+            -0.046424947771969094,
+            -0.011246500722943753
+          ],
+          "raw_headline": -0.005740580000653084
+        }
+      },
+      "burden_incremental_contrasts": {
+        "B_vs_A": {
+          "headline": 0.003172241691861144,
+          "headline_ci95": [
+            -0.00659692491379405,
+            0.038162312006583717
+          ],
+          "fold_headline": [
+            0.0547643548015912,
+            -0.058409892106691896,
+            0.001317683471198594,
+            0.3078779433007845,
+            -0.005605262285090062
+          ]
+        },
+        "C_vs_B": {
+          "headline": 0.012936771776962841,
+          "headline_ci95": [
+            -0.017765010055548713,
+            0.03749295946718218
+          ],
+          "fold_headline": [
+            -0.04351673645142534,
+            0.1503949998204649,
+            0.04551994003911175,
+            0.1552043437052027,
+            0.032897655536196946
+          ]
+        },
+        "D_vs_C": {
+          "headline": 0.006195657123750475,
+          "headline_ci95": [
+            -0.009817692217615703,
+            0.017278001206193876
+          ],
+          "fold_headline": [
+            -0.00906128207943857,
+            0.007774837917222666,
+            0.003872705227116635,
+            0.08302239206308543,
+            0.019169883684460376
+          ]
+        },
+        "E_vs_D": {
+          "headline": 0.04669447349353961,
+          "headline_ci95": [
+            0.007268295405723652,
+            0.17825787910659058
+          ],
+          "fold_headline": [
+            -0.0016579516537423289,
+            0.3068602359407101,
+            0.04820422750893649,
+            0.0032825252002683936,
+            0.020224808088430912
+          ]
+        },
+        "F_vs_E": {
+          "headline": 0.005514175291166046,
+          "headline_ci95": [
+            -0.004657289979433774,
+            0.020470005676065595
+          ],
+          "fold_headline": [
+            0.01656204186627175,
+            0.21070121616851611,
+            0.006425097862892082,
+            0.07832494280149327,
+            0.0010434932236970673
+          ]
+        }
+      },
+      "secondary_F_vs_D": {
+        "headline": -0.0008103345770578141,
+        "headline_ci95": [
+          -0.011169624440724413,
+          0.00727806340176235
+        ],
+        "fold_headline": [
+          -0.002471623218848862,
+          -0.004227854280928589,
+          -0.0009884095622854083,
+          0.015217132287239865,
+          0.009818689372831813
+        ]
+      },
+      "candidate_condition_readout": {
+        "primary_improves": false,
+        "primary_interval_excludes_zero_in_improving_direction": false,
+        "at_least_four_folds_improve": false,
+        "improves_without_largest_benefit_system": false,
+        "beats_all_three_geography_controls_by_point": false
+      },
+      "ridge_grid_edge_counts": {
+        "burden_at_lower": 16,
+        "burden_at_upper": 0,
+        "secondary_at_upper": 31,
+        "model_fold_combinations": 45
+      }
+    }
+  },
+  "reference_checks": {
+    "source": "results/v1/data_first_d01_reference_checks.json",
+    "source_sha256": "d69ecfd3fc0adfcb1dba26e68af8a053cfda63641c68995284a30ec73036192b",
+    "posthoc_descriptive": true,
+    "confidence_intervals_available": true,
+    "specifications_verified": {
+      "past_only": {
+        "A_vs_persistence": {
+          "per_regime": {
+            "tropical": 0.17716429441761394,
+            "winter": -0.09473134553750018,
+            "synoptic_wind": -0.0770659323627566,
+            "convective": -0.03632375217554484,
+            "heavy_rain": 0.0844757623335779
+          },
+          "headline": 0.04121647444005688,
+          "all5": 0.010703805335078042,
+          "headline_ci95": [
+            -0.11039011561026946,
+            0.4112591880343284
+          ],
+          "valid_event_draws": 2000
+        },
+        "F_vs_persistence": {
+          "per_regime": {
+            "tropical": 0.2707657646632109,
+            "winter": -0.044075380826888666,
+            "synoptic_wind": 0.03268019214749862,
+            "convective": 0.11332555658208987,
+            "heavy_rain": 0.36599514412114065
+          },
+          "headline": 0.11334519191816111,
+          "all5": 0.14773825533741028,
+          "headline_ci95": [
+            -0.05036014345772928,
+            0.7371053821525415
+          ],
+          "valid_event_draws": 2000
+        }
+      },
+      "future_adjusted": {
+        "A_vs_persistence": {
+          "per_regime": {
+            "tropical": 0.09167876460440771,
+            "winter": -0.07794958957203924,
+            "synoptic_wind": 0.10000240727358545,
+            "convective": 0.00722564422109806,
+            "heavy_rain": 0.11991440830280964
+          },
+          "headline": 0.00686458751618424,
+          "all5": 0.048174326965972326,
+          "headline_ci95": [
+            -0.14098161910222323,
+            0.37902967996922515
+          ],
+          "valid_event_draws": 2000
+        },
+        "F_vs_persistence": {
+          "per_regime": {
+            "tropical": 0.12297357356045446,
+            "winter": -0.01808993701605288,
+            "synoptic_wind": 0.1838292669142334,
+            "convective": 0.20472314299037886,
+            "heavy_rain": 0.4524278911513382
+          },
+          "headline": 0.05244181827220079,
+          "all5": 0.1891727875200704,
+          "headline_ci95": [
+            -0.09478510064538605,
+            0.5786748578401463
+          ],
+          "valid_event_draws": 2000
+        }
+      },
+      "aligned_exposure": {
+        "A_vs_persistence": {
+          "per_regime": {
+            "tropical": 0.06281415154864334,
+            "winter": -0.11104026128077116,
+            "synoptic_wind": 0.12696250728444425,
+            "convective": 0.059978093807554034,
+            "heavy_rain": 0.07371814034432123
+          },
+          "headline": -0.02411305486606391,
+          "all5": 0.04248652634083834,
+          "headline_ci95": [
+            -0.17730911834288043,
+            0.35240449869575635
+          ],
+          "valid_event_draws": 2000
+        },
+        "F_vs_persistence": {
+          "per_regime": {
+            "tropical": 0.11931336631638945,
+            "winter": -0.022734083272789807,
+            "synoptic_wind": 0.17590631428711023,
+            "convective": 0.19578254155156882,
+            "heavy_rain": 0.15101348264820258
+          },
+          "headline": 0.04828964152179982,
+          "all5": 0.12385632430609625,
+          "headline_ci95": [
+            -0.12796116692753062,
+            0.5644302836782081
+          ],
+          "valid_event_draws": 2000
+        }
+      }
+    },
+    "reference_bootstrap": {
+      "status": "post-first-result descriptive reference",
+      "event_draws": 2000,
+      "seed": 20260928,
+      "merged_groups": 68,
+      "group_rule": "Union systems with the same family, or sharing a sampled county with origins at most 16 days apart; transitively close unions.",
+      "stratification": "Each merged group is assigned to the regime with the largest total design weight. Sample groups with replacement within each stratum, preserving stratum group counts.",
+      "stratum_group_counts": {
+        "tropical": 14,
+        "winter": 13,
+        "synoptic_wind": 9,
+        "convective": 15,
+        "heavy_rain": 17
+      },
+      "interval": "2.5th and 97.5th percentiles of within-regime relative MSE averaged equally over tropical and winter; paired model and persistence draws.",
+      "function": "analyze_data_relationships_v1.py:merged_groups and clustered_draws, reused without fitting or weather loading",
+      "multiplicity": "Six descriptive intervals; no simultaneous-coverage adjustment."
+    },
+    "all_six_A_F_vs_persistence_intervals_cross_zero": true,
+    "reported_independent_bootstrap_validation": {
+      "past_only": {
+        "original_F_vs_D_headline_ci_reproduced": true
+      },
+      "future_adjusted": {
+        "original_F_vs_D_headline_ci_reproduced": true
+      },
+      "aligned_exposure": {
+        "original_F_vs_D_headline_ci_reproduced": true
+      }
+    },
+    "bootstrap_rerun_by_this_reviewer": false,
+    "verification_scope": "Checked updated compact arithmetic, A/F per-regime MSE against original scores, 2000-draw support and interval signs. The separate reference analysis reports matching original F/D intervals for all three specifications; this reviewer did not resample or load OOF arrays."
+  },
+  "conclusion": "No D01 specification meets the frozen primary candidate conditions. This is a negative result for these fixed low-capacity probes, not evidence that physical weather-geography interactions or order effects do not exist.",
+  "interpretation_limits": [
+    "F/D jointly tests compound and order geographic modulation; F/E is incremental order/geography, and F NULLs scramble both added blocks rather than preserving true E.",
+    "Aligned exposure F beats NULL3 by point (-0.006341826566967246) with CI crossing zero; do not claim every specification loses to every NULL.",
+    "A has headline MSE point changes of +0.04121647444005688, +0.00686458751618424 and -0.02411305486606391 versus persistence for past-only, future-adjusted and aligned exposure. All six posthoc A/F-versus-persistence 68-group confidence intervals cross zero: reliable superiority to persistence is not established, and these are not evidence of confirmed inferiority or no physical interaction.",
+    "Controlling current/past observed stock asks for incremental association after an earlier weather response may already be reflected in stock; it does not estimate the total physical effect of exposure.",
+    "Aligned exposure is retrospective contemporaneous association, and future-adjusted uses future reanalysis summaries; neither establishes issue-time forecast skill or causal order effects.",
+    "Ridge basis, 24-hour histories, geographic summaries, correlated features, limited event groups and the fixed regularization grid constrain detection. Negative prediction increments do not identify which constraint is responsible.",
+    "Event intervals condition on fitted OOF models and omit refit uncertainty; county intervals are separate dependence sensitivity, not joint two-way intervals or evidence of new-county generalization.",
+    "Arithmetic and metadata checks do not independently reconstruct predictions, targets, missingness or bootstrap intervals. The separate reference check now reports OOF reconstruction for all three specifications and reproduces their original F/D intervals; this update reads that compact verification without rerunning it."
+  ],
+  "updated_utc": "2026-09-28T23:14:40.593596+00:00"
+}
