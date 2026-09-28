@@ -164,3 +164,8 @@ Launched at 14:55 ET on 2026-09-28 from registered code/design commit 395350d, o
 Correctness checks: 27 passed, 1 skipped (the external live-reference source is unavailable).
 This chat has a 15-minute follow-up monitor; it follows only this label and pauses after final reporting
 or a failure requiring PI input. Ordinary progress without a new completed fold is quiet.
+
+PI update, 15:36 ET: parallel execution explicitly authorized. The live queue now uses
+two workers, each with two threads and nice 15. This supersedes the initial one-worker
+resource preference; the registered model, steps, folds and source hashes stay fixed.
+Monitor resource pressure; reduce future overlap if a material resource issue appears.
