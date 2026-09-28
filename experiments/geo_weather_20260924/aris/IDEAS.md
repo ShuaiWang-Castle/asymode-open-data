@@ -36,4 +36,4 @@ are reported separately. The prospective single-seed screen must be explicit and
 
 | id | idea | status | note |
 |---|---|---|---|
-| I18 | Replace the county-specific geography norm in GCRK with one frozen training-fold RMS norm, retaining radial geography information; all rate/kernel parameters and recurrence otherwise unchanged | registered, seed-0 five-fold screen authorized by PI in this chat | notes/I18_GEO_RMS_SCREEN_20260928.md; arm GCRK+Cin-georms, label v1_gcrk_georms_s0; compare host and original GCRK; no recovery work or extra seeds now |
+| I18 | Replace the county-specific geography norm in GCRK with one frozen training-fold RMS norm, retaining radial geography information; all rate/kernel parameters and recurrence otherwise unchanged | running since 14:55 ET, code/design 395350d; seed-0 five-fold screen authorized by PI in this chat | notes/I18_GEO_RMS_SCREEN_20260928.md; arm GCRK+Cin-georms, label v1_gcrk_georms_s0; compare host and original GCRK; no recovery work or extra seeds now |

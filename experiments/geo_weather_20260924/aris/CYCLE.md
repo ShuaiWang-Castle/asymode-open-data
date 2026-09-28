@@ -159,3 +159,8 @@ final results. Never relaunch a live runner; inspect an interrupted partial fold
 When all folds finish, verify the four `screen_i18_s0_{headline,all5}_vs_{host,gcrk}.json` reports,
 `kernels_georms_s0.json`, and `screen_i18_s0_verdict.json`; record, scan, commit and push both research
 branches. A candidate is provisional only; a failed screen gets no extra seeds. C and the paper stay untouched.
+
+Launched at 14:55 ET on 2026-09-28 from registered code/design commit 395350d, one worker and two threads.
+Correctness checks: 27 passed, 1 skipped (the external live-reference source is unavailable).
+This chat has a 15-minute follow-up monitor; it follows only this label and pauses after final reporting
+or a failure requiring PI input. Ordinary progress without a new completed fold is quiet.
