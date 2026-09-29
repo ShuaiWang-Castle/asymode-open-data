@@ -16,6 +16,11 @@ nice>=15, county chunks512; full-fit Adam semantics retained. Primary S-cohort t
 design-weighted RMSE reduction. No outer I20 result yet. This authorization supersedes older proposal-only language below, without authorizing extra
 seeds, NULLs, a changed loss, C access or manuscript work. I18 monitoring remains paused.
 
+2026-09-29 compute amendment: PI freed CPU and explicitly authorized multiple processes/threads.
+Increase to at most three folds in parallel, retaining two threads per fold and the same model/seed/budget.
+Use the separately registered parallel coordinator, preserve the live first fold and original manifest;
+24 scheduling/evaluation checks passed. See `notes/I20_COMPUTE_AMENDMENT_20260929.md`.
+
 Status: **active**, **parked**, **abandoned** (with the reason and, where applicable, prior art), **absorbed** (merged
 into another idea).
 

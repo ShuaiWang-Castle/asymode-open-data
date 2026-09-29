@@ -10,7 +10,10 @@ after implementation checks and source registration commit. **I20 execution phas
 00:05 ET**, registered commit `6b6b964`; initial runner PID 42136, fold1 PID 42149. This later authorization supersedes the older “no new neural arm authorized” text;
 it does not authorize extra seeds, NULLs, changed loss, C access or paper work. I18's monitor stays paused.
 
-At most one real calculation process, two numerical threads, nice>=15. Resource plan uses exact full-fit
+**Compute amendment, 2026-09-29:** the PI freed CPU and authorized parallel training. Use at most
+three training processes, two numerical threads each, nice>=15; see
+`notes/I20_COMPUTE_AMENDMENT_20260929.md`. Preserve the already-running first fold while handing off the
+serial coordinator to `run_cr_parallel.py`. Resource plan uses exact full-fit
 gradient accumulation over county chunks (one Adam update and one shared drop-path coin per full step),
 not stochastic minibatch training. Preserve partial run folders and never duplicate a live queue. Both
 the affected-county target and all-D/false-peak results must be reported, not substituted for each other.
@@ -25,7 +28,10 @@ formal folds start from seed0. Resource record: `results/v1/i20_resource_preflig
 1. Read `runs/geo_weather_20260924/v1_crk_s0/{SCREEN_RUN,RUN_STATUS,HOST_REFERENCE}.json`,
    `fold*/{DONE,RUNNER_RECEIPT}.json`, `logs/runner_i20.log` and `logs/screen_v1_crk_s0_f*.log`.
    Cross-check actual owned PIDs, CPU/RSS and system memory; do not infer a stall from the 20-update log interval.
-2. Keep the existing finite queue alive with one child, two threads, nice>=15; do not duplicate it, change
+2. Follow the current parallel coordinator in RUN_STATUS; `COMPUTE_AMENDMENT.json` records handoff and
+   `PARALLEL_WORKERS` controls future concurrency (1–3). Keep at most three children, two threads each,
+   nice>=15. The original SCREEN_RUN workers=1 is preserved historical registration, superseded only for
+   scheduling by this compute amendment. Do not duplicate the queue, change
    frozen source files, overwrite any existing/empty fold directory, or signal unrelated processes.
 3. The queue automatically validates all five exports and scores `screen_i20_s0_headline_vs_host.json`,
    `screen_i20_s0_all5_vs_host.json`, `i20_cr_tail_s0.json`, `screen_i20_s0_verdict.json`.
