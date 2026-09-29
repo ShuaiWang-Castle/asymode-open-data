@@ -1,6 +1,21 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
-**Current state, 2026-09-28 after I18:** all five I18 folds are complete and scored; the frozen screen failed
+**Latest PI authorization, 2026-09-28: I20 implementation and full five-fold training.** The PI requests a
+substantially redesigned kernel and comparison to no-kernel AsymODE, targeting about 10% or greater error
+reduction in affected county-events. Current design/registration:
+`notes/KERNEL_CONTROLLED_RELAXATION_DESIGN_20260928.md` and
+`notes/I20_CONTROLLED_RESPONSE_SCREEN_20260928.md`. Arm `CRK+Cin`, label `v1_crk_s0`, seed0, five existing
+event folds, 900 full-fit updates matched to `v1_host_s0` / `W+Cin`; fixed original data/loss. Launch only
+after implementation checks and source registration commit. Currently implementation/validation, no I20
+training launched yet. This later authorization supersedes the older “no new neural arm authorized” text;
+it does not authorize extra seeds, NULLs, changed loss, C access or paper work. I18's monitor stays paused.
+
+At most one real calculation process, two numerical threads, nice>=15. Resource plan uses exact full-fit
+gradient accumulation over county chunks (one Adam update and one shared drop-path coin per full step),
+not stochastic minibatch training. Preserve partial run folders and never duplicate a live queue. Both
+the affected-county target and all-D/false-peak results must be reported, not substituted for each other.
+
+**Historical state, 2026-09-28 after I18:** all five I18 folds are complete and scored; the frozen screen failed
 only the synoptic-wind +2% guardrail. No seed/NULL expansion or next-arm training is queued. The PI now asks
 for data-first analysis of weather order, overlap and geography; I19 is parked. This state supersedes all
 older automatic queue/next-design directions below. C and paper work remain prohibited.

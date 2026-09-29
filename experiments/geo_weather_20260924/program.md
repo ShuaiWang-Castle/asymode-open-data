@@ -23,7 +23,13 @@ reports, not exclude cross-group or within-group combinations from the candidate
 the full geographic vector rather than forcing every candidate through the old four-dimensional code.
 Finite capacity, regularization and observed support still limit what can be learned: representation access
 is not proof that all combinations exist, are identified or generalize. Numerical stability constraints
-remain appropriate. See `notes/KERNEL_JOINT_GEOGRAPHY_DYNAMIC_STATE_20260928.md` for the updated design.
+remain appropriate. The concrete current proposal is
+`notes/KERNEL_CONTROLLED_RELAXATION_DESIGN_20260928.md`: all-subset geographic kernel features plus
+full-vector access, explicitly separated write/retain/transform/read heads, and four bounded controlled
+relaxation states inside the single damage network. It is non-nested with original GCRK. The PI subsequently
+authorized full training against no-kernel AsymODE, with an affected-county improvement target near 10%;
+the separate execution registration is `notes/I20_CONTROLLED_RESPONSE_SCREEN_20260928.md`. Earlier generic
+state-dependent-head sketches remain alternatives, not extra modules silently added to this proposal.
 
 Current operating rules and completed D-stage evidence are in `aris/CYCLE.md`. The campaign findings
 below concern the older twelve-event panel; they are historical context, not established facts on current D.

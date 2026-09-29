@@ -1,5 +1,19 @@
 # Ideas ledger (ARIS style)
 
+## I20 controlled response kernel (2026-09-28; latest PI authorization)
+
+The PI requests a deeper redesign than GCRK and a complete comparison to no-kernel AsymODE, aiming for
+about 10% or greater improvement in affected county-events. I20 uses all-subset geographic kernel features
+plus full geo40 access, explicit write/retain/transform/read heads, and four bounded controlled relaxation
+states within the existing damage MLP. It is non-nested with GCRK and retains the host objective and inputs.
+The complete mathematical design and literature attribution are in
+`notes/KERNEL_CONTROLLED_RELAXATION_DESIGN_20260928.md`; execution rules are in
+`notes/I20_CONTROLLED_RESPONSE_SCREEN_20260928.md`. Arm `CRK+Cin`, label `v1_crk_s0`, five event folds,
+seed0, 900 full-fit updates matched to host. Implementation/verification is underway; no training has yet
+started. Seven synthetic algebra checks passed; production gradients, wiring and resources still need
+verification. This authorization supersedes older proposal-only language below, without authorizing extra
+seeds, NULLs, a changed loss, C access or manuscript work. I18 monitoring remains paused.
+
 Status: **active**, **parked**, **abandoned** (with the reason and, where applicable, prior art), **absorbed** (merged
 into another idea).
 

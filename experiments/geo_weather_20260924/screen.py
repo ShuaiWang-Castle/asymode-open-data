@@ -125,8 +125,11 @@ def main():
         out = RUNS / a.label / f"fold{k:02d}"
         if (out / "DONE.json").exists():
             continue
-        out.mkdir(parents=True, exist_ok=True)
+        # I20 never reuses a partial directory, including an existing empty one.
+        out.mkdir(parents=True, exist_ok=a.arm != "CRK+Cin")
         dev, held = np.array(sp[a.design][str(k)]["dev"]), np.array(sp[a.design][str(k)]["outer"])
+        if a.arm == "CRK+Cin" and len(np.unique(F["fips"][dev])) < 32:
+            raise ValueError("I20 real training requires at least 32 unique fitting counties")
         t0 = time.time()
         log = lambda s: print(f"[{a.label} f{k}] {s}", flush=True)  # noqa: E731
         Ff = design_weighted(F, dev) if a.design_weights else F
@@ -135,6 +138,8 @@ def main():
         np.savez_compressed(out / "outer.npz", **res)
         torch.save(dict(model_state=e.model.state_dict(), stats=e.stats, arm=a.arm, steps=a.steps), out / "final.pt")
         extra = {}
+        if a.arm == "CRK+Cin":
+            extra.update(kernel_trace=e.training_trace, microbatch=e.microbatch_size)
         if e.model.haz_beta is not None:
             beta = e.model.haz_beta.detach().numpy()
             top = np.argsort(-beta)[:12]

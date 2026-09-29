@@ -31,6 +31,14 @@ LR_HOST, LR_RECOVERY = 3e-3, 3e-4
 N_WEATHER = 14          # leading columns of x^U and x^R that are raw weather (not clipped)
 N_STATIC = 6            # x^R columns after the weather block: county background (not clipped)
 CLIP = 5.0
+CR_MICROBATCH = 512  # I20: accumulate the same full-fit objective before one Adam update.
+
+
+def _slice_rows(batch: dict, start: int, stop: int) -> dict:
+    """County-independent batches only; spatial neighbour indices need another path."""
+    if "space" in batch:
+        raise ValueError("row slicing cannot preserve a spatial neighbour table")
+    return {key: value[start:stop] for key, value in batch.items()}
 
 
 class Rule:
@@ -166,11 +174,13 @@ class Engine:
 
     def __init__(self, F: dict, fit_idx, val_idx, seed: int, arm: str, private_seed: int = 1729):
         assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "GCRK-open", "GCRK+Cin-open",
-                       "W+C", "W+G", "W+Cin", "GCRK+Cin", "GCRK+Cin-georms", "STGCRK+Cin",
+                       "W+C", "W+G", "W+Cin", "GCRK+Cin", "GCRK+Cin-georms", "CRK+Cin", "STGCRK+Cin",
                        *MECH_ARMS, *HAZARD_ARMS)
         assert (arm in HAZARD_ARMS) == ("phi" in F), "hazard arms need F['phi'] and only they may have it"
         assert (arm == "STGCRK+Cin") == ("space" in F), "the spatio-temporal arm needs F['space'] and only it may have it"
         self.arm, self.seed, self.step = arm, int(seed), 0
+        self.microbatch_size = CR_MICROBATCH if arm == "CRK+Cin" else None
+        self.training_trace = []
         self.nodes = arm in MECH_ARMS
         self.fit_idx = np.sort(np.asarray(fit_idx))
         self.val_idx = None if val_idx is None else np.sort(np.asarray(val_idx))
@@ -182,7 +192,7 @@ class Engine:
         self.model = AsymODE(F["xu"].shape[-1] - k_extra, F["xr"].shape[-1], F["xo"].shape[-1])
         if k_extra:
             self.model.expand_damage_inputs(k_extra)
-        if arm in ("W+Cin", "GCRK+Cin", "GCRK+Cin-open", "GCRK+Cin-georms", "STGCRK+Cin") or arm in MECH_ARMS or arm in HAZARD_ARMS:
+        if arm in ("W+Cin", "GCRK+Cin", "GCRK+Cin-open", "GCRK+Cin-georms", "CRK+Cin", "STGCRK+Cin") or arm in MECH_ARMS or arm in HAZARD_ARMS:
             self.model.attach_context_input(N_STATIC + (F["ctx_extra"].shape[-1] if "ctx_extra" in F else 0))
         if arm in HAZARD_ARMS:
             self.model.attach_hazard(F["phi"].shape[-1])
@@ -204,6 +214,13 @@ class Engine:
                 self.model.kernel.bounded_opening = False
             if arm == "STGCRK+Cin":       # PI 2026-09-27: neighbouring counties' response states coupled in the kernel
                 self.model.kernel.attach_space()
+        elif arm == "CRK+Cin":
+            from .controlled_relaxation import ControlledRelaxationLayer
+            self.model.damage[2] = ControlledRelaxationLayer(
+                self.model.damage[2], self.fit["geo"],
+                county_ids=np.asarray(F["fips"])[self.fit_idx], private_seed=private_seed,
+                checkpoint_steps=0, use_adjoint=True, geo_checkpoint=True,
+            )
         elif arm == "W+C":
             self.model.attach_level(N_STATIC, "ctx")
         elif arm == "W+G":
@@ -230,6 +247,12 @@ class Engine:
         if k is None:
             return None
         k.training_step.fill_(self.step)
+        if self.microbatch_size is not None:
+            def hidden_chunks():
+                for start in range(0, len(self.fit_idx), self.microbatch_size):
+                    batch = _slice_rows(self.fit, start, start + self.microbatch_size)
+                    yield self.model.hidden(batch["xu"], batch["ctx"])
+            return k.calibrate_chunks_(hidden_chunks(), self.step)
         return k.calibrate_(self.model.hidden(self.fit["xu"], self.fit["ctx"]), self.step)
 
     def train_step(self) -> float:
@@ -240,11 +263,26 @@ class Engine:
             k.training_step.fill_(self.step)
         self.model.train()
         self.opt.zero_grad(set_to_none=True)
-        out = self.model(self.fit)
-        loss = trajectory_loss(out["P"], self.fit["y"], self.fit.get("m_train", self.fit["m"]))
-        if not torch.isfinite(loss):
-            raise RuntimeError("nonfinite training loss")
-        loss.backward()
+        if self.microbatch_size is None:
+            out = self.model(self.fit)
+            loss = trajectory_loss(out["P"], self.fit["y"], self.fit.get("m_train", self.fit["m"]))
+            if not torch.isfinite(loss):
+                raise RuntimeError("nonfinite training loss")
+            loss.backward()
+        else:
+            # The kernel uses one drop-path coin per optimization step, including
+            # all county chunks and any checkpoint recomputation. No sampling.
+            denominator = self.fit.get("m_train", self.fit["m"]).sum().clamp_min(1.0)
+            loss = denominator.new_zeros(())
+            for start in range(0, len(self.fit_idx), self.microbatch_size):
+                batch = _slice_rows(self.fit, start, start + self.microbatch_size)
+                out = self.model(batch)
+                se, _ = masked_se(out["P"], batch["y"], batch.get("m_train", batch["m"]))
+                part = se.sum() / denominator
+                if not torch.isfinite(part):
+                    raise RuntimeError("nonfinite training loss")
+                part.backward()
+                loss += part.detach()
         for n, p in self.model.named_parameters():
             if p.grad is not None and not torch.isfinite(p.grad).all():
                 raise RuntimeError(f"nonfinite gradient {n}")
@@ -259,6 +297,11 @@ class Engine:
         if k is not None:
             k.training_step.fill_(self.step)
         self.last_loss = float(loss.detach())
+        if self.arm == "CRK+Cin" and (self.step <= 3 or self.step % 10 == 0):
+            self.training_trace.append(dict(
+                step=self.step, loss=self.last_loss, alpha=float(k.alpha.detach()),
+                scale=float(k.scale), drop_mask=float(k.last_mask),
+            ))
         return self.last_loss
 
     @torch.no_grad()
@@ -267,8 +310,17 @@ class Engine:
         assert self.val is not None, "a REFIT model has no validation set"
         self.refresh()
         self.model.eval()
-        out = self.model(self.val)
-        s, n = masked_se(out["P"], self.val["y"], self.val["m"])
+        if self.microbatch_size is None:
+            out = self.model(self.val)
+            s, n = masked_se(out["P"], self.val["y"], self.val["m"])
+        else:
+            sums, counts = [], []
+            for start in range(0, len(self.val_idx), self.microbatch_size):
+                batch = _slice_rows(self.val, start, start + self.microbatch_size)
+                out = self.model(batch)
+                ss, nn = masked_se(out["P"], batch["y"], batch["m"])
+                sums.append(ss); counts.append(nn)
+            s, n = torch.cat(sums), torch.cat(counts)
         return s.double().numpy(), n.double().numpy()
 
     def snapshot(self) -> dict:
@@ -295,7 +347,8 @@ def select_steps(F: dict, inner: list[tuple], seed: int, arm: str, log=None) -> 
             if k is not None:
                 row[f"inner{j}_beta"] = float(torch.tanh(k.alpha).detach())
                 row[f"inner{j}_scale"] = float(k.scale)
-                row[f"inner{j}_theta"] = float(k.threshold)
+                if hasattr(k, "threshold"):
+                    row[f"inner{j}_theta"] = float(k.threshold)
         trace.append(row)
         if log is not None and t % 100 == 0:
             log(f"INNER {arm} seed={seed} step={t} pooled={pooled:.6e} best={rule.best_step}")
@@ -313,8 +366,9 @@ def refit(F: dict, dev_idx, steps: int, seed: int, arm: str, log=None) -> Engine
         e.train_step()
         if t % 10 == 0:
             e.refresh()
-        if log is not None and t % 200 == 0:
-            log(f"REFIT {arm} seed={seed} step={t}/{steps}")
+        if log is not None and t % (20 if arm == "CRK+Cin" else 200) == 0:
+            suffix = f" loss={e.last_loss:.6g} alpha={float(e.model.kernel.alpha.detach()):.5g}" if arm == "CRK+Cin" else ""
+            log(f"REFIT {arm} seed={seed} step={t}/{steps}{suffix}")
     e.refresh()
     e.model.eval()
     return e
@@ -323,6 +377,10 @@ def refit(F: dict, dev_idx, steps: int, seed: int, arm: str, log=None) -> Engine
 @torch.no_grad()
 def export(e: Engine, F: dict, idx) -> dict:
     """Open-loop OUTER rollouts from the observed p_71 (kernel open, and closed for GCRK)."""
+    if e.microbatch_size is not None and len(idx) > e.microbatch_size:
+        pieces = [export(e, F, idx[start:start + e.microbatch_size])
+                  for start in range(0, len(idx), e.microbatch_size)]
+        return {key: np.concatenate([piece[key] for piece in pieces], axis=0) for key in pieces[0]}
     b = make_batch(F, idx, e.stats, e.nodes)
     e.model.eval()
     out = e.model(b, diagnostics=False)
