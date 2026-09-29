@@ -284,3 +284,13 @@ negative probe as evidence that complex weather/geography interactions do not ex
 inference, prioritize a separately specified numerical/observation-time audit, including initialization
 stability and the distinction between impact onset and net-stock decline. No new neural arm, extra seed,
 NULL or numerical refit is queued. I18 monitoring remains paused; C and paper stay untouched, chat stays open.
+
+## D05 large-outage forensics (2026-09-28; current operating state)
+
+The PI resumed computation and explicitly requested data-level explanations for missed large outages.
+Follow `notes/D05_LARGE_OUTAGE_FORENSICS_SCOPE_20260928.md`: separate rapid net-stock jumps from high
+stock, audit observation/weather timing, retain full weather order/overlap coordinates and continuous
+county geography, and compare same-event/time counties without outcome-selected quiet controls.
+This is a bounded exploratory description on examined D, not causal verification or a new neural arm.
+One nice-15 process/two threads; preserve partial outputs. The finite runner is `run_d05_forensics.py`.
+I18 monitoring stays paused, frozen D04 remains unchanged, and no sealed C or manuscript access is allowed.

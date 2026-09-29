@@ -127,3 +127,14 @@ geo-conditioned read-in, multiple memory scales and symmetric/directed hidden st
 do not hard-code provisional county-type signs or copy selected rank2 into the neural architecture.
 No extra fit or neural experiment has started. Full evidence and limitations:
 `notes/D04_CONDITIONAL_IMPACT_RESPONSE_RESULTS_20260928.md`.
+
+## D05 authorized data forensics (2026-09-28)
+
+The PI asks why large outages are missed and whether weather before/after their occurrence and county
+structure explain the failures. D05 is now specified in `notes/D05_LARGE_OUTAGE_FORENSICS_SCOPE_20260928.md`.
+Separate rapid onset from high stock; test timing versus amplitude underprediction, inspect persistence
+and observation support, retain all weather combinations, and use both outcome-selected anchors and an
+outcome-independent fixed-clock risk set for county comparisons. No new neural training is authorized by
+these descriptive results alone. The scientific chain remains weather -> geography-modulated latent impact
+-> outage; neither stock nor matched associations identifies physical damage. Record findings after the
+finite one-process analysis, with unsupported cells and negative findings retained.
