@@ -1,9 +1,16 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
-**D07 active, 2026-09-29:** PI authorizes real-data selectivity diagnostics and finite frozen-model
-interventions. Execute `notes/D07_RESPONSE_SELECTIVITY_SCOPE_20260929.md`; retain all adverse results.
-No full training queued; I18/I20 monitors stay paused. Use at most two numerical diagnostic processes,
-two threads each, nice>=15. Original frozen data/sources/checkpoints must remain unchanged.
+**D07 complete, 2026-09-29:** all-five OOF paired attribution, fold1 working points, original-system
+FIT gradients and exactly eight frozen-model interventions are finished. Only 267/726 OOF S units
+improve (19.98% design weight); 73 units capture 95.81% positive gains. Short severe peaks worsen
+while sustained large-outage gains offset them. Write scale 0.95 reduces OUTER non-S RMSE 2.05%
+with S nearly unchanged; weather-control relative step 0.001 improves OUTER S 0.348% but worsens
+non-S 5.10% and adds seven severe false peaks. All six parameter steps worsen aggregate OUTER
+original objective; five improve its S component. No new training, extra scales, seeds or NULLs queued.
+Report: `notes/D07_REAL_DATA_SELECTIVITY_RESULTS_20260929_ZH.md`; independent receipt:
+`results/v1/d07_final_audit.json`. Frozen data/sources/30 training artifacts are unchanged.
+All D07 diagnostic processes have exited; I18/I20 monitors remain paused. Next design must address
+weather-path/geography-conditioned response allocation, without routing on future outcome labels.
 
 **D06 complete, 2026-09-29:** the external GPT audit was checked on real public D and frozen fold1.
 All 15 external probes passed. S oracle envelope error is only 0.8190%–0.8294% of host SSE

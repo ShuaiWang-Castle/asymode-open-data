@@ -1,0 +1,32 @@
+{
+ "passed": true,
+ "checks": 459471,
+ "maximum_unit_identity_abs_error": 8.881784197001252e-15,
+ "original_sources_and_30_artifacts_unchanged": true,
+ "public_D_hash": "f043bb39e8abd48183670e2acc3c0cecebd7107ea9be0e28771912cfee358c48",
+ "exact_fivefold_coverage": true,
+ "data_units": 8457,
+ "FIT_units": 6350,
+ "OUTER_units": 2107,
+ "original_system_partition_verified": true,
+ "eight_fixed_interventions_checked": true,
+ "restoration_evidence": "Exact runtime state assertions and consistent receipt hashes; separately reconstructed perturbation norms. No restored model bytes were exported.",
+ "source_sha256": "b99b8cd5d56157499c6398aa145ded006f1dfb1899b60425a44125145b71e80c",
+ "packages": {
+  "d07_attribution.json.gz": {
+   "uncompressed_sha256": "7fd37ed56795f81f6710277de9fcc4805f45506bcc1b8b5fb3f346d116cf5dfe",
+   "gzip_sha256": "aebd94c43bd09af57ae9bc3a16a576ced1ada08e7572827fa3507f3ec58f45c1",
+   "bytes": 490310
+  },
+  "d07_controllers.json.gz": {
+   "uncompressed_sha256": "b8d24455aa24595acafbcbd7adb8ea615e4559c8f9648a0a5069448c0c4b126f",
+   "gzip_sha256": "6108bb46aae9f072aca3af232baea1bc123c065b45c6fda6e6fe3ae096dc13e6",
+   "bytes": 1240531
+  },
+  "d07_gradients.json.gz": {
+   "uncompressed_sha256": "dc226f62199d47b1d3120d32b516effe927b79bf205ae3b408e3e47d8ef515f2",
+   "gzip_sha256": "48b256741098f9dce3a9de66b42d1b16d7ceb9b7a20293c51ac566fd0419d1e5",
+   "bytes": 1528340
+  }
+ }
+}

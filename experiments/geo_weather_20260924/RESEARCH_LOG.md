@@ -154,3 +154,7 @@ Note (2026-09-25 03:50 EDT): the times in the first column up to the row 'W1l' w
 | 09-29 | D06 independent review | summary/code/algebra | 接受摘要修正：FIT S RMSE 虽降 44.03%，峰幅比中位数反降至 0.800%；训练内选择性与跨事件稳定性需同时研究。确认假峰 true_peak 尚非预测峰时；补充锚点—幅度耦合界 | 22 数值核对、3 外部合成检查通过；没有新增真实前向或训练 | 保留原结果，追加审查回应 | notes/D06_INDEPENDENT_REVIEW_RESPONSE_20260929_ZH.md; results/v1/d06_independent_review_receipt.json |
 
 | 09-29 | D07 | scope registration | PI 授权深入真实 D 与有限实验；预先登记配对收益、锚点联合方向、写入 ±5% 干预、事件梯度和六个局部参数扰动 | 新结果未读取 | 冻结模型响应选择性定位 | notes/D07_RESPONSE_SELECTIVITY_SCOPE_20260929.md |
+
+| 09-29 | D07完成 | 公共D冻结五折/seed0；fold1全FIT/OUTER；八个固定内部干预 | OOF S获益267/726，仅19.98%设计权；前73单位占95.81%正收益。仅1小时严重停电RMSE恶化12.75%，持续≥7小时改善1.06%，总体仍仅改善0.365%；完整144观测敏感性0.0096%。假峰预测峰时控制导数比S/non-S更大，不能统一解释为强饱和无梯度。写入×0.95降低OUTER non-S RMSE2.05%但S几乎不变；0.1%天气控制梯度扰动使OUTER S改善0.348%、non-S恶化5.10%、假峰49→56。61原系统×S/non-S的112分区梯度可加；全S/non-S梯度余弦−0.476。六个参数干预OUTER全目标均恶化，五个S目标改善 | 19项合成检查通过；真实输出/覆盖/原16源项及30训练产物hash复核通过。两次早期launcher/分区标识尝试保留，无额外干预、无新训练。维持40维及任意地理组合，以天气路径条件下的响应分配/控制敏感度为下一设计要求；内部扰动不当作天气因果或重训成绩 | 全部自有诊断进程退出；I18/I20监控暂停，未触及C或稿件，不自动扩候选 | notes/D07_REAL_DATA_SELECTIVITY_RESULTS_20260929_ZH.md; results/v1/d07_evidence.json; results/v1/d07_final_audit.json; results/v1/d07_{attribution,controllers,gradients}.json.gz |
+
+| 09-29 | PI补充数据策略 | 大数据用于覆盖复杂天气与联合地理环境，目标global impact及泛化；允许固定小面板先行测试 | 将小面板定位为FIT输入覆盖下的机制/优化诊断，保留原事件分组与全geo40组合，不按OUTER收益选县；全D原五折仍为开发主参考，地理环境转移另行登记 | 尚未构造或训练新小面板；规模不替代跨事件/环境的泛化验证 | 后续设计约束写入D07报告/IDEAS | notes/D07_REAL_DATA_SELECTIVITY_RESULTS_20260929_ZH.md |
