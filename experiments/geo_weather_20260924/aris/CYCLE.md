@@ -1,5 +1,10 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
+**D07 active, 2026-09-29:** PI authorizes real-data selectivity diagnostics and finite frozen-model
+interventions. Execute `notes/D07_RESPONSE_SELECTIVITY_SCOPE_20260929.md`; retain all adverse results.
+No full training queued; I18/I20 monitors stay paused. Use at most two numerical diagnostic processes,
+two threads each, nice>=15. Original frozen data/sources/checkpoints must remain unchanged.
+
 **D06 complete, 2026-09-29:** the external GPT audit was checked on real public D and frozen fold1.
 All 15 external probes passed. S oracle envelope error is only 0.8190%–0.8294% of host SSE
 (numerical lower/upper bracket), so the recovery cap is not a sufficient explanation for missed peaks.
