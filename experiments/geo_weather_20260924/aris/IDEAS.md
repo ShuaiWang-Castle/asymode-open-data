@@ -233,3 +233,7 @@ bottleneck, followed by separately testable weather/state conditioning. Distingu
 comparisons from budget-matched non-nested controls. The prior low-rank cross-block recipe is an optional
 representation comparison, not the default design. Updated durable instructions are in `program.md` and
 the joint-geography note. This clarification does not start a new fit or experiment queue.
+
+## D06：外部审查后的宿主响应链诊断（2026-09-29）
+
+PI 要求分析 GPT 审查并继续。先按 `notes/D06_HOST_RESPONSE_INTERFACE_SCOPE_20260929.md` 验证公共 D 上的宿主可达包络、完整 S 轨迹 oracle、FIT 目标权重和冻结 fold1 隐层工作点。外部合成例不当作 D 结果；scattering 暂为未训练候选。本轮不改冻结模型、不启动新 arm；监控保持暂停。

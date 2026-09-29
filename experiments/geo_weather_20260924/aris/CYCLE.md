@@ -1,6 +1,10 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
-**Current state, 2026-09-29: I20 complete; the registered screen failed.** All five folds completed
+**D06 active, 2026-09-29:** PI requests verification and continuation of the external GPT audit.
+Execute only `notes/D06_HOST_RESPONSE_INTERFACE_SCOPE_20260929.md`: public-D reachability/oracle,
+FIT objective and frozen fold1 diagnostics. No new neural training; I18/I20 monitors stay paused.
+
+**I20 final state, 2026-09-29: I20 complete; the registered screen failed.** All five folds completed
 900 updates and automatic evaluation. Independent final audit passed 9,594 assertions: exact held-out
 coverage for both models, source/data/artifact hashes, finite exports/checkpoints, all tail point scores
 and intervals independently recalculated. S full144h design-weighted RMSE improved only **0.365%**,
