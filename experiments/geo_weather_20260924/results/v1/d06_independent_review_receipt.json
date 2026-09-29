@@ -1,0 +1,87 @@
+{
+ "scope": "Existing D06 summaries, source review and synthetic algebra only; no new D arrays, checkpoints or training.",
+ "reviewed_commit": "3dfb4f099efdbeffd5968dc2d34c873eeb6c2301",
+ "archive_sha256": "f285441baff15bb4e42976044fe7dba33945895afd4e05f837cde2049597dad0",
+ "archive_file_sha256": {
+  "REPORT_zh.md": "43afddf58bb8fa97a46337189ae43b12470b910149f02f29da02240f2597f38c",
+  "math_checks.py": "8f365da8532ce073f08061414eb73bf8345b0edd649c6eeb02f380142a380cff",
+  "CHECKS.json": "76df2f8d157c4e51e0ede3e666994fecff54829c48230004202aa8317f00f583"
+ },
+ "source_json_sha256": "511757e9741133c0e958ef100a77d2cbff204d02e816371fa783208bab073bc9",
+ "source_git_blob": "3840f169706924d76a4508a6a1d7aeaeb93bdf66",
+ "exact_numeric_values_checked": 22,
+ "external_synthetic_checks_passed": 3,
+ "external_replay_comparison": {
+  "rtol": 1e-10,
+  "atol": 1e-12,
+  "differences": [
+   {
+    "path": "/coordinate_change_identity/max_abs_error",
+    "original": 3.3306690738754696e-16,
+    "replay": 4.440892098500626e-16,
+    "absolute_difference": 1.1102230246251565e-16
+   }
+  ],
+  "passed": true
+ },
+ "single_mode_path_bound_checks": 1000,
+ "maximum_lhs_minus_rhs": -1.784231215300943,
+ "paired_summary": {
+  "fit_S": {
+   "rmse_change_pct": -44.032889508870966,
+   "sse_change_pct_same_set_weights": -68.67682543273754,
+   "W_peak_ratio_quantiles_percent_of_true_peak": [
+    0.6411777612846509,
+    1.230837790565985,
+    16.133232642849464
+   ],
+   "CRK_peak_ratio_quantiles_percent_of_true_peak": [
+    0.29582622746087406,
+    0.799924252069013,
+    90.60506013571313
+   ]
+  },
+  "outer_S": {
+   "rmse_change_pct": 0.4547232995916195,
+   "sse_change_pct_same_set_weights": 0.9115143319751606,
+   "W_peak_ratio_quantiles_percent_of_true_peak": [
+    0.4209430483462989,
+    0.81510311810184,
+    20.955553795954923
+   ],
+   "CRK_peak_ratio_quantiles_percent_of_true_peak": [
+    0.19976187569873083,
+    0.4181641588781596,
+    21.175221638098467
+   ]
+  },
+  "outer_nonS": {
+   "rmse_change_pct": 25.31158278476495,
+   "sse_change_pct_same_set_weights": 57.02992780023
+  }
+ },
+ "anchor_bound": {
+  "anchor_tanh": 0.99,
+  "opposite_side_max": 0.0017677669529663704,
+  "bound": 0.0017677669529663686,
+  "fraction_of_full_coordinate_amplitude": 0.005,
+  "saturated_raw_tanh_slope_bound": 0.01990000000000003
+ },
+ "notes": [
+  "Marginal quantiles cannot identify which paired units improved or attribute SSE gains to a subgroup.",
+  "Temporal true_peak in D06 is observed peak, including nonS_alarm; predicted peak is a separate diagnostic.",
+  "The displayed path bound assumes each single-mode state and deposit has norm at most one.",
+  "Affine feature balancing preserves the compensated forward function, not Adam trajectories or optimizer state."
+ ],
+ "additional_anchor_amplitude_check": {
+  "random_coordinate_boxes_checked": 10000,
+  "bound_formula": "sqrt(sum_j (1+abs(tanh(A_j)))^2)/(2*sqrt(8))",
+  "zero_anchor_mode_norm_upper_bound": 0.5,
+  "fully_saturated_anchor_supremum": 1.0,
+  "interpretation": "Coordinate-box upper bound; shared weather-to-raw map may not attain it. This is structural coupling, not a measured optimization cause."
+ },
+ "bounded_output_local_gain_caveat": {
+  "counterexample": "f(v)=(sin(v),cos(v)) is bounded with derivative norm 1, but is not globally injective.",
+  "application": "64-to-32 write map cannot preserve all 64 input directions because of rank; boundedness alone is not a general local-Jacobian-degeneracy theorem."
+ }
+}

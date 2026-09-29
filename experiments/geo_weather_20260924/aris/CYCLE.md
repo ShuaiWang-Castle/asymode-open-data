@@ -6,6 +6,9 @@ All 15 external probes passed. S oracle envelope error is only 0.8190%–0.8294%
 Fold1 CRK improves FIT S RMSE 44.03% but worsens OUTER S 0.455%; the kernel effect is substantial,
 its deposit is saturated and geographic basis terms are small relative to the raw-geography path.
 See `notes/D06_GPT_AUDIT_REAL_DATA_RESULTS_20260929_ZH.md`. The finite diagnostic scope is finished.
+Independent review further shows FIT S peak-ratio median falls despite lower RMSE: the next
+question includes training-set response allocation, not only transfer. See
+`notes/D06_INDEPENDENT_REVIEW_RESPONSE_20260929_ZH.md`; no new forward/gradient/training was run.
 No new model or scattering training is queued; I18/I20 monitors remain paused. Old queue instructions
 below are historical. The next proposed response-selectivity/Jacobian work needs its own scope.
 
