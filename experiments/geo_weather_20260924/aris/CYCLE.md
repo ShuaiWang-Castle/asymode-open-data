@@ -1,5 +1,22 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
+**Current D08 registration, 2026-09-29:** verify the external D07 independent review and build a
+fixed input-only mechanism panel under the PI's standing authorization. Scope:
+`notes/D08_INPUT_PANEL_SCOPE_20260929.md`. Original fold1 FIT only, all53 merged groups, cap24/group,
+full216h weather12 and geo40, FIT-only scales, 16 deterministic input-core plus8 random-tail units
+(small groups census), expected1219 units. Freeze IDs/scales/pi/pairs/hashes before opening labels.
+Then audit raw response contrasts and existing D07 cached FIT predictions; no new forward, gradient,
+training, seeds, NULLs or control candidate. I18/I20 monitors remain paused. Original fold2..5 tags in
+this frozen FIT replay are not new held-out performance. No automatic training follows this stage.
+
+**D07 review interpretation update:** a future-truth binary whole-trajectory selector between the
+existing W/CRK predictions could improve OOF S RMSE only1.95994%, not the10% target. New valid
+responses are needed alongside fewer wrong ones; this is not a capacity bound for new models.
+At the frozen endpoint, weather non-S/S gradient norm ratio is5.59% and total-to-S cosine0.99874:
+negative S/non-S cosine does not establish starvation of S. Original severe-hour bins count hours,
+not consecutive runs or identified physical processes. See
+`notes/D07_INDEPENDENT_REVIEW_RESPONSE_20260929_ZH.md` and external-review receipt.
+
 **D07 complete, 2026-09-29:** all-five OOF paired attribution, fold1 working points, original-system
 FIT gradients and exactly eight frozen-model interventions are finished. Only 267/726 OOF S units
 improve (19.98% design weight); 73 units capture 95.81% positive gains. Short severe peaks worsen

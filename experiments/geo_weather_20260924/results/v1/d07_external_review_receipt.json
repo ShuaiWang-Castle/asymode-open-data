@@ -1,0 +1,287 @@
+{
+  "passed": true,
+  "fixed_D07_commit": "34288910cf32769029d7e6c0d764bc9b05a9ac17",
+  "external_archive": {
+    "name": "D07_INDEPENDENT_REVIEW_20260929.zip",
+    "sha256": "0e0ab6c08243d2a35f639a367bf55f49e133c2ae19e45570c5c5f782eb67a940",
+    "internal_hashes_verified": 9
+  },
+  "fixed_local_files_verified": [
+    {
+      "file": "experiments/geo_weather_20260924/audit_d07_final.py",
+      "bytes": 16903,
+      "sha256": "b99b8cd5d56157499c6398aa145ded006f1dfb1899b60425a44125145b71e80c"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/d07_attribution.py",
+      "bytes": 30120,
+      "sha256": "b653c4cfd4f2a4726b7b5daa9a414f855f30866edb7fb48110d7e32b187e9bf7"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/d07_common.py",
+      "bytes": 6592,
+      "sha256": "1d4d663d3b9fc141fd21276a8c0455870d0651c57f6f7e7e9fc352534e168287"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/d07_controllers.py",
+      "bytes": 27793,
+      "sha256": "d8b624c23af5f10082730bc57ee56d16d33fd69c6ad1885674002796b847dca8"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/d07_gradients.py",
+      "bytes": 32219,
+      "sha256": "20acf53e82e0e61ebd890d11a0d8e13374a61bb580f62fce3e7d54c1a7334482"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/notes/D07_REAL_DATA_SELECTIVITY_RESULTS_20260929_ZH.md",
+      "bytes": 16560,
+      "sha256": "db01eb07407c8e1d5c4d24e26c0be6788e17fe9e413e3a56b0a0388912b93fb7"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/plot_d07_evidence.py",
+      "bytes": 4650,
+      "sha256": "679f045c37f44ad0ea44e40aaa3ae463e222dfe975933c485cc7a72e527b324e"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/results/v1/d07_attribution.json.gz",
+      "bytes": 490310,
+      "sha256": "aebd94c43bd09af57ae9bc3a16a576ced1ada08e7572827fa3507f3ec58f45c1"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/results/v1/d07_controllers.json.gz",
+      "bytes": 1240531,
+      "sha256": "6108bb46aae9f072aca3af232baea1bc123c065b45c6fda6e6fe3ae096dc13e6"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/results/v1/d07_evidence.json",
+      "bytes": 179127,
+      "sha256": "d829a56d58d4db4e903c3af01f8659fcf6593e86eeb016e7bee708ade25b7b67"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/results/v1/d07_final_audit.json",
+      "bytes": 1407,
+      "sha256": "41a9ed866381134e1231065d982248edad98fc4a1119d63bc17147e4a2f6617e"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/results/v1/d07_gradients.json.gz",
+      "bytes": 1528340,
+      "sha256": "48b256741098f9dce3a9de66b42d1b16d7ceb9b7a20293c51ac566fd0419d1e5"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/results/v1/fig_d07_response_selectivity.pdf",
+      "bytes": 29231,
+      "sha256": "d3cb5db757928ed60b1d0f30456300f63f1bffad96ee5dbb5521cd97c07de0c8"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/results/v1/fig_d07_response_selectivity.png",
+      "bytes": 242460,
+      "sha256": "eff680fef6afcb27c26579a3df54789b95fdeb89e5c66e8f9506393385187705"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/test_d07_attribution.py",
+      "bytes": 6284,
+      "sha256": "77cd3c9766a6ae7f7309534257d1968cee98dec4f636e576c74da1f4376d8b62"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/test_d07_controllers.py",
+      "bytes": 4238,
+      "sha256": "4dd790c2e842d76347035d186e765d9f90ea5e1d67285880f96045fbea31279e"
+    },
+    {
+      "file": "tests/test_d07_gradients.py",
+      "bytes": 9235,
+      "sha256": "9679ce9a0e6c091dc5cd02e4b48186161800925eb8c08481d789d79c3f29c2a6"
+    },
+    {
+      "file": "experiments/geo_weather_20260924/notes/D07_RESPONSE_SELECTIVITY_SCOPE_20260929.md",
+      "bytes": 5031,
+      "sha256": "6f88e34c3e26d1666fc6999178f55000301c6b6b140aa49f8f880879d7cfa7d3"
+    }
+  ],
+  "report_git_blob": "3d98dc9818f07747a439088ae32249ef365429a7",
+  "gzip_packages": [
+    {
+      "file": "d07_attribution.json.gz",
+      "gzip_sha256": "aebd94c43bd09af57ae9bc3a16a576ced1ada08e7572827fa3507f3ec58f45c1",
+      "uncompressed_sha256": "7fd37ed56795f81f6710277de9fcc4805f45506bcc1b8b5fb3f346d116cf5dfe"
+    },
+    {
+      "file": "d07_controllers.json.gz",
+      "gzip_sha256": "6108bb46aae9f072aca3af232baea1bc123c065b45c6fda6e6fe3ae096dc13e6",
+      "uncompressed_sha256": "b8d24455aa24595acafbcbd7adb8ea615e4559c8f9648a0a5069448c0c4b126f"
+    },
+    {
+      "file": "d07_gradients.json.gz",
+      "gzip_sha256": "48b256741098f9dce3a9de66b42d1b16d7ceb9b7a20293c51ac566fd0419d1e5",
+      "uncompressed_sha256": "dc226f62199d47b1d3120d32b516effe927b79bf205ae3b408e3e47d8ef515f2"
+    }
+  ],
+  "paired_summary_rows_checked": 3792,
+  "positive_support_rows": 2512,
+  "maximum_identity_errors": {
+    "alignment_minus_energy": 5.4569682106375694e-12,
+    "positive_minus_negative": 2.7284841053187847e-12,
+    "rmse_sse": 8.29913915367797e-12,
+    "unit_count": 0.0
+  },
+  "external_CSV_rows_checked": {
+    "oracle_retrospective_only.csv": 48,
+    "finite_intervention_effects.csv": 36,
+    "gradient_scale_and_conflict.csv": 9,
+    "severity_duration_partition.csv": 3,
+    "S_regime_and_fold.csv": 10
+  },
+  "external_CSV_maximum_errors": {
+    "oracle": 0.0,
+    "intervention": 0.0,
+    "gradient": 0.0,
+    "duration": 0.0
+  },
+  "findings": {
+    "S_base_SSE": 11751.412270910603,
+    "S_positive_gains": 456.1273978317262,
+    "S_negative_losses": 370.4539244775856,
+    "S_current_net_gain": 85.67347335414057,
+    "S_oracle_binary_whole_unit_improvement": 0.019599412353680234,
+    "S_ten_percent_RMSE_requires_SSE_gain": 2232.768331473014,
+    "required_gain_over_existing_positive_gains": 4.895054193382883,
+    "incomplete_S_units": 24,
+    "complete_S_net_gain": 2.161971614707018,
+    "incomplete_S_net_gain": 83.51150173943356,
+    "incomplete_S_fraction_of_net_gain": 0.9747649823210707,
+    "duration": {
+      "severe_hours/1": {
+        "units": 122,
+        "positive_units": 45,
+        "design_unit_share": 0.346277512461464,
+        "baseline_S_SSE_share": 0.017434094708897008,
+        "RMSE_change": 0.12751539147395552,
+        "alignment": 9.5692245829293,
+        "modification_energy": 65.15002322156151,
+        "alignment_to_energy": 0.14687983380123107,
+        "net_gain": -55.580798638632224,
+        "positive_design_share_within_group": 0.19367906403243368
+      },
+      "severe_hours/2..6": {
+        "units": 213,
+        "positive_units": 81,
+        "design_unit_share": 0.39006261762809524,
+        "baseline_S_SSE_share": 0.12704937002812725,
+        "RMSE_change": 0.023445758425094443,
+        "alignment": 7.767787162554169,
+        "modification_energy": 78.59798120012888,
+        "alignment_to_energy": 0.09882934706396035,
+        "net_gain": -70.83019403757471,
+        "positive_design_share_within_group": 0.1520204803378878
+      },
+      "severe_hours/>=7": {
+        "units": 391,
+        "positive_units": 141,
+        "design_unit_share": 0.2636598699104407,
+        "baseline_S_SSE_share": 0.8555165352629753,
+        "RMSE_change": -0.010603986007711508,
+        "alignment": 599.3603951187023,
+        "modification_energy": 387.27592908835464,
+        "alignment_to_energy": 1.5476314175518042,
+        "net_gain": 212.0844660303475,
+        "positive_design_share_within_group": 0.2786211226554122
+      }
+    },
+    "gradient_scale_and_conflict": {
+      "weather_control": {
+        "S_norm": 6.268983057218717e-05,
+        "nonS_norm": 3.504453781930747e-06,
+        "nonS_to_S": 0.0559014715775213,
+        "cosine_S_nonS": -0.48740273219087016,
+        "cosine_total_S": 0.9987434014080078,
+        "cosine_total_nonS": -0.443030068788266
+      },
+      "raw_geography": {
+        "S_norm": 6.8987958136977416e-06,
+        "nonS_norm": 3.872738960486075e-07,
+        "nonS_to_S": 0.056136448520430905,
+        "cosine_S_nonS": 0.18873069658715627,
+        "cosine_total_S": 0.9985154785836882,
+        "cosine_total_nonS": 0.24194035610394962
+      },
+      "kernel_basis": {
+        "S_norm": 4.1031693018099545e-07,
+        "nonS_norm": 2.3256851616905676e-08,
+        "nonS_to_S": 0.05668021450308379,
+        "cosine_S_nonS": -0.6911943750083557,
+        "cosine_total_S": 0.9990925274772416,
+        "cosine_total_nonS": -0.6597868559757982
+      }
+    },
+    "weather_control_0p001_OUTER": {
+      "all": {
+        "achieved_relative_parameter_step": 0.001000000182434213,
+        "RMSE_change": 0.008404954310272439,
+        "SSE_change": 41.36136797730941,
+        "max_abs_prediction_change": 0.12472580373287201,
+        "objective_delta": 6.232452295827881e-07
+      },
+      "S": {
+        "achieved_relative_parameter_step": 0.001000000182434213,
+        "RMSE_change": -0.0034797155989976236,
+        "SSE_change": -13.386721690556913,
+        "max_abs_prediction_change": 0.12472580373287201,
+        "objective_delta": -1.0282417889996776e-07
+      },
+      "nonS": {
+        "achieved_relative_parameter_step": 0.001000000182434213,
+        "RMSE_change": 0.05100481718116212,
+        "SSE_change": 54.7480896678663,
+        "max_abs_prediction_change": 0.08998294174671173,
+        "objective_delta": 7.260694084827557e-07
+      }
+    },
+    "weather_control_0p001_OUTER_false_alarms": {
+      "new": 9,
+      "removed": 2,
+      "retained": 47,
+      "weighted_rate_delta": 0.00013181111238867724
+    }
+  },
+  "pure_math_checks": {
+    "synthetic": true,
+    "trials": 500,
+    "modes": 4,
+    "per_mode_incremental_bound_max_violation": 0.0,
+    "four_mode_concat_bound": 2.0,
+    "maximum_random_four_mode_norm": 1.584575734288801,
+    "common_retention_change_aggregate_coefficient": 4.0,
+    "negative_cosine": -0.5000000000000001,
+    "common_descent_directional_derivatives": [
+      -0.5,
+      -0.4999999999999999
+    ],
+    "not_real_model_forward": true
+  },
+  "packaging": {
+    "original_evidence_zip_present_at_audit": false,
+    "issue": "Absent original delivery archive requires repackaging; all eighteen frozen scientific files are verified."
+  },
+  "audit_source_sha256": "71fe06c1155b5b4f4d22cfdb3eabd5a4810aef56d07b70a3eb089fc366457a56",
+  "execution_boundaries": {
+    "external_code_executed": false,
+    "archive_extracted": false,
+    "raw_outcomes_loaded": false,
+    "model_forward_performed": false,
+    "gradients_recomputed": false,
+    "new_training_performed": false,
+    "original_nineteen_tests_rerun": false,
+    "bootstrap_rerun": false
+  },
+  "interpretation_bounds": [
+    "Binary oracle uses future truths to select one entire frozen W or CRK trajectory per unit, on the same observed support; it does not bound a new model or hourly routing.",
+    "The 4.895 factor compares squared-error gains, not RMSE gains.",
+    "Prediction-space scalar interpolation is retrospective and is not an equivalent scaling of the model kernel exit.",
+    "The partial-observation net-gain fraction diagnoses fragility of a small net gain; it does not establish missingness bias or justify deleting those units.",
+    "Severe-hour counts need not be consecutive and are outcome-defined retrospective strata, not inference inputs.",
+    "Gradient directions describe the frozen endpoint and current parameter coordinates, not the entire Adam training history.",
+    "Equal relative parameter norms do not imply equal functional interventions or comparable geographic-information strength.",
+    "The incremental inequality is per unit-norm mode. Four concatenated unit modes have norm bound two, and common retention-change coefficients must be adjusted accordingly.",
+    "The synthetic inequalities check algebra only; they do not constitute real-data forecasts or identify a physical geographical mechanism."
+  ]
+}
