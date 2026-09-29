@@ -1,0 +1,28 @@
+{
+ "system": "S00023",
+ "rule": "high-level system (mean level > 1%) outside fold 4 with the largest design weight; counties with peak >= 0.1% at the 10th and 90th percentile of path level; registered run, seed-averaged",
+ "p10": {
+  "fips": "37135",
+  "level_percent": 0.01345259,
+  "peak_percent": 0.32299812883138657,
+  "customers": 91951.0,
+  "mse_x1e4": {
+   "NET": 1.6795574507939999,
+   "ASYM": 0.017156418152808328,
+   "ASYM_STATE": 0.012756917158185388,
+   "persistence": 0.002724564
+  }
+ },
+ "p90": {
+  "fips": "44009",
+  "level_percent": 3.9073493,
+  "peak_percent": 31.006798148155212,
+  "customers": 73833.0,
+  "mse_x1e4": {
+   "NET": 37.714354693889,
+   "ASYM": 58.906096965074,
+   "ASYM_STATE": 59.768456655244,
+   "persistence": 65.312195
+  }
+ }
+}

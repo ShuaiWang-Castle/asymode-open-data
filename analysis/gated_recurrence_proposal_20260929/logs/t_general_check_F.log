@@ -1,0 +1,2 @@
+process B, g 0.3: log-slopes in ell  S 0.83  F -1.23  x_Q -0.18  (S+F)/x_Q -0.92;  F/S at ell=.01: 219
+process A, g 0.05: log-slopes in ell  S 3.60  F 3.26  x_Q 0.86  (S+F)/x_Q 2.58;  F/S at ell=.01: 1.11

@@ -1,0 +1,2 @@
+process A: local ell-slopes [2.962, 2.926, 2.859] (pred 3); M-slope 1.000 (pred 1); g-slope 2.014 (pred 2)
+process B: local ell-slopes [2.92, 2.849, 2.734] (pred 3); M-slope 1.000 (pred 1); g-slope 2.090 (pred 2)

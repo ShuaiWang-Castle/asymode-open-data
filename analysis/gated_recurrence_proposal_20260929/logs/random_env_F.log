@@ -1,0 +1,8 @@
+faster restoration in the environment with more accumulated damage: (p .06, R .12) vs (p .06, R .28)
+   design [0, 16, 32, 48]/64: S 2.11e-32; implied u at no-forcing hours min -8.394e-03 (formula -8.394e-03, max |diff| 3.0e-15); F 9.034e-07
+faster restoration in the environment with more accumulated damage: (p .06, R .12) vs (p .06, R .28)
+   design [8, 16, 24]/64: S 2.16e-33; implied u at no-forcing hours min -8.394e-03 (formula -8.394e-03, max |diff| 2.8e-15); F 1.390e-07
+slower restoration together with more damage: (p .10, R .12) vs (p .03, R .28)
+   design [0, 16, 32, 48]/64: S 2.52e-33; implied u at no-forcing hours min +3.147e-05 (formula +3.147e-05, max |diff| 1.4e-15); F 2.039e-34
+slower restoration together with more damage: (p .10, R .12) vs (p .03, R .28)
+   design [8, 16, 24]/64: S 1.54e-33; implied u at no-forcing hours min +3.147e-05 (formula +3.147e-05, max |diff| 1.7e-15); F 6.370e-34

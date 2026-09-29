@@ -1,0 +1,28 @@
+== targets
+  y_full NaN share 0.0008; observed share 0.9992; forecast-window observed share 0.9988
+  observed values: min 0, max 0.9898, share > 1: 0.00e+00, share < 0: 0.00e+00
+  y0: zero share 0.682; y0 > 1%: 24 units
+== denominators (customers)
+  quantiles [1.394000e+03 2.268000e+03 6.522000e+03 3.070900e+04 2.576730e+05
+ 1.809376e+06]; units with < 1,000 customers: 0
+  smallest outage step = 1/customers: median 3.26e-05
+== duplicates: 0 duplicate (system, county) pairs
+== isolated one-hour spikes (>1 pp and >5x both neighbours): 140 hours in 127 units
+== isolated one-hour drops (reporting gaps read as zero?): 10 hours in 9 units
+== stale plateaus: units with an identical value > 0.5% for >= 24 h: 5 (max run 58 h)
+== timing (units with peak >= 2%, n=654): outage onset minus peak-gust hour: median 0 h, IQR [-2, 5], share onset more than 12 h before peak gust 0.10
+   S00001: n 2, median lag 28 h
+   S00006: n 5, median lag -20 h
+   S00008: n 33, median lag 2 h
+   S00009: n 38, median lag 31 h
+   S00011: n 12, median lag 94 h
+   S00023: n 74, median lag 0 h
+   S00034: n 83, median lag -2 h
+   S00037: n 72, median lag -4 h
+   S00040: n 61, median lag 2 h
+   S00042: n 62, median lag 2 h
+   S00046: n 74, median lag 0 h
+   S00047: n 94, median lag 0 h
+   S00052: n 22, median lag 2 h
+   S00053: n 6, median lag 32 h
+   S00054: n 16, median lag 8 h

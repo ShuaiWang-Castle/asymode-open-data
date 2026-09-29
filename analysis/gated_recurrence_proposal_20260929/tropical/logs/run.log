@@ -1,0 +1,6 @@
+tropical launch 2026-09-27T00:53:21Z workers=3
+tropical finished 2026-09-27T01:27:18Z status=0 fits=      45
+tropical-long launch 2026-09-27T01:28:59Z workers=3
+tropical-long finished 2026-09-27T03:09:06Z status=0 fits=      45
+v2 inner launch 2026-09-27T18:57:10Z workers=4
+v2 paused by PI request 2026-09-27T21:59:00Z: inner       18/180 complete, final 0/100; resume with run_v2.sh (completed fits are skipped)

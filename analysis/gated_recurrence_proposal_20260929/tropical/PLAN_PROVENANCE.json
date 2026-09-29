@@ -1,0 +1,8 @@
+{
+ "frozen_utc": "2026-09-27T00:53:17Z",
+ "note": "plan and run script frozen before any tropical fit; predictions P1-P3 in the plan",
+ "sha256": {
+  "PLAN_TROPICAL.md": "b7c3842472861918711662d40a71a75634a5c7dc91e9a18a1b5fb69a70f9be5b",
+  "tropical_run.py": "c927feb10251e58dbf52b6c194703f3095c705ec212669c2a48ff35913c4e310"
+ }
+}

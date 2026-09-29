@@ -1,0 +1,9 @@
+{
+ "frozen_utc": "2026-09-27T18:57:01Z",
+ "note": "v2 plan and scripts frozen before any v2 fit (tropical_run.py supplies data loading and standardisation)",
+ "sha256": {
+  "PLAN_TROPICAL_V2.md": "0e75d55de11075a274e60560930bd0c5d4fbd07990b31bb661636916b2930b26",
+  "tropical_v2.py": "df0a5b850fb31a5c84e3502c6bf656ae5796c4fcd23dc0e391deb502f1fa9668",
+  "tropical_run.py": "c927feb10251e58dbf52b6c194703f3095c705ec212669c2a48ff35913c4e310"
+ }
+}

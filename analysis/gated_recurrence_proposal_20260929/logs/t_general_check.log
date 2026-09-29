@@ -1,0 +1,6 @@
+process A: log-slopes of Lambda  ell 2.875 (pred 3)  M 1.036 (pred 1)  g 2.052 (pred 2)
+   Lambda vs ell: 0.01: 9.78e-08, 0.02: 8.6e-07, 0.04: 5.66e-06, 0.08: 4e-05
+process B: log-slopes of Lambda  ell 2.754 (pred 3)  M 1.035 (pred 1)  g 2.141 (pred 2)
+   Lambda vs ell: 0.01: 1.18e-07, 0.02: 9.81e-07, 0.04: 5.93e-06, 0.08: 3.75e-05
+process B, g 0.1 (contraction): S 1.712e-09  F 2.341e-22  x_Q 2.618e-04  F/x_Q 8.94e-19
+process B, g 0.3 (expansion): S 2.067e-07  F 2.926e-06  x_Q 9.184e-04  F/x_Q 0.00319

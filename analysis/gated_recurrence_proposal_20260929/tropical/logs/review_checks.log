@@ -1,0 +1,61 @@
+== budget 3000: weighted MSE x1e4 [all, low-level systems, high-level systems]
+   NET            28.338     5.501    46.904
+   NET_clipped    26.335     3.371    45.003
+   ASYM           24.427     0.738    43.684
+   persistence    33.475     0.426    60.340
+   NET hours predicted < 0: 0.330; > 1: 0.0000
+system  fold  units  mean_level_%  NET_minus_ASYM_x1e4  NETclip_minus_ASYM_x1e4
+S00001     2     34         0.027                4.020                    3.141
+S00006     2     52         0.033                2.911                    2.137
+S00008     1    140         0.070                1.553                    0.836
+S00009     3    140         0.072                2.684                    2.451
+S00011     1    117         0.022                0.642                    0.334
+S00023     3    140         1.426               -1.017                   -1.399
+S00034     1    140         3.178               -1.734                   -2.808
+S00037     4    140         4.282               48.882                   48.882
+S00040     1    140         0.170                3.422                    2.738
+S00042     5    140         0.160               13.280                    5.979
+S00046     4    140         3.992               19.010                   19.010
+S00047     5    140         3.731               -7.767                  -13.576
+S00052     2     59         0.080                1.807                    0.404
+S00053     4     15         0.064                0.003                    0.003
+S00054     3     96         0.031                4.443                    3.506
+   pooled NET-ASYM +3.912; leave-one-system-out range +2.305 .. +5.885 (dropping S00037 / S00047)
+   system-level Spearman(level, rd) -0.771; leave-one-system-out range -0.960 .. -0.727
+   p10 37135: per-seed-mean MSE NET 1.6796 ASYM 0.0172 ASYM_STATE 0.0128; seed-mean-curve MSE NET 0.9307 ASYM 0.0165; persistence 0.00272; rule threshold 13.188% predicted level 0.495% -> rule picks ASYM
+   p90 44009: per-seed-mean MSE NET 37.7144 ASYM 58.9061 ASYM_STATE 59.7685; seed-mean-curve MSE NET 27.4505 ASYM 58.8834; persistence 65.31220; rule threshold 13.188% predicted level 1.205% -> rule picks ASYM
+== budget 6000: weighted MSE x1e4 [all, low-level systems, high-level systems]
+   NET            25.530     4.208    42.862
+   NET_clipped    23.888     2.281    41.453
+   ASYM           26.632     0.834    47.603
+   persistence    33.475     0.426    60.340
+   NET hours predicted < 0: 0.430; > 1: 0.0000
+system  fold  units  mean_level_%  NET_minus_ASYM_x1e4  NETclip_minus_ASYM_x1e4
+S00001     2     34         0.027                1.073                    0.470
+S00006     2     52         0.033                0.881                    0.126
+S00008     1    140         0.070                1.095                    0.491
+S00009     3    140         0.072                0.561                    0.271
+S00011     1    117         0.022                0.571                    0.082
+S00023     3    140         1.426               -2.600                   -3.004
+S00034     1    140         3.178               -0.164                   -1.131
+S00037     4    140         4.282               34.267                   33.107
+S00040     1    140         0.170                2.660                    2.336
+S00042     5    140         0.160               10.656                    3.676
+S00046     4    140         3.992                6.040                    5.446
+S00047     5    140         3.731              -27.029                  -30.419
+S00052     2     59         0.080                1.096                    0.527
+S00053     4     15         0.064                0.362                    0.220
+S00054     3     96         0.031                1.282                    1.043
+   pooled NET-ASYM -1.102; leave-one-system-out range -2.419 .. +3.279 (dropping S00042 / S00047)
+   system-level Spearman(level, rd) -0.879; leave-one-system-out range -0.899 .. -0.859
+   p10 37135: per-seed-mean MSE NET 1.1600 ASYM 0.0122 ASYM_STATE 0.0130; seed-mean-curve MSE NET 0.2387 ASYM 0.0086; persistence 0.00272; rule threshold 2.495% predicted level -0.134% -> rule picks ASYM
+   p90 44009: per-seed-mean MSE NET 31.6627 ASYM 60.1409 ASYM_STATE 60.7686; seed-mean-curve MSE NET 28.8439 ASYM 60.0801; persistence 65.31220; rule threshold 2.495% predicted level 0.636% -> rule picks ASYM
+selection without fold condition:
+          level         w  fold
+system                        
+S00023  0.0143  677.8653     3
+S00047  0.0373  674.1126     5
+S00034  0.0318  665.0185     1
+S00046  0.0399  394.4192     4
+S00037  0.0428  160.8599     4
+level spread: 1st-99th pct 0.0004% .. 30.34%  (orders of magnitude 4.9); customers 1st-99th pct 2268 .. 852125 (orders 2.6)
