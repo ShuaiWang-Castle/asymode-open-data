@@ -15,6 +15,16 @@ single damage MLP. A learned impact state is not directly observed physical dama
 does not identify damage and recovery separately. Distinguish observed associations, structural assumptions
 and confirmed mechanisms in every future claim. See `notes/KERNEL_HIGH_DIM_DATA_MOTIVATION_20260928.md`.
 
+**PI clarification: allow general geographic combinations, not named mechanism recipes.** All available
+geographic coordinates must be eligible to interact through a learned joint conditional map. Examples such
+as terrain and vegetation explain the idea but must not define allowed pairs, required relationships,
+signs, semantic interaction masks or a fixed maximum interaction order. Semantic groups may organize
+reports, not exclude cross-group or within-group combinations from the candidate map. Preserve access to
+the full geographic vector rather than forcing every candidate through the old four-dimensional code.
+Finite capacity, regularization and observed support still limit what can be learned: representation access
+is not proof that all combinations exist, are identified or generalize. Numerical stability constraints
+remain appropriate. See `notes/KERNEL_JOINT_GEOGRAPHY_DYNAMIC_STATE_20260928.md` for the updated design.
+
 Current operating rules and completed D-stage evidence are in `aris/CYCLE.md`. The campaign findings
 below concern the older twelve-event panel; they are historical context, not established facts on current D.
 Global prediction error is not a gate for excluding county-level phenomena from exploratory analysis.

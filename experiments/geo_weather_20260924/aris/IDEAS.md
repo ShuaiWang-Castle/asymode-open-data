@@ -180,3 +180,20 @@ line-level exposure is observed in geo40. A more expressive county kernel cannot
 spatial structure. Mudslide/soil-failure mechanisms are physical analogies, not observed outage labels.
 No new fit, neural arm, NULL or data expansion was launched. See
 `notes/KERNEL_JOINT_GEOGRAPHY_DYNAMIC_STATE_20260928.md` for primary sources, feature semantics and nested tests.
+
+## PI correction: no predetermined geographic combinations (2026-09-28)
+
+Physical examples must not define a hand-picked interaction list. The default candidate is a dense joint
+map of the full geo40 vector, with full-vector access alongside the old code and a learned residual
+representation. No chosen variable pairs, semantic block masks, required main effects, predetermined
+signs or fixed second-order ceiling. Conditional residual heads may depend on available weather and
+prior latent state, with the existing numerical bounds retained. Semantic groups are for source checks
+and post-fit reporting, not restrictions on which coordinates may interact.
+
+This permits arbitrary attribute subsets to participate structurally; finite capacity, optimization and
+joint data support still limit representation and identification. Original GCRK already permits implicit
+high-order mixing, so the new hypothesis is broader joint conditional capacity beyond the sole four-code
+bottleneck, followed by separately testable weather/state conditioning. Distinguish nested added-capacity
+comparisons from budget-matched non-nested controls. The prior low-rank cross-block recipe is an optional
+representation comparison, not the default design. Updated durable instructions are in `program.md` and
+the joint-geography note. This clarification does not start a new fit or experiment queue.
