@@ -1,8 +1,13 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
-**D06 active, 2026-09-29:** PI requests verification and continuation of the external GPT audit.
-Execute only `notes/D06_HOST_RESPONSE_INTERFACE_SCOPE_20260929.md`: public-D reachability/oracle,
-FIT objective and frozen fold1 diagnostics. No new neural training; I18/I20 monitors stay paused.
+**D06 complete, 2026-09-29:** the external GPT audit was checked on real public D and frozen fold1.
+All 15 external probes passed. S oracle envelope error is only 0.8190%–0.8294% of host SSE
+(numerical lower/upper bracket), so the recovery cap is not a sufficient explanation for missed peaks.
+Fold1 CRK improves FIT S RMSE 44.03% but worsens OUTER S 0.455%; the kernel effect is substantial,
+its deposit is saturated and geographic basis terms are small relative to the raw-geography path.
+See `notes/D06_GPT_AUDIT_REAL_DATA_RESULTS_20260929_ZH.md`. The finite diagnostic scope is finished.
+No new model or scattering training is queued; I18/I20 monitors remain paused. Old queue instructions
+below are historical. The next proposed response-selectivity/Jacobian work needs its own scope.
 
 **I20 final state, 2026-09-29: I20 complete; the registered screen failed.** All five folds completed
 900 updates and automatic evaluation. Independent final audit passed 9,594 assertions: exact held-out

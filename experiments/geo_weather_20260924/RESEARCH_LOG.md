@@ -148,3 +148,5 @@ Note (2026-09-25 03:50 EDT): the times in the first column up to the row 'W1l' w
 | 09-29 | PI要求跨模型交接报告 | 汇总本批设计/创新要求、D01–D05数据证据、GCRK/I18背景、CRK公式与设计理由、I20负结果及GitHub固定版本 | 新报告区分用户要求、描述发现、机制假设和后续建议；42个固定源码/结果链接经Git对象存在性核对，公开仓库及结果文件匿名可访问。明确大型D面板与检查点未随GitHub发布，提供供GPT Pro/Claude独立审查的具体问题和交付要求 | 只新增文档，不启动训练、不恢复监控、不修改冻结设计或稿件；报告由PI自行转交 | notes/HANDOFF_REQUIREMENTS_EVIDENCE_KERNEL_20260929_ZH.md |
 
 | 09-29 | D06 | diagnostic registration | 外部 GPT 审查提出宿主恢复上限、小时平均观测接口、目标及隐层幅度限制；先验证真实 D 与冻结模型，范围已登记，结果未读取 | 探索性，不启动新训练 | 公共 D 可达性与响应链诊断 | notes/D06_HOST_RESPONSE_INTERFACE_SCOPE_20260929.md |
+
+| 09-29 | D06 | public D / frozen seed0 | 15 个外部合成探针通过；全 S cap oracle 误差仅为宿主 SSE 的 0.8190%–0.8294%，保留未闭合数值间隙；fold1 FIT S RMSE −44.03%，OUTER +0.455%；核 effect/h1 峰时中位数 70.49%，组合地理项弱、写入饱和 | 恢复 cap/整体核太小/尾部无损失权重都不足以单独解释；下一重点是响应选择性和跨事件泛化，未启动训练 | 外部审查已复核，保持监控暂停 | notes/D06_GPT_AUDIT_REAL_DATA_RESULTS_20260929_ZH.md; results/v1/d06_*.json |

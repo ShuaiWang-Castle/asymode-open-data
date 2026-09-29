@@ -237,3 +237,11 @@ the joint-geography note. This clarification does not start a new fit or experim
 ## D06：外部审查后的宿主响应链诊断（2026-09-29）
 
 PI 要求分析 GPT 审查并继续。先按 `notes/D06_HOST_RESPONSE_INTERFACE_SCOPE_20260929.md` 验证公共 D 上的宿主可达包络、完整 S 轨迹 oracle、FIT 目标权重和冻结 fold1 隐层工作点。外部合成例不当作 D 结果；scattering 暂为未训练候选。本轮不改冻结模型、不启动新 arm；监控保持暂停。
+
+## D06 完成：可达性不是充分解释，响应选择性成为下一诊断重点（2026-09-29）
+
+外部 15 项探针复现通过；真实 D 下界违反设计权小时比例 8.820%，但全部 726 个 S 的合法速率 oracle SSE 只占宿主 SSE 的 0.8190%–0.8294%（数值证书区间，非 CI）。因此恢复 cap 存在失配，不能充分解释严重漏峰。
+
+冻结 fold1 回放与导出最大差 1.49e-8。CRK 相对宿主 FIT S RMSE 降 44.03%，OUTER S 反而升 0.455%；OUTER 总体升 4.52%。核 effect/h1 在 OUTER S 峰时中位数 70.49%，写入接近单位范数且大量 tanh 坐标饱和，不能说整核太弱。真实组合基函数控制项仅约原地理项 0.5%–1.5%，但中心化有效秩 13.87–17.43，没有一维坍塌证据。S 仍占 89.10%–93.42% 的 FIT 归一化零预测损失。五折 non-S 假峰交集为共同 3、仅宿主 1、仅 CRK 130。
+
+优先进一步区分局部导数/时序选择性和跨事件泛化；维持全地理组合空间。scattering 能量恒等式成立但点态界不同，本轮不集成、不训练、不自动新增 arm/seed/NULL。I18/I20 监控保持暂停。完整报告：`notes/D06_GPT_AUDIT_REAL_DATA_RESULTS_20260929_ZH.md`。

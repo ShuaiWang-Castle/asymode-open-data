@@ -1,0 +1,8421 @@
+{
+ "scope_commit": "5fa930e",
+ "exploratory": true,
+ "data_sha256": "f043bb39e8abd48183670e2acc3c0cecebd7107ea9be0e28771912cfee358c48",
+ "source_sha256": {
+  "experiments/geo_weather_20260924/audit_d06_response.py": "1ed598b47b31e38f0ef2e6bb125e2a798a3ffa024daf205918970313f9c5e708"
+ },
+ "external_archive": {
+  "archive_sha256": "4b3437f34034eab1610135908615d881ac10285f06bd70cd891dacb874897882",
+  "files": {
+   "STATUS.json": "522b825bdc8e832e2d17c819443ac49c9528209cc68df5e69d2e5c984eee9060",
+   "REPORT_zh.md": "adb725dc2db3a43ab943b397b007755cb2e67612bda9b710d2f5b8e140c27c3e",
+   "code/scattering_adapter.py": "453c4bfec52a0cc2b7bad3401984f63171510b9f2d1b0f252186c97345e5d246",
+   "code/mechanism_probes.py": "e92d9f87493c3ed38b40b97e72cd5560038add0a3b50855f1657aa7550279e18",
+   "code/audit_public_D.py": "741750e5f5e5f29156b86d90bb17c9eb2218ed550ee7f2a33d491f9a2dfb1efe",
+   "evidence/SOURCE_INDEX.json": "760192f320544c02c1918a8ca78f020b25113e80a407d24e8c8af34e1f7caf36",
+   "evidence/PROBE_RESULTS.json": "f2b130213d77a3a2a670cdcaaba5e42b63d6946a7fb0ec4c64d24d7b302fd535"
+  }
+ },
+ "external_replay": {
+  "test_count": 15,
+  "all_passed": true,
+  "sha256": "89d62b03925076c58ee209060bf7c271a493d555814602355ae934221d571a78"
+ },
+ "own_synthetic_tests": {
+  "spike_projection": true,
+  "cap_sensitivity": true,
+  "missing_bridge": true,
+  "initial_upper": true
+ },
+ "recurrence_max_errors": {
+  "v1_host_s0": [
+   7.31439314671789e-09,
+   9.939278788895223e-09,
+   5.0643332444311184e-09,
+   4.331695357961962e-08,
+   2.6916050110958878e-08
+  ],
+  "v1_crk_s0": [
+   5.33955271109221e-08,
+   4.041904233531568e-08,
+   5.7349713422638615e-08,
+   6.264355434382196e-08,
+   5.1122079014476185e-08
+  ]
+ },
+ "host_receipts": {
+  "1": {
+   "metadata": {
+    "label": "v1_host_s0",
+    "arm": "W+Cin",
+    "data": "v1D",
+    "design": "event",
+    "design_weights": true,
+    "fold": 1,
+    "seed": 0,
+    "steps": 900
+   },
+   "outer_sha256": "2fb9af9135d79582c4299c8a730156d2658d032a994ef681073340934be9b12f",
+   "done_sha256": "d4298b7157c7ee586f5e76b3ad7ec5f4e87d2a019e036a4eb201141a8231b2a3"
+  },
+  "2": {
+   "metadata": {
+    "label": "v1_host_s0",
+    "arm": "W+Cin",
+    "data": "v1D",
+    "design": "event",
+    "design_weights": true,
+    "fold": 2,
+    "seed": 0,
+    "steps": 900
+   },
+   "outer_sha256": "1017720d2e5c26c7e4674c4bf2c956d89e229fe66cadaf996b8594e2677298aa",
+   "done_sha256": "f812489b8913e0256e286621ed281011c2bfd558ec5394d2c345f2c4d007421d"
+  },
+  "3": {
+   "metadata": {
+    "label": "v1_host_s0",
+    "arm": "W+Cin",
+    "data": "v1D",
+    "design": "event",
+    "design_weights": true,
+    "fold": 3,
+    "seed": 0,
+    "steps": 900
+   },
+   "outer_sha256": "123248e11d79cb81ec51367bb969fdda86b9441d865fc24eddceee1d05dd7360",
+   "done_sha256": "29a541cd95a326db8bcd1a6a321d206aff24533fbd7669d44e21d2331fe04b79"
+  },
+  "4": {
+   "metadata": {
+    "label": "v1_host_s0",
+    "arm": "W+Cin",
+    "data": "v1D",
+    "design": "event",
+    "design_weights": true,
+    "fold": 4,
+    "seed": 0,
+    "steps": 900
+   },
+   "outer_sha256": "f0b44d1d928762a575788cf9e5bdf98b75c59eb68f468d92357452c5e7185b64",
+   "done_sha256": "ceb2ee3fd389ddb66f3f59bde7f97cc44e8bde1b985ecf3d0021d0425f5fe896"
+  },
+  "5": {
+   "metadata": {
+    "label": "v1_host_s0",
+    "arm": "W+Cin",
+    "data": "v1D",
+    "design": "event",
+    "design_weights": true,
+    "fold": 5,
+    "seed": 0,
+    "steps": 900
+   },
+   "outer_sha256": "4a87acf498284e4afe44978293259014e6424ff39541692a5770f917277b947a",
+   "done_sha256": "5cae92f79071ed31104fb8da7942ddb94da1320d9fa3d6ad8aa1db83eff2c903"
+  }
+ },
+ "crk_receipts": {
+  "1": {
+   "metadata": {
+    "label": "v1_crk_s0",
+    "arm": "CRK+Cin",
+    "data": "v1D",
+    "design": "event",
+    "design_weights": true,
+    "fold": 1,
+    "seed": 0,
+    "steps": 900
+   },
+   "outer_sha256": "25725fca3b4e92bfd79eff69d286ecce9ddeeb32ff97ed560aecbebbd042ab20",
+   "done_sha256": "2d62212b28038be36b55c496d72bc2d4a5f33562b6be7d321c4826c3bef08819"
+  },
+  "2": {
+   "metadata": {
+    "label": "v1_crk_s0",
+    "arm": "CRK+Cin",
+    "data": "v1D",
+    "design": "event",
+    "design_weights": true,
+    "fold": 2,
+    "seed": 0,
+    "steps": 900
+   },
+   "outer_sha256": "8960f13569bf094bc898ca2c42836b71dc082d7e05a052f4bcadcb822c11faae",
+   "done_sha256": "2e0328ec08eacb8ae75a5cffad7a16fd664612b8090da19fa3fe5963483fd0bf"
+  },
+  "3": {
+   "metadata": {
+    "label": "v1_crk_s0",
+    "arm": "CRK+Cin",
+    "data": "v1D",
+    "design": "event",
+    "design_weights": true,
+    "fold": 3,
+    "seed": 0,
+    "steps": 900
+   },
+   "outer_sha256": "9ab60b94fb5b53c52c4b5829e4a33f5eb6bd2fbfd5cb169b5942e9acfdf7e850",
+   "done_sha256": "8118022e8c8e58ff723fb02edfa56bc2b9dd3559e2efe93ef927e5195ec7c0e3"
+  },
+  "4": {
+   "metadata": {
+    "label": "v1_crk_s0",
+    "arm": "CRK+Cin",
+    "data": "v1D",
+    "design": "event",
+    "design_weights": true,
+    "fold": 4,
+    "seed": 0,
+    "steps": 900
+   },
+   "outer_sha256": "20ac1a6d5ac9ddca95fe6f708bc432c9e479629353519edcc54feb82e4a61c4f",
+   "done_sha256": "0c869bbd8383088f5d96199e06a980824a35d9702c8d373a603b7387c8b57cf3"
+  },
+  "5": {
+   "metadata": {
+    "label": "v1_crk_s0",
+    "arm": "CRK+Cin",
+    "data": "v1D",
+    "design": "event",
+    "design_weights": true,
+    "fold": 5,
+    "seed": 0,
+    "steps": 900
+   },
+   "outer_sha256": "4fae231a831239eb4e453c795df416c518b57634ef893e8da58589b2f83d8abb",
+   "done_sha256": "7fb4a712842769a66b3d5ec97b8d1ab5bf031e40dd96e228e4ddc44a0854af83"
+  }
+ },
+ "frozen_source_hashes": {
+  "src/asymode/controlled_relaxation.py": "d5d78026d3a36939a2b0ab4b3e5938bcf21a4ed99134cd38fce184d4f3c1d008",
+  "src/asymode/controlled_relaxation_scan.py": "cd03740f32795222b80e52f501f8241c2b6226280bf5ee210b2f66c750469f6a",
+  "src/asymode/gcrk.py": "0e53353139deba00054a8999471b49a8f531d0f6f48c6e18568e8e6ceeeb45d0",
+  "src/asymode/gcrk_train.py": "296c0ac4bc3ab85bd45849209b11a1944201e9155d0fa82d65053788e0fff457",
+  "src/asymode/asym_host.py": "f5ec91c6e0fd04f29c9c88e01fa3cd2f2cb3ed2de0802a4400876c45861223e0",
+  "experiments/geo_weather_20260924/screen.py": "a74e0ed8fd8cd25fc85f51d39065555181f512ea8f80a78f9f68b1ff52609663",
+  "experiments/geo_weather_20260924/run_cr_screen.py": "7efed6ed16b7eb76371f6f43caadb02bf8f35b3caff8e7a7c7ab0389fac62c9b",
+  "experiments/geo_weather_20260924/preflight_cr_training.py": "b22f495d6b98becfed8eab1eeadc333f57c5d009a746d15c5019b491365cc770",
+  "experiments/geo_weather_20260924/evaluate_cr_tail.py": "cebd3e4bfc779974322bf4345208a8c8cbfc31cafd4c0314d5106d8fe346fc53",
+  "experiments/geo_weather_20260924/evaluate_v1.py": "a68976c9929ae5758be33d9733fc5192c3d3d6e8a898060cd7ef6c90c63711db",
+  "experiments/geo_weather_20260924/d04_data.py": "ee2fe0c2cd25443ae2015cf166cfa24dd5e0a58f77bcd1aca394b54a9515b648",
+  "experiments/geo_weather_20260924/splits_v1D.json": "6b470b22ea4b6dee9ac965b66ac9e15476445589a803efa7b50da400703d535f",
+  "experiments/geo_weather_20260924/notes/KERNEL_CONTROLLED_RELAXATION_DESIGN_20260928.md": "7f5a7b32c9d04a76312730056a949ed54d2fd3f875467a22eab08d2babf0d7a3",
+  "experiments/geo_weather_20260924/notes/I20_CONTROLLED_RESPONSE_SCREEN_20260928.md": "95ab8b87c6259b3d4c6667db694baefaa0de6af8203cf75e6227404f6f52530a"
+ },
+ "frozen_crk_artifacts": {
+  "1": {
+   "outer.npz": "25725fca3b4e92bfd79eff69d286ecce9ddeeb32ff97ed560aecbebbd042ab20",
+   "final.pt": "1cef9fe586f37b06a480f8d804e6dda37d4de7cd4da35f1aed1d662e8784d056",
+   "DONE.json": "2d62212b28038be36b55c496d72bc2d4a5f33562b6be7d321c4826c3bef08819"
+  },
+  "2": {
+   "outer.npz": "8960f13569bf094bc898ca2c42836b71dc082d7e05a052f4bcadcb822c11faae",
+   "final.pt": "c3424a8f73c3d6e33df7bc409fdcd852ca349759a5126dd5bcba494c6d0895b4",
+   "DONE.json": "2e0328ec08eacb8ae75a5cffad7a16fd664612b8090da19fa3fe5963483fd0bf"
+  },
+  "3": {
+   "outer.npz": "9ab60b94fb5b53c52c4b5829e4a33f5eb6bd2fbfd5cb169b5942e9acfdf7e850",
+   "final.pt": "93e4daa9b647566df627bf5df657884bbc60ced4e520092c77cb09620862a3f8",
+   "DONE.json": "8118022e8c8e58ff723fb02edfa56bc2b9dd3559e2efe93ef927e5195ec7c0e3"
+  },
+  "4": {
+   "outer.npz": "20ac1a6d5ac9ddca95fe6f708bc432c9e479629353519edcc54feb82e4a61c4f",
+   "final.pt": "e9e745a1532f4fbf141101da07cd8c72569554315c027932b0660604e45161fa",
+   "DONE.json": "0c869bbd8383088f5d96199e06a980824a35d9702c8d373a603b7387c8b57cf3"
+  },
+  "5": {
+   "outer.npz": "4fae231a831239eb4e453c795df416c518b57634ef893e8da58589b2f83d8abb",
+   "final.pt": "46e2bf997bc3f1cc697107eade55ae585cf495bfc4d7db0ed42419475f3899fd",
+   "DONE.json": "7fb4a712842769a66b3d5ec97b8d1ab5bf031e40dd96e228e4ddc44a0854af83"
+  }
+ },
+ "violations": [
+  {
+   "cohort": "all",
+   "stratum": "all",
+   "n": 8457,
+   "pairs": 1213761,
+   "lower_1e-07": {
+    "pairs": 110744,
+    "units": 8163,
+    "weighted_pair_rate": 0.08820409008556053,
+    "weighted_unit_rate": 0.970367240064381
+   },
+   "lower_0.01": {
+    "pairs": 1367,
+    "units": 1066,
+    "weighted_pair_rate": 0.0008119274379415741,
+    "weighted_unit_rate": 0.09451418397352852
+   },
+   "upper_1e-07": {
+    "pairs": 47,
+    "units": 27,
+    "weighted_pair_rate": 3.68416527633996e-06,
+    "weighted_unit_rate": 0.00029257104432818055
+   },
+   "upper_0.01": {
+    "pairs": 41,
+    "units": 26,
+    "weighted_pair_rate": 3.0946026821171618e-06,
+    "weighted_unit_rate": 0.00028422689193402897
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "regime/tropical",
+   "n": 1633,
+   "pairs": 234836,
+   "lower_1e-07": {
+    "pairs": 25446,
+    "units": 1599,
+    "weighted_pair_rate": 0.10525981995147189,
+    "weighted_unit_rate": 0.9829434129506641
+   },
+   "lower_0.01": {
+    "pairs": 287,
+    "units": 225,
+    "weighted_pair_rate": 0.0012835129412778338,
+    "weighted_unit_rate": 0.15114489793887395
+   },
+   "upper_1e-07": {
+    "pairs": 18,
+    "units": 11,
+    "weighted_pair_rate": 7.038417764230303e-05,
+    "weighted_unit_rate": 0.005766974705194566
+   },
+   "upper_0.01": {
+    "pairs": 16,
+    "units": 11,
+    "weighted_pair_rate": 6.740163534244903e-05,
+    "weighted_unit_rate": 0.005766974705194566
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "regime/winter",
+   "n": 1899,
+   "pairs": 273203,
+   "lower_1e-07": {
+    "pairs": 20948,
+    "units": 1798,
+    "weighted_pair_rate": 0.0805863050648469,
+    "weighted_unit_rate": 0.9557443791757286
+   },
+   "lower_0.01": {
+    "pairs": 269,
+    "units": 204,
+    "weighted_pair_rate": 0.0007108230012452179,
+    "weighted_unit_rate": 0.08602259293377765
+   },
+   "upper_1e-07": {
+    "pairs": 16,
+    "units": 10,
+    "weighted_pair_rate": 2.0903176062771292e-05,
+    "weighted_unit_rate": 0.0015727475888073755
+   },
+   "upper_0.01": {
+    "pairs": 12,
+    "units": 9,
+    "weighted_pair_rate": 1.4834148791029254e-05,
+    "weighted_unit_rate": 0.001483700907628946
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "regime/synoptic_wind",
+   "n": 1824,
+   "pairs": 261707,
+   "lower_1e-07": {
+    "pairs": 20439,
+    "units": 1722,
+    "weighted_pair_rate": 0.08396967478922487,
+    "weighted_unit_rate": 0.9440906518568677
+   },
+   "lower_0.01": {
+    "pairs": 386,
+    "units": 293,
+    "weighted_pair_rate": 0.0011541825954320326,
+    "weighted_unit_rate": 0.13403721095971174
+   },
+   "upper_1e-07": {
+    "pairs": 5,
+    "units": 4,
+    "weighted_pair_rate": 1.1611041856616214e-05,
+    "weighted_unit_rate": 0.0015795449813927195
+   },
+   "upper_0.01": {
+    "pairs": 5,
+    "units": 4,
+    "weighted_pair_rate": 1.1611041856616214e-05,
+    "weighted_unit_rate": 0.0015795449813927195
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "regime/convective",
+   "n": 1727,
+   "pairs": 247793,
+   "lower_1e-07": {
+    "pairs": 23699,
+    "units": 1696,
+    "weighted_pair_rate": 0.08519203219170939,
+    "weighted_unit_rate": 0.9714767155537445
+   },
+   "lower_0.01": {
+    "pairs": 222,
+    "units": 182,
+    "weighted_pair_rate": 0.0008078398156537643,
+    "weighted_unit_rate": 0.09250595833154478
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 7.640213891464641e-07,
+    "weighted_unit_rate": 5.4757149169611706e-05
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 7.640213891464641e-07,
+    "weighted_unit_rate": 5.4757149169611706e-05
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "regime/heavy_rain",
+   "n": 1374,
+   "pairs": 196222,
+   "lower_1e-07": {
+    "pairs": 20212,
+    "units": 1348,
+    "weighted_pair_rate": 0.11285188016876571,
+    "weighted_unit_rate": 0.9826824022352271
+   },
+   "lower_0.01": {
+    "pairs": 203,
+    "units": 162,
+    "weighted_pair_rate": 0.0007795014900100855,
+    "weighted_unit_rate": 0.09755899374177436
+   },
+   "upper_1e-07": {
+    "pairs": 6,
+    "units": 1,
+    "weighted_pair_rate": 2.0277028617430603e-06,
+    "weighted_unit_rate": 4.847596552194287e-05
+   },
+   "upper_0.01": {
+    "pairs": 6,
+    "units": 1,
+    "weighted_pair_rate": 2.0277028617430603e-06,
+    "weighted_unit_rate": 4.847596552194287e-05
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "fold/1",
+   "n": 2107,
+   "pairs": 301890,
+   "lower_1e-07": {
+    "pairs": 30144,
+    "units": 2066,
+    "weighted_pair_rate": 0.097923974761181,
+    "weighted_unit_rate": 0.9939245876416191
+   },
+   "lower_0.01": {
+    "pairs": 337,
+    "units": 277,
+    "weighted_pair_rate": 0.0008144678287384027,
+    "weighted_unit_rate": 0.11028501182311869
+   },
+   "upper_1e-07": {
+    "pairs": 7,
+    "units": 5,
+    "weighted_pair_rate": 1.2163954329618767e-06,
+    "weighted_unit_rate": 0.0001499930789997673
+   },
+   "upper_0.01": {
+    "pairs": 6,
+    "units": 4,
+    "weighted_pair_rate": 1.0127709433790564e-06,
+    "weighted_unit_rate": 0.00012072047542355061
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "fold/2",
+   "n": 2100,
+   "pairs": 301392,
+   "lower_1e-07": {
+    "pairs": 25911,
+    "units": 2023,
+    "weighted_pair_rate": 0.07918341248361799,
+    "weighted_unit_rate": 0.9733385501628857
+   },
+   "lower_0.01": {
+    "pairs": 337,
+    "units": 264,
+    "weighted_pair_rate": 0.0007027003374814952,
+    "weighted_unit_rate": 0.08108357358980275
+   },
+   "upper_1e-07": {
+    "pairs": 5,
+    "units": 3,
+    "weighted_pair_rate": 3.0271896049233824e-06,
+    "weighted_unit_rate": 0.00023882942249827112
+   },
+   "upper_0.01": {
+    "pairs": 5,
+    "units": 3,
+    "weighted_pair_rate": 3.0271896049233824e-06,
+    "weighted_unit_rate": 0.00023882942249827112
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "fold/3",
+   "n": 1769,
+   "pairs": 253394,
+   "lower_1e-07": {
+    "pairs": 23548,
+    "units": 1714,
+    "weighted_pair_rate": 0.08962404497215164,
+    "weighted_unit_rate": 0.9549840887912103
+   },
+   "lower_0.01": {
+    "pairs": 277,
+    "units": 210,
+    "weighted_pair_rate": 0.0005720139967091884,
+    "weighted_unit_rate": 0.06788237177652927
+   },
+   "upper_1e-07": {
+    "pairs": 14,
+    "units": 8,
+    "weighted_pair_rate": 5.739936623288844e-06,
+    "weighted_unit_rate": 0.0005892641717876762
+   },
+   "upper_0.01": {
+    "pairs": 14,
+    "units": 8,
+    "weighted_pair_rate": 5.739936623288844e-06,
+    "weighted_unit_rate": 0.0005892641717876762
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "fold/4",
+   "n": 1136,
+   "pairs": 163564,
+   "lower_1e-07": {
+    "pairs": 14036,
+    "units": 1082,
+    "weighted_pair_rate": 0.07407078381945037,
+    "weighted_unit_rate": 0.9306801150947682
+   },
+   "lower_0.01": {
+    "pairs": 175,
+    "units": 135,
+    "weighted_pair_rate": 0.0012027814819311022,
+    "weighted_unit_rate": 0.12854640253648994
+   },
+   "upper_1e-07": {
+    "pairs": 9,
+    "units": 5,
+    "weighted_pair_rate": 1.7050979365878522e-06,
+    "weighted_unit_rate": 0.0002132887525382365
+   },
+   "upper_0.01": {
+    "pairs": 7,
+    "units": 5,
+    "weighted_pair_rate": 1.5931384947907986e-06,
+    "weighted_unit_rate": 0.0002132887525382365
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "fold/5",
+   "n": 1345,
+   "pairs": 193521,
+   "lower_1e-07": {
+    "pairs": 17105,
+    "units": 1278,
+    "weighted_pair_rate": 0.09358085682167248,
+    "weighted_unit_rate": 0.9780339997630482
+   },
+   "lower_0.01": {
+    "pairs": 241,
+    "units": 180,
+    "weighted_pair_rate": 0.0007484641907821978,
+    "weighted_unit_rate": 0.07565889289039011
+   },
+   "upper_1e-07": {
+    "pairs": 12,
+    "units": 6,
+    "weighted_pair_rate": 7.79878356303849e-06,
+    "weighted_unit_rate": 0.00040041685016250806
+   },
+   "upper_0.01": {
+    "pairs": 9,
+    "units": 6,
+    "weighted_pair_rate": 5.406871209705703e-06,
+    "weighted_unit_rate": 0.00040041685016250806
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00001",
+   "n": 34,
+   "pairs": 4896,
+   "lower_1e-07": {
+    "pairs": 884,
+    "units": 34,
+    "weighted_pair_rate": 0.18055555555555555,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.0002042483660130719,
+    "weighted_unit_rate": 0.029411764705882353
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00006",
+   "n": 52,
+   "pairs": 7482,
+   "lower_1e-07": {
+    "pairs": 1253,
+    "units": 51,
+    "weighted_pair_rate": 0.16746859128575248,
+    "weighted_unit_rate": 0.9807692307692307
+   },
+   "lower_0.01": {
+    "pairs": 5,
+    "units": 4,
+    "weighted_pair_rate": 0.0006682705159048383,
+    "weighted_unit_rate": 0.07692307692307693
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00008",
+   "n": 257,
+   "pairs": 36949,
+   "lower_1e-07": {
+    "pairs": 4081,
+    "units": 253,
+    "weighted_pair_rate": 0.1061640322982095,
+    "weighted_unit_rate": 0.9943357436199417
+   },
+   "lower_0.01": {
+    "pairs": 27,
+    "units": 23,
+    "weighted_pair_rate": 0.001021801634311433,
+    "weighted_unit_rate": 0.14169516755227576
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00009",
+   "n": 140,
+   "pairs": 20160,
+   "lower_1e-07": {
+    "pairs": 2523,
+    "units": 137,
+    "weighted_pair_rate": 0.11908387839122958,
+    "weighted_unit_rate": 0.9659176516162613
+   },
+   "lower_0.01": {
+    "pairs": 15,
+    "units": 15,
+    "weighted_pair_rate": 0.0007367838289561544,
+    "weighted_unit_rate": 0.10609687136968624
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00023",
+   "n": 140,
+   "pairs": 20160,
+   "lower_1e-07": {
+    "pairs": 2377,
+    "units": 139,
+    "weighted_pair_rate": 0.11871235644643895,
+    "weighted_unit_rate": 0.9967192006302952
+   },
+   "lower_0.01": {
+    "pairs": 21,
+    "units": 19,
+    "weighted_pair_rate": 0.0009183906995088452,
+    "weighted_unit_rate": 0.11946334302312625
+   },
+   "upper_1e-07": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 2.685031252720122e-05,
+    "weighted_unit_rate": 0.0038664450039169757
+   },
+   "upper_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 2.685031252720122e-05,
+    "weighted_unit_rate": 0.0038664450039169757
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00034",
+   "n": 140,
+   "pairs": 19931,
+   "lower_1e-07": {
+    "pairs": 1907,
+    "units": 135,
+    "weighted_pair_rate": 0.10314657567791259,
+    "weighted_unit_rate": 0.9686217565969699
+   },
+   "lower_0.01": {
+    "pairs": 30,
+    "units": 21,
+    "weighted_pair_rate": 0.001410098976395518,
+    "weighted_unit_rate": 0.13696792789362244
+   },
+   "upper_1e-07": {
+    "pairs": 4,
+    "units": 2,
+    "weighted_pair_rate": 0.0001088337508193907,
+    "weighted_unit_rate": 0.007804703215578503
+   },
+   "upper_0.01": {
+    "pairs": 4,
+    "units": 2,
+    "weighted_pair_rate": 0.0001088337508193907,
+    "weighted_unit_rate": 0.007804703215578503
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00037",
+   "n": 140,
+   "pairs": 20160,
+   "lower_1e-07": {
+    "pairs": 1396,
+    "units": 132,
+    "weighted_pair_rate": 0.0666950196893311,
+    "weighted_unit_rate": 0.936808589533468
+   },
+   "lower_0.01": {
+    "pairs": 32,
+    "units": 21,
+    "weighted_pair_rate": 0.001484441632738009,
+    "weighted_unit_rate": 0.1453771218225012
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00040",
+   "n": 140,
+   "pairs": 20160,
+   "lower_1e-07": {
+    "pairs": 2404,
+    "units": 139,
+    "weighted_pair_rate": 0.1092382767610661,
+    "weighted_unit_rate": 0.9797741547738548
+   },
+   "lower_0.01": {
+    "pairs": 39,
+    "units": 27,
+    "weighted_pair_rate": 0.0014102233951678415,
+    "weighted_unit_rate": 0.1454992820232138
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00042",
+   "n": 140,
+   "pairs": 20160,
+   "lower_1e-07": {
+    "pairs": 2104,
+    "units": 138,
+    "weighted_pair_rate": 0.09933784425296482,
+    "weighted_unit_rate": 0.9957391788532248
+   },
+   "lower_0.01": {
+    "pairs": 25,
+    "units": 20,
+    "weighted_pair_rate": 0.0007416197508631736,
+    "weighted_unit_rate": 0.09614119125735902
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00046",
+   "n": 140,
+   "pairs": 20140,
+   "lower_1e-07": {
+    "pairs": 1804,
+    "units": 137,
+    "weighted_pair_rate": 0.09377335474355808,
+    "weighted_unit_rate": 0.992393879629666
+   },
+   "lower_0.01": {
+    "pairs": 30,
+    "units": 24,
+    "weighted_pair_rate": 0.0016104596359791138,
+    "weighted_unit_rate": 0.19997820794702698
+   },
+   "upper_1e-07": {
+    "pairs": 8,
+    "units": 4,
+    "weighted_pair_rate": 0.00014106857180389321,
+    "weighted_unit_rate": 0.010141493827112009
+   },
+   "upper_0.01": {
+    "pairs": 6,
+    "units": 4,
+    "weighted_pair_rate": 0.0001058014288529199,
+    "weighted_unit_rate": 0.010141493827112009
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00047",
+   "n": 140,
+   "pairs": 20158,
+   "lower_1e-07": {
+    "pairs": 1734,
+    "units": 134,
+    "weighted_pair_rate": 0.09258639517148462,
+    "weighted_unit_rate": 0.9700732552586446
+   },
+   "lower_0.01": {
+    "pairs": 30,
+    "units": 24,
+    "weighted_pair_rate": 0.0022226359751149134,
+    "weighted_unit_rate": 0.25120033578724393
+   },
+   "upper_1e-07": {
+    "pairs": 5,
+    "units": 4,
+    "weighted_pair_rate": 0.0002702953198193197,
+    "weighted_unit_rate": 0.02237293249292845
+   },
+   "upper_0.01": {
+    "pairs": 5,
+    "units": 4,
+    "weighted_pair_rate": 0.0002702953198193197,
+    "weighted_unit_rate": 0.02237293249292845
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00052",
+   "n": 59,
+   "pairs": 8496,
+   "lower_1e-07": {
+    "pairs": 1099,
+    "units": 59,
+    "weighted_pair_rate": 0.12935499058380415,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 17,
+    "units": 15,
+    "weighted_pair_rate": 0.0020009416195856874,
+    "weighted_unit_rate": 0.2542372881355932
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00053",
+   "n": 15,
+   "pairs": 2160,
+   "lower_1e-07": {
+    "pairs": 226,
+    "units": 15,
+    "weighted_pair_rate": 0.10462962962962963,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 5,
+    "units": 3,
+    "weighted_pair_rate": 0.0023148148148148147,
+    "weighted_unit_rate": 0.2
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00054",
+   "n": 96,
+   "pairs": 13824,
+   "lower_1e-07": {
+    "pairs": 1654,
+    "units": 96,
+    "weighted_pair_rate": 0.11964699074074074,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 10,
+    "units": 8,
+    "weighted_pair_rate": 0.0007233796296296296,
+    "weighted_unit_rate": 0.08333333333333333
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00058",
+   "n": 140,
+   "pairs": 20160,
+   "lower_1e-07": {
+    "pairs": 1315,
+    "units": 130,
+    "weighted_pair_rate": 0.06608813374230962,
+    "weighted_unit_rate": 0.9263831331046136
+   },
+   "lower_0.01": {
+    "pairs": 60,
+    "units": 37,
+    "weighted_pair_rate": 0.0028172032844947614,
+    "weighted_unit_rate": 0.24992862860232545
+   },
+   "upper_1e-07": {
+    "pairs": 3,
+    "units": 3,
+    "weighted_pair_rate": 0.00012870370441329528,
+    "weighted_unit_rate": 0.01853333343551452
+   },
+   "upper_0.01": {
+    "pairs": 3,
+    "units": 3,
+    "weighted_pair_rate": 0.00012870370441329528,
+    "weighted_unit_rate": 0.01853333343551452
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00234",
+   "n": 49,
+   "pairs": 7056,
+   "lower_1e-07": {
+    "pairs": 437,
+    "units": 44,
+    "weighted_pair_rate": 0.061933106575963716,
+    "weighted_unit_rate": 0.8979591836734694
+   },
+   "lower_0.01": {
+    "pairs": 13,
+    "units": 9,
+    "weighted_pair_rate": 0.0018424036281179139,
+    "weighted_unit_rate": 0.1836734693877551
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00334",
+   "n": 10,
+   "pairs": 1440,
+   "lower_1e-07": {
+    "pairs": 128,
+    "units": 10,
+    "weighted_pair_rate": 0.08888888888888889,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 3,
+    "units": 3,
+    "weighted_pair_rate": 0.0020833333333333333,
+    "weighted_unit_rate": 0.3
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00336",
+   "n": 95,
+   "pairs": 13680,
+   "lower_1e-07": {
+    "pairs": 776,
+    "units": 84,
+    "weighted_pair_rate": 0.05672514619883041,
+    "weighted_unit_rate": 0.8842105263157894
+   },
+   "lower_0.01": {
+    "pairs": 15,
+    "units": 12,
+    "weighted_pair_rate": 0.0010964912280701754,
+    "weighted_unit_rate": 0.12631578947368421
+   },
+   "upper_1e-07": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 7.309941520467836e-05,
+    "weighted_unit_rate": 0.010526315789473684
+   },
+   "upper_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 7.309941520467836e-05,
+    "weighted_unit_rate": 0.010526315789473684
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00341",
+   "n": 140,
+   "pairs": 20160,
+   "lower_1e-07": {
+    "pairs": 1025,
+    "units": 124,
+    "weighted_pair_rate": 0.04662218270621598,
+    "weighted_unit_rate": 0.8643385466095744
+   },
+   "lower_0.01": {
+    "pairs": 16,
+    "units": 14,
+    "weighted_pair_rate": 0.00038265575501665393,
+    "weighted_unit_rate": 0.04955067417780523
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00348",
+   "n": 420,
+   "pairs": 60480,
+   "lower_1e-07": {
+    "pairs": 3448,
+    "units": 396,
+    "weighted_pair_rate": 0.057724715575705396,
+    "weighted_unit_rate": 0.9657122349363475
+   },
+   "lower_0.01": {
+    "pairs": 83,
+    "units": 63,
+    "weighted_pair_rate": 0.00042391087506646053,
+    "weighted_unit_rate": 0.05674549218933985
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 4.033507501061782e-06,
+    "weighted_unit_rate": 0.0005808250801528966
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 4.033507501061782e-06,
+    "weighted_unit_rate": 0.0005808250801528966
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00352",
+   "n": 389,
+   "pairs": 55832,
+   "lower_1e-07": {
+    "pairs": 4010,
+    "units": 372,
+    "weighted_pair_rate": 0.07233268571161879,
+    "weighted_unit_rate": 0.9472886537127541
+   },
+   "lower_0.01": {
+    "pairs": 70,
+    "units": 53,
+    "weighted_pair_rate": 0.0007920351290164786,
+    "weighted_unit_rate": 0.09862549018730678
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00387",
+   "n": 140,
+   "pairs": 20160,
+   "lower_1e-07": {
+    "pairs": 1025,
+    "units": 121,
+    "weighted_pair_rate": 0.0516653078626021,
+    "weighted_unit_rate": 0.9079403916742256
+   },
+   "lower_0.01": {
+    "pairs": 23,
+    "units": 20,
+    "weighted_pair_rate": 0.0012457844198390305,
+    "weighted_unit_rate": 0.1485240185994214
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00438",
+   "n": 216,
+   "pairs": 31104,
+   "lower_1e-07": {
+    "pairs": 2202,
+    "units": 197,
+    "weighted_pair_rate": 0.07034442867537259,
+    "weighted_unit_rate": 0.8958529003134986
+   },
+   "lower_0.01": {
+    "pairs": 53,
+    "units": 40,
+    "weighted_pair_rate": 0.0013412933355358943,
+    "weighted_unit_rate": 0.14660016115032254
+   },
+   "upper_1e-07": {
+    "pairs": 3,
+    "units": 1,
+    "weighted_pair_rate": 0.00011241376897573416,
+    "weighted_unit_rate": 0.005395860910835239
+   },
+   "upper_0.01": {
+    "pairs": 3,
+    "units": 1,
+    "weighted_pair_rate": 0.00011241376897573416,
+    "weighted_unit_rate": 0.005395860910835239
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00460",
+   "n": 356,
+   "pairs": 51264,
+   "lower_1e-07": {
+    "pairs": 4281,
+    "units": 339,
+    "weighted_pair_rate": 0.06887130159996994,
+    "weighted_unit_rate": 0.9013203492490928
+   },
+   "lower_0.01": {
+    "pairs": 35,
+    "units": 29,
+    "weighted_pair_rate": 0.0005125007082942528,
+    "weighted_unit_rate": 0.06425056592214197
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 1.1911586492170001e-05,
+    "weighted_unit_rate": 0.0017152684548724802
+   },
+   "upper_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 5.391327764301303e-06,
+    "weighted_unit_rate": 0.0007763511980593877
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S00799",
+   "n": 140,
+   "pairs": 20125,
+   "lower_1e-07": {
+    "pairs": 922,
+    "units": 124,
+    "weighted_pair_rate": 0.042734535779695014,
+    "weighted_unit_rate": 0.8800263120736501
+   },
+   "lower_0.01": {
+    "pairs": 33,
+    "units": 25,
+    "weighted_pair_rate": 0.0013678448768533968,
+    "weighted_unit_rate": 0.14982411322010644
+   },
+   "upper_1e-07": {
+    "pairs": 5,
+    "units": 1,
+    "weighted_pair_rate": 0.00018522359287866208,
+    "weighted_unit_rate": 0.005324704933345322
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 7.408943715146484e-05,
+    "weighted_unit_rate": 0.005324704933345322
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S01213",
+   "n": 140,
+   "pairs": 20117,
+   "lower_1e-07": {
+    "pairs": 1050,
+    "units": 126,
+    "weighted_pair_rate": 0.054707434544168036,
+    "weighted_unit_rate": 0.9131011434844529
+   },
+   "lower_0.01": {
+    "pairs": 19,
+    "units": 15,
+    "weighted_pair_rate": 0.0007040153930833252,
+    "weighted_unit_rate": 0.07948942019833935
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S01262",
+   "n": 420,
+   "pairs": 60480,
+   "lower_1e-07": {
+    "pairs": 6164,
+    "units": 417,
+    "weighted_pair_rate": 0.10075813194670555,
+    "weighted_unit_rate": 0.9987502413203683
+   },
+   "lower_0.01": {
+    "pairs": 105,
+    "units": 85,
+    "weighted_pair_rate": 0.0012504589759981194,
+    "weighted_unit_rate": 0.1673223283846297
+   },
+   "upper_1e-07": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 8.797348609387323e-06,
+    "weighted_unit_rate": 0.0012668181997517744
+   },
+   "upper_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 8.797348609387323e-06,
+    "weighted_unit_rate": 0.0012668181997517744
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S01734",
+   "n": 140,
+   "pairs": 20158,
+   "lower_1e-07": {
+    "pairs": 2019,
+    "units": 139,
+    "weighted_pair_rate": 0.09511341444543833,
+    "weighted_unit_rate": 0.9952877984703882
+   },
+   "lower_0.01": {
+    "pairs": 9,
+    "units": 9,
+    "weighted_pair_rate": 0.0004778673788002411,
+    "weighted_unit_rate": 0.0687934961170801
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S02000",
+   "n": 227,
+   "pairs": 32666,
+   "lower_1e-07": {
+    "pairs": 3131,
+    "units": 223,
+    "weighted_pair_rate": 0.11048876066071382,
+    "weighted_unit_rate": 0.9879118924309588
+   },
+   "lower_0.01": {
+    "pairs": 37,
+    "units": 28,
+    "weighted_pair_rate": 0.00021775253038215897,
+    "weighted_unit_rate": 0.02564722601729088
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 3.5131082082995862e-06,
+    "weighted_unit_rate": 0.00025282711184591584
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 3.5131082082995862e-06,
+    "weighted_unit_rate": 0.00025282711184591584
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S02004",
+   "n": 140,
+   "pairs": 20160,
+   "lower_1e-07": {
+    "pairs": 1996,
+    "units": 139,
+    "weighted_pair_rate": 0.09662730004854375,
+    "weighted_unit_rate": 0.9936132615432409
+   },
+   "lower_0.01": {
+    "pairs": 6,
+    "units": 6,
+    "weighted_pair_rate": 0.00025298878565378053,
+    "weighted_unit_rate": 0.0364303851341444
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S02185",
+   "n": 140,
+   "pairs": 20160,
+   "lower_1e-07": {
+    "pairs": 2579,
+    "units": 140,
+    "weighted_pair_rate": 0.1241219751000489,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 16,
+    "units": 15,
+    "weighted_pair_rate": 0.0010176175628540986,
+    "weighted_unit_rate": 0.12781300609409663
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S02387",
+   "n": 248,
+   "pairs": 35712,
+   "lower_1e-07": {
+    "pairs": 3311,
+    "units": 243,
+    "weighted_pair_rate": 0.09618161112053054,
+    "weighted_unit_rate": 0.9813806853608081
+   },
+   "lower_0.01": {
+    "pairs": 57,
+    "units": 42,
+    "weighted_pair_rate": 0.0013064175038316928,
+    "weighted_unit_rate": 0.14947403978499424
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 2.2859580716488147e-05,
+    "weighted_unit_rate": 0.0016458898115871467
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 2.2859580716488147e-05,
+    "weighted_unit_rate": 0.0016458898115871467
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S02738",
+   "n": 280,
+   "pairs": 40320,
+   "lower_1e-07": {
+    "pairs": 2751,
+    "units": 264,
+    "weighted_pair_rate": 0.07018244819153358,
+    "weighted_unit_rate": 0.9466109344088598
+   },
+   "lower_0.01": {
+    "pairs": 39,
+    "units": 28,
+    "weighted_pair_rate": 0.0008170962533349782,
+    "weighted_unit_rate": 0.09769091542960995
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 1.715949805754155e-05,
+    "weighted_unit_rate": 0.0024709677202859833
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 1.715949805754155e-05,
+    "weighted_unit_rate": 0.0024709677202859833
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S03065",
+   "n": 140,
+   "pairs": 20160,
+   "lower_1e-07": {
+    "pairs": 1590,
+    "units": 138,
+    "weighted_pair_rate": 0.07792555910496402,
+    "weighted_unit_rate": 0.9844224349547303
+   },
+   "lower_0.01": {
+    "pairs": 13,
+    "units": 12,
+    "weighted_pair_rate": 0.0006366736990082724,
+    "weighted_unit_rate": 0.08419319598998601
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S03222",
+   "n": 116,
+   "pairs": 16700,
+   "lower_1e-07": {
+    "pairs": 1494,
+    "units": 116,
+    "weighted_pair_rate": 0.08946107784431137,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 15,
+    "units": 11,
+    "weighted_pair_rate": 0.0008982035928143712,
+    "weighted_unit_rate": 0.09482758620689655
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S03401",
+   "n": 140,
+   "pairs": 20147,
+   "lower_1e-07": {
+    "pairs": 2275,
+    "units": 139,
+    "weighted_pair_rate": 0.11368575459938855,
+    "weighted_unit_rate": 0.9912883780484917
+   },
+   "lower_0.01": {
+    "pairs": 25,
+    "units": 22,
+    "weighted_pair_rate": 0.0013941503121440747,
+    "weighted_unit_rate": 0.171231626859147
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S03908",
+   "n": 140,
+   "pairs": 20160,
+   "lower_1e-07": {
+    "pairs": 2359,
+    "units": 138,
+    "weighted_pair_rate": 0.11151642383359366,
+    "weighted_unit_rate": 0.971010986417716
+   },
+   "lower_0.01": {
+    "pairs": 25,
+    "units": 21,
+    "weighted_pair_rate": 0.001008303548529548,
+    "weighted_unit_rate": 0.1307272756595941
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S04322",
+   "n": 140,
+   "pairs": 18840,
+   "lower_1e-07": {
+    "pairs": 1508,
+    "units": 134,
+    "weighted_pair_rate": 0.08068307898512261,
+    "weighted_unit_rate": 0.9640142830406101
+   },
+   "lower_0.01": {
+    "pairs": 43,
+    "units": 30,
+    "weighted_pair_rate": 0.0021432622012714725,
+    "weighted_unit_rate": 0.21236851469679446
+   },
+   "upper_1e-07": {
+    "pairs": 6,
+    "units": 1,
+    "weighted_pair_rate": 0.0002495596318155611,
+    "weighted_unit_rate": 0.005659508994644412
+   },
+   "upper_0.01": {
+    "pairs": 6,
+    "units": 1,
+    "weighted_pair_rate": 0.0002495596318155611,
+    "weighted_unit_rate": 0.005659508994644412
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S04540",
+   "n": 34,
+   "pairs": 4896,
+   "lower_1e-07": {
+    "pairs": 380,
+    "units": 30,
+    "weighted_pair_rate": 0.07761437908496732,
+    "weighted_unit_rate": 0.8823529411764706
+   },
+   "lower_0.01": {
+    "pairs": 3,
+    "units": 2,
+    "weighted_pair_rate": 0.0006127450980392157,
+    "weighted_unit_rate": 0.058823529411764705
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S04728",
+   "n": 43,
+   "pairs": 6164,
+   "lower_1e-07": {
+    "pairs": 393,
+    "units": 39,
+    "weighted_pair_rate": 0.06375730045425049,
+    "weighted_unit_rate": 0.9069767441860465
+   },
+   "lower_0.01": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 0.0003244646333549643,
+    "weighted_unit_rate": 0.046511627906976744
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S04767",
+   "n": 89,
+   "pairs": 12816,
+   "lower_1e-07": {
+    "pairs": 1771,
+    "units": 89,
+    "weighted_pair_rate": 0.13818664169787764,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 12,
+    "units": 9,
+    "weighted_pair_rate": 0.0009363295880149813,
+    "weighted_unit_rate": 0.10112359550561797
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S04808",
+   "n": 82,
+   "pairs": 11808,
+   "lower_1e-07": {
+    "pairs": 1795,
+    "units": 82,
+    "weighted_pair_rate": 0.15201558265582657,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 3,
+    "units": 2,
+    "weighted_pair_rate": 0.00025406504065040653,
+    "weighted_unit_rate": 0.024390243902439025
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S04959",
+   "n": 117,
+   "pairs": 16848,
+   "lower_1e-07": {
+    "pairs": 1725,
+    "units": 114,
+    "weighted_pair_rate": 0.10238603988603989,
+    "weighted_unit_rate": 0.9743589743589743
+   },
+   "lower_0.01": {
+    "pairs": 5,
+    "units": 5,
+    "weighted_pair_rate": 0.0002967711301044634,
+    "weighted_unit_rate": 0.042735042735042736
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S05711",
+   "n": 61,
+   "pairs": 8784,
+   "lower_1e-07": {
+    "pairs": 1050,
+    "units": 61,
+    "weighted_pair_rate": 0.11953551912568305,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 4,
+    "units": 4,
+    "weighted_pair_rate": 0.0004553734061930783,
+    "weighted_unit_rate": 0.06557377049180328
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S05747",
+   "n": 73,
+   "pairs": 10512,
+   "lower_1e-07": {
+    "pairs": 1308,
+    "units": 70,
+    "weighted_pair_rate": 0.12442922374429223,
+    "weighted_unit_rate": 0.958904109589041
+   },
+   "lower_0.01": {
+    "pairs": 4,
+    "units": 4,
+    "weighted_pair_rate": 0.000380517503805175,
+    "weighted_unit_rate": 0.0547945205479452
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S06430",
+   "n": 116,
+   "pairs": 16436,
+   "lower_1e-07": {
+    "pairs": 1851,
+    "units": 116,
+    "weighted_pair_rate": 0.1126186420053541,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 26,
+    "units": 22,
+    "weighted_pair_rate": 0.0015818934047213435,
+    "weighted_unit_rate": 0.1896551724137931
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S06887",
+   "n": 140,
+   "pairs": 20149,
+   "lower_1e-07": {
+    "pairs": 2369,
+    "units": 139,
+    "weighted_pair_rate": 0.11313807540298514,
+    "weighted_unit_rate": 0.9887063823347205
+   },
+   "lower_0.01": {
+    "pairs": 39,
+    "units": 23,
+    "weighted_pair_rate": 0.0019529510618450478,
+    "weighted_unit_rate": 0.1682204010001491
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S07051",
+   "n": 140,
+   "pairs": 20160,
+   "lower_1e-07": {
+    "pairs": 1635,
+    "units": 136,
+    "weighted_pair_rate": 0.0724155635282837,
+    "weighted_unit_rate": 0.9515911580982693
+   },
+   "lower_0.01": {
+    "pairs": 7,
+    "units": 7,
+    "weighted_pair_rate": 0.00020556531324541184,
+    "weighted_unit_rate": 0.029601405107339305
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S10347",
+   "n": 29,
+   "pairs": 4176,
+   "lower_1e-07": {
+    "pairs": 412,
+    "units": 28,
+    "weighted_pair_rate": 0.09865900383141762,
+    "weighted_unit_rate": 0.9655172413793104
+   },
+   "lower_0.01": {
+    "pairs": 10,
+    "units": 5,
+    "weighted_pair_rate": 0.0023946360153256703,
+    "weighted_unit_rate": 0.1724137931034483
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S12960",
+   "n": 39,
+   "pairs": 5614,
+   "lower_1e-07": {
+    "pairs": 668,
+    "units": 39,
+    "weighted_pair_rate": 0.11898824367652298,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.00017812611328820805,
+    "weighted_unit_rate": 0.02564102564102564
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S12991",
+   "n": 71,
+   "pairs": 9349,
+   "lower_1e-07": {
+    "pairs": 1005,
+    "units": 70,
+    "weighted_pair_rate": 0.10749812814204728,
+    "weighted_unit_rate": 0.9859154929577465
+   },
+   "lower_0.01": {
+    "pairs": 12,
+    "units": 10,
+    "weighted_pair_rate": 0.0012835597390095197,
+    "weighted_unit_rate": 0.14084507042253522
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S14270",
+   "n": 140,
+   "pairs": 20116,
+   "lower_1e-07": {
+    "pairs": 1737,
+    "units": 140,
+    "weighted_pair_rate": 0.0856864165949308,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 9,
+    "units": 9,
+    "weighted_pair_rate": 0.00043498078936316236,
+    "weighted_unit_rate": 0.06247513757023289
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S15439",
+   "n": 95,
+   "pairs": 13680,
+   "lower_1e-07": {
+    "pairs": 1465,
+    "units": 94,
+    "weighted_pair_rate": 0.1070906432748538,
+    "weighted_unit_rate": 0.9894736842105263
+   },
+   "lower_0.01": {
+    "pairs": 16,
+    "units": 14,
+    "weighted_pair_rate": 0.0011695906432748538,
+    "weighted_unit_rate": 0.14736842105263157
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S17118",
+   "n": 140,
+   "pairs": 19348,
+   "lower_1e-07": {
+    "pairs": 1302,
+    "units": 138,
+    "weighted_pair_rate": 0.07315912750961051,
+    "weighted_unit_rate": 0.9761201280441388
+   },
+   "lower_0.01": {
+    "pairs": 21,
+    "units": 14,
+    "weighted_pair_rate": 0.0005108354371325286,
+    "weighted_unit_rate": 0.046182751053265754
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S17459",
+   "n": 108,
+   "pairs": 15552,
+   "lower_1e-07": {
+    "pairs": 1337,
+    "units": 107,
+    "weighted_pair_rate": 0.08596965020576132,
+    "weighted_unit_rate": 0.9907407407407407
+   },
+   "lower_0.01": {
+    "pairs": 5,
+    "units": 5,
+    "weighted_pair_rate": 0.0003215020576131687,
+    "weighted_unit_rate": 0.046296296296296294
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S17476",
+   "n": 108,
+   "pairs": 15552,
+   "lower_1e-07": {
+    "pairs": 1521,
+    "units": 101,
+    "weighted_pair_rate": 0.09780092592592593,
+    "weighted_unit_rate": 0.9351851851851852
+   },
+   "lower_0.01": {
+    "pairs": 7,
+    "units": 6,
+    "weighted_pair_rate": 0.0004501028806584362,
+    "weighted_unit_rate": 0.05555555555555555
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S17501",
+   "n": 131,
+   "pairs": 18864,
+   "lower_1e-07": {
+    "pairs": 1792,
+    "units": 128,
+    "weighted_pair_rate": 0.09499575911789652,
+    "weighted_unit_rate": 0.9770992366412213
+   },
+   "lower_0.01": {
+    "pairs": 8,
+    "units": 8,
+    "weighted_pair_rate": 0.00042408821034775233,
+    "weighted_unit_rate": 0.061068702290076333
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S17640",
+   "n": 12,
+   "pairs": 1728,
+   "lower_1e-07": {
+    "pairs": 199,
+    "units": 11,
+    "weighted_pair_rate": 0.11516203703703703,
+    "weighted_unit_rate": 0.9166666666666666
+   },
+   "lower_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S18784",
+   "n": 140,
+   "pairs": 20160,
+   "lower_1e-07": {
+    "pairs": 1791,
+    "units": 136,
+    "weighted_pair_rate": 0.08677526280695104,
+    "weighted_unit_rate": 0.9690715191812318
+   },
+   "lower_0.01": {
+    "pairs": 26,
+    "units": 21,
+    "weighted_pair_rate": 0.0012454899370872399,
+    "weighted_unit_rate": 0.14589326000214473
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S19862",
+   "n": 27,
+   "pairs": 3888,
+   "lower_1e-07": {
+    "pairs": 603,
+    "units": 27,
+    "weighted_pair_rate": 0.1550925925925926,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S21463",
+   "n": 75,
+   "pairs": 10732,
+   "lower_1e-07": {
+    "pairs": 884,
+    "units": 74,
+    "weighted_pair_rate": 0.08237048080506895,
+    "weighted_unit_rate": 0.9866666666666667
+   },
+   "lower_0.01": {
+    "pairs": 8,
+    "units": 5,
+    "weighted_pair_rate": 0.0007454342154304882,
+    "weighted_unit_rate": 0.06666666666666667
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S23002",
+   "n": 75,
+   "pairs": 10800,
+   "lower_1e-07": {
+    "pairs": 714,
+    "units": 69,
+    "weighted_pair_rate": 0.0661111111111111,
+    "weighted_unit_rate": 0.92
+   },
+   "lower_0.01": {
+    "pairs": 14,
+    "units": 10,
+    "weighted_pair_rate": 0.0012962962962962963,
+    "weighted_unit_rate": 0.13333333333333333
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S23574",
+   "n": 83,
+   "pairs": 11952,
+   "lower_1e-07": {
+    "pairs": 1703,
+    "units": 83,
+    "weighted_pair_rate": 0.14248661311914324,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 6,
+    "units": 5,
+    "weighted_pair_rate": 0.000502008032128514,
+    "weighted_unit_rate": 0.060240963855421686
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S23975",
+   "n": 6,
+   "pairs": 864,
+   "lower_1e-07": {
+    "pairs": 65,
+    "units": 6,
+    "weighted_pair_rate": 0.07523148148148148,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.0011574074074074073,
+    "weighted_unit_rate": 0.16666666666666666
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S23999",
+   "n": 6,
+   "pairs": 864,
+   "lower_1e-07": {
+    "pairs": 95,
+    "units": 5,
+    "weighted_pair_rate": 0.1099537037037037,
+    "weighted_unit_rate": 0.8333333333333334
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.0011574074074074073,
+    "weighted_unit_rate": 0.16666666666666666
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S24001",
+   "n": 9,
+   "pairs": 1296,
+   "lower_1e-07": {
+    "pairs": 160,
+    "units": 9,
+    "weighted_pair_rate": 0.12345679012345678,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 3,
+    "units": 3,
+    "weighted_pair_rate": 0.0023148148148148147,
+    "weighted_unit_rate": 0.3333333333333333
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S25509",
+   "n": 21,
+   "pairs": 3024,
+   "lower_1e-07": {
+    "pairs": 278,
+    "units": 18,
+    "weighted_pair_rate": 0.09193121693121693,
+    "weighted_unit_rate": 0.8571428571428571
+   },
+   "lower_0.01": {
+    "pairs": 4,
+    "units": 4,
+    "weighted_pair_rate": 0.0013227513227513227,
+    "weighted_unit_rate": 0.19047619047619047
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "all",
+   "stratum": "group/S26716",
+   "n": 108,
+   "pairs": 15552,
+   "lower_1e-07": {
+    "pairs": 1494,
+    "units": 108,
+    "weighted_pair_rate": 0.09606481481481481,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 10,
+    "units": 10,
+    "weighted_pair_rate": 0.0006430041152263374,
+    "weighted_unit_rate": 0.09259259259259259
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "all",
+   "n": 726,
+   "pairs": 104006,
+   "lower_1e-07": {
+    "pairs": 7207,
+    "units": 709,
+    "weighted_pair_rate": 0.08080160714165083,
+    "weighted_unit_rate": 0.9910668692268122
+   },
+   "lower_0.01": {
+    "pairs": 598,
+    "units": 381,
+    "weighted_pair_rate": 0.009402211348781817,
+    "weighted_unit_rate": 0.8214641136865827
+   },
+   "upper_1e-07": {
+    "pairs": 47,
+    "units": 27,
+    "weighted_pair_rate": 0.00012728923333055385,
+    "weighted_unit_rate": 0.010141248741714012
+   },
+   "upper_0.01": {
+    "pairs": 41,
+    "units": 26,
+    "weighted_pair_rate": 0.00010691963398034611,
+    "weighted_unit_rate": 0.009852019419098818
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "regime/tropical",
+   "n": 263,
+   "pairs": 37694,
+   "lower_1e-07": {
+    "pairs": 2379,
+    "units": 250,
+    "weighted_pair_rate": 0.07307325215520831,
+    "weighted_unit_rate": 0.9719416206475359
+   },
+   "lower_0.01": {
+    "pairs": 117,
+    "units": 78,
+    "weighted_pair_rate": 0.003570492140822463,
+    "weighted_unit_rate": 0.36268622409611834
+   },
+   "upper_1e-07": {
+    "pairs": 18,
+    "units": 11,
+    "weighted_pair_rate": 0.0005216147510798415,
+    "weighted_unit_rate": 0.04254820014588414
+   },
+   "upper_0.01": {
+    "pairs": 16,
+    "units": 11,
+    "weighted_pair_rate": 0.0004995112313480376,
+    "weighted_unit_rate": 0.04254820014588414
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "regime/winter",
+   "n": 151,
+   "pairs": 21727,
+   "lower_1e-07": {
+    "pairs": 1342,
+    "units": 149,
+    "weighted_pair_rate": 0.07213665833465367,
+    "weighted_unit_rate": 0.9948599014629853
+   },
+   "lower_0.01": {
+    "pairs": 129,
+    "units": 78,
+    "weighted_pair_rate": 0.0061021951722377175,
+    "weighted_unit_rate": 0.59806300922883
+   },
+   "upper_1e-07": {
+    "pairs": 16,
+    "units": 10,
+    "weighted_pair_rate": 0.0004806293716302121,
+    "weighted_unit_rate": 0.03617308709319323
+   },
+   "upper_0.01": {
+    "pairs": 12,
+    "units": 9,
+    "weighted_pair_rate": 0.0003410834597905702,
+    "weighted_unit_rate": 0.03412501950971678
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "regime/synoptic_wind",
+   "n": 172,
+   "pairs": 24638,
+   "lower_1e-07": {
+    "pairs": 1649,
+    "units": 171,
+    "weighted_pair_rate": 0.07361338479853538,
+    "weighted_unit_rate": 0.9980966891772515
+   },
+   "lower_0.01": {
+    "pairs": 197,
+    "units": 127,
+    "weighted_pair_rate": 0.008091723442389731,
+    "weighted_unit_rate": 0.7877864208084062
+   },
+   "upper_1e-07": {
+    "pairs": 5,
+    "units": 4,
+    "weighted_pair_rate": 0.0002040725848551013,
+    "weighted_unit_rate": 0.027723903936090893
+   },
+   "upper_0.01": {
+    "pairs": 5,
+    "units": 4,
+    "weighted_pair_rate": 0.0002040725848551013,
+    "weighted_unit_rate": 0.027723903936090893
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "regime/convective",
+   "n": 72,
+   "pairs": 10368,
+   "lower_1e-07": {
+    "pairs": 959,
+    "units": 71,
+    "weighted_pair_rate": 0.08113929866059469,
+    "weighted_unit_rate": 0.9890491040581522
+   },
+   "lower_0.01": {
+    "pairs": 69,
+    "units": 43,
+    "weighted_pair_rate": 0.010401887169636553,
+    "weighted_unit_rate": 0.8740598387099009
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 2.9579977818444943e-05,
+    "weighted_unit_rate": 0.002129758402928036
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 2.9579977818444943e-05,
+    "weighted_unit_rate": 0.002129758402928036
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "regime/heavy_rain",
+   "n": 68,
+   "pairs": 9579,
+   "lower_1e-07": {
+    "pairs": 878,
+    "units": 68,
+    "weighted_pair_rate": 0.10014832948134932,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 86,
+    "units": 55,
+    "weighted_pair_rate": 0.010301625447929723,
+    "weighted_unit_rate": 0.9655523680103355
+   },
+   "upper_1e-07": {
+    "pairs": 6,
+    "units": 1,
+    "weighted_pair_rate": 9.221591708342531e-05,
+    "weighted_unit_rate": 0.002205960434412136
+   },
+   "upper_0.01": {
+    "pairs": 6,
+    "units": 1,
+    "weighted_pair_rate": 9.221591708342531e-05,
+    "weighted_unit_rate": 0.002205960434412136
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "fold/1",
+   "n": 167,
+   "pairs": 23744,
+   "lower_1e-07": {
+    "pairs": 1716,
+    "units": 164,
+    "weighted_pair_rate": 0.06684758665201147,
+    "weighted_unit_rate": 0.971328047857431
+   },
+   "lower_0.01": {
+    "pairs": 142,
+    "units": 92,
+    "weighted_pair_rate": 0.007609283008728258,
+    "weighted_unit_rate": 0.8455718349707346
+   },
+   "upper_1e-07": {
+    "pairs": 7,
+    "units": 5,
+    "weighted_pair_rate": 4.61614157368864e-05,
+    "weighted_unit_rate": 0.005693805075829022
+   },
+   "upper_0.01": {
+    "pairs": 6,
+    "units": 4,
+    "weighted_pair_rate": 3.8433998761177924e-05,
+    "weighted_unit_rate": 0.0045826038128344015
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "fold/2",
+   "n": 117,
+   "pairs": 16844,
+   "lower_1e-07": {
+    "pairs": 1323,
+    "units": 117,
+    "weighted_pair_rate": 0.08372700736504013,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 126,
+    "units": 80,
+    "weighted_pair_rate": 0.006790112559473627,
+    "weighted_unit_rate": 0.6249714442932439
+   },
+   "upper_1e-07": {
+    "pairs": 5,
+    "units": 3,
+    "weighted_pair_rate": 0.00011180128800984576,
+    "weighted_unit_rate": 0.008944398382900577
+   },
+   "upper_0.01": {
+    "pairs": 5,
+    "units": 3,
+    "weighted_pair_rate": 0.00011180128800984576,
+    "weighted_unit_rate": 0.008944398382900577
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "fold/3",
+   "n": 183,
+   "pairs": 26139,
+   "lower_1e-07": {
+    "pairs": 1850,
+    "units": 180,
+    "weighted_pair_rate": 0.07763888882560224,
+    "weighted_unit_rate": 0.9942534004833798
+   },
+   "lower_0.01": {
+    "pairs": 139,
+    "units": 89,
+    "weighted_pair_rate": 0.008107484919249277,
+    "weighted_unit_rate": 0.7564697963002524
+   },
+   "upper_1e-07": {
+    "pairs": 14,
+    "units": 8,
+    "weighted_pair_rate": 0.00018279173496522325,
+    "weighted_unit_rate": 0.01873672189607156
+   },
+   "upper_0.01": {
+    "pairs": 14,
+    "units": 8,
+    "weighted_pair_rate": 0.00018279173496522325,
+    "weighted_unit_rate": 0.01873672189607156
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "fold/4",
+   "n": 131,
+   "pairs": 18864,
+   "lower_1e-07": {
+    "pairs": 1044,
+    "units": 122,
+    "weighted_pair_rate": 0.09977423179554709,
+    "weighted_unit_rate": 0.9981568195900759
+   },
+   "lower_0.01": {
+    "pairs": 79,
+    "units": 48,
+    "weighted_pair_rate": 0.011941456789519515,
+    "weighted_unit_rate": 0.9260960713501761
+   },
+   "upper_1e-07": {
+    "pairs": 9,
+    "units": 5,
+    "weighted_pair_rate": 4.094958869157085e-05,
+    "weighted_unit_rate": 0.005122362020615608
+   },
+   "upper_0.01": {
+    "pairs": 7,
+    "units": 5,
+    "weighted_pair_rate": 3.8260773584034066e-05,
+    "weighted_unit_rate": 0.005122362020615608
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "fold/5",
+   "n": 128,
+   "pairs": 18415,
+   "lower_1e-07": {
+    "pairs": 1274,
+    "units": 126,
+    "weighted_pair_rate": 0.07419717187988661,
+    "weighted_unit_rate": 0.9991329315749514
+   },
+   "lower_0.01": {
+    "pairs": 112,
+    "units": 72,
+    "weighted_pair_rate": 0.01242204070220614,
+    "weighted_unit_rate": 0.8972022320006322
+   },
+   "upper_1e-07": {
+    "pairs": 12,
+    "units": 6,
+    "weighted_pair_rate": 0.0003501311673303345,
+    "weighted_unit_rate": 0.018034042931754844
+   },
+   "upper_0.01": {
+    "pairs": 9,
+    "units": 6,
+    "weighted_pair_rate": 0.00024274479641046197,
+    "weighted_unit_rate": 0.018034042931754844
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00006",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 34,
+    "units": 1,
+    "weighted_pair_rate": 0.2361111111111111,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.006944444444444444,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00008",
+   "n": 3,
+   "pairs": 432,
+   "lower_1e-07": {
+    "pairs": 32,
+    "units": 3,
+    "weighted_pair_rate": 0.09233666527203963,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 4,
+    "units": 3,
+    "weighted_pair_rate": 0.00740711511721957,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00009",
+   "n": 2,
+   "pairs": 288,
+   "lower_1e-07": {
+    "pairs": 42,
+    "units": 2,
+    "weighted_pair_rate": 0.15572008294081274,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 0.006944444444444444,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00023",
+   "n": 41,
+   "pairs": 5904,
+   "lower_1e-07": {
+    "pairs": 603,
+    "units": 41,
+    "weighted_pair_rate": 0.10414363782047814,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 10,
+    "units": 8,
+    "weighted_pair_rate": 0.001970514250127269,
+    "weighted_unit_rate": 0.21898818927028826
+   },
+   "upper_1e-07": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.00013601836913212863,
+    "weighted_unit_rate": 0.019586645155026523
+   },
+   "upper_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.00013601836913212863,
+    "weighted_unit_rate": 0.019586645155026523
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00034",
+   "n": 50,
+   "pairs": 7022,
+   "lower_1e-07": {
+    "pairs": 394,
+    "units": 48,
+    "weighted_pair_rate": 0.06190696777859594,
+    "weighted_unit_rate": 0.9723464287241478
+   },
+   "lower_0.01": {
+    "pairs": 20,
+    "units": 13,
+    "weighted_pair_rate": 0.0032684423062432854,
+    "weighted_unit_rate": 0.2897651870986771
+   },
+   "upper_1e-07": {
+    "pairs": 4,
+    "units": 2,
+    "weighted_pair_rate": 0.00038794553263084546,
+    "weighted_unit_rate": 0.02749335529803067
+   },
+   "upper_0.01": {
+    "pairs": 4,
+    "units": 2,
+    "weighted_pair_rate": 0.00038794553263084546,
+    "weighted_unit_rate": 0.02749335529803067
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00037",
+   "n": 43,
+   "pairs": 6192,
+   "lower_1e-07": {
+    "pairs": 168,
+    "units": 37,
+    "weighted_pair_rate": 0.02652930313840303,
+    "weighted_unit_rate": 0.8522632595027292
+   },
+   "lower_0.01": {
+    "pairs": 20,
+    "units": 10,
+    "weighted_pair_rate": 0.00314668828713667,
+    "weighted_unit_rate": 0.22656155667384023
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00040",
+   "n": 15,
+   "pairs": 2160,
+   "lower_1e-07": {
+    "pairs": 196,
+    "units": 15,
+    "weighted_pair_rate": 0.06973092999564334,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 22,
+    "units": 12,
+    "weighted_pair_rate": 0.010211725547747737,
+    "weighted_unit_rate": 0.8939911174752644
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00042",
+   "n": 7,
+   "pairs": 1008,
+   "lower_1e-07": {
+    "pairs": 94,
+    "units": 7,
+    "weighted_pair_rate": 0.11194576010413448,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 3,
+    "units": 3,
+    "weighted_pair_rate": 0.002968233989353229,
+    "weighted_unit_rate": 0.427425694466865
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00046",
+   "n": 45,
+   "pairs": 6480,
+   "lower_1e-07": {
+    "pairs": 313,
+    "units": 42,
+    "weighted_pair_rate": 0.05593923550504211,
+    "weighted_unit_rate": 0.9428855856855325
+   },
+   "lower_0.01": {
+    "pairs": 14,
+    "units": 10,
+    "weighted_pair_rate": 0.002752786522697181,
+    "weighted_unit_rate": 0.2553150439486645
+   },
+   "upper_1e-07": {
+    "pairs": 8,
+    "units": 4,
+    "weighted_pair_rate": 0.0010576743391568053,
+    "weighted_unit_rate": 0.07615255241928999
+   },
+   "upper_0.01": {
+    "pairs": 6,
+    "units": 4,
+    "weighted_pair_rate": 0.000793255754367604,
+    "weighted_unit_rate": 0.07615255241928999
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00047",
+   "n": 52,
+   "pairs": 7488,
+   "lower_1e-07": {
+    "pairs": 441,
+    "units": 50,
+    "weighted_pair_rate": 0.06726754130785753,
+    "weighted_unit_rate": 0.9787253446990771
+   },
+   "lower_0.01": {
+    "pairs": 15,
+    "units": 12,
+    "weighted_pair_rate": 0.003898808384054344,
+    "weighted_unit_rate": 0.4474182427023098
+   },
+   "upper_1e-07": {
+    "pairs": 5,
+    "units": 4,
+    "weighted_pair_rate": 0.0012950057521459893,
+    "weighted_unit_rate": 0.107194002875684
+   },
+   "upper_0.01": {
+    "pairs": 5,
+    "units": 4,
+    "weighted_pair_rate": 0.0012950057521459893,
+    "weighted_unit_rate": 0.107194002875684
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00052",
+   "n": 2,
+   "pairs": 288,
+   "lower_1e-07": {
+    "pairs": 32,
+    "units": 2,
+    "weighted_pair_rate": 0.1111111111111111,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 0.006944444444444444,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00053",
+   "n": 2,
+   "pairs": 288,
+   "lower_1e-07": {
+    "pairs": 30,
+    "units": 2,
+    "weighted_pair_rate": 0.10416666666666667,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 4,
+    "units": 2,
+    "weighted_pair_rate": 0.013888888888888888,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00058",
+   "n": 39,
+   "pairs": 5616,
+   "lower_1e-07": {
+    "pairs": 299,
+    "units": 38,
+    "weighted_pair_rate": 0.05368946229783636,
+    "weighted_unit_rate": 0.9748560197760648
+   },
+   "lower_0.01": {
+    "pairs": 42,
+    "units": 23,
+    "weighted_pair_rate": 0.007333660898647739,
+    "weighted_unit_rate": 0.5783115451505074
+   },
+   "upper_1e-07": {
+    "pairs": 3,
+    "units": 3,
+    "weighted_pair_rate": 0.0005238329213319814,
+    "weighted_unit_rate": 0.07543194067180532
+   },
+   "upper_0.01": {
+    "pairs": 3,
+    "units": 3,
+    "weighted_pair_rate": 0.0005238329213319814,
+    "weighted_unit_rate": 0.07543194067180532
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00234",
+   "n": 5,
+   "pairs": 720,
+   "lower_1e-07": {
+    "pairs": 37,
+    "units": 5,
+    "weighted_pair_rate": 0.05138888888888889,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 9,
+    "units": 5,
+    "weighted_pair_rate": 0.0125,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00334",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 20,
+    "units": 1,
+    "weighted_pair_rate": 0.1388888888888889,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.006944444444444444,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00336",
+   "n": 5,
+   "pairs": 720,
+   "lower_1e-07": {
+    "pairs": 36,
+    "units": 5,
+    "weighted_pair_rate": 0.05,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 7,
+    "units": 5,
+    "weighted_pair_rate": 0.009722222222222222,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.001388888888888889,
+    "weighted_unit_rate": 0.2
+   },
+   "upper_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.001388888888888889,
+    "weighted_unit_rate": 0.2
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00341",
+   "n": 16,
+   "pairs": 2304,
+   "lower_1e-07": {
+    "pairs": 175,
+    "units": 16,
+    "weighted_pair_rate": 0.08103170577133327,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 10,
+    "units": 8,
+    "weighted_pair_rate": 0.004346579778774194,
+    "weighted_unit_rate": 0.5092760776706994
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00348",
+   "n": 19,
+   "pairs": 2736,
+   "lower_1e-07": {
+    "pairs": 145,
+    "units": 19,
+    "weighted_pair_rate": 0.031565580082496734,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 30,
+    "units": 19,
+    "weighted_pair_rate": 0.008630918785993924,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 0.0003810841841838558,
+    "weighted_unit_rate": 0.054876122522475236
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 0.0003810841841838558,
+    "weighted_unit_rate": 0.054876122522475236
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00352",
+   "n": 35,
+   "pairs": 5036,
+   "lower_1e-07": {
+    "pairs": 367,
+    "units": 35,
+    "weighted_pair_rate": 0.09216152715085038,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 34,
+    "units": 21,
+    "weighted_pair_rate": 0.004097284251843795,
+    "weighted_unit_rate": 0.385815228682375
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00387",
+   "n": 9,
+   "pairs": 1296,
+   "lower_1e-07": {
+    "pairs": 78,
+    "units": 9,
+    "weighted_pair_rate": 0.056142686292920484,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 12,
+    "units": 9,
+    "weighted_pair_rate": 0.009581972230803903,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00438",
+   "n": 26,
+   "pairs": 3744,
+   "lower_1e-07": {
+    "pairs": 236,
+    "units": 26,
+    "weighted_pair_rate": 0.06596518982635935,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 30,
+    "units": 19,
+    "weighted_pair_rate": 0.00934145180726807,
+    "weighted_unit_rate": 0.7972274325130267
+   },
+   "upper_1e-07": {
+    "pairs": 3,
+    "units": 1,
+    "weighted_pair_rate": 0.0017977555221177202,
+    "weighted_unit_rate": 0.08629226506165057
+   },
+   "upper_0.01": {
+    "pairs": 3,
+    "units": 1,
+    "weighted_pair_rate": 0.0017977555221177202,
+    "weighted_unit_rate": 0.08629226506165057
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00460",
+   "n": 24,
+   "pairs": 3456,
+   "lower_1e-07": {
+    "pairs": 203,
+    "units": 24,
+    "weighted_pair_rate": 0.04846963127444733,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 14,
+    "units": 10,
+    "weighted_pair_rate": 0.00499771458904229,
+    "weighted_unit_rate": 0.6051558277869672
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 0.00031737821048186745,
+    "weighted_unit_rate": 0.045702462309388917
+   },
+   "upper_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.00014364920735620968,
+    "weighted_unit_rate": 0.020685485859294195
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S00799",
+   "n": 22,
+   "pairs": 3151,
+   "lower_1e-07": {
+    "pairs": 175,
+    "units": 22,
+    "weighted_pair_rate": 0.05365078471592953,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 23,
+    "units": 16,
+    "weighted_pair_rate": 0.007177850465220032,
+    "weighted_unit_rate": 0.731371861589384
+   },
+   "upper_1e-07": {
+    "pairs": 5,
+    "units": 1,
+    "weighted_pair_rate": 0.001478143572922882,
+    "weighted_unit_rate": 0.042324882508009816
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 0.0005912574291691528,
+    "weighted_unit_rate": 0.042324882508009816
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S01213",
+   "n": 5,
+   "pairs": 720,
+   "lower_1e-07": {
+    "pairs": 50,
+    "units": 5,
+    "weighted_pair_rate": 0.07431474720400129,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 5,
+    "units": 3,
+    "weighted_pair_rate": 0.006334987441435762,
+    "weighted_unit_rate": 0.4773066792112121
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S01262",
+   "n": 52,
+   "pairs": 7488,
+   "lower_1e-07": {
+    "pairs": 655,
+    "units": 52,
+    "weighted_pair_rate": 0.10969618507142578,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 58,
+    "units": 39,
+    "weighted_pair_rate": 0.0075437367900563785,
+    "weighted_unit_rate": 0.8849476657639379
+   },
+   "upper_1e-07": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.0001413517981554505,
+    "weighted_unit_rate": 0.02035465893438487
+   },
+   "upper_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.0001413517981554505,
+    "weighted_unit_rate": 0.02035465893438487
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S01734",
+   "n": 3,
+   "pairs": 432,
+   "lower_1e-07": {
+    "pairs": 26,
+    "units": 3,
+    "weighted_pair_rate": 0.05784884453772387,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.0011466444910841582,
+    "weighted_unit_rate": 0.1651168067161188
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S02000",
+   "n": 25,
+   "pairs": 3600,
+   "lower_1e-07": {
+    "pairs": 186,
+    "units": 24,
+    "weighted_pair_rate": 0.059296842062317834,
+    "weighted_unit_rate": 0.9751518253155789
+   },
+   "lower_0.01": {
+    "pairs": 19,
+    "units": 13,
+    "weighted_pair_rate": 0.006231145292062408,
+    "weighted_unit_rate": 0.6229614447365497
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 0.0002880742074611415,
+    "weighted_unit_rate": 0.02074134293720219
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 0.0002880742074611415,
+    "weighted_unit_rate": 0.02074134293720219
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S02004",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 19,
+    "units": 1,
+    "weighted_pair_rate": 0.13194444444444445,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.006944444444444444,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S02185",
+   "n": 17,
+   "pairs": 2448,
+   "lower_1e-07": {
+    "pairs": 277,
+    "units": 17,
+    "weighted_pair_rate": 0.09792953748914483,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 4,
+    "units": 3,
+    "weighted_pair_rate": 0.003815551816849273,
+    "weighted_unit_rate": 0.320367489712553
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S02387",
+   "n": 15,
+   "pairs": 2160,
+   "lower_1e-07": {
+    "pairs": 194,
+    "units": 15,
+    "weighted_pair_rate": 0.0741410774878862,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 21,
+    "units": 13,
+    "weighted_pair_rate": 0.008381791920033212,
+    "weighted_unit_rate": 0.8819459970253738
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 0.0004699278917134691,
+    "weighted_unit_rate": 0.03383480820336977
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 0.0004699278917134691,
+    "weighted_unit_rate": 0.03383480820336977
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S02738",
+   "n": 45,
+   "pairs": 6480,
+   "lower_1e-07": {
+    "pairs": 387,
+    "units": 44,
+    "weighted_pair_rate": 0.05409872146569406,
+    "weighted_unit_rate": 0.9920752754737702
+   },
+   "lower_0.01": {
+    "pairs": 25,
+    "units": 15,
+    "weighted_pair_rate": 0.005124905216850207,
+    "weighted_unit_rate": 0.5282529956477409
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 0.00019507333342471889,
+    "weighted_unit_rate": 0.02809056001315952
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 0.00019507333342471889,
+    "weighted_unit_rate": 0.02809056001315952
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S03065",
+   "n": 3,
+   "pairs": 432,
+   "lower_1e-07": {
+    "pairs": 44,
+    "units": 3,
+    "weighted_pair_rate": 0.10186344288103572,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 4,
+    "units": 3,
+    "weighted_pair_rate": 0.009451403501506948,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S03222",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 12,
+    "units": 1,
+    "weighted_pair_rate": 0.08333333333333333,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 4,
+    "units": 1,
+    "weighted_pair_rate": 0.027777777777777776,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S03401",
+   "n": 6,
+   "pairs": 864,
+   "lower_1e-07": {
+    "pairs": 28,
+    "units": 5,
+    "weighted_pair_rate": 0.028178933234745667,
+    "weighted_unit_rate": 0.8219736888624378
+   },
+   "lower_0.01": {
+    "pairs": 7,
+    "units": 4,
+    "weighted_pair_rate": 0.008804943989435892,
+    "weighted_unit_rate": 0.6658919166267993
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S03908",
+   "n": 12,
+   "pairs": 1728,
+   "lower_1e-07": {
+    "pairs": 190,
+    "units": 12,
+    "weighted_pair_rate": 0.13316358406421286,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 10,
+    "units": 6,
+    "weighted_pair_rate": 0.006496599479930149,
+    "weighted_unit_rate": 0.7122432019223315
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S04322",
+   "n": 18,
+   "pairs": 2379,
+   "lower_1e-07": {
+    "pairs": 165,
+    "units": 18,
+    "weighted_pair_rate": 0.07735966283496229,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 22,
+    "units": 15,
+    "weighted_pair_rate": 0.009258377724487947,
+    "weighted_unit_rate": 0.8567244532028778
+   },
+   "upper_1e-07": {
+    "pairs": 6,
+    "units": 1,
+    "weighted_pair_rate": 0.002141198410275053,
+    "weighted_unit_rate": 0.047758515599040714
+   },
+   "upper_0.01": {
+    "pairs": 6,
+    "units": 1,
+    "weighted_pair_rate": 0.002141198410275053,
+    "weighted_unit_rate": 0.047758515599040714
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S04540",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 11,
+    "units": 1,
+    "weighted_pair_rate": 0.0763888888888889,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 0.013888888888888888,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S04767",
+   "n": 2,
+   "pairs": 288,
+   "lower_1e-07": {
+    "pairs": 37,
+    "units": 2,
+    "weighted_pair_rate": 0.1284722222222222,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.003472222222222222,
+    "weighted_unit_rate": 0.5
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S04808",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 30,
+    "units": 1,
+    "weighted_pair_rate": 0.20833333333333334,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.006944444444444444,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S05747",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 4,
+    "units": 1,
+    "weighted_pair_rate": 0.027777777777777776,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.006944444444444444,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S06430",
+   "n": 4,
+   "pairs": 576,
+   "lower_1e-07": {
+    "pairs": 69,
+    "units": 4,
+    "weighted_pair_rate": 0.11979166666666667,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 8,
+    "units": 4,
+    "weighted_pair_rate": 0.013888888888888888,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S06887",
+   "n": 15,
+   "pairs": 2160,
+   "lower_1e-07": {
+    "pairs": 196,
+    "units": 15,
+    "weighted_pair_rate": 0.09197429039865561,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 28,
+    "units": 13,
+    "weighted_pair_rate": 0.01252266977316994,
+    "weighted_unit_rate": 0.8610738030981876
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S10347",
+   "n": 2,
+   "pairs": 288,
+   "lower_1e-07": {
+    "pairs": 35,
+    "units": 2,
+    "weighted_pair_rate": 0.12152777777777778,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 6,
+    "units": 2,
+    "weighted_pair_rate": 0.020833333333333332,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S12991",
+   "n": 7,
+   "pairs": 882,
+   "lower_1e-07": {
+    "pairs": 78,
+    "units": 7,
+    "weighted_pair_rate": 0.08843537414965986,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 6,
+    "units": 4,
+    "weighted_pair_rate": 0.006802721088435374,
+    "weighted_unit_rate": 0.5714285714285714
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S15439",
+   "n": 7,
+   "pairs": 1008,
+   "lower_1e-07": {
+    "pairs": 91,
+    "units": 7,
+    "weighted_pair_rate": 0.09027777777777778,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 6,
+    "units": 5,
+    "weighted_pair_rate": 0.005952380952380952,
+    "weighted_unit_rate": 0.7142857142857143
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S17118",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 8,
+    "units": 1,
+    "weighted_pair_rate": 0.05555555555555555,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 3,
+    "units": 1,
+    "weighted_pair_rate": 0.020833333333333332,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S17459",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 15,
+    "units": 1,
+    "weighted_pair_rate": 0.10416666666666667,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.006944444444444444,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S17476",
+   "n": 2,
+   "pairs": 288,
+   "lower_1e-07": {
+    "pairs": 49,
+    "units": 2,
+    "weighted_pair_rate": 0.1701388888888889,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 3,
+    "units": 2,
+    "weighted_pair_rate": 0.010416666666666666,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S17501",
+   "n": 2,
+   "pairs": 288,
+   "lower_1e-07": {
+    "pairs": 42,
+    "units": 2,
+    "weighted_pair_rate": 0.14583333333333334,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 0.006944444444444444,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S18784",
+   "n": 5,
+   "pairs": 720,
+   "lower_1e-07": {
+    "pairs": 53,
+    "units": 5,
+    "weighted_pair_rate": 0.07196740020470424,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 8,
+    "units": 5,
+    "weighted_pair_rate": 0.01122263341403042,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S21463",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 12,
+    "units": 1,
+    "weighted_pair_rate": 0.08333333333333333,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 3,
+    "units": 1,
+    "weighted_pair_rate": 0.020833333333333332,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S23002",
+   "n": 3,
+   "pairs": 432,
+   "lower_1e-07": {
+    "pairs": 40,
+    "units": 3,
+    "weighted_pair_rate": 0.09259259259259259,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 6,
+    "units": 3,
+    "weighted_pair_rate": 0.013888888888888888,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S23574",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 19,
+    "units": 1,
+    "weighted_pair_rate": 0.13194444444444445,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.006944444444444444,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S25509",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 19,
+    "units": 1,
+    "weighted_pair_rate": 0.13194444444444445,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "S",
+   "stratum": "group/S26716",
+   "n": 2,
+   "pairs": 288,
+   "lower_1e-07": {
+    "pairs": 16,
+    "units": 2,
+    "weighted_pair_rate": 0.05555555555555555,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 0.006944444444444444,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "all",
+   "n": 2963,
+   "pairs": 424834,
+   "lower_1e-07": {
+    "pairs": 40943,
+    "units": 2944,
+    "weighted_pair_rate": 0.09850379733329699,
+    "weighted_unit_rate": 0.9996951081799256
+   },
+   "lower_0.01": {
+    "pairs": 1361,
+    "units": 1060,
+    "weighted_pair_rate": 0.0036513126139203354,
+    "weighted_unit_rate": 0.4261081424530464
+   },
+   "upper_1e-07": {
+    "pairs": 47,
+    "units": 27,
+    "weighted_pair_rate": 1.6598080861117494e-05,
+    "weighted_unit_rate": 0.0013219772691699043
+   },
+   "upper_0.01": {
+    "pairs": 41,
+    "units": 26,
+    "weighted_pair_rate": 1.39419547436373e-05,
+    "weighted_unit_rate": 0.0012842743590241394
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "regime/tropical",
+   "n": 784,
+   "pairs": 112612,
+   "lower_1e-07": {
+    "pairs": 11212,
+    "units": 769,
+    "weighted_pair_rate": 0.10093443779819386,
+    "weighted_unit_rate": 0.9896474653301562
+   },
+   "lower_0.01": {
+    "pairs": 286,
+    "units": 224,
+    "weighted_pair_rate": 0.002767441831089616,
+    "weighted_unit_rate": 0.3253335769549136
+   },
+   "upper_1e-07": {
+    "pairs": 18,
+    "units": 11,
+    "weighted_pair_rate": 0.00015197427168173988,
+    "weighted_unit_rate": 0.01243474041542579
+   },
+   "upper_0.01": {
+    "pairs": 16,
+    "units": 11,
+    "weighted_pair_rate": 0.00014553433434122228,
+    "weighted_unit_rate": 0.01243474041542579
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "regime/winter",
+   "n": 533,
+   "pairs": 76710,
+   "lower_1e-07": {
+    "pairs": 6471,
+    "units": 530,
+    "weighted_pair_rate": 0.09315050522876875,
+    "weighted_unit_rate": 0.9985292559212505
+   },
+   "lower_0.01": {
+    "pairs": 268,
+    "units": 203,
+    "weighted_pair_rate": 0.0030138986824202857,
+    "weighted_unit_rate": 0.3647567746934166
+   },
+   "upper_1e-07": {
+    "pairs": 16,
+    "units": 10,
+    "weighted_pair_rate": 8.885682744362365e-05,
+    "weighted_unit_rate": 0.00668915264852654
+   },
+   "upper_0.01": {
+    "pairs": 12,
+    "units": 9,
+    "weighted_pair_rate": 6.305813984627426e-05,
+    "weighted_unit_rate": 0.006310422553827191
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "regime/synoptic_wind",
+   "n": 725,
+   "pairs": 103810,
+   "lower_1e-07": {
+    "pairs": 9063,
+    "units": 724,
+    "weighted_pair_rate": 0.09454544903114917,
+    "weighted_unit_rate": 0.9996759672130641
+   },
+   "lower_0.01": {
+    "pairs": 383,
+    "units": 290,
+    "weighted_pair_rate": 0.003416703267179621,
+    "weighted_unit_rate": 0.3954848386173108
+   },
+   "upper_1e-07": {
+    "pairs": 5,
+    "units": 4,
+    "weighted_pair_rate": 3.472457434787705e-05,
+    "weighted_unit_rate": 0.004719908986900581
+   },
+   "upper_0.01": {
+    "pairs": 5,
+    "units": 4,
+    "weighted_pair_rate": 3.472457434787705e-05,
+    "weighted_unit_rate": 0.004719908986900581
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "regime/convective",
+   "n": 515,
+   "pairs": 74090,
+   "lower_1e-07": {
+    "pairs": 8009,
+    "units": 515,
+    "weighted_pair_rate": 0.09563850612362888,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 221,
+    "units": 181,
+    "weighted_pair_rate": 0.003881281113190703,
+    "weighted_unit_rate": 0.4460451503042936
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 3.6758522209949835e-06,
+    "weighted_unit_rate": 0.00026448709626104464
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 3.6758522209949835e-06,
+    "weighted_unit_rate": 0.00026448709626104464
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "regime/heavy_rain",
+   "n": 406,
+   "pairs": 57612,
+   "lower_1e-07": {
+    "pairs": 6188,
+    "units": 406,
+    "weighted_pair_rate": 0.1184650072981518,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 203,
+    "units": 162,
+    "weighted_pair_rate": 0.0031380261397916808,
+    "weighted_unit_rate": 0.39303449558458103
+   },
+   "upper_1e-07": {
+    "pairs": 6,
+    "units": 1,
+    "weighted_pair_rate": 8.162889571638652e-06,
+    "weighted_unit_rate": 0.00019529441547257433
+   },
+   "upper_0.01": {
+    "pairs": 6,
+    "units": 1,
+    "weighted_pair_rate": 8.162889571638652e-06,
+    "weighted_unit_rate": 0.00019529441547257433
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "fold/1",
+   "n": 818,
+   "pairs": 116912,
+   "lower_1e-07": {
+    "pairs": 11879,
+    "units": 815,
+    "weighted_pair_rate": 0.10451596174797465,
+    "weighted_unit_rate": 0.9998219691335953
+   },
+   "lower_0.01": {
+    "pairs": 336,
+    "units": 276,
+    "weighted_pair_rate": 0.0035585749344590172,
+    "weighted_unit_rate": 0.48194548156644784
+   },
+   "upper_1e-07": {
+    "pairs": 7,
+    "units": 5,
+    "weighted_pair_rate": 5.315649375363363e-06,
+    "weighted_unit_rate": 0.0006555969113480835
+   },
+   "upper_0.01": {
+    "pairs": 6,
+    "units": 4,
+    "weighted_pair_rate": 4.425810132688794e-06,
+    "weighted_unit_rate": 0.0005276508179705732
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "fold/2",
+   "n": 657,
+   "pairs": 94511,
+   "lower_1e-07": {
+    "pairs": 9241,
+    "units": 657,
+    "weighted_pair_rate": 0.09867808523200021,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 335,
+    "units": 262,
+    "weighted_pair_rate": 0.0032065623209024496,
+    "weighted_unit_rate": 0.37399484328943833
+   },
+   "upper_1e-07": {
+    "pairs": 5,
+    "units": 3,
+    "weighted_pair_rate": 1.385726686980746e-05,
+    "weighted_unit_rate": 0.001105872826815367
+   },
+   "upper_0.01": {
+    "pairs": 5,
+    "units": 3,
+    "weighted_pair_rate": 1.385726686980746e-05,
+    "weighted_unit_rate": 0.001105872826815367
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "fold/3",
+   "n": 596,
+   "pairs": 85010,
+   "lower_1e-07": {
+    "pairs": 7972,
+    "units": 592,
+    "weighted_pair_rate": 0.08903048640248756,
+    "weighted_unit_rate": 0.9985246983394549
+   },
+   "lower_0.01": {
+    "pairs": 276,
+    "units": 209,
+    "weighted_pair_rate": 0.0032115007038066934,
+    "weighted_unit_rate": 0.38074519595199185
+   },
+   "upper_1e-07": {
+    "pairs": 14,
+    "units": 8,
+    "weighted_pair_rate": 3.223087808864183e-05,
+    "weighted_unit_rate": 0.00330570953407372
+   },
+   "upper_0.01": {
+    "pairs": 14,
+    "units": 8,
+    "weighted_pair_rate": 3.223087808864183e-05,
+    "weighted_unit_rate": 0.00330570953407372
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "fold/4",
+   "n": 372,
+   "pairs": 53562,
+   "lower_1e-07": {
+    "pairs": 4726,
+    "units": 363,
+    "weighted_pair_rate": 0.09896692518817453,
+    "weighted_unit_rate": 0.9996667812519284
+   },
+   "lower_0.01": {
+    "pairs": 174,
+    "units": 134,
+    "weighted_pair_rate": 0.005201230930340615,
+    "weighted_unit_rate": 0.5550983328816833
+   },
+   "upper_1e-07": {
+    "pairs": 9,
+    "units": 5,
+    "weighted_pair_rate": 7.4031158094655864e-06,
+    "weighted_unit_rate": 0.0009260444883685145
+   },
+   "upper_0.01": {
+    "pairs": 7,
+    "units": 5,
+    "weighted_pair_rate": 6.917015453702235e-06,
+    "weighted_unit_rate": 0.0009260444883685145
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "fold/5",
+   "n": 520,
+   "pairs": 74839,
+   "lower_1e-07": {
+    "pairs": 7125,
+    "units": 517,
+    "weighted_pair_rate": 0.09491777274322574,
+    "weighted_unit_rate": 0.9998795608867391
+   },
+   "lower_0.01": {
+    "pairs": 240,
+    "units": 179,
+    "weighted_pair_rate": 0.003143440865446774,
+    "weighted_unit_rate": 0.3188071709559726
+   },
+   "upper_1e-07": {
+    "pairs": 12,
+    "units": 6,
+    "weighted_pair_rate": 3.278868623191147e-05,
+    "weighted_unit_rate": 0.0016898082739927312
+   },
+   "upper_0.01": {
+    "pairs": 9,
+    "units": 6,
+    "weighted_pair_rate": 2.2732289229260783e-05,
+    "weighted_unit_rate": 0.0016898082739927312
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00001",
+   "n": 6,
+   "pairs": 864,
+   "lower_1e-07": {
+    "pairs": 168,
+    "units": 6,
+    "weighted_pair_rate": 0.19444444444444445,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.0011574074074074073,
+    "weighted_unit_rate": 0.16666666666666666
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00006",
+   "n": 13,
+   "pairs": 1872,
+   "lower_1e-07": {
+    "pairs": 319,
+    "units": 13,
+    "weighted_pair_rate": 0.1704059829059829,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 5,
+    "units": 4,
+    "weighted_pair_rate": 0.002670940170940171,
+    "weighted_unit_rate": 0.3076923076923077
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00008",
+   "n": 73,
+   "pairs": 10465,
+   "lower_1e-07": {
+    "pairs": 1208,
+    "units": 73,
+    "weighted_pair_rate": 0.1021730489240922,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 27,
+    "units": 23,
+    "weighted_pair_rate": 0.0029643588848890343,
+    "weighted_unit_rate": 0.4106029587102779
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00009",
+   "n": 54,
+   "pairs": 7776,
+   "lower_1e-07": {
+    "pairs": 956,
+    "units": 54,
+    "weighted_pair_rate": 0.11871041875639599,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 14,
+    "units": 14,
+    "weighted_pair_rate": 0.0017453967651451501,
+    "weighted_unit_rate": 0.25133713418090164
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00023",
+   "n": 89,
+   "pairs": 12816,
+   "lower_1e-07": {
+    "pairs": 1483,
+    "units": 89,
+    "weighted_pair_rate": 0.1216689506941592,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 21,
+    "units": 19,
+    "weighted_pair_rate": 0.0017616254917866784,
+    "weighted_unit_rate": 0.2291504808532401
+   },
+   "upper_1e-07": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 5.150334714370798e-05,
+    "weighted_unit_rate": 0.00741648198869395
+   },
+   "upper_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 5.150334714370798e-05,
+    "weighted_unit_rate": 0.00741648198869395
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00034",
+   "n": 94,
+   "pairs": 13307,
+   "lower_1e-07": {
+    "pairs": 1097,
+    "units": 91,
+    "weighted_pair_rate": 0.08996032428882031,
+    "weighted_unit_rate": 0.9795201443030486
+   },
+   "lower_0.01": {
+    "pairs": 30,
+    "units": 21,
+    "weighted_pair_rate": 0.0022889958112932663,
+    "weighted_unit_rate": 0.22124017433076612
+   },
+   "upper_1e-07": {
+    "pairs": 4,
+    "units": 2,
+    "weighted_pair_rate": 0.00017666844946566707,
+    "weighted_unit_rate": 0.012606702361413752
+   },
+   "upper_0.01": {
+    "pairs": 4,
+    "units": 2,
+    "weighted_pair_rate": 0.00017666844946566707,
+    "weighted_unit_rate": 0.012606702361413752
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00037",
+   "n": 71,
+   "pairs": 10224,
+   "lower_1e-07": {
+    "pairs": 537,
+    "units": 65,
+    "weighted_pair_rate": 0.05232399110226907,
+    "weighted_unit_rate": 0.9145445348095398
+   },
+   "lower_0.01": {
+    "pairs": 32,
+    "units": 21,
+    "weighted_pair_rate": 0.0031293097726962297,
+    "weighted_unit_rate": 0.30646543320568165
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00040",
+   "n": 76,
+   "pairs": 10944,
+   "lower_1e-07": {
+    "pairs": 1267,
+    "units": 76,
+    "weighted_pair_rate": 0.10525115616952872,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 39,
+    "units": 27,
+    "weighted_pair_rate": 0.0030407340724605473,
+    "weighted_unit_rate": 0.3137266236558756
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00042",
+   "n": 71,
+   "pairs": 10224,
+   "lower_1e-07": {
+    "pairs": 1129,
+    "units": 71,
+    "weighted_pair_rate": 0.10891741257686609,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 25,
+    "units": 20,
+    "weighted_pair_rate": 0.0019381292034556447,
+    "weighted_unit_rate": 0.2512528154947697
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00046",
+   "n": 82,
+   "pairs": 11802,
+   "lower_1e-07": {
+    "pairs": 953,
+    "units": 79,
+    "weighted_pair_rate": 0.1050230206533507,
+    "weighted_unit_rate": 0.9825416404818059
+   },
+   "lower_0.01": {
+    "pairs": 30,
+    "units": 24,
+    "weighted_pair_rate": 0.003695708866755014,
+    "weighted_unit_rate": 0.45901080710744346
+   },
+   "upper_1e-07": {
+    "pairs": 8,
+    "units": 4,
+    "weighted_pair_rate": 0.00032372644429498506,
+    "weighted_unit_rate": 0.02327781269092548
+   },
+   "upper_0.01": {
+    "pairs": 6,
+    "units": 4,
+    "weighted_pair_rate": 0.00024279483322123878,
+    "weighted_unit_rate": 0.02327781269092548
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00047",
+   "n": 99,
+   "pairs": 14254,
+   "lower_1e-07": {
+    "pairs": 1117,
+    "units": 96,
+    "weighted_pair_rate": 0.08246573230806598,
+    "weighted_unit_rate": 0.987997506613251
+   },
+   "lower_0.01": {
+    "pairs": 30,
+    "units": 24,
+    "weighted_pair_rate": 0.004052909217938929,
+    "weighted_unit_rate": 0.45804367489183045
+   },
+   "upper_1e-07": {
+    "pairs": 5,
+    "units": 4,
+    "weighted_pair_rate": 0.0004928753091044672,
+    "weighted_unit_rate": 0.04079524887995064
+   },
+   "upper_0.01": {
+    "pairs": 5,
+    "units": 4,
+    "weighted_pair_rate": 0.0004928753091044672,
+    "weighted_unit_rate": 0.04079524887995064
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00052",
+   "n": 28,
+   "pairs": 4032,
+   "lower_1e-07": {
+    "pairs": 536,
+    "units": 28,
+    "weighted_pair_rate": 0.13293650793650794,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 17,
+    "units": 15,
+    "weighted_pair_rate": 0.004216269841269841,
+    "weighted_unit_rate": 0.5357142857142857
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00053",
+   "n": 6,
+   "pairs": 864,
+   "lower_1e-07": {
+    "pairs": 77,
+    "units": 6,
+    "weighted_pair_rate": 0.08912037037037036,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 5,
+    "units": 3,
+    "weighted_pair_rate": 0.005787037037037037,
+    "weighted_unit_rate": 0.5
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00054",
+   "n": 22,
+   "pairs": 3168,
+   "lower_1e-07": {
+    "pairs": 365,
+    "units": 22,
+    "weighted_pair_rate": 0.11521464646464646,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 10,
+    "units": 8,
+    "weighted_pair_rate": 0.0031565656565656565,
+    "weighted_unit_rate": 0.36363636363636365
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00058",
+   "n": 73,
+   "pairs": 10512,
+   "lower_1e-07": {
+    "pairs": 740,
+    "units": 72,
+    "weighted_pair_rate": 0.07401122803508743,
+    "weighted_unit_rate": 0.9877959276363516
+   },
+   "lower_0.01": {
+    "pairs": 60,
+    "units": 37,
+    "weighted_pair_rate": 0.005565326852836745,
+    "weighted_unit_rate": 0.49372883941622775
+   },
+   "upper_1e-07": {
+    "pairs": 3,
+    "units": 3,
+    "weighted_pair_rate": 0.0002542515075760083,
+    "weighted_unit_rate": 0.03661221709094519
+   },
+   "upper_0.01": {
+    "pairs": 3,
+    "units": 3,
+    "weighted_pair_rate": 0.0002542515075760083,
+    "weighted_unit_rate": 0.03661221709094519
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00234",
+   "n": 16,
+   "pairs": 2304,
+   "lower_1e-07": {
+    "pairs": 196,
+    "units": 16,
+    "weighted_pair_rate": 0.08506944444444445,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 13,
+    "units": 9,
+    "weighted_pair_rate": 0.005642361111111111,
+    "weighted_unit_rate": 0.5625
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00334",
+   "n": 4,
+   "pairs": 576,
+   "lower_1e-07": {
+    "pairs": 60,
+    "units": 4,
+    "weighted_pair_rate": 0.10416666666666667,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 3,
+    "units": 3,
+    "weighted_pair_rate": 0.005208333333333333,
+    "weighted_unit_rate": 0.75
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00336",
+   "n": 22,
+   "pairs": 3168,
+   "lower_1e-07": {
+    "pairs": 215,
+    "units": 22,
+    "weighted_pair_rate": 0.06786616161616162,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 15,
+    "units": 12,
+    "weighted_pair_rate": 0.004734848484848485,
+    "weighted_unit_rate": 0.5454545454545454
+   },
+   "upper_1e-07": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.0003156565656565657,
+    "weighted_unit_rate": 0.045454545454545456
+   },
+   "upper_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.0003156565656565657,
+    "weighted_unit_rate": 0.045454545454545456
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00341",
+   "n": 36,
+   "pairs": 5184,
+   "lower_1e-07": {
+    "pairs": 379,
+    "units": 36,
+    "weighted_pair_rate": 0.07243785367808175,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 16,
+    "units": 14,
+    "weighted_pair_rate": 0.002393008983728787,
+    "weighted_unit_rate": 0.30987436332205515
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00348",
+   "n": 118,
+   "pairs": 16992,
+   "lower_1e-07": {
+    "pairs": 1173,
+    "units": 118,
+    "weighted_pair_rate": 0.0737480294690181,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 82,
+    "units": 62,
+    "weighted_pair_rate": 0.0026143031933356328,
+    "weighted_unit_rate": 0.34992352234839447
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 2.4905033304084855e-05,
+    "weighted_unit_rate": 0.003586324795788219
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 2.4905033304084855e-05,
+    "weighted_unit_rate": 0.003586324795788219
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00352",
+   "n": 137,
+   "pairs": 19694,
+   "lower_1e-07": {
+    "pairs": 1750,
+    "units": 137,
+    "weighted_pair_rate": 0.09323690235283269,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 69,
+    "units": 52,
+    "weighted_pair_rate": 0.0025987687818318376,
+    "weighted_unit_rate": 0.32325140337954544
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00387",
+   "n": 34,
+   "pairs": 4896,
+   "lower_1e-07": {
+    "pairs": 318,
+    "units": 34,
+    "weighted_pair_rate": 0.06571354103540054,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 23,
+    "units": 20,
+    "weighted_pair_rate": 0.00425333535756449,
+    "weighted_unit_rate": 0.5070881042468894
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00438",
+   "n": 89,
+   "pairs": 12816,
+   "lower_1e-07": {
+    "pairs": 1064,
+    "units": 89,
+    "weighted_pair_rate": 0.09046788996195786,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 53,
+    "units": 40,
+    "weighted_pair_rate": 0.004098166402711354,
+    "weighted_unit_rate": 0.4479198092923384
+   },
+   "upper_1e-07": {
+    "pairs": 3,
+    "units": 1,
+    "weighted_pair_rate": 0.0003434672483737105,
+    "weighted_unit_rate": 0.016486427921938107
+   },
+   "upper_0.01": {
+    "pairs": 3,
+    "units": 1,
+    "weighted_pair_rate": 0.0003434672483737105,
+    "weighted_unit_rate": 0.016486427921938107
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00460",
+   "n": 92,
+   "pairs": 13248,
+   "lower_1e-07": {
+    "pairs": 1106,
+    "units": 92,
+    "weighted_pair_rate": 0.07914525683323224,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 35,
+    "units": 29,
+    "weighted_pair_rate": 0.0027528875129466156,
+    "weighted_unit_rate": 0.345120655960665
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 6.398285345364095e-05,
+    "weighted_unit_rate": 0.009213530897324297
+   },
+   "upper_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 2.8959411451244398e-05,
+    "weighted_unit_rate": 0.004170155248979193
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S00799",
+   "n": 49,
+   "pairs": 7033,
+   "lower_1e-07": {
+    "pairs": 442,
+    "units": 49,
+    "weighted_pair_rate": 0.06251656247076134,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 32,
+    "units": 24,
+    "weighted_pair_rate": 0.004420293342122904,
+    "weighted_unit_rate": 0.4790494647896848
+   },
+   "upper_1e-07": {
+    "pairs": 5,
+    "units": 1,
+    "weighted_pair_rate": 0.0006152258168238113,
+    "weighted_unit_rate": 0.01765264701582707
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 0.00024609032672952454,
+    "weighted_unit_rate": 0.01765264701582707
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S01213",
+   "n": 31,
+   "pairs": 4459,
+   "lower_1e-07": {
+    "pairs": 314,
+    "units": 31,
+    "weighted_pair_rate": 0.07263192762397833,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 19,
+    "units": 15,
+    "weighted_pair_rate": 0.0035588295748927587,
+    "weighted_unit_rate": 0.40215424366947594
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S01262",
+   "n": 237,
+   "pairs": 34128,
+   "lower_1e-07": {
+    "pairs": 3510,
+    "units": 237,
+    "weighted_pair_rate": 0.10910295725574869,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 105,
+    "units": 85,
+    "weighted_pair_rate": 0.003083136535813807,
+    "weighted_unit_rate": 0.41255058646631154
+   },
+   "upper_1e-07": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 2.169077709586023e-05,
+    "weighted_unit_rate": 0.003123471901803873
+   },
+   "upper_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 2.169077709586023e-05,
+    "weighted_unit_rate": 0.003123471901803873
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S01734",
+   "n": 36,
+   "pairs": 5184,
+   "lower_1e-07": {
+    "pairs": 440,
+    "units": 36,
+    "weighted_pair_rate": 0.08425926803732747,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 9,
+    "units": 9,
+    "weighted_pair_rate": 0.0017212341091430044,
+    "weighted_unit_rate": 0.24785771171659263
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S02000",
+   "n": 92,
+   "pairs": 13245,
+   "lower_1e-07": {
+    "pairs": 1096,
+    "units": 91,
+    "weighted_pair_rate": 0.10029020341314626,
+    "weighted_unit_rate": 0.9979819619724549
+   },
+   "lower_0.01": {
+    "pairs": 37,
+    "units": 28,
+    "weighted_pair_rate": 0.0014502117717330007,
+    "weighted_unit_rate": 0.17087891661728916
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 2.3396976696925293e-05,
+    "weighted_unit_rate": 0.0016845027580987416
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 2.3396976696925293e-05,
+    "weighted_unit_rate": 0.0016845027580987416
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S02004",
+   "n": 28,
+   "pairs": 4032,
+   "lower_1e-07": {
+    "pairs": 352,
+    "units": 28,
+    "weighted_pair_rate": 0.08080712533732894,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 6,
+    "units": 6,
+    "weighted_pair_rate": 0.0014444010014588108,
+    "weighted_unit_rate": 0.20799374421006875
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S02185",
+   "n": 74,
+   "pairs": 10656,
+   "lower_1e-07": {
+    "pairs": 1364,
+    "units": 74,
+    "weighted_pair_rate": 0.12178319876094526,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 16,
+    "units": 15,
+    "weighted_pair_rate": 0.0020548566749947323,
+    "weighted_unit_rate": 0.2580904834100751
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S02387",
+   "n": 114,
+   "pairs": 16416,
+   "lower_1e-07": {
+    "pairs": 1726,
+    "units": 114,
+    "weighted_pair_rate": 0.10796450395728699,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 57,
+    "units": 42,
+    "weighted_pair_rate": 0.003123897616800647,
+    "weighted_unit_rate": 0.357421417952821
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 5.466169085445698e-05,
+    "weighted_unit_rate": 0.003935641741520902
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 1,
+    "weighted_pair_rate": 5.466169085445698e-05,
+    "weighted_unit_rate": 0.003935641741520902
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S02738",
+   "n": 99,
+   "pairs": 14256,
+   "lower_1e-07": {
+    "pairs": 1113,
+    "units": 97,
+    "weighted_pair_rate": 0.08254634724108084,
+    "weighted_unit_rate": 0.9942684570823683
+   },
+   "lower_0.01": {
+    "pairs": 39,
+    "units": 28,
+    "weighted_pair_rate": 0.0033591076583634337,
+    "weighted_unit_rate": 0.401610337622741
+   },
+   "upper_1e-07": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 7.054322070808694e-05,
+    "weighted_unit_rate": 0.010158223781964518
+   },
+   "upper_0.01": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 7.054322070808694e-05,
+    "weighted_unit_rate": 0.010158223781964518
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S03065",
+   "n": 25,
+   "pairs": 3600,
+   "lower_1e-07": {
+    "pairs": 379,
+    "units": 25,
+    "weighted_pair_rate": 0.10568058023054644,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 13,
+    "units": 12,
+    "weighted_pair_rate": 0.003593744682874582,
+    "weighted_unit_rate": 0.4752337828538106
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S03222",
+   "n": 31,
+   "pairs": 4460,
+   "lower_1e-07": {
+    "pairs": 439,
+    "units": 31,
+    "weighted_pair_rate": 0.0984304932735426,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 15,
+    "units": 11,
+    "weighted_pair_rate": 0.0033632286995515697,
+    "weighted_unit_rate": 0.3548387096774194
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S03401",
+   "n": 71,
+   "pairs": 10213,
+   "lower_1e-07": {
+    "pairs": 1150,
+    "units": 71,
+    "weighted_pair_rate": 0.11204718236608698,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 25,
+    "units": 22,
+    "weighted_pair_rate": 0.003071565029188324,
+    "weighted_unit_rate": 0.377180729610216
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S03908",
+   "n": 59,
+   "pairs": 8496,
+   "lower_1e-07": {
+    "pairs": 1032,
+    "units": 59,
+    "weighted_pair_rate": 0.11879411427972866,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 24,
+    "units": 20,
+    "weighted_pair_rate": 0.0029739410433904266,
+    "weighted_unit_rate": 0.38350313798833247
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S04322",
+   "n": 65,
+   "pairs": 8549,
+   "lower_1e-07": {
+    "pairs": 722,
+    "units": 65,
+    "weighted_pair_rate": 0.08965893225935369,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 43,
+    "units": 30,
+    "weighted_pair_rate": 0.005002278233629751,
+    "weighted_unit_rate": 0.48463608435716
+   },
+   "upper_1e-07": {
+    "pairs": 6,
+    "units": 1,
+    "weighted_pair_rate": 0.0005824610322913606,
+    "weighted_unit_rate": 0.012915296236189174
+   },
+   "upper_0.01": {
+    "pairs": 6,
+    "units": 1,
+    "weighted_pair_rate": 0.0005824610322913606,
+    "weighted_unit_rate": 0.012915296236189174
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S04540",
+   "n": 6,
+   "pairs": 864,
+   "lower_1e-07": {
+    "pairs": 56,
+    "units": 6,
+    "weighted_pair_rate": 0.06481481481481481,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 3,
+    "units": 2,
+    "weighted_pair_rate": 0.003472222222222222,
+    "weighted_unit_rate": 0.3333333333333333
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S04728",
+   "n": 5,
+   "pairs": 720,
+   "lower_1e-07": {
+    "pairs": 51,
+    "units": 5,
+    "weighted_pair_rate": 0.07083333333333333,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 2,
+    "units": 2,
+    "weighted_pair_rate": 0.002777777777777778,
+    "weighted_unit_rate": 0.4
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S04767",
+   "n": 35,
+   "pairs": 5040,
+   "lower_1e-07": {
+    "pairs": 680,
+    "units": 35,
+    "weighted_pair_rate": 0.1349206349206349,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 12,
+    "units": 9,
+    "weighted_pair_rate": 0.002380952380952381,
+    "weighted_unit_rate": 0.2571428571428571
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S04808",
+   "n": 16,
+   "pairs": 2304,
+   "lower_1e-07": {
+    "pairs": 323,
+    "units": 16,
+    "weighted_pair_rate": 0.1401909722222222,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 3,
+    "units": 2,
+    "weighted_pair_rate": 0.0013020833333333333,
+    "weighted_unit_rate": 0.125
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S04959",
+   "n": 12,
+   "pairs": 1728,
+   "lower_1e-07": {
+    "pairs": 182,
+    "units": 12,
+    "weighted_pair_rate": 0.10532407407407407,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 5,
+    "units": 5,
+    "weighted_pair_rate": 0.0028935185185185184,
+    "weighted_unit_rate": 0.4166666666666667
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S05711",
+   "n": 11,
+   "pairs": 1584,
+   "lower_1e-07": {
+    "pairs": 174,
+    "units": 11,
+    "weighted_pair_rate": 0.10984848484848485,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 4,
+    "units": 4,
+    "weighted_pair_rate": 0.0025252525252525255,
+    "weighted_unit_rate": 0.36363636363636365
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S05747",
+   "n": 18,
+   "pairs": 2592,
+   "lower_1e-07": {
+    "pairs": 322,
+    "units": 18,
+    "weighted_pair_rate": 0.12422839506172839,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 4,
+    "units": 4,
+    "weighted_pair_rate": 0.0015432098765432098,
+    "weighted_unit_rate": 0.2222222222222222
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S06430",
+   "n": 39,
+   "pairs": 5575,
+   "lower_1e-07": {
+    "pairs": 695,
+    "units": 39,
+    "weighted_pair_rate": 0.12466367713004484,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 26,
+    "units": 22,
+    "weighted_pair_rate": 0.004663677130044843,
+    "weighted_unit_rate": 0.5641025641025641
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S06887",
+   "n": 72,
+   "pairs": 10357,
+   "lower_1e-07": {
+    "pairs": 1234,
+    "units": 72,
+    "weighted_pair_rate": 0.11679848200998368,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 39,
+    "units": 23,
+    "weighted_pair_rate": 0.003710012526857391,
+    "weighted_unit_rate": 0.3194054912639638
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S07051",
+   "n": 19,
+   "pairs": 2736,
+   "lower_1e-07": {
+    "pairs": 239,
+    "units": 19,
+    "weighted_pair_rate": 0.10512332867522155,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 7,
+    "units": 7,
+    "weighted_pair_rate": 0.001540875698554347,
+    "weighted_unit_rate": 0.22188610059182598
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S10347",
+   "n": 9,
+   "pairs": 1296,
+   "lower_1e-07": {
+    "pairs": 152,
+    "units": 9,
+    "weighted_pair_rate": 0.11728395061728394,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 10,
+    "units": 5,
+    "weighted_pair_rate": 0.007716049382716049,
+    "weighted_unit_rate": 0.5555555555555556
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S12960",
+   "n": 10,
+   "pairs": 1440,
+   "lower_1e-07": {
+    "pairs": 162,
+    "units": 10,
+    "weighted_pair_rate": 0.1125,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.0006944444444444445,
+    "weighted_unit_rate": 0.1
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S12991",
+   "n": 34,
+   "pairs": 4344,
+   "lower_1e-07": {
+    "pairs": 446,
+    "units": 34,
+    "weighted_pair_rate": 0.10267034990791897,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 11,
+    "units": 9,
+    "weighted_pair_rate": 0.0025322283609576428,
+    "weighted_unit_rate": 0.2647058823529412
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S14270",
+   "n": 26,
+   "pairs": 3744,
+   "lower_1e-07": {
+    "pairs": 386,
+    "units": 26,
+    "weighted_pair_rate": 0.10294399712633423,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 9,
+    "units": 9,
+    "weighted_pair_rate": 0.0023891373008490323,
+    "weighted_unit_rate": 0.34403577132226065
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S15439",
+   "n": 34,
+   "pairs": 4896,
+   "lower_1e-07": {
+    "pairs": 546,
+    "units": 34,
+    "weighted_pair_rate": 0.11151960784313726,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 16,
+    "units": 14,
+    "weighted_pair_rate": 0.0032679738562091504,
+    "weighted_unit_rate": 0.4117647058823529
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S17118",
+   "n": 24,
+   "pairs": 3397,
+   "lower_1e-07": {
+    "pairs": 277,
+    "units": 24,
+    "weighted_pair_rate": 0.08306415476846976,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 21,
+    "units": 14,
+    "weighted_pair_rate": 0.005887155000796292,
+    "weighted_unit_rate": 0.5454945745786659
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S17459",
+   "n": 9,
+   "pairs": 1296,
+   "lower_1e-07": {
+    "pairs": 111,
+    "units": 9,
+    "weighted_pair_rate": 0.08564814814814815,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 5,
+    "units": 5,
+    "weighted_pair_rate": 0.0038580246913580245,
+    "weighted_unit_rate": 0.5555555555555556
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S17476",
+   "n": 15,
+   "pairs": 2160,
+   "lower_1e-07": {
+    "pairs": 300,
+    "units": 15,
+    "weighted_pair_rate": 0.1388888888888889,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 7,
+    "units": 6,
+    "weighted_pair_rate": 0.0032407407407407406,
+    "weighted_unit_rate": 0.4
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S17501",
+   "n": 19,
+   "pairs": 2736,
+   "lower_1e-07": {
+    "pairs": 245,
+    "units": 19,
+    "weighted_pair_rate": 0.089546783625731,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 8,
+    "units": 8,
+    "weighted_pair_rate": 0.0029239766081871343,
+    "weighted_unit_rate": 0.42105263157894735
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S18784",
+   "n": 50,
+   "pairs": 7200,
+   "lower_1e-07": {
+    "pairs": 791,
+    "units": 50,
+    "weighted_pair_rate": 0.10960711124836844,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 26,
+    "units": 21,
+    "weighted_pair_rate": 0.003661817775306847,
+    "weighted_unit_rate": 0.4289352461752542
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S19862",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 29,
+    "units": 1,
+    "weighted_pair_rate": 0.2013888888888889,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S21463",
+   "n": 15,
+   "pairs": 2160,
+   "lower_1e-07": {
+    "pairs": 171,
+    "units": 15,
+    "weighted_pair_rate": 0.07916666666666666,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 8,
+    "units": 5,
+    "weighted_pair_rate": 0.003703703703703704,
+    "weighted_unit_rate": 0.3333333333333333
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S23002",
+   "n": 16,
+   "pairs": 2304,
+   "lower_1e-07": {
+    "pairs": 213,
+    "units": 16,
+    "weighted_pair_rate": 0.09244791666666667,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 14,
+    "units": 10,
+    "weighted_pair_rate": 0.006076388888888889,
+    "weighted_unit_rate": 0.625
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S23574",
+   "n": 16,
+   "pairs": 2304,
+   "lower_1e-07": {
+    "pairs": 336,
+    "units": 16,
+    "weighted_pair_rate": 0.14583333333333334,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 6,
+    "units": 5,
+    "weighted_pair_rate": 0.0026041666666666665,
+    "weighted_unit_rate": 0.3125
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S23975",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 7,
+    "units": 1,
+    "weighted_pair_rate": 0.04861111111111111,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.006944444444444444,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S23999",
+   "n": 1,
+   "pairs": 144,
+   "lower_1e-07": {
+    "pairs": 4,
+    "units": 1,
+    "weighted_pair_rate": 0.027777777777777776,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 1,
+    "units": 1,
+    "weighted_pair_rate": 0.006944444444444444,
+    "weighted_unit_rate": 1.0
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S24001",
+   "n": 6,
+   "pairs": 864,
+   "lower_1e-07": {
+    "pairs": 116,
+    "units": 6,
+    "weighted_pair_rate": 0.13425925925925927,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 3,
+    "units": 3,
+    "weighted_pair_rate": 0.003472222222222222,
+    "weighted_unit_rate": 0.5
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S25509",
+   "n": 10,
+   "pairs": 1440,
+   "lower_1e-07": {
+    "pairs": 145,
+    "units": 10,
+    "weighted_pair_rate": 0.10069444444444445,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 4,
+    "units": 4,
+    "weighted_pair_rate": 0.002777777777777778,
+    "weighted_unit_rate": 0.4
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  },
+  {
+   "cohort": "J",
+   "stratum": "group/S26716",
+   "n": 18,
+   "pairs": 2592,
+   "lower_1e-07": {
+    "pairs": 258,
+    "units": 18,
+    "weighted_pair_rate": 0.09953703703703703,
+    "weighted_unit_rate": 1.0
+   },
+   "lower_0.01": {
+    "pairs": 10,
+    "units": 10,
+    "weighted_pair_rate": 0.0038580246913580245,
+    "weighted_unit_rate": 0.5555555555555556
+   },
+   "upper_1e-07": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   },
+   "upper_0.01": {
+    "pairs": 0,
+    "units": 0,
+    "weighted_pair_rate": 0.0,
+    "weighted_unit_rate": 0.0
+   }
+  }
+ ],
+ "violation_cluster_intervals": {
+  "all": {
+   "lower_1e-07": {
+    "point": 0.08820409008556053,
+    "ci95": [
+     0.08029892955083034,
+     0.09628798849453936
+    ],
+    "supporting_groups": 68,
+    "valid_draws": 1999
+   },
+   "lower_0.01": {
+    "point": 0.0008119274379415741,
+    "ci95": [
+     0.0006660900564572901,
+     0.000995967500236519
+    ],
+    "supporting_groups": 68,
+    "valid_draws": 1999
+   },
+   "upper_1e-07": {
+    "point": 3.68416527633996e-06,
+    "ci95": [
+     1.5370030325176494e-06,
+     7.554641018319386e-06
+    ],
+    "supporting_groups": 68,
+    "valid_draws": 1999
+   },
+   "upper_0.01": {
+    "point": 3.0946026821171618e-06,
+    "ci95": [
+     1.3456681226753121e-06,
+     6.053251034860495e-06
+    ],
+    "supporting_groups": 68,
+    "valid_draws": 1999
+   }
+  },
+  "S": {
+   "lower_1e-07": {
+    "point": 0.08080160714165083,
+    "ci95": [
+     0.06889042373706325,
+     0.09160802399286593
+    ],
+    "supporting_groups": 55,
+    "valid_draws": 1999
+   },
+   "lower_0.01": {
+    "point": 0.009402211348781817,
+    "ci95": [
+     0.007070987208570925,
+     0.011597856644356296
+    ],
+    "supporting_groups": 55,
+    "valid_draws": 1999
+   },
+   "upper_1e-07": {
+    "point": 0.00012728923333055385,
+    "ci95": [
+     5.525166237924759e-05,
+     0.00024887603318111273
+    ],
+    "supporting_groups": 55,
+    "valid_draws": 1999
+   },
+   "upper_0.01": {
+    "point": 0.00010691963398034611,
+    "ci95": [
+     4.909496010165829e-05,
+     0.0001973265664466724
+    ],
+    "supporting_groups": 55,
+    "valid_draws": 1999
+   }
+  },
+  "J": {
+   "lower_1e-07": {
+    "point": 0.09850379733329699,
+    "ci95": [
+     0.09191541998291515,
+     0.10510233054390067
+    ],
+    "supporting_groups": 67,
+    "valid_draws": 1999
+   },
+   "lower_0.01": {
+    "point": 0.0036513126139203354,
+    "ci95": [
+     0.003031524936607099,
+     0.004307084803387205
+    ],
+    "supporting_groups": 67,
+    "valid_draws": 1999
+   },
+   "upper_1e-07": {
+    "point": 1.6598080861117494e-05,
+    "ci95": [
+     7.2839625067490035e-06,
+     3.1184304967211306e-05
+    ],
+    "supporting_groups": 67,
+    "valid_draws": 1999
+   },
+   "upper_0.01": {
+    "point": 1.39419547436373e-05,
+    "ci95": [
+     6.306662410559015e-06,
+     2.5076344787478657e-05
+    ],
+    "supporting_groups": 67,
+    "valid_draws": 1999
+   }
+  }
+ },
+ "reversal_overlap": {
+  "eligible": 2949,
+  "rapid_reversal": 551,
+  "true_lower_violation": 699,
+  "both": 527,
+  "rapid_weighted": 0.22594273459864983,
+  "true_bound_weighted": 0.2784562144608029,
+  "bound_given_rapid": 0.9790033412703579
+ },
+ "false_alarm_intersection": {
+  "both": {
+   "n": 3,
+   "weighted_rate": 0.00022148289667489208
+  },
+  "host_only": {
+   "n": 1,
+   "weighted_rate": 5.807822119549646e-05
+  },
+  "crk_only": {
+   "n": 130,
+   "weighted_rate": 0.002809729314211272
+  },
+  "neither": {
+   "n": 7597,
+   "weighted_rate": 0.9969107095679184
+  }
+ },
+ "fit_objective": [
+  {
+   "fold": 1,
+   "cohort": "all",
+   "n": 6350,
+   "class_zero_SSE": {
+    "tropical": 1577.389831584874,
+    "winter": 5703.922145258987,
+    "synoptic_wind": 715.6539214981532,
+    "convective": 2523.4833193531067,
+    "heavy_rain": 335.81485493484246
+   },
+   "design_hour_mass_share": 1.0,
+   "normalized_hour_mass_share": 1.0,
+   "design_zero_SSE_share": 1.0,
+   "normalized_zero_SSE_share": 1.0
+  },
+  {
+   "fold": 1,
+   "cohort": "S",
+   "n": 559,
+   "class_zero_SSE": {
+    "tropical": 1577.389831584874,
+    "winter": 5703.922145258987,
+    "synoptic_wind": 715.6539214981532,
+    "convective": 2523.4833193531067,
+    "heavy_rain": 335.81485493484246
+   },
+   "design_hour_mass_share": 0.02997289956327568,
+   "normalized_hour_mass_share": 0.026400112105354562,
+   "design_zero_SSE_share": 0.9583933081546958,
+   "normalized_zero_SSE_share": 0.9342061769735401
+  },
+  {
+   "fold": 1,
+   "cohort": "J",
+   "n": 2145,
+   "class_zero_SSE": {
+    "tropical": 1577.389831584874,
+    "winter": 5703.922145258987,
+    "synoptic_wind": 715.6539214981532,
+    "convective": 2523.4833193531067,
+    "heavy_rain": 335.81485493484246
+   },
+   "design_hour_mass_share": 0.21915862276260986,
+   "normalized_hour_mass_share": 0.22824527989599247,
+   "design_zero_SSE_share": 0.9962624478306832,
+   "normalized_zero_SSE_share": 0.9928050660658381
+  },
+  {
+   "fold": 1,
+   "cohort": "nonS",
+   "n": 5791,
+   "class_zero_SSE": {
+    "tropical": 1577.389831584874,
+    "winter": 5703.922145258987,
+    "synoptic_wind": 715.6539214981532,
+    "convective": 2523.4833193531067,
+    "heavy_rain": 335.81485493484246
+   },
+   "design_hour_mass_share": 0.9700271004367244,
+   "normalized_hour_mass_share": 0.9735998878946452,
+   "design_zero_SSE_share": 0.04160669184530399,
+   "normalized_zero_SSE_share": 0.06579382302645992
+  },
+  {
+   "fold": 2,
+   "cohort": "all",
+   "n": 6357,
+   "class_zero_SSE": {
+    "tropical": 2259.3830083063904,
+    "winter": 5706.468418110852,
+    "synoptic_wind": 450.66294237973455,
+    "convective": 2848.7087172797414,
+    "heavy_rain": 450.6056342405317
+   },
+   "design_hour_mass_share": 1.0,
+   "normalized_hour_mass_share": 1.0,
+   "design_zero_SSE_share": 1.0,
+   "normalized_zero_SSE_share": 1.0
+  },
+  {
+   "fold": 2,
+   "cohort": "S",
+   "n": 609,
+   "class_zero_SSE": {
+    "tropical": 2259.3830083063904,
+    "winter": 5706.468418110852,
+    "synoptic_wind": 450.66294237973455,
+    "convective": 2848.7087172797414,
+    "heavy_rain": 450.6056342405317
+   },
+   "design_hour_mass_share": 0.02937126116933763,
+   "normalized_hour_mass_share": 0.028182000507299482,
+   "design_zero_SSE_share": 0.9534088898602617,
+   "normalized_zero_SSE_share": 0.9231632148378596
+  },
+  {
+   "fold": 2,
+   "cohort": "J",
+   "n": 2306,
+   "class_zero_SSE": {
+    "tropical": 2259.3830083063904,
+    "winter": 5706.468418110852,
+    "synoptic_wind": 450.66294237973455,
+    "convective": 2848.7087172797414,
+    "heavy_rain": 450.6056342405317
+   },
+   "design_hour_mass_share": 0.22274805085502325,
+   "normalized_hour_mass_share": 0.23940486444345613,
+   "design_zero_SSE_share": 0.9877503382142763,
+   "normalized_zero_SSE_share": 0.9859227411900549
+  },
+  {
+   "fold": 2,
+   "cohort": "nonS",
+   "n": 5748,
+   "class_zero_SSE": {
+    "tropical": 2259.3830083063904,
+    "winter": 5706.468418110852,
+    "synoptic_wind": 450.66294237973455,
+    "convective": 2848.7087172797414,
+    "heavy_rain": 450.6056342405317
+   },
+   "design_hour_mass_share": 0.9706287388306624,
+   "normalized_hour_mass_share": 0.9718179994927005,
+   "design_zero_SSE_share": 0.0465911101397383,
+   "normalized_zero_SSE_share": 0.07683678516214025
+  },
+  {
+   "fold": 3,
+   "cohort": "all",
+   "n": 6688,
+   "class_zero_SSE": {
+    "tropical": 1957.3366549244881,
+    "winter": 2009.9701275691646,
+    "synoptic_wind": 719.1108768240666,
+    "convective": 3445.7883455992214,
+    "heavy_rain": 242.29938508782755
+   },
+   "design_hour_mass_share": 1.0,
+   "normalized_hour_mass_share": 1.0,
+   "design_zero_SSE_share": 1.0,
+   "normalized_zero_SSE_share": 1.0
+  },
+  {
+   "fold": 3,
+   "cohort": "S",
+   "n": 543,
+   "class_zero_SSE": {
+    "tropical": 1957.3366549244881,
+    "winter": 2009.9701275691646,
+    "synoptic_wind": 719.1108768240666,
+    "convective": 3445.7883455992214,
+    "heavy_rain": 242.29938508782755
+   },
+   "design_hour_mass_share": 0.028533184396979615,
+   "normalized_hour_mass_share": 0.027903787030516033,
+   "design_zero_SSE_share": 0.9238937161818402,
+   "normalized_zero_SSE_share": 0.891028472938036
+  },
+  {
+   "fold": 3,
+   "cohort": "J",
+   "n": 2367,
+   "class_zero_SSE": {
+    "tropical": 1957.3366549244881,
+    "winter": 2009.9701275691646,
+    "synoptic_wind": 719.1108768240666,
+    "convective": 3445.7883455992214,
+    "heavy_rain": 242.29938508782755
+   },
+   "design_hour_mass_share": 0.2290346667544848,
+   "normalized_hour_mass_share": 0.2594363091117015,
+   "design_zero_SSE_share": 0.9815290933535007,
+   "normalized_zero_SSE_share": 0.98308284134599
+  },
+  {
+   "fold": 3,
+   "cohort": "nonS",
+   "n": 6145,
+   "class_zero_SSE": {
+    "tropical": 1957.3366549244881,
+    "winter": 2009.9701275691646,
+    "synoptic_wind": 719.1108768240666,
+    "convective": 3445.7883455992214,
+    "heavy_rain": 242.29938508782755
+   },
+   "design_hour_mass_share": 0.9714668156030204,
+   "normalized_hour_mass_share": 0.9720962129694841,
+   "design_zero_SSE_share": 0.07610628381815973,
+   "normalized_zero_SSE_share": 0.10897152706196388
+  },
+  {
+   "fold": 4,
+   "cohort": "all",
+   "n": 7321,
+   "class_zero_SSE": {
+    "tropical": 1591.6786493535787,
+    "winter": 6091.623736707496,
+    "synoptic_wind": 728.2773748692711,
+    "convective": 3260.758532624144,
+    "heavy_rain": 442.72871658749716
+   },
+   "design_hour_mass_share": 1.0,
+   "normalized_hour_mass_share": 1.0,
+   "design_zero_SSE_share": 1.0,
+   "normalized_zero_SSE_share": 1.0
+  },
+  {
+   "fold": 4,
+   "cohort": "S",
+   "n": 595,
+   "class_zero_SSE": {
+    "tropical": 1591.6786493535787,
+    "winter": 6091.623736707496,
+    "synoptic_wind": 728.2773748692711,
+    "convective": 3260.758532624144,
+    "heavy_rain": 442.72871658749716
+   },
+   "design_hour_mass_share": 0.026305497011309787,
+   "normalized_hour_mass_share": 0.02555228845137948,
+   "design_zero_SSE_share": 0.9502756694066506,
+   "normalized_zero_SSE_share": 0.9220110429517956
+  },
+  {
+   "fold": 4,
+   "cohort": "J",
+   "n": 2591,
+   "class_zero_SSE": {
+    "tropical": 1591.6786493535787,
+    "winter": 6091.623736707496,
+    "synoptic_wind": 728.2773748692711,
+    "convective": 3260.758532624144,
+    "heavy_rain": 442.72871658749716
+   },
+   "design_hour_mass_share": 0.22017330822349337,
+   "normalized_hour_mass_share": 0.24085665793941116,
+   "design_zero_SSE_share": 0.9874168903275212,
+   "normalized_zero_SSE_share": 0.985414981596818
+  },
+  {
+   "fold": 4,
+   "cohort": "nonS",
+   "n": 6726,
+   "class_zero_SSE": {
+    "tropical": 1591.6786493535787,
+    "winter": 6091.623736707496,
+    "synoptic_wind": 728.2773748692711,
+    "convective": 3260.758532624144,
+    "heavy_rain": 442.72871658749716
+   },
+   "design_hour_mass_share": 0.9736945029886902,
+   "normalized_hour_mass_share": 0.9744477115486205,
+   "design_zero_SSE_share": 0.04972433059334928,
+   "normalized_zero_SSE_share": 0.07798895704820445
+  },
+  {
+   "fold": 5,
+   "cohort": "all",
+   "n": 7112,
+   "class_zero_SSE": {
+    "tropical": 1653.2978889454057,
+    "winter": 4865.1112139036895,
+    "synoptic_wind": 675.7531486897453,
+    "convective": 2097.2932958980637,
+    "heavy_rain": 420.8744344403983
+   },
+   "design_hour_mass_share": 1.0,
+   "normalized_hour_mass_share": 1.0,
+   "design_zero_SSE_share": 1.0,
+   "normalized_zero_SSE_share": 1.0
+  },
+  {
+   "fold": 5,
+   "cohort": "S",
+   "n": 598,
+   "class_zero_SSE": {
+    "tropical": 1653.2978889454057,
+    "winter": 4865.1112139036895,
+    "synoptic_wind": 675.7531486897453,
+    "convective": 2097.2932958980637,
+    "heavy_rain": 420.8744344403983
+   },
+   "design_hour_mass_share": 0.030750150060922604,
+   "normalized_hour_mass_share": 0.031199715381833807,
+   "design_zero_SSE_share": 0.9409607712131859,
+   "normalized_zero_SSE_share": 0.9145932175752162
+  },
+  {
+   "fold": 5,
+   "cohort": "J",
+   "n": 2443,
+   "class_zero_SSE": {
+    "tropical": 1653.2978889454057,
+    "winter": 4865.1112139036895,
+    "synoptic_wind": 675.7531486897453,
+    "convective": 2097.2932958980637,
+    "heavy_rain": 420.8744344403983
+   },
+   "design_hour_mass_share": 0.21759454478993967,
+   "normalized_hour_mass_share": 0.23509167228509165,
+   "design_zero_SSE_share": 0.9846055344934408,
+   "normalized_zero_SSE_share": 0.9818540759053243
+  },
+  {
+   "fold": 5,
+   "cohort": "nonS",
+   "n": 6514,
+   "class_zero_SSE": {
+    "tropical": 1653.2978889454057,
+    "winter": 4865.1112139036895,
+    "synoptic_wind": 675.7531486897453,
+    "convective": 2097.2932958980637,
+    "heavy_rain": 420.8744344403983
+   },
+   "design_hour_mass_share": 0.9692498499390774,
+   "normalized_hour_mass_share": 0.968800284618166,
+   "design_zero_SSE_share": 0.05903922878681415,
+   "normalized_zero_SSE_share": 0.08540678242478371
+  }
+ ],
+ "oracle": {
+  "0.5": {
+   "max_gap": 0.07622207117806969,
+   "sum_gap": 0.08979440639975012,
+   "failed_solver": 7,
+   "unresolved_gap_over_1e8": 25,
+   "weighted_RMSE_bracket": [
+    0.005650139375753304,
+    0.005685932786259353
+   ],
+   "fraction_of_host_SSE_lower": {
+    "point": 0.008190054089723182,
+    "ci95": [
+     0.004235800111622054,
+     0.015239032235092648
+    ],
+    "supporting_groups": 55,
+    "valid_draws": 1999
+   },
+   "fraction_of_host_SSE_upper": {
+    "point": 0.008294150111182648,
+    "ci95": [
+     0.0043053067039748785,
+     0.015400516159858303
+    ],
+    "supporting_groups": 55,
+    "valid_draws": 1999
+   },
+   "fraction_of_crk_SSE_lower": {
+    "point": 0.008250202048888173,
+    "ci95": [
+     0.004314305808725434,
+     0.015172599022191516
+    ],
+    "supporting_groups": 55,
+    "valid_draws": 1999
+   },
+   "peak_ratio_q10_median_q90": [
+    0.831214424429502,
+    0.9999999999999463,
+    1.0
+   ],
+   "strata": [
+    {
+     "stratum": "all",
+     "n": 726,
+     "host_SSE": 11751.412270910603,
+     "lower_SSE": 96.24470212939457,
+     "upper_SSE": 97.46797739332627
+    },
+    {
+     "stratum": "regime/tropical",
+     "n": 263,
+     "host_SSE": 1983.031075785174,
+     "lower_SSE": 1.8726899359494427,
+     "upper_SSE": 1.8832133123636394
+    },
+    {
+     "stratum": "regime/winter",
+     "n": 151,
+     "host_SSE": 5724.438396504986,
+     "lower_SSE": 16.129694698005714,
+     "upper_SSE": 17.282047176415514
+    },
+    {
+     "stratum": "regime/synoptic_wind",
+     "n": 172,
+     "host_SSE": 699.2165876120075,
+     "lower_SSE": 9.632593174025487,
+     "upper_SSE": 9.674162906142715
+    },
+    {
+     "stratum": "regime/convective",
+     "n": 72,
+     "host_SSE": 2966.7824660201236,
+     "lower_SSE": 57.59064725200893,
+     "upper_SSE": 57.59064730897069
+    },
+    {
+     "stratum": "regime/heavy_rain",
+     "n": 68,
+     "host_SSE": 377.9437449883112,
+     "lower_SSE": 11.019077069404986,
+     "upper_SSE": 11.037906689433708
+    },
+    {
+     "stratum": "fold/1",
+     "n": 167,
+     "host_SSE": 1909.4840458029223,
+     "lower_SSE": 20.73823058586767,
+     "upper_SSE": 21.881159334933784
+    },
+    {
+     "stratum": "fold/2",
+     "n": 117,
+     "host_SSE": 1225.060564815893,
+     "lower_SSE": 14.505965695102399,
+     "upper_SSE": 14.51731320642213
+    },
+    {
+     "stratum": "fold/3",
+     "n": 183,
+     "host_SSE": 4674.403092117321,
+     "lower_SSE": 12.115538549684281,
+     "upper_SSE": 12.168971266642824
+    },
+    {
+     "stratum": "fold/4",
+     "n": 131,
+     "host_SSE": 891.8977697370661,
+     "lower_SSE": 11.195982238291805,
+     "upper_SSE": 11.203165319561272
+    },
+    {
+     "stratum": "fold/5",
+     "n": 128,
+     "host_SSE": 3050.5667984374,
+     "lower_SSE": 37.68898506044841,
+     "upper_SSE": 37.69736826576626
+    },
+    {
+     "stratum": "group/S00006",
+     "n": 1,
+     "host_SSE": 0.01000917597703903,
+     "lower_SSE": 0.002449112130063016,
+     "upper_SSE": 0.0024491121301142295
+    },
+    {
+     "stratum": "group/S00008",
+     "n": 3,
+     "host_SSE": 1.4161894814157978,
+     "lower_SSE": 0.027993397965278555,
+     "upper_SSE": 0.03031929028908778
+    },
+    {
+     "stratum": "group/S00009",
+     "n": 2,
+     "host_SSE": 0.15447990364646563,
+     "lower_SSE": 0.022754613205670505,
+     "upper_SSE": 0.022754613205689205
+    },
+    {
+     "stratum": "group/S00023",
+     "n": 41,
+     "host_SSE": 280.67113970701394,
+     "lower_SSE": 0.043488851902045544,
+     "upper_SSE": 0.04350282647922468
+    },
+    {
+     "stratum": "group/S00034",
+     "n": 50,
+     "host_SSE": 573.7462920568663,
+     "lower_SSE": 0.49042292146876965,
+     "upper_SSE": 0.4908347845596524
+    },
+    {
+     "stratum": "group/S00037",
+     "n": 43,
+     "host_SSE": 272.56030873730265,
+     "lower_SSE": 0.14617203897365236,
+     "upper_SSE": 0.14617203897799583
+    },
+    {
+     "stratum": "group/S00040",
+     "n": 15,
+     "host_SSE": 4.889535422006195,
+     "lower_SSE": 0.09892410554059611,
+     "upper_SSE": 0.10001585347968067
+    },
+    {
+     "stratum": "group/S00042",
+     "n": 7,
+     "host_SSE": 1.114744611147948,
+     "lower_SSE": 0.006926478586267153,
+     "upper_SSE": 0.006926478708892879
+    },
+    {
+     "stratum": "group/S00046",
+     "n": 45,
+     "host_SSE": 312.229302927885,
+     "lower_SSE": 0.03042015378565123,
+     "upper_SSE": 0.036526588893251576
+    },
+    {
+     "stratum": "group/S00047",
+     "n": 52,
+     "host_SSE": 535.9366660072011,
+     "lower_SSE": 0.9812888814656272,
+     "upper_SSE": 0.9812888814933446
+    },
+    {
+     "stratum": "group/S00052",
+     "n": 2,
+     "host_SSE": 0.19694467828103207,
+     "lower_SSE": 0.010060926377700915,
+     "upper_SSE": 0.010634389598508483
+    },
+    {
+     "stratum": "group/S00053",
+     "n": 2,
+     "host_SSE": 0.10546307643031902,
+     "lower_SSE": 0.011788454548120296,
+     "upper_SSE": 0.011788454548196697
+    },
+    {
+     "stratum": "group/S00058",
+     "n": 39,
+     "host_SSE": 985.9168352373373,
+     "lower_SSE": 3.3360603595215097,
+     "upper_SSE": 3.3432650116283633
+    },
+    {
+     "stratum": "group/S00234",
+     "n": 5,
+     "host_SSE": 10.167004648648392,
+     "lower_SSE": 0.4719264674467586,
+     "upper_SSE": 0.5016445094105343
+    },
+    {
+     "stratum": "group/S00334",
+     "n": 1,
+     "host_SSE": 5.8848742827718485,
+     "lower_SSE": 1.0238594018432905,
+     "upper_SSE": 1.0238594020356984
+    },
+    {
+     "stratum": "group/S00336",
+     "n": 5,
+     "host_SSE": 41.57132290275928,
+     "lower_SSE": 1.8747210419971356,
+     "upper_SSE": 1.8757976875614564
+    },
+    {
+     "stratum": "group/S00341",
+     "n": 16,
+     "host_SSE": 47.13437270036958,
+     "lower_SSE": 0.09692091189110161,
+     "upper_SSE": 0.09692091189507998
+    },
+    {
+     "stratum": "group/S00348",
+     "n": 19,
+     "host_SSE": 196.52964136513884,
+     "lower_SSE": 3.7849393567643865,
+     "upper_SSE": 3.7957133981251707
+    },
+    {
+     "stratum": "group/S00352",
+     "n": 35,
+     "host_SSE": 155.70629900166796,
+     "lower_SSE": 1.4857429278599512,
+     "upper_SSE": 1.4857429311531491
+    },
+    {
+     "stratum": "group/S00387",
+     "n": 9,
+     "host_SSE": 10.416141038768188,
+     "lower_SSE": 0.45425203842311157,
+     "upper_SSE": 0.4542520469125617
+    },
+    {
+     "stratum": "group/S00438",
+     "n": 26,
+     "host_SSE": 239.06154881832552,
+     "lower_SSE": 4.935872445978126,
+     "upper_SSE": 4.935872446061319
+    },
+    {
+     "stratum": "group/S00460",
+     "n": 24,
+     "host_SSE": 245.21837298298914,
+     "lower_SSE": 0.8336984791873302,
+     "upper_SSE": 0.8337136597253825
+    },
+    {
+     "stratum": "group/S00799",
+     "n": 22,
+     "host_SSE": 1056.7129877517887,
+     "lower_SSE": 1.983204153183697,
+     "upper_SSE": 1.9915873390410597
+    },
+    {
+     "stratum": "group/S01213",
+     "n": 5,
+     "host_SSE": 17.13082461707227,
+     "lower_SSE": 0.16968508173443952,
+     "upper_SSE": 0.16968508187981324
+    },
+    {
+     "stratum": "group/S01262",
+     "n": 52,
+     "host_SSE": 197.84581486389908,
+     "lower_SSE": 1.8582664402666365,
+     "upper_SSE": 2.9973494607519355
+    },
+    {
+     "stratum": "group/S01734",
+     "n": 3,
+     "host_SSE": 12.299687092855873,
+     "lower_SSE": 0.12181476055479716,
+     "upper_SSE": 0.12181481216998546
+    },
+    {
+     "stratum": "group/S02000",
+     "n": 25,
+     "host_SSE": 74.42879836142397,
+     "lower_SSE": 0.20410105797718267,
+     "upper_SSE": 0.20410105799657882
+    },
+    {
+     "stratum": "group/S02004",
+     "n": 1,
+     "host_SSE": 0.9883691736831789,
+     "lower_SSE": 0.0025407129691913805,
+     "upper_SSE": 0.0025407129691913852
+    },
+    {
+     "stratum": "group/S02185",
+     "n": 17,
+     "host_SSE": 191.50585578503768,
+     "lower_SSE": 0.8468052288446748,
+     "upper_SSE": 0.8468052318787769
+    },
+    {
+     "stratum": "group/S02387",
+     "n": 15,
+     "host_SSE": 622.4865186190937,
+     "lower_SSE": 3.9568278763451,
+     "upper_SSE": 3.9568278764403324
+    },
+    {
+     "stratum": "group/S02738",
+     "n": 45,
+     "host_SSE": 3033.52709871534,
+     "lower_SSE": 2.073084018567685,
+     "upper_SSE": 2.0825627669610824
+    },
+    {
+     "stratum": "group/S03065",
+     "n": 3,
+     "host_SSE": 31.54839927183058,
+     "lower_SSE": 0.5455995513751183,
+     "upper_SSE": 0.5455995513765095
+    },
+    {
+     "stratum": "group/S03222",
+     "n": 1,
+     "host_SSE": 32.12614704684183,
+     "lower_SSE": 1.0716263440920721,
+     "upper_SSE": 1.0716263440920737
+    },
+    {
+     "stratum": "group/S03401",
+     "n": 6,
+     "host_SSE": 448.88115477442796,
+     "lower_SSE": 2.479937344515613,
+     "upper_SSE": 2.47993734541576
+    },
+    {
+     "stratum": "group/S03908",
+     "n": 12,
+     "host_SSE": 60.81658097343012,
+     "lower_SSE": 0.5018589214873028,
+     "upper_SSE": 0.5018589217974874
+    },
+    {
+     "stratum": "group/S04322",
+     "n": 18,
+     "host_SSE": 214.32329868272367,
+     "lower_SSE": 0.47827671909413316,
+     "upper_SSE": 0.48529401899055125
+    },
+    {
+     "stratum": "group/S04540",
+     "n": 1,
+     "host_SSE": 35.195757806930196,
+     "lower_SSE": 4.2290744076126225,
+     "upper_SSE": 4.229074407612622
+    },
+    {
+     "stratum": "group/S04767",
+     "n": 2,
+     "host_SSE": 12.874981098834873,
+     "lower_SSE": 0.023232976885820614,
+     "upper_SSE": 0.023232976969291733
+    },
+    {
+     "stratum": "group/S04808",
+     "n": 1,
+     "host_SSE": 2.425468357184882,
+     "lower_SSE": 0.16105247860652885,
+     "upper_SSE": 0.16105247860662866
+    },
+    {
+     "stratum": "group/S05747",
+     "n": 1,
+     "host_SSE": 32.5484103778873,
+     "lower_SSE": 1.7183626195929094,
+     "upper_SSE": 1.7183626301504176
+    },
+    {
+     "stratum": "group/S06430",
+     "n": 4,
+     "host_SSE": 50.6780988049339,
+     "lower_SSE": 6.4703797068596245,
+     "upper_SSE": 6.470379706920152
+    },
+    {
+     "stratum": "group/S06887",
+     "n": 15,
+     "host_SSE": 20.54259469971326,
+     "lower_SSE": 0.2677228572383246,
+     "upper_SSE": 0.26772285726080247
+    },
+    {
+     "stratum": "group/S10347",
+     "n": 2,
+     "host_SSE": 19.34545634913396,
+     "lower_SSE": 0.3238290648344398,
+     "upper_SSE": 0.3238290648360046
+    },
+    {
+     "stratum": "group/S12991",
+     "n": 7,
+     "host_SSE": 2.1803079474202116,
+     "lower_SSE": 0.014733516741083023,
+     "upper_SSE": 0.014734508232235813
+    },
+    {
+     "stratum": "group/S15439",
+     "n": 7,
+     "host_SSE": 392.36265269538796,
+     "lower_SSE": 1.6694508367414902,
+     "upper_SSE": 1.6694508370685928
+    },
+    {
+     "stratum": "group/S17118",
+     "n": 1,
+     "host_SSE": 7.148587807148141,
+     "lower_SSE": 0.33855508954763736,
+     "upper_SSE": 0.3385550895476374
+    },
+    {
+     "stratum": "group/S17459",
+     "n": 1,
+     "host_SSE": 1.6572377996778533,
+     "lower_SSE": 0.12728671269522943,
+     "upper_SSE": 0.12728671269529737
+    },
+    {
+     "stratum": "group/S17476",
+     "n": 2,
+     "host_SSE": 0.3333408107823324,
+     "lower_SSE": 0.08189024948174224,
+     "upper_SSE": 0.08189024948174231
+    },
+    {
+     "stratum": "group/S17501",
+     "n": 2,
+     "host_SSE": 3.7700874423798507,
+     "lower_SSE": 0.35754008075779253,
+     "upper_SSE": 0.35754008075783794
+    },
+    {
+     "stratum": "group/S18784",
+     "n": 5,
+     "host_SSE": 9.091168457621563,
+     "lower_SSE": 0.27603246431536277,
+     "upper_SSE": 0.27603246431585443
+    },
+    {
+     "stratum": "group/S21463",
+     "n": 1,
+     "host_SSE": 751.2524423575428,
+     "lower_SSE": 27.989662595272403,
+     "upper_SSE": 27.989662595272407
+    },
+    {
+     "stratum": "group/S23002",
+     "n": 3,
+     "host_SSE": 119.37510668814848,
+     "lower_SSE": 7.163179272045291,
+     "upper_SSE": 7.163179272046808
+    },
+    {
+     "stratum": "group/S23574",
+     "n": 1,
+     "host_SSE": 3.0429545403682545,
+     "lower_SSE": 0.22634570952853403,
+     "upper_SSE": 0.22634570952853453
+    },
+    {
+     "stratum": "group/S25509",
+     "n": 1,
+     "host_SSE": 1.3863656841829848,
+     "lower_SSE": 0.00521184376069482,
+     "upper_SSE": 0.005211843789325865
+    },
+    {
+     "stratum": "group/S26716",
+     "n": 2,
+     "host_SSE": 370.94222669192493,
+     "lower_SSE": 8.336848069007244,
+     "upper_SSE": 8.336848069600588
+    }
+   ]
+  },
+  "1.0": {
+   "max_gap": 3.462508058049707e-15,
+   "sum_gap": 4.074431764200526e-15,
+   "failed_solver": 0,
+   "unresolved_gap_over_1e8": 0,
+   "weighted_RMSE_bracket": [
+    0.0014669630288526355,
+    0.0014669630288526375
+   ],
+   "fraction_of_host_SSE_lower": {
+    "point": 0.0005520860649400234,
+    "ci95": [
+     0.0001563312622373698,
+     0.0013549639543212514
+    ],
+    "supporting_groups": 55,
+    "valid_draws": 1999
+   },
+   "fraction_of_host_SSE_upper": {
+    "point": 0.000552086064940025,
+    "ci95": [
+     0.00015633126223736995,
+     0.001354963954321252
+    ],
+    "supporting_groups": 55,
+    "valid_draws": 1999
+   },
+   "fraction_of_crk_SSE_lower": {
+    "point": 0.0005561405986129134,
+    "ci95": [
+     0.0001582947852688321,
+     0.001360005963909717
+    ],
+    "supporting_groups": 55,
+    "valid_draws": 1999
+   },
+   "peak_ratio_q10_median_q90": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "strata": [
+    {
+     "stratum": "all",
+     "n": 726,
+     "host_SSE": 11751.412270910603,
+     "lower_SSE": 6.487790958134937,
+     "upper_SSE": 6.487790958134955
+    },
+    {
+     "stratum": "regime/tropical",
+     "n": 263,
+     "host_SSE": 1983.031075785174,
+     "lower_SSE": 0.9895527483354989,
+     "upper_SSE": 0.9895527483354982
+    },
+    {
+     "stratum": "regime/winter",
+     "n": 151,
+     "host_SSE": 5724.438396504986,
+     "lower_SSE": 3.627391912225565,
+     "upper_SSE": 3.6273919122255673
+    },
+    {
+     "stratum": "regime/synoptic_wind",
+     "n": 172,
+     "host_SSE": 699.2165876120075,
+     "lower_SSE": 1.43018821280838,
+     "upper_SSE": 1.4301882128083814
+    },
+    {
+     "stratum": "regime/convective",
+     "n": 72,
+     "host_SSE": 2966.7824660201236,
+     "lower_SSE": 0.3066588154443035,
+     "upper_SSE": 0.30665881544430396
+    },
+    {
+     "stratum": "regime/heavy_rain",
+     "n": 68,
+     "host_SSE": 377.9437449883112,
+     "lower_SSE": 0.13399926932118972,
+     "upper_SSE": 0.13399926932120454
+    },
+    {
+     "stratum": "fold/1",
+     "n": 167,
+     "host_SSE": 1909.4840458029223,
+     "lower_SSE": 0.6369729044100503,
+     "upper_SSE": 0.6369729044100507
+    },
+    {
+     "stratum": "fold/2",
+     "n": 117,
+     "host_SSE": 1225.060564815893,
+     "lower_SSE": 3.7705401283631788,
+     "upper_SSE": 3.770540128363182
+    },
+    {
+     "stratum": "fold/3",
+     "n": 183,
+     "host_SSE": 4674.403092117321,
+     "lower_SSE": 0.6544153545619606,
+     "upper_SSE": 0.6544153545619756
+    },
+    {
+     "stratum": "fold/4",
+     "n": 131,
+     "host_SSE": 891.8977697370661,
+     "lower_SSE": 0.19174828200044153,
+     "upper_SSE": 0.19174828200044153
+    },
+    {
+     "stratum": "fold/5",
+     "n": 128,
+     "host_SSE": 3050.5667984374,
+     "lower_SSE": 1.2341142887993062,
+     "upper_SSE": 1.2341142887993062
+    },
+    {
+     "stratum": "group/S00006",
+     "n": 1,
+     "host_SSE": 0.01000917597703903,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S00008",
+     "n": 3,
+     "host_SSE": 1.4161894814157978,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S00009",
+     "n": 2,
+     "host_SSE": 0.15447990364646563,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S00023",
+     "n": 41,
+     "host_SSE": 280.67113970701394,
+     "lower_SSE": 0.0018187769318967974,
+     "upper_SSE": 0.0018187769318967974
+    },
+    {
+     "stratum": "group/S00034",
+     "n": 50,
+     "host_SSE": 573.7462920568663,
+     "lower_SSE": 0.15103393489603778,
+     "upper_SSE": 0.1510339348960377
+    },
+    {
+     "stratum": "group/S00037",
+     "n": 43,
+     "host_SSE": 272.56030873730265,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S00040",
+     "n": 15,
+     "host_SSE": 4.889535422006195,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S00042",
+     "n": 7,
+     "host_SSE": 1.114744611147948,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S00046",
+     "n": 45,
+     "host_SSE": 312.229302927885,
+     "lower_SSE": 0.01337250587799758,
+     "upper_SSE": 0.013372505877997596
+    },
+    {
+     "stratum": "group/S00047",
+     "n": 52,
+     "host_SSE": 535.9366660072011,
+     "lower_SSE": 0.8233275306295668,
+     "upper_SSE": 0.8233275306295662
+    },
+    {
+     "stratum": "group/S00052",
+     "n": 2,
+     "host_SSE": 0.19694467828103207,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S00053",
+     "n": 2,
+     "host_SSE": 0.10546307643031902,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S00058",
+     "n": 39,
+     "host_SSE": 985.9168352373373,
+     "lower_SSE": 0.4575197851835877,
+     "upper_SSE": 0.45751978518358793
+    },
+    {
+     "stratum": "group/S00234",
+     "n": 5,
+     "host_SSE": 10.167004648648392,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S00334",
+     "n": 1,
+     "host_SSE": 5.8848742827718485,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S00336",
+     "n": 5,
+     "host_SSE": 41.57132290275928,
+     "lower_SSE": 0.17837577612244396,
+     "upper_SSE": 0.17837577612244393
+    },
+    {
+     "stratum": "group/S00341",
+     "n": 16,
+     "host_SSE": 47.13437270036958,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S00348",
+     "n": 19,
+     "host_SSE": 196.52964136513884,
+     "lower_SSE": 1.206168081904385,
+     "upper_SSE": 1.2061680819043865
+    },
+    {
+     "stratum": "group/S00352",
+     "n": 35,
+     "host_SSE": 155.70629900166796,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S00387",
+     "n": 9,
+     "host_SSE": 10.416141038768188,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S00438",
+     "n": 26,
+     "host_SSE": 239.06154881832552,
+     "lower_SSE": 2.564372046458794,
+     "upper_SSE": 2.564372046458795
+    },
+    {
+     "stratum": "group/S00460",
+     "n": 24,
+     "host_SSE": 245.21837298298914,
+     "lower_SSE": 0.003605548982867324,
+     "upper_SSE": 0.0036055489828673384
+    },
+    {
+     "stratum": "group/S00799",
+     "n": 22,
+     "host_SSE": 1056.7129877517887,
+     "lower_SSE": 0.10412794272543592,
+     "upper_SSE": 0.10412794272543595
+    },
+    {
+     "stratum": "group/S01213",
+     "n": 5,
+     "host_SSE": 17.13082461707227,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S01262",
+     "n": 52,
+     "host_SSE": 197.84581486389908,
+     "lower_SSE": 0.4823334205311452,
+     "upper_SSE": 0.48233342053114575
+    },
+    {
+     "stratum": "group/S01734",
+     "n": 3,
+     "host_SSE": 12.299687092855873,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S02000",
+     "n": 25,
+     "host_SSE": 74.42879836142397,
+     "lower_SSE": 0.045644354781551016,
+     "upper_SSE": 0.045644354781551
+    },
+    {
+     "stratum": "group/S02004",
+     "n": 1,
+     "host_SSE": 0.9883691736831789,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S02185",
+     "n": 17,
+     "host_SSE": 191.50585578503768,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S02387",
+     "n": 15,
+     "host_SSE": 622.4865186190937,
+     "lower_SSE": 0.3066588154443035,
+     "upper_SSE": 0.30665881544430396
+    },
+    {
+     "stratum": "group/S02738",
+     "n": 45,
+     "host_SSE": 3033.52709871534,
+     "lower_SSE": 0.015433168343735336,
+     "upper_SSE": 0.015433168343735329
+    },
+    {
+     "stratum": "group/S03065",
+     "n": 3,
+     "host_SSE": 31.54839927183058,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S03222",
+     "n": 1,
+     "host_SSE": 32.12614704684183,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S03401",
+     "n": 6,
+     "host_SSE": 448.88115477442796,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S03908",
+     "n": 12,
+     "host_SSE": 60.81658097343012,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S04322",
+     "n": 18,
+     "host_SSE": 214.32329868272367,
+     "lower_SSE": 0.13399926932118972,
+     "upper_SSE": 0.13399926932120454
+    },
+    {
+     "stratum": "group/S04540",
+     "n": 1,
+     "host_SSE": 35.195757806930196,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S04767",
+     "n": 2,
+     "host_SSE": 12.874981098834873,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S04808",
+     "n": 1,
+     "host_SSE": 2.425468357184882,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S05747",
+     "n": 1,
+     "host_SSE": 32.5484103778873,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S06430",
+     "n": 4,
+     "host_SSE": 50.6780988049339,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S06887",
+     "n": 15,
+     "host_SSE": 20.54259469971326,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S10347",
+     "n": 2,
+     "host_SSE": 19.34545634913396,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S12991",
+     "n": 7,
+     "host_SSE": 2.1803079474202116,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S15439",
+     "n": 7,
+     "host_SSE": 392.36265269538796,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S17118",
+     "n": 1,
+     "host_SSE": 7.148587807148141,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S17459",
+     "n": 1,
+     "host_SSE": 1.6572377996778533,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S17476",
+     "n": 2,
+     "host_SSE": 0.3333408107823324,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S17501",
+     "n": 2,
+     "host_SSE": 3.7700874423798507,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S18784",
+     "n": 5,
+     "host_SSE": 9.091168457621563,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S21463",
+     "n": 1,
+     "host_SSE": 751.2524423575428,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S23002",
+     "n": 3,
+     "host_SSE": 119.37510668814848,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S23574",
+     "n": 1,
+     "host_SSE": 3.0429545403682545,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S25509",
+     "n": 1,
+     "host_SSE": 1.3863656841829848,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    },
+    {
+     "stratum": "group/S26716",
+     "n": 2,
+     "host_SSE": 370.94222669192493,
+     "lower_SSE": 0.0,
+     "upper_SSE": 0.0
+    }
+   ]
+  }
+ },
+ "actual_peak_ratio_q10_median_q90": {
+  "host": [
+   0.005661237576847285,
+   0.015897377314679804,
+   0.17310705202048549
+  ],
+  "crk": [
+   0.0022679740368769484,
+   0.010867883573858369,
+   0.24345062598935813
+  ]
+ },
+ "local_artifacts": {
+  "oracle_paths.npz": "3bdadc806642e8b753cf9f0bc9a3b89b4859906dd9f1e56d7efd839d4f8cb4a4",
+  "oracle_certificates.json": "1d312ccbf75c46616474e0bb000f51fcd57d73d968775d9675e15bc31792b54a"
+ }
+}

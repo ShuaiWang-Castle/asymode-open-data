@@ -1,0 +1,24 @@
+{
+ "status": "passed",
+ "checks": [
+  "S membership independent",
+  "cap05 all trajectories feasible and weighted upper objective independently reproduced",
+  "cap1 all trajectories feasible and weighted upper objective independently reproduced",
+  "v1_host_s0 fold1 replay and fit/outer severe RMSE independently reproduced",
+  "v1_crk_s0 fold1 replay and fit/outer severe RMSE independently reproduced",
+  "d06_response_audit.json strict finite JSON",
+  "d06_checkpoint_audit.json strict finite JSON",
+  "All 30 host/CRK artifacts match the prior I20 final audit, including all ten checkpoints"
+ ],
+ "scope_commit": "5fa930e",
+ "input_results_sha256": {
+  "d06_response_audit.json": "eb8880cc8d760154c25e2fe1ba6df57f531bc4bcf67054cec9070ea8836845ee",
+  "d06_checkpoint_audit.json": "511757e9741133c0e958ef100a77d2cbff204d02e816371fa783208bab073bc9"
+ },
+ "limitations": [
+  "Oracle primal upper objectives independently reproduced; dual formula tested analytically, not externally solver-certified.",
+  "25 cap=0.5 numerical certificates have gap >1e-8; complete weighted interval retained.",
+  "Frozen FIT evaluation disables stochastic drop-path, not an optimization training trace."
+ ],
+ "external_replay_sha256": "89d62b03925076c58ee209060bf7c271a493d555814602355ae934221d571a78"
+}

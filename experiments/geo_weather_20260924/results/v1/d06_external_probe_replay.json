@@ -1,0 +1,288 @@
+{
+  "status": "aggregate_recalculation_and_synthetic_mechanism_tests_only",
+  "D_panel_loaded": false,
+  "real_predictions_replayed": false,
+  "new_real_training": false,
+  "source_values": {
+    "snapshot": "54310b30ba4407e0d0ab0c9c9ac5d1ff85726ec0",
+    "handoff": "14153f9903824dd9977553e049144bcc2e28cac4",
+    "all_D": {
+      "host_rmse": 0.0110887460873556,
+      "crk_rmse": 0.011205226380355678,
+      "zero_rmse": 0.011252717622222207,
+      "host_mae": 0.0014924742573837794,
+      "crk_mae": 0.0012173054455832347
+    },
+    "S": {
+      "host_rmse": 0.062433226,
+      "crk_rmse": 0.062205225,
+      "n": 726,
+      "n_eff_units": 39.27,
+      "n_eff_groups": 14.57
+    },
+    "J_next_fall80": {
+      "unweighted_count": 551,
+      "followup_count": 2949,
+      "weighted_fraction": 0.2259
+    },
+    "false_peak": {
+      "n_nonS": 7731,
+      "host_count": 4,
+      "crk_count": 133,
+      "host_weighted_pct": 0.027956,
+      "crk_weighted_pct": 0.303121
+    },
+    "source_note": "Small numeric transcription from public I20/D05 reports; no downloaded panel. S values rounded as reported."
+  },
+  "tests": [
+    {
+      "test": "published_aggregate_arithmetic",
+      "passed": true,
+      "host_vs_zero_rmse_improvement_pct": 1.4571727503655652,
+      "crk_vs_zero_rmse_improvement_pct": 0.42204242087032773,
+      "crk_vs_host_rmse_change_pct": 1.050437011384897,
+      "crk_vs_host_mae_change_pct": -18.437089312541953,
+      "false_nonS_unweighted_pct_host": 0.051739749062217046,
+      "false_nonS_unweighted_pct_crk": 1.7203466563187169,
+      "false_nonS_count_ratio": 33.25,
+      "false_nonS_weighted_rate_ratio": 10.842788667906708
+    },
+    {
+      "test": "fixed_coefficient_impulse_formulas",
+      "passed": true,
+      "table": [
+        {
+          "tau_h": 2,
+          "i20_write": 0.3934693402873666,
+          "scattering_direct": -0.6065306597126334,
+          "scattering_stored": 0.7950600976206501
+        },
+        {
+          "tau_h": 3,
+          "i20_write": 0.28346868942621073,
+          "scattering_direct": -0.7165313105737893,
+          "scattering_stored": 0.6975549304301475
+        },
+        {
+          "tau_h": 8,
+          "i20_write": 0.11750309741540454,
+          "scattering_direct": -0.8824969025845955,
+          "scattering_stored": 0.47031820816187314
+        },
+        {
+          "tau_h": 24,
+          "i20_write": 0.040810542890861834,
+          "scattering_direct": -0.9591894571091382,
+          "scattering_stored": 0.28276418686014115
+        },
+        {
+          "tau_h": 72,
+          "i20_write": 0.013792883256083743,
+          "scattering_direct": -0.9862071167439163,
+          "scattering_stored": 0.16551592939548612
+        },
+        {
+          "tau_h": 96,
+          "i20_write": 0.01036260108500342,
+          "scattering_direct": -0.9896373989149966,
+          "scattering_stored": 0.14358906180054207
+        }
+      ]
+    },
+    {
+      "test": "all_subset_normalization_example",
+      "passed": true,
+      "max_recursion_error": 2.220446049250313e-16,
+      "coordinate_similarity": 0.6065306597126334,
+      "full_kernel": 0.03853735198398854,
+      "landmark_coordinate": 0.0068125057292127865,
+      "order_ge9_mass_fraction": 0.0183156368653319,
+      "order20_value": 4.5399929762484834e-05,
+      "order40_value": 2.061153622438557e-09,
+      "single_pair_prefactor": 3.205128205128205e-05,
+      "direct_geography_norm_reference": 1.0
+    },
+    {
+      "test": "host_reachable_envelope",
+      "passed": true,
+      "draws": 10000,
+      "lower": "p_next >= .5*p_previous",
+      "upper": "p_next <= .515+.485*p_previous"
+    },
+    {
+      "test": "infeasible_spike_oracle",
+      "passed": true,
+      "truth_peak": 0.2,
+      "old_cap_optimum": {
+        "sse": 0.009999999999998293,
+        "path": [
+          0.0,
+          0.0,
+          0.15000000000000852,
+          0.07500000000000424,
+          0.03750000000000212,
+          0.01875000000000106,
+          0.009375000000000517,
+          0.004687500000000252,
+          0.0023437500000001387,
+          0.0011718750000000583,
+          0.0005859375000000239,
+          0.0002929687500000101,
+          0.00014648437500001588,
+          7.324218749999409e-05,
+          3.662109374999105e-05,
+          1.831054687499873e-05,
+          9.155273437492322e-06,
+          4.577636718749791e-06,
+          2.2888183593600138e-06,
+          1.144409179696639e-06,
+          5.722045898368676e-07,
+          2.86102294927827e-07,
+          1.4305114746418555e-07,
+          7.15255737321268e-08
+        ],
+        "niter": 2
+      },
+      "relaxed_cap_optimum": {
+        "sse": 0.0,
+        "path": [
+          0.0,
+          0.0,
+          0.2,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "niter": 2
+      },
+      "interpretation": "Toy mathematical counterexample; not frequency or irreducible error measured on D."
+    },
+    {
+      "test": "quarter_hour_observation_example",
+      "passed": true,
+      "quarter_values": [
+        0.0,
+        0.0,
+        0.0,
+        0.2,
+        0.2,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hour_means": [
+        0.05,
+        0.05
+      ],
+      "boundary_stocks": [
+        0.0,
+        0.2
+      ]
+    },
+    {
+      "test": "scattering_time_varying_energy_identity",
+      "passed": true,
+      "local_abs_error": 8.881784197001252e-15,
+      "global_abs_error": 2.2737367544323206e-13
+    },
+    {
+      "test": "readout_sequence_energy_bound",
+      "passed": true,
+      "output_energy": 877.9849317392025,
+      "input_energy": 3235.004339154238
+    },
+    {
+      "test": "causal_prefix",
+      "passed": true,
+      "bitwise_equal": true
+    },
+    {
+      "test": "scattering_input_and_retention_gradcheck",
+      "passed": true
+    },
+    {
+      "test": "explicit_response_kernel_matches_scan",
+      "passed": true,
+      "max_abs_error": 2.220446049250313e-16
+    },
+    {
+      "test": "impulse_energy_comparison",
+      "passed": true,
+      "rows": [
+        {
+          "tau": 3.0,
+          "old_first": 0.28346868942621073,
+          "scat_first": -0.7165313105737893,
+          "old_output_energy": 0.16514041292462933,
+          "scat_output_energy_plus_terminal_state": 1.0,
+          "warning": "Scattering output is signed and can produce sidelobes; must check false peaks on D."
+        },
+        {
+          "tau": 8.0,
+          "old_first": 0.11750309741540454,
+          "scat_first": -0.8824969025845955,
+          "old_output_energy": 0.062418746747512494,
+          "scat_output_energy_plus_terminal_state": 0.9999999999999998,
+          "warning": "Scattering output is signed and can produce sidelobes; must check false peaks on D."
+        },
+        {
+          "tau": 24.0,
+          "old_first": 0.040810542890861834,
+          "scat_first": -0.9591894571091382,
+          "old_output_energy": 0.020830319774729402,
+          "scat_output_energy_plus_terminal_state": 1.0000000000000002,
+          "warning": "Scattering output is signed and can produce sidelobes; must check false peaks on D."
+        },
+        {
+          "tau": 72.0,
+          "old_first": 0.013792883256083743,
+          "scat_first": -0.9862071167439163,
+          "old_output_energy": 0.006944328190151092,
+          "scat_output_energy_plus_terminal_state": 0.9999999999999998,
+          "warning": "Scattering output is signed and can produce sidelobes; must check false peaks on D."
+        }
+      ]
+    },
+    {
+      "test": "zero_residual_host_identity",
+      "passed": true,
+      "bitwise_equal": true
+    },
+    {
+      "test": "class_normalized_loss_counterexample",
+      "passed": true,
+      "targets": [
+        0.01,
+        0.5
+      ],
+      "pooled_optimum": 0.255,
+      "normalized_optimum": 0.01019592163134746,
+      "note": "Identical-input toy example. Does not measure the training-loss effect on D."
+    },
+    {
+      "test": "D_audit_script_synthetic_unit_test",
+      "passed": true,
+      "real_D_loaded": false
+    }
+  ],
+  "test_count": 15,
+  "all_passed": true
+}
