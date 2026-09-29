@@ -3,6 +3,22 @@
 Goal: a principled, general way for many kinds of geography and many kinds of weather to interact in
 an outage model, so that geography carries information the weather host cannot get on its own.
 
+## Core research chain (PI clarification, 2026-09-28)
+
+**Weather process -> complex geographic modulation -> impact formation, interaction and accumulation -> outage.**
+This is the organizing principle for future data analysis, kernel design and manuscript motivation.
+The geographic kernel represents how local conditions transform weather histories into latent impacts;
+the existing damage and outage dynamics map those impacts to observed outages, with recovery accounted for.
+Conditional outage-response analyses are evidence about symptoms of this chain, not a replacement of it
+by an unrestricted geography-to-outage predictor. Keep geography within the hidden kernel and retain the
+single damage MLP. A learned impact state is not directly observed physical damage, and outage stock alone
+does not identify damage and recovery separately. Distinguish observed associations, structural assumptions
+and confirmed mechanisms in every future claim. See `notes/KERNEL_HIGH_DIM_DATA_MOTIVATION_20260928.md`.
+
+Current operating rules and completed D-stage evidence are in `aris/CYCLE.md`. The campaign findings
+below concern the older twelve-event panel; they are historical context, not established facts on current D.
+Global prediction error is not a gate for excluding county-level phenomena from exploratory analysis.
+
 ## What the last campaign established (experiments/open_gcrk_20260919/RESULTS.md, sections 11-21)
 
 * The host's own ERA5 channels already encode a county's geography (elevation R2 0.997, canopy 0.84,

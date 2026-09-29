@@ -81,3 +81,28 @@ Tropical gust/rain order associations remain hypotheses, with broad common-suppo
 example is the next-design gate. Preserve continuous within-type variation, nonlinear support/density,
 multi-peak and longer-history possibilities; do not turn six clusters into six asserted physical mechanisms.
 See `notes/D02_COUNTY_COMPLEXITY_RESULTS_20260928.md`; all weak, null and undefined cells remain in the outputs.
+
+## High-dimensional impact-kernel direction (2026-09-28; design research only)
+
+PI's durable core: **weather -> complex geographic modulation -> impact -> outage**. Geography transforms
+weather into impact formation, interactions and accumulation; the single damage head and existing host
+dynamics connect this latent representation to observed stock. Outage-response surfaces diagnose the chain
+but do not identify physical impacts or separate failure/recovery from stock alone. Carry this structure
+into future manuscripts, separating observations, assumptions and mechanisms.
+
+D03 completed the outcome-value-blind audit: geo40 needs 11 linear directions for 90% descriptor variance
+(geo40+context6: 14), weather means retain 69.0%/73.1% of standardized 24-hour path variation, eight fixed
+time coefficients retain 97.7%/98.3%, and 580 counties have weak first but stronger second aspect harmonic
+at threshold 0.1. These motivate retaining continuous geography, time shape and direction distributions;
+none proves a useful response rank or physical interaction. See `notes/D03_HIGH_DIM_STRUCTURE_RESULTS_20260928.md`.
+
+Recommended statistical direction: jointly estimated nonlinear weather-lag response surfaces with continuous
+geographic modification, low-rank/smooth sharing, cross-weather and repeated same-weather lag-pair terms,
+joint-path support and event/county dependence. Preserve higher-order and longer-history possibilities.
+Candidate hidden implementation: bounded geography-conditioned read-in, multiple memory scales, symmetric
+and directed second-order states, and bounded readout into the existing damage layer. GCRK already expresses
+order; explicit conditional impact response is the proposal, not first-time memory capability.
+
+This is a research direction, not a new I-number screen or training queue. I19 remains parked. Synthesis:
+`notes/KERNEL_HIGH_DIM_DATA_MOTIVATION_20260928.md`; primary references:
+`notes/KERNEL_HIGH_DIM_LITERATURE_20260928.md`, `notes/KERNEL_GEO_PROCESS_LITERATURE_20260928.md`.

@@ -230,3 +230,26 @@ robust cancellation or a model-selection winner. In particular, an overall stati
 gate. Sparse numerical projections and absorbed controls passed independent weighted-dummy checks;
 final source hashes match and finite statistics/explicit missing cells are retained. Finite statistical
 processes have exited; no neural queue is pending, I18 monitoring remains paused, chat stays open.
+
+## D03 input structure and impact-kernel design (2026-09-28; current operating state)
+
+D03 is complete: public-D weather/geography audit on the same 50,302 supported windows, no outage-value
+reads, one nice-15/two-thread process, no neural training. Pure geo40 and geo40+context6 spectra are separate.
+Weather means retain 69.0%/73.1% of standardized 24-hour path variation under design/group-equal weights;
+eight fixed time coefficients retain 97.7%/98.3%. These are representation facts, not response evidence or
+selected kernel ranks. See `notes/D03_HIGH_DIM_STRUCTURE_RESULTS_20260928.md`.
+
+The PI explicitly fixed the durable research chain for future analysis, design and manuscripts:
+**weather -> complex geographic modulation -> impact formation/interaction/accumulation -> outage.**
+The kernel models weather-to-latent-impact transformation inside the single damage MLP; the existing
+host and outage dynamics, including recovery and context, provide the observation link. Impact is not
+measured physical damage. Do not replace this motivation with generic county-feature regression or claim
+that stock identifies the latent process. This clarification is also recorded at the top of `program.md`.
+
+`notes/KERNEL_HIGH_DIM_DATA_MOTIVATION_20260928.md` synthesizes completed evidence and primary literature.
+Next statistical work should jointly estimate nonlinear weather-lag-geography response surfaces, geographic
+modulation of simultaneous and ordered cross-/same-weather histories, full support and clustered uncertainty.
+Continuous response geometry and a bounded multiscale hidden impact kernel are proposed, not fitted or
+registered neural arms. Retain broad exploration and weak/reversed cells; no overall-MSE exclusion gate,
+fixed six-expert interpretation, automatic seed expansion, C access or paper edits. I18 monitoring stays
+paused and no new training queue is pending.
