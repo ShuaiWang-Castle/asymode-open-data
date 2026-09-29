@@ -264,3 +264,23 @@ The finite `run_d04_response.py` queue uses one process, nice 15 and two threads
 verify its lock/process and source manifest before any restart. Selection stays inside training events.
 Complete scores, numerical/support/response diagnostics and the registered history-control sensitivity;
 retain local weak/negative findings without an overall-MSE exclusion gate. I18 monitoring remains paused.
+
+## D04 completed (2026-09-28; current operating state)
+
+The 100-fit primary queue and registered 16-fit history sensitivity are complete; their processes exited.
+All five immutable fold exports, original source hashes, masks, heldout coverage and finite predictions were
+verified. Keep all partial/completed directories and source registration unchanged; no restart or extra fits.
+See `notes/D04_CONDITIONAL_IMPACT_RESPONSE_RESULTS_20260928.md` and the five compact D04 result JSONs.
+
+Geographic modulation does not improve this statistical probe: C/A all-five MSE +0.935% [95% +0.419,+1.638],
+D/B +3.065% [+1.846,+5.313]. Local positive and negative response diagnostics, all weather/county types,
+component decomposition, history sensitivity and support concentration remain reported; global MSE is not
+an exclusion gate. A larger predicted increment maximum also raises false-peak rates and does not establish
+correct timing. Proxy support is not geographic exchangeability or a shared weather-reference distribution.
+
+Numerical limitation: all 116 fits are finite, but none met the registered gradient stopping criterion.
+Do not interpret the fitted operator, selected rank or local signs as stable physical structure, nor the
+negative probe as evidence that complex weather/geography interactions do not exist. Before architecture
+inference, prioritize a separately specified numerical/observation-time audit, including initialization
+stability and the distinction between impact onset and net-stock decline. No new neural arm, extra seed,
+NULL or numerical refit is queued. I18 monitoring remains paused; C and paper stay untouched, chat stays open.

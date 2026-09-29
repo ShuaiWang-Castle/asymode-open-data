@@ -106,3 +106,24 @@ order; explicit conditional impact response is the proposal, not first-time memo
 This is a research direction, not a new I-number screen or training queue. I19 remains parked. Synthesis:
 `notes/KERNEL_HIGH_DIM_DATA_MOTIVATION_20260928.md`; primary references:
 `notes/KERNEL_HIGH_DIM_LITERATURE_20260928.md`, `notes/KERNEL_GEO_PROCESS_LITERATURE_20260928.md`.
+
+## D04 response evidence and implementation implications (2026-09-28)
+
+The finite high-dimensional statistical analysis is complete. It keeps the core chain weather -> geographic
+modulation -> latent impact formation/combination/accumulation -> outage, all counties and all five regimes.
+C/A all-five MSE is +0.935%, D/B +3.065%; these are conditional one-hour net-change diagnostics, not a new
+neural screen. They do not validate a next kernel and are not a gate for deleting local phenomena.
+
+Retained evidence: strong rise/decline asymmetry, underpredicted positive-increment peaks, false peaks in
+no-positive events, and heterogeneous local lag sensitivities. The more complex model actively uses synchronous,
+symmetric and ordered weather blocks, but this correlated decomposition is not unique mechanism evidence.
+County-type differences also exist without explicit geography×weather terms; exposure composition and event
+concentration remain material. Removing outage-history controls barely changes the total geo-component RMS.
+
+All 116 primary/sensitivity fits are finite but miss the gradient criterion, and only the chosen operator
+was saved. Next priority before architecture selection is an explicitly scoped solver precision/stability
+and observation-time audit, preserving this run and all unfavorable findings. Keep the candidate continuous
+geo-conditioned read-in, multiple memory scales and symmetric/directed hidden states as a hypothesis;
+do not hard-code provisional county-type signs or copy selected rank2 into the neural architecture.
+No extra fit or neural experiment has started. Full evidence and limitations:
+`notes/D04_CONDITIONAL_IMPACT_RESPONSE_RESULTS_20260928.md`.
