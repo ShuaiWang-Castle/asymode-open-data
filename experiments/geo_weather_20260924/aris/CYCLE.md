@@ -294,3 +294,23 @@ county geography, and compare same-event/time counties without outcome-selected 
 This is a bounded exploratory description on examined D, not causal verification or a new neural arm.
 One nice-15 process/two threads; preserve partial outputs. The finite runner is `run_d05_forensics.py`.
 I18 monitoring stays paused, frozen D04 remains unchanged, and no sealed C or manuscript access is allowed.
+
+## D05 completed (2026-09-28; current operating state)
+
+The finite audit registered at 665218d is complete; its computation and report processes exited.
+All D-only identities, observation timestamps/masks/denominators and original three-model five-fold exports
+passed validation. Source/input/result hashes match; all seven compact analysis JSONs and three PNG/PDF
+figure sets are retained. See `notes/D05_LARGE_OUTAGE_FORENSICS_RESULTS_20260928.md`.
+
+J >=1pp maximum net increase has 2,963 county-events; S >=10% stock has 726, overlap 723. Georms S peak
+amplitude ratios remain 8.936% unweighted / 1.225% design-weighted even using each prediction's full-window
+maximum on common observed support. Weather timing alone cannot account for this amplitude deficit.
+Weather trajectories and prior accumulation differ around the two anchors; matching reveals conditional
+geography associations, but joint/order weather balance, observation processes and causal mechanisms remain
+unidentified. State-adjusted S matching covers only 121 cases / 28.89% design weight; no representative
+severe-case mechanism claim is allowed. Retain all 3,408 weather coordinates and 1,200 geographic comparisons.
+
+Next kernel hypotheses must separate short shock formation from accumulated latent state, preserve all
+continuous geography, and test ordered/compound information beyond main weather effects. No new neural
+arm, seed, NULL, data reconstruction or refit is running. Overall MSE remains no exclusion gate. I18 stays
+paused; sealed C and manuscripts remain untouched; preserve this chat and all artifacts.

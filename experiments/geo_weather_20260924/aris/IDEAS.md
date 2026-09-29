@@ -138,3 +138,24 @@ outcome-independent fixed-clock risk set for county comparisons. No new neural t
 these descriptive results alone. The scientific chain remains weather -> geography-modulated latent impact
 -> outage; neither stock nor matched associations identifies physical damage. Record findings after the
 finite one-process analysis, with unsupported cells and negative findings retained.
+
+## D05 completed: missed peaks and kernel motivation (2026-09-28)
+
+The bounded audit is complete. Large net jumps (2,963) and high stock (726) overlap in 723 county-events.
+All three frozen neural trajectories strongly attenuate severe peaks; Georms full-window/common-support
+peak ratio median is 8.936% unweighted / 1.225% design-weighted. Even arbitrary timing within that window
+does not repair amplitude. At a J maximum, 22.59% design-weighted cases reverse >=80% next hour, with
+observational support explicit; this is neither a reporting-error rate nor physical restoration speed.
+
+Same-county contrasts show preceding/near-time weather signals and anchor-dependent wind/rain order
+coordinates, while winter high stock follows elevated prior snowfall. Centered products do not establish
+physical co-occurrence or non-additivity. Same-event/time full-risk matching retains conditional continuous
+geography associations; severe-stock state matching collapses from 671 to 121 cases, so state/accumulation
+and common support cannot be replaced by one static geographic multiplier. The 40-coordinate results and
+all weak/reversed findings remain public; no post-hoc coordinate becomes a confirmed mechanism.
+
+Candidate design constraints: geography-conditioned short-shock and slower-memory transformations inside
+the single damage MLP, explicit onset/amplitude/false-peak checks alongside unchanged overall evaluation,
+and conditional order tests preserving exposure intensity and support. Impact remains latent. Do not
+hard-code forest/terrain signs, infer physical rates from stock, or start a new neural arm from these
+descriptions. Full evidence: `notes/D05_LARGE_OUTAGE_FORENSICS_RESULTS_20260928.md`.

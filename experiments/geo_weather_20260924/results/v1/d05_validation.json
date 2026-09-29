@@ -1,0 +1,91 @@
+{
+  "registration_commit": "665218d",
+  "analysis_complete": true,
+  "D_only": true,
+  "no_new_neural_training": true,
+  "source_hashes": {
+    "experiments/geo_weather_20260924/run_d05_forensics.py": "764b6219628aa2ba2153fa3ef3be334d7f9c44224116ee9aa9732e264b62840a",
+    "experiments/geo_weather_20260924/d05_weather_features.py": "51b0b334ed77796efdc6dd513376c060472628a34be90d781ed94040cc21ed4e",
+    "experiments/geo_weather_20260924/d05_frozen_inputs.py": "db1126b514e6e4854b49e826a11c27da9a1a5ffbf1f67fa44158d134703d0739",
+    "experiments/geo_weather_20260924/d05_observation_audit.py": "1c1b6460779ce57c3c32493fb6fe138bc0ddba6012498b8fa6491d244b0d0114",
+    "experiments/geo_weather_20260924/d05_geography_matches.py": "03a485ee97ce1fadb157127f4d28a52488060ebe6b98406085abb8a2a7be8542",
+    "experiments/geo_weather_20260924/d04_data.py": "ee2fe0c2cd25443ae2015cf166cfa24dd5e0a58f77bcd1aca394b54a9515b648",
+    "experiments/geo_weather_20260924/notes/D05_LARGE_OUTAGE_FORENSICS_SCOPE_20260928.md": "3b4f57bd9fafac219c8fc0a114a42b5320b49e82b490956e18cab5b2c2ce2ea7"
+  },
+  "input_hashes": {
+    "data/interim/panel_v1/features_v1D.npz": "f043bb39e8abd48183670e2acc3c0cecebd7107ea9be0e28771912cfee358c48",
+    "experiments/geo_weather_20260924/splits_v1D.json": "6b470b22ea4b6dee9ac965b66ac9e15476445589a803efa7b50da400703d535f",
+    "runs/geo_weather_20260924/county_structure_d02/county_structure_d02_lookup.npz": "20eebef8a99ef2b7b7c19b29752dfbf0046246e9cb75e21c645becf414d5866c",
+    "runs/geo_weather_20260924/v1_host_s0/fold01/outer.npz": "2fb9af9135d79582c4299c8a730156d2658d032a994ef681073340934be9b12f",
+    "runs/geo_weather_20260924/v1_host_s0/fold01/DONE.json": "d4298b7157c7ee586f5e76b3ad7ec5f4e87d2a019e036a4eb201141a8231b2a3",
+    "runs/geo_weather_20260924/v1_host_s0/fold02/outer.npz": "1017720d2e5c26c7e4674c4bf2c956d89e229fe66cadaf996b8594e2677298aa",
+    "runs/geo_weather_20260924/v1_host_s0/fold02/DONE.json": "f812489b8913e0256e286621ed281011c2bfd558ec5394d2c345f2c4d007421d",
+    "runs/geo_weather_20260924/v1_host_s0/fold03/outer.npz": "123248e11d79cb81ec51367bb969fdda86b9441d865fc24eddceee1d05dd7360",
+    "runs/geo_weather_20260924/v1_host_s0/fold03/DONE.json": "29a541cd95a326db8bcd1a6a321d206aff24533fbd7669d44e21d2331fe04b79",
+    "runs/geo_weather_20260924/v1_host_s0/fold04/outer.npz": "f0b44d1d928762a575788cf9e5bdf98b75c59eb68f468d92357452c5e7185b64",
+    "runs/geo_weather_20260924/v1_host_s0/fold04/DONE.json": "ceb2ee3fd389ddb66f3f59bde7f97cc44e8bde1b985ecf3d0021d0425f5fe896",
+    "runs/geo_weather_20260924/v1_host_s0/fold05/outer.npz": "4a87acf498284e4afe44978293259014e6424ff39541692a5770f917277b947a",
+    "runs/geo_weather_20260924/v1_host_s0/fold05/DONE.json": "5cae92f79071ed31104fb8da7942ddb94da1320d9fa3d6ad8aa1db83eff2c903",
+    "runs/geo_weather_20260924/v1_gcrk_s0/fold01/outer.npz": "adc5d8c503212a9ae5419eb3d8c783cc994dda403a5e4391395bdba6a7b42ea0",
+    "runs/geo_weather_20260924/v1_gcrk_s0/fold01/DONE.json": "28499ba7ec035101cc7cd93e09573198f682a9d31612dcc75f1c257265936307",
+    "runs/geo_weather_20260924/v1_gcrk_s0/fold02/outer.npz": "800738901bfea76a7d17321d6f9cd44b9fbdea2022bd05d1e3b5236763eed089",
+    "runs/geo_weather_20260924/v1_gcrk_s0/fold02/DONE.json": "697794b04b6756739d64db5c08bfedeed6ba0bb2751bd5ec232fd32a439a3bb7",
+    "runs/geo_weather_20260924/v1_gcrk_s0/fold03/outer.npz": "1c8761cfdf6271e56f26f62703f7c240a0fc80cfa379702302f5cfa80ffeb741",
+    "runs/geo_weather_20260924/v1_gcrk_s0/fold03/DONE.json": "c97f0af1ce5e056f6116294f91da153a6af0e3b48bf5b4ca143020eb42c05746",
+    "runs/geo_weather_20260924/v1_gcrk_s0/fold04/outer.npz": "841580f506d10a11e284873fe4c6814b66bfda35f16a5baf71c7801443a6385d",
+    "runs/geo_weather_20260924/v1_gcrk_s0/fold04/DONE.json": "4a3ccc6c762d77bbbeae85240d4d47542a15e76f57bee81c8975e552cc430381",
+    "runs/geo_weather_20260924/v1_gcrk_s0/fold05/outer.npz": "3506d0898d6814d9529967439686ea8591c367753e410c93fd34d4ccd13cd49f",
+    "runs/geo_weather_20260924/v1_gcrk_s0/fold05/DONE.json": "653eccb74133385bc575dd01200e863230378c5a39d486911e3e98884d7b6057",
+    "runs/geo_weather_20260924/v1_gcrk_georms_s0/fold01/outer.npz": "276e4ca690432742be385e95309cd15a96423fbf58b216d1ac374f39dfc9ab7e",
+    "runs/geo_weather_20260924/v1_gcrk_georms_s0/fold01/DONE.json": "ccb016602788fe6b9a338d2c5e2a30ae5c3bfc0ec97e94b8371472a6afbb100f",
+    "runs/geo_weather_20260924/v1_gcrk_georms_s0/fold02/outer.npz": "38dcc73254988e2bb9cae95721da1f260ac34fa13a3aa94d30419f1bce0e583e",
+    "runs/geo_weather_20260924/v1_gcrk_georms_s0/fold02/DONE.json": "93d7be9ba35a8198a1fb3fa602ce4e3d0a72b08ce6be6b6c0f0a7127a79464aa",
+    "runs/geo_weather_20260924/v1_gcrk_georms_s0/fold03/outer.npz": "38fa7393b13f7e545bc7e661ade6ad2c68714663740d2e85f1ab17b139a4a4cb",
+    "runs/geo_weather_20260924/v1_gcrk_georms_s0/fold03/DONE.json": "411f16987ac34cff0ea1fcc235fc9220158999aa1a38af3dc02d234c1ddd47f4",
+    "runs/geo_weather_20260924/v1_gcrk_georms_s0/fold04/outer.npz": "189646c262b2a6054c09b7553eeb08f2f0212cf5ae702cf6db1b695d34587b29",
+    "runs/geo_weather_20260924/v1_gcrk_georms_s0/fold04/DONE.json": "8aa1a0904d85bbcef26f4640221cbeca1fa71f6ac160d96c59f59ddc946daa27",
+    "runs/geo_weather_20260924/v1_gcrk_georms_s0/fold05/outer.npz": "14b533db9fdf279a9571a980a0c0e19c8523fb0012e8773aa3774cf2752bc36e",
+    "runs/geo_weather_20260924/v1_gcrk_georms_s0/fold05/DONE.json": "13964feba9dd0c77e95be739eeb0fc7138f3f5e5b7c2512797d7da2b01136cdf"
+  },
+  "analysis_result_hashes": {
+    "d05_host_feature_semantics.json": "f9b7052d1167d72d1773ac59994d728c3d86cab04c74412d5d2780c5cbbd9b16",
+    "d05_frozen_models.json": "c106fb9dc6e21cebcb10c1944c8e824383346232e73cb12371ea8234022aee86",
+    "d05_aligned_curves.json": "60766911295bf4c3e49aaedadcebb99f528bdc1fea01c2c04ca300c3b014511e",
+    "d05_within_county.json": "49766388e8c42f450ca2db28c75cb345da7b718aacd30430aacc9477e2e392b0",
+    "d05_observation_audit.json": "47f49d495faf8f23a31b33a9bdb3b7de6d2ad0f86536826959496f353764dfec",
+    "d05_geography_matches.json": "2480a557616d20a208545fe88391f5ab78a4ed5dfdf30d9f478508163b9ee7ce",
+    "d05_phenotypes.json": "74981538e20180b4d44bba64152d101e1c09a9b25f6c88dd3f5aad127e4157ed"
+  },
+  "report_source_hash": "9089d1f98d532d9655e93aedc548ed0b369aae7fb2a350452eb1aed8c7acce54",
+  "figure_hashes": {
+    "fig_d05_jump_aligned_weather.pdf": "d8856ac4942447157504aea322cde597dfac3461f5cbdc81f9be381551992132",
+    "fig_d05_jump_aligned_weather.png": "78c5b8e1f2dd758b2d8aa483e5db13246ad5ad3504d1fb962b49d36b21f03e67",
+    "fig_d05_phenotypes_frozen_peaks.pdf": "52367716d259e5a8d815fd0bf0d7eebc7a15d010b9a2ac1445cf14c0acd8b2bb",
+    "fig_d05_phenotypes_frozen_peaks.png": "bf3f796f16ae8979c02565a1fe4e4af43218ea5d7c26c06a7defd169b3750833",
+    "fig_d05_within_county_weather.pdf": "5306e5f4582cd8555a3b4414e3cd150bcd3df9f638f21b8e39b18990f0b8ec5f",
+    "fig_d05_within_county_weather.png": "aabe1430faaa12d07a048dee30e7cadeab83e88aab2ac9db0c0d3c040ee9cdd2"
+  },
+  "source_input_result_hashes_verified": true,
+  "five_fold_frozen_export_coverage_exactly_once": true,
+  "finite_JSON_with_explicit_missing_nulls": true,
+  "independent_synthetic_tests": "10 passed; includes 33 frozen-helper checks; separate matching synthetic suite passed",
+  "independent_result_review": "phenotype/model/observation and weather/matching checked by separate reviewers; wording corrections applied",
+  "figure_qa": {
+    "PNG_visual_review": true,
+    "PDF_pages": [
+      1,
+      1,
+      6
+    ]
+  },
+  "analysis_pid_exited": true,
+  "I18_monitor": "remains_paused",
+  "limitations": [
+    "exploratory examined D",
+    "pointwise conditional bootstrap, no multiplicity correction",
+    "cross-event repeated-county dependence not resampled",
+    "hourly artifacts do not establish subhour observation quality",
+    "matching does not balance all joint/order weather histories",
+    "no causal or physical damage identification"
+  ]
+}
