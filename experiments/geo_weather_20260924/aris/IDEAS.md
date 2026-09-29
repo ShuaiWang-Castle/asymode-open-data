@@ -159,3 +159,24 @@ the single damage MLP, explicit onset/amplitude/false-peak checks alongside unch
 and conditional order tests preserving exposure intensity and support. Impact remains latent. Do not
 hard-code forest/terrain signs, infer physical rates from stock, or start a new neural arm from these
 descriptions. Full evidence: `notes/D05_LARGE_OUTAGE_FORENSICS_RESULTS_20260928.md`.
+
+## Joint geography and dynamic conditioning clarification (2026-09-28)
+
+The PI explicitly asks about combinations such as soil/vegetation/terrain and their changing influence
+through weather history. Static geography can parameterize a dynamic process: the same county may have
+different forcing sensitivity, thresholds and persistence as latent state evolves. D05 marginal slopes
+do not rule out this joint response, and the severe-stock matching support loss does not prove a static
+model cannot work. Existing GCRK already mixes geo40 nonlinearly and has geography-conditioned recurrence;
+I18 did not newly introduce dynamics. Avoid presenting the candidate as the first geo interaction/memory.
+
+Candidate extension: retain an exactly recoverable GCRK baseline, expand joint geography conditioning,
+then separately test weather-dependent and prior-latent-state-dependent read-in, threshold and dissipative/
+skew parameters. Positive dissipation plus skew structure can retain a bounded state, but state-dependent
+gradients must be derived and checked. The existing custom backward is not automatically valid.
+
+Distinguish county attribute products from actual spatial co-location. Existing steep-forest and forest-soil
+descriptors provide partial joint information, but no sediment-material inventory, channel connectivity or
+line-level exposure is observed in geo40. A more expressive county kernel cannot reconstruct lost joint
+spatial structure. Mudslide/soil-failure mechanisms are physical analogies, not observed outage labels.
+No new fit, neural arm, NULL or data expansion was launched. See
+`notes/KERNEL_JOINT_GEOGRAPHY_DYNAMIC_STATE_20260928.md` for primary sources, feature semantics and nested tests.
