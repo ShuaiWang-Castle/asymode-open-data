@@ -253,3 +253,14 @@ Continuous response geometry and a bounded multiscale hidden impact kernel are p
 registered neural arms. Retain broad exploration and weak/reversed cells; no overall-MSE exclusion gate,
 fixed six-expert interpretation, automatic seed expansion, C access or paper edits. I18 monitoring stays
 paused and no new training queue is pending.
+
+## D04 execution (PI authorized 2026-09-28)
+
+The PI directed this chat to execute the agreed analysis. Follow the frozen statistical scope in
+`notes/D04_CONDITIONAL_IMPACT_RESPONSE_SCOPE_20260928.md`: strict-past 48-hour weather, continuous geography,
+joint low-rank main/composite modulation, original event folds and all-hour held-out evaluation. This is
+conditional net-stock-change analysis, not a new neural outage arm or identification of physical impact.
+The finite `run_d04_response.py` queue uses one process, nice 15 and two threads; preserve partial folds and
+verify its lock/process and source manifest before any restart. Selection stays inside training events.
+Complete scores, numerical/support/response diagnostics and the registered history-control sensitivity;
+retain local weak/negative findings without an overall-MSE exclusion gate. I18 monitoring remains paused.
