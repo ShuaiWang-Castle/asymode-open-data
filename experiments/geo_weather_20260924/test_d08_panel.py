@@ -174,6 +174,40 @@ class AccessAndFreezeChecks(unittest.TestCase):
                 result = D.read_fit_member(archive, 'geo', np.array([1, 3]), 4, (40,))
         np.testing.assert_array_equal(result, values[[1, 3]])
 
+    def test_stream_fortran_static_geo_retains_fit_values_exactly(self):
+        values = np.asfortranarray(np.arange(8 * 40, dtype=np.float32).reshape(8, 40))
+        values[2, 7] = np.nan
+        fit = np.array([1, 2, 6])
+        with tempfile.TemporaryDirectory() as name:
+            path = Path(name) / 'test.npz'; np.savez_compressed(path, geo=values)
+            with zipfile.ZipFile(path) as archive:
+                result = D.read_fit_member(archive, 'geo', fit, 8, (40,))
+        np.testing.assert_array_equal(result, values[fit])
+
+    def test_fortran_weather_is_rejected(self):
+        values = np.asfortranarray(np.arange(4 * 3 * 5, dtype=np.float32).reshape(4, 3, 5))
+        with tempfile.TemporaryDirectory() as name:
+            path = Path(name) / 'test.npz'; np.savez_compressed(path, xu=values)
+            with zipfile.ZipFile(path) as archive:
+                with self.assertRaisesRegex(ValueError, 'Fortran'):
+                    D.read_fit_member(archive, 'xu', np.array([0, 2]), 4, (3, 2), [0, 1])
+
+    def test_fortran_static_column_subset_is_rejected(self):
+        values = np.asfortranarray(np.arange(4 * 40, dtype=np.float32).reshape(4, 40))
+        with tempfile.TemporaryDirectory() as name:
+            path = Path(name) / 'test.npz'; np.savez_compressed(path, geo=values)
+            with zipfile.ZipFile(path) as archive:
+                with self.assertRaisesRegex(ValueError, 'Fortran'):
+                    D.read_fit_member(archive, 'geo', np.array([0, 2]), 4, (2,), [0, 1])
+
+    def test_fortran_unrecognized_member_is_rejected(self):
+        values = np.asfortranarray(np.arange(4 * 40, dtype=np.float32).reshape(4, 40))
+        with tempfile.TemporaryDirectory() as name:
+            path = Path(name) / 'test.npz'; np.savez_compressed(path, unsupported=values)
+            with zipfile.ZipFile(path) as archive:
+                with self.assertRaisesRegex(ValueError, 'Fortran'):
+                    D.read_fit_member(archive, 'unsupported', np.array([0, 2]), 4, (40,))
+
     def test_stream_unsorted_fit_rejected(self):
         with self.assertRaises(ValueError):
             D.read_fit_member(None, 'xu', np.array([1, 0]), 4, (3, 2))

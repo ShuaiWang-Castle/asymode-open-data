@@ -121,12 +121,30 @@ def read_fit_member(archive, member, fit, n, expected_tail, columns=None):
     with archive.open(member + '.npy') as stream:
         version = np.lib.format.read_magic(stream)
         shape, fortran, dtype = np.lib.format._read_array_header(stream, version)
-        if (fortran or dtype.hasobject or shape[0] != n or
+        if (dtype.hasobject or shape[0] != n or
                 tuple(shape[1:-1]) != tuple(expected_tail[:-1]) or
                 shape[-1] < expected_tail[-1]):
             raise ValueError(f'Unexpected {member} layout')
         tail = shape[1:] if columns is None else (*shape[1:-1], len(columns))
         out = np.empty((len(fit), *tail), dtype=np.float32)
+        if fortran:
+            # The existing static geo40 member is column-major. Read one
+            # coordinate's bytes and gather FIT byte slices before interpreting
+            # any numeric values. OUTER bytes are never converted or retained.
+            if member != 'geo' or len(shape) != 2 or len(expected_tail) != 1 or columns is not None:
+                raise ValueError(f'Unexpected Fortran {member} layout')
+            column_bytes = n * dtype.itemsize
+            for coordinate in range(shape[1]):
+                buf = stream.read(column_bytes)
+                if len(buf) != column_bytes:
+                    raise ValueError(f'Truncated {member} coordinate')
+                view = memoryview(buf)
+                kept = b''.join(view[int(unit) * dtype.itemsize:(int(unit) + 1) * dtype.itemsize]
+                                for unit in fit)
+                out[:, coordinate] = np.frombuffer(kept, dtype=dtype)
+            if stream.read(1):
+                raise ValueError(f'Invalid {member} trailing data')
+            return out
         nbytes = int(np.prod(shape[1:])) * dtype.itemsize
         row = 0
         for unit in range(n):
