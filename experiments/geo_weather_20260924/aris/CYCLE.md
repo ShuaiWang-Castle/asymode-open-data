@@ -6,14 +6,41 @@ reduction in affected county-events. Current design/registration:
 `notes/KERNEL_CONTROLLED_RELAXATION_DESIGN_20260928.md` and
 `notes/I20_CONTROLLED_RESPONSE_SCREEN_20260928.md`. Arm `CRK+Cin`, label `v1_crk_s0`, seed0, five existing
 event folds, 900 full-fit updates matched to `v1_host_s0` / `W+Cin`; fixed original data/loss. Launch only
-after implementation checks and source registration commit. Currently implementation/validation, no I20
-training launched yet. This later authorization supersedes the older “no new neural arm authorized” text;
+after implementation checks and source registration commit. **I20 execution phase: launched 2026-09-29
+00:05 ET**, registered commit `6b6b964`; initial runner PID 42136, fold1 PID 42149. This later authorization supersedes the older “no new neural arm authorized” text;
 it does not authorize extra seeds, NULLs, changed loss, C access or paper work. I18's monitor stays paused.
 
 At most one real calculation process, two numerical threads, nice>=15. Resource plan uses exact full-fit
 gradient accumulation over county chunks (one Adam update and one shared drop-path coin per full step),
 not stochastic minibatch training. Preserve partial run folders and never duplicate a live queue. Both
 the affected-county target and all-D/false-peak results must be reported, not substituted for each other.
+
+### I20 execution phase (current)
+
+The 71 targeted checks passed (one external-reference skip); the disposable public-D fit-only preflight
+passed on 6,350 fit units, one full update 10.143 s including cold JIT/calibration, peak RSS 1,952,989,184 bytes.
+County chunk512, exact first-order adjoint, geographic rematerialization only. Preflight model discarded;
+formal folds start from seed0. Resource record: `results/v1/i20_resource_preflight.json`.
+
+1. Read `runs/geo_weather_20260924/v1_crk_s0/{SCREEN_RUN,RUN_STATUS,HOST_REFERENCE}.json`,
+   `fold*/{DONE,RUNNER_RECEIPT}.json`, `logs/runner_i20.log` and `logs/screen_v1_crk_s0_f*.log`.
+   Cross-check actual owned PIDs, CPU/RSS and system memory; do not infer a stall from the 20-update log interval.
+2. Keep the existing finite queue alive with one child, two threads, nice>=15; do not duplicate it, change
+   frozen source files, overwrite any existing/empty fold directory, or signal unrelated processes.
+3. The queue automatically validates all five exports and scores `screen_i20_s0_headline_vs_host.json`,
+   `screen_i20_s0_all5_vs_host.json`, `i20_cr_tail_s0.json`, `screen_i20_s0_verdict.json`.
+   A completed/scored receipt must match frozen source/data and artifact hashes. Partial outputs are preserved.
+4. Primary target is S (observed forecast peak>=10%), full144h design-weighted RMSE reduction>=10% versus
+   frozen no-kernel `v1_host_s0`/`W+Cin`. Report point target, merged-group confidence interval, family sensitivity,
+   all-positive/J/all-D, per-regime/fold and false-peak results; fixed-origin +h snapshots and legacy pooled
+   suffix +h must stay distinct. Single seed cannot establish net geographic information or causality.
+5. Normal unchanged progress stays quiet; notify new completed folds, failure, resource anomaly, all results
+   or a needed user decision. If training is complete but aggregation fails, first check that no evaluator
+   is alive, then repair only aggregation using the registered code; do not retrain or overwrite evidence.
+6. Record final conclusion in RESEARCH_LOG/IDEAS, update current state, explicitly stage only I20 compact
+   results/notes, scan private paths/emails/restricted markers, push both research branches, never main.
+   Pause the I20 monitor after delivering results, or after a failure requiring user intervention; do not archive
+   the chat. Do not resume I18, add seeds/NULLs/new arms, use C, or edit/import the manuscript directory.
 
 **Historical state, 2026-09-28 after I18:** all five I18 folds are complete and scored; the frozen screen failed
 only the synoptic-wind +2% guardrail. No seed/NULL expansion or next-arm training is queued. The PI now asks

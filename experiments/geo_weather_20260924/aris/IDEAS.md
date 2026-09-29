@@ -9,9 +9,11 @@ states within the existing damage MLP. It is non-nested with GCRK and retains th
 The complete mathematical design and literature attribution are in
 `notes/KERNEL_CONTROLLED_RELAXATION_DESIGN_20260928.md`; execution rules are in
 `notes/I20_CONTROLLED_RESPONSE_SCREEN_20260928.md`. Arm `CRK+Cin`, label `v1_crk_s0`, five event folds,
-seed0, 900 full-fit updates matched to host. Implementation/verification is underway; no training has yet
-started. Seven synthetic algebra checks passed; production gradients, wiring and resources still need
-verification. This authorization supersedes older proposal-only language below, without authorizing extra
+seed0, 900 full-fit updates matched to host. **Training launched 2026-09-29 00:05 ET**, registered source
+commit `6b6b964`, after 71 checks passed (one external-reference skip) and a disposable fit-only resource
+preflight passed: 6,350 fit units, 10.143 s cold full update, peak RSS 1.82 GiB. One worker, two threads,
+nice>=15, county chunks512; full-fit Adam semantics retained. Primary S-cohort target is >=10% full-window
+design-weighted RMSE reduction. No outer I20 result yet. This authorization supersedes older proposal-only language below, without authorizing extra
 seeds, NULLs, a changed loss, C access or manuscript work. I18 monitoring remains paused.
 
 Status: **active**, **parked**, **abandoned** (with the reason and, where applicable, prior art), **absorbed** (merged
