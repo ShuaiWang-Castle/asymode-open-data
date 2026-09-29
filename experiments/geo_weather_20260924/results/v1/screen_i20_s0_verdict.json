@@ -1,0 +1,40 @@
+{
+ "label": "v1_crk_s0",
+ "arm": "CRK+Cin",
+ "baseline": "v1_host_s0",
+ "seed": 0,
+ "steps": 900,
+ "folds": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "primary_target": {
+  "cohort": "S",
+  "rmse_improvement_fraction": 0.003651909806311915,
+  "point_target_met": false,
+  "ci95": [
+   -0.010240341056833047,
+   0.012985471056110108
+  ],
+  "ci_supports_positive": false,
+  "ci_supports_at_least_10pct": false,
+  "scope": "Single seed, five held-out event folds. This target does not replace legacy scores or diagnose causality."
+ },
+ "legacy": {
+  "headline_balanced_mse_gain": 0.024942742052148914,
+  "all_regime_mse_change": {
+   "tropical": 0.07154880671799124,
+   "winter": -0.021663322613693414,
+   "synoptic_wind": 0.060647207517604995,
+   "convective": 0.05077516705809382,
+   "heavy_rain": 0.04885252341843538
+  },
+  "nonheadline_2pct_mse_guardrail_met": false,
+  "note": "Legacy extra report; it does not replace the newly registered primary target"
+ },
+ "status": "five_folds_complete_scored_no_automatic_expansion",
+ "limitation": "Equal 900-update budget to frozen host_s0; not a convergence certificate or multi-seed result"
+}

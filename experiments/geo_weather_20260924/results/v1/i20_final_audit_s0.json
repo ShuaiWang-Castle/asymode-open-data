@@ -1,0 +1,172 @@
+{
+ "status": "passed",
+ "audit_utc": "2026-09-29T10:15:58.057942+00:00",
+ "checks": 9594,
+ "audit_source_sha256": "2c1d5ff3e69ad3d1d4b3363bdc0a62096a1cb8f4e508ba804e241659f8937877",
+ "registration": "6b6b9647bd96e9452910a1c886e6b18c03674db0",
+ "manifest_sha256": "86ae2c408af08d1b564226c1290ee1f1ad08721eb9f15b4edaf03102b02a98ce",
+ "data_sha256": "f043bb39e8abd48183670e2acc3c0cecebd7107ea9be0e28771912cfee358c48",
+ "source_sha256": {
+  "src/asymode/controlled_relaxation.py": "d5d78026d3a36939a2b0ab4b3e5938bcf21a4ed99134cd38fce184d4f3c1d008",
+  "src/asymode/controlled_relaxation_scan.py": "cd03740f32795222b80e52f501f8241c2b6226280bf5ee210b2f66c750469f6a",
+  "src/asymode/gcrk.py": "0e53353139deba00054a8999471b49a8f531d0f6f48c6e18568e8e6ceeeb45d0",
+  "src/asymode/gcrk_train.py": "296c0ac4bc3ab85bd45849209b11a1944201e9155d0fa82d65053788e0fff457",
+  "src/asymode/asym_host.py": "f5ec91c6e0fd04f29c9c88e01fa3cd2f2cb3ed2de0802a4400876c45861223e0",
+  "experiments/geo_weather_20260924/screen.py": "a74e0ed8fd8cd25fc85f51d39065555181f512ea8f80a78f9f68b1ff52609663",
+  "experiments/geo_weather_20260924/run_cr_screen.py": "7efed6ed16b7eb76371f6f43caadb02bf8f35b3caff8e7a7c7ab0389fac62c9b",
+  "experiments/geo_weather_20260924/preflight_cr_training.py": "b22f495d6b98becfed8eab1eeadc333f57c5d009a746d15c5019b491365cc770",
+  "experiments/geo_weather_20260924/evaluate_cr_tail.py": "cebd3e4bfc779974322bf4345208a8c8cbfc31cafd4c0314d5106d8fe346fc53",
+  "experiments/geo_weather_20260924/evaluate_v1.py": "a68976c9929ae5758be33d9733fc5192c3d3d6e8a898060cd7ef6c90c63711db",
+  "experiments/geo_weather_20260924/d04_data.py": "ee2fe0c2cd25443ae2015cf166cfa24dd5e0a58f77bcd1aca394b54a9515b648",
+  "experiments/geo_weather_20260924/splits_v1D.json": "6b470b22ea4b6dee9ac965b66ac9e15476445589a803efa7b50da400703d535f",
+  "experiments/geo_weather_20260924/notes/KERNEL_CONTROLLED_RELAXATION_DESIGN_20260928.md": "7f5a7b32c9d04a76312730056a949ed54d2fd3f875467a22eab08d2babf0d7a3",
+  "experiments/geo_weather_20260924/notes/I20_CONTROLLED_RESPONSE_SCREEN_20260928.md": "95ab8b87c6259b3d4c6667db694baefaa0de6af8203cf75e6227404f6f52530a",
+  "experiments/geo_weather_20260924/run_cr_parallel.py": "bb1418d4b6f40dd0c2a6674997f8a31391244187e299186852d51697d90b7ea1",
+  "experiments/geo_weather_20260924/notes/I20_COMPUTE_AMENDMENT_20260929.md": "7a38869e518889c99bea49cca84b2ca2d9406fa91e00967f6652fca2f59cd0a4"
+ },
+ "exports": {
+  "v1_crk_s0": {
+   "1": {
+    "outer.npz": "25725fca3b4e92bfd79eff69d286ecce9ddeeb32ff97ed560aecbebbd042ab20",
+    "DONE.json": "2d62212b28038be36b55c496d72bc2d4a5f33562b6be7d321c4826c3bef08819",
+    "final.pt": "1cef9fe586f37b06a480f8d804e6dda37d4de7cd4da35f1aed1d662e8784d056"
+   },
+   "2": {
+    "outer.npz": "8960f13569bf094bc898ca2c42836b71dc082d7e05a052f4bcadcb822c11faae",
+    "DONE.json": "2e0328ec08eacb8ae75a5cffad7a16fd664612b8090da19fa3fe5963483fd0bf",
+    "final.pt": "c3424a8f73c3d6e33df7bc409fdcd852ca349759a5126dd5bcba494c6d0895b4"
+   },
+   "3": {
+    "outer.npz": "9ab60b94fb5b53c52c4b5829e4a33f5eb6bd2fbfd5cb169b5942e9acfdf7e850",
+    "DONE.json": "8118022e8c8e58ff723fb02edfa56bc2b9dd3559e2efe93ef927e5195ec7c0e3",
+    "final.pt": "93e4daa9b647566df627bf5df657884bbc60ced4e520092c77cb09620862a3f8"
+   },
+   "4": {
+    "outer.npz": "20ac1a6d5ac9ddca95fe6f708bc432c9e479629353519edcc54feb82e4a61c4f",
+    "DONE.json": "0c869bbd8383088f5d96199e06a980824a35d9702c8d373a603b7387c8b57cf3",
+    "final.pt": "e9e745a1532f4fbf141101da07cd8c72569554315c027932b0660604e45161fa"
+   },
+   "5": {
+    "outer.npz": "4fae231a831239eb4e453c795df416c518b57634ef893e8da58589b2f83d8abb",
+    "DONE.json": "7fb4a712842769a66b3d5ec97b8d1ab5bf031e40dd96e228e4ddc44a0854af83",
+    "final.pt": "46e2bf997bc3f1cc697107eade55ae585cf495bfc4d7db0ed42419475f3899fd"
+   }
+  },
+  "v1_host_s0": {
+   "1": {
+    "outer.npz": "2fb9af9135d79582c4299c8a730156d2658d032a994ef681073340934be9b12f",
+    "DONE.json": "d4298b7157c7ee586f5e76b3ad7ec5f4e87d2a019e036a4eb201141a8231b2a3",
+    "final.pt": "30705548aa22e4e2e0baa4b07cfe7567a9a56a3c3b72a7c2bfa69e13b1a4943c"
+   },
+   "2": {
+    "outer.npz": "1017720d2e5c26c7e4674c4bf2c956d89e229fe66cadaf996b8594e2677298aa",
+    "DONE.json": "f812489b8913e0256e286621ed281011c2bfd558ec5394d2c345f2c4d007421d",
+    "final.pt": "f6b55e02824028732370672e3c7fd1454fc411d232d64a1b1edce06a311262ce"
+   },
+   "3": {
+    "outer.npz": "123248e11d79cb81ec51367bb969fdda86b9441d865fc24eddceee1d05dd7360",
+    "DONE.json": "29a541cd95a326db8bcd1a6a321d206aff24533fbd7669d44e21d2331fe04b79",
+    "final.pt": "a6da2b6264730475cade9e3d784008b83970cd8b71f1c76f6e244eedd9429e9b"
+   },
+   "4": {
+    "outer.npz": "f0b44d1d928762a575788cf9e5bdf98b75c59eb68f468d92357452c5e7185b64",
+    "DONE.json": "ceb2ee3fd389ddb66f3f59bde7f97cc44e8bde1b985ecf3d0021d0425f5fe896",
+    "final.pt": "c13061078002560f3bc9875f4681301e079884714baef8ddc44946a698f508b7"
+   },
+   "5": {
+    "outer.npz": "4a87acf498284e4afe44978293259014e6424ff39541692a5770f917277b947a",
+    "DONE.json": "5cae92f79071ed31104fb8da7942ddb94da1320d9fa3d6ad8aa1db83eff2c903",
+    "final.pt": "fefd22be335850c1e62a16dc0908bd7d8564b56cf125d6634cac1a077829c97b"
+   }
+  }
+ },
+ "result_sha256": {
+  "screen_i20_s0_headline_vs_host.json": "45bf044a103ae52c0e530d2f30920032a038046947c27b99638296ab84c5a79e",
+  "screen_i20_s0_all5_vs_host.json": "76a29a1d56ede6f00b188c57628cafc6bddda537cb91ce6a495cc4bbcf3c0995",
+  "i20_cr_tail_s0.json": "ac44af06793bc848596ed040de514f0d325662ff65821b4953cd8105e959ad75",
+  "screen_i20_s0_verdict.json": "bfac5b7f3cf8489292b4c7a115cfd18f93e92c28671c5bd1303b76763a2f6ce9"
+ },
+ "folds": [
+  {
+   "fold": 1,
+   "heldout": 2107,
+   "seconds": 11402.6,
+   "fit_loss": 3.2419742638012394e-05,
+   "final_trace": {
+    "step": 900,
+    "loss": 3.2419742638012394e-05,
+    "alpha": -1.2465498447418213,
+    "scale": 2.656905174255371,
+    "drop_mask": 1.0
+   }
+  },
+  {
+   "fold": 2,
+   "heldout": 2100,
+   "seconds": 11456.6,
+   "fit_loss": 3.994558210251853e-05,
+   "final_trace": {
+    "step": 900,
+    "loss": 3.994558210251853e-05,
+    "alpha": -1.1283279657363892,
+    "scale": 2.665774345397949,
+    "drop_mask": 1.0
+   }
+  },
+  {
+   "fold": 3,
+   "heldout": 1769,
+   "seconds": 12070.8,
+   "fit_loss": 3.003298661496956e-05,
+   "final_trace": {
+    "step": 900,
+    "loss": 3.003298661496956e-05,
+    "alpha": -1.2166639566421509,
+    "scale": 2.675534963607788,
+    "drop_mask": 1.0
+   }
+  },
+  {
+   "fold": 4,
+   "heldout": 1136,
+   "seconds": 10028.3,
+   "fit_loss": 3.9576658309670165e-05,
+   "final_trace": {
+    "step": 900,
+    "loss": 3.9576658309670165e-05,
+    "alpha": -1.2538801431655884,
+    "scale": 2.7052295207977295,
+    "drop_mask": 1.0
+   }
+  },
+  {
+   "fold": 5,
+   "heldout": 1345,
+   "seconds": 9372.6,
+   "fit_loss": 3.4720236726570874e-05,
+   "final_trace": {
+    "step": 900,
+    "loss": 3.4720236726570874e-05,
+    "alpha": -1.2325483560562134,
+    "scale": 2.661572217941284,
+    "drop_mask": 1.0
+   }
+  }
+ ],
+ "units": 8457,
+ "exactly_once_both_models": true,
+ "checkpoint_tensors_finite": true,
+ "numeric_scope": "Independent all tail points/intervals and legacy points; registered outcome/group loader reused. Legacy intervals hash-verified, not independently resampled.",
+ "primary_target": {
+  "cohort": "S",
+  "rmse_improvement_fraction": 0.003651909806311915,
+  "point_target_met": false,
+  "ci95": [
+   -0.010240341056833047,
+   0.012985471056110108
+  ],
+  "ci_supports_positive": false,
+  "ci_supports_at_least_10pct": false,
+  "scope": "Single seed, five held-out event folds. This target does not replace legacy scores or diagnose causality."
+ }
+}

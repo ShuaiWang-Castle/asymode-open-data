@@ -1,5 +1,22 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
+**Current state, 2026-09-29: I20 complete; the registered screen failed.** All five folds completed
+900 updates and automatic evaluation. Independent final audit passed 9,594 assertions: exact held-out
+coverage for both models, source/data/artifact hashes, finite exports/checkpoints, all tail point scores
+and intervals independently recalculated. S full144h design-weighted RMSE improved only **0.365%**,
+merged-group 95% improvement interval **[-1.024%, +1.299%]**; neither positive improvement nor the 10%
+target is supported. Family sensitivity also crosses zero. All-D RMSE worsened **1.050%**, headline
+balanced MSE **2.494%**, all-five balanced MSE **4.203% [0.709%, 8.900%]**. Low-threshold alarms in
+observed-zero units fell, but non-S predicted peaks>=10% rose from **4 to 133** (weighted rate
+0.027956% to 0.303121%). No training/coordinator process remains alive.
+
+中文结论与完整口径：`notes/I20_CONTROLLED_RESPONSE_RESULTS_20260929.md`；复核回执：
+`results/v1/i20_final_audit_s0.json`。本轮结束后暂停 I20 监控，I18 保持暂停，不归档聊天。
+当前无待运行队列；无自动加 seed、NULL、新 arm 或候选专属延长预算。任何旧队列指令均为历史。
+核心天气→地理复杂调制→冲击→停电假设仍需数据证据；本次负结果不识别机制或地理净信息。
+
+### Historical I20 authorization and execution record
+
 **Latest PI authorization, 2026-09-28: I20 implementation and full five-fold training.** The PI requests a
 substantially redesigned kernel and comparison to no-kernel AsymODE, targeting about 10% or greater error
 reduction in affected county-events. Current design/registration:
@@ -18,12 +35,12 @@ gradient accumulation over county chunks (one Adam update and one shared drop-pa
 not stochastic minibatch training. Preserve partial run folders and never duplicate a live queue. Both
 the affected-county target and all-D/false-peak results must be reported, not substituted for each other.
 
-Handoff completed at about 00:20 ET: current coordinator PID46146, adopted fold1 PID42149 unchanged,
+Handoff completed at about 00:20 ET: coordinator PID46146, adopted fold1 PID42149 unchanged,
 fold2 PID46192, fold3 PID46196. Old coordinator PID42136 exited. Folds4/5 remain pending. After startup,
 all three training PIDs were active at nice15, combined RSS about3.15 GiB, memory-pressure free42%.
 The source/evaluation hash manifest remains unchanged; compute amendment registration is `d737ae7`.
 
-### I20 execution phase (current)
+### I20 execution phase (completed; retained for provenance)
 
 The 71 targeted checks passed (one external-reference skip); the disposable public-D fit-only preflight
 passed on 6,350 fit units, one full update 10.143 s including cold JIT/calibration, peak RSS 1,952,989,184 bytes.

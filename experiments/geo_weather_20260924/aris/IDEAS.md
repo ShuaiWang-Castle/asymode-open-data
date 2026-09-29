@@ -1,6 +1,20 @@
 # Ideas ledger (ARIS style)
 
-## I20 controlled response kernel (2026-09-28; latest PI authorization)
+## I20 controlled response kernel (2026-09-29; screen failed, parked)
+
+中文结论：完整五折、每折900步、seed0已完成；S高停电县事件完整144小时设计加权RMSE仅下降
+**0.365%**，merged-group 95%改善区间 **[-1.024%, +1.299%]**，未达到10%目标，区间也不支持
+稳定改善。Family敏感性同样跨0。全D RMSE上升1.050%，热带/冬季平衡MSE上升2.494%，
+五类平衡MSE上升4.203% [0.709%, 8.900%]。全零县低阈值假峰减少，但非S大假峰计数4→133，
+设计加权率0.027956%→0.303121%。独立复核通过9,594项断言，源码/数据/输出hash与冻结登记一致，
+双方8,457条OOF预测恰好一次覆盖，数值有限。复核结果并非外部科学审稿或因果证明。
+
+状态：**parked after failed single-seed screen**。没有新训练队列，不自动加seed、NULL或预算。
+后续若获授权，先诊断非S误放大与真S漏检对应的天气历史和地理结构；不事后改阈值或用MAE改善
+代替原RMSE目标。核心天气→地理复杂调制→冲击→停电链条保留为待验证假设。I20交付后暂停监控，
+I18继续暂停。详见 `notes/I20_CONTROLLED_RESPONSE_RESULTS_20260929.md`。
+
+以下保留原授权和执行历史。
 
 The PI requests a deeper redesign than GCRK and a complete comparison to no-kernel AsymODE, aiming for
 about 10% or greater improvement in affected county-events. I20 uses all-subset geographic kernel features
@@ -13,14 +27,14 @@ seed0, 900 full-fit updates matched to host. **Training launched 2026-09-29 00:0
 commit `6b6b964`, after 71 checks passed (one external-reference skip) and a disposable fit-only resource
 preflight passed: 6,350 fit units, 10.143 s cold full update, peak RSS 1.82 GiB. One worker, two threads,
 nice>=15, county chunks512; full-fit Adam semantics retained. Primary S-cohort target is >=10% full-window
-design-weighted RMSE reduction. No outer I20 result yet. This authorization supersedes older proposal-only language below, without authorizing extra
+design-weighted RMSE reduction. At launch no outer I20 result existed. This authorization supersedes older proposal-only language below, without authorizing extra
 seeds, NULLs, a changed loss, C access or manuscript work. I18 monitoring remains paused.
 
 2026-09-29 compute amendment: PI freed CPU and explicitly authorized multiple processes/threads.
 Increase to at most three folds in parallel, retaining two threads per fold and the same model/seed/budget.
 Use the separately registered parallel coordinator, preserve the live first fold and original manifest;
 24 scheduling/evaluation checks passed. See `notes/I20_COMPUTE_AMENDMENT_20260929.md`.
-Parallel handoff is complete: folds1/2/3 are live; first-fold process retained; folds4/5 pending.
+At the parallel handoff, folds1/2/3 were live; the first-fold process was retained; folds4/5 were pending.
 
 Status: **active**, **parked**, **abandoned** (with the reason and, where applicable, prior art), **absorbed** (merged
 into another idea).
