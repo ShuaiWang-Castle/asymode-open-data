@@ -1,0 +1,160 @@
+{
+  "passed": true,
+  "scope": "Independent fixed-roster original-fold1-FIT arithmetic only",
+  "data_units": 6350,
+  "panel_units": 1219,
+  "merged_groups": 53,
+  "source_sha256": "b17a2a5643f0c1e8ff2b9b4c31644554023d782874da0745b82184eb2ddb9be8",
+  "input_roster_frozen_before_outcomes": true,
+  "scored_cohort_rows": 420,
+  "maximum_arithmetic_errors": {
+    "support": 2.7284841053187847e-12,
+    "shape_distributions": 5.684341886080802e-14,
+    "model_scores": 9.094947017729282e-12,
+    "paired_gains": 1.8189894035458565e-12,
+    "run_cross_tab": 0.0,
+    "pair_scores": 1.7763568394002505e-15
+  },
+  "all_cached_prediction_arrays_match_D07": true,
+  "original_sources_and_training_artifacts_unchanged": {
+    "original_sources": 16,
+    "training_artifacts": 30,
+    "prior_summary_packages": 3,
+    "public_D_sha256": "f043bb39e8abd48183670e2acc3c0cecebd7107ea9be0e28771912cfee358c48"
+  },
+  "continuous_and_hour_count_arrays_independently_recomputed": true,
+  "outcome_members_read": [
+    "y",
+    "m",
+    "y0",
+    "w",
+    "y_full",
+    "obs_full",
+    "system",
+    "family",
+    "origin",
+    "fips",
+    "regime"
+  ],
+  "weather_control_0p001_function_changes": {
+    "full_original_fold1_FIT": {
+      "all": {
+        "maximum_abs_prediction_change": 0.10896527767181396,
+        "baseline_false_alarms": 4,
+        "changed_false_alarms": 12,
+        "new_false_alarms": 8,
+        "removed_false_alarms": 0
+      },
+      "S": {
+        "maximum_abs_prediction_change": 0.10896527767181396,
+        "baseline_false_alarms": 0,
+        "changed_false_alarms": 0,
+        "new_false_alarms": 0,
+        "removed_false_alarms": 0
+      },
+      "nonS": {
+        "maximum_abs_prediction_change": 0.04897831380367279,
+        "baseline_false_alarms": 4,
+        "changed_false_alarms": 12,
+        "new_false_alarms": 8,
+        "removed_false_alarms": 0
+      }
+    },
+    "frozen_input_panel": {
+      "all": {
+        "maximum_abs_prediction_change": 0.09364524483680725,
+        "baseline_false_alarms": 0,
+        "changed_false_alarms": 1,
+        "new_false_alarms": 1,
+        "removed_false_alarms": 0
+      },
+      "S": {
+        "maximum_abs_prediction_change": 0.09364524483680725,
+        "baseline_false_alarms": 0,
+        "changed_false_alarms": 0,
+        "new_false_alarms": 0,
+        "removed_false_alarms": 0
+      },
+      "nonS": {
+        "maximum_abs_prediction_change": 0.03312799334526062,
+        "baseline_false_alarms": 0,
+        "changed_false_alarms": 1,
+        "new_false_alarms": 1,
+        "removed_false_alarms": 0
+      }
+    }
+  },
+  "fixed_input_pairs": {
+    "accepted_records": 284,
+    "distinct_unordered_pairs": 260,
+    "distinct_participants": 331,
+    "all_pair_common_observation_arithmetic_verified": true
+  },
+  "prior_D07_full_FIT_severe_symptoms_exact_reproduction": {
+    "S_units": 559,
+    "prior_D07_S_units": 559,
+    "models": {
+      "host": {
+        "prior_D07_RMSE": 0.06368383427768907,
+        "D08_RMSE": 0.06368383427768907,
+        "prior_D07_peak_ratio_quantiles": [
+          0.006411777612846509,
+          0.012308377905659851,
+          0.16133232642849465
+        ],
+        "D08_peak_ratio_quantiles": [
+          0.006411777612846509,
+          0.012308377905659851,
+          0.16133232642849465
+        ],
+        "exact_match": true
+      },
+      "crk": {
+        "prior_D07_RMSE": 0.03564200189518175,
+        "D08_RMSE": 0.03564200189518175,
+        "prior_D07_peak_ratio_quantiles": [
+          0.002958262274608741,
+          0.00799924252069013,
+          0.9060506013571313
+        ],
+        "D08_peak_ratio_quantiles": [
+          0.002958262274608741,
+          0.00799924252069013,
+          0.9060506013571313
+        ],
+        "exact_match": true
+      }
+    }
+  },
+  "design_weight_effective_support": {
+    "full_FIT_original_design_Kish": 845.9921601571746,
+    "panel_original_design_Kish": 187.57117239454507,
+    "panel_inverse_probability_design_Kish": 89.4130956779761,
+    "interpretation": "Kish is a weight-concentration diagnostic, not the number of independent events or a guarantee of generalization."
+  },
+  "original_objective_denominator": 912088.0,
+  "numpy_float32_denominator_sanity_check": 912088.125,
+  "full_result_artifact": {
+    "path": "experiments/geo_weather_20260924/results/v1/d08_panel_symptoms.json.gz",
+    "file_sha256": "8bc72971ced6ac3678c78ea4412675d38b79e4b868ea2dbe14c84fca4060f6a6",
+    "uncompressed_sha256": "5b80f13f8f6adf7da75dcb13159ec78ba6abe97257565b894a82e8aa4fa0c3ea"
+  },
+  "provenance": {
+    "experiments/geo_weather_20260924/audit_d08_final.py": "b17a2a5643f0c1e8ff2b9b4c31644554023d782874da0745b82184eb2ddb9be8",
+    "experiments/geo_weather_20260924/results/v1/d08_panel_symptoms.json.gz": "8bc72971ced6ac3678c78ea4412675d38b79e4b868ea2dbe14c84fca4060f6a6",
+    "runs/geo_weather_20260924/d08_panel_20260929_iofix1/symptoms_arrays.npz": "c798fa1e13ec58634d5731f98ac06c498dee3f1e1e571f445c715ee73ef87ed7",
+    "experiments/geo_weather_20260924/splits_v1D.json": "6b470b22ea4b6dee9ac965b66ac9e15476445589a803efa7b50da400703d535f",
+    "experiments/geo_weather_20260924/results/v1/d07_final_audit.json": "41a9ed866381134e1231065d982248edad98fc4a1119d63bc17147e4a2f6617e",
+    "experiments/geo_weather_20260924/results/v1/d07_gradients.json.gz": "48b256741098f9dce3a9de66b42d1b16d7ceb9b7a20293c51ac566fd0419d1e5",
+    "experiments/geo_weather_20260924/results/v1/d07_controllers.json.gz": "6108bb46aae9f072aca3af232baea1bc123c065b45c6fda6e6fe3ae096dc13e6",
+    "experiments/geo_weather_20260924/results/v1/d07_attribution.json.gz": "aebd94c43bd09af57ae9bc3a16a576ced1ada08e7572827fa3507f3ec58f45c1"
+  },
+  "no_new_model_forward_gradient_or_training": true,
+  "no_outer_risk_claim": true,
+  "limitations": [
+    "HT design-unbiasedness applies to additive fixed-predictor totals; weighted quantiles, proportions, RMSE, raw sample counts and top-selected-decile concentration are not unbiased full-population estimates.",
+    "All frozen predictions here were trained on original fold1 FIT; replay does not test inner event generalization.",
+    "Inverse-probability panel weights reduce Kish support from about 845.99 for full FIT original design weights to about 89.41; this warns of fragile reweighted summaries, not a model effect.",
+    "Dependent input-matched pairs do not establish a causal geographic mechanism or net geographic information."
+  ]
+}

@@ -1,0 +1,5524 @@
+{
+  "stage": "D08 complete, exploratory fixed input panel and existing frozen FIT predictions",
+  "selection_registration_commit": "f819f67aa8c3d55df3cef80c9841ded7de151ff5",
+  "original_D07_commit": "34288910cf32769029d7e6c0d764bc9b05a9ac17",
+  "panel": {
+    "core_units": 827,
+    "counties": 819,
+    "merged_groups": 53,
+    "original_fold_counts": {
+      "2": 348,
+      "3": 336,
+      "4": 271,
+      "5": 264
+    },
+    "regime_counts": {
+      "convective": 264,
+      "heavy_rain": 280,
+      "synoptic_wind": 228,
+      "tropical": 255,
+      "winter": 192
+    },
+    "systems": 61,
+    "tail_units": 392,
+    "units": 1219
+  },
+  "population": {
+    "counties": 2276,
+    "merged_groups": 53,
+    "systems": 61,
+    "units": 6350
+  },
+  "selected_pairs": {
+    "near_geo_far_weather": {
+      "distinct_participants": 183,
+      "distinct_unordered_group_pairs": 110,
+      "distinct_unordered_pairs": 123,
+      "no_qualified_input_partner": 85,
+      "qualified_but_core_quota_exhausted": 0,
+      "selected": 127
+    },
+    "near_weather_far_geo": {
+      "distinct_participants": 229,
+      "distinct_unordered_group_pairs": 49,
+      "distinct_unordered_pairs": 137,
+      "no_qualified_input_partner": 55,
+      "qualified_but_core_quota_exhausted": 0,
+      "selected": 157
+    }
+  },
+  "cutoffs": {
+    "geography_far": 1.667523459305324,
+    "geography_near": 0.7855105167016841,
+    "weather_far": 1.5695966356450506,
+    "weather_near": 1.237128895813041
+  },
+  "roster_sha256": "0e5fb5e860094e981facc6fa85c2ac9f27556bb1c3f5f13e0d636039e358ea4b",
+  "weight_Kish": {
+    "full_FIT_original_w": 845.9921601571746,
+    "panel_original_w": 187.57117239454507,
+    "panel_w_over_pi": 89.4130956779761
+  },
+  "inverse_probability_weight_audit": {
+    "largest_merged_group_w_over_pi_share": 0.16507442376758177,
+    "largest_selected_w_over_pi_share": 0.039595561295976196,
+    "merged_group_w_over_pi_kish": 11.158323122394233,
+    "minimum_population_pi": 0.019801980198019802,
+    "population_w_sum": 519207.25,
+    "selected_w_over_pi_kish": 89.4130956779761,
+    "selected_w_over_pi_sum": 567275.8112606108
+  },
+  "scores": {
+    "full_original_fold1_FIT": {
+      "common_observed": {
+        "all": {
+          "units": 6350,
+          "complete144_units": 6201,
+          "host_RMSE": 0.01140115688196147,
+          "crk_RMSE": 0.006623326192736039,
+          "RMSE_change_fraction": -0.41906542806938796,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.05524291975061679,
+              0.5369219052175522,
+              6.398260412767254
+            ],
+            "crk": [
+              0.03506511438590693,
+              0.3467864125452609,
+              3.53077974791307
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.05524291975061679,
+              0.5369219052175522,
+              6.398260412767254
+            ],
+            "crk": [
+              0.03506511438590693,
+              0.3467864125452609,
+              3.53077974791307
+            ]
+          },
+          "pair_gain_local": {
+            "units": 6350,
+            "alignment": 11083.331333567383,
+            "modification_energy": 4674.511596918506,
+            "net_gain": 6408.819736648876,
+            "positive_gain": 6454.465390299626,
+            "negative_loss": 45.64565365074983,
+            "positive_units": 4831,
+            "negative_units": 1519,
+            "zero_units": 0,
+            "positive_design_share": 0.8031309432171799,
+            "top_10pct_all_cohort_units": 635,
+            "top_10pct_share_of_positive_gain": 0.9906959854038419
+          },
+          "HT_SSE_numerator": {
+            "host": 9673.470808729497,
+            "crk": 3264.651072080622
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 74419111.74985373,
+          "weather_0p001_RMSE_change_fraction": -0.006333278756040839,
+          "weather_0p001_pair_gain_local": {
+            "units": 6350,
+            "alignment": 86.72126553748974,
+            "modification_energy": 45.500321501108346,
+            "net_gain": 41.220944036381404,
+            "positive_gain": 61.77752580752991,
+            "negative_loss": 20.556581771148515,
+            "positive_units": 2258,
+            "negative_units": 4092,
+            "zero_units": 0,
+            "positive_design_share": 0.359132543004056,
+            "top_10pct_all_cohort_units": 635,
+            "top_10pct_share_of_positive_gain": 0.9994688657912765
+          },
+          "nonS_alarms": {
+            "host": 1,
+            "crk": 4,
+            "weather_control_0p001": 12
+          }
+        },
+        "S": {
+          "units": 559,
+          "complete144_units": 544,
+          "host_RMSE": 0.06368383427768907,
+          "crk_RMSE": 0.03564200189518175,
+          "RMSE_change_fraction": -0.44032889508870965,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.006411777612846509,
+              0.012308377905659851,
+              0.16133232642849465
+            ],
+            "crk": [
+              0.002958262274608741,
+              0.00799924252069013,
+              0.9060506013571313
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.006411777612846509,
+              0.012308377905659851,
+              0.16133232642849465
+            ],
+            "crk": [
+              0.002958262274608741,
+              0.00799924252069013,
+              0.9060506013571313
+            ]
+          },
+          "pair_gain_local": {
+            "units": 559,
+            "alignment": 10695.801705036087,
+            "modification_energy": 4483.080582963645,
+            "net_gain": 6212.721122072444,
+            "positive_gain": 6235.664878479308,
+            "negative_loss": 22.94375640686367,
+            "positive_units": 409,
+            "negative_units": 150,
+            "zero_units": 0,
+            "positive_design_share": 0.46873178537214927,
+            "top_10pct_all_cohort_units": 56,
+            "top_10pct_share_of_positive_gain": 0.8326779426388408
+          },
+          "HT_SSE_numerator": {
+            "host": 9046.313778957672,
+            "crk": 2833.5926568852283
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 2230556.562066555,
+          "weather_0p001_RMSE_change_fraction": -0.008298519079980693,
+          "weather_0p001_pair_gain_local": {
+            "units": 559,
+            "alignment": 90.04284471806206,
+            "modification_energy": 43.2087358073202,
+            "net_gain": 46.83410891074186,
+            "positive_gain": 59.33984938650033,
+            "negative_loss": 12.505740475758476,
+            "positive_units": 356,
+            "negative_units": 203,
+            "zero_units": 0,
+            "positive_design_share": 0.7422891537887267,
+            "top_10pct_all_cohort_units": 56,
+            "top_10pct_share_of_positive_gain": 0.8048078349098433
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "nonS": {
+          "units": 5791,
+          "complete144_units": 5657,
+          "host_RMSE": 0.0029475010768627028,
+          "crk_RMSE": 0.0024436212270340647,
+          "RMSE_change_fraction": -0.17095154053852424,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.06587675071252061,
+              0.5664417774523106,
+              6.653530196017199
+            ],
+            "crk": [
+              0.03946939818538114,
+              0.3611628312593362,
+              3.68262979803783
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.06587675071252061,
+              0.5664417774523106,
+              6.653530196017199
+            ],
+            "crk": [
+              0.03946939818538114,
+              0.3611628312593362,
+              3.68262979803783
+            ]
+          },
+          "pair_gain_local": {
+            "units": 5791,
+            "alignment": 387.5296285312933,
+            "modification_energy": 191.4310139548612,
+            "net_gain": 196.0986145764321,
+            "positive_gain": 218.80051182031826,
+            "negative_loss": 22.701897243886165,
+            "positive_units": 4422,
+            "negative_units": 1369,
+            "zero_units": 0,
+            "positive_design_share": 0.8134194946390392,
+            "top_10pct_all_cohort_units": 580,
+            "top_10pct_share_of_positive_gain": 0.838476711938899
+          },
+          "HT_SSE_numerator": {
+            "host": 627.1570297718255,
+            "crk": 431.05841519539337
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 72188555.18778718,
+          "weather_0p001_RMSE_change_fraction": 0.006489850666530073,
+          "weather_0p001_pair_gain_local": {
+            "units": 5791,
+            "alignment": -3.3215791805723196,
+            "modification_energy": 2.291585693788143,
+            "net_gain": -5.6131648743604625,
+            "positive_gain": 2.4376764210295745,
+            "negative_loss": 8.050841295390038,
+            "positive_units": 1902,
+            "negative_units": 3889,
+            "zero_units": 0,
+            "positive_design_share": 0.34734385753580405,
+            "top_10pct_all_cohort_units": 580,
+            "top_10pct_share_of_positive_gain": 0.9964356837471838
+          },
+          "nonS_alarms": {
+            "host": 1,
+            "crk": 4,
+            "weather_control_0p001": 12
+          }
+        },
+        "severe_hour_count/1": {
+          "units": 100,
+          "complete144_units": 96,
+          "host_RMSE": 0.013896115542965942,
+          "crk_RMSE": 0.013603039999180186,
+          "RMSE_change_fraction": -0.021090465380744994,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.001011876221804153,
+              0.009482517275695006,
+              0.14814162724761143
+            ],
+            "crk": [
+              0.0009180992728380814,
+              0.005550869145856581,
+              0.11611521481019002
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.001011876221804153,
+              0.009482517275695006,
+              0.14814162724761143
+            ],
+            "crk": [
+              0.0009180992728380814,
+              0.005550869145856581,
+              0.11611521481019002
+            ]
+          },
+          "pair_gain_local": {
+            "units": 100,
+            "alignment": 19.382636958979532,
+            "modification_energy": 11.421961842763709,
+            "net_gain": 7.960675116215817,
+            "positive_gain": 11.658704332891947,
+            "negative_loss": 3.6980292166761313,
+            "positive_units": 54,
+            "negative_units": 46,
+            "zero_units": 0,
+            "positive_design_share": 0.3991587418504831,
+            "top_10pct_all_cohort_units": 10,
+            "top_10pct_share_of_positive_gain": 0.8266058671522752
+          },
+          "HT_SSE_numerator": {
+            "host": 190.7382511357127,
+            "crk": 182.77757601949685
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 987758.9268107414,
+          "weather_0p001_RMSE_change_fraction": -0.0007037438740450375,
+          "weather_0p001_pair_gain_local": {
+            "units": 100,
+            "alignment": 0.48323968142626333,
+            "modification_energy": 0.22607300414214485,
+            "net_gain": 0.2571666772841187,
+            "positive_gain": 0.5762703567462502,
+            "negative_loss": 0.3191036794621315,
+            "positive_units": 54,
+            "negative_units": 46,
+            "zero_units": 0,
+            "positive_design_share": 0.6456195828050869,
+            "top_10pct_all_cohort_units": 10,
+            "top_10pct_share_of_positive_gain": 0.8130156564956114
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "severe_hour_count/2..6": {
+          "units": 151,
+          "complete144_units": 148,
+          "host_RMSE": 0.03922679181548488,
+          "crk_RMSE": 0.03680189691183993,
+          "RMSE_change_fraction": -0.06181731391777279,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.0064235323148922,
+              0.012226401506171174,
+              0.09952571490831813
+            ],
+            "crk": [
+              0.0029303504429748525,
+              0.007869013162553767,
+              0.7466788425032207
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.0064235323148922,
+              0.012226401506171174,
+              0.09952571490831813
+            ],
+            "crk": [
+              0.0029303504429748525,
+              0.007869013162553767,
+              0.7466788425032207
+            ]
+          },
+          "pair_gain_local": {
+            "units": 151,
+            "alignment": 261.25166502380455,
+            "modification_energy": 113.02869085124743,
+            "net_gain": 148.2229741725571,
+            "positive_gain": 153.38660990943634,
+            "negative_loss": 5.163635736879262,
+            "positive_units": 84,
+            "negative_units": 67,
+            "zero_units": 0,
+            "positive_design_share": 0.3711958363049482,
+            "top_10pct_all_cohort_units": 16,
+            "top_10pct_share_of_positive_gain": 0.9035926727478474
+          },
+          "HT_SSE_numerator": {
+            "host": 1237.1167397711476,
+            "crk": 1088.8937655985906
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 803979.7354345322,
+          "weather_0p001_RMSE_change_fraction": -0.0020139763995458138,
+          "weather_0p001_pair_gain_local": {
+            "units": 151,
+            "alignment": 6.985466314272122,
+            "modification_energy": 2.60387028623968,
+            "net_gain": 4.381596028032442,
+            "positive_gain": 5.106774543863697,
+            "negative_loss": 0.7251785158312544,
+            "positive_units": 83,
+            "negative_units": 68,
+            "zero_units": 0,
+            "positive_design_share": 0.8240067364196958,
+            "top_10pct_all_cohort_units": 16,
+            "top_10pct_share_of_positive_gain": 0.8975699892521188
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "severe_hour_count/>=7": {
+          "units": 308,
+          "complete144_units": 300,
+          "host_RMSE": 0.13176236883203565,
+          "crk_RMSE": 0.05966057140703893,
+          "RMSE_change_fraction": -0.5472108468003383,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.010890255356520273,
+              0.08074066751834905,
+              0.21636697839821598
+            ],
+            "crk": [
+              0.007668426112999553,
+              0.7701841319104527,
+              1.0459067447723056
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.010890255356520273,
+              0.08074066751834905,
+              0.21636697839821598
+            ],
+            "crk": [
+              0.007668426112999553,
+              0.7701841319104527,
+              1.0459067447723056
+            ]
+          },
+          "pair_gain_local": {
+            "units": 308,
+            "alignment": 10415.167403053303,
+            "modification_energy": 4358.629930269634,
+            "net_gain": 6056.537472783671,
+            "positive_gain": 6070.61956423698,
+            "negative_loss": 14.082091453308273,
+            "positive_units": 271,
+            "negative_units": 37,
+            "zero_units": 0,
+            "positive_design_share": 0.803690633088623,
+            "top_10pct_all_cohort_units": 31,
+            "top_10pct_share_of_positive_gain": 0.7113945322523675
+          },
+          "HT_SSE_numerator": {
+            "host": 7618.458788050812,
+            "crk": 1561.9213152671402
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 438817.89982128143,
+          "weather_0p001_RMSE_change_fraction": -0.013599993313543335,
+          "weather_0p001_pair_gain_local": {
+            "units": 308,
+            "alignment": 82.57413872236367,
+            "modification_energy": 40.378792516938375,
+            "net_gain": 42.1953462054253,
+            "positive_gain": 53.65680448589039,
+            "negative_loss": 11.461458280465088,
+            "positive_units": 219,
+            "negative_units": 89,
+            "zero_units": 0,
+            "positive_design_share": 0.810099140736415,
+            "top_10pct_all_cohort_units": 31,
+            "top_10pct_share_of_positive_gain": 0.7394560923320541
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/1": {
+          "units": 105,
+          "complete144_units": 101,
+          "host_RMSE": 0.013995060860496145,
+          "crk_RMSE": 0.01367319667988697,
+          "RMSE_change_fraction": -0.022998412355440423,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.001011876221804153,
+              0.009510520938252527,
+              0.16615009713470813
+            ],
+            "crk": [
+              0.0009180992728380814,
+              0.005575215341278189,
+              0.15224538229440163
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.001011876221804153,
+              0.009510520938252527,
+              0.16615009713470813
+            ],
+            "crk": [
+              0.0009180992728380814,
+              0.005575215341278189,
+              0.15224538229440163
+            ]
+          },
+          "pair_gain_local": {
+            "units": 105,
+            "alignment": 20.70942086878916,
+            "modification_energy": 11.792151883765683,
+            "net_gain": 8.917268985023474,
+            "positive_gain": 12.6414167107115,
+            "negative_loss": 3.7241477256880264,
+            "positive_units": 58,
+            "negative_units": 47,
+            "zero_units": 0,
+            "positive_design_share": 0.40558630893875297,
+            "top_10pct_all_cohort_units": 11,
+            "top_10pct_share_of_positive_gain": 0.8171687146819484
+          },
+          "HT_SSE_numerator": {
+            "host": 196.1223066879703,
+            "crk": 187.2050377029468
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 1001330.4191737175,
+          "weather_0p001_RMSE_change_fraction": -0.0005561020416816609,
+          "weather_0p001_pair_gain_local": {
+            "units": 105,
+            "alignment": 0.4434702411976461,
+            "modification_energy": 0.23531792689895756,
+            "net_gain": 0.20815231429868858,
+            "positive_gain": 0.58609035560411,
+            "negative_loss": 0.3779380413054216,
+            "positive_units": 57,
+            "negative_units": 48,
+            "zero_units": 0,
+            "positive_design_share": 0.6435224664924943,
+            "top_10pct_all_cohort_units": 11,
+            "top_10pct_share_of_positive_gain": 0.8269756755644084
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/2..6": {
+          "units": 159,
+          "complete144_units": 153,
+          "host_RMSE": 0.03954570135359831,
+          "crk_RMSE": 0.03697947453904731,
+          "RMSE_change_fraction": -0.06489268685880811,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.006423996015565517,
+              0.012232948466559751,
+              0.10436438306631764
+            ],
+            "crk": [
+              0.0029309649863162295,
+              0.00813688920812582,
+              0.7782864713534704
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.006423996015565517,
+              0.012232948466559751,
+              0.10436438306631764
+            ],
+            "crk": [
+              0.0029309649863162295,
+              0.00813688920812582,
+              0.7782864713534704
+            ]
+          },
+          "pair_gain_local": {
+            "units": 159,
+            "alignment": 281.91461648913287,
+            "modification_energy": 122.3680205708203,
+            "net_gain": 159.54659591831256,
+            "positive_gain": 166.07033943625646,
+            "negative_loss": 6.5237435179439345,
+            "positive_units": 87,
+            "negative_units": 72,
+            "zero_units": 0,
+            "positive_design_share": 0.37038549972722135,
+            "top_10pct_all_cohort_units": 16,
+            "top_10pct_share_of_positive_gain": 0.8827032910747821
+          },
+          "HT_SSE_numerator": {
+            "host": 1270.535288796183,
+            "crk": 1110.9886928778706
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 812434.1445703506,
+          "weather_0p001_RMSE_change_fraction": -0.0034902390239308634,
+          "weather_0p001_pair_gain_local": {
+            "units": 159,
+            "alignment": 11.586931830339406,
+            "modification_energy": 3.8452334552840033,
+            "net_gain": 7.741698375055404,
+            "positive_gain": 8.4474752560305,
+            "negative_loss": 0.7057768809750954,
+            "positive_units": 89,
+            "negative_units": 70,
+            "zero_units": 0,
+            "positive_design_share": 0.8317048489837566,
+            "top_10pct_all_cohort_units": 16,
+            "top_10pct_share_of_positive_gain": 0.9051490030436867
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/>=7": {
+          "units": 295,
+          "complete144_units": 290,
+          "host_RMSE": 0.13485438314564663,
+          "crk_RMSE": 0.06069472247305844,
+          "RMSE_change_fraction": -0.5499239916621295,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.01081391620659525,
+              0.07836300305550711,
+              0.21297804012697727
+            ],
+            "crk": [
+              0.007667698605668268,
+              0.7822294531782068,
+              1.046958926685208
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.01081391620659525,
+              0.07836300305550711,
+              0.21297804012697727
+            ],
+            "crk": [
+              0.007667698605668268,
+              0.7822294531782068,
+              1.046958926685208
+            ]
+          },
+          "pair_gain_local": {
+            "units": 295,
+            "alignment": 10393.177667678165,
+            "modification_energy": 4348.920410509059,
+            "net_gain": 6044.257257169108,
+            "positive_gain": 6056.953122332339,
+            "negative_loss": 12.695865163231707,
+            "positive_units": 264,
+            "negative_units": 31,
+            "zero_units": 0,
+            "positive_design_share": 0.8120945279389347,
+            "top_10pct_all_cohort_units": 30,
+            "top_10pct_share_of_positive_gain": 0.7044900162841503
+          },
+          "HT_SSE_numerator": {
+            "host": 7579.656183473518,
+            "crk": 1535.3989263044105
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 416791.9983224869,
+          "weather_0p001_RMSE_change_fraction": -0.012743793451688745,
+          "weather_0p001_pair_gain_local": {
+            "units": 295,
+            "alignment": 78.01244264652502,
+            "modification_energy": 39.12818442513724,
+            "net_gain": 38.88425822138777,
+            "positive_gain": 50.30628377486573,
+            "negative_loss": 11.422025553477958,
+            "positive_units": 210,
+            "negative_units": 85,
+            "zero_units": 0,
+            "positive_design_share": 0.8051891840340174,
+            "top_10pct_all_cohort_units": 30,
+            "top_10pct_share_of_positive_gain": 0.7312835845833852
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        }
+      },
+      "complete144": {
+        "all": {
+          "units": 6201,
+          "complete144_units": 6201,
+          "host_RMSE": 0.011203721434368628,
+          "crk_RMSE": 0.006556682677782296,
+          "RMSE_change_fraction": -0.4147763565712226,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.053292589746662115,
+              0.5328614740188682,
+              6.216158862396748
+            ],
+            "crk": [
+              0.03305612822700387,
+              0.33591114934490374,
+              3.4577464695492974
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.053292589746662115,
+              0.5328614740188682,
+              6.216158862396748
+            ],
+            "crk": [
+              0.03305612822700387,
+              0.33591114934490374,
+              3.4577464695492974
+            ]
+          },
+          "pair_gain_local": {
+            "units": 6201,
+            "alignment": 10583.231270315544,
+            "modification_energy": 4523.140197037129,
+            "net_gain": 6060.091073278414,
+            "positive_gain": 6103.734048782688,
+            "negative_loss": 43.64297550427353,
+            "positive_units": 4711,
+            "negative_units": 1490,
+            "zero_units": 0,
+            "positive_design_share": 0.8005741659423601,
+            "top_10pct_all_cohort_units": 621,
+            "top_10pct_share_of_positive_gain": 0.9907028074895976
+          },
+          "HT_SSE_numerator": {
+            "host": 9216.682296024279,
+            "crk": 3156.5912227458653
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 73426024.20463371,
+          "weather_0p001_RMSE_change_fraction": -0.005270795268985773,
+          "weather_0p001_pair_gain_local": {
+            "units": 6201,
+            "alignment": 76.3629911099268,
+            "modification_energy": 43.175193097324566,
+            "net_gain": 33.187798012602244,
+            "positive_gain": 53.646980430321875,
+            "negative_loss": 20.45918241771963,
+            "positive_units": 2202,
+            "negative_units": 3999,
+            "zero_units": 0,
+            "positive_design_share": 0.36234944898259147,
+            "top_10pct_all_cohort_units": 621,
+            "top_10pct_share_of_positive_gain": 0.9994433762912858
+          },
+          "nonS_alarms": {
+            "host": 1,
+            "crk": 4,
+            "weather_control_0p001": 12
+          }
+        },
+        "S": {
+          "units": 544,
+          "complete144_units": 544,
+          "host_RMSE": 0.06241293195220295,
+          "crk_RMSE": 0.035170995870408,
+          "RMSE_change_fraction": -0.4364790313433339,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.0064105142782656605,
+              0.012293593593629778,
+              0.1520242606525969
+            ],
+            "crk": [
+              0.0029565879750028386,
+              0.007753377149341006,
+              0.9128101665932167
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.0064105142782656605,
+              0.012293593593629778,
+              0.1520242606525969
+            ],
+            "crk": [
+              0.0029565879750028386,
+              0.007753377149341006,
+              0.9128101665932167
+            ]
+          },
+          "pair_gain_local": {
+            "units": 544,
+            "alignment": 10205.251601115206,
+            "modification_energy": 4336.147970145474,
+            "net_gain": 5869.103630969732,
+            "positive_gain": 5890.516980425385,
+            "negative_loss": 21.413349455652927,
+            "positive_units": 396,
+            "negative_units": 148,
+            "zero_units": 0,
+            "positive_design_share": 0.466237091890081,
+            "top_10pct_all_cohort_units": 55,
+            "top_10pct_share_of_positive_gain": 0.8277382140980771
+          },
+          "HT_SSE_numerator": {
+            "host": 8600.123405218028,
+            "crk": 2731.0197742482956
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 2207778.5701503754,
+          "weather_0p001_RMSE_change_fraction": -0.007123889373914838,
+          "weather_0p001_pair_gain_local": {
+            "units": 544,
+            "alignment": 79.67951009901537,
+            "modification_energy": 40.907143306402126,
+            "net_gain": 38.77236679261324,
+            "positive_gain": 51.26104990747255,
+            "negative_loss": 12.488683114859308,
+            "positive_units": 343,
+            "negative_units": 201,
+            "zero_units": 0,
+            "positive_design_share": 0.7402233743087248,
+            "top_10pct_all_cohort_units": 55,
+            "top_10pct_share_of_positive_gain": 0.7974219075754051
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "nonS": {
+          "units": 5657,
+          "complete144_units": 5657,
+          "host_RMSE": 0.0029423318080632863,
+          "crk_RMSE": 0.0024445031777376837,
+          "RMSE_change_fraction": -0.1691952719137021,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.06513256641899169,
+              0.5536956004104484,
+              6.515890349759324
+            ],
+            "crk": [
+              0.03932346788785249,
+              0.35077933419088464,
+              3.5996143152049207
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.06513256641899169,
+              0.5536956004104484,
+              6.515890349759324
+            ],
+            "crk": [
+              0.03932346788785249,
+              0.35077933419088464,
+              3.5996143152049207
+            ]
+          },
+          "pair_gain_local": {
+            "units": 5657,
+            "alignment": 377.97966920033736,
+            "modification_energy": 186.9922268916544,
+            "net_gain": 190.98744230868294,
+            "positive_gain": 213.2170683573035,
+            "negative_loss": 22.2296260486206,
+            "positive_units": 4315,
+            "negative_units": 1342,
+            "zero_units": 0,
+            "positive_design_share": 0.8109386760580375,
+            "top_10pct_all_cohort_units": 566,
+            "top_10pct_share_of_positive_gain": 0.841906830570368
+          },
+          "HT_SSE_numerator": {
+            "host": 616.5588908062521,
+            "crk": 425.5714484975689
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 71218245.63448334,
+          "weather_0p001_RMSE_change_fraction": 0.0065398737750352876,
+          "weather_0p001_pair_gain_local": {
+            "units": 5657,
+            "alignment": -3.3165189890885634,
+            "modification_energy": 2.2680497909224404,
+            "net_gain": -5.584568780011003,
+            "positive_gain": 2.3859305228493235,
+            "negative_loss": 7.970499302860327,
+            "positive_units": 1859,
+            "negative_units": 3798,
+            "zero_units": 0,
+            "positive_design_share": 0.35063528855753184,
+            "top_10pct_all_cohort_units": 566,
+            "top_10pct_share_of_positive_gain": 0.9965066945553888
+          },
+          "nonS_alarms": {
+            "host": 1,
+            "crk": 4,
+            "weather_control_0p001": 12
+          }
+        },
+        "severe_hour_count/1": {
+          "units": 96,
+          "complete144_units": 96,
+          "host_RMSE": 0.013864631065552899,
+          "crk_RMSE": 0.013596885916922744,
+          "RMSE_change_fraction": -0.019311379247254234,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.001011876221804153,
+              0.009475898439944406,
+              0.14047601920949818
+            ],
+            "crk": [
+              0.0009180992728380814,
+              0.005545114774680431,
+              0.09651450442177377
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.001011876221804153,
+              0.009475898439944406,
+              0.14047601920949818
+            ],
+            "crk": [
+              0.0009180992728380814,
+              0.005545114774680431,
+              0.09651450442177377
+            ]
+          },
+          "pair_gain_local": {
+            "units": 96,
+            "alignment": 18.01313283281357,
+            "modification_energy": 10.771856869485909,
+            "net_gain": 7.241275963327664,
+            "positive_gain": 10.939305180003794,
+            "negative_loss": 3.6980292166761313,
+            "positive_units": 50,
+            "negative_units": 46,
+            "zero_units": 0,
+            "positive_design_share": 0.39720176739142093,
+            "top_10pct_all_cohort_units": 10,
+            "top_10pct_share_of_positive_gain": 0.8746086254756632
+          },
+          "HT_SSE_numerator": {
+            "host": 189.31524999652538,
+            "crk": 182.0739740331977
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 984847.4485015869,
+          "weather_0p001_RMSE_change_fraction": -0.000658480261859884,
+          "weather_0p001_pair_gain_local": {
+            "units": 96,
+            "alignment": 0.4643601986277821,
+            "modification_energy": 0.2246549090226429,
+            "net_gain": 0.23970528960513915,
+            "positive_gain": 0.5574886632249363,
+            "negative_loss": 0.317783373619797,
+            "positive_units": 51,
+            "negative_units": 45,
+            "zero_units": 0,
+            "positive_design_share": 0.6454626499981033,
+            "top_10pct_all_cohort_units": 10,
+            "top_10pct_share_of_positive_gain": 0.8404060087944334
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "severe_hour_count/2..6": {
+          "units": 148,
+          "complete144_units": 148,
+          "host_RMSE": 0.039267634961109986,
+          "crk_RMSE": 0.03685180335750257,
+          "RMSE_change_fraction": -0.06152220794555141,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.006423222462721575,
+              0.012222775427028595,
+              0.09948993643552466
+            ],
+            "crk": [
+              0.0029299397953324703,
+              0.0057639556791736195,
+              0.7485006473639806
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.006423222462721575,
+              0.012222775427028595,
+              0.09948993643552466
+            ],
+            "crk": [
+              0.0029299397953324703,
+              0.0057639556791736195,
+              0.7485006473639806
+            ]
+          },
+          "pair_gain_local": {
+            "units": 148,
+            "alignment": 258.57478978127915,
+            "modification_energy": 111.76341507753875,
+            "net_gain": 146.81137470374043,
+            "positive_gain": 151.55069225074647,
+            "negative_loss": 4.739317547006089,
+            "positive_units": 82,
+            "negative_units": 66,
+            "zero_units": 0,
+            "positive_design_share": 0.372377186860804,
+            "top_10pct_all_cohort_units": 15,
+            "top_10pct_share_of_positive_gain": 0.9028981331328664
+          },
+          "HT_SSE_numerator": {
+            "host": 1231.0252531013814,
+            "crk": 1084.2138783976409
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 798357.6147594452,
+          "weather_0p001_RMSE_change_fraction": -0.0019982423708229113,
+          "weather_0p001_pair_gain_local": {
+            "units": 148,
+            "alignment": 6.915589171439082,
+            "modification_energy": 2.586874186021498,
+            "net_gain": 4.328714985417584,
+            "positive_gain": 5.053893501248838,
+            "negative_loss": 0.7251785158312544,
+            "positive_units": 80,
+            "negative_units": 68,
+            "zero_units": 0,
+            "positive_design_share": 0.8227145118200703,
+            "top_10pct_all_cohort_units": 15,
+            "top_10pct_share_of_positive_gain": 0.8916887124400961
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "severe_hour_count/>=7": {
+          "units": 300,
+          "complete144_units": 300,
+          "host_RMSE": 0.1300406736971096,
+          "crk_RMSE": 0.058735764756712286,
+          "RMSE_change_fraction": -0.548327741722413,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.0108293581985729,
+              0.0730213501850768,
+              0.2129946700780326
+            ],
+            "crk": [
+              0.007667943234488854,
+              0.7907403920290413,
+              1.0469066600532522
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.0108293581985729,
+              0.0730213501850768,
+              0.2129946700780326
+            ],
+            "crk": [
+              0.007667943234488854,
+              0.7907403920290413,
+              1.0469066600532522
+            ]
+          },
+          "pair_gain_local": {
+            "units": 300,
+            "alignment": 9928.663678501112,
+            "modification_energy": 4213.61269819845,
+            "net_gain": 5715.050980302663,
+            "positive_gain": 5728.026982994635,
+            "negative_loss": 12.976002691970702,
+            "positive_units": 264,
+            "negative_units": 36,
+            "zero_units": 0,
+            "positive_design_share": 0.8028643914520299,
+            "top_10pct_all_cohort_units": 30,
+            "top_10pct_share_of_positive_gain": 0.6986892660872904
+          },
+          "HT_SSE_numerator": {
+            "host": 7179.78290212012,
+            "crk": 1464.7319218174573
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 424573.50688934326,
+          "weather_0p001_RMSE_change_fraction": -0.01174480869315575,
+          "weather_0p001_pair_gain_local": {
+            "units": 300,
+            "alignment": 72.2995607289485,
+            "modification_energy": 38.09561421135798,
+            "net_gain": 34.20394651759052,
+            "positive_gain": 45.64966774299878,
+            "negative_loss": 11.445721225408256,
+            "positive_units": 212,
+            "negative_units": 88,
+            "zero_units": 0,
+            "positive_design_share": 0.8049175422853563,
+            "top_10pct_all_cohort_units": 30,
+            "top_10pct_share_of_positive_gain": 0.7290977355132384
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/1": {
+          "units": 101,
+          "complete144_units": 101,
+          "host_RMSE": 0.013964513028902961,
+          "crk_RMSE": 0.013667361576405888,
+          "RMSE_change_fraction": -0.02127904151630966,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.001011876221804153,
+              0.009503902102501927,
+              0.15267939221107982
+            ],
+            "crk": [
+              0.0009180992728380814,
+              0.0055694609701020395,
+              0.14756754567685168
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.001011876221804153,
+              0.009503902102501927,
+              0.15267939221107982
+            ],
+            "crk": [
+              0.0009180992728380814,
+              0.0055694609701020395,
+              0.14756754567685168
+            ]
+          },
+          "pair_gain_local": {
+            "units": 101,
+            "alignment": 19.339916742623203,
+            "modification_energy": 11.14204691048788,
+            "net_gain": 8.197869832135321,
+            "positive_gain": 11.922017557823345,
+            "negative_loss": 3.7241477256880264,
+            "positive_units": 54,
+            "negative_units": 47,
+            "zero_units": 0,
+            "positive_design_share": 0.40367658598793715,
+            "top_10pct_all_cohort_units": 11,
+            "top_10pct_share_of_positive_gain": 0.8606452270067058
+          },
+          "HT_SSE_numerator": {
+            "host": 194.69930554878297,
+            "crk": 186.50143571664768
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 998418.940864563,
+          "weather_0p001_RMSE_change_fraction": -0.0005113625384547404,
+          "weather_0p001_pair_gain_local": {
+            "units": 101,
+            "alignment": 0.4245907583991647,
+            "modification_energy": 0.23389983177945572,
+            "net_gain": 0.19069092661970913,
+            "positive_gain": 0.5673086620827961,
+            "negative_loss": 0.3766177354630871,
+            "positive_units": 54,
+            "negative_units": 47,
+            "zero_units": 0,
+            "positive_design_share": 0.6433609292883125,
+            "top_10pct_all_cohort_units": 11,
+            "top_10pct_share_of_positive_gain": 0.8543540759417422
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/2..6": {
+          "units": 153,
+          "complete144_units": 153,
+          "host_RMSE": 0.03961066030807892,
+          "crk_RMSE": 0.03704838823285328,
+          "RMSE_change_fraction": -0.06468642671687663,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.006423485650978855,
+              0.012226975868791354,
+              0.10168408211049583
+            ],
+            "crk": [
+              0.0029302885992060616,
+              0.007759540205474838,
+              0.7790061289461218
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.006423485650978855,
+              0.012226975868791354,
+              0.10168408211049583
+            ],
+            "crk": [
+              0.0029302885992060616,
+              0.007759540205474838,
+              0.7790061289461218
+            ]
+          },
+          "pair_gain_local": {
+            "units": 153,
+            "alignment": 277.288772659096,
+            "modification_energy": 119.49629793051903,
+            "net_gain": 157.79247472857705,
+            "positive_gain": 162.78581129531022,
+            "negative_loss": 4.99333656673319,
+            "positive_units": 83,
+            "negative_units": 70,
+            "zero_units": 0,
+            "positive_design_share": 0.371768014163866,
+            "top_10pct_all_cohort_units": 16,
+            "top_10pct_share_of_positive_gain": 0.900513589015193
+          },
+          "HT_SSE_numerator": {
+            "host": 1260.438858067579,
+            "crk": 1102.646383339002
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 803336.7210445404,
+          "weather_0p001_RMSE_change_fraction": -0.003105404715959992,
+          "weather_0p001_pair_gain_local": {
+            "units": 153,
+            "alignment": 10.457396409648101,
+            "modification_energy": 3.6197032647286624,
+            "net_gain": 6.837693144919438,
+            "positive_gain": 7.5277329708377,
+            "negative_loss": 0.6900398259182624,
+            "positive_units": 84,
+            "negative_units": 69,
+            "zero_units": 0,
+            "positive_design_share": 0.8304493979038177,
+            "top_10pct_all_cohort_units": 16,
+            "top_10pct_share_of_positive_gain": 0.9218858056986575
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/>=7": {
+          "units": 290,
+          "complete144_units": 290,
+          "host_RMSE": 0.13265554225737364,
+          "crk_RMSE": 0.059592016096114295,
+          "RMSE_change_fraction": -0.55077628056809,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.010791231383375356,
+              0.07574616996495605,
+              0.21302583669485406
+            ],
+            "crk": [
+              0.0076673392374237105,
+              0.8021119946324267,
+              1.0471600791623104
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.010791231383375356,
+              0.07574616996495605,
+              0.21302583669485406
+            ],
+            "crk": [
+              0.0076673392374237105,
+              0.8021119946324267,
+              1.0471600791623104
+            ]
+          },
+          "pair_gain_local": {
+            "units": 290,
+            "alignment": 9908.622911713486,
+            "modification_energy": 4205.509625304468,
+            "net_gain": 5703.11328640902,
+            "positive_gain": 5715.809151572251,
+            "negative_loss": 12.695865163231707,
+            "positive_units": 259,
+            "negative_units": 31,
+            "zero_units": 0,
+            "positive_design_share": 0.8069865185239984,
+            "top_10pct_all_cohort_units": 29,
+            "top_10pct_share_of_positive_gain": 0.691165205575809
+          },
+          "HT_SSE_numerator": {
+            "host": 7144.985241601666,
+            "crk": 1441.8719551926463
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 406022.908241272,
+          "weather_0p001_RMSE_change_fraction": -0.011069169544145163,
+          "weather_0p001_pair_gain_local": {
+            "units": 290,
+            "alignment": 68.7975229309681,
+            "modification_energy": 37.053540209894,
+            "net_gain": 31.743982721074097,
+            "positive_gain": 43.16600827455206,
+            "negative_loss": 11.422025553477958,
+            "positive_units": 205,
+            "negative_units": 85,
+            "zero_units": 0,
+            "positive_design_share": 0.7998934602258131,
+            "top_10pct_all_cohort_units": 29,
+            "top_10pct_share_of_positive_gain": 0.714679448610775
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        }
+      },
+      "incomplete": {
+        "all": {
+          "units": 149,
+          "complete144_units": 0,
+          "host_RMSE": 0.021446865058781395,
+          "crk_RMSE": 0.010431299411652176,
+          "RMSE_change_fraction": -0.513621250329027,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.1840347553320684,
+              1.6903980414313058,
+              10.619114756463189
+            ],
+            "crk": [
+              0.09117769995511309,
+              1.1969316476051863,
+              5.867169655490214
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.1840347553320684,
+              1.6903980414313058,
+              10.619114756463189
+            ],
+            "crk": [
+              0.09117769995511309,
+              1.1969316476051863,
+              5.867169655490214
+            ]
+          },
+          "pair_gain_local": {
+            "units": 149,
+            "alignment": 500.1000632518392,
+            "modification_energy": 151.37139988137756,
+            "net_gain": 348.72866337046145,
+            "positive_gain": 350.73134151693785,
+            "negative_loss": 2.0026781464763057,
+            "positive_units": 120,
+            "negative_units": 29,
+            "zero_units": 0,
+            "positive_design_share": 0.9432493169700185,
+            "top_10pct_all_cohort_units": 15,
+            "top_10pct_share_of_positive_gain": 0.9897218606054962
+          },
+          "HT_SSE_numerator": {
+            "host": 456.78851270521756,
+            "crk": 108.05984933475601
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 993087.5452200174,
+          "weather_0p001_RMSE_change_fraction": -0.03788762897903675,
+          "weather_0p001_pair_gain_local": {
+            "units": 149,
+            "alignment": 10.35827442756294,
+            "modification_energy": 2.3251284037837805,
+            "net_gain": 8.033146023779159,
+            "positive_gain": 8.130545377208037,
+            "negative_loss": 0.0973993534288782,
+            "positive_units": 56,
+            "negative_units": 93,
+            "zero_units": 0,
+            "positive_design_share": 0.1828373143709964,
+            "top_10pct_all_cohort_units": 15,
+            "top_10pct_share_of_positive_gain": 0.9983471368812994
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "S": {
+          "units": 15,
+          "complete144_units": 0,
+          "host_RMSE": 0.1399594995685772,
+          "crk_RMSE": 0.06710556899728215,
+          "RMSE_change_fraction": -0.520535803542211,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.052307095378637314,
+              0.12611883009502173,
+              0.33682860348989413
+            ],
+            "crk": [
+              0.02493233778865444,
+              0.3527080948031924,
+              0.6165946801982157
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.052307095378637314,
+              0.12611883009502173,
+              0.33682860348989413
+            ],
+            "crk": [
+              0.02493233778865444,
+              0.3527080948031924,
+              0.6165946801982157
+            ]
+          },
+          "pair_gain_local": {
+            "units": 15,
+            "alignment": 490.5501039208831,
+            "modification_energy": 146.93261281817075,
+            "net_gain": 343.6174911027122,
+            "positive_gain": 345.14789805392303,
+            "negative_loss": 1.5304069512107434,
+            "positive_units": 13,
+            "negative_units": 2,
+            "zero_units": 0,
+            "positive_design_share": 0.6991779228283947,
+            "top_10pct_all_cohort_units": 2,
+            "top_10pct_share_of_positive_gain": 0.9395154992648986
+          },
+          "HT_SSE_numerator": {
+            "host": 446.1903737396443,
+            "crk": 102.5728826369319
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 22777.991916179657,
+          "weather_0p001_RMSE_change_fraction": -0.04010170197511598,
+          "weather_0p001_pair_gain_local": {
+            "units": 15,
+            "alignment": 10.363334619046698,
+            "modification_energy": 2.3015925009180784,
+            "net_gain": 8.061742118128619,
+            "positive_gain": 8.078799479027786,
+            "negative_loss": 0.017057360899167484,
+            "positive_units": 13,
+            "negative_units": 2,
+            "zero_units": 0,
+            "positive_design_share": 0.9331145619699861,
+            "top_10pct_all_cohort_units": 2,
+            "top_10pct_share_of_positive_gain": 0.563317126912789
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "nonS": {
+          "units": 134,
+          "complete144_units": 0,
+          "host_RMSE": 0.0033049101070215504,
+          "crk_RMSE": 0.002377995390860422,
+          "RMSE_change_fraction": -0.28046593890460825,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.18567894666144527,
+              1.695749588803094,
+              11.388087662601333
+            ],
+            "crk": [
+              0.09472519687914249,
+              1.579547446171803,
+              5.901638580144145
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.18567894666144527,
+              1.695749588803094,
+              11.388087662601333
+            ],
+            "crk": [
+              0.09472519687914249,
+              1.579547446171803,
+              5.901638580144145
+            ]
+          },
+          "pair_gain_local": {
+            "units": 134,
+            "alignment": 9.549959330956003,
+            "modification_energy": 4.4387870632068225,
+            "net_gain": 5.111172267749178,
+            "positive_gain": 5.58344346301474,
+            "negative_loss": 0.47227119526556227,
+            "positive_units": 107,
+            "negative_units": 27,
+            "zero_units": 0,
+            "positive_design_share": 0.947682231659996,
+            "top_10pct_all_cohort_units": 14,
+            "top_10pct_share_of_positive_gain": 0.6804025087901279
+          },
+          "HT_SSE_numerator": {
+            "host": 10.598138965573275,
+            "crk": 5.486966697824097
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 970309.5533038378,
+          "weather_0p001_RMSE_change_fraction": 0.0026024335993695136,
+          "weather_0p001_pair_gain_local": {
+            "units": 134,
+            "alignment": -0.005060191483756735,
+            "modification_energy": 0.023535902865702424,
+            "net_gain": -0.028596094349459165,
+            "positive_gain": 0.05174589818025157,
+            "negative_loss": 0.08034199252971073,
+            "positive_units": 43,
+            "negative_units": 91,
+            "zero_units": 0,
+            "positive_design_share": 0.1692105022485255,
+            "top_10pct_all_cohort_units": 14,
+            "top_10pct_share_of_positive_gain": 0.9885972484391112
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "severe_hour_count/1": {
+          "units": 4,
+          "complete144_units": 0,
+          "host_RMSE": 0.022107816156075436,
+          "crk_RMSE": 0.01554557351755689,
+          "RMSE_change_fraction": -0.29682907584316875,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.21779375473299212,
+              0.301893745422645,
+              0.39643649462469793
+            ],
+            "crk": [
+              0.1768888458138072,
+              0.2408049439653713,
+              0.49753435085337594
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.21779375473299212,
+              0.301893745422645,
+              0.39643649462469793
+            ],
+            "crk": [
+              0.1768888458138072,
+              0.2408049439653713,
+              0.49753435085337594
+            ]
+          },
+          "pair_gain_local": {
+            "units": 4,
+            "alignment": 1.3695041261659568,
+            "modification_energy": 0.6501049732778037,
+            "net_gain": 0.7193991528881534,
+            "positive_gain": 0.7193991528881534,
+            "negative_loss": -0.0,
+            "positive_units": 4,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.4185214429732129
+          },
+          "HT_SSE_numerator": {
+            "host": 1.4230011391873056,
+            "crk": 0.7036019862991525
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 2911.4783091545105,
+          "weather_0p001_RMSE_change_fraction": -0.012486525724816344,
+          "weather_0p001_pair_gain_local": {
+            "units": 4,
+            "alignment": 0.018879482798481305,
+            "modification_energy": 0.0014180951195018753,
+            "net_gain": 0.01746138767897943,
+            "positive_gain": 0.018781693521313956,
+            "negative_loss": 0.001320305842334524,
+            "positive_units": 3,
+            "negative_units": 1,
+            "zero_units": 0,
+            "positive_design_share": 0.6938019720827643,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.5241564793769637
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "severe_hour_count/2..6": {
+          "units": 3,
+          "complete144_units": 0,
+          "host_RMSE": 0.03291634211292323,
+          "crk_RMSE": 0.028851447776945337,
+          "RMSE_change_fraction": -0.12349167845056452,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.07357087261000003,
+              0.08536572819646163,
+              0.10628795234148267
+            ],
+            "crk": [
+              0.02493233778865444,
+              0.02493233778865444,
+              0.1349663314428285
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.07357087261000003,
+              0.08536572819646163,
+              0.10628795234148267
+            ],
+            "crk": [
+              0.02493233778865444,
+              0.02493233778865444,
+              0.1349663314428285
+            ]
+          },
+          "pair_gain_local": {
+            "units": 3,
+            "alignment": 2.6768752425253775,
+            "modification_energy": 1.265275773708702,
+            "net_gain": 1.4115994688166758,
+            "positive_gain": 1.8359176586898487,
+            "negative_loss": 0.42431818987317294,
+            "positive_units": 2,
+            "negative_units": 1,
+            "zero_units": 0,
+            "positive_design_share": 0.21030295451200667,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.9609252872841054
+          },
+          "HT_SSE_numerator": {
+            "host": 6.091486669766479,
+            "crk": 4.679887200949804
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 5622.120675086975,
+          "weather_0p001_RMSE_change_fraction": -0.005665871262638622,
+          "weather_0p001_pair_gain_local": {
+            "units": 3,
+            "alignment": 0.0698771428330402,
+            "modification_energy": 0.016996100218181903,
+            "net_gain": 0.0528810426148583,
+            "positive_gain": 0.0528810426148583,
+            "negative_loss": -0.0,
+            "positive_units": 3,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.9031302973493107
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "severe_hour_count/>=7": {
+          "units": 8,
+          "complete144_units": 0,
+          "host_RMSE": 0.17548900368165138,
+          "crk_RMSE": 0.08260141047854502,
+          "RMSE_change_fraction": -0.5293072001913611,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.052307095378637314,
+              0.13018143477876157,
+              0.28750113887869283
+            ],
+            "crk": [
+              0.3504051717843826,
+              0.5747744827087485,
+              0.6183492555018859
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.052307095378637314,
+              0.13018143477876157,
+              0.28750113887869283
+            ],
+            "crk": [
+              0.3504051717843826,
+              0.5747744827087485,
+              0.6183492555018859
+            ]
+          },
+          "pair_gain_local": {
+            "units": 8,
+            "alignment": 486.5037245521918,
+            "modification_energy": 145.01723207118425,
+            "net_gain": 341.4864924810075,
+            "positive_gain": 342.5925812423451,
+            "negative_loss": 1.1060887613375705,
+            "positive_units": 7,
+            "negative_units": 1,
+            "zero_units": 0,
+            "positive_design_share": 0.8273443278332129,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.9238220960827992
+          },
+          "HT_SSE_numerator": {
+            "host": 438.67588593069047,
+            "crk": 97.18939344968297
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 14244.392931938171,
+          "weather_0p001_RMSE_change_fraction": -0.0419942686174537,
+          "weather_0p001_pair_gain_local": {
+            "units": 8,
+            "alignment": 10.274577993415175,
+            "modification_energy": 2.2831783055803947,
+            "net_gain": 7.991399687834781,
+            "positive_gain": 8.007136742891612,
+            "negative_loss": 0.015737055056832962,
+            "positive_units": 7,
+            "negative_units": 1,
+            "zero_units": 0,
+            "positive_design_share": 0.9584382495663288,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.3267257496617078
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/1": {
+          "units": 4,
+          "complete144_units": 0,
+          "host_RMSE": 0.022107816156075436,
+          "crk_RMSE": 0.01554557351755689,
+          "RMSE_change_fraction": -0.29682907584316875,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.21779375473299212,
+              0.301893745422645,
+              0.39643649462469793
+            ],
+            "crk": [
+              0.1768888458138072,
+              0.2408049439653713,
+              0.49753435085337594
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.21779375473299212,
+              0.301893745422645,
+              0.39643649462469793
+            ],
+            "crk": [
+              0.1768888458138072,
+              0.2408049439653713,
+              0.49753435085337594
+            ]
+          },
+          "pair_gain_local": {
+            "units": 4,
+            "alignment": 1.3695041261659568,
+            "modification_energy": 0.6501049732778037,
+            "net_gain": 0.7193991528881534,
+            "positive_gain": 0.7193991528881534,
+            "negative_loss": -0.0,
+            "positive_units": 4,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.4185214429732129
+          },
+          "HT_SSE_numerator": {
+            "host": 1.4230011391873056,
+            "crk": 0.7036019862991525
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 2911.4783091545105,
+          "weather_0p001_RMSE_change_fraction": -0.012486525724816344,
+          "weather_0p001_pair_gain_local": {
+            "units": 4,
+            "alignment": 0.018879482798481305,
+            "modification_energy": 0.0014180951195018753,
+            "net_gain": 0.01746138767897943,
+            "positive_gain": 0.018781693521313956,
+            "negative_loss": 0.001320305842334524,
+            "positive_units": 3,
+            "negative_units": 1,
+            "zero_units": 0,
+            "positive_design_share": 0.6938019720827643,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.5241564793769637
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/2..6": {
+          "units": 6,
+          "complete144_units": 0,
+          "host_RMSE": 0.033313842502632855,
+          "crk_RMSE": 0.030281957341286813,
+          "RMSE_change_fraction": -0.0910097705212608,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.08670509897809726,
+              0.09707078364577955,
+              0.3227908584353964
+            ],
+            "crk": [
+              0.02493233778865444,
+              0.05515567543817773,
+              0.456646299161811
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.08670509897809726,
+              0.09707078364577955,
+              0.3227908584353964
+            ],
+            "crk": [
+              0.02493233778865444,
+              0.05515567543817773,
+              0.456646299161811
+            ]
+          },
+          "pair_gain_local": {
+            "units": 6,
+            "alignment": 4.625843830036816,
+            "modification_energy": 2.8717226403012797,
+            "net_gain": 1.7541211897355364,
+            "positive_gain": 3.2845281409462803,
+            "negative_loss": 1.5304069512107434,
+            "positive_units": 4,
+            "negative_units": 2,
+            "zero_units": 0,
+            "positive_design_share": 0.25535794860112887,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.53711815758663
+          },
+          "HT_SSE_numerator": {
+            "host": 10.096430728604037,
+            "crk": 8.342309538868502
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 9097.423525810242,
+          "weather_0p001_RMSE_change_fraction": -0.05573515580389832,
+          "weather_0p001_pair_gain_local": {
+            "units": 6,
+            "alignment": 1.129535420691308,
+            "modification_energy": 0.22553019055534115,
+            "net_gain": 0.9040052301359667,
+            "positive_gain": 0.9197422851927997,
+            "negative_loss": 0.015737055056832962,
+            "positive_units": 5,
+            "negative_units": 1,
+            "zero_units": 0,
+            "positive_design_share": 0.9361605128497178,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.8627287593950311
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/>=7": {
+          "units": 5,
+          "complete144_units": 0,
+          "host_RMSE": 0.20090502492642792,
+          "crk_RMSE": 0.09319206390168625,
+          "RMSE_change_fraction": -0.5361387106379569,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.052307095378637314,
+              0.11483609815260808,
+              0.177676614617576
+            ],
+            "crk": [
+              0.3504051717843826,
+              0.5905411583292103,
+              0.6206398224419356
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.052307095378637314,
+              0.11483609815260808,
+              0.177676614617576
+            ],
+            "crk": [
+              0.3504051717843826,
+              0.5905411583292103,
+              0.6206398224419356
+            ]
+          },
+          "pair_gain_local": {
+            "units": 5,
+            "alignment": 484.55475596468034,
+            "modification_energy": 143.4107852045917,
+            "net_gain": 341.1439707600887,
+            "positive_gain": 341.1439707600887,
+            "negative_loss": -0.0,
+            "positive_units": 5,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.9277449512021317
+          },
+          "HT_SSE_numerator": {
+            "host": 434.67094187185285,
+            "crk": 93.52697111176425
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 10769.090081214905,
+          "weather_0p001_RMSE_change_fraction": -0.038930054811853965,
+          "weather_0p001_pair_gain_local": {
+            "units": 5,
+            "alignment": 9.214919715556908,
+            "modification_energy": 2.0746442152432354,
+            "net_gain": 7.140275500313671,
+            "positive_gain": 7.140275500313671,
+            "negative_loss": -0.0,
+            "positive_units": 5,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.36639171063499454
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        }
+      }
+    },
+    "frozen_input_panel": {
+      "common_observed": {
+        "all": {
+          "units": 1219,
+          "complete144_units": 1197,
+          "host_RMSE": 0.01084988324149321,
+          "crk_RMSE": 0.005835272748445702,
+          "RMSE_change_fraction": -0.4621810559094436,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.05635026683996354,
+              0.4102638954979459,
+              3.946513372710956
+            ],
+            "crk": [
+              0.026391769573246498,
+              0.24537797210078624,
+              3.3235076298230757
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.06248381563310055,
+              0.6356852468663141,
+              5.203744057286966
+            ],
+            "crk": [
+              0.025951477016604937,
+              0.32449226443603946,
+              4.318072882931492
+            ]
+          },
+          "pair_gain_local": {
+            "units": 1219,
+            "alignment": 2751.6616549129094,
+            "modification_energy": 1089.1928155486669,
+            "net_gain": 1662.4688393642425,
+            "positive_gain": 1669.1863609231655,
+            "negative_loss": 6.7175215589227255,
+            "positive_units": 938,
+            "negative_units": 281,
+            "zero_units": 0,
+            "positive_design_share": 0.7836496736542089,
+            "top_10pct_all_cohort_units": 122,
+            "top_10pct_share_of_positive_gain": 0.99534569973429
+          },
+          "HT_SSE_numerator": {
+            "host": 8543.051984750142,
+            "crk": 2160.8518103679985
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 74419111.74985373,
+          "weather_0p001_RMSE_change_fraction": -0.005150667866520187,
+          "weather_0p001_pair_gain_local": {
+            "units": 1219,
+            "alignment": 19.627656556510917,
+            "modification_energy": 12.676100906804535,
+            "net_gain": 6.95155564970638,
+            "positive_gain": 11.25229323873653,
+            "negative_loss": 4.300737589030147,
+            "positive_units": 427,
+            "negative_units": 792,
+            "zero_units": 0,
+            "positive_design_share": 0.3540442177034819,
+            "top_10pct_all_cohort_units": 122,
+            "top_10pct_share_of_positive_gain": 0.9996451313270334
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 1
+          }
+        },
+        "S": {
+          "units": 92,
+          "complete144_units": 89,
+          "host_RMSE": 0.06798286862274296,
+          "crk_RMSE": 0.034539915561646074,
+          "RMSE_change_fraction": -0.49193206668994394,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.00836798683459519,
+              0.01809368338162163,
+              0.15061708588614028
+            ],
+            "crk": [
+              0.0027089586257673577,
+              0.04628487293818588,
+              0.8471623968782667
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.008358932995246133,
+              0.009487700108245279,
+              0.0959465676534195
+            ],
+            "crk": [
+              0.002687188444593188,
+              0.003050075872483375,
+              1.0469673428657549
+            ]
+          },
+          "pair_gain_local": {
+            "units": 92,
+            "alignment": 2691.309106192555,
+            "modification_energy": 1058.6746367141916,
+            "net_gain": 1632.6344694783631,
+            "positive_gain": 1635.7359616725385,
+            "negative_loss": 3.101492194175558,
+            "positive_units": 65,
+            "negative_units": 27,
+            "zero_units": 0,
+            "positive_design_share": 0.3213940799591683,
+            "top_10pct_all_cohort_units": 10,
+            "top_10pct_share_of_positive_gain": 0.8296797538742502
+          },
+          "HT_SSE_numerator": {
+            "host": 7742.437791544576,
+            "crk": 1605.7651265175919
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 2230556.562066555,
+          "weather_0p001_RMSE_change_fraction": -0.007863526748031369,
+          "weather_0p001_pair_gain_local": {
+            "units": 92,
+            "alignment": 20.65193562082449,
+            "modification_energy": 11.752899925898216,
+            "net_gain": 8.899035694926273,
+            "positive_gain": 10.888414405029312,
+            "negative_loss": 1.9893787101030385,
+            "positive_units": 54,
+            "negative_units": 38,
+            "zero_units": 0,
+            "positive_design_share": 0.4289112703167358,
+            "top_10pct_all_cohort_units": 10,
+            "top_10pct_share_of_positive_gain": 0.8070269236455043
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "nonS": {
+          "units": 1127,
+          "complete144_units": 1108,
+          "host_RMSE": 0.0026706631039931225,
+          "crk_RMSE": 0.002365175456832465,
+          "RMSE_change_fraction": -0.11438644084455973,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.061266969909835614,
+              0.43692266341660124,
+              4.159111222576671
+            ],
+            "crk": [
+              0.03472928908716983,
+              0.24568352861454937,
+              3.3444883434374737
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.06509959383236248,
+              0.6369557301438465,
+              5.2171521739853794
+            ],
+            "crk": [
+              0.029913558993157896,
+              0.3310156557017938,
+              4.3224778500022145
+            ]
+          },
+          "pair_gain_local": {
+            "units": 1127,
+            "alignment": 60.352548720354605,
+            "modification_energy": 30.518178834475158,
+            "net_gain": 29.83436988587944,
+            "positive_gain": 33.4503992506266,
+            "negative_loss": 3.616029364747166,
+            "positive_units": 873,
+            "negative_units": 254,
+            "zero_units": 0,
+            "positive_design_share": 0.794961699415789,
+            "top_10pct_all_cohort_units": 113,
+            "top_10pct_share_of_positive_gain": 0.8481112165464303
+          },
+          "HT_SSE_numerator": {
+            "host": 800.6141932055668,
+            "crk": 555.0866838504069
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 72188555.18778718,
+          "weather_0p001_RMSE_change_fraction": 0.008935705234843994,
+          "weather_0p001_pair_gain_local": {
+            "units": 1127,
+            "alignment": -1.02427906431357,
+            "modification_energy": 0.9232009809063205,
+            "net_gain": -1.947480045219891,
+            "positive_gain": 0.3638788337072186,
+            "negative_loss": 2.311358878927109,
+            "positive_units": 373,
+            "negative_units": 754,
+            "zero_units": 0,
+            "positive_design_share": 0.35221211866691854,
+            "top_10pct_all_cohort_units": 113,
+            "top_10pct_share_of_positive_gain": 0.9958618189634524
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 1
+          }
+        },
+        "severe_hour_count/1": {
+          "units": 22,
+          "complete144_units": 21,
+          "host_RMSE": 0.012060047413313787,
+          "crk_RMSE": 0.012085812464450845,
+          "RMSE_change_fraction": 0.0021363971677768046,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.008289512323914651,
+              0.009298164754741494,
+              0.25099502298369164
+            ],
+            "crk": [
+              0.0030784962546512398,
+              0.0030784962546512398,
+              0.07948937130309736
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.008288883520612142,
+              0.009092875503237311,
+              0.03730745774852013
+            ],
+            "crk": [
+              0.0030784962546512398,
+              0.0030784962546512398,
+              0.07619655568913872
+            ]
+          },
+          "pair_gain_local": {
+            "units": 22,
+            "alignment": 0.5078123763687448,
+            "modification_energy": 0.6970863669239652,
+            "net_gain": -0.18927399055522048,
+            "positive_gain": 0.5240195489359267,
+            "negative_loss": 0.7132935394911472,
+            "positive_units": 9,
+            "negative_units": 13,
+            "zero_units": 0,
+            "positive_design_share": 0.028005295616498227,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.9302650319004199
+          },
+          "HT_SSE_numerator": {
+            "host": 235.32380934048973,
+            "crk": 237.70689856753376
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 987758.9268107414,
+          "weather_0p001_RMSE_change_fraction": -0.00021157513243863502,
+          "weather_0p001_pair_gain_local": {
+            "units": 22,
+            "alignment": 0.027726200811781197,
+            "modification_energy": 0.008923612913676049,
+            "net_gain": 0.01880258789810514,
+            "positive_gain": 0.04404577755088972,
+            "negative_loss": 0.02524318965278457,
+            "positive_units": 10,
+            "negative_units": 12,
+            "zero_units": 0,
+            "positive_design_share": 0.24691899285333124,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.9060790954793272
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "severe_hour_count/2..6": {
+          "units": 23,
+          "complete144_units": 23,
+          "host_RMSE": 0.031068935022313688,
+          "crk_RMSE": 0.01946962803350971,
+          "RMSE_change_fraction": -0.3733409909439561,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.017843586746520635,
+              0.026121963912277668,
+              0.10153368143902725
+            ],
+            "crk": [
+              0.013720072621821278,
+              0.3150562144213544,
+              0.7529167946312925
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.01822861686196709,
+              0.034115924103037244,
+              0.1272208628217962
+            ],
+            "crk": [
+              0.007168320746345623,
+              0.29314464760979464,
+              0.5762600575705046
+            ]
+          },
+          "pair_gain_local": {
+            "units": 23,
+            "alignment": 119.77866107051894,
+            "modification_energy": 50.80284465920751,
+            "net_gain": 68.97581641131143,
+            "positive_gain": 69.73886072910074,
+            "negative_loss": 0.7630443177893049,
+            "positive_units": 15,
+            "negative_units": 8,
+            "zero_units": 0,
+            "positive_design_share": 0.8471393084749149,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.886514541437274
+          },
+          "HT_SSE_numerator": {
+            "host": 233.72263000619853,
+            "crk": 131.09381498256965
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 803979.7354345322,
+          "weather_0p001_RMSE_change_fraction": -0.015602436531013897,
+          "weather_0p001_pair_gain_local": {
+            "units": 23,
+            "alignment": 2.964236481590528,
+            "modification_energy": 1.5832852686992254,
+            "net_gain": 1.3809512128913024,
+            "positive_gain": 1.558553667742203,
+            "negative_loss": 0.17760245485090048,
+            "positive_units": 13,
+            "negative_units": 10,
+            "zero_units": 0,
+            "positive_design_share": 0.8117179509915703,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.7832207398864401
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "severe_hour_count/>=7": {
+          "units": 47,
+          "complete144_units": 45,
+          "host_RMSE": 0.1940216261610169,
+          "crk_RMSE": 0.09395324356849596,
+          "RMSE_change_fraction": -0.5157589108622099,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.04677803260392739,
+              0.0951901400820312,
+              0.1566617305013855
+            ],
+            "crk": [
+              0.05279590228458492,
+              0.6792771734496272,
+              1.1147405707193512
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.05924821080787551,
+              0.0594880405466196,
+              0.10894827734535323
+            ],
+            "crk": [
+              0.6063791245078389,
+              1.1060363295567552,
+              1.1360469525296846
+            ]
+          },
+          "pair_gain_local": {
+            "units": 47,
+            "alignment": 2571.022632745667,
+            "modification_energy": 1007.1747056880599,
+            "net_gain": 1563.847927057607,
+            "positive_gain": 1565.4730813945018,
+            "negative_loss": 1.6251543368951067,
+            "positive_units": 41,
+            "negative_units": 6,
+            "zero_units": 0,
+            "positive_design_share": 0.8265590842167768,
+            "top_10pct_all_cohort_units": 5,
+            "top_10pct_share_of_positive_gain": 0.7113704676663881
+          },
+          "HT_SSE_numerator": {
+            "host": 7273.3913521978875,
+            "crk": 1236.9644129674884
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 438817.89982128143,
+          "weather_0p001_RMSE_change_fraction": -0.007858377099959069,
+          "weather_0p001_pair_gain_local": {
+            "units": 47,
+            "alignment": 17.65997293842218,
+            "modification_energy": 10.160691044285317,
+            "net_gain": 7.499281894136865,
+            "positive_gain": 9.285814959736216,
+            "negative_loss": 1.7865330655993534,
+            "positive_units": 31,
+            "negative_units": 16,
+            "zero_units": 0,
+            "positive_design_share": 0.6194953993469406,
+            "top_10pct_all_cohort_units": 5,
+            "top_10pct_share_of_positive_gain": 0.7614279063692284
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/1": {
+          "units": 23,
+          "complete144_units": 22,
+          "host_RMSE": 0.012073141377609066,
+          "crk_RMSE": 0.01209835451686604,
+          "RMSE_change_fraction": 0.0020883661069135417,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.008290262612250545,
+              0.009301916196420972,
+              0.24962306162398445
+            ],
+            "crk": [
+              0.0030784962546512398,
+              0.0030784962546512398,
+              0.07939326890484967
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.008288985254623788,
+              0.009093384173295546,
+              0.03724209021714259
+            ],
+            "crk": [
+              0.0030784962546512398,
+              0.0030784962546512398,
+              0.07619511286113614
+            ]
+          },
+          "pair_gain_local": {
+            "units": 23,
+            "alignment": 0.5112648593058443,
+            "modification_energy": 0.6972330166416223,
+            "net_gain": -0.18596815733577798,
+            "positive_gain": 0.5273253821553692,
+            "negative_loss": 0.7132935394911472,
+            "positive_units": 10,
+            "negative_units": 13,
+            "zero_units": 0,
+            "positive_design_share": 0.03088879763996601,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.9244331467884759
+          },
+          "HT_SSE_numerator": {
+            "host": 235.5519588859383,
+            "crk": 237.93174227976286
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 1001330.4191737175,
+          "weather_0p001_RMSE_change_fraction": -0.0002132235699184859,
+          "weather_0p001_pair_gain_local": {
+            "units": 23,
+            "alignment": 0.027969144738319997,
+            "modification_energy": 0.008924202818910142,
+            "net_gain": 0.019044941919409853,
+            "positive_gain": 0.04428813157219443,
+            "negative_loss": 0.02524318965278457,
+            "positive_units": 11,
+            "negative_units": 12,
+            "zero_units": 0,
+            "positive_design_share": 0.2491530694364129,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.901120839065832
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/2..6": {
+          "units": 23,
+          "complete144_units": 23,
+          "host_RMSE": 0.03115352958154897,
+          "crk_RMSE": 0.019500163710394054,
+          "RMSE_change_fraction": -0.37406245865819177,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.01786182626180231,
+              0.026151298630320362,
+              0.10194790749927843
+            ],
+            "crk": [
+              0.012796554379088398,
+              0.3155897100317084,
+              0.7533105733715908
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.01825144761981238,
+              0.034582838420801475,
+              0.15108825976882817
+            ],
+            "crk": [
+              0.007172923872748466,
+              0.2961778402429608,
+              0.5766683009378282
+            ]
+          },
+          "pair_gain_local": {
+            "units": 23,
+            "alignment": 119.84238015365294,
+            "modification_energy": 50.83683386876193,
+            "net_gain": 69.00554628489101,
+            "positive_gain": 69.76859060268032,
+            "negative_loss": 0.7630443177893049,
+            "positive_units": 15,
+            "negative_units": 8,
+            "zero_units": 0,
+            "positive_design_share": 0.8461433623838133,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.8861367788220955
+          },
+          "HT_SSE_numerator": {
+            "host": 235.17265092883883,
+            "crk": 132.03508828304456
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 812434.1445703506,
+          "weather_0p001_RMSE_change_fraction": -0.01547838302699267,
+          "weather_0p001_pair_gain_local": {
+            "units": 23,
+            "alignment": 2.9748508989500593,
+            "modification_energy": 1.6093894652589849,
+            "net_gain": 1.3654614336910746,
+            "positive_gain": 1.5583113137208982,
+            "negative_loss": 0.19284988002982356,
+            "positive_units": 12,
+            "negative_units": 11,
+            "zero_units": 0,
+            "positive_design_share": 0.8092594189105269,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.7833425491130108
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/>=7": {
+          "units": 46,
+          "complete144_units": 44,
+          "host_RMSE": 0.19427440969214,
+          "crk_RMSE": 0.09407075688313915,
+          "RMSE_change_fraction": -0.5157841064491723,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.04677443878697192,
+              0.09518915420392632,
+              0.14521861976974418
+            ],
+            "crk": [
+              0.05275442526912998,
+              0.6793906507138538,
+              1.1148279353883515
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.056355719198009795,
+              0.05948640089485013,
+              0.10884438882443435
+            ],
+            "crk": [
+              0.6427348213862568,
+              1.1062415041581952,
+              1.1360879874499725
+            ]
+          },
+          "pair_gain_local": {
+            "units": 46,
+            "alignment": 2570.955461179596,
+            "modification_energy": 1007.1405698287879,
+            "net_gain": 1563.8148913508078,
+            "positive_gain": 1565.4400456877029,
+            "negative_loss": 1.6251543368951067,
+            "positive_units": 40,
+            "negative_units": 6,
+            "zero_units": 0,
+            "positive_design_share": 0.82609808828304,
+            "top_10pct_all_cohort_units": 5,
+            "top_10pct_share_of_positive_gain": 0.7113854798198461
+          },
+          "HT_SSE_numerator": {
+            "host": 7271.713181729799,
+            "crk": 1235.7982959547844
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 416791.9983224869,
+          "weather_0p001_RMSE_change_fraction": -0.007875659835366644,
+          "weather_0p001_pair_gain_local": {
+            "units": 46,
+            "alignment": 17.64911557713611,
+            "modification_energy": 10.134586257820324,
+            "net_gain": 7.514529319315788,
+            "positive_gain": 9.285814959736216,
+            "negative_loss": 1.7712856404204305,
+            "positive_units": 31,
+            "negative_units": 15,
+            "zero_units": 0,
+            "positive_design_share": 0.6211419823275363,
+            "top_10pct_all_cohort_units": 5,
+            "top_10pct_share_of_positive_gain": 0.7614279063692284
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        }
+      },
+      "complete144": {
+        "all": {
+          "units": 1197,
+          "complete144_units": 1197,
+          "host_RMSE": 0.009903305070896491,
+          "crk_RMSE": 0.005495953879883106,
+          "RMSE_change_fraction": -0.4450384148990385,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.05498051318247391,
+              0.40925677951397466,
+              3.9466415872966842
+            ],
+            "crk": [
+              0.02603538825489203,
+              0.24524346414829354,
+              3.3288386589785146
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.06248236437657358,
+              0.6353869137787213,
+              5.1960765802055935
+            ],
+            "crk": [
+              0.025942740771793312,
+              0.32433153148618143,
+              4.315553887548423
+            ]
+          },
+          "pair_gain_local": {
+            "units": 1197,
+            "alignment": 2290.8070658570073,
+            "modification_energy": 952.8591488725544,
+            "net_gain": 1337.9479169844526,
+            "positive_gain": 1344.6561748522656,
+            "negative_loss": 6.708257867813133,
+            "positive_units": 918,
+            "negative_units": 279,
+            "zero_units": 0,
+            "positive_design_share": 0.7816571158790142,
+            "top_10pct_all_cohort_units": 120,
+            "top_10pct_share_of_positive_gain": 0.9947078834104929
+          },
+          "HT_SSE_numerator": {
+            "host": 8135.487229462236,
+            "crk": 2078.8727921655286
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 73426024.20463371,
+          "weather_0p001_RMSE_change_fraction": -0.0029075792969613934,
+          "weather_0p001_pair_gain_local": {
+            "units": 1197,
+            "alignment": 15.183650228237218,
+            "modification_energy": 11.726027387395785,
+            "net_gain": 3.457622840841431,
+            "positive_gain": 7.748908974174725,
+            "negative_loss": 4.291286133333293,
+            "positive_units": 417,
+            "negative_units": 780,
+            "zero_units": 0,
+            "positive_design_share": 0.35578081968879066,
+            "top_10pct_all_cohort_units": 120,
+            "top_10pct_share_of_positive_gain": 0.9995465674866232
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 1
+          }
+        },
+        "S": {
+          "units": 89,
+          "complete144_units": 89,
+          "host_RMSE": 0.06179906598318545,
+          "crk_RMSE": 0.032204915711517505,
+          "RMSE_change_fraction": -0.47887698302301274,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.008363233567597982,
+              0.018030602282020178,
+              0.15058174203706653
+            ],
+            "crk": [
+              0.002707430497586772,
+              0.04626009488714256,
+              0.8528296284367793
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.00835828848446685,
+              0.009484477554348865,
+              0.09590150102709014
+            ],
+            "crk": [
+              0.0026869812407720912,
+              0.003049039853377893,
+              1.0469683199851392
+            ]
+          },
+          "pair_gain_local": {
+            "units": 89,
+            "alignment": 2232.5839530551675,
+            "modification_energy": 923.3088280855916,
+            "net_gain": 1309.2751249695757,
+            "positive_gain": 1312.3766171637512,
+            "negative_loss": 3.101492194175558,
+            "positive_units": 62,
+            "negative_units": 27,
+            "zero_units": 0,
+            "positive_design_share": 0.31312097834717656,
+            "top_10pct_all_cohort_units": 9,
+            "top_10pct_share_of_positive_gain": 0.792944951904889
+          },
+          "HT_SSE_numerator": {
+            "host": 7339.1184722520675,
+            "crk": 1525.8051517338722
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 2207778.5701503754,
+          "weather_0p001_RMSE_change_fraction": -0.005568748479530039,
+          "weather_0p001_pair_gain_local": {
+            "units": 89,
+            "alignment": 16.22873008930813,
+            "modification_energy": 10.80747553575961,
+            "net_gain": 5.421254553548522,
+            "positive_gain": 7.41063326365156,
+            "negative_loss": 1.9893787101030385,
+            "positive_units": 51,
+            "negative_units": 38,
+            "zero_units": 0,
+            "positive_design_share": 0.4219489451282838,
+            "top_10pct_all_cohort_units": 9,
+            "top_10pct_share_of_positive_gain": 0.7457211885572608
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "nonS": {
+          "units": 1108,
+          "complete144_units": 1108,
+          "host_RMSE": 0.0026585933279844325,
+          "crk_RMSE": 0.002361792518900772,
+          "RMSE_change_fraction": -0.1116382885488828,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.061204845772938825,
+              0.43379793643664627,
+              4.158511803576813
+            ],
+            "crk": [
+              0.03078139484117813,
+              0.2454711393794763,
+              3.425513144322479
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.06505867071717088,
+              0.6366544309975958,
+              5.209454073489692
+            ],
+            "crk": [
+              0.028209149380718005,
+              0.3307610323704177,
+              4.3199487939122845
+            ]
+          },
+          "pair_gain_local": {
+            "units": 1108,
+            "alignment": 58.22311280183996,
+            "modification_energy": 29.550320786962878,
+            "net_gain": 28.672792014877082,
+            "positive_gain": 32.27955768851466,
+            "negative_loss": 3.6067656736375744,
+            "positive_units": 856,
+            "negative_units": 252,
+            "zero_units": 0,
+            "positive_design_share": 0.7931163100507792,
+            "top_10pct_all_cohort_units": 111,
+            "top_10pct_share_of_positive_gain": 0.8528481650810494
+          },
+          "HT_SSE_numerator": {
+            "host": 796.368757210168,
+            "crk": 553.0676404316565
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 71218245.63448334,
+          "weather_0p001_RMSE_change_fraction": 0.009105545990084618,
+          "weather_0p001_pair_gain_local": {
+            "units": 1108,
+            "alignment": -1.0450798610709122,
+            "modification_energy": 0.9185518516361783,
+            "net_gain": -1.96363171270709,
+            "positive_gain": 0.3382757105231644,
+            "negative_loss": 2.3019074232302543,
+            "positive_units": 366,
+            "negative_units": 742,
+            "zero_units": 0,
+            "positive_design_share": 0.35416251677327365,
+            "top_10pct_all_cohort_units": 111,
+            "top_10pct_share_of_positive_gain": 0.995953071176185
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 1
+          }
+        },
+        "severe_hour_count/1": {
+          "units": 21,
+          "complete144_units": 21,
+          "host_RMSE": 0.01202898622534888,
+          "crk_RMSE": 0.01207693802227155,
+          "RMSE_change_fraction": 0.003986353964029021,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.008289001680762272,
+              0.0092956115389796,
+              0.24259126170777376
+            ],
+            "crk": [
+              0.0030784962546512398,
+              0.0030784962546512398,
+              0.07890070923386155
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.008288814280862667,
+              0.009092529304489935,
+              0.036907057893957707
+            ],
+            "crk": [
+              0.0030784962546512398,
+              0.0030784962546512398,
+              0.0761877178439545
+            ]
+          },
+          "pair_gain_local": {
+            "units": 21,
+            "alignment": 0.04035202434057141,
+            "modification_energy": 0.39148139587362935,
+            "net_gain": -0.351129371533058,
+            "positive_gain": 0.36216416795808914,
+            "negative_loss": 0.7132935394911472,
+            "positive_units": 8,
+            "negative_units": 13,
+            "zero_units": 0,
+            "positive_design_share": 0.026032962697680392,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.9429558450466863
+          },
+          "HT_SSE_numerator": {
+            "host": 235.02741603154794,
+            "crk": 237.57236063956987
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 984847.4485015869,
+          "weather_0p001_RMSE_change_fraction": -0.000116926795751926,
+          "weather_0p001_pair_gain_local": {
+            "units": 21,
+            "alignment": 0.018282383759752694,
+            "modification_energy": 0.007922119967347728,
+            "net_gain": 0.010360263792404956,
+            "positive_gain": 0.03560345344518953,
+            "negative_loss": 0.02524318965278457,
+            "positive_units": 9,
+            "negative_units": 12,
+            "zero_units": 0,
+            "positive_design_share": 0.2453908708849364,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.948032672420583
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "severe_hour_count/2..6": {
+          "units": 23,
+          "complete144_units": 23,
+          "host_RMSE": 0.031068935022313688,
+          "crk_RMSE": 0.01946962803350971,
+          "RMSE_change_fraction": -0.3733409909439561,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.017843586746520635,
+              0.026121963912277668,
+              0.10153368143902725
+            ],
+            "crk": [
+              0.013720072621821278,
+              0.3150562144213544,
+              0.7529167946312925
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.01822861686196709,
+              0.034115924103037244,
+              0.1272208628217962
+            ],
+            "crk": [
+              0.007168320746345623,
+              0.29314464760979464,
+              0.5762600575705046
+            ]
+          },
+          "pair_gain_local": {
+            "units": 23,
+            "alignment": 119.77866107051894,
+            "modification_energy": 50.80284465920751,
+            "net_gain": 68.97581641131143,
+            "positive_gain": 69.73886072910074,
+            "negative_loss": 0.7630443177893049,
+            "positive_units": 15,
+            "negative_units": 8,
+            "zero_units": 0,
+            "positive_design_share": 0.8471393084749149,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.886514541437274
+          },
+          "HT_SSE_numerator": {
+            "host": 233.72263000619853,
+            "crk": 131.09381498256965
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 798357.6147594452,
+          "weather_0p001_RMSE_change_fraction": -0.015602436531013897,
+          "weather_0p001_pair_gain_local": {
+            "units": 23,
+            "alignment": 2.964236481590528,
+            "modification_energy": 1.5832852686992254,
+            "net_gain": 1.3809512128913024,
+            "positive_gain": 1.558553667742203,
+            "negative_loss": 0.17760245485090048,
+            "positive_units": 13,
+            "negative_units": 10,
+            "zero_units": 0,
+            "positive_design_share": 0.8117179509915703,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.7832207398864401
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "severe_hour_count/>=7": {
+          "units": 45,
+          "complete144_units": 45,
+          "host_RMSE": 0.1825662630141254,
+          "crk_RMSE": 0.09007770576956133,
+          "RMSE_change_fraction": -0.5066026752018696,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.04665889358663156,
+              0.0951901400820312,
+              0.1673082458852377
+            ],
+            "crk": [
+              0.0513208180131225,
+              0.6833128670932839,
+              1.117847598737406
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.05925122048040709,
+              0.0594880405466196,
+              0.10884233668378564
+            ],
+            "crk": [
+              0.6757315033079939,
+              1.1065070913776727,
+              1.1361411048938679
+            ]
+          },
+          "pair_gain_local": {
+            "units": 45,
+            "alignment": 2112.764939960308,
+            "modification_energy": 872.1145020305103,
+            "net_gain": 1240.6504379297971,
+            "positive_gain": 1242.2755922666922,
+            "negative_loss": 1.6251543368951067,
+            "positive_units": 39,
+            "negative_units": 6,
+            "zero_units": 0,
+            "positive_design_share": 0.8085057321977188,
+            "top_10pct_all_cohort_units": 5,
+            "top_10pct_share_of_positive_gain": 0.6935005182279037
+          },
+          "HT_SSE_numerator": {
+            "host": 6870.3684262143215,
+            "crk": 1157.1389761117325
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 424573.50688934326,
+          "weather_0p001_RMSE_change_fraction": -0.0050602148176123185,
+          "weather_0p001_pair_gain_local": {
+            "units": 45,
+            "alignment": 13.246211223957848,
+            "modification_energy": 9.216268147093036,
+            "net_gain": 4.0299430768648135,
+            "positive_gain": 5.816476142464167,
+            "negative_loss": 1.7865330655993534,
+            "positive_units": 29,
+            "negative_units": 16,
+            "zero_units": 0,
+            "positive_design_share": 0.5798889231620102,
+            "top_10pct_all_cohort_units": 5,
+            "top_10pct_share_of_positive_gain": 0.7044150283161964
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/1": {
+          "units": 22,
+          "complete144_units": 22,
+          "host_RMSE": 0.012042226775360957,
+          "crk_RMSE": 0.012089535207034414,
+          "RMSE_change_fraction": 0.0039285451566359875,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.008289751969098166,
+              0.009299362980659077,
+              0.23796386175187423
+            ],
+            "crk": [
+              0.0030784962546512398,
+              0.0030784962546512398,
+              0.07880460683561383
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.008288916014874314,
+              0.00909303797454817,
+              0.03684169036258017
+            ],
+            "crk": [
+              0.0030784962546512398,
+              0.0030784962546512398,
+              0.07618627501595193
+            ]
+          },
+          "pair_gain_local": {
+            "units": 22,
+            "alignment": 0.04380450727767101,
+            "modification_energy": 0.39162804559128644,
+            "net_gain": -0.34782353831361557,
+            "positive_gain": 0.3654700011775316,
+            "negative_loss": 0.7132935394911472,
+            "positive_units": 9,
+            "negative_units": 13,
+            "zero_units": 0,
+            "positive_design_share": 0.02892816134059008,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.9344264041979735
+          },
+          "HT_SSE_numerator": {
+            "host": 235.25556557699653,
+            "crk": 237.79720435179894
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 998418.940864563,
+          "weather_0p001_RMSE_change_fraction": -0.0001190579421597171,
+          "weather_0p001_pair_gain_local": {
+            "units": 22,
+            "alignment": 0.018525327686291494,
+            "modification_energy": 0.007922709872581821,
+            "net_gain": 0.010602617813709669,
+            "positive_gain": 0.03584580746649424,
+            "negative_loss": 0.02524318965278457,
+            "positive_units": 10,
+            "negative_units": 12,
+            "zero_units": 0,
+            "positive_design_share": 0.247634009762195,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.9416230098483522
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/2..6": {
+          "units": 23,
+          "complete144_units": 23,
+          "host_RMSE": 0.03115352958154897,
+          "crk_RMSE": 0.019500163710394054,
+          "RMSE_change_fraction": -0.37406245865819177,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.01786182626180231,
+              0.026151298630320362,
+              0.10194790749927843
+            ],
+            "crk": [
+              0.012796554379088398,
+              0.3155897100317084,
+              0.7533105733715908
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.01825144761981238,
+              0.034582838420801475,
+              0.15108825976882817
+            ],
+            "crk": [
+              0.007172923872748466,
+              0.2961778402429608,
+              0.5766683009378282
+            ]
+          },
+          "pair_gain_local": {
+            "units": 23,
+            "alignment": 119.84238015365294,
+            "modification_energy": 50.83683386876193,
+            "net_gain": 69.00554628489101,
+            "positive_gain": 69.76859060268032,
+            "negative_loss": 0.7630443177893049,
+            "positive_units": 15,
+            "negative_units": 8,
+            "zero_units": 0,
+            "positive_design_share": 0.8461433623838133,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.8861367788220955
+          },
+          "HT_SSE_numerator": {
+            "host": 235.17265092883883,
+            "crk": 132.03508828304456
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 803336.7210445404,
+          "weather_0p001_RMSE_change_fraction": -0.01547838302699267,
+          "weather_0p001_pair_gain_local": {
+            "units": 23,
+            "alignment": 2.9748508989500593,
+            "modification_energy": 1.6093894652589849,
+            "net_gain": 1.3654614336910746,
+            "positive_gain": 1.5583113137208982,
+            "negative_loss": 0.19284988002982356,
+            "positive_units": 12,
+            "negative_units": 11,
+            "zero_units": 0,
+            "positive_design_share": 0.8092594189105269,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.7833425491130108
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/>=7": {
+          "units": 44,
+          "complete144_units": 44,
+          "host_RMSE": 0.1828279850340384,
+          "crk_RMSE": 0.09020131604497289,
+          "RMSE_change_fraction": -0.5066328821149593,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.04665577517826779,
+              0.09518915420392632,
+              0.1658621372296329
+            ],
+            "crk": [
+              0.051279340997667566,
+              0.6834263443575106,
+              1.1179349634064062
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.0592508925500532,
+              0.05948640089485013,
+              0.10873844816286676
+            ],
+            "crk": [
+              0.6788975189799179,
+              1.1067122659791127,
+              1.136182139814156
+            ]
+          },
+          "pair_gain_local": {
+            "units": 44,
+            "alignment": 2112.697768394237,
+            "modification_energy": 872.0803661712382,
+            "net_gain": 1240.617402222998,
+            "positive_gain": 1242.242556559893,
+            "negative_loss": 1.6251543368951067,
+            "positive_units": 38,
+            "negative_units": 6,
+            "zero_units": 0,
+            "positive_design_share": 0.807943616510682,
+            "top_10pct_all_cohort_units": 5,
+            "top_10pct_share_of_positive_gain": 0.6935189609061587
+          },
+          "HT_SSE_numerator": {
+            "host": 6868.690255746233,
+            "crk": 1155.9728590990285
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 406022.908241272,
+          "weather_0p001_RMSE_change_fraction": -0.005080369052926081,
+          "weather_0p001_pair_gain_local": {
+            "units": 44,
+            "alignment": 13.235353862671777,
+            "modification_energy": 9.190163360628043,
+            "net_gain": 4.045190502043738,
+            "positive_gain": 5.816476142464167,
+            "negative_loss": 1.7712856404204305,
+            "positive_units": 29,
+            "negative_units": 15,
+            "zero_units": 0,
+            "positive_design_share": 0.5815911394434125,
+            "top_10pct_all_cohort_units": 5,
+            "top_10pct_share_of_positive_gain": 0.7044150283161964
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        }
+      },
+      "incomplete": {
+        "all": {
+          "units": 22,
+          "complete144_units": 0,
+          "host_RMSE": 0.05098394919422631,
+          "crk_RMSE": 0.022798399308335344,
+          "RMSE_change_fraction": -0.5528318290628386,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.12267156903445639,
+              0.5186514906732034,
+              1.9324716440127465
+            ],
+            "crk": [
+              0.11305275476351159,
+              0.35452254751446444,
+              1.7620739937799454
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.4476700771365578,
+              3.3087837931846544,
+              149.41910890868618
+            ],
+            "crk": [
+              0.35047471705283945,
+              2.3741937246107883,
+              49.078166468739795
+            ]
+          },
+          "pair_gain_local": {
+            "units": 22,
+            "alignment": 460.8545890559023,
+            "modification_energy": 136.3336666761124,
+            "net_gain": 324.5209223797898,
+            "positive_gain": 324.5301860708994,
+            "negative_loss": 0.009263691109592045,
+            "positive_units": 20,
+            "negative_units": 2,
+            "zero_units": 0,
+            "positive_design_share": 0.9549929595226384,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.9972969628642966
+          },
+          "HT_SSE_numerator": {
+            "host": 407.56475528790617,
+            "crk": 81.97901820246997
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 993087.5452200174,
+          "weather_0p001_RMSE_change_fraction": -0.021775419393342155,
+          "weather_0p001_pair_gain_local": {
+            "units": 22,
+            "alignment": 4.444006328273699,
+            "modification_energy": 0.9500735194087494,
+            "net_gain": 3.4939328088649506,
+            "positive_gain": 3.5033842645618045,
+            "negative_loss": 0.009451455696854717,
+            "positive_units": 10,
+            "negative_units": 12,
+            "zero_units": 0,
+            "positive_design_share": 0.2047109867614729,
+            "top_10pct_all_cohort_units": 3,
+            "top_10pct_share_of_positive_gain": 0.9973250223085391
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "S": {
+          "units": 3,
+          "complete144_units": 0,
+          "host_RMSE": 0.2697444582887283,
+          "crk_RMSE": 0.12010590020352233,
+          "RMSE_change_fraction": -0.5547419177191633,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.052307095378637314,
+              0.06283436779768586,
+              0.15811757467439014
+            ],
+            "crk": [
+              0.240370122460195,
+              0.33716132870186055,
+              0.5495375662396195
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.052307095378637314,
+              0.06283436779768586,
+              0.15811757467439014
+            ],
+            "crk": [
+              0.240370122460195,
+              0.33716132870186055,
+              0.5495375662396195
+            ]
+          },
+          "pair_gain_local": {
+            "units": 3,
+            "alignment": 458.7251531373876,
+            "modification_energy": 135.36580862860012,
+            "net_gain": 323.3593445087875,
+            "positive_gain": 323.3593445087875,
+            "negative_loss": -0.0,
+            "positive_units": 3,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.9787705284549739
+          },
+          "HT_SSE_numerator": {
+            "host": 403.31931929250726,
+            "crk": 79.95997478371974
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 22777.991916179657,
+          "weather_0p001_RMSE_change_fraction": -0.02198876539642236,
+          "weather_0p001_pair_gain_local": {
+            "units": 3,
+            "alignment": 4.423205531516358,
+            "modification_energy": 0.9454243901386069,
+            "net_gain": 3.4777811413777506,
+            "positive_gain": 3.4777811413777506,
+            "negative_loss": -0.0,
+            "positive_units": 3,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.7522433553506084
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "nonS": {
+          "units": 19,
+          "complete144_units": 0,
+          "host_RMSE": 0.003918714735453906,
+          "crk_RMSE": 0.0027637941823141156,
+          "RMSE_change_fraction": -0.2947192207411382,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.13639329173663714,
+              0.523428978036811,
+              2.1711064184299764
+            ],
+            "crk": [
+              0.11219992627410783,
+              0.31931489124807744,
+              1.970028037936182
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.45626955439105144,
+              3.3337396799098835,
+              149.99769195130983
+            ],
+            "crk": [
+              0.29842848371125474,
+              2.3830594305821764,
+              49.262932730438386
+            ]
+          },
+          "pair_gain_local": {
+            "units": 19,
+            "alignment": 2.1294359185146408,
+            "modification_energy": 0.967858047512284,
+            "net_gain": 1.1615778710023574,
+            "positive_gain": 1.1708415621119492,
+            "negative_loss": 0.009263691109592045,
+            "positive_units": 17,
+            "negative_units": 2,
+            "zero_units": 0,
+            "positive_design_share": 0.9538376131537988,
+            "top_10pct_all_cohort_units": 2,
+            "top_10pct_share_of_positive_gain": 0.6023203661725631
+          },
+          "HT_SSE_numerator": {
+            "host": 4.2454359953988074,
+            "crk": 2.0190434187502353
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 970309.5533038378,
+          "weather_0p001_RMSE_change_fraction": -0.007049409904136605,
+          "weather_0p001_pair_gain_local": {
+            "units": 19,
+            "alignment": 0.020800796757341873,
+            "modification_energy": 0.004649129270142438,
+            "net_gain": 0.01615166748719943,
+            "positive_gain": 0.025603123184054152,
+            "negative_loss": 0.009451455696854717,
+            "positive_units": 7,
+            "negative_units": 12,
+            "zero_units": 0,
+            "positive_design_share": 0.18429564143154833,
+            "top_10pct_all_cohort_units": 2,
+            "top_10pct_share_of_positive_gain": 0.9917544108590239
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "severe_hour_count/1": {
+          "units": 1,
+          "complete144_units": 0,
+          "host_RMSE": 0.02497621069495019,
+          "crk_RMSE": 0.016827310912987902,
+          "RMSE_change_fraction": -0.3262664573697671,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.40503456910894603,
+              0.40503456910894603,
+              0.40503456910894603
+            ],
+            "crk": [
+              0.240370122460195,
+              0.240370122460195,
+              0.240370122460195
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.40503456910894603,
+              0.40503456910894603,
+              0.40503456910894603
+            ],
+            "crk": [
+              0.240370122460195,
+              0.240370122460195,
+              0.240370122460195
+            ]
+          },
+          "pair_gain_local": {
+            "units": 1,
+            "alignment": 0.46746035202817326,
+            "modification_energy": 0.30560497105033574,
+            "net_gain": 0.16185538097783753,
+            "positive_gain": 0.16185538097783753,
+            "negative_loss": -0.0,
+            "positive_units": 1,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 1.0
+          },
+          "HT_SSE_numerator": {
+            "host": 0.2963933089417691,
+            "crk": 0.1345379279639315
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 2911.4783091545105,
+          "weather_0p001_RMSE_change_fraction": -0.03188353686283962,
+          "weather_0p001_pair_gain_local": {
+            "units": 1,
+            "alignment": 0.009443817052028505,
+            "modification_energy": 0.001001492946328321,
+            "net_gain": 0.008442324105700184,
+            "positive_gain": 0.008442324105700184,
+            "negative_loss": -0.0,
+            "positive_units": 1,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 1.0
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "severe_hour_count/2..6": {
+          "units": 0
+        },
+        "severe_hour_count/>=7": {
+          "units": 2,
+          "complete144_units": 0,
+          "host_RMSE": 0.28200238206641537,
+          "crk_RMSE": 0.12550428472962577,
+          "RMSE_change_fraction": -0.5549531042611271,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.052307095378637314,
+              0.052307095378637314,
+              0.1222788661198884
+            ],
+            "crk": [
+              0.3504051717843826,
+              0.3504051717843826,
+              0.555715361291691
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.052307095378637314,
+              0.052307095378637314,
+              0.1222788661198884
+            ],
+            "crk": [
+              0.3504051717843826,
+              0.3504051717843826,
+              0.555715361291691
+            ]
+          },
+          "pair_gain_local": {
+            "units": 2,
+            "alignment": 458.25769278535944,
+            "modification_energy": 135.06020365754978,
+            "net_gain": 323.19748912780966,
+            "positive_gain": 323.19748912780966,
+            "negative_loss": -0.0,
+            "positive_units": 2,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.9792606909163237
+          },
+          "HT_SSE_numerator": {
+            "host": 403.02292598356553,
+            "crk": 79.82543685575584
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 14244.392931938171,
+          "weather_0p001_RMSE_change_fraction": -0.02197217323327949,
+          "weather_0p001_pair_gain_local": {
+            "units": 2,
+            "alignment": 4.4137617144643295,
+            "modification_energy": 0.9444228971922786,
+            "net_gain": 3.4693388172720505,
+            "positive_gain": 3.4693388172720505,
+            "negative_loss": -0.0,
+            "positive_units": 2,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.7540738719264505
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/1": {
+          "units": 1,
+          "complete144_units": 0,
+          "host_RMSE": 0.02497621069495019,
+          "crk_RMSE": 0.016827310912987902,
+          "RMSE_change_fraction": -0.3262664573697671,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.40503456910894603,
+              0.40503456910894603,
+              0.40503456910894603
+            ],
+            "crk": [
+              0.240370122460195,
+              0.240370122460195,
+              0.240370122460195
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.40503456910894603,
+              0.40503456910894603,
+              0.40503456910894603
+            ],
+            "crk": [
+              0.240370122460195,
+              0.240370122460195,
+              0.240370122460195
+            ]
+          },
+          "pair_gain_local": {
+            "units": 1,
+            "alignment": 0.46746035202817326,
+            "modification_energy": 0.30560497105033574,
+            "net_gain": 0.16185538097783753,
+            "positive_gain": 0.16185538097783753,
+            "negative_loss": -0.0,
+            "positive_units": 1,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 1.0
+          },
+          "HT_SSE_numerator": {
+            "host": 0.2963933089417691,
+            "crk": 0.1345379279639315
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 2911.4783091545105,
+          "weather_0p001_RMSE_change_fraction": -0.03188353686283962,
+          "weather_0p001_pair_gain_local": {
+            "units": 1,
+            "alignment": 0.009443817052028505,
+            "modification_energy": 0.001001492946328321,
+            "net_gain": 0.008442324105700184,
+            "positive_gain": 0.008442324105700184,
+            "negative_loss": -0.0,
+            "positive_units": 1,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 1.0
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        },
+        "max_contiguous_run/2..6": {
+          "units": 0
+        },
+        "max_contiguous_run/>=7": {
+          "units": 2,
+          "complete144_units": 0,
+          "host_RMSE": 0.28200238206641537,
+          "crk_RMSE": 0.12550428472962577,
+          "RMSE_change_fraction": -0.5549531042611271,
+          "peak_ratio_q10_median_q90": {
+            "host": [
+              0.052307095378637314,
+              0.052307095378637314,
+              0.1222788661198884
+            ],
+            "crk": [
+              0.3504051717843826,
+              0.3504051717843826,
+              0.555715361291691
+            ]
+          },
+          "HT_reweighted_peak_ratio_q10_median_q90": {
+            "host": [
+              0.052307095378637314,
+              0.052307095378637314,
+              0.1222788661198884
+            ],
+            "crk": [
+              0.3504051717843826,
+              0.3504051717843826,
+              0.555715361291691
+            ]
+          },
+          "pair_gain_local": {
+            "units": 2,
+            "alignment": 458.25769278535944,
+            "modification_energy": 135.06020365754978,
+            "net_gain": 323.19748912780966,
+            "positive_gain": 323.19748912780966,
+            "negative_loss": -0.0,
+            "positive_units": 2,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.9792606909163237
+          },
+          "HT_SSE_numerator": {
+            "host": 403.02292598356553,
+            "crk": 79.82543685575584
+          },
+          "fixed_full_FIT_cohort_design_hour_denominator": 10769.090081214905,
+          "weather_0p001_RMSE_change_fraction": -0.02197217323327949,
+          "weather_0p001_pair_gain_local": {
+            "units": 2,
+            "alignment": 4.4137617144643295,
+            "modification_energy": 0.9444228971922786,
+            "net_gain": 3.4693388172720505,
+            "positive_gain": 3.4693388172720505,
+            "negative_loss": -0.0,
+            "positive_units": 2,
+            "negative_units": 0,
+            "zero_units": 0,
+            "positive_design_share": 1.0,
+            "top_10pct_all_cohort_units": 1,
+            "top_10pct_share_of_positive_gain": 0.7540738719264505
+          },
+          "nonS_alarms": {
+            "host": 0,
+            "crk": 0,
+            "weather_control_0p001": 0
+          }
+        }
+      }
+    }
+  },
+  "severe_count_vs_contiguous_run": {
+    "full_original_fold1_FIT": [
+      {
+        "count_bin": "1",
+        "run_bin": "1",
+        "units": 100,
+        "local_design_mass": 6861.494119167328,
+        "HT_design_mass": 6861.494119167328
+      },
+      {
+        "count_bin": "1",
+        "run_bin": "2..6",
+        "units": 0,
+        "local_design_mass": 0.0,
+        "HT_design_mass": 0.0
+      },
+      {
+        "count_bin": "1",
+        "run_bin": ">=7",
+        "units": 0,
+        "local_design_mass": 0.0,
+        "HT_design_mass": 0.0
+      },
+      {
+        "count_bin": "2..6",
+        "run_bin": "1",
+        "units": 5,
+        "local_design_mass": 94.2464747428894,
+        "HT_design_mass": 94.2464747428894
+      },
+      {
+        "count_bin": "2..6",
+        "run_bin": "2..6",
+        "units": 146,
+        "local_design_mass": 5490.611362814903,
+        "HT_design_mass": 5490.611362814903
+      },
+      {
+        "count_bin": "2..6",
+        "run_bin": ">=7",
+        "units": 0,
+        "local_design_mass": 0.0,
+        "HT_design_mass": 0.0
+      },
+      {
+        "count_bin": ">=7",
+        "run_bin": "1",
+        "units": 0,
+        "local_design_mass": 0.0,
+        "HT_design_mass": 0.0
+      },
+      {
+        "count_bin": ">=7",
+        "run_bin": "2..6",
+        "units": 13,
+        "local_design_mass": 155.16650676727295,
+        "HT_design_mass": 155.16650676727295
+      },
+      {
+        "count_bin": ">=7",
+        "run_bin": ">=7",
+        "units": 295,
+        "local_design_mass": 2896.251437664032,
+        "HT_design_mass": 2896.251437664032
+      }
+    ],
+    "frozen_input_panel": [
+      {
+        "count_bin": "1",
+        "run_bin": "1",
+        "units": 22,
+        "local_design_mass": 2113.763300895691,
+        "HT_design_mass": 12425.920095682144
+      },
+      {
+        "count_bin": "1",
+        "run_bin": "2..6",
+        "units": 0,
+        "local_design_mass": 0.0,
+        "HT_design_mass": 0.0
+      },
+      {
+        "count_bin": "1",
+        "run_bin": ">=7",
+        "units": 0,
+        "local_design_mass": 0.0,
+        "HT_design_mass": 0.0
+      },
+      {
+        "count_bin": "2..6",
+        "run_bin": "1",
+        "units": 1,
+        "local_design_mass": 6.289309978485107,
+        "HT_design_mass": 6.289309978485107
+      },
+      {
+        "count_bin": "2..6",
+        "run_bin": "2..6",
+        "units": 22,
+        "local_design_mass": 810.8186197280884,
+        "HT_design_mass": 2179.244684100151
+      },
+      {
+        "count_bin": "2..6",
+        "run_bin": ">=7",
+        "units": 0,
+        "local_design_mass": 0.0,
+        "HT_design_mass": 0.0
+      },
+      {
+        "count_bin": ">=7",
+        "run_bin": "1",
+        "units": 0,
+        "local_design_mass": 0.0,
+        "HT_design_mass": 0.0
+      },
+      {
+        "count_bin": ">=7",
+        "run_bin": "2..6",
+        "units": 1,
+        "local_design_mass": 1.0,
+        "HT_design_mass": 15.5
+      },
+      {
+        "count_bin": ">=7",
+        "run_bin": ">=7",
+        "units": 46,
+        "local_design_mass": 376.23090159893036,
+        "HT_design_mass": 2818.456133067608
+      }
+    ]
+  },
+  "support": {
+    "merged_group": [
+      {
+        "label": "S00001",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 24.0,
+        "HT_design_mass": 34.0
+      },
+      {
+        "label": "S00006",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 24.0,
+        "HT_design_mass": 52.0
+      },
+      {
+        "label": "S00009",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 46.948081970214844,
+        "HT_design_mass": 318.48226940631866
+      },
+      {
+        "label": "S00023",
+        "units": 24,
+        "S_units": 5,
+        "design_mass": 109.35901641845703,
+        "HT_design_mass": 754.8781445026398
+      },
+      {
+        "label": "S00037",
+        "units": 24,
+        "S_units": 9,
+        "design_mass": 25.407962799072266,
+        "HT_design_mass": 141.40796375274658
+      },
+      {
+        "label": "S00042",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 85.00276947021484,
+        "HT_design_mass": 431.38871908187866
+      },
+      {
+        "label": "S00046",
+        "units": 24,
+        "S_units": 9,
+        "design_mass": 69.68328094482422,
+        "HT_design_mass": 338.0850261449814
+      },
+      {
+        "label": "S00047",
+        "units": 24,
+        "S_units": 8,
+        "design_mass": 184.55874633789062,
+        "HT_design_mass": 983.5793704986572
+      },
+      {
+        "label": "S00052",
+        "units": 24,
+        "S_units": 2,
+        "design_mass": 24.11502456665039,
+        "HT_design_mass": 59.28276872634888
+      },
+      {
+        "label": "S00053",
+        "units": 15,
+        "S_units": 2,
+        "design_mass": 14.941091537475586,
+        "HT_design_mass": 14.941091537475586
+      },
+      {
+        "label": "S00054",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 24.0,
+        "HT_design_mass": 96.0
+      },
+      {
+        "label": "S00058",
+        "units": 24,
+        "S_units": 2,
+        "design_mass": 191.119140625,
+        "HT_design_mass": 1053.5865478515625
+      },
+      {
+        "label": "S00234",
+        "units": 24,
+        "S_units": 2,
+        "design_mass": 513.19921875,
+        "HT_design_mass": 1047.78173828125
+      },
+      {
+        "label": "S00334",
+        "units": 10,
+        "S_units": 1,
+        "design_mass": 1892.2388916015625,
+        "HT_design_mass": 1892.2389221191406
+      },
+      {
+        "label": "S00336",
+        "units": 24,
+        "S_units": 3,
+        "design_mass": 539.02099609375,
+        "HT_design_mass": 2133.6247158050537
+      },
+      {
+        "label": "S00341",
+        "units": 24,
+        "S_units": 4,
+        "design_mass": 167.7687530517578,
+        "HT_design_mass": 706.8945654630661
+      },
+      {
+        "label": "S00348",
+        "units": 24,
+        "S_units": 1,
+        "design_mass": 1783.01318359375,
+        "HT_design_mass": 69434.89952981472
+      },
+      {
+        "label": "S00352",
+        "units": 24,
+        "S_units": 3,
+        "design_mass": 634.857666015625,
+        "HT_design_mass": 13144.889752566814
+      },
+      {
+        "label": "S00387",
+        "units": 24,
+        "S_units": 1,
+        "design_mass": 443.6845397949219,
+        "HT_design_mass": 2028.4837753772736
+      },
+      {
+        "label": "S00438",
+        "units": 24,
+        "S_units": 6,
+        "design_mass": 241.63702392578125,
+        "HT_design_mass": 2222.851483821869
+      },
+      {
+        "label": "S00799",
+        "units": 24,
+        "S_units": 7,
+        "design_mass": 554.883544921875,
+        "HT_design_mass": 3450.5696306228638
+      },
+      {
+        "label": "S01213",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 428.75994873046875,
+        "HT_design_mass": 1927.0423564910889
+      },
+      {
+        "label": "S02000",
+        "units": 24,
+        "S_units": 4,
+        "design_mass": 668.1419067382812,
+        "HT_design_mass": 9637.701826304197
+      },
+      {
+        "label": "S02004",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 227.78985595703125,
+        "HT_design_mass": 1344.4664001464844
+      },
+      {
+        "label": "S02185",
+        "units": 24,
+        "S_units": 1,
+        "design_mass": 2227.37841796875,
+        "HT_design_mass": 15433.418851852417
+      },
+      {
+        "label": "S02387",
+        "units": 24,
+        "S_units": 1,
+        "design_mass": 2875.3271484375,
+        "HT_design_mass": 24007.430004119873
+      },
+      {
+        "label": "S02738",
+        "units": 24,
+        "S_units": 7,
+        "design_mass": 874.8065185546875,
+        "HT_design_mass": 6474.7970933914185
+      },
+      {
+        "label": "S03065",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 1964.4622802734375,
+        "HT_design_mass": 11602.029636383057
+      },
+      {
+        "label": "S03222",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 1642.407470703125,
+        "HT_design_mass": 7938.303070068359
+      },
+      {
+        "label": "S03908",
+        "units": 24,
+        "S_units": 2,
+        "design_mass": 3154.799072265625,
+        "HT_design_mass": 13095.684827804565
+      },
+      {
+        "label": "S04322",
+        "units": 24,
+        "S_units": 1,
+        "design_mass": 122.09358978271484,
+        "HT_design_mass": 709.1467926502228
+      },
+      {
+        "label": "S04540",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 16867.931640625,
+        "HT_design_mass": 23896.237182617188
+      },
+      {
+        "label": "S04767",
+        "units": 24,
+        "S_units": 1,
+        "design_mass": 1114.408447265625,
+        "HT_design_mass": 4132.597991943359
+      },
+      {
+        "label": "S04808",
+        "units": 24,
+        "S_units": 1,
+        "design_mass": 2693.62060546875,
+        "HT_design_mass": 9203.203735351562
+      },
+      {
+        "label": "S04959",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 154.48422241210938,
+        "HT_design_mass": 753.110565662384
+      },
+      {
+        "label": "S05711",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 2193.044921875,
+        "HT_design_mass": 5573.989486694336
+      },
+      {
+        "label": "S05747",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 7800.98828125,
+        "HT_design_mass": 23728.005279541016
+      },
+      {
+        "label": "S06887",
+        "units": 24,
+        "S_units": 3,
+        "design_mass": 79.18930053710938,
+        "HT_design_mass": 516.4507575035095
+      },
+      {
+        "label": "S07051",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 1265.3436279296875,
+        "HT_design_mass": 6511.529014587402
+      },
+      {
+        "label": "S10347",
+        "units": 24,
+        "S_units": 2,
+        "design_mass": 585.3280029296875,
+        "HT_design_mass": 707.2713737487793
+      },
+      {
+        "label": "S12960",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 270.3347473144531,
+        "HT_design_mass": 439.2939519882202
+      },
+      {
+        "label": "S15439",
+        "units": 24,
+        "S_units": 2,
+        "design_mass": 3709.1396484375,
+        "HT_design_mass": 14682.011108398438
+      },
+      {
+        "label": "S17118",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 9929.67578125,
+        "HT_design_mass": 52908.773597717285
+      },
+      {
+        "label": "S17459",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 1852.682861328125,
+        "HT_design_mass": 8337.073150634766
+      },
+      {
+        "label": "S17476",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 281.2839660644531,
+        "HT_design_mass": 1265.777847290039
+      },
+      {
+        "label": "S17501",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 4027.6474609375,
+        "HT_design_mass": 21984.243057250977
+      },
+      {
+        "label": "S17640",
+        "units": 12,
+        "S_units": 0,
+        "design_mass": 95.19827270507812,
+        "HT_design_mass": 95.19827270507812
+      },
+      {
+        "label": "S18784",
+        "units": 24,
+        "S_units": 1,
+        "design_mass": 1291.0552978515625,
+        "HT_design_mass": 7136.33948135376
+      },
+      {
+        "label": "S19862",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 1164.871337890625,
+        "HT_design_mass": 1310.4802207946777
+      },
+      {
+        "label": "S21463",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 29965.671875,
+        "HT_design_mass": 93642.72766113281
+      },
+      {
+        "label": "S23002",
+        "units": 24,
+        "S_units": 1,
+        "design_mass": 29965.671875,
+        "HT_design_mass": 93642.72766113281
+      },
+      {
+        "label": "S23574",
+        "units": 24,
+        "S_units": 0,
+        "design_mass": 1177.704833984375,
+        "HT_design_mass": 4072.896095275879
+      },
+      {
+        "label": "S23975",
+        "units": 6,
+        "S_units": 0,
+        "design_mass": 225.98690795898438,
+        "HT_design_mass": 225.9868927001953
+      }
+    ],
+    "regime": [
+      {
+        "label": "convective",
+        "units": 264,
+        "S_units": 8,
+        "design_mass": 107290.40625,
+        "HT_design_mass": 433716.0338973999
+      },
+      {
+        "label": "heavy_rain",
+        "units": 280,
+        "S_units": 6,
+        "design_mass": 20601.318359375,
+        "HT_design_mass": 61873.2735350132
+      },
+      {
+        "label": "synoptic_wind",
+        "units": 228,
+        "S_units": 25,
+        "design_mass": 3893.199462890625,
+        "HT_design_mass": 23072.659399420023
+      },
+      {
+        "label": "tropical",
+        "units": 255,
+        "S_units": 35,
+        "design_mass": 632.0159912109375,
+        "HT_design_mass": 3224.0453536510468
+      },
+      {
+        "label": "winter",
+        "units": 192,
+        "S_units": 18,
+        "design_mass": 6073.7333984375,
+        "HT_design_mass": 45389.79907512665
+      }
+    ],
+    "original_fold": [
+      {
+        "label": "2",
+        "units": 348,
+        "S_units": 16,
+        "design_mass": 22405.888671875,
+        "HT_design_mass": 186191.50611644983
+      },
+      {
+        "label": "3",
+        "units": 336,
+        "S_units": 21,
+        "design_mass": 30633.146484375,
+        "HT_design_mass": 95558.84302124381
+      },
+      {
+        "label": "4",
+        "units": 271,
+        "S_units": 34,
+        "design_mass": 39175.08203125,
+        "HT_design_mass": 124296.10061240196
+      },
+      {
+        "label": "5",
+        "units": 264,
+        "S_units": 21,
+        "design_mass": 46276.55859375,
+        "HT_design_mass": 161229.3615105152
+      }
+    ]
+  },
+  "raw_response_pair_facts": {
+    "near_weather_far_geo": {
+      "accepted_records": 157,
+      "unique_unordered_pairs": 137,
+      "absolute_true_peak_difference_median": 0.012864304473623633,
+      "absolute_true_peak_difference_at_least_0p10_records": 21,
+      "all_have_common_observations": true
+    },
+    "near_geo_far_weather": {
+      "accepted_records": 127,
+      "unique_unordered_pairs": 123,
+      "absolute_true_peak_difference_median": 0.02324942173436284,
+      "absolute_true_peak_difference_at_least_0p10_records": 29,
+      "all_have_common_observations": true
+    }
+  },
+  "frozen_input_pair_outcome_descriptives": {
+    "selection": "Exactly the input-only accepted pairs; all failures retained in frozen input manifest; no outcome reselection",
+    "definitions": "Endpoint peaks use each endpoint observed support; trajectory contrasts use common observed hours at corresponding forecast-relative phases, not necessarily the same absolute clock. Signed differences are anchor minus partner. Model peak_lag_difference is the error in predicted timing contrast, not the true timing contrast.",
+    "interpretation": "Dependent deterministic input pairs, not matched causal comparisons or population risk; infrastructure/background not balanced",
+    "accepted_pairs": 284,
+    "rows": {
+      "near_weather_far_geo": {
+        "accepted_pairs": 157,
+        "zero_common_observation_pairs": 0,
+        "same_merged_group_pairs": 157,
+        "unweighted_descriptive_distributions": {
+          "weather_distance": {
+            "n": 157,
+            "missing": 0,
+            "mean": 1.0340353371911963,
+            "q10_median_q90": [
+              0.8025915615670403,
+              1.0683973364553745,
+              1.2173688217436027
+            ],
+            "minimum": 0.3782246572385778,
+            "maximum": 1.2342198329586027
+          },
+          "geography_distance": {
+            "n": 157,
+            "missing": 0,
+            "mean": 2.284722475925016,
+            "q10_median_q90": [
+              1.7892354111159146,
+              2.294749232655331,
+              2.7426336635080615
+            ],
+            "minimum": 1.6806355754823004,
+            "maximum": 3.1996740661728267
+          },
+          "common_observed_hours": {
+            "n": 157,
+            "missing": 0,
+            "mean": 142.87898089171975,
+            "q10_median_q90": [
+              144.0,
+              144.0,
+              144.0
+            ],
+            "minimum": 86.0,
+            "maximum": 144.0
+          },
+          "true_peak_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": -0.002765368413388474,
+            "q10_median_q90": [
+              -0.05410720993531867,
+              0.0003493654076009989,
+              0.05158903127303348
+            ],
+            "minimum": -0.9830394708551466,
+            "maximum": 0.8868212550878525
+          },
+          "true_peak_hour_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": 3.5286624203821657,
+            "q10_median_q90": [
+              -81.3,
+              2.5,
+              78.90000000000003
+            ],
+            "minimum": -131.0,
+            "maximum": 128.0
+          },
+          "true_trajectory_RMS_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": 0.018954437750050304,
+            "q10_median_q90": [
+              0.000273434073163834,
+              0.0018891739446158374,
+              0.027291184625627577
+            ],
+            "minimum": 0.0,
+            "maximum": 0.5424233723442307
+          },
+          "crk_predicted_peak_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": -0.0017331684815362215,
+            "q10_median_q90": [
+              -0.00792223325697705,
+              7.635870133526623e-06,
+              0.011233409296255562
+            ],
+            "minimum": -0.595023543050047,
+            "maximum": 0.6233730036765337
+          },
+          "crk_peak_lag_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": -1.2229299363057324,
+            "q10_median_q90": [
+              -105.6,
+              -3.5,
+              101.90000000000003
+            ],
+            "minimum": -209.0,
+            "maximum": 213.0
+          },
+          "crk_trajectory_RMS_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": 0.01287166551840911,
+            "q10_median_q90": [
+              0.00010769619704820269,
+              0.0007257563836368638,
+              0.007196237782004014
+            ],
+            "minimum": 3.268681655511798e-05,
+            "maximum": 0.37741331421277663
+          },
+          "crk_contrast_reproduction_RMSE": {
+            "n": 157,
+            "missing": 0,
+            "mean": 0.011220720292958316,
+            "q10_median_q90": [
+              0.00038160430707285636,
+              0.0029168153554781744,
+              0.02608473511892287
+            ],
+            "minimum": 0.00012997609483827603,
+            "maximum": 0.2104810001770412
+          },
+          "host_predicted_peak_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": 0.00032894700991025394,
+            "q10_median_q90": [
+              -0.01883200090378523,
+              5.470236646942794e-05,
+              0.016798402788117537
+            ],
+            "minimum": -0.04451304581016302,
+            "maximum": 0.0610092468559742
+          },
+          "host_peak_lag_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": -2.6178343949044587,
+            "q10_median_q90": [
+              -92.3,
+              -4.0,
+              86.50000000000006
+            ],
+            "minimum": -188.0,
+            "maximum": 211.0
+          },
+          "host_trajectory_RMS_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": 0.004090964210957895,
+            "q10_median_q90": [
+              0.000272006107543443,
+              0.0013152457934681582,
+              0.013670295472268104
+            ],
+            "minimum": 9.406018051979923e-05,
+            "maximum": 0.03650325054862053
+          },
+          "host_contrast_reproduction_RMSE": {
+            "n": 157,
+            "missing": 0,
+            "mean": 0.018899090425467502,
+            "q10_median_q90": [
+              0.0006666280066333569,
+              0.003932550294731883,
+              0.02580739232189154
+            ],
+            "minimum": 0.00010854197381135442,
+            "maximum": 0.5079427715049483
+          },
+          "crk_closed_predicted_peak_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": 0.001043386284297534,
+            "q10_median_q90": [
+              -0.01786743962438777,
+              1.9642378902062774e-05,
+              0.015172034688293938
+            ],
+            "minimum": -0.0701568964868784,
+            "maximum": 0.15209356881678104
+          },
+          "crk_closed_peak_lag_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": -4.961783439490445,
+            "q10_median_q90": [
+              -95.6,
+              -5.0,
+              88.20000000000005
+            ],
+            "minimum": -178.0,
+            "maximum": 174.0
+          },
+          "crk_closed_trajectory_RMS_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": 0.004052688058529944,
+            "q10_median_q90": [
+              0.0002148707574739552,
+              0.0014673037203306756,
+              0.01033050327677443
+            ],
+            "minimum": 0.0001325442905252133,
+            "maximum": 0.0514662639886428
+          },
+          "crk_closed_contrast_reproduction_RMSE": {
+            "n": 157,
+            "missing": 0,
+            "mean": 0.019034379969176944,
+            "q10_median_q90": [
+              0.0007461803318548219,
+              0.0037747279186723325,
+              0.025770966512870568
+            ],
+            "minimum": 0.00014795605893871782,
+            "maximum": 0.5122207577858847
+          },
+          "weather_control_0p001_predicted_peak_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": -0.0010392299833244815,
+            "q10_median_q90": [
+              -0.009012091369368135,
+              2.8395064873620868e-05,
+              0.012782846391201032
+            ],
+            "minimum": -0.6002832220401615,
+            "maximum": 0.6229794258251786
+          },
+          "weather_control_0p001_peak_lag_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": -1.0063694267515924,
+            "q10_median_q90": [
+              -105.6,
+              -3.5,
+              101.90000000000003
+            ],
+            "minimum": -209.0,
+            "maximum": 213.0
+          },
+          "weather_control_0p001_trajectory_RMS_difference": {
+            "n": 157,
+            "missing": 0,
+            "mean": 0.013703652994117101,
+            "q10_median_q90": [
+              0.00011228662397528633,
+              0.0007564193022887853,
+              0.009347772033057707
+            ],
+            "minimum": 3.2858073861717194e-05,
+            "maximum": 0.3784348205227326
+          },
+          "weather_control_0p001_contrast_reproduction_RMSE": {
+            "n": 157,
+            "missing": 0,
+            "mean": 0.011233169376000997,
+            "q10_median_q90": [
+              0.0003831217964138322,
+              0.0030743179247373314,
+              0.026103949234570566
+            ],
+            "minimum": 0.00012992471160290733,
+            "maximum": 0.20970135310754223
+          }
+        }
+      },
+      "near_geo_far_weather": {
+        "accepted_pairs": 127,
+        "zero_common_observation_pairs": 0,
+        "same_merged_group_pairs": 0,
+        "unweighted_descriptive_distributions": {
+          "weather_distance": {
+            "n": 127,
+            "missing": 0,
+            "mean": 1.813228581327706,
+            "q10_median_q90": [
+              1.5963470369317612,
+              1.79280238670077,
+              1.9866620457367514
+            ],
+            "minimum": 1.569955550062319,
+            "maximum": 2.639457982441375
+          },
+          "geography_distance": {
+            "n": 127,
+            "missing": 0,
+            "mean": 0.6074289596606735,
+            "q10_median_q90": [
+              0.0,
+              0.7024727977785479,
+              0.7704484155383717
+            ],
+            "minimum": 0.0,
+            "maximum": 0.7848612934594131
+          },
+          "common_observed_hours": {
+            "n": 127,
+            "missing": 0,
+            "mean": 141.2755905511811,
+            "q10_median_q90": [
+              143.0,
+              144.0,
+              144.0
+            ],
+            "minimum": 86.0,
+            "maximum": 144.0
+          },
+          "true_peak_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": -0.039434219993202665,
+            "q10_median_q90": [
+              -0.25242520311148836,
+              -0.0020809071356779896,
+              0.05366044805414276
+            ],
+            "minimum": -0.9452446212526411,
+            "maximum": 0.9449903230415657
+          },
+          "true_peak_hour_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": 2.937007874015748,
+            "q10_median_q90": [
+              -73.6,
+              5.0,
+              83.49999999999999
+            ],
+            "minimum": -142.0,
+            "maximum": 136.0
+          },
+          "true_trajectory_RMS_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": 0.03554145712368981,
+            "q10_median_q90": [
+              0.00046992568781369787,
+              0.0050502574101837505,
+              0.04573065743591915
+            ],
+            "minimum": 6.709221031089747e-05,
+            "maximum": 0.6716760055932143
+          },
+          "crk_predicted_peak_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": -0.019433887809694662,
+            "q10_median_q90": [
+              -0.09923088259529322,
+              -0.008027959265746176,
+              0.010221674013882864
+            ],
+            "minimum": -0.6369257654296234,
+            "maximum": 0.6342098442837596
+          },
+          "crk_peak_lag_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": -4.393700787401575,
+            "q10_median_q90": [
+              -94.3,
+              -2.0,
+              112.6
+            ],
+            "minimum": -173.0,
+            "maximum": 169.0
+          },
+          "crk_trajectory_RMS_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": 0.022278659411197832,
+            "q10_median_q90": [
+              0.0006565445576432856,
+              0.005240925415866123,
+              0.023511011033984907
+            ],
+            "minimum": 0.00013817539732327125,
+            "maximum": 0.3885934563264353
+          },
+          "crk_contrast_reproduction_RMSE": {
+            "n": 127,
+            "missing": 0,
+            "mean": 0.021620633319295087,
+            "q10_median_q90": [
+              0.0011533404971147989,
+              0.007536203969508453,
+              0.03198250866202266
+            ],
+            "minimum": 0.0003010241027591278,
+            "maximum": 0.3224768331746753
+          },
+          "host_predicted_peak_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": -0.020204306737791132,
+            "q10_median_q90": [
+              -0.042523868923308325,
+              -0.022809725487604737,
+              0.005343284958507862
+            ],
+            "minimum": -0.06116125942207873,
+            "maximum": 0.05215335823595524
+          },
+          "host_peak_lag_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": -4.984251968503937,
+            "q10_median_q90": [
+              -99.19999999999999,
+              -6.0,
+              98.19999999999999
+            ],
+            "minimum": -166.0,
+            "maximum": 159.0
+          },
+          "host_trajectory_RMS_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": 0.012784178873591503,
+            "q10_median_q90": [
+              0.0017168138515699137,
+              0.011140051671134785,
+              0.028888734928725776
+            ],
+            "minimum": 0.0004271303471687577,
+            "maximum": 0.03977214402768196
+          },
+          "host_contrast_reproduction_RMSE": {
+            "n": 127,
+            "missing": 0,
+            "mean": 0.03862935032411178,
+            "q10_median_q90": [
+              0.0030659469138975292,
+              0.013876231783649334,
+              0.035624580149797656
+            ],
+            "minimum": 0.0010315799039100103,
+            "maximum": 0.6401780464143548
+          },
+          "crk_closed_predicted_peak_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": -0.022876469974129232,
+            "q10_median_q90": [
+              -0.061439048050669944,
+              -0.021769658575067297,
+              0.006829976977314784
+            ],
+            "minimum": -0.13494498666841537,
+            "maximum": 0.16738940216600895
+          },
+          "crk_closed_peak_lag_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": -7.086614173228346,
+            "q10_median_q90": [
+              -103.0,
+              -3.0,
+              95.49999999999999
+            ],
+            "minimum": -168.0,
+            "maximum": 168.0
+          },
+          "crk_closed_trajectory_RMS_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": 0.01351400419626638,
+            "q10_median_q90": [
+              0.002013090089668964,
+              0.010810780726956116,
+              0.030658754299548594
+            ],
+            "minimum": 0.0004355924452220694,
+            "maximum": 0.07963990557495468
+          },
+          "crk_closed_contrast_reproduction_RMSE": {
+            "n": 127,
+            "missing": 0,
+            "mean": 0.03940174307789892,
+            "q10_median_q90": [
+              0.0031837843598814383,
+              0.014949809417671562,
+              0.03697417827666177
+            ],
+            "minimum": 0.0009130422101347045,
+            "maximum": 0.6334373093667279
+          },
+          "weather_control_0p001_predicted_peak_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": -0.02054545901372926,
+            "q10_median_q90": [
+              -0.11830283347517252,
+              -0.008751275367103517,
+              0.010925533226691177
+            ],
+            "minimum": -0.6390727628022432,
+            "maximum": 0.6363538310397416
+          },
+          "weather_control_0p001_peak_lag_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": -5.188976377952756,
+            "q10_median_q90": [
+              -94.6,
+              -6.0,
+              112.6
+            ],
+            "minimum": -173.0,
+            "maximum": 169.0
+          },
+          "weather_control_0p001_trajectory_RMS_difference": {
+            "n": 127,
+            "missing": 0,
+            "mean": 0.02343531550229004,
+            "q10_median_q90": [
+              0.0006705628564995899,
+              0.005877056869980859,
+              0.027216757207963328
+            ],
+            "minimum": 0.00014200130364452375,
+            "maximum": 0.39014977898307407
+          },
+          "weather_control_0p001_contrast_reproduction_RMSE": {
+            "n": 127,
+            "missing": 0,
+            "mean": 0.021653875250817505,
+            "q10_median_q90": [
+              0.0011773602413957711,
+              0.00789435977368475,
+              0.03199556139508597
+            ],
+            "minimum": 0.000301251280052623,
+            "maximum": 0.32102916306916485
+          }
+        }
+      }
+    }
+  },
+  "cached_control_working_points": {
+    "full_original_fold1_FIT": {
+      "S": {
+        "units": 559,
+        "points": {
+          "observed_true_peak": {
+            "jacobian_frobenius": {
+              "n": 559,
+              "missing": 0,
+              "mean": 0.2836098088838053,
+              "q10_median_q90": [
+                0.011694056347615297,
+                0.13443422278121636,
+                0.6984978635803767
+              ],
+              "minimum": 0.0002036480000242591,
+              "maximum": 2.1210732460021973
+            },
+            "jacobian_direction_norm": {
+              "n": 559,
+              "missing": 0,
+              "mean": 0.02861784909609984,
+              "q10_median_q90": [
+                0.0009018106191655322,
+                0.015413460364834234,
+                0.07496990193709598
+              ],
+              "minimum": 1.358028021058999e-05,
+              "maximum": 0.22209735214710236
+            },
+            "deposit_norm": {
+              "n": 559,
+              "missing": 0,
+              "mean": 0.9798279044983188,
+              "q10_median_q90": [
+                0.9490805429934173,
+                0.9902361962199037,
+                0.9977772099061855
+              ],
+              "minimum": 0.6926607936620712,
+              "maximum": 0.9990351796150208
+            },
+            "temporal_deposit_cosine": {
+              "n": 559,
+              "missing": 0,
+              "mean": 0.9995063444598883,
+              "q10_median_q90": [
+                0.9986748188624353,
+                0.9999518849799496,
+                0.9999998489931351
+              ],
+              "minimum": 0.9799533784389496,
+              "maximum": 1.0
+            }
+          },
+          "crk_predicted_peak": {
+            "jacobian_frobenius": {
+              "n": 559,
+              "missing": 0,
+              "mean": 0.3078537747382141,
+              "q10_median_q90": [
+                0.014758130767044185,
+                0.26266035542234956,
+                0.7045135479497368
+              ],
+              "minimum": 0.0002036480000242591,
+              "maximum": 2.264859914779663
+            },
+            "jacobian_direction_norm": {
+              "n": 559,
+              "missing": 0,
+              "mean": 0.03262190471107085,
+              "q10_median_q90": [
+                0.0006549313255235773,
+                0.02188610091559806,
+                0.08799033607078975
+              ],
+              "minimum": 1.358028021058999e-05,
+              "maximum": 0.21428875625133514
+            },
+            "deposit_norm": {
+              "n": 559,
+              "missing": 0,
+              "mean": 0.9786358402846889,
+              "q10_median_q90": [
+                0.9491954247328782,
+                0.9890991680121545,
+                0.9978371775494786
+              ],
+              "minimum": 0.5883501023054123,
+              "maximum": 0.9985771477222443
+            },
+            "temporal_deposit_cosine": {
+              "n": 559,
+              "missing": 0,
+              "mean": 0.9993047565863514,
+              "q10_median_q90": [
+                0.9981314860817943,
+                0.9999260775894451,
+                0.9999998956918716
+              ],
+              "minimum": 0.9712806195020676,
+              "maximum": 1.0
+            }
+          },
+          "fixed_clock_72_every12_to204": {
+            "jacobian_frobenius": {
+              "n": 6689,
+              "missing": 0,
+              "mean": 0.2749475797468137,
+              "q10_median_q90": [
+                0.00779662494577133,
+                0.13756017370931312,
+                0.7006266885983577
+              ],
+              "minimum": 3.241829836042598e-05,
+              "maximum": 2.3100757598876953
+            },
+            "jacobian_direction_norm": {
+              "n": 6689,
+              "missing": 0,
+              "mean": 0.0326054572617592,
+              "q10_median_q90": [
+                0.0006254588724447789,
+                0.013211631831299744,
+                0.0893461720634544
+              ],
+              "minimum": 3.988691787526477e-06,
+              "maximum": 0.4573074281215668
+            },
+            "deposit_norm": {
+              "n": 6689,
+              "missing": 0,
+              "mean": 0.9790280328557636,
+              "q10_median_q90": [
+                0.9479534192754582,
+                0.992322749406254,
+                0.9976277956678269
+              ],
+              "minimum": 0.3597516529262066,
+              "maximum": 0.9991871118545532
+            },
+            "temporal_deposit_cosine": {
+              "n": 6689,
+              "missing": 0,
+              "mean": 0.999506071552481,
+              "q10_median_q90": [
+                0.9988351728555404,
+                0.9999686550841442,
+                0.9999999403953552
+              ],
+              "minimum": 0.9605925977230072,
+              "maximum": 1.0
+            }
+          }
+        }
+      },
+      "nonS_alarm": {
+        "units": 4,
+        "points": {
+          "observed_true_peak": {
+            "jacobian_frobenius": {
+              "n": 4,
+              "missing": 0,
+              "mean": 0.026649537677578685,
+              "q10_median_q90": [
+                0.00521261477842927,
+                0.02544864058533208,
+                0.2767758984645256
+              ],
+              "minimum": 0.00521261477842927,
+              "maximum": 0.34671053290367126
+            },
+            "jacobian_direction_norm": {
+              "n": 4,
+              "missing": 0,
+              "mean": 0.0018658833406285879,
+              "q10_median_q90": [
+                0.0005425328854471445,
+                0.001202536014760088,
+                0.009399638462876449
+              ],
+              "minimum": 0.0005425328854471445,
+              "maximum": 0.04291529580950737
+            },
+            "deposit_norm": {
+              "n": 4,
+              "missing": 0,
+              "mean": 0.9963804162586416,
+              "q10_median_q90": [
+                0.9866282689540167,
+                0.9969672219062528,
+                0.9977996796369553
+              ],
+              "minimum": 0.9687526524066925,
+              "maximum": 0.9977996796369553
+            },
+            "temporal_deposit_cosine": {
+              "n": 4,
+              "missing": 0,
+              "mean": 0.9999802663254901,
+              "q10_median_q90": [
+                0.9999780480769394,
+                0.9999960749444766,
+                0.9999975264072418
+              ],
+              "minimum": 0.9989798665046692,
+              "maximum": 0.9999975264072418
+            }
+          },
+          "crk_predicted_peak": {
+            "jacobian_frobenius": {
+              "n": 4,
+              "missing": 0,
+              "mean": 0.029206484442082018,
+              "q10_median_q90": [
+                0.00521261477842927,
+                0.028078723677343934,
+                0.3120710699398646
+              ],
+              "minimum": 0.00521261477842927,
+              "maximum": 0.4649806320667267
+            },
+            "jacobian_direction_norm": {
+              "n": 4,
+              "missing": 0,
+              "mean": 0.0029768835294571197,
+              "q10_median_q90": [
+                0.0005425328854471445,
+                0.001885518755257162,
+                0.018565125672674668
+              ],
+              "minimum": 0.0005425328854471445,
+              "maximum": 0.05110575258731842
+            },
+            "deposit_norm": {
+              "n": 4,
+              "missing": 0,
+              "mean": 0.9960195085213996,
+              "q10_median_q90": [
+                0.9877503079459374,
+                0.9970508326568986,
+                0.9977996796369553
+              ],
+              "minimum": 0.9625571221113205,
+              "maximum": 0.9977996796369553
+            },
+            "temporal_deposit_cosine": {
+              "n": 4,
+              "missing": 0,
+              "mean": 0.9999692991296133,
+              "q10_median_q90": [
+                0.9999698074395352,
+                0.9999954608785804,
+                0.9999975264072418
+              ],
+              "minimum": 0.998017743229866,
+              "maximum": 0.9999975264072418
+            }
+          },
+          "fixed_clock_72_every12_to204": {
+            "jacobian_frobenius": {
+              "n": 48,
+              "missing": 0,
+              "mean": 0.0627624448145183,
+              "q10_median_q90": [
+                0.0035497480675668242,
+                0.01729217056668209,
+                0.32649342927060543
+              ],
+              "minimum": 0.002879199804738164,
+              "maximum": 1.1364730596542358
+            },
+            "jacobian_direction_norm": {
+              "n": 48,
+              "missing": 0,
+              "mean": 0.0053037491514801045,
+              "q10_median_q90": [
+                0.00015970091355471336,
+                0.0019087969644321064,
+                0.017857339628235512
+              ],
+              "minimum": 0.00014621074660681188,
+              "maximum": 0.11931464076042175
+            },
+            "deposit_norm": {
+              "n": 48,
+              "missing": 0,
+              "mean": 0.9948183892105288,
+              "q10_median_q90": [
+                0.9862208828971534,
+                0.9973342079474676,
+                0.9979811406973815
+              ],
+              "minimum": 0.8387286961078644,
+              "maximum": 0.9981114417314529
+            },
+            "temporal_deposit_cosine": {
+              "n": 48,
+              "missing": 0,
+              "mean": 0.9999809266030077,
+              "q10_median_q90": [
+                0.999991102422643,
+                0.9999997063829302,
+                0.999999977534504
+              ],
+              "minimum": 0.9980989396572113,
+              "maximum": 1.0
+            }
+          }
+        }
+      }
+    },
+    "frozen_input_panel": {
+      "S": {
+        "units": 92,
+        "points": {
+          "observed_true_peak": {
+            "jacobian_frobenius": {
+              "n": 92,
+              "missing": 0,
+              "mean": 0.20901861607988617,
+              "q10_median_q90": [
+                0.0022724460007526523,
+                0.014648100666764398,
+                0.5575964835415927
+              ],
+              "minimum": 0.0002036480000242591,
+              "maximum": 1.2547729015350342
+            },
+            "jacobian_direction_norm": {
+              "n": 92,
+              "missing": 0,
+              "mean": 0.020197782669041816,
+              "q10_median_q90": [
+                0.00012514032892040918,
+                0.0010685059554216393,
+                0.0636486224474473
+              ],
+              "minimum": 1.358028021058999e-05,
+              "maximum": 0.18021319806575775
+            },
+            "deposit_norm": {
+              "n": 92,
+              "missing": 0,
+              "mean": 0.9845897884108369,
+              "q10_median_q90": [
+                0.9538781454962113,
+                0.9965412807925199,
+                0.9978088741054825
+              ],
+              "minimum": 0.833985447883606,
+              "maximum": 0.9984538704156876
+            },
+            "temporal_deposit_cosine": {
+              "n": 92,
+              "missing": 0,
+              "mean": 0.9994879474364974,
+              "q10_median_q90": [
+                0.998438250853047,
+                0.9999997982560813,
+                0.9999999733802484
+              ],
+              "minimum": 0.9799533784389496,
+              "maximum": 1.0
+            }
+          },
+          "crk_predicted_peak": {
+            "jacobian_frobenius": {
+              "n": 92,
+              "missing": 0,
+              "mean": 0.2796740596692401,
+              "q10_median_q90": [
+                0.014611081445247334,
+                0.29108561452595727,
+                0.6149960279479063
+              ],
+              "minimum": 0.0002036480000242591,
+              "maximum": 1.295333981513977
+            },
+            "jacobian_direction_norm": {
+              "n": 92,
+              "missing": 0,
+              "mean": 0.03789753941654707,
+              "q10_median_q90": [
+                0.0005044562480330005,
+                0.020456759147904683,
+                0.09656744588451892
+              ],
+              "minimum": 1.358028021058999e-05,
+              "maximum": 0.21428875625133514
+            },
+            "deposit_norm": {
+              "n": 92,
+              "missing": 0,
+              "mean": 0.9814711718861088,
+              "q10_median_q90": [
+                0.9582215121658807,
+                0.9837928520654408,
+                0.9975038468837738
+              ],
+              "minimum": 0.7628584057092667,
+              "maximum": 0.9975038468837738
+            },
+            "temporal_deposit_cosine": {
+              "n": 92,
+              "missing": 0,
+              "mean": 0.9991146835556189,
+              "q10_median_q90": [
+                0.9969548339155083,
+                0.9999715579154541,
+                0.9999999460394491
+              ],
+              "minimum": 0.9869649857282639,
+              "maximum": 1.0
+            }
+          },
+          "fixed_clock_72_every12_to204": {
+            "jacobian_frobenius": {
+              "n": 1101,
+              "missing": 0,
+              "mean": 0.2751683257554988,
+              "q10_median_q90": [
+                0.009396484505670849,
+                0.11560533697318763,
+                0.7135280285661801
+              ],
+              "minimum": 0.0002036480000242591,
+              "maximum": 2.058833599090576
+            },
+            "jacobian_direction_norm": {
+              "n": 1101,
+              "missing": 0,
+              "mean": 0.03604857883077696,
+              "q10_median_q90": [
+                0.0005514143677654595,
+                0.013254135193376065,
+                0.11291127770115289
+              ],
+              "minimum": 1.358028021058999e-05,
+              "maximum": 0.3647260069847107
+            },
+            "deposit_norm": {
+              "n": 1101,
+              "missing": 0,
+              "mean": 0.9783393957077716,
+              "q10_median_q90": [
+                0.9482177262094045,
+                0.9937594237916725,
+                0.9974129514227353
+              ],
+              "minimum": 0.5351651310920715,
+              "maximum": 0.9990606904029846
+            },
+            "temporal_deposit_cosine": {
+              "n": 1101,
+              "missing": 0,
+              "mean": 0.9992853780256558,
+              "q10_median_q90": [
+                0.9969670632970833,
+                0.999954059748398,
+                0.9999999552965164
+              ],
+              "minimum": 0.9763244092464447,
+              "maximum": 1.0
+            }
+          }
+        }
+      },
+      "nonS_alarm": {
+        "units": 0,
+        "points": {
+          "observed_true_peak": {
+            "jacobian_frobenius": {
+              "n": 0,
+              "missing": 0,
+              "mean": null,
+              "q10_median_q90": null,
+              "minimum": null,
+              "maximum": null
+            },
+            "jacobian_direction_norm": {
+              "n": 0,
+              "missing": 0,
+              "mean": null,
+              "q10_median_q90": null,
+              "minimum": null,
+              "maximum": null
+            },
+            "deposit_norm": {
+              "n": 0,
+              "missing": 0,
+              "mean": null,
+              "q10_median_q90": null,
+              "minimum": null,
+              "maximum": null
+            },
+            "temporal_deposit_cosine": {
+              "n": 0,
+              "missing": 0,
+              "mean": null,
+              "q10_median_q90": null,
+              "minimum": null,
+              "maximum": null
+            }
+          },
+          "crk_predicted_peak": {
+            "jacobian_frobenius": {
+              "n": 0,
+              "missing": 0,
+              "mean": null,
+              "q10_median_q90": null,
+              "minimum": null,
+              "maximum": null
+            },
+            "jacobian_direction_norm": {
+              "n": 0,
+              "missing": 0,
+              "mean": null,
+              "q10_median_q90": null,
+              "minimum": null,
+              "maximum": null
+            },
+            "deposit_norm": {
+              "n": 0,
+              "missing": 0,
+              "mean": null,
+              "q10_median_q90": null,
+              "minimum": null,
+              "maximum": null
+            },
+            "temporal_deposit_cosine": {
+              "n": 0,
+              "missing": 0,
+              "mean": null,
+              "q10_median_q90": null,
+              "minimum": null,
+              "maximum": null
+            }
+          },
+          "fixed_clock_72_every12_to204": {
+            "jacobian_frobenius": {
+              "n": 0,
+              "missing": 0,
+              "mean": null,
+              "q10_median_q90": null,
+              "minimum": null,
+              "maximum": null
+            },
+            "jacobian_direction_norm": {
+              "n": 0,
+              "missing": 0,
+              "mean": null,
+              "q10_median_q90": null,
+              "minimum": null,
+              "maximum": null
+            },
+            "deposit_norm": {
+              "n": 0,
+              "missing": 0,
+              "mean": null,
+              "q10_median_q90": null,
+              "minimum": null,
+              "maximum": null
+            },
+            "temporal_deposit_cosine": {
+              "n": 0,
+              "missing": 0,
+              "mean": null,
+              "q10_median_q90": null,
+              "minimum": null,
+              "maximum": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "symptom_replication": {
+    "unequal_gain_allocation": true,
+    "near_full_deposit_and_low_direction_change": true,
+    "weather_parameter_S_benefit_nonS_cost": true,
+    "original_weight_peak_median_drop": false,
+    "HT_reweighted_peak_median_drop": true,
+    "baseline_FIT_false_alarms_retained": 0,
+    "baseline_FIT_false_alarms_population": 4,
+    "event_generalization_tested": false,
+    "interpretation": "Partial numerical/mechanism panel; cannot be the only candidate-screen gate."
+  },
+  "definitions": {
+    "forecast_hours": [
+      72,
+      215
+    ],
+    "threshold": 0.1,
+    "severe_hour_count": "Count of observed hours >=0.1; may be disjoint",
+    "max_contiguous_run": "Longest consecutive observed >=0.1 run; missing hours break runs",
+    "rise_fall": "Observed adjacent difference with hour71 origin included for hour72; no wrap or interpolation",
+    "peak_lag": "First observed predicted peak hour minus first observed true peak hour",
+    "half_height": "Contiguous observed >=half of true peak episode containing the first peak; missing/forecast edges flag truncation",
+    "HT": "Panel inclusion-probability numerator; fixed original FIT denominators, no inference interval",
+    "medians": "Sampling-reweighted distributions are ratio estimators, not unbiased quantiles",
+    "quantile_convention": "Peaks/outcome shapes: interpolate cumulative weight knots as D07 A/D06; cached controller points: midpoint knots as D07 B. Cached four-mode values are averaged per working point before distribution.",
+    "closed": "Same frozen CRK exit closed, not independently trained host",
+    "parameter_step": "Existing D07 weather block .001 relative parameter norm intervention, not small output guarantee"
+  },
+  "packages": {
+    "d08_panel_symptoms.json.gz": {
+      "gzip_sha256": "8bc72971ced6ac3678c78ea4412675d38b79e4b868ea2dbe14c84fca4060f6a6",
+      "uncompressed_sha256": "5b80f13f8f6adf7da75dcb13159ec78ba6abe97257565b894a82e8aa4fa0c3ea",
+      "uncompressed_bytes": 2966175
+    },
+    "d08_pair_contrasts.csv": {
+      "sha256": "f3abf2c519f3b014fe2dd441a488252359f7d167b62924ca33e73fa7fa131f07",
+      "bytes": 115481,
+      "records": 284,
+      "contents": "Scalar fixed-input pair contrasts only; no original input or outcome/prediction trajectories",
+      "abs_true_peak_difference_median": "Ordinary unweighted record median; endpoints and some unordered pairs repeat",
+      "publication_IO": "LF line endings; original CRLF scalar export preserved locally, no values changed"
+    }
+  },
+  "execution": {
+    "synthetic_checks": 40,
+    "independent_input_checks": 22,
+    "independently_recomputed_score_rows": 420,
+    "new_model_forward": false,
+    "new_gradient": false,
+    "new_training": false,
+    "monitors_remain_paused": true,
+    "scalar_pair_CSV_independent_check": {
+      "rows": 284,
+      "columns": 26,
+      "exactly_matches_frozen_scalar_cache": true,
+      "unique_unordered_pairs": 260,
+      "unique_participants": 331,
+      "all_numeric_values_finite": true,
+      "ordinary_unweighted_abs_peak_medians_pp": [
+        1.2864304473623633,
+        2.324942173436284
+      ]
+    }
+  },
+  "limitations": [
+    "All these predictions were trained on all6350 original FIT units; selected folds2-5 do not become new heldout evaluation.",
+    "HT is design-unbiased only for additive fixed-predictor totals, not roots/quantiles/sample concentration or training-model risk.",
+    "Input distance qualifies relative near/far support; it does not balance every meteorological coordinate, infrastructure or latent background.",
+    "All pair records retained, including repeated endpoints; dependent pairs do not prove geography causes the response contrast.",
+    "Input-only roster was not revised after observing imperfect symptom replication; full-D generalization and net geography remain unproved."
+  ]
+}

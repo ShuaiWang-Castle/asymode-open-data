@@ -1,6 +1,25 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
-**Current D08 registration, 2026-09-29:** verify the external D07 independent review and build a
+**Current D08 complete, 2026-09-29:** the fixed input-only panel and frozen FIT cache audit are finished.
+Actual coverage is1,219 county-events,819 counties,61 original systems and all53 merged groups;
+full216h weather12 and geo40 were retained. IDs/scales/pi/pairs/hashes were frozen before outcomes.
+All40 synthetic checks,22 independent real-input checks and420 independent score-row recalculations
+passed. Original16 source files,30 training artifacts and D07 prediction caches remain unchanged.
+The panel retains concentrated positive gains and S-benefit/non-S-cost under the existing weather
+perturbation, but does not reproduce the original-design-weight peak-ratio median decline and misses
+all4 baseline FIT CRK severe false peaks. Its inverse-probability Kish unit support is only89.41.
+Keep the frozen roster; this is a mechanism/numerics panel, not a sole candidate risk gate or new
+generalization result. Input pairs show real response heterogeneity but do not identify geographic
+causality. Report: `notes/D08_FIXED_INPUT_PANEL_RESULTS_20260929_ZH.md`; compact evidence and
+independent receipts: `results/v1/d08_evidence.json`, `d08_input_independent_audit.json`,
+`d08_final_audit.json`. No new forward, gradient, intervention or training was run in D08.
+All owned D08 processes have exited. I18/I20 monitors remain paused; no automatic training queue,
+new seed, NULL, scattering, response amplification or new arm follows this completed stage.
+The next structural comparison must create valid missing responses as well as restrain wrong ones;
+write-control sensitivity and function-preserving geography reparameterization remain separate tests.
+Full D event validation and the original10% S target remain necessary.
+
+**Historical D08 registration, 2026-09-29:** verify the external D07 independent review and build a
 fixed input-only mechanism panel under the PI's standing authorization. Scope:
 `notes/D08_INPUT_PANEL_SCOPE_20260929.md`. Original fold1 FIT only, all53 merged groups, cap24/group,
 full216h weather12 and geo40, FIT-only scales, 16 deterministic input-core plus8 random-tail units
