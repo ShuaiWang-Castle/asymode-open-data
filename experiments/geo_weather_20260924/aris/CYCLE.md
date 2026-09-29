@@ -18,6 +18,11 @@ gradient accumulation over county chunks (one Adam update and one shared drop-pa
 not stochastic minibatch training. Preserve partial run folders and never duplicate a live queue. Both
 the affected-county target and all-D/false-peak results must be reported, not substituted for each other.
 
+Handoff completed at about 00:20 ET: current coordinator PID46146, adopted fold1 PID42149 unchanged,
+fold2 PID46192, fold3 PID46196. Old coordinator PID42136 exited. Folds4/5 remain pending. After startup,
+all three training PIDs were active at nice15, combined RSS about3.15 GiB, memory-pressure free42%.
+The source/evaluation hash manifest remains unchanged; compute amendment registration is `d737ae7`.
+
 ### I20 execution phase (current)
 
 The 71 targeted checks passed (one external-reference skip); the disposable public-D fit-only preflight

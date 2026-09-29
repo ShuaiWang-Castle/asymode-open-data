@@ -20,6 +20,7 @@ seeds, NULLs, a changed loss, C access or manuscript work. I18 monitoring remain
 Increase to at most three folds in parallel, retaining two threads per fold and the same model/seed/budget.
 Use the separately registered parallel coordinator, preserve the live first fold and original manifest;
 24 scheduling/evaluation checks passed. See `notes/I20_COMPUTE_AMENDMENT_20260929.md`.
+Parallel handoff is complete: folds1/2/3 are live; first-fold process retained; folds4/5 pending.
 
 Status: **active**, **parked**, **abandoned** (with the reason and, where applicable, prior art), **absorbed** (merged
 into another idea).
