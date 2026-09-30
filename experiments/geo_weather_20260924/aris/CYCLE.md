@@ -1,5 +1,17 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
+**Current D10 registration, 2026-09-29/30 ET:** PI requested continued research after the
+D09 candidate missed its target. Scope: notes/D10_RESPONSE_CHAIN_SCOPE_20260929_ZH.md.
+Freeze diagnostic sources before real reads/forwards: same535 common FIT cases across all
+four saved steps; four fixed non-deposit control interventions on W/new frozen900 checkpoints;
+all300 heldout S with each W/new fixed-downstream trajectory oracle. No model fitting,
+calibration, new arm, seed, budget extension or full-D training. Preserve prior sources,
+checkpoints and outputs. Max two owned numerical processes, two threads each, nice>=15.
+No real phase started at this registration; after this commit use explicit registered entry
+points once, fresh D10 outputs, baseline and closed parity, unchanged buffers and all file hashes.
+Report all bounds including unresolved primal-dual gaps and all unfavorable interventions.
+The old monitors remain paused; no C, annual labels, restricted data or manuscript access.
+
 **Current D09 complete, 2026-09-29 22:40 ET:** all six fresh900-step paired W/CRK/new-write
 tasks finished. The finite queue/coordinator and all owned workers have exited. Independent terminal
 audit passed26,414 assertions and126 file hashes, including source/data/split/roster, paired initialization,
