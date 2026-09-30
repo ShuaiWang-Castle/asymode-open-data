@@ -18,6 +18,10 @@ for900 endpoint. It calls the original frozen scorer and all six-job guards, pro
 views to float64 to avoid synthetic-demonstrated float32 paired-SSE cancellation. See
 `notes/D09_SCORING_PRECISION_AMENDMENT_20260929_ZH.md`. No training/source/export changes.
 Then use separately registered d09_final_audit.py for independent double-precision point/CI/gate checks.
+Also run the separately registered d09_fit_replay.py on the existing0/100/300/900 FIT caches,
+using the same cumulative-mass peak quantiles as heldout scoring. Six-DONE/hash guards precede
+all FIT array reads. Keep overlapping FIT folds separate; this is in-sample allocation evidence,
+with no new forward/optimization, CI, early selection or change to the terminal gate.
 Keep point gates separate from confidence support, and report full-heldout S, all/non-S, per-class,
 peak coverage/alignment and false alarms even on failure. No automatic fullD/seed/NULL/new candidate.
 I18/I20 monitors remain paused; C, annual labels, restricted data and manuscript paths stay untouched.
