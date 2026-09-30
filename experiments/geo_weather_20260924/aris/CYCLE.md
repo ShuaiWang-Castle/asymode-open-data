@@ -1,5 +1,20 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
+**Current D11 registration, 2026-09-30 ET:** PI explicitly authorized following the GPT review.
+Execute only the finite input-information probes in notes/D11_PATH_GEOGRAPHY_PROBE_SCOPE_20260930_ZH.md:
+R/H causal paths x shared/realgeo/FIT-donor geographic randomization, two inner event holdouts,12 endpoints,
+108 conditional grouped-CV ridge solves plus12 terminal solves. Same frozen new900 closed carrier within
+each holdout,113 features plus intercept, fixed64 landmarks and three penalties. No neural training,
+oracle labels, new candidate, seed/fullD extension or deployment. Source/scope registration and push precede
+actual labels/new hidden extraction. Verify six D09 DONE/source/output/data guards; keep old sources and
+all partial outputs, including empty directories. At most two owned processes, two threads each, nice15.
+Report held S/nonS/all/short-long/fake peaks, alignment/energy, geographic increment and current/reference
+coverage, same-case correction drift and exact pre-ReLU preprocessing/parameter accounting with cross term.
+Final full identities, masks/weights, finite outputs, all scores/intervals and120-solve selection audit required.
+Ridge CV is conditional on a carrier that saw its validation labels; D08 roster is input-transductive.
+Residual probes are not legal stock trajectories or a new10% achievement. I18/I20 monitors stay paused;
+no C, annual labels, restricted data or manuscript access. Actual D11 outcomes are pending at registration.
+
 **Current D10 complete, 2026-09-30 ET:** registered response-chain diagnostics and cache-only
 export repair are complete; all four owned numerical processes exited. No model retraining,
 reconstruction or forward during recovery. Original FAILED/partial RESULT and eight numerical
