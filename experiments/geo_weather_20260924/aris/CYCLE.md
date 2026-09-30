@@ -1,6 +1,25 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
-**Current D11 registration, 2026-09-30 ET:** PI explicitly authorized following the GPT review.
+**Current D11 complete, 2026-09-30 ET:** registered4046422 finite path/geography probes completed normally.
+Both owned workers41566/41567 exited after200/192 seconds, peak RSS1.49GiB; scoring/audit exited.
+Exactly108 CV+12 terminal ridge solves,3869 heldout units/S300 covered once;26,367 independent arithmetic
+assertions, source/output/data identities, masks/weights, intervals and selection checks passed. No neural
+training or source/data/checkpoint mutation. Raw vs hidden S gain0.021408% CI[0.001033%,0.030778%] formally
+passes the tiny positive information gate; realgeo vs shared/permuted gives-0.042847%/-0.008239%, geo gates fail.
+Raw/shared vs closed S gain0.959281% CI[0.560769%,2.404190%], but all/nonS RMSE worsen2.994125%/58.882469%;
+all six probes produce the same32 severe false-peak cases (21 synoptic wind/11 heavy rain,6 merged groups),
+whose origin stocks are all below10%. S median peak ratio remains2.963%. Joint64 projection residuals are
+about0.96..0.97 even in FIT, all Grams full64 rank/no floor. This is dictionary-support evidence, not97%
+lost geography information. All chosen lambda=1 is a finite-grid boundary; no search extension.
+Common535/S55 pre-ReLU decomposition gives preprocess/learned RMS0.048918/0.284523 with negative cross term;
+D09 common winter actual training weight changes3.748x. Keep these descriptive, not causal attribution.
+Report notes/D11_PATH_GEOGRAPHY_PROBE_RESULTS_20260930_ZH.md; evidence results/v1/d11_*.json[.gz].
+Current raw-path product64 neural candidate is parked. Proposed next finite auxiliary-only/shared-support
+increment comparison is not implemented or queued; do not automatically expand arms/seeds/fullD/budgets.
+Residual outputs are not legal stock trajectories or a10% achievement. Old frozen artifacts retained,
+I18/I20 monitors paused, no pending owned queue; no C/annual labels/restricted data/manuscript.
+
+**Historical D11 registration, 2026-09-30 ET:** PI explicitly authorized following the GPT review.
 Execute only the finite input-information probes in notes/D11_PATH_GEOGRAPHY_PROBE_SCOPE_20260930_ZH.md:
 R/H causal paths x shared/realgeo/FIT-donor geographic randomization, two inner event holdouts,12 endpoints,
 108 conditional grouped-CV ridge solves plus12 terminal solves. Same frozen new900 closed carrier within

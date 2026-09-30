@@ -1,0 +1,25 @@
+{
+ "schema": "d11_independent_arithmetic_audit_v1",
+ "registration_commit": "4046422701a2fed3099ade023652ec8b9ae18540",
+ "assertions": 26367,
+ "source_sha256": {
+  "experiments/geo_weather_20260924/d11_probe.py": "fc1966f584f8c2ad7717d4adc07c86f3f3efd577ecd2d8be98025acf0691cb9d",
+  "experiments/geo_weather_20260924/d11_features.py": "825ac4724b9115a87f01e16dc2c8ad68143615a721eb799a0f4fcbb3ad6c5455",
+  "experiments/geo_weather_20260924/d11_ridge.py": "d8a0558a34797aad49d67f97979a259e4d723c60ffa4f982d7803f41709b3238",
+  "experiments/geo_weather_20260924/notes/D11_PATH_GEOGRAPHY_PROBE_SCOPE_20260930_ZH.md": "047711620ab41135da63335e76f3a035588b72021bc0e7250e259c341a7301d1"
+ },
+ "held_coverage": 3869,
+ "S_count": 300,
+ "maximum_SSE_absolute_difference": 3.637978807091713e-12,
+ "outputs": {
+  "runs/geo_weather_20260924/d11_path_geo_probe_20260930/SCORES.json": "91b34638d46d47f10b07caa5bc453c9bd4a1cd7b80823526de4fdb74125882f7",
+  "runs/geo_weather_20260924/d11_path_geo_probe_20260930/fold2/held.npz": "67c25b01da69b170941db90d3069b30d7d9a783277de7f5a95d02798f2853138",
+  "runs/geo_weather_20260924/d11_path_geo_probe_20260930/fold2/fit.npz": "0335260ef4339744c3276c0148fa165aa06f4a62f33c6c10e68aed1a8d1c8c46",
+  "runs/geo_weather_20260924/d11_path_geo_probe_20260930/fold2/RESULT.json": "f56e3f31520668ed3435095efde349ade7c71850eb607519b95239019ccc6be2",
+  "runs/geo_weather_20260924/d11_path_geo_probe_20260930/fold2/DONE.json": "63cd77db8630fd06a19e5c62d6f5acd19529ead397059131194203b82301855b",
+  "runs/geo_weather_20260924/d11_path_geo_probe_20260930/fold3/held.npz": "c2c5fd21c10f302e51e86b94ecb731956d2ebe0a47fb4d25d7103e7065fc99ac",
+  "runs/geo_weather_20260924/d11_path_geo_probe_20260930/fold3/fit.npz": "48933ef3c5c4a5694d8ea131e67b887296db67d8ae1bc5be86d89d8758e494cd",
+  "runs/geo_weather_20260924/d11_path_geo_probe_20260930/fold3/RESULT.json": "0385360a5ea1f5429d93692dca8e09d496c5ad91b67e1cd882153f3c1aff7db8",
+  "runs/geo_weather_20260924/d11_path_geo_probe_20260930/fold3/DONE.json": "833c93359ad8f0e218dc72d7b30c02496bb6be6ecf002c553f99452ff6213893"
+ }
+}
