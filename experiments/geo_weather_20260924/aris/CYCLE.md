@@ -1,16 +1,22 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
-**Current D10 registration, 2026-09-29/30 ET:** PI requested continued research after the
-D09 candidate missed its target. Scope: notes/D10_RESPONSE_CHAIN_SCOPE_20260929_ZH.md.
-Freeze diagnostic sources before real reads/forwards: same535 common FIT cases across all
-four saved steps; four fixed non-deposit control interventions on W/new frozen900 checkpoints;
-all300 heldout S with each W/new fixed-downstream trajectory oracle. No model fitting,
-calibration, new arm, seed, budget extension or full-D training. Preserve prior sources,
-checkpoints and outputs. Max two owned numerical processes, two threads each, nice>=15.
-No real phase started at this registration; after this commit use explicit registered entry
-points once, fresh D10 outputs, baseline and closed parity, unchanged buffers and all file hashes.
-Report all bounds including unresolved primal-dual gaps and all unfavorable interventions.
-The old monitors remain paused; no C, annual labels, restricted data or manuscript access.
+**Current D10 complete, 2026-09-30 ET:** registered response-chain diagnostics and cache-only
+export repair are complete; all four owned numerical processes exited. No model retraining,
+reconstruction or forward during recovery. Original FAILED/partial RESULT and eight numerical
+caches are preserved. New scalar summaries passed102,357 independent assertions;3869 heldout
+units covered exactly once and535 common FIT IDs verified. Common S55 has design Kish3.18635;
+new weighted peak median changes46.4257%->0.6778% while half-peak recovery count31->34, so
+allocation changes must not be described as universal county failure. Gain anchor removes all78
+severe false peaks but S improvement vs W remains0.24995%; eta anchor produces748 false peaks;
+joint S vs W0.64862% is still a frozen intervention, not a retrained candidate. Fixed r/gate/bg
+oracle minimum SSE is11.1888%/10.7825% of W/new actual S SSE, with all seven unresolved individual
+gaps retained and narrow aggregate bounds. Real dual multipliers were not saved; terminal audit
+independently verifies feasible paths/upper costs and bound arithmetic, not every dual evaluation.
+Report: notes/D10_RESPONSE_CHAIN_RESULTS_20260930_ZH.md; detailed next-design proposal:
+notes/KERNEL_JOINT_PATH_CONTROL_DESIGN_20260930_ZH.md. Compact/full compressed results and audit:
+results/v1/d10_*.json[.gz]. The new raw-path joint-control field and residual probe are proposals,
+not implemented or queued arms. No automatic fullD/seed/NULL/model budget extension, no pending
+owned queue; I18/I20 monitors remain paused. No C, annual labels, restricted data or manuscript.
 
 **Current D09 complete, 2026-09-29 22:40 ET:** all six fresh900-step paired W/CRK/new-write
 tasks finished. The finite queue/coordinator and all owned workers have exited. Independent terminal

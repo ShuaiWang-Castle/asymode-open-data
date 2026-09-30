@@ -1,0 +1,648 @@
+{
+  "schema": "d10_compact_evidence_v1",
+  "registered_scope_commit": "1ca63c44cc18c42397bdcd777ca44f013fa7db32",
+  "cache_only_recovery_commit": "065921f30962dceba1876e1f2a7ead1bc30af77e",
+  "status": "complete",
+  "model_training": false,
+  "actual_model_forward_before_export_failure": true,
+  "forward_repeated_for_recovery": false,
+  "original_export_failures_retained": true,
+  "identical_600_QPs_repeated_only_for_lost_certificates": true,
+  "common_fit": {
+    "units": 535,
+    "S_units": 55,
+    "S_merged_groups": 16,
+    "S_design_kish": 3.186346645271528,
+    "steps": [
+      0,
+      100,
+      300,
+      900
+    ],
+    "new_peak_ratio_median_config2_config3": [
+      0.46425723349343956,
+      0.006778482113299789
+    ],
+    "host_peak_ratio_median_config2_config3": [
+      0.008290864427648745,
+      0.008340205259301013
+    ],
+    "new_positive_design_share_config2_config3": [
+      0.8664956492722807,
+      0.2978876326051193
+    ],
+    "new_positive_unit_count_config2_config3": [
+      41,
+      40
+    ],
+    "new_half_true_peak_units_config2_config3": [
+      31,
+      34
+    ],
+    "not_independent_generalization": true
+  },
+  "primary_pooled": {
+    "all": {
+      "units": 3869,
+      "design_hour_mass": 34243799.02967453,
+      "W_SSE": 6265.148711859107,
+      "W_RMSE": 0.013526166286850041,
+      "new_variants": {
+        "baseline": {
+          "design_SSE": 7405.244475886797,
+          "design_RMSE": 0.014705463942946934,
+          "RMSE_reduction_vs_W": -0.08718639347524437,
+          "RMSE_reduction_vs_new_baseline": 0.0,
+          "RMSE_reduction_vs_same_model_closed": -0.0908009725029626
+        },
+        "closed": {
+          "design_SSE": 6223.695953792762,
+          "design_RMSE": 0.01348134473074738,
+          "RMSE_reduction_vs_W": 0.003313692523966516,
+          "RMSE_reduction_vs_new_baseline": 0.08324247483444203,
+          "RMSE_reduction_vs_same_model_closed": 0.0
+        },
+        "rho_anchor": {
+          "design_SSE": 6335.60671376637,
+          "design_RMSE": 0.013602011427600947,
+          "RMSE_reduction_vs_W": -0.005607290280368549,
+          "RMSE_reduction_vs_new_baseline": 0.07503690598454249,
+          "RMSE_reduction_vs_same_model_closed": -0.008950642481410531
+        },
+        "eta_anchor": {
+          "design_SSE": 27201.524143968658,
+          "design_RMSE": 0.028184195953504753,
+          "RMSE_reduction_vs_W": -1.0836795405143769,
+          "RMSE_reduction_vs_new_baseline": -0.9165798551376216,
+          "RMSE_reduction_vs_same_model_closed": -1.0906071698637052
+        },
+        "gain_anchor": {
+          "design_SSE": 6196.529969564828,
+          "design_RMSE": 0.01345189000465695,
+          "RMSE_reduction_vs_W": 0.005491303346263243,
+          "RMSE_reduction_vs_new_baseline": 0.08524545319709054,
+          "RMSE_reduction_vs_same_model_closed": 0.0021848507458793742
+        },
+        "joint_anchor": {
+          "design_SSE": 6222.859011268751,
+          "design_RMSE": 0.013480438236429183,
+          "RMSE_reduction_vs_W": 0.003380710354368155,
+          "RMSE_reduction_vs_new_baseline": 0.08330411820194905,
+          "RMSE_reduction_vs_same_model_closed": 6.724064522511952e-05
+        }
+      }
+    },
+    "S": {
+      "units": 300,
+      "design_hour_mass": 989846.7027888298,
+      "W_SSE": 5932.64023536722,
+      "W_RMSE": 0.07741765923150508,
+      "new_variants": {
+        "baseline": {
+          "design_SSE": 5910.726670662027,
+          "design_RMSE": 0.07727454703209513,
+          "RMSE_reduction_vs_W": 0.001848573062406822,
+          "RMSE_reduction_vs_new_baseline": 0.0,
+          "RMSE_reduction_vs_same_model_closed": -0.0007708086285134197
+        },
+        "closed": {
+          "design_SSE": 5901.625117110371,
+          "design_RMSE": 0.07721502902147445,
+          "RMSE_reduction_vs_W": 0.0026173642040080436,
+          "RMSE_reduction_vs_new_baseline": 0.0007702149401918046,
+          "RMSE_reduction_vs_same_model_closed": 0.0
+        },
+        "rho_anchor": {
+          "design_SSE": 5901.391351232213,
+          "design_RMSE": 0.07721349974627856,
+          "RMSE_reduction_vs_W": 0.002637117774589637,
+          "RMSE_reduction_vs_new_baseline": 0.0007900050943193682,
+          "RMSE_reduction_vs_same_model_closed": 1.9805408549067316e-05
+        },
+        "eta_anchor": {
+          "design_SSE": 6432.91193390554,
+          "design_RMSE": 0.08061573772162077,
+          "RMSE_reduction_vs_W": -0.04130941857273607,
+          "RMSE_reduction_vs_new_baseline": -0.043237920089494786,
+          "RMSE_reduction_vs_same_model_closed": -0.044042056879892266
+        },
+        "gain_anchor": {
+          "design_SSE": 5903.0196069491085,
+          "design_RMSE": 0.07722415101849571,
+          "RMSE_reduction_vs_W": 0.0024995358285208047,
+          "RMSE_reduction_vs_new_baseline": 0.0006521683469523643,
+          "RMSE_reduction_vs_same_model_closed": -0.0001181375845722421
+        },
+        "joint_anchor": {
+          "design_SSE": 5855.929244434619,
+          "design_RMSE": 0.07691551281277588,
+          "RMSE_reduction_vs_W": 0.006486199966697637,
+          "RMSE_reduction_vs_new_baseline": 0.004646215773612017,
+          "RMSE_reduction_vs_same_model_closed": 0.0038789884883067005
+        }
+      }
+    },
+    "nonS": {
+      "units": 3569,
+      "design_hour_mass": 33253952.3268857,
+      "W_SSE": 332.5084764918861,
+      "W_RMSE": 0.0031621300373836808,
+      "new_variants": {
+        "baseline": {
+          "design_SSE": 1494.5178052247713,
+          "design_RMSE": 0.006703921369632666,
+          "RMSE_reduction_vs_W": -1.120065048045726,
+          "RMSE_reduction_vs_new_baseline": 0.0,
+          "RMSE_reduction_vs_same_model_closed": -1.1541445672993995
+        },
+        "closed": {
+          "design_SSE": 322.07083668239113,
+          "design_RMSE": 0.003112103742432299,
+          "RMSE_reduction_vs_W": 0.015820442031148407,
+          "RMSE_reduction_vs_new_baseline": 0.5357786031725454,
+          "RMSE_reduction_vs_same_model_closed": 0.0
+        },
+        "rho_anchor": {
+          "design_SSE": 434.21536253415763,
+          "design_RMSE": 0.0036135241157920286,
+          "RMSE_reduction_vs_W": -0.1427500049244741,
+          "RMSE_reduction_vs_new_baseline": 0.4609835174737398,
+          "RMSE_reduction_vs_same_model_closed": -0.16111942751877506
+        },
+        "eta_anchor": {
+          "design_SSE": 20768.612210063115,
+          "design_RMSE": 0.024990911912877913,
+          "RMSE_reduction_vs_W": -6.903189184956853,
+          "RMSE_reduction_vs_new_baseline": -2.7278050464734585,
+          "RMSE_reduction_vs_same_model_closed": -7.030230988812086
+        },
+        "gain_anchor": {
+          "design_SSE": 293.5103626157189,
+          "design_RMSE": 0.0029709140289866914,
+          "RMSE_reduction_vs_W": 0.060470634077781193,
+          "RMSE_reduction_vs_new_baseline": 0.5568393683069885,
+          "RMSE_reduction_vs_same_model_closed": 0.045367932797529154
+        },
+        "joint_anchor": {
+          "design_SSE": 366.9297668341301,
+          "design_RMSE": 0.0033217721341003204,
+          "RMSE_reduction_vs_W": -0.05048562039805482,
+          "RMSE_reduction_vs_new_baseline": 0.5045031182574367,
+          "RMSE_reduction_vs_same_model_closed": -0.06737191591953584
+        }
+      }
+    },
+    "J": {
+      "units": 1253,
+      "design_hour_mass": 6890315.977720261,
+      "W_SSE": 6140.844675841334,
+      "W_RMSE": 0.029853447232958318,
+      "new_variants": {
+        "baseline": {
+          "design_SSE": 6285.134425309571,
+          "design_RMSE": 0.030202139987392445,
+          "RMSE_reduction_vs_W": -0.011680150426620184,
+          "RMSE_reduction_vs_new_baseline": 0.0,
+          "RMSE_reduction_vs_same_model_closed": -0.014331888561871287
+        },
+        "closed": {
+          "design_SSE": 6108.7789842941165,
+          "design_RMSE": 0.02977540224059534,
+          "RMSE_reduction_vs_W": 0.0026142706989233933,
+          "RMSE_reduction_vs_new_baseline": 0.014129387751173894,
+          "RMSE_reduction_vs_same_model_closed": 0.0
+        },
+        "rho_anchor": {
+          "design_SSE": 6122.790983710059,
+          "design_RMSE": 0.02980953131520636,
+          "RMSE_reduction_vs_W": 0.0014710501406843823,
+          "RMSE_reduction_vs_new_baseline": 0.012999366016778091,
+          "RMSE_reduction_vs_same_model_closed": -0.0011462170799656501
+        },
+        "eta_anchor": {
+          "design_SSE": 13003.731468053498,
+          "design_RMSE": 0.043442461721125425,
+          "RMSE_reduction_vs_W": -0.45519079864133016,
+          "RMSE_reduction_vs_new_baseline": -0.43839018490941406,
+          "RMSE_reduction_vs_same_model_closed": -0.45900503274802507
+        },
+        "gain_anchor": {
+          "design_SSE": 6103.748685233804,
+          "design_RMSE": 0.029763140377376235,
+          "RMSE_reduction_vs_W": 0.003025005952491333,
+          "RMSE_reduction_vs_new_baseline": 0.01453538094318696,
+          "RMSE_reduction_vs_same_model_closed": 0.0004118118411978733
+        },
+        "joint_anchor": {
+          "design_SSE": 6075.071311276981,
+          "design_RMSE": 0.029693139657250046,
+          "RMSE_reduction_vs_W": 0.005369817912729724,
+          "RMSE_reduction_vs_new_baseline": 0.016853121346860567,
+          "RMSE_reduction_vs_same_model_closed": 0.0027627698420522595
+        }
+      }
+    },
+    "severe_hour_count/1": {
+      "units": 60,
+      "design_hour_mass": 412936.7633242607,
+      "W_SSE": 102.41210447517992,
+      "W_RMSE": 0.015748306934691893,
+      "new_variants": {
+        "baseline": {
+          "design_SSE": 110.10591105549759,
+          "design_RMSE": 0.01632914865409637,
+          "RMSE_reduction_vs_W": -0.036882804088923304,
+          "RMSE_reduction_vs_new_baseline": 0.0,
+          "RMSE_reduction_vs_same_model_closed": -0.03718662396429617
+        },
+        "closed": {
+          "design_SSE": 102.352114739652,
+          "design_RMSE": 0.015743693831765496,
+          "RMSE_reduction_vs_W": 0.0002929269124311018,
+          "RMSE_reduction_vs_new_baseline": 0.035853358600174356,
+          "RMSE_reduction_vs_same_model_closed": 0.0
+        },
+        "rho_anchor": {
+          "design_SSE": 103.68175127566934,
+          "design_RMSE": 0.01584562549783707,
+          "RMSE_reduction_vs_W": -0.006179620675971886,
+          "RMSE_reduction_vs_new_baseline": 0.029611045039877326,
+          "RMSE_reduction_vs_same_model_closed": -0.006474444127331225
+        },
+        "eta_anchor": {
+          "design_SSE": 362.0120395665904,
+          "design_RMSE": 0.02960872677811446,
+          "RMSE_reduction_vs_W": -0.8801212664257572,
+          "RMSE_reduction_vs_new_baseline": -0.8132437523426395,
+          "RMSE_reduction_vs_same_model_closed": -0.8806721659166143
+        },
+        "gain_anchor": {
+          "design_SSE": 102.43742161124112,
+          "design_RMSE": 0.01575025337156018,
+          "RMSE_reduction_vs_W": -0.00012359657938820767,
+          "RMSE_reduction_vs_new_baseline": 0.03545165120356519,
+          "RMSE_reduction_vs_same_model_closed": -0.00041664553851061825
+        },
+        "joint_anchor": {
+          "design_SSE": 103.15603379693246,
+          "design_RMSE": 0.015805401886894933,
+          "RMSE_reduction_vs_W": -0.003625466054212101,
+          "RMSE_reduction_vs_new_baseline": 0.032074346207268234,
+          "RMSE_reduction_vs_same_model_closed": -0.003919541105717572
+        }
+      }
+    },
+    "severe_hour_count/2..6": {
+      "units": 88,
+      "design_hour_mass": 259589.5183801651,
+      "W_SSE": 269.40299324469765,
+      "W_RMSE": 0.03221496263903283,
+      "new_variants": {
+        "baseline": {
+          "design_SSE": 302.8755801941163,
+          "design_RMSE": 0.03415769475471539,
+          "RMSE_reduction_vs_W": -0.060305272970538004,
+          "RMSE_reduction_vs_new_baseline": 0.0,
+          "RMSE_reduction_vs_same_model_closed": -0.0519900479731763
+        },
+        "closed": {
+          "design_SSE": 273.67869885978627,
+          "design_RMSE": 0.03246959875763611,
+          "RMSE_reduction_vs_W": -0.007904281046557715,
+          "RMSE_reduction_vs_new_baseline": 0.049420665217644655,
+          "RMSE_reduction_vs_same_model_closed": 0.0
+        },
+        "rho_anchor": {
+          "design_SSE": 281.6037049436029,
+          "design_RMSE": 0.032936360371690544,
+          "RMSE_reduction_vs_W": -0.02239325063762876,
+          "RMSE_reduction_vs_new_baseline": 0.03575576138246994,
+          "RMSE_reduction_vs_same_model_closed": -0.014375342841114191
+        },
+        "eta_anchor": {
+          "design_SSE": 760.9272824133789,
+          "design_RMSE": 0.054141215473591665,
+          "RMSE_reduction_vs_W": -0.6806232582120761,
+          "RMSE_reduction_vs_new_baseline": -0.585037159632021,
+          "RMSE_reduction_vs_same_model_closed": -0.6674433176005568
+        },
+        "gain_anchor": {
+          "design_SSE": 275.03782050469204,
+          "design_RMSE": 0.03255012289301555,
+          "RMSE_reduction_vs_W": -0.010403869088354334,
+          "RMSE_reduction_vs_new_baseline": 0.04706324221361324,
+          "RMSE_reduction_vs_same_model_closed": -0.0024799855391040015
+        },
+        "joint_anchor": {
+          "design_SSE": 273.6611220098539,
+          "design_RMSE": 0.03246855607066261,
+          "RMSE_reduction_vs_W": -0.007871914503557953,
+          "RMSE_reduction_vs_new_baseline": 0.04945119090097849,
+          "RMSE_reduction_vs_same_model_closed": 3.211271507486124e-05
+        }
+      }
+    },
+    "severe_hour_count/>=7": {
+      "units": 152,
+      "design_hour_mass": 317320.421084404,
+      "W_SSE": 5560.825137647344,
+      "W_RMSE": 0.13237946097955428,
+      "new_variants": {
+        "baseline": {
+          "design_SSE": 5497.745179412412,
+          "design_RMSE": 0.13162648753016692,
+          "RMSE_reduction_vs_W": 0.005687993015046522,
+          "RMSE_reduction_vs_new_baseline": 0.0,
+          "RMSE_reduction_vs_same_model_closed": 0.0025231949119355335
+        },
+        "closed": {
+          "design_SSE": 5525.594303510934,
+          "design_RMSE": 0.1319594469352558,
+          "RMSE_reduction_vs_W": 0.0031728037052767277,
+          "RMSE_reduction_vs_new_baseline": -0.0025295775290861133,
+          "RMSE_reduction_vs_same_model_closed": 0.0
+        },
+        "rho_anchor": {
+          "design_SSE": 5516.10589501294,
+          "design_RMSE": 0.13184609956997825,
+          "RMSE_reduction_vs_W": 0.00402903445617131,
+          "RMSE_reduction_vs_new_baseline": -0.0016684486833320467,
+          "RMSE_reduction_vs_same_model_closed": 0.0008589560498321047
+        },
+        "eta_anchor": {
+          "design_SSE": 5309.97261192557,
+          "design_RMSE": 0.1293591429541817,
+          "RMSE_reduction_vs_W": 0.022815609030460204,
+          "RMSE_reduction_vs_new_baseline": 0.017225595079908285,
+          "RMSE_reduction_vs_same_model_closed": 0.019705326457983063
+        },
+        "gain_anchor": {
+          "design_SSE": 5525.544364833176,
+          "design_RMSE": 0.1319588506287931,
+          "RMSE_reduction_vs_W": 0.0031773082293041766,
+          "RMSE_reduction_vs_new_baseline": -0.002525047236787925,
+          "RMSE_reduction_vs_same_model_closed": 4.518861487889936e-06
+        },
+        "joint_anchor": {
+          "design_SSE": 5479.112088627833,
+          "design_RMSE": 0.1314032423768736,
+          "RMSE_reduction_vs_W": 0.007374396265531269,
+          "RMSE_reduction_vs_new_baseline": 0.0016960503731604515,
+          "RMSE_reduction_vs_same_model_closed": 0.004214965819424044
+        }
+      }
+    },
+    "max_contiguous_run/1": {
+      "units": 62,
+      "design_hour_mass": 414773.3129839897,
+      "W_SSE": 102.85092221119011,
+      "W_RMSE": 0.015747031356339453,
+      "new_variants": {
+        "baseline": {
+          "design_SSE": 110.89942390404664,
+          "design_RMSE": 0.016351561881268854,
+          "RMSE_reduction_vs_W": -0.03839012644666062,
+          "RMSE_reduction_vs_new_baseline": 0.0,
+          "RMSE_reduction_vs_same_model_closed": -0.03866693551371014
+        },
+        "closed": {
+          "design_SSE": 102.7961091173035,
+          "design_RMSE": 0.01574283470685586,
+          "RMSE_reduction_vs_W": 0.00026650416758744466,
+          "RMSE_reduction_vs_new_baseline": 0.03722746358011875,
+          "RMSE_reduction_vs_same_model_closed": 0.0
+        },
+        "rho_anchor": {
+          "design_SSE": 104.11140303147326,
+          "design_RMSE": 0.015843230721770758,
+          "RMSE_reduction_vs_W": -0.006109047683617863,
+          "RMSE_reduction_vs_new_baseline": 0.03108762105963725,
+          "RMSE_reduction_vs_same_model_closed": -0.006377251415285334
+        },
+        "eta_anchor": {
+          "design_SSE": 388.9064613270304,
+          "design_RMSE": 0.030620845379282752,
+          "RMSE_reduction_vs_W": -0.9445471775831185,
+          "RMSE_reduction_vs_new_baseline": -0.8726556888953672,
+          "RMSE_reduction_vs_same_model_closed": -0.945065545657267
+        },
+        "gain_anchor": {
+          "design_SSE": 102.88930425025353,
+          "design_RMSE": 0.015749969330944788,
+          "RMSE_reduction_vs_W": -0.00018657323649451385,
+          "RMSE_reduction_vs_new_baseline": 0.036791136815695125,
+          "RMSE_reduction_vs_same_model_closed": -0.0004531981832864851
+        },
+        "joint_anchor": {
+          "design_SSE": 103.62163833038707,
+          "design_RMSE": 0.015805921637275625,
+          "RMSE_reduction_vs_W": -0.0037397703480448463,
+          "RMSE_reduction_vs_new_baseline": 0.03336930428757834,
+          "RMSE_reduction_vs_same_model_closed": -0.004007342489106724
+        }
+      }
+    },
+    "max_contiguous_run/2..6": {
+      "units": 96,
+      "design_hour_mass": 276965.8335905075,
+      "W_SSE": 310.81326256389883,
+      "W_RMSE": 0.033499372502368646,
+      "new_variants": {
+        "baseline": {
+          "design_SSE": 344.81549132399925,
+          "design_RMSE": 0.03528420084172301,
+          "RMSE_reduction_vs_W": -0.053279455883186166,
+          "RMSE_reduction_vs_new_baseline": 0.0,
+          "RMSE_reduction_vs_same_model_closed": -0.046579234437510886
+        },
+        "closed": {
+          "design_SSE": 314.80566711175004,
+          "design_RMSE": 0.03371383616328551,
+          "RMSE_reduction_vs_W": -0.006402020243862605,
+          "RMSE_reduction_vs_new_baseline": 0.0445061710617114,
+          "RMSE_reduction_vs_same_model_closed": 0.0
+        },
+        "rho_anchor": {
+          "design_SSE": 324.19566371746055,
+          "design_RMSE": 0.034212948357541205,
+          "RMSE_reduction_vs_W": -0.021301170794232105,
+          "RMSE_reduction_vs_new_baseline": 0.03036068434671957,
+          "RMSE_reduction_vs_same_model_closed": -0.014804372656922249
+        },
+        "eta_anchor": {
+          "design_SSE": 776.7150944738146,
+          "design_RMSE": 0.05295631704951759,
+          "RMSE_reduction_vs_W": -0.5808151942479876,
+          "RMSE_reduction_vs_new_baseline": -0.5008506863190048,
+          "RMSE_reduction_vs_same_model_closed": -0.5707591622927566
+        },
+        "gain_anchor": {
+          "design_SSE": 316.8291221280826,
+          "design_RMSE": 0.03382201268005044,
+          "RMSE_reduction_vs_W": -0.009631230485257047,
+          "RMSE_reduction_vs_new_baseline": 0.041440308319058206,
+          "RMSE_reduction_vs_same_model_closed": -0.0032086682820964274
+        },
+        "joint_anchor": {
+          "design_SSE": 314.71129191470675,
+          "design_RMSE": 0.03370878227010254,
+          "RMSE_reduction_vs_W": -0.006251154934889591,
+          "RMSE_reduction_vs_new_baseline": 0.04464940494720149,
+          "RMSE_reduction_vs_same_model_closed": 0.00014990561022176774
+        }
+      }
+    },
+    "max_contiguous_run/>=7": {
+      "units": 142,
+      "design_hour_mass": 298107.5562143326,
+      "W_SSE": 5518.976050592131,
+      "W_RMSE": 0.13606385224312748,
+      "new_variants": {
+        "baseline": {
+          "design_SSE": 5455.0117554339795,
+          "design_RMSE": 0.13527307213477074,
+          "RMSE_reduction_vs_W": 0.005811830955246733,
+          "RMSE_reduction_vs_new_baseline": 0.0,
+          "RMSE_reduction_vs_same_model_closed": 0.00264860803357303
+        },
+        "closed": {
+          "design_SSE": 5484.023340881318,
+          "design_RMSE": 0.1356323089578887,
+          "RMSE_reduction_vs_W": 0.003171623308648397,
+          "RMSE_reduction_vs_new_baseline": -0.0026556417877463545,
+          "RMSE_reduction_vs_same_model_closed": 0.0
+        },
+        "rho_anchor": {
+          "design_SSE": 5473.084284483279,
+          "design_RMSE": 0.1354969676211008,
+          "RMSE_reduction_vs_W": 0.004166313188117998,
+          "RMSE_reduction_vs_new_baseline": -0.0016551371444197827,
+          "RMSE_reduction_vs_same_model_closed": 0.0009978546986906256
+        },
+        "eta_anchor": {
+          "design_SSE": 5267.290378104693,
+          "design_RMSE": 0.13292514365732017,
+          "RMSE_reduction_vs_W": 0.023067909176927248,
+          "RMSE_reduction_vs_new_baseline": 0.01735695390366654,
+          "RMSE_reduction_vs_same_model_closed": 0.019959590169692065
+        },
+        "gain_anchor": {
+          "design_SSE": 5483.301180570773,
+          "design_RMSE": 0.13562337833441704,
+          "RMSE_reduction_vs_W": 0.003237258841704449,
+          "RMSE_reduction_vs_new_baseline": -0.002589622562111149,
+          "RMSE_reduction_vs_same_model_closed": 6.584436658374493e-05
+        },
+        "joint_anchor": {
+          "design_SSE": 5437.5963141895245,
+          "design_RMSE": 0.1350569659518673,
+          "RMSE_reduction_vs_W": 0.007400101310236384,
+          "RMSE_reduction_vs_new_baseline": 0.001597555075027346,
+          "RMSE_reduction_vs_same_model_closed": 0.00424193181139465
+        }
+      }
+    }
+  },
+  "fixed_downstream_oracles": {
+    "host": {
+      "S_units": 300,
+      "design_lower_SSE": 663.7902423822238,
+      "design_upper_SSE": 663.790244603218,
+      "actual_SSE": 5932.640235367221,
+      "lower_fraction_of_actual_SSE": 0.11188783004657221,
+      "upper_fraction_of_actual_SSE": 0.1118878304209408,
+      "RMSE_bracket": [
+        0.025895926970871452,
+        0.025895927014194402
+      ],
+      "unresolved_gap_gt_1e_minus8": 5,
+      "maximum_gap": 2.1239872637079937e-07,
+      "maximum_original_path_replay_difference": 0.0,
+      "future_truth": true,
+      "fixed_downstream_components": [
+        "r",
+        "gate",
+        "background"
+      ],
+      "unrestricted_timewise_conditional_cap": 0.5,
+      "not_achievable_model_gain": true
+    },
+    "new": {
+      "S_units": 300,
+      "design_lower_SSE": 637.3224214344752,
+      "design_upper_SSE": 637.3224217881418,
+      "actual_SSE": 5910.726670662026,
+      "lower_fraction_of_actual_SSE": 0.10782471546143962,
+      "upper_fraction_of_actual_SSE": 0.10782471552127432,
+      "RMSE_bracket": [
+        0.025374391037804492,
+        0.02537439104484494
+      ],
+      "unresolved_gap_gt_1e_minus8": 2,
+      "maximum_gap": 4.4921412040242054e-08,
+      "maximum_original_path_replay_difference": 0.0,
+      "future_truth": true,
+      "fixed_downstream_components": [
+        "r",
+        "gate",
+        "background"
+      ],
+      "unrestricted_timewise_conditional_cap": 0.5,
+      "not_achievable_model_gain": true
+    }
+  },
+  "severe_false_peaks": {
+    "baseline": 78,
+    "closed": 0,
+    "rho_anchor": 15,
+    "eta_anchor": 748,
+    "gain_anchor": 0,
+    "joint_anchor": 6
+  },
+  "confidence_intervals_computed": false,
+  "packages": {
+    "d10_common_fit.json": {
+      "path": "experiments/geo_weather_20260924/results/v1/d10_common_fit.json.gz",
+      "decoded_sha256": "827c401b0f9be418aa7dc0f364acf2828a4237bf5c08bdc0ff8f2ef200ecff90",
+      "gzip_sha256": "d59067c948e8f49ec8727b9e3fe6575fa135d613da2dc9e4206d900e523df96d"
+    },
+    "d10_response_chain_fold2.json": {
+      "path": "experiments/geo_weather_20260924/results/v1/d10_response_chain_fold2.json.gz",
+      "decoded_sha256": "a1e46156952a4010b2d440bbbe01a1ace9f6b90e3b982fc75adc806361e31227",
+      "gzip_sha256": "99ce70a41cb7e10a99998d96cc653ea4dbd0db7e886a7fcec8273036f81effa1"
+    },
+    "d10_response_chain_fold3.json": {
+      "path": "experiments/geo_weather_20260924/results/v1/d10_response_chain_fold3.json.gz",
+      "decoded_sha256": "c5ee42757d5b2125b78d26d17e82bdac72cb02eaa360b71c0e16d65a4da95170",
+      "gzip_sha256": "47aed2cb30be8671629dd46312fc221060db68c427e58b7d8b779862d05a50cc"
+    }
+  },
+  "limitations": [
+    "Same-case FIT response differences do not establish geographic causality or identify an individual controller.",
+    "All interventions are frozen conditional interventions, not retrained candidates or independently validated scores.",
+    "Common S original design Kish is only about3.186; weighted mass and raw unit counts must stay distinct.",
+    "Fixed-downstream oracle relaxes conditional and smoothing expressibility using future outcomes; not available as a model target or achievable gain.",
+    "Seven individual primal-dual gaps exceed1e-8, all retained; weighted aggregate bounds remain narrow.",
+    "Actual dual multipliers were not persisted, so independent terminal audit checks feasibility, upper costs and bound arithmetic, not re-evaluation of every real dual.",
+    "Original 10 percent full-D S objective and D09 negative verdict remain unchanged."
+  ],
+  "independent_audit": {
+    "path": "experiments/geo_weather_20260924/results/v1/d10_final_audit.json",
+    "sha256": "991a69b013cea7dfa89e5695680059f857e9fe3f257e52717deb0af9c82ab898",
+    "assertions": 102357,
+    "maximum_absolute_difference": 7.275957614183426e-12,
+    "actual_dual_multipliers_recomputed": false,
+    "maximum_relative_difference": 6.764873447551956e-11
+  },
+  "reports": [
+    "notes/D10_RESPONSE_CHAIN_RESULTS_20260930_ZH.md",
+    "notes/KERNEL_JOINT_PATH_CONTROL_DESIGN_20260930_ZH.md"
+  ],
+  "execution_state": {
+    "all_owned_processes_exited": true,
+    "old_monitors": "paused",
+    "new_neural_design": "proposal_not_implemented",
+    "new_residual_probe": "not_executed",
+    "candidate_queue_pending": false
+  }
+}
