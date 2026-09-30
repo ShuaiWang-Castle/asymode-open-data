@@ -193,11 +193,12 @@ def gains(data, predictions, units, selected, base, candidate):
     positive = gs > 0
     positive_total = float(gs[positive].sum())
     top = math.ceil(len(ids) / 10)
+    design_weights = np.asarray(data['w'][ids], dtype=np.float64)
     return dict(units=len(ids), alignment=float(sum(aligns)), modification_energy=float(sum(energies)),
         net_gain=float(gs.sum()), positive_gain=positive_total,
         negative_loss=float(-gs[gs < 0].sum()), positive_units=int(positive.sum()),
         negative_units=int((gs < 0).sum()), zero_units=int((gs == 0).sum()),
-        positive_design_share=float(data['w'][ids][positive].sum() / data['w'][ids].sum()),
+        positive_design_share=float(design_weights[positive].sum() / design_weights.sum()),
         top_10pct_all_cohort_units=top,
         top_10pct_share_of_positive_gain=float(sum(sorted(gs[positive], reverse=True)[:top]) / positive_total)
         if positive_total else None)
@@ -592,6 +593,14 @@ def self_check():
     alarm=alarms(data,unit,masks['nonS'],'host','new')
     audit.equal(alarm['new_count'],1,'synthetic_new_false_peak')
     audit.equal(alarm['candidate_design_rate'],3/7,'synthetic_false_peak_original_design_rate')
+    weighted=dict(data,w=np.asarray([.1,.7,1.3,2.1],dtype=np.float32))
+    fp={name:p.copy() for name,p in ps.items()}
+    fp['new'][1]=np.where(m[1],y[1],0)*.2
+    unit,_,masks=unit_arithmetic(weighted,fp)
+    g=gains(weighted,fp,unit,masks['S'],'host','new')
+    expected=float(weighted['w'][0])/math.fsum(float(x) for x in weighted['w'][:2])
+    audit.equal(g['positive_units'],1,'synthetic_nonuniform_float32_positive_count')
+    audit.require(g['positive_design_share']==expected,'synthetic_nonuniform_float32_share_exact_double')
     return audit
 
 

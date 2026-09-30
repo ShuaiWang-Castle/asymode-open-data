@@ -1,5 +1,13 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
+**D09 terminal audit amendment, 2026-09-29 22:30 ET:** all six900-step jobs and the coordinator
+have exited; endpoint scoring and fixed FIT-cache replay are complete. Preserve the first failed
+independent audit receipt:24,076 assertions passed, then its own float32 design-weight sum differed
+from the float64 score by3.82e-9. The minimal independent-audit-only float64 sum repair retains
+the strict tolerance;26 synthetic assertions passed. Register before rerunning to a new v2 receipt.
+The successful endpoint score, model sources, exports and FIT replay stay unchanged. The registered
+candidate point gate is false; do not expand training while completing the final report.
+
 **Current D09 execution, 2026-09-29 21:24 ET:** source/design registered at
 `eb91994fd124bc7178e7edc0b175c84113406b68` and pushed to both research branches before computation.
 Both real fold3 FIT-only open-kernel preflights passed on883 units, three full updates each:
