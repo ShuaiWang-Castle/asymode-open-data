@@ -1,5 +1,22 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
+**Current D09 registration, 2026-09-29:** the PI explicitly requested that the completed diagnostics
+lead to a new design and actual attempts. Scope: `notes/D09_INCREMENTAL_WRITE_DESIGN_20260929_ZH.md`.
+Implement one incremental, geography-conditioned write candidate within the existing CRK; preserve
+all geo40/all-order features, the host, state recurrence, readout, objective and optimizer budget.
+No additional learned parameters. Compare fresh W, original CRK and new write on the unchanged D08
+roster, with original event folds2 and3 held out in turn inside outer1 FIT: six jobs, seed0,900 updates.
+The main endpoint is every original county in the held-out event groups, not only panel counties.
+D08 roster design used inner-heldout inputs, so this is exploratory input-transductive validation,
+not independent unknown-event confirmation. Original10% full-D S target remains unchanged.
+74 synthetic checks passed; independent mathematical, protocol and endpoint scorer reviews are complete.
+After freezing source/scope, run disposable old/new fold3 FIT-only three-update resource preflights
+with the kernel forced open, then discard models and start formal tasks from fresh seed0.
+Maximum two owned numerical processes, two threads each, nice>=15; preserve all existing directories.
+Do not auto-expand to full D, another seed, NULL, scattering or another candidate. I18/I20 monitors
+remain paused; no sealed C, annual labels, restricted data or manuscript access. Results are pending;
+no actual D09 preflight or formal training has started at this registration entry.
+
 **Current D08 complete, 2026-09-29:** the fixed input-only panel and frozen FIT cache audit are finished.
 Actual coverage is1,219 county-events,819 counties,61 original systems and all53 merged groups;
 full216h weather12 and geo40 were retained. IDs/scales/pi/pairs/hashes were frozen before outcomes.
