@@ -13,7 +13,11 @@ Read JOBS.json, SCREEN_RUN.json, RUN_STATUS.json, per-task RUN_STATUS/DONE, and 
 check these owned PIDs/CPU/RSS and memory. Never duplicate a live queue or overwrite an existing
 folder, including an empty one. A task failure stops future launches while healthy owned tasks finish.
 No early selection from0/100/300 diagnostic checkpoints. Once all six tasks finish, independently
-verify source/data/identity/output hashes, then run registered d09_score.py once for900 endpoint.
+verify source/data/identity/output hashes, then run the separately registered d09_precision_score.py
+for900 endpoint. It calls the original frozen scorer and all six-job guards, promoting only arithmetic
+views to float64 to avoid synthetic-demonstrated float32 paired-SSE cancellation. See
+`notes/D09_SCORING_PRECISION_AMENDMENT_20260929_ZH.md`. No training/source/export changes.
+Then use separately registered d09_final_audit.py for independent double-precision point/CI/gate checks.
 Keep point gates separate from confidence support, and report full-heldout S, all/non-S, per-class,
 peak coverage/alignment and false alarms even on failure. No automatic fullD/seed/NULL/new candidate.
 I18/I20 monitors remain paused; C, annual labels, restricted data and manuscript paths stay untouched.
