@@ -49,10 +49,11 @@ def storm_hazard_days() -> pd.DataFrame:
         off = d["CZ_TIMEZONE"].astype(str).str.extract(r"([+-]?\d+)\s*$")[0].astype(float).fillna(0.0)
         d["day"] = (local - pd.to_timedelta(off, unit="h")).dt.floor("D")
         d = d.dropna(subset=["day"])
-        st = d["STATE_FIPS"].astype(int).map("{:02d}".format)
-        cz = d["CZ_FIPS"].astype(int)
-        cty = d[d["CZ_TYPE"] == "C"].assign(fips=st + cz.map("{:03d}".format))
-        zon = d[d["CZ_TYPE"] == "Z"].assign(key=list(zip(st.map(abbr), cz)))
+        d = d.assign(st=d["STATE_FIPS"].astype(int).map("{:02d}".format), cz=d["CZ_FIPS"].astype(int))
+        cty = d[d["CZ_TYPE"] == "C"]
+        cty = cty.assign(fips=cty["st"] + cty["cz"].map("{:03d}".format))
+        zon = d[d["CZ_TYPE"] == "Z"]
+        zon = zon.assign(key=list(zip(zon["st"].map(abbr), zon["cz"])))
         zon = zon.assign(fips=zon["key"].map(zmap)).explode("fips").dropna(subset=["fips"])
         out.append(pd.concat([cty[["fips", "day", "cat"]], zon[["fips", "day", "cat"]]]))
         print("storm events", f.name[:45], len(d), "->", len(out[-1]), flush=True)
