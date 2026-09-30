@@ -1,6 +1,6 @@
 # Ideas ledger (ARIS style)
 
-## D09 incremental geography-conditioned write (2026-09-29; registered candidate)
+## D09 incremental geography-conditioned write (2026-09-29; finite paired training active)
 
 PI要求把诊断落实为新设计和实际重训。保留原CRK的全部geo40/任意阶组合、多时标状态、
 旋转和读出，只把单侧饱和锚点差写入改为直接天气方向与联合地理调制的天气增量。
@@ -13,7 +13,11 @@ PI要求把诊断落实为新设计和实际重训。保留原CRK的全部geo40/
 不宣称独立未知事件验证。点推进门与CI分开，原全D约10%目标不变；通过也不自动开全D。
 74项合成检查通过，独立评分已审查，源码和设计登记后先做临时开口的旧/新核三步FIT资源预检；
 此登记时尚未跑真实预检或训练。详见 `notes/D09_INCREMENTAL_WRITE_DESIGN_20260929_ZH.md`。
-I18/I20监控暂停；原冻结源码/数据/产物保持不变，C和稿件不触及。
+登记提交eb91994已推送两research分支。真实旧/新核883单位三步开口预检均通过，
+稳定更新约1.1/1.2秒，峰RSS1.038/0.884GiB，临时模型丢弃；21:24 ET fresh六任务队列
+实际启动，coordinator21795，初始W/CRK fold2为21815/21816，两任务并行/各两线程/nice15。
+结果待900步完整导出；不按中途分数改设计。I18/I20监控暂停；原冻结源码/数据/产物保持不变，
+C和稿件不触及。
 
 ## I20 controlled response kernel (2026-09-29; screen failed, parked)
 

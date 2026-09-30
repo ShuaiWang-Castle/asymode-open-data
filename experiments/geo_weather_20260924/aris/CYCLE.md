@@ -1,6 +1,24 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
-**Current D09 registration, 2026-09-29:** the PI explicitly requested that the completed diagnostics
+**Current D09 execution, 2026-09-29 21:24 ET:** source/design registered at
+`eb91994fd124bc7178e7edc0b175c84113406b68` and pushed to both research branches before computation.
+Both real fold3 FIT-only open-kernel preflights passed on883 units, three full updates each:
+old CRK steady steps1.114/1.123s, peak RSS1.038GiB; new write1.209/1.205s, peak RSS0.884GiB.
+Finite gradients, every kernel parameter connected and every trainable parameter covered by Adam;
+no heldout score/model export in preflight. Temporary models discarded. Compact receipt:
+`results/v1/d09_resource_preflight.json`. Fresh finite six-task queue is active:
+`runs/geo_weather_20260924/d09_write_screen_20260929`, coordinator PID21795, initial host_f2 PID21815
+and crk_f2 PID21816. Actual processes are live, nice15, two numerical threads each; WORKERS=2.
+Read JOBS.json, SCREEN_RUN.json, RUN_STATUS.json, per-task RUN_STATUS/DONE, and task logs; also
+check these owned PIDs/CPU/RSS and memory. Never duplicate a live queue or overwrite an existing
+folder, including an empty one. A task failure stops future launches while healthy owned tasks finish.
+No early selection from0/100/300 diagnostic checkpoints. Once all six tasks finish, independently
+verify source/data/identity/output hashes, then run registered d09_score.py once for900 endpoint.
+Keep point gates separate from confidence support, and report full-heldout S, all/non-S, per-class,
+peak coverage/alignment and false alarms even on failure. No automatic fullD/seed/NULL/new candidate.
+I18/I20 monitors remain paused; C, annual labels, restricted data and manuscript paths stay untouched.
+
+**Historical D09 registration, 2026-09-29:** the PI explicitly requested that the completed diagnostics
 lead to a new design and actual attempts. Scope: `notes/D09_INCREMENTAL_WRITE_DESIGN_20260929_ZH.md`.
 Implement one incremental, geography-conditioned write candidate within the existing CRK; preserve
 all geo40/all-order features, the host, state recurrence, readout, objective and optimizer budget.
