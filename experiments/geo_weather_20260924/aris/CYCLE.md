@@ -1,6 +1,26 @@
 # ARIS cycle — what every scheduled wake-up does (2026-09-27)
 
-**D09 terminal audit amendment, 2026-09-29 22:30 ET:** all six900-step jobs and the coordinator
+**Current D09 complete, 2026-09-29 22:40 ET:** all six fresh900-step paired W/CRK/new-write
+tasks finished. The finite queue/coordinator and all owned workers have exited. Independent terminal
+audit passed26,414 assertions and126 file hashes, including source/data/split/roster, paired initialization,
+full-heldout coverage/subset, finite exports, point scores, false peaks, group/family intervals and gate.
+Six saved checkpoints contain210 finite tensors; no model forward was needed for that audit.
+Primary full-heldout surface is3869 units/29 merged groups, S300/24 groups. New S vs W improves
+only0.184857%, merged-group95% improvement interval[-1.58263%,+0.656357%]; family also crosses zero.
+All RMSE worsens8.71864%, nonS112.0065%; severe false peaks W0/old127/new78. The fixed point gate
+is false. New vs old is better but does not achieve the original10% full-D S target.
+Fixed FIT-cache replay shows markedly different marginal allocation in two FIT pools: new S
+peak-ratio median46.464% in FIT-for-fold2 versus2.234% in FIT-for-fold3; overlapping FIT pools must
+remain separate; this is not a same-case response-stability test. Report:
+notes/D09_INCREMENTAL_WRITE_RESULTS_20260929_ZH.md; compact evidence:
+results/v1/d09_evidence.json plus endpoint/FIT gzip and successful v2 audit receipt. Initial failed
+audit receipt is preserved; its own float32 weight-sum bug was repaired without changing strict
+tolerance, model, score, exports or retraining. This candidate is parked. Complete control sensitivity
+and joint geography×causal-path geometry are next design hypotheses, not a registered/queued arm.
+No automatic fullD/seed/NULL/new candidate/budget extension; no pending queue. I18/I20 monitors
+remain paused. No C, annual labels, restricted data or manuscript access.
+
+**Historical D09 terminal audit amendment, 2026-09-29 22:30 ET:** all six900-step jobs and the coordinator
 have exited; endpoint scoring and fixed FIT-cache replay are complete. Preserve the first failed
 independent audit receipt:24,076 assertions passed, then its own float32 design-weight sum differed
 from the float64 score by3.82e-9. The minimal independent-audit-only float64 sum repair retains
@@ -8,7 +28,7 @@ the strict tolerance;26 synthetic assertions passed. Register before rerunning t
 The successful endpoint score, model sources, exports and FIT replay stay unchanged. The registered
 candidate point gate is false; do not expand training while completing the final report.
 
-**Current D09 execution, 2026-09-29 21:24 ET:** source/design registered at
+**Historical D09 execution, 2026-09-29 21:24 ET:** source/design registered at
 `eb91994fd124bc7178e7edc0b175c84113406b68` and pushed to both research branches before computation.
 Both real fold3 FIT-only open-kernel preflights passed on883 units, three full updates each:
 old CRK steady steps1.114/1.123s, peak RSS1.038GiB; new write1.209/1.205s, peak RSS0.884GiB.

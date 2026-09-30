@@ -1,0 +1,462 @@
+{
+  "schema": "d09_public_evidence_v1",
+  "stage": "complete; registered incremental-write candidate failed",
+  "model_and_scope_registration_commit": "eb91994fd124bc7178e7edc0b175c84113406b68",
+  "precision_adapter_registration_commit": "9ddc3286cc84a07e81eba8b442357d0275ca4e1e",
+  "FIT_replay_registration_commit": "1b35a2a079a1241bc74b097f1d08963fb97941cd",
+  "independent_audit_sum_repair_registration_commit": "7a7ad70c965e5d56f9d2851b4f1cd70832e1d130",
+  "data_sha256": "f043bb39e8abd48183670e2acc3c0cecebd7107ea9be0e28771912cfee358c48",
+  "scope_sha256": "1b5e7a8993bc76243babc17860a71bd4d1c078d63e731da6b01441076467ca7c",
+  "frozen_training_source_sha256": {
+    "experiments/geo_weather_20260924/d08_panel.py": "9d4b81bc0281fbfc3e195083c7b02d3bf61c7e0a431156efd916f547e124cfb7",
+    "experiments/geo_weather_20260924/d09_queue.py": "64be6208a4e1c8b5c7a5a004d8777f085d0f107f69db74f2ae70cf50e7cef421",
+    "experiments/geo_weather_20260924/d09_score.py": "8df41f5c51d76ba478f386aff4452587357a2304b054c88c1bcb09a02d5e7321",
+    "experiments/geo_weather_20260924/d09_train.py": "ceb16fef85cae0cd1137cca516d184a1d999a973735710a5586df2ce164484cc",
+    "experiments/geo_weather_20260924/d09_write.py": "7d7ac0f116d231fe951b5b3087914a9919219eec2d7d7d9baf824e0e0f1aaa09",
+    "experiments/geo_weather_20260924/notes/D09_INCREMENTAL_WRITE_DESIGN_20260929_ZH.md": "1b5e7a8993bc76243babc17860a71bd4d1c078d63e731da6b01441076467ca7c",
+    "experiments/geo_weather_20260924/test_d09_train.py": "7270292d0f42bca8c9db20ef56f3f3a488c63de5e4be64cd05a83e80822e75e3",
+    "experiments/geo_weather_20260924/test_d09_write.py": "b69e203d5fcca528a0429dcb06cc6d2d1f350f19ab1dbd24726d39c38ff31e8b",
+    "src/asymode/asym_host.py": "f5ec91c6e0fd04f29c9c88e01fa3cd2f2cb3ed2de0802a4400876c45861223e0",
+    "src/asymode/controlled_relaxation.py": "d5d78026d3a36939a2b0ab4b3e5938bcf21a4ed99134cd38fce184d4f3c1d008",
+    "src/asymode/controlled_relaxation_scan.py": "cd03740f32795222b80e52f501f8241c2b6226280bf5ee210b2f66c750469f6a",
+    "src/asymode/gcrk.py": "0e53353139deba00054a8999471b49a8f531d0f6f48c6e18568e8e6ceeeb45d0",
+    "src/asymode/gcrk_train.py": "296c0ac4bc3ab85bd45849209b11a1944201e9155d0fa82d65053788e0fff457",
+    "src/asymode/geo_mech.py": "80524b0e9702c1c8861e146c6b7981c851989c37bb21c88f9dabe4626f8af407"
+  },
+  "actual_training": {
+    "jobs": 6,
+    "steps_each": 900,
+    "seed": 0,
+    "inner_heldout_event_folds": [
+      2,
+      3
+    ],
+    "training_fit_units_each": [
+      871,
+      883
+    ],
+    "full_heldout_units": 3869,
+    "panel_heldout_units": 684,
+    "workers_maximum": 2,
+    "threads_each": 2,
+    "nice_minimum": 15,
+    "all_owned_training_and_coordinator_processes_exited": true,
+    "terminal_checkpoint_records": [
+      {
+        "arm": "host",
+        "heldout_fold": 2,
+        "model_path": "runs/geo_weather_20260924/d09_write_screen_20260929/host_f2/final.pt",
+        "checkpoint_sha256": "a2cffd6a0b4d67c29ff6d3ab4212f2382b0eb928486b2497c479e88eb601d8a4",
+        "DONE_sha256": "dd97749d5ef94bc3c6b487d4f9d3b1234f1e9d433e15c7299cf64cf8606e4730",
+        "finite": true,
+        "metadata_and_fit_ids_match": true,
+        "tensors": 19,
+        "tensor_elements": 3584,
+        "numpy_arrays": 10,
+        "array_elements": 1986,
+        "floating_scalars": 0
+      },
+      {
+        "arm": "crk",
+        "heldout_fold": 2,
+        "model_path": "runs/geo_weather_20260924/d09_write_screen_20260929/crk_f2/final.pt",
+        "checkpoint_sha256": "a039a2d862a2c5a65d5b0caa725ba386f4eac095ec73992e302c357a03781cc7",
+        "DONE_sha256": "d088aa2467cd188707f551a63a34b63212275fdef41ccbdf97bdc965dc8a8cfa",
+        "finite": true,
+        "metadata_and_fit_ids_match": true,
+        "tensors": 43,
+        "tensor_elements": 25309,
+        "numpy_arrays": 10,
+        "array_elements": 1986,
+        "floating_scalars": 2
+      },
+      {
+        "arm": "new",
+        "heldout_fold": 2,
+        "model_path": "runs/geo_weather_20260924/d09_write_screen_20260929/new_f2/final.pt",
+        "checkpoint_sha256": "a2052a882c8993e7c175a0249683bd4e5d77601847c23b489d2d3579cc4728c5",
+        "DONE_sha256": "3b18180de101a251eeeacfbaedb599822bbf8f710fc9c8fe51816c4776ae649a",
+        "finite": true,
+        "metadata_and_fit_ids_match": true,
+        "tensors": 43,
+        "tensor_elements": 25309,
+        "numpy_arrays": 10,
+        "array_elements": 1986,
+        "floating_scalars": 6
+      },
+      {
+        "arm": "host",
+        "heldout_fold": 3,
+        "model_path": "runs/geo_weather_20260924/d09_write_screen_20260929/host_f3/final.pt",
+        "checkpoint_sha256": "f60028a9baa2b45ca6b12c69389d6d00e5c945069f405b3af1a44b33b9f02bbf",
+        "DONE_sha256": "cc48cf01e04c2105117f9dbf9d6052df67fba413d9e43bb66665df60959b3ac4",
+        "finite": true,
+        "metadata_and_fit_ids_match": true,
+        "tensors": 19,
+        "tensor_elements": 3584,
+        "numpy_arrays": 10,
+        "array_elements": 2010,
+        "floating_scalars": 0
+      },
+      {
+        "arm": "crk",
+        "heldout_fold": 3,
+        "model_path": "runs/geo_weather_20260924/d09_write_screen_20260929/crk_f3/final.pt",
+        "checkpoint_sha256": "9ed70010822c1b84e1ec820dd38205ad000da8c9cad0095c15c5f2e665683990",
+        "DONE_sha256": "4f8b31acba2bba3b59230070aefadfb9ce126836ccc2995342b30dc84b54fbba",
+        "finite": true,
+        "metadata_and_fit_ids_match": true,
+        "tensors": 43,
+        "tensor_elements": 25309,
+        "numpy_arrays": 10,
+        "array_elements": 2010,
+        "floating_scalars": 2
+      },
+      {
+        "arm": "new",
+        "heldout_fold": 3,
+        "model_path": "runs/geo_weather_20260924/d09_write_screen_20260929/new_f3/final.pt",
+        "checkpoint_sha256": "68311b6cfdd34e42ecb63295f93d554d8bf8f28e330dd39da5354c66a53401f0",
+        "DONE_sha256": "5136720adf64724f4beb4b5fd519517a48dfad238e2a032a7ed0d7a1843e1ce1",
+        "finite": true,
+        "metadata_and_fit_ids_match": true,
+        "tensors": 43,
+        "tensor_elements": 25309,
+        "numpy_arrays": 10,
+        "array_elements": 2010,
+        "floating_scalars": 6
+      }
+    ]
+  },
+  "primary_pooled": {
+    "S": {
+      "units": 300,
+      "merged_groups": 24,
+      "observed_hours": 42992,
+      "complete144_units": 291,
+      "RMSE": {
+        "host": 0.07741765923150509,
+        "crk": 0.07827129321762648,
+        "new": 0.07727454703209513
+      },
+      "new_vs_host_relative_RMSE_reduction": 0.001848573062406933,
+      "new_vs_crk_relative_RMSE_reduction": 0.012734505136640428
+    },
+    "all": {
+      "units": 3869,
+      "merged_groups": 29,
+      "observed_hours": 554969,
+      "complete144_units": 3750,
+      "RMSE": {
+        "host": 0.013526166286850043,
+        "crk": 0.01653714504553352,
+        "new": 0.014705463942946933
+      },
+      "new_vs_host_relative_RMSE_reduction": -0.08718639347524415,
+      "new_vs_crk_relative_RMSE_reduction": 0.11076162768985953
+    },
+    "nonS": {
+      "units": 3569,
+      "merged_groups": 29,
+      "observed_hours": 511977,
+      "complete144_units": 3459,
+      "RMSE": {
+        "host": 0.0031621300373836808,
+        "crk": 0.009962806913594737,
+        "new": 0.006703921369632666
+      },
+      "new_vs_host_relative_RMSE_reduction": -1.120065048045726,
+      "new_vs_crk_relative_RMSE_reduction": 0.32710515944208074
+    },
+    "any_positive": {
+      "units": 3744,
+      "merged_groups": 29,
+      "observed_hours": 537089,
+      "complete144_units": 3635,
+      "RMSE": {
+        "host": 0.013748350297894356,
+        "crk": 0.016806337631272854,
+        "new": 0.014944442970081451
+      },
+      "new_vs_host_relative_RMSE_reduction": -0.08699899597192284,
+      "new_vs_crk_relative_RMSE_reduction": 0.11078527053549314
+    },
+    "J": {
+      "units": 1253,
+      "merged_groups": 28,
+      "observed_hours": 179573,
+      "complete144_units": 1210,
+      "RMSE": {
+        "host": 0.029853447232958318,
+        "crk": 0.033004931815481364,
+        "new": 0.03020213998739244
+      },
+      "new_vs_host_relative_RMSE_reduction": -0.011680150426620184,
+      "new_vs_crk_relative_RMSE_reduction": 0.08492039443554433
+    },
+    "S_complete144": {
+      "units": 291,
+      "merged_groups": 24,
+      "observed_hours": 41904,
+      "complete144_units": 291,
+      "RMSE": {
+        "host": 0.07752856651366193,
+        "crk": 0.07837362922398708,
+        "new": 0.07738117733666897
+      },
+      "new_vs_host_relative_RMSE_reduction": 0.0019010950881825917,
+      "new_vs_crk_relative_RMSE_reduction": 0.012663084472989472
+    }
+  },
+  "S_new_vs_host_bootstrap": {
+    "merged_group": {
+      "supporting_clusters": 24,
+      "draws": 1999,
+      "valid_draws": 1999,
+      "invalid_draws": 0,
+      "interval_supported": true,
+      "effective_risk_contribution_clusters": 24,
+      "resample_counts_vary": true,
+      "interval_status": "supported",
+      "empirical_relative_RMSE_reduction_percentiles95": [
+        -0.015826327183855814,
+        0.006563566041417256
+      ],
+      "relative_RMSE_reduction_ci95": [
+        -0.015826327183855814,
+        0.006563566041417256
+      ],
+      "ci_excludes_zero_in_beneficial_direction": false,
+      "ci_lower_bound_at_least_final_10pct": false
+    },
+    "family_sensitivity": {
+      "supporting_clusters": 30,
+      "draws": 1999,
+      "valid_draws": 1999,
+      "invalid_draws": 0,
+      "interval_supported": true,
+      "effective_risk_contribution_clusters": 30,
+      "resample_counts_vary": true,
+      "interval_status": "supported",
+      "empirical_relative_RMSE_reduction_percentiles95": [
+        -0.007758687805959475,
+        0.008128972405601781
+      ],
+      "relative_RMSE_reduction_ci95": [
+        -0.007758687805959475,
+        0.008128972405601781
+      ],
+      "ci_excludes_zero_in_beneficial_direction": false,
+      "ci_lower_bound_at_least_final_10pct": false
+    }
+  },
+  "S_peak_ratio_design_median": {
+    "host": 0.01575334078929264,
+    "crk": 0.01663848517470571,
+    "new": 0.014422191522866269
+  },
+  "S_new_vs_host_paired_gain": {
+    "units": 300,
+    "alignment": 230.56465853255827,
+    "modification_energy": 208.6510938273626,
+    "net_gain": 21.913564705195675,
+    "positive_gain": 95.66511742994797,
+    "negative_loss": 73.75155272475227,
+    "positive_units": 146,
+    "negative_units": 154,
+    "zero_units": 0,
+    "positive_design_share": 0.267036165945592,
+    "top_10pct_all_cohort_units": 30,
+    "top_10pct_share_of_positive_gain": 0.7604905513070984
+  },
+  "nonS_severe_false_peak_count": {
+    "host": 0,
+    "crk": 127,
+    "new": 78
+  },
+  "FIT900_in_sample_allocation": {
+    "2": {
+      "fit_units": 871,
+      "S_units": 76,
+      "S_RMSE": {
+        "host": 0.0745074157923067,
+        "crk": 0.034618135832027726,
+        "new": 0.03519644978289078
+      },
+      "S_peak_ratio_design_median": {
+        "host": 0.008389913366507245,
+        "crk": 0.0066018955725593185,
+        "new": 0.4646431305303354
+      },
+      "S_positive_gain_design_share_vs_host": {
+        "crk": 0.37508568501989753,
+        "new": 0.8605333197890129
+      }
+    },
+    "3": {
+      "fit_units": 883,
+      "S_units": 71,
+      "S_RMSE": {
+        "host": 0.05305429157111137,
+        "crk": 0.025181013134104337,
+        "new": 0.03182994801831581
+      },
+      "S_peak_ratio_design_median": {
+        "host": 0.020998597707141502,
+        "crk": 0.4307358362210944,
+        "new": 0.022344431455544753
+      },
+      "S_positive_gain_design_share_vs_host": {
+        "crk": 0.8740574677095327,
+        "new": 0.4370312069038314
+      }
+    }
+  },
+  "verdict": {
+    "schema": "d09_exploratory_gate_v1",
+    "point_gate_pass": false,
+    "checks": {
+      "pooled_S_new_vs_host_at_least_5pct": false,
+      "pooled_S_new_vs_crk_positive": true,
+      "fold2_S_new_vs_host_positive": false,
+      "fold3_S_new_vs_host_positive": true,
+      "pooled_all_new_vs_host_not_worse": false,
+      "nonS_severe_alarm_count_not_higher": false,
+      "nonS_severe_alarm_design_rate_not_higher": false,
+      "class_synoptic_wind_all_RMSE_not_worse_than_2pct": false,
+      "class_convective_all_RMSE_not_worse_than_2pct": true,
+      "class_heavy_rain_all_RMSE_not_worse_than_2pct": false
+    },
+    "nonheadline_class_guards": {
+      "synoptic_wind": {
+        "supporting_merged_groups": 7,
+        "applicable": true,
+        "relative_RMSE_reduction": -0.060583870088952496,
+        "maximum_allowed_RMSE_increase": 0.02,
+        "passed": false
+      },
+      "convective": {
+        "supporting_merged_groups": 7,
+        "applicable": true,
+        "relative_RMSE_reduction": -0.0066105393164468396,
+        "maximum_allowed_RMSE_increase": 0.02,
+        "passed": true
+      },
+      "heavy_rain": {
+        "supporting_merged_groups": 7,
+        "applicable": true,
+        "relative_RMSE_reduction": -0.11382535015170792,
+        "maximum_allowed_RMSE_increase": 0.02,
+        "passed": false
+      }
+    },
+    "S_new_vs_host_relative_RMSE_reduction": 0.001848573062406933,
+    "S_new_vs_crk_relative_RMSE_reduction": 0.012734505136640428,
+    "S_new_vs_host_bootstrap": {
+      "merged_group": {
+        "supporting_clusters": 24,
+        "draws": 1999,
+        "valid_draws": 1999,
+        "invalid_draws": 0,
+        "interval_supported": true,
+        "effective_risk_contribution_clusters": 24,
+        "resample_counts_vary": true,
+        "interval_status": "supported",
+        "empirical_relative_RMSE_reduction_percentiles95": [
+          -0.015826327183855814,
+          0.006563566041417256
+        ],
+        "relative_RMSE_reduction_ci95": [
+          -0.015826327183855814,
+          0.006563566041417256
+        ],
+        "ci_excludes_zero_in_beneficial_direction": false,
+        "ci_lower_bound_at_least_final_10pct": false
+      },
+      "family_sensitivity": {
+        "supporting_clusters": 30,
+        "draws": 1999,
+        "valid_draws": 1999,
+        "invalid_draws": 0,
+        "interval_supported": true,
+        "effective_risk_contribution_clusters": 30,
+        "resample_counts_vary": true,
+        "interval_status": "supported",
+        "empirical_relative_RMSE_reduction_percentiles95": [
+          -0.007758687805959475,
+          0.008128972405601781
+        ],
+        "relative_RMSE_reduction_ci95": [
+          -0.007758687805959475,
+          0.008128972405601781
+        ],
+        "ci_excludes_zero_in_beneficial_direction": false,
+        "ci_lower_bound_at_least_final_10pct": false
+      }
+    },
+    "decision": "do_not_advance_this_candidate_by_registered_gate",
+    "automatically_start_full_D": false,
+    "original_final_S_target_relative_RMSE_reduction": 0.1,
+    "interpretation": "Point gate and 95% interval support are separate. One seed and repeatedly explored D do not establish independent confirmation, causal attribution, or net geographic information."
+  },
+  "validation": {
+    "candidate_synthetic_checks": 74,
+    "precision_synthetic_checks": 7,
+    "independent_audit_synthetic_assertions": 26,
+    "FIT_replay_manual_synthetic_checks": 4,
+    "first_terminal_independent_IO_assertions": 61,
+    "terminal_independent_assertions": 26414,
+    "terminal_file_hashes": 126,
+    "checkpoint_finite_tensors": 210,
+    "maximum_terminal_absolute_error": 1.6370904631912708e-11,
+    "maximum_terminal_relative_error": 2.885238658710427e-13,
+    "initial_audit_failed_receipt_preserved": true,
+    "model_or_predictions_changed_for_precision_repair": false
+  },
+  "packages": {
+    "d09_endpoint_scores.json.gz": {
+      "sha256": "e47a955b0a4e0441719f10b6aabd16d9b03fc732d7e2ed9980b60928b63fe05d",
+      "uncompressed_sha256": "149b19a811643496dace8906c54b2fe9834e911b72ed7c6fa31d531eabdf2264",
+      "compressed_bytes": 1291765,
+      "uncompressed_bytes": 11669629
+    },
+    "d09_FIT_checkpoint_replay.json.gz": {
+      "sha256": "8d48f495609be381fd2692c27c4b851371dd828a1ad0794aa5afd35d62a4d628",
+      "uncompressed_sha256": "d678d6bb1b5d6ca9e2086fdca862b538eb234555f109227d020b9ab952eb3d5d",
+      "compressed_bytes": 48918,
+      "uncompressed_bytes": 312736
+    }
+  },
+  "receipts": {
+    "d09_resource_preflight.json": {
+      "sha256": "8e2e114167807f7ed3d2af69dc335d53f1ebbf3fb34b5ce159e2855450949bde",
+      "bytes": 7437
+    },
+    "d09_checkpoint_finiteness.json": {
+      "sha256": "05ad9f444a6134b33e8a3dae2cffe3a7a4e394dc8a183ce3e022ab20ea59fc4f",
+      "bytes": 3711
+    },
+    "d09_independent_terminal_audit.json": {
+      "sha256": "43ca9eca50a268ad16b116532aff9bf93a1826f351ea14998fb51c3765c63052",
+      "bytes": 627
+    },
+    "d09_independent_terminal_audit_v2.json": {
+      "sha256": "53a8a60aa0e80c4560c60385ce43011a7ac9ecea347509964b1f22fa5415b77e",
+      "bytes": 88685
+    }
+  },
+  "limitations": [
+    "Single seed and repeatedly explored public D; no independent confirmation or net geographic information/causality.",
+    "Input-only D08 selection used inner-heldout covariates; exploratory input-transductive protocol.",
+    "Two overlapping FIT pools are reported separately; marginal distribution reversal is not per-unit paired reversal.",
+    "Component deposit sensitivity/capacity bounds do not prove full weather-to-outage sensitivity control or correct allocation.",
+    "No original outer1 numerical input, sealed C, annual labels, restricted data or manuscript access."
+  ],
+  "execution_state": {
+    "pending_jobs": 0,
+    "automatically_start_full_D": false,
+    "extra_seed_NULL_arm_or_budget_extension": false,
+    "I18_I20_monitors_remain_paused": true
+  },
+  "report": "notes/D09_INCREMENTAL_WRITE_RESULTS_20260929_ZH.md"
+}
