@@ -1,0 +1,22 @@
+\begin{table*}[t]
+\centering\small
+\caption{Development event-held-out accuracy on 15 tropical systems. Design-weighted pooled MAE and RMSE of the public outage fraction; lower is better. Weather inputs are conditional hindcast information.}
+\label{tab:tropical_forecasts}
+\begin{tabular}{lcccccccc}
+\toprule
+\multirow{2}{*}{Model} & \multicolumn{4}{c}{MAE} & \multicolumn{4}{c}{RMSE} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+& $+1$ h & $+6$ h & $+24$ h & $+48$ h & $+1$ h & $+6$ h & $+24$ h & $+48$ h \\
+\midrule
+Zero forecast & 0.00088 & 0.00093 & 0.00993 & 0.01524 & 0.01588 & 0.01641 & 0.05660 & 0.07640 \\
+Persistence & 0.00016 & 0.00029 & 0.00949 & 0.01498 & 0.00114 & 0.00187 & 0.05460 & 0.07539 \\
+Damped persistence & 0.00016 & 0.00029 & 0.00948 & 0.01497 & 0.00114 & 0.00187 & 0.05460 & 0.07540 \\
+Matched AsymODE host & 0.00053 & 0.00146 & 0.00921 & 0.01559 & 0.00512 & 0.01447 & 0.04026 & 0.05885 \\
+Joint GCRK-rate model & 0.00051 & 0.00161 & 0.00969 & 0.01704 & 0.00415 & 0.01355 & 0.04216 & 0.06407 \\
+ERA5 residual tree & 0.00145 & 0.00156 & 0.01025 & 0.02443 & 0.00686 & 0.00691 & 0.04490 & 0.07486 \\
+Dual-weather residual tree & 0.00099 & 0.00105 & 0.00936 & 0.01924 & 0.00436 & 0.00455 & 0.04182 & 0.06625 \\
+Dual-weather MAE tree & 0.00165 & 0.00169 & 0.00802 & 0.01514 & 0.01779 & 0.01816 & 0.04190 & 0.06249 \\
+Inner-selected ensemble & 0.00099 & 0.00136 & 0.00860 & 0.01761 & 0.00573 & 0.01019 & 0.03744 & 0.06135 \\
+\bottomrule
+\end{tabular}
+\end{table*}

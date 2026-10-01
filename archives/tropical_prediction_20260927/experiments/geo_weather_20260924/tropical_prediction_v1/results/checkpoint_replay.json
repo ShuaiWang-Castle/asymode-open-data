@@ -1,0 +1,14 @@
+[
+  {
+    "tag": "f1_outer_host_s0",
+    "rows": 537,
+    "max_absolute_difference": 0.0,
+    "passed": true
+  },
+  {
+    "tag": "f1_outer_fusion_s0",
+    "rows": 537,
+    "max_absolute_difference": 0.0,
+    "passed": true
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "county_events": 1633,
+  "systems": 15,
+  "families": 15,
+  "observed_cells": 234874,
+  "neural_fits": 70,
+  "tree_fits": 75,
+  "source_code_hash": "15958194c949f08cc8ab035af79d92facd6409af4db776454d097c2197b13905",
+  "data_sha256": "2e102e98f7c4283116019aa65530d3740fdc3dce10ee2f514e962569f2832fb2",
+  "all_prediction_ranges_verified": true,
+  "every_outer_row_once": true,
+  "sealed_confirmation_read": false,
+  "bootstrap_draws": 2000,
+  "bootstrap_seed": 20260927
+}

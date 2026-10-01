@@ -1,0 +1,2123 @@
+{
+  "base_commit": "493aa54fb9233f27c4b6a10b5bacf3c1592f33ba",
+  "head_commit": "77c6f94a009f32c68028c55be038b1670567b5fd",
+  "branch": "research/tropical-evidence-20260926",
+  "evaluation": {
+    "county_events": 1633,
+    "systems": 15,
+    "families": 15,
+    "observed_cells": 234874,
+    "neural_fits": 70,
+    "tree_fits": 75,
+    "source_code_hash": "15958194c949f08cc8ab035af79d92facd6409af4db776454d097c2197b13905",
+    "data_sha256": "2e102e98f7c4283116019aa65530d3740fdc3dce10ee2f514e962569f2832fb2",
+    "all_prediction_ranges_verified": true,
+    "every_outer_row_once": true,
+    "sealed_confirmation_read": false,
+    "bootstrap_draws": 2000,
+    "bootstrap_seed": 20260927
+  },
+  "files": {
+    "FIREWALL.md": {
+      "bytes": 7977,
+      "sha256": "f5ecd179d12fe4f13d8c53c67205944f16e0a2c06fd20052e0bf4cb70b3b73d3"
+    },
+    "data/interim/tropical_prediction_v1/development.npz": {
+      "bytes": 10394250,
+      "sha256": "2e102e98f7c4283116019aa65530d3740fdc3dce10ee2f514e962569f2832fb2"
+    },
+    "experiments/geo_weather_20260924/data_v1/outcomes/development_systems.csv": {
+      "bytes": 14428,
+      "sha256": "ac8c720d10a271b91bef6c84649d783f4cfed34776f96efd7a9996d1fb9daa0a"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/BRANCH_REVIEW_zh.md": {
+      "bytes": 3542,
+      "sha256": "bd866022b76090d00622bc7c8d526101c39d8c8be9fcf0372f036fe64798ac70"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/PAPER_METHODS.tex": {
+      "bytes": 5399,
+      "sha256": "f153499814fc6815c775467c20feda576a2a896cb6156d30623858338beaab62"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/README.md": {
+      "bytes": 5791,
+      "sha256": "cccfccc1a36ced61f3a1f109827d7add9c8eba0d8d56629d9fb3692c0d772aa8"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/REPRODUCE.md": {
+      "bytes": 4156,
+      "sha256": "cfd1361b5a8cf7b63a90a7ed6155cb7890c41db0cbee37c5a627df1bdaa1b663"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/RUN_PROTOCOL.md": {
+      "bytes": 4096,
+      "sha256": "894c34be19582e3a50bc2bdf25b818dd53b54ad67acd9b33a3d5c2d038f742f3"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/build_paper_report.py": {
+      "bytes": 5590,
+      "sha256": "80152738e1a5c3b9d5adb10773fd29d8e147c8b727aefad17d2116158f96be4c"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/legacy_exposure_audit.json": {
+      "bytes": 1082,
+      "sha256": "d91f1034998be9be9cf0981435e403ec6769214ad7829ff710a05c99443cc053"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/package_handoff.py": {
+      "bytes": 2567,
+      "sha256": "404d0edb6bec1780097d708d5fce14cb146f929e3261c15f87f63d3a184650eb"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/plot_campaign.py": {
+      "bytes": 3925,
+      "sha256": "6ea2f6ee778b807877d08568fe5cd16aec97146121aa48bb5560a53331c770c5"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/preparation_audit.json": {
+      "bytes": 9273,
+      "sha256": "48695bbe87a6e9f39eac918c17e9d0dd34dac862fecb8a9c386687955f20b8b2"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/prepare.py": {
+      "bytes": 6417,
+      "sha256": "fcbfb9d40462da49b9d0ee1734900e22ec2c729c36bcb9e4ab631a839d5f84bb"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/replay_checkpoint.py": {
+      "bytes": 1685,
+      "sha256": "9d38e0951c06dd1b4a0600184644a29215f54eba45e09b18b3c1cd524231b5c2"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/PAPER_RESULTS.tex": {
+      "bytes": 2166,
+      "sha256": "599ddd54cf30178175930b8e3caf8c6e9928e41fe5d5a487c64c6a59a20677c5"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/REPORT_zh.md": {
+      "bytes": 6477,
+      "sha256": "ee6f22cfe1556d1148fa86efaf549a2cb8bfcd795ec1b473fe4db42a53468e3e"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/checkpoint_replay.json": {
+      "bytes": 229,
+      "sha256": "45fed0dce1edf2657c78755537540aca2eb1eb49f231dd090cb76538fb8a18f4"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/development_report.pdf": {
+      "bytes": 191565,
+      "sha256": "fafa4b8722d80784d2bbe24eaba3833829734d0e9652947479d6790fdd601e06"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/development_report.tex": {
+      "bytes": 1346,
+      "sha256": "3194b0943fc681d5685f124b1faee8297ac4b2fea144f1dbffa27610959b08a8"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/ensemble_weights.csv": {
+      "bytes": 1235,
+      "sha256": "5a2f90ca196a5b6c62e1306bafb523ae2e3d5f334dc703eaf5d289c88f508ddb"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/evaluation_audit.json": {
+      "bytes": 473,
+      "sha256": "7fed183f5f791e0b9aca744d6c49048822880fe7f0f2b4d867aae40c4a91949b"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/figures/forecast_metrics.pdf": {
+      "bytes": 18981,
+      "sha256": "fc2e73e87fb6fa035f30f59715c1a11b308e6816126cf651ff75bc44e775b97d"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/figures/forecast_metrics.png": {
+      "bytes": 197470,
+      "sha256": "1ecde632c4ca812755b2ba13ebe0b9183616ad390f008f4524f6178ae5f56fed"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/figures/storm_transfer.pdf": {
+      "bytes": 22905,
+      "sha256": "bf986fd8ed9382af22786cc443e036689a3749ccb9eb0927c409b51ef864a329"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/figures/storm_transfer.png": {
+      "bytes": 188784,
+      "sha256": "14fc2799a20173d2547a105b944f9fa1a6067b44fbf417220193c64ebf1a7965"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/horizon_metrics.csv": {
+      "bytes": 2927,
+      "sha256": "4b70c6c810daf79fdbbe2e43232e8f9e4d7b97c94eb0b5ec4969e771bdcdc839"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/overall_metrics.csv": {
+      "bytes": 2394,
+      "sha256": "9e4535c1b47fdfb9ca8e65bd9c070ab670091e492052e00bff3c1547e742a587"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/paired_family_bootstrap.csv": {
+      "bytes": 2030,
+      "sha256": "2089e0ec064690fdd0500913ba8c014d59aebfbc328c7d0544ca87446e282895"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/per_system_metrics.csv": {
+      "bytes": 11618,
+      "sha256": "4eea59aefc3f8b570a2fe795c8b7105fa13a2a79e37e938b87f36f0607816878"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/report_horizon_table.tex": {
+      "bytes": 1479,
+      "sha256": "0bf786f6488d709cf03b2c24b48548e93e2873bef098070a9695aa04a8ea32ae"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/reproduction_environment.json": {
+      "bytes": 2258,
+      "sha256": "19a91fd597ba366a83c0c99c5af2311e3508a20c3f669f450d653460d86e79a0"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/results_table.tex": {
+      "bytes": 1479,
+      "sha256": "edb421481a4383f1fe4559bfa35419fdb25c3a6fd3bb1ad43787f4a22ada4abe"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/seed_metrics.csv": {
+      "bytes": 489,
+      "sha256": "e365ae954c0de547b7c5634c693fe8733110ec3a91b3e34d9c577653b5f37227"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/stratum_metrics.csv": {
+      "bytes": 2219,
+      "sha256": "e43af4b527dd8ebebf488e00bbec8737a458f6dccb020cf64b936f3fa808fbd0"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/results/training_manifest.csv": {
+      "bytes": 7604,
+      "sha256": "19cbb9eb827ed8462a6904a35ec813b94e728b12a2443b1ddd91e9aff07bc68e"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/run_all.py": {
+      "bytes": 1490,
+      "sha256": "87840fee94eec414416a835a5545b483b990f58609d4ca37a2f517dd35d436d3"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/run_campaign.py": {
+      "bytes": 14493,
+      "sha256": "15958194c949f08cc8ab035af79d92facd6409af4db776454d097c2197b13905"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/splits.json": {
+      "bytes": 495411,
+      "sha256": "46a9573738266b1568905e3a0d108917911b4e3716dc99f32217c51fb8a709ec"
+    },
+    "experiments/geo_weather_20260924/tropical_prediction_v1/summarize_campaign.py": {
+      "bytes": 13029,
+      "sha256": "27209c32aff631ad94f7589881488489dcad89ac5b1264bcc9778ac1e6c1efbf"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_fusion_s0.json": {
+      "bytes": 13811,
+      "sha256": "3a5c9cd4b25fb40e82003150a997ae91762ff1c10c20469c9cb74fcd47286703"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_fusion_s0.npz": {
+      "bytes": 74876,
+      "sha256": "26093bbf1efcb0e732c69907ffeaf7970b9c2e8a38fc3154d945db48f2dddcc4"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_fusion_s0.pt": {
+      "bytes": 54419,
+      "sha256": "7a4770dd4e571c360ea77f9aff05fae3bb02831582088dbc4b70b72e4fb8c8b5"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_host_s0.json": {
+      "bytes": 13807,
+      "sha256": "b17a50dbeaf27d4a8a730c22caa7d6f2a74db8630f6a9637e3e3de7c27fbaa70"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_host_s0.npz": {
+      "bytes": 75190,
+      "sha256": "b10314a97bb8d28bba87ca9aba9dcbfdcc51bb8de6e607c5a301d51966431b96"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_host_s0.pt": {
+      "bytes": 41380,
+      "sha256": "33f40cd04bdd25bab5f8f0c491c3aace39a5c542b6dd02841742cb0fdeb6c6c6"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_tree_dual_l1.json": {
+      "bytes": 12777,
+      "sha256": "4bebe0d83a42ded7f4a8d913b5fc3ecd5bdecd83e693c7eb3202f65c5f71170e"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_tree_dual_l1.npz": {
+      "bytes": 46805,
+      "sha256": "bb4165955b6ced4831e10737ba06728bf35e091e84c47a580bd53daeca8cad26"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_tree_dual_l1.txt": {
+      "bytes": 571742,
+      "sha256": "ed0e6fcad356a68ae735e43501abf9ca5e0f768cb806b5c389e13f74a937fad4"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_tree_dual_l2.json": {
+      "bytes": 12777,
+      "sha256": "6d821fc0ef49ffd14c6cdb0df6b088cc7567b08e60b514972764bf49cdf3ae8d"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_tree_dual_l2.npz": {
+      "bytes": 44372,
+      "sha256": "222aea9b5992f3bc58458bf6a33fb25edce8a84596fda7accd79cc30182c7e5f"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_tree_dual_l2.txt": {
+      "bytes": 572202,
+      "sha256": "caf35b4d444c9f5f9b580274067be50045e4f02527650307dbd76d2f7e81bdf0"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_tree_era5_l2.json": {
+      "bytes": 12777,
+      "sha256": "309403f836a8f86ae690303b92cc5498dad59acef7918c1856a4aa12bba0dfda"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_tree_era5_l2.npz": {
+      "bytes": 43122,
+      "sha256": "0a0eb2c6d3e5028eeb594b8723ac228c2ee70084f9418c6145ff18fcd31b96c6"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner2_tree_era5_l2.txt": {
+      "bytes": 561765,
+      "sha256": "1a812eabd915a4b38de41b5e95936c9de84f06f18b82b6f68385db9c613d3577"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_fusion_s0.json": {
+      "bytes": 13814,
+      "sha256": "4a380b5340187ed31ec5c77cde44b45c3192dfa9eaddfa628f168a15275b1496"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_fusion_s0.npz": {
+      "bytes": 195695,
+      "sha256": "98db0f20950660b790bbc35fd9fbaf22b85ccc757b186e24a9d685454facde8d"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_fusion_s0.pt": {
+      "bytes": 54419,
+      "sha256": "40aae4a52e3812de8599894f6c27e0ec6ab5fc161fa831380f67d1fd7323d5a9"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_host_s0.json": {
+      "bytes": 13813,
+      "sha256": "c8a8da9f5fc60993fe2c0b7bbe1e38a679d2405142e216e0b2e2266033933110"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_host_s0.npz": {
+      "bytes": 196883,
+      "sha256": "5578e9bd628af376910bf885929b57005fb4c9e7b99c2b2c7fead8ca75e9a2a3"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_host_s0.pt": {
+      "bytes": 41380,
+      "sha256": "0eaa1f07cefbe3ccd68e35f666d267998fb2f55b59efd4f8a0265e7fea478a36"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_tree_dual_l1.json": {
+      "bytes": 12778,
+      "sha256": "8a870633f9d79b5ebcf002bc58415f6c266f914b6975574386fc017a8a555a8b"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_tree_dual_l1.npz": {
+      "bytes": 98334,
+      "sha256": "b1ce9d0c68493d166a78aafb42805eb2b85f13f3eae725b287a11688ab2754f8"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_tree_dual_l1.txt": {
+      "bytes": 570428,
+      "sha256": "f078aa21069976b8ab2c3004c57369cd34190f8f612863bee1cae83dd1641164"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_tree_dual_l2.json": {
+      "bytes": 12778,
+      "sha256": "6e942434fa0b9f6b2d2860d29207f554c735c45dd0dd0bd8c43fb968af92d2d0"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_tree_dual_l2.npz": {
+      "bytes": 85168,
+      "sha256": "068af7c9eac791b839b7c56bda1d081ae40983643555eecc9c14d7e3572bc494"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_tree_dual_l2.txt": {
+      "bytes": 572679,
+      "sha256": "a5afdcb147620accc38d3a16d50c2b51f8426d7c95fd3e7d29fc72c5d799230b"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_tree_era5_l2.json": {
+      "bytes": 12778,
+      "sha256": "5593176603ef20869818be3baad1a9fcbaa1fef18a38feb6634e0052780f3b47"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_tree_era5_l2.npz": {
+      "bytes": 87355,
+      "sha256": "386fa74e04dbaa96f8edc3862f88e3952c46760d92ec41c39229844f3cadcb27"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner3_tree_era5_l2.txt": {
+      "bytes": 562304,
+      "sha256": "59f97dbfbb7261ba4c2b4721c9f0fccd5bd36a2eb257006a03be232dc78966cf"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_fusion_s0.json": {
+      "bytes": 13815,
+      "sha256": "dba95df75f379553350fb793b6cd28a263f5fbbf4dfa213690ef5fae9a8d112e"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_fusion_s0.npz": {
+      "bytes": 155954,
+      "sha256": "53ddd29e2863acc33755781b14f6100ce6bfb7738cc9af2bb4ba18f1e7d8972c"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_fusion_s0.pt": {
+      "bytes": 54419,
+      "sha256": "5576913366ea25a9bcabb470285bac6c37cd389f9defbd7a31903229afe6bb71"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_host_s0.json": {
+      "bytes": 13811,
+      "sha256": "4a71d04f4ac5380e4274fb473ee4c266e9467e30694e5f2a8f923ed14e768864"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_host_s0.npz": {
+      "bytes": 156747,
+      "sha256": "462b8f42d309afaa6571ba930c1ce1f8c4aaa6d4a916bcfac49222fadf18c13c"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_host_s0.pt": {
+      "bytes": 41380,
+      "sha256": "efc22ca96543f90ae4b7289487b845ab8499f0bfc33e99b07474603a6f158232"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_tree_dual_l1.json": {
+      "bytes": 12775,
+      "sha256": "433982ebd26076036035df04e925adcfacea886a6812686d66fe47193c92e6f4"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_tree_dual_l1.npz": {
+      "bytes": 100722,
+      "sha256": "584a399456e9b3957c4ba1cb809a56b4abfc84b7faa1ce120d28834081fd2e72"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_tree_dual_l1.txt": {
+      "bytes": 572580,
+      "sha256": "5a1960f5380b8923447bf93120f5c43489fb746bf0649e4085d0c971434c8a3f"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_tree_dual_l2.json": {
+      "bytes": 12775,
+      "sha256": "c1a063eeb7f790865ffe0afd8ff7ab312b1eb282467c31591f137edc7780e60b"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_tree_dual_l2.npz": {
+      "bytes": 34342,
+      "sha256": "801381ca9371672f6422c101f3a58e708752349b0fc7c2c188d03629ae29d4db"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_tree_dual_l2.txt": {
+      "bytes": 573579,
+      "sha256": "870e16b5958249e8587b27891acee746b5a84337da7285be722effd98525dc49"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_tree_era5_l2.json": {
+      "bytes": 12776,
+      "sha256": "c13259fa155c10a064929ba34003798ee66585d8161c06832b864899818e82ef"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_tree_era5_l2.npz": {
+      "bytes": 35193,
+      "sha256": "b1cea2f0eb8c7a84c201cba9a2492b0b5fcc48afef013942ae7dc5aad817b499"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner4_tree_era5_l2.txt": {
+      "bytes": 562426,
+      "sha256": "9ecc526b05bc0160f0161c1058fd7e3ce2bb10ac7ed93427f34db4771c58858c"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_fusion_s0.json": {
+      "bytes": 13811,
+      "sha256": "ce1bdbd22c5f96282ec7f5f9cefa601fd665198b60b86f008a4e80da4785818b"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_fusion_s0.npz": {
+      "bytes": 147193,
+      "sha256": "cece77bc39d2f247fae1dd16e55aa413ab7329ef9b5aa9490a7a337067d39da3"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_fusion_s0.pt": {
+      "bytes": 54355,
+      "sha256": "9d63354a1ba5765c8440d7e445ca12a73259c8f3563a2a126d625bbe9f047872"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_host_s0.json": {
+      "bytes": 13812,
+      "sha256": "0028eb8d1dea32cecc1b60beafe98f050f75b9c3b852b9a827d4f6d260379026"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_host_s0.npz": {
+      "bytes": 147765,
+      "sha256": "480e6782a6db2a144910abe6408f906ea3e721ff9c8218c6375bba74d636490d"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_host_s0.pt": {
+      "bytes": 41380,
+      "sha256": "a2295459e0747e3ff4075c4b2680cca6db203a5b3e0ef74abc62a56d15a09b92"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_tree_dual_l1.json": {
+      "bytes": 12777,
+      "sha256": "6ce2c1c943ea9888a71f154816e2f31daa0b7fac531dd74db0ccb86e0c2279f8"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_tree_dual_l1.npz": {
+      "bytes": 67046,
+      "sha256": "5939e6fa2dc60c5adc0359c7ab43c09a5f0e7c6f0760083482d0e36b3d10446e"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_tree_dual_l1.txt": {
+      "bytes": 567938,
+      "sha256": "d82d6e6cc2eeefe6c6d15cc717379627d9e7668e8fbf758eccc2fef093f93828"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_tree_dual_l2.json": {
+      "bytes": 12778,
+      "sha256": "2b17636301c4f9f3e713093717e38669dc19b21b72c01ce31cb9b756a733de75"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_tree_dual_l2.npz": {
+      "bytes": 67635,
+      "sha256": "225fa5a693ac98cc5f3e912a47fbe452a1b91e45b1ae61072bcb554be8ad3577"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_tree_dual_l2.txt": {
+      "bytes": 570957,
+      "sha256": "d0452a942094e7e2af3eb822f15d43010fdffb4fb2d68c074e3a80b660fd8527"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_tree_era5_l2.json": {
+      "bytes": 12776,
+      "sha256": "0e8472da69a97df965e016eff1644c83ba155db7256b1577271b0e12ef9ce190"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_tree_era5_l2.npz": {
+      "bytes": 76587,
+      "sha256": "e15d2e9299685e9799141c9f34a36709654acf59a67f272568d06d7943dc21df"
+    },
+    "runs/tropical_prediction_v1/cache/f1_inner5_tree_era5_l2.txt": {
+      "bytes": 561993,
+      "sha256": "38d7c7aa875e9944317c98355e3a9a56cfe5901f0b6eff57f4fffb3717fb7e89"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_fusion_s0.json": {
+      "bytes": 19751,
+      "sha256": "cea80932c45ba7c6a8785d3bbf95f85623728e3431b2367f7775697b864c995b"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_fusion_s0.npz": {
+      "bytes": 278191,
+      "sha256": "f3821eb0c7e1f3a52f03209d369a8bdc6d4077eb56711097832a6a92d9c9527c"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_fusion_s0.pt": {
+      "bytes": 55781,
+      "sha256": "c4f77a45276c81bbba4deeee79aafa8c488cd2ef2ae20437edf7df9abc9cd4f1"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_fusion_s1.json": {
+      "bytes": 19753,
+      "sha256": "5c99ec43182046b9fb1755afdbc16a2a2830b67e8a79b4c57b1edb950f10bc9d"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_fusion_s1.npz": {
+      "bytes": 278329,
+      "sha256": "8e589bfaa7a6939c4724cdf3b296a6172674fc290dfa7216eb634cf65347f2c7"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_fusion_s1.pt": {
+      "bytes": 55781,
+      "sha256": "2c09ed6689c96d48a02ff6ff0d98fb215c92d47ca05f57c9669e6c7f7e28ba84"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_fusion_s2.json": {
+      "bytes": 19744,
+      "sha256": "fb8c649211efad8e7d43133b78eb14e7a604cdd0b550647d4c1c4223fe31e4b4"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_fusion_s2.npz": {
+      "bytes": 278062,
+      "sha256": "309914bd3153b4ad963c75b8f6a2bb01101ed6e61d7b88a20518d715c13f5dfa"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_fusion_s2.pt": {
+      "bytes": 55781,
+      "sha256": "7da4abf53fe7264d4d2023842e46f3c514eebbbd1eeb98937a33715f9f69c8a7"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_host_s0.json": {
+      "bytes": 19751,
+      "sha256": "2d143e5a7b19ca18fcf46559bb6e5a190f4c37bfdebcef2c7c69d34cf8036463"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_host_s0.npz": {
+      "bytes": 280093,
+      "sha256": "273c4be83b3d7426973f50cfe06af7713e71abcaff249204e2c42b7d64bebd7c"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_host_s0.pt": {
+      "bytes": 42827,
+      "sha256": "fed1a454c3aeefa3c7c390fd0f479b94c06e73a1030445077746d6ddc59774cc"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_host_s1.json": {
+      "bytes": 19753,
+      "sha256": "dda9cc28d0fb56b1055dcf89bd1da916b49618a684174a797a5a144f3dfb66b1"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_host_s1.npz": {
+      "bytes": 279822,
+      "sha256": "bba50e4a7a73336582eb3ae51b8acaa6e5cdced30948458ae177d044875b6aa0"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_host_s1.pt": {
+      "bytes": 42827,
+      "sha256": "f54f90ad5a9f02675233f5ab492b2e33a682e3529ad17f68d0630c7419ec20d3"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_host_s2.json": {
+      "bytes": 19748,
+      "sha256": "c8c0e1aad3b7b613da5198d56e971082b0836a705fb43b7b3ad181ccee0c2be7"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_host_s2.npz": {
+      "bytes": 279779,
+      "sha256": "4a88e50c547c5dd1cebf23b3923c00d6752dc4f0d9acefd7ab570cec74a83c39"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_host_s2.pt": {
+      "bytes": 42827,
+      "sha256": "61ea73ee1f2bbbd2fb8383ca8ee2a9b3fb46d08ec48dd25e83987a85cec2ea78"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_tree_dual_l1.json": {
+      "bytes": 18714,
+      "sha256": "b47e070f18dc998b2be52f3cae515de31b8f11e9c7c32e0be01d2329359f5308"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_tree_dual_l1.npz": {
+      "bytes": 163620,
+      "sha256": "5bfbf75c1ebc3bf6f67fa216ae13474db50ddad67c27e6e46611aaa15dcfd763"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_tree_dual_l1.txt": {
+      "bytes": 570136,
+      "sha256": "c848580bf5433a537bfb17b912a6fac477ecf725d7e7d7951ca9aba71ad2730f"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_tree_dual_l2.json": {
+      "bytes": 18714,
+      "sha256": "d287ed5eee1918719720bf2559753e6e804905a56efb7e7825752f6af85e1490"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_tree_dual_l2.npz": {
+      "bytes": 89675,
+      "sha256": "5f0309a3e22e1f61f38bd9a7414c2a57247cc3592df7cb31aa4fc1773b2c1bb7"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_tree_dual_l2.txt": {
+      "bytes": 571957,
+      "sha256": "c51e22be96281055954ae6a72aef6e49c95d82b3b43672661e8cbd873923a39a"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_tree_era5_l2.json": {
+      "bytes": 18713,
+      "sha256": "52be37e2671ef3ca11b57a324afec31ab7c41baaf58a9bb83689e3e64304c65d"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_tree_era5_l2.npz": {
+      "bytes": 96662,
+      "sha256": "406f1ffd8cef03d488e13e2addf8ea7eabd30e1bd2d6deb6a3b14ec0fa177ebc"
+    },
+    "runs/tropical_prediction_v1/cache/f1_outer_tree_era5_l2.txt": {
+      "bytes": 561530,
+      "sha256": "6017212fc8e366f3d397cfabd4b26bf15cc58b6bd72d27817d1b305e943baf2a"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_fusion_s0.json": {
+      "bytes": 18189,
+      "sha256": "9fec9c7887d623d2032def89daec2b32d6c3fd0308d99b9e82304a3016d905c3"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_fusion_s0.npz": {
+      "bytes": 278220,
+      "sha256": "11cf79ff83209a8afbcddeff7d466ee2fea2ae8bc1011c7f75fc4323c2ab6aa9"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_fusion_s0.pt": {
+      "bytes": 55507,
+      "sha256": "0351c1f30e5e9e5d208ce614fc35f6c4ea8a79ea91487ccb125cf2d412f66c9b"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_host_s0.json": {
+      "bytes": 18184,
+      "sha256": "1977771ca0569d044688dfd8306f90d2c66aeca1e667d5ffa5a12c51a449d8de"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_host_s0.npz": {
+      "bytes": 280621,
+      "sha256": "e89c3ddf82f1dc6e032f27ea5b23d327cadc2a51732eedd7ba94fe911fba1518"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_host_s0.pt": {
+      "bytes": 42532,
+      "sha256": "fd8eca4472ecb378b67ce68556f5041fab5662e3ecc5a3e7a9d447486d26cd97"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_tree_dual_l1.json": {
+      "bytes": 17155,
+      "sha256": "94d52f2dd88db21edd8ca4fec75c807d5d5b1809c194c299c34d0a586f1ea55e"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_tree_dual_l1.npz": {
+      "bytes": 159156,
+      "sha256": "305cc3775d6c12e120e541cb5b8ad1f569ce5886d184a68854076e8d6de8f596"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_tree_dual_l1.txt": {
+      "bytes": 571742,
+      "sha256": "ed0e6fcad356a68ae735e43501abf9ca5e0f768cb806b5c389e13f74a937fad4"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_tree_dual_l2.json": {
+      "bytes": 17156,
+      "sha256": "438996219e22e745d2b9d0f7c35a2fd9b94a0ab38a8dd934eee407eb6118a550"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_tree_dual_l2.npz": {
+      "bytes": 86518,
+      "sha256": "10abc2317fa52aedce052400f0dd95ce665261cc60b4616fc3fe044b07b803d2"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_tree_dual_l2.txt": {
+      "bytes": 572202,
+      "sha256": "caf35b4d444c9f5f9b580274067be50045e4f02527650307dbd76d2f7e81bdf0"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_tree_era5_l2.json": {
+      "bytes": 17156,
+      "sha256": "4086fee8211a2dce66a16dca13a918566f266882ac45aafd31edfea444f0b07a"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_tree_era5_l2.npz": {
+      "bytes": 100209,
+      "sha256": "645f9348c1938004424bb1e390a36c49ada84bb8098a373be63d14d05df22c98"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner1_tree_era5_l2.txt": {
+      "bytes": 561765,
+      "sha256": "1a812eabd915a4b38de41b5e95936c9de84f06f18b82b6f68385db9c613d3577"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_fusion_s0.json": {
+      "bytes": 18189,
+      "sha256": "0f6f09420cc4ed57c826fee22f4ba5966cc142241450e837115968d2d59f3d46"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_fusion_s0.npz": {
+      "bytes": 195137,
+      "sha256": "522dc86078e29fe99e1468d63766a3381f606ffa1390bddc4b6f9239c82ac591"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_fusion_s0.pt": {
+      "bytes": 55507,
+      "sha256": "34b299a1fa82b667260b0d16351542c2347e5e41c0934001edfaec1fa3280dec"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_host_s0.json": {
+      "bytes": 18182,
+      "sha256": "3c6005688d3588d2675aad3c0ab803f52ea67116f13b36ed7b1388c420bad6fa"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_host_s0.npz": {
+      "bytes": 195789,
+      "sha256": "4ca964646c7b75a3501e67921c0ca5a2395bf05d32a1a6317e056325ad8111c0"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_host_s0.pt": {
+      "bytes": 42532,
+      "sha256": "2a0d65b4c966b53687677390ed757f376821156b674c18a64588cba3cb23eab7"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_tree_dual_l1.json": {
+      "bytes": 17156,
+      "sha256": "c913213b0ec60b3d7fdbda3d675604d432d915e97a7558e5e36acd7f9cdd9685"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_tree_dual_l1.npz": {
+      "bytes": 97464,
+      "sha256": "85175824036d5af4bca10a5117ac868ad00c367fcf05fa68762f40a9a16bc4d5"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_tree_dual_l1.txt": {
+      "bytes": 571113,
+      "sha256": "b2f8206908d02a846a304b7e5f51ec4e805ebfd95a9546234492438f25371413"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_tree_dual_l2.json": {
+      "bytes": 17156,
+      "sha256": "cb5d7ac014dd550965b32a20c486c935a8ca341bf6b210d80d493e7325f734da"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_tree_dual_l2.npz": {
+      "bytes": 86099,
+      "sha256": "a9d7926ce623262f87201a88ce11e88b2b64fb4f4230c706fb6ae7b8ce9856e7"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_tree_dual_l2.txt": {
+      "bytes": 572442,
+      "sha256": "f68b58f1b589fc8d4f56060bd2900b5acba95ead8e4fc55aad2d65463601ad61"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_tree_era5_l2.json": {
+      "bytes": 17154,
+      "sha256": "ea525b263213572673d3593375cc1c5506e9958910cab8ff1a9baa5120c509bd"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_tree_era5_l2.npz": {
+      "bytes": 80064,
+      "sha256": "ce94b2ed5e80e3a46d7c687be226e03469f5b5bfc9625ad07ba83da62ed9df08"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner3_tree_era5_l2.txt": {
+      "bytes": 561958,
+      "sha256": "af7711443a5165162c3c06ac910203930f68dae9343ad7b88a3a4682eca39776"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_fusion_s0.json": {
+      "bytes": 18193,
+      "sha256": "7baea920004e2ee530f07cf755ce43b075f50d2a2d1783d99fbfcbaedf114792"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_fusion_s0.npz": {
+      "bytes": 156835,
+      "sha256": "02f97b499411ddb297bc7d0a13e4f0e340d5df0346a4c76da63457e7aa978cf0"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_fusion_s0.pt": {
+      "bytes": 55507,
+      "sha256": "3e58b60cbde41108c383ba2764c1039b6bf1aaf625952aea5c95bcd2dac8526b"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_host_s0.json": {
+      "bytes": 18188,
+      "sha256": "c6fda5221942e1970c4eb1adcf0381ab0c2b2e5cbbda57136fce0ddc9bf18451"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_host_s0.npz": {
+      "bytes": 157510,
+      "sha256": "90ad9f67c375f3bb7a7036a0227d8b7dfee9df3f3f981204b0db60b9dd4bac24"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_host_s0.pt": {
+      "bytes": 42532,
+      "sha256": "e1f0331db039bf080cd2b8fe2c2bcd6996f049d76bec8cb775cbc43e4c831be0"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_tree_dual_l1.json": {
+      "bytes": 17153,
+      "sha256": "d211f9817bcc192c3839ed90306555c8e3303914c939f9356a7d65fc2180dfb7"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_tree_dual_l1.npz": {
+      "bytes": 104471,
+      "sha256": "9c4c0f65fa34d7318cba0547c9a1ef6d33cf4c73244d056aec85060c187ea0e0"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_tree_dual_l1.txt": {
+      "bytes": 572358,
+      "sha256": "07eaf1cc8430e9a2a41e2bbd0b7fe065cb827ee915afa7b2d9753feacf3a58d0"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_tree_dual_l2.json": {
+      "bytes": 17154,
+      "sha256": "751554a122d4b9b12d649080b2ef6e169fc5307cbb8d656212c607c04cc2e7ca"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_tree_dual_l2.npz": {
+      "bytes": 40227,
+      "sha256": "74d8fe3deff7f63d166e0a9c318fa4cd3b40064c747c688509580ca91fc01292"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_tree_dual_l2.txt": {
+      "bytes": 572583,
+      "sha256": "2d139697bbedc74c9cc58a72cca2fa8ae26fe71c0ba409e9ea2fa18ff5c580c5"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_tree_era5_l2.json": {
+      "bytes": 17153,
+      "sha256": "077a78c41b12a227bd6d5c02ebafe79521064b2d756a77b79d9010ef23b26f73"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_tree_era5_l2.npz": {
+      "bytes": 39425,
+      "sha256": "cb1645141b9bceca946f7b2a2651b1dfb3c06697881fd4678fe982083916fe25"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner4_tree_era5_l2.txt": {
+      "bytes": 562296,
+      "sha256": "e469ff9366da2436552a651b52901d67bf364d1c3027b2441f4a24d6e8b2c8d5"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_fusion_s0.json": {
+      "bytes": 18195,
+      "sha256": "b52393ebecec8d35910a76d6ab8b51dfaecf1dbd2a30a710bfc33941597bf037"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_fusion_s0.npz": {
+      "bytes": 148105,
+      "sha256": "97b9f8f968b27006b27c9373919996df272aff48cb82abc60aa8b74b18155966"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_fusion_s0.pt": {
+      "bytes": 55507,
+      "sha256": "6522f9c2e2a2119073b13269ec1fa6235de4bd19773e6c70f761549c8933cadd"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_host_s0.json": {
+      "bytes": 18191,
+      "sha256": "945cac750953176a9666aac1b05b25d81ff2e0d7208efd1f337758fe6f4c7abb"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_host_s0.npz": {
+      "bytes": 148308,
+      "sha256": "caa612e90d51da7156b88539be5da6f13654509eab9cdf14cb73722574b3f399"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_host_s0.pt": {
+      "bytes": 42468,
+      "sha256": "147ec0236ca1069a3fed320e0d4cd61a30692c9694ca58cf86b47aab05061915"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_tree_dual_l1.json": {
+      "bytes": 17155,
+      "sha256": "2b8d2a2e1bbaa9bf2edc207276f16d2b13a1e16e01adad91a9d898bae0d23153"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_tree_dual_l1.npz": {
+      "bytes": 80310,
+      "sha256": "940e5bdb5f331b5baf2841060420fc6b04ed3038a252e9c7615a71d369a48660"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_tree_dual_l1.txt": {
+      "bytes": 569728,
+      "sha256": "303b0f0fd9acd0d00a87238a57acfb340a758e1bfa48aa6d84b227f5c6b565bc"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_tree_dual_l2.json": {
+      "bytes": 17154,
+      "sha256": "c306e0d7d2f9951ef6b6573552f92f96af438d494be622cab84d4ba50ab72f9e"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_tree_dual_l2.npz": {
+      "bytes": 57958,
+      "sha256": "f6ce139a0854a35f18498a0c29ca9b4b5b4df4278f7258132ff4961c2b6fc87f"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_tree_dual_l2.txt": {
+      "bytes": 571363,
+      "sha256": "15aa8502a1956dbe6c7555c125ae15e54058e9a9bf0ae7a30f2614a2d561091f"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_tree_era5_l2.json": {
+      "bytes": 17156,
+      "sha256": "157ad117e9badfece8274313955bba133da3cf3ee6ac3ef6cc7801cb87e1fa98"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_tree_era5_l2.npz": {
+      "bytes": 74444,
+      "sha256": "771347a90e65fc8fa3a6c5ba479d827a7bfb42d163f450315a696994e96ea931"
+    },
+    "runs/tropical_prediction_v1/cache/f2_inner5_tree_era5_l2.txt": {
+      "bytes": 561817,
+      "sha256": "bb5fe04961278e65f31ea4ebfa6870253bd05c54b7f10a9c0e054bd07b1dca49"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_fusion_s0.json": {
+      "bytes": 19749,
+      "sha256": "7fb68a7dd444e41b412e1934fb95b1b6f1ad204070ff55d30f3235902aa4beb5"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_fusion_s0.npz": {
+      "bytes": 74900,
+      "sha256": "94ac4b5909e234be4f1ae100af8d90a976b9411d978ba976404bcf01a56e71bc"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_fusion_s0.pt": {
+      "bytes": 55781,
+      "sha256": "15cdec2d776afbf4892547391134ac7d2f77dfb528abf140612c77d03377f78f"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_fusion_s1.json": {
+      "bytes": 19753,
+      "sha256": "d52f32443294a409356da3d41fe5ded9fe0a7fe8318cb2126ff76794ac1919f9"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_fusion_s1.npz": {
+      "bytes": 74858,
+      "sha256": "6279b93f088dfcd1c17f993add5ecf5f26b831972cc40377524e557068c4f12d"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_fusion_s1.pt": {
+      "bytes": 55781,
+      "sha256": "b9f3ca7a91ed22a6ae97485b3040118590effd4d8d0a06130a3ec96ead8d79ec"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_fusion_s2.json": {
+      "bytes": 19750,
+      "sha256": "3b6a3abc46098a5a1e3169d5eb35d4dd59f716af345152cc6d8c2915083ab9b3"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_fusion_s2.npz": {
+      "bytes": 74683,
+      "sha256": "6798822c0f302c12d4f5391f53b7c597fec81dc7727af203dc21faf7f5916f42"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_fusion_s2.pt": {
+      "bytes": 55781,
+      "sha256": "38d16bab2a4c0325144221c8a875b728f96afdaf0259025804bfa04922f49065"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_host_s0.json": {
+      "bytes": 19744,
+      "sha256": "f137f3d3e6a9d7715f4af5a78ab1c08eda3391ca1c5b3be45d2ffa9b5605771b"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_host_s0.npz": {
+      "bytes": 74846,
+      "sha256": "c5d2e9adcb3636bab6dabad1354696acbeacb653c9d48b9177f91f8d96b728d0"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_host_s0.pt": {
+      "bytes": 42891,
+      "sha256": "5c8dbb646617bf753501fb95de14f8e9d7ae1872f3ee8b3be2322c5319e53cd5"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_host_s1.json": {
+      "bytes": 19745,
+      "sha256": "66086951a0a9e8dd21381e1350bf8fd86ae2cbc8da0e123405bf3fd5fe0557ee"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_host_s1.npz": {
+      "bytes": 75472,
+      "sha256": "5fab3c02dcc85cbff3a8f29198030129e0f8e98098fb529de510208d08d1b887"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_host_s1.pt": {
+      "bytes": 42891,
+      "sha256": "fc2436013518d8debe310646f76d085736ebe849cfff535abf56d21c62c4ece9"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_host_s2.json": {
+      "bytes": 19748,
+      "sha256": "7a8cd8770763f08addd9df1033b73479a59459507dfe2679448c4d143898875d"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_host_s2.npz": {
+      "bytes": 75342,
+      "sha256": "a3bcb3cc1d4165bb0030823f70c245821bf437472ab2e5e55f050c2dc739c116"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_host_s2.pt": {
+      "bytes": 42891,
+      "sha256": "9cde7129d3f27c988d392468bc8f3ea1ea6560001678718af13591b43ddb8fca"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_tree_dual_l1.json": {
+      "bytes": 18712,
+      "sha256": "682a2f0ba877caae2103a2318dd23562de117ea2558a771e8533b20a93f0faf1"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_tree_dual_l1.npz": {
+      "bytes": 50844,
+      "sha256": "e4ac4ce18477f4222d84fc582a287b3bf0317a1d68186ad0067fed9c45bee645"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_tree_dual_l1.txt": {
+      "bytes": 573145,
+      "sha256": "832efaa21dc94d5c53b18febb88e1d81fc6fde51f28cca02134868534f653692"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_tree_dual_l2.json": {
+      "bytes": 18713,
+      "sha256": "52bdf54857c61b621ef7c12ccf2e04fbd50f1c94101f05820b088ed1fc6ee897"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_tree_dual_l2.npz": {
+      "bytes": 43468,
+      "sha256": "e8cf82a10d5cd2a70ac155a73139bd031dde996f8649b6ee7569995d8aed8d62"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_tree_dual_l2.txt": {
+      "bytes": 572155,
+      "sha256": "129a8ae24e4eb62106b7c344db4a4f1b08abea79679e17ec5eec12ddc06675b7"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_tree_era5_l2.json": {
+      "bytes": 18714,
+      "sha256": "8828f74c82be17e698b204b87e6b09d8ed03fa9c86fb72046b4a8f7de8cd6c81"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_tree_era5_l2.npz": {
+      "bytes": 43623,
+      "sha256": "a1d0de7ec57b5a681f987d053dee6318faa37b0d1b0afce8e418a9d1f5268709"
+    },
+    "runs/tropical_prediction_v1/cache/f2_outer_tree_era5_l2.txt": {
+      "bytes": 561431,
+      "sha256": "8acae0dd059a7d187fa158fc7500401e28f061eb63aefe14a7b1ccfa865f0193"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_fusion_s0.json": {
+      "bytes": 15518,
+      "sha256": "a83dbee3cf83cb4249d10353c06e570527556be51ea06f09e8993821bb7c7e8b"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_fusion_s0.npz": {
+      "bytes": 279185,
+      "sha256": "39eed511eb6dbc61c8c307fbcf4b1e69ceb07d68a81a41e316e27e16fa75b8a3"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_fusion_s0.pt": {
+      "bytes": 54803,
+      "sha256": "997817e474195a7e06af994fe38e63d781946b09ac80c259b9cbbf447afcc949"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_host_s0.json": {
+      "bytes": 15517,
+      "sha256": "c3ddcb81636de71ebb056bb5189a70cda55703bc9e28123485d0af3f86d4ab5a"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_host_s0.npz": {
+      "bytes": 281199,
+      "sha256": "f0ad798f0db04df24673b113f0e6cc7de8020b2975423e97266027a855229838"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_host_s0.pt": {
+      "bytes": 41764,
+      "sha256": "ab538091b256883b38f9b6ee379d462af128715e8212eb686099d3cfc676d231"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_tree_dual_l1.json": {
+      "bytes": 14481,
+      "sha256": "16f61e7a5ecef23aaaa7ad1627f21a06d4206a8ff567381d5d0af9beb90b66a5"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_tree_dual_l1.npz": {
+      "bytes": 145678,
+      "sha256": "fb655a6e163393df45905c5689ea5734f62182643ad448ed354e1d60dafc025c"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_tree_dual_l1.txt": {
+      "bytes": 570428,
+      "sha256": "f078aa21069976b8ab2c3004c57369cd34190f8f612863bee1cae83dd1641164"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_tree_dual_l2.json": {
+      "bytes": 14482,
+      "sha256": "558138c1c502649ec1d39a8166f5f7018618246bc09889a0eb948ddee22f9e16"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_tree_dual_l2.npz": {
+      "bytes": 106280,
+      "sha256": "ab2d24ae89b714822fff7db96c8875cdafdd7d93ea79b335ff9bdbc116cf28d6"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_tree_dual_l2.txt": {
+      "bytes": 572679,
+      "sha256": "a5afdcb147620accc38d3a16d50c2b51f8426d7c95fd3e7d29fc72c5d799230b"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_tree_era5_l2.json": {
+      "bytes": 14481,
+      "sha256": "975de19266ad698cb6dc743c3dbca6acda776bba373a0bd45ed2624c731529ea"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_tree_era5_l2.npz": {
+      "bytes": 104220,
+      "sha256": "409cc01d90bea47ed0a74473882c3f991cd41ad1fc66c697efed59052ee08db1"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner1_tree_era5_l2.txt": {
+      "bytes": 562304,
+      "sha256": "59f97dbfbb7261ba4c2b4721c9f0fccd5bd36a2eb257006a03be232dc78966cf"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_fusion_s0.json": {
+      "bytes": 15515,
+      "sha256": "e61d265d0590f3450e6b24755965d79ef78c5d3e0687363b55479b3bb8550241"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_fusion_s0.npz": {
+      "bytes": 75292,
+      "sha256": "1a7828dfb16e75374f7d31c3fd0e0dbc771ee1678a352a65496006455a7d8a23"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_fusion_s0.pt": {
+      "bytes": 54803,
+      "sha256": "6145d78be4284fb0c9ae57557685846d942352910a3815b0541316c214afd4ea"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_host_s0.json": {
+      "bytes": 15508,
+      "sha256": "b7c2613249c119d793aa6135d0a2259c01302eecf399f8919bc8a3af1e5a3aad"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_host_s0.npz": {
+      "bytes": 75238,
+      "sha256": "54dd05965bf414306a07c6647d25a0ed79364b886cb835caf3043e3baaf5f08f"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_host_s0.pt": {
+      "bytes": 41764,
+      "sha256": "0763949256cc3fb793646e7f2a1ae743f8b41fe33e817190b56b4a8a21057fc4"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_tree_dual_l1.json": {
+      "bytes": 14481,
+      "sha256": "4ad607b27c21937bbef18c9fc213985f5f4775ca47c3d9f9268c38fc0f5ac92f"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_tree_dual_l1.npz": {
+      "bytes": 38326,
+      "sha256": "b616ba4e37825036b15d5be7e70c14b27b4cbc99c72fe455e6dd083965acad41"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_tree_dual_l1.txt": {
+      "bytes": 571113,
+      "sha256": "b2f8206908d02a846a304b7e5f51ec4e805ebfd95a9546234492438f25371413"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_tree_dual_l2.json": {
+      "bytes": 14481,
+      "sha256": "9e1fe18ed43cbfaa1a265256f0c8bc3aec3d3f19ac4e8ac4a08236b74c245f81"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_tree_dual_l2.npz": {
+      "bytes": 46840,
+      "sha256": "680a456e5823371ec3bccfe2c281d82d333b188ed1c01f712a72b012b83369e2"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_tree_dual_l2.txt": {
+      "bytes": 572442,
+      "sha256": "f68b58f1b589fc8d4f56060bd2900b5acba95ead8e4fc55aad2d65463601ad61"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_tree_era5_l2.json": {
+      "bytes": 14481,
+      "sha256": "4a1f4cc1f941473f8ef6da6f07ed73c1eabffca6e3d841740b11fb475a42f464"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_tree_era5_l2.npz": {
+      "bytes": 46015,
+      "sha256": "c59ae3790a99b03285a7251e44a2edbfd3535d5a3f37501188ec417c84281067"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner2_tree_era5_l2.txt": {
+      "bytes": 561958,
+      "sha256": "af7711443a5165162c3c06ac910203930f68dae9343ad7b88a3a4682eca39776"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_fusion_s0.json": {
+      "bytes": 15517,
+      "sha256": "4f0d9f054bc5afc7521fb425f2888e82a42690e6a2b7d346c6eb2a95d13b58f0"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_fusion_s0.npz": {
+      "bytes": 156771,
+      "sha256": "8ed39e13c1d2b380992990b0abc596e0eb10abedfa8b3298e0d894ea0a0b4858"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_fusion_s0.pt": {
+      "bytes": 54803,
+      "sha256": "6370e76fe9d3af39a59c7ffd4710ddd97fd218873662dc40524bc7680ad902c0"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_host_s0.json": {
+      "bytes": 15517,
+      "sha256": "9909dde4a2335c83fa4707f7af03a70bf26f64d032bd9340cbb46020cb829ff1"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_host_s0.npz": {
+      "bytes": 157670,
+      "sha256": "7651df74c35a652a46009eea0b9fd198e0974e41f8ba40f60247580f9a2e1fa9"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_host_s0.pt": {
+      "bytes": 41764,
+      "sha256": "aee9424b68ca6be6d051eb7d75a19809fe16c76446b3931e7a6e74959dc816b4"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_tree_dual_l1.json": {
+      "bytes": 14479,
+      "sha256": "6ec8424728b89cbf533ffe45d6319f2e97d47528437c0e2fc4348614cb94d99b"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_tree_dual_l1.npz": {
+      "bytes": 77085,
+      "sha256": "55c4bdd0552198654a26d9de8c3498ccb2b6c99992890fd90b7709095d7933f5"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_tree_dual_l1.txt": {
+      "bytes": 572367,
+      "sha256": "ccc0cb4e18d885e3ce47e2cf1542c2ec1e55f4ff73379bb2ec8288bd721e7188"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_tree_dual_l2.json": {
+      "bytes": 14480,
+      "sha256": "0277ab81b1342093f2c7097ff6e84b1fe80242e41a5f9b2af5ad57d11bf4dae8"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_tree_dual_l2.npz": {
+      "bytes": 49118,
+      "sha256": "c1ad69a095e174a3f8ac0788d4b553dcd263f81e1b60ba7c8f4098243cc8a250"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_tree_dual_l2.txt": {
+      "bytes": 573217,
+      "sha256": "050e0cf121a5d99056284d9651ae32cb3e9ac1ad257f80955ebb324bc9087971"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_tree_era5_l2.json": {
+      "bytes": 14479,
+      "sha256": "82d88eaccfade3bab446abdad4c898ab8c757518f85fe4fc8faa3e705a16e9ec"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_tree_era5_l2.npz": {
+      "bytes": 40532,
+      "sha256": "4ca4319df4e57047ff1921caeb70e7f0f3f5c58368a68c445601b422aefa1dae"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner4_tree_era5_l2.txt": {
+      "bytes": 562961,
+      "sha256": "f13484f7a7b2e2c04ed30deeedbf1f5062a67647f253e569726a3f639e4643a0"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_fusion_s0.json": {
+      "bytes": 15520,
+      "sha256": "a18f589ff8e4a5e4c37deb415cb4d70ad689963aaac8513afa3432a7681ba718"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_fusion_s0.npz": {
+      "bytes": 147662,
+      "sha256": "bf6507f93129020f2e3949aa4001d7055fcee90660790bb086335756ce5a34da"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_fusion_s0.pt": {
+      "bytes": 54803,
+      "sha256": "69f559c664499f14eda749de09b98904c28b1651bb8f7e3ee7d944a5b8570245"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_host_s0.json": {
+      "bytes": 15516,
+      "sha256": "99b079952f586335b57dc5e95429d595edfb495c8a1c744fc721cc81607d905d"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_host_s0.npz": {
+      "bytes": 148608,
+      "sha256": "f2c165744b29ccb44f10445a1735b51910558af9c7c8b44de3b5c02fb5acc499"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_host_s0.pt": {
+      "bytes": 41764,
+      "sha256": "986a29ca8ba35c0632068692a561330a7b0802dc5786e7bad0920e14f5c5a986"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_tree_dual_l1.json": {
+      "bytes": 14482,
+      "sha256": "1bdd81fe5b954d5454bc53488efce2291347ad4bca46185c8d1ccf129b39b9bf"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_tree_dual_l1.npz": {
+      "bytes": 105014,
+      "sha256": "f8cb683bf2c45ccce26f21dff00c72fd316a3fc37cde05f03353163f8ceca97b"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_tree_dual_l1.txt": {
+      "bytes": 570413,
+      "sha256": "11bd61ecc15cb50174ab151b2cec92d65bf3f1b42f3b4f8c1d41d93c9f14214b"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_tree_dual_l2.json": {
+      "bytes": 14482,
+      "sha256": "1b2bf6d8f53fa177338db10ff2afe1c8b751894cb7fc3362f6703aa051afbcda"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_tree_dual_l2.npz": {
+      "bytes": 60220,
+      "sha256": "b33d0d2488af60c42d85feba3d85fbd87c5a570cd01904de852b587180498e3d"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_tree_dual_l2.txt": {
+      "bytes": 571758,
+      "sha256": "5b2f738d6f836cb28bc5a58c41c4bd89a21fb5477387d162911ab3bfdb32b379"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_tree_era5_l2.json": {
+      "bytes": 14482,
+      "sha256": "ccceef32992a2e58d7830fe0be8077866b6d13192b28353e479a88819aaf15fe"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_tree_era5_l2.npz": {
+      "bytes": 94053,
+      "sha256": "9e304297048c110e77875bb3f1591a7982462e780dbc7ca702961b3e710e9b4b"
+    },
+    "runs/tropical_prediction_v1/cache/f3_inner5_tree_era5_l2.txt": {
+      "bytes": 562702,
+      "sha256": "cbe5fd309e15cbbfbd565a3405d418855f8d317abcf843c93d143d390af060ea"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_fusion_s0.json": {
+      "bytes": 19752,
+      "sha256": "1e70f691d9feb23f426340edd001bb887d11b01cf430e79d74a80e7df9cb2da7"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_fusion_s0.npz": {
+      "bytes": 193689,
+      "sha256": "30d2e3a5ff9bf02766015c76bceab111c11f5cad394da9b6abbd1245f917e3ec"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_fusion_s0.pt": {
+      "bytes": 55781,
+      "sha256": "277f6add7ad2a4c46185f3b00023a871288821e76e842e9d4763cc6fbb295f2e"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_fusion_s1.json": {
+      "bytes": 19749,
+      "sha256": "d01cb6a6562480f4a4d7fd37510f18fde0b8191d41aa4d92e7c0d425437b4761"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_fusion_s1.npz": {
+      "bytes": 194774,
+      "sha256": "84c604436627f04a2bae0d7b5c0652ee2aad5f856d88ec4369973fcaf4b9fc1a"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_fusion_s1.pt": {
+      "bytes": 55781,
+      "sha256": "3026213fcccbd2a15906cea4d8db828e578b6ce8c7600f839ed153a1b445955c"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_fusion_s2.json": {
+      "bytes": 19748,
+      "sha256": "d5068360e6193e4e106d931941e233aca68c869ce19da9457d3e7d6dd2055db9"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_fusion_s2.npz": {
+      "bytes": 193921,
+      "sha256": "c3ad2444089fce5349333376ad64ca4562d4ca2140deb1710cc7b2b84d0a1e38"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_fusion_s2.pt": {
+      "bytes": 55781,
+      "sha256": "3251c128755926b0dddccc4c36787982514698f4527f43f1c9820b23ae33f8ab"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_host_s0.json": {
+      "bytes": 19747,
+      "sha256": "fde06e16c51cd96e7361bd2ba2206a8774c7f42127caffe2780e84768e8fb5e1"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_host_s0.npz": {
+      "bytes": 194792,
+      "sha256": "0210ab50ac19af288e2543e0eacb816e0342a0a1a81829fc3d122eaecc8eaf89"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_host_s0.pt": {
+      "bytes": 42827,
+      "sha256": "6c0f58597c133de7ca7fd4f04e6bce2f925dce50cb6c9d3fe3e9f80e175f58f1"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_host_s1.json": {
+      "bytes": 19747,
+      "sha256": "fdb621575c1ddada42d252234d0e91be49be722768100e136b8cc5b85f28f397"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_host_s1.npz": {
+      "bytes": 195162,
+      "sha256": "a1ccab479b8954dde50203bf8f1df501d8d94b67809331a3fdb5103b10d5cb1d"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_host_s1.pt": {
+      "bytes": 42827,
+      "sha256": "aca477fb6b691f628ff8ae8a001b003d77623040bec5311483adaa82812e4a8a"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_host_s2.json": {
+      "bytes": 19748,
+      "sha256": "62a56ad00b2c2670c83bf82ddaa151734134f940eb221bf6fa6afc160b82d1d0"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_host_s2.npz": {
+      "bytes": 194897,
+      "sha256": "68edc6353182d47e2e722ad7be27c02d76d1ef15544db4b48d939aac097873a6"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_host_s2.pt": {
+      "bytes": 42827,
+      "sha256": "9b852a1d6824622322e4da70abf2ba9b5780bc82d7e6bb001ce916a3c0eccd54"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_tree_dual_l1.json": {
+      "bytes": 18713,
+      "sha256": "5696767c87f1b16c3c93be673dcdb139e7d938aca50e413d0264dff56768e01e"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_tree_dual_l1.npz": {
+      "bytes": 103451,
+      "sha256": "ee816fab6c34121de11a7edc0be2fd19cbc84cc6380b80c5555a891513d6a175"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_tree_dual_l1.txt": {
+      "bytes": 571074,
+      "sha256": "1be1ccbbc64125cbfca2e87561770e78976a406cc170fa2f0e75ab6fdb7f406d"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_tree_dual_l2.json": {
+      "bytes": 18713,
+      "sha256": "1d8c0e1a813af14beb438e19b5f6c94db851ebdf3698f6ff41a39be58a6d7b97"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_tree_dual_l2.npz": {
+      "bytes": 87529,
+      "sha256": "f5ab5d46ba2e250298e3237b41138806a65e947f52751b8fdfcc7626446fc97a"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_tree_dual_l2.txt": {
+      "bytes": 571978,
+      "sha256": "dcb5a1ed53664fa342948ce83f35d17a677b8c1b793d70cce757c438c1ca9e75"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_tree_era5_l2.json": {
+      "bytes": 18713,
+      "sha256": "7eddfb023404a7c5157867b593a8b40ec977381310aaa5c67060348a372628fb"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_tree_era5_l2.npz": {
+      "bytes": 86012,
+      "sha256": "f4d934bcd2a3cc86ef13f284e7fcab3ea33caad2ad5f12fadcae61b037ddc4b0"
+    },
+    "runs/tropical_prediction_v1/cache/f3_outer_tree_era5_l2.txt": {
+      "bytes": 561639,
+      "sha256": "eeb774e51e9f884c84b8d86ed1556d47dbfb2b4a8e17cba95793d3367f017582"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_fusion_s0.json": {
+      "bytes": 16351,
+      "sha256": "03679bfa7aced5266891998615e126d378aae9acc217371a16e965229972bb3f"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_fusion_s0.npz": {
+      "bytes": 277776,
+      "sha256": "fcff187a2c0d342198a3c4bd7bcaf218094a90a87e9087bde57d5ca8594be077"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_fusion_s0.pt": {
+      "bytes": 54995,
+      "sha256": "dadf329749383ca6488788460769f0af660aa3d3dfd40fbd500e2f689273b65a"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_host_s0.json": {
+      "bytes": 16347,
+      "sha256": "8ae40a1c1c1866563d6a1486aae89cb982f842cedf97faf91491fe4ee840691a"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_host_s0.npz": {
+      "bytes": 280227,
+      "sha256": "fea43dc66ebd5156cebbfa5a557e78bbcc9777679c93d0661377d392f1d6562f"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_host_s0.pt": {
+      "bytes": 41956,
+      "sha256": "ae360998397caa627d7e44526bfb4cc03d098a0319b7a0b73a399ef90f7894b0"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_tree_dual_l1.json": {
+      "bytes": 15311,
+      "sha256": "dc397d3b3cb9c1448089b6e089efbe5fe933cd82da097ff4ae7334fc4bed72d7"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_tree_dual_l1.npz": {
+      "bytes": 173115,
+      "sha256": "68174d8368bb5a93add535b9d7741bf4d2b66b79808f16801a45255f4d8a510d"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_tree_dual_l1.txt": {
+      "bytes": 572580,
+      "sha256": "5a1960f5380b8923447bf93120f5c43489fb746bf0649e4085d0c971434c8a3f"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_tree_dual_l2.json": {
+      "bytes": 15311,
+      "sha256": "a331c694302600e3aaa1df27da338cb8463a2b6ab62532c2d93416b80ffa2643"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_tree_dual_l2.npz": {
+      "bytes": 51673,
+      "sha256": "9d020e3711b92f02bc69a9849109bb11351efbc0cfb6fa55eae6efbe6b4a7cb1"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_tree_dual_l2.txt": {
+      "bytes": 573579,
+      "sha256": "870e16b5958249e8587b27891acee746b5a84337da7285be722effd98525dc49"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_tree_era5_l2.json": {
+      "bytes": 15311,
+      "sha256": "b7b35126a71e047272fb60f2f91274953e0c8e0a9f304834a6d7e43f16f3e6a7"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_tree_era5_l2.npz": {
+      "bytes": 51059,
+      "sha256": "4cbee5999ce3b697b0c347469edc5791630c70d010c252fd1c1288eeb4b454e3"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner1_tree_era5_l2.txt": {
+      "bytes": 562426,
+      "sha256": "9ecc526b05bc0160f0161c1058fd7e3ce2bb10ac7ed93427f34db4771c58858c"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_fusion_s0.json": {
+      "bytes": 16351,
+      "sha256": "1719bb649386cc34046a4b21bb401117800c0f3e1f9905a0d0f3b2d240ed5974"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_fusion_s0.npz": {
+      "bytes": 75564,
+      "sha256": "f1e47bfce1c4421085ac5e909152eb4d7639d0e3de99b6dc03b80de3e7dc5f32"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_fusion_s0.pt": {
+      "bytes": 54995,
+      "sha256": "838ef1914c561f3e7c9bf478d2ea7de1875f5d24b5aec93f7641f5a0c2eca141"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_host_s0.json": {
+      "bytes": 16346,
+      "sha256": "9a6f7cfa615fd18cadfc3c4b5afadedf92482e482632c65e24bbc952b48eeb4f"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_host_s0.npz": {
+      "bytes": 75807,
+      "sha256": "58449e981e941a27611518a49dcc334d581f37a7fdc242b322783df40e846788"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_host_s0.pt": {
+      "bytes": 41956,
+      "sha256": "b3449b7724053c73a8c185c0d9041e8165553b57d204e3b1720ac61ce890acd7"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_tree_dual_l1.json": {
+      "bytes": 15311,
+      "sha256": "8bac736c861d3752f0988e503d9bed5f9795c6a039ce11f9e672e87f27630538"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_tree_dual_l1.npz": {
+      "bytes": 52592,
+      "sha256": "4057eff3664bce3712e1533e0a1ef1e9818b450d5bb6abcd9b4c36f5f0511eab"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_tree_dual_l1.txt": {
+      "bytes": 572358,
+      "sha256": "07eaf1cc8430e9a2a41e2bbd0b7fe065cb827ee915afa7b2d9753feacf3a58d0"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_tree_dual_l2.json": {
+      "bytes": 15312,
+      "sha256": "ed15296d82be26b0a4a680cc367ab0478640e160dc4e0e7a90cf645ee5eda365"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_tree_dual_l2.npz": {
+      "bytes": 11242,
+      "sha256": "0cecb1309141a8d16d9dcfd5ffcf87387509af6bf36e47a3e441792137efe7ba"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_tree_dual_l2.txt": {
+      "bytes": 572583,
+      "sha256": "2d139697bbedc74c9cc58a72cca2fa8ae26fe71c0ba409e9ea2fa18ff5c580c5"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_tree_era5_l2.json": {
+      "bytes": 15312,
+      "sha256": "4f7a4ac3109b2930b4d4181d7ddca95b70e1fdbe379bd7dad3cf0de342c81b79"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_tree_era5_l2.npz": {
+      "bytes": 11699,
+      "sha256": "85651e6d55b7267af12dc90b2739ac05498a669064d662738656b8036d91d847"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner2_tree_era5_l2.txt": {
+      "bytes": 562296,
+      "sha256": "e469ff9366da2436552a651b52901d67bf364d1c3027b2441f4a24d6e8b2c8d5"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_fusion_s0.json": {
+      "bytes": 16349,
+      "sha256": "7336d090538d8be8a3581dc2aa7233a2b45751bfc2b11a423862c1b36d1fd334"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_fusion_s0.npz": {
+      "bytes": 194415,
+      "sha256": "52b6d3e92b11f4444c5fe4463ba2d07ce484193213d000c8417f934bb78663d4"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_fusion_s0.pt": {
+      "bytes": 54995,
+      "sha256": "551226546ff6b939828f35a8e9eea8dbbec051038fba020c5611fcadd89158ac"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_host_s0.json": {
+      "bytes": 16349,
+      "sha256": "9dd36ccf73bc858ff7e0f3330cc2ec945bfcbfdfaafd125c9afccbb0a8bd02e1"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_host_s0.npz": {
+      "bytes": 195798,
+      "sha256": "901fe8e5adfffc48caff95f87cafa945533ecacaf255c2788050744ab81defc5"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_host_s0.pt": {
+      "bytes": 41956,
+      "sha256": "a07d52a305c17c994cbaf740141571a014f8a30da12ee71deffd0c2f706521d3"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_tree_dual_l1.json": {
+      "bytes": 15312,
+      "sha256": "7f620d3142e1a00fcb63b7b62e88179c7065f8023b8b531bc0e835b8e7458cac"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_tree_dual_l1.npz": {
+      "bytes": 95615,
+      "sha256": "405dac185138960c13c4f3c5d4ee1fc7e24e0be7de7a50db3b4261fbf063091b"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_tree_dual_l1.txt": {
+      "bytes": 572367,
+      "sha256": "ccc0cb4e18d885e3ce47e2cf1542c2ec1e55f4ff73379bb2ec8288bd721e7188"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_tree_dual_l2.json": {
+      "bytes": 15312,
+      "sha256": "9a6652f67860645962e58c3d585b517f34561a4291c99f92b2aff943df549ab4"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_tree_dual_l2.npz": {
+      "bytes": 45485,
+      "sha256": "bf1dc8816ec468404b57ff0951c326a520b774b3f5e576cf466f4f312d2e4012"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_tree_dual_l2.txt": {
+      "bytes": 573217,
+      "sha256": "050e0cf121a5d99056284d9651ae32cb3e9ac1ad257f80955ebb324bc9087971"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_tree_era5_l2.json": {
+      "bytes": 15312,
+      "sha256": "68c44de7be4df92b1728206717b6dcf8e99c1aa7493a3c9aff0b7a30b604bb34"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_tree_era5_l2.npz": {
+      "bytes": 34746,
+      "sha256": "2aceff03a458a293bcace18aacca459cef62da624da7bd574defc71d55e58b0e"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner3_tree_era5_l2.txt": {
+      "bytes": 562961,
+      "sha256": "f13484f7a7b2e2c04ed30deeedbf1f5062a67647f253e569726a3f639e4643a0"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_fusion_s0.json": {
+      "bytes": 16353,
+      "sha256": "ff35b4d4d16e93c0fa84a67d27839a5b74366787ad47879647252ab2203114c4"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_fusion_s0.npz": {
+      "bytes": 148066,
+      "sha256": "eda1f8847448d8c4ea7389fea8e5925f34c74d96763e7473afc8a466bbf5995f"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_fusion_s0.pt": {
+      "bytes": 54995,
+      "sha256": "e4f903f31b0ce34f598280de2fc73a6e16e3d5819d607f9343b753691c7eeecc"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_host_s0.json": {
+      "bytes": 16349,
+      "sha256": "96ac57e470c1828e5e2b4fbd4d168deedfdb6989d669dddd3c58ff564dad101f"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_host_s0.npz": {
+      "bytes": 148382,
+      "sha256": "75fa4aaa6205900011ac33f058aafb2344340af237fabf1e15a4d7b6d6d2aa83"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_host_s0.pt": {
+      "bytes": 41956,
+      "sha256": "e6613b3ce228d17f66196166ee6b5e8f1630a442cd9f51a7a3f45fb7dae4f887"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_tree_dual_l1.json": {
+      "bytes": 15312,
+      "sha256": "621398ba1bb92e39b6cc346090caa18225b8f5e83e37f3ca1b711a3762f640e8"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_tree_dual_l1.npz": {
+      "bytes": 97179,
+      "sha256": "944f8cf3167c90bb3c31821ecf026f42b6dfee9eaed3365d2dbcddd0a494d92c"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_tree_dual_l1.txt": {
+      "bytes": 569198,
+      "sha256": "c9ce6ff09ff9b46fde299fbd658a09032c15711ab407da38940794c09abb2ff9"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_tree_dual_l2.json": {
+      "bytes": 15311,
+      "sha256": "bf66c6db01566b5134e7de00c22fd3599bf7ec8ad9f7e16a303933748249b869"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_tree_dual_l2.npz": {
+      "bytes": 56888,
+      "sha256": "796a516d2b1142587de657844fb0db2f54b3ba6fe183de35306cfa4d111d7360"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_tree_dual_l2.txt": {
+      "bytes": 571828,
+      "sha256": "294f8a9f9dfe02ad6ee1973ac491abb25336e46ccde5d077b5bcb890c61f1392"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_tree_era5_l2.json": {
+      "bytes": 15312,
+      "sha256": "2e88a9bf3455ec2d4d6c52b43757628b45d0f713e06cb73392bd256ae3a01b2e"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_tree_era5_l2.npz": {
+      "bytes": 61181,
+      "sha256": "2d8ab01e7c9eb2482bf5408ab74df3421b7d673dff54c90b14cc19f0bbf6dd4d"
+    },
+    "runs/tropical_prediction_v1/cache/f4_inner5_tree_era5_l2.txt": {
+      "bytes": 562224,
+      "sha256": "7563e469b2594b92b4594eeed704cf5879b8fe35bacc5877806ae772d66bab4c"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_fusion_s0.json": {
+      "bytes": 19748,
+      "sha256": "efff703b2f540afa036eb7b374b9ecb2e67145452339248255b87632a67daefd"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_fusion_s0.npz": {
+      "bytes": 156628,
+      "sha256": "e6a0d57a9885daec6eef7ad445b3f2d9dae38d63bc0973d9da886dfa29c393bf"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_fusion_s0.pt": {
+      "bytes": 55781,
+      "sha256": "df724da26afeeacdb85f329f9d6591574371a8faf70156d2ab8754ae9b733231"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_fusion_s1.json": {
+      "bytes": 19752,
+      "sha256": "94d32e5d0af323e94928a85354e5ff37b74bfacf8099ac14bf1d2e560d246fdf"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_fusion_s1.npz": {
+      "bytes": 156582,
+      "sha256": "41765420ffedabb7c306fc53ad0bb84bef48a6cff6b1e04e11d7fdd79884f7e0"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_fusion_s1.pt": {
+      "bytes": 55781,
+      "sha256": "d4f35d06971f83ca0f5a0742d2915bfadd56bd6dc3a5f56581e38f0274de608e"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_fusion_s2.json": {
+      "bytes": 19753,
+      "sha256": "df23821023982d3421fc597d378e940be945d02da9a2e58ce6ccd6499dd776e6"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_fusion_s2.npz": {
+      "bytes": 155915,
+      "sha256": "641d682f21b1a6c81f57ca494e484e48673b1a4bf40098228b12a11ce30eb196"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_fusion_s2.pt": {
+      "bytes": 55781,
+      "sha256": "c814e2ea6ecb4af87b757378edea8e5987c11b482563285e9070e0b7b5910d4f"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_host_s0.json": {
+      "bytes": 19753,
+      "sha256": "da4148c4257bb3b99107c5ec71f789d01beb6c2019083e29eb470f95f20ebd69"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_host_s0.npz": {
+      "bytes": 157547,
+      "sha256": "922fe8d3f7d81a59d7665752924edcf9a4b9e31691cefeedef59a86cadf4ba00"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_host_s0.pt": {
+      "bytes": 42827,
+      "sha256": "307c9e5e6d93f90a0d428dc33286580a133577c20fc85649e9aca4072a40504f"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_host_s1.json": {
+      "bytes": 19749,
+      "sha256": "5647181be99286f00eb7cbe1d708cb4a7d7c8ba0582aefa51ebe1bee39ea2740"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_host_s1.npz": {
+      "bytes": 158039,
+      "sha256": "cfde913cb3ba4d39fe8bf334b1272db0c0f6a18feb8e405255f4f3d6cb2e074e"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_host_s1.pt": {
+      "bytes": 42827,
+      "sha256": "9ee8b283db1812d0a26010d3d46c1a21e406105d697c87cd4659baaac245d5d0"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_host_s2.json": {
+      "bytes": 19747,
+      "sha256": "2a86149c79e15b24f2d3d4dd7e49ce3b4692e60ac9376e1c796afea45d165aa3"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_host_s2.npz": {
+      "bytes": 156551,
+      "sha256": "f36eddd07000db9c7d7a10ba56aaf077b9cdcd9606d854b55725bd5c7894f43e"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_host_s2.pt": {
+      "bytes": 42827,
+      "sha256": "bd171299abf818c4eda04f0eb3eac03ef822c1d1d6cc05d2b445421706acd556"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_tree_dual_l1.json": {
+      "bytes": 18711,
+      "sha256": "49e34c3d2f29c897bdbb147f690fca3700a03becab3226f5aadf2967eabc4d23"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_tree_dual_l1.npz": {
+      "bytes": 104001,
+      "sha256": "68e79c265e1f9921dcb7de484d1f8117a68be5028f3294b2120ea45b7ab581a5"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_tree_dual_l1.txt": {
+      "bytes": 571782,
+      "sha256": "0833b92324a037e640c0837170781e7859d70474604f78cb9a96a83102f6fe5e"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_tree_dual_l2.json": {
+      "bytes": 18711,
+      "sha256": "7b683389481b346ffbd280ecaf515be9637d3e7e3cd1d307b3d805d281a6c9c2"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_tree_dual_l2.npz": {
+      "bytes": 37295,
+      "sha256": "103c951f8de578f086a81a20dd230c6dfd07088481944625a946e78df472cad4"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_tree_dual_l2.txt": {
+      "bytes": 572251,
+      "sha256": "1c652d47cc56df240d71c6bca6648c46c8d4a7c05dd45eb4b4d41c9098dfa7bd"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_tree_era5_l2.json": {
+      "bytes": 18711,
+      "sha256": "4fcacd45b7949ca71a907fade948d40b99230817b87d53b3f98d72f13e2cf839"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_tree_era5_l2.npz": {
+      "bytes": 37149,
+      "sha256": "fdd2f2527fe0f7d96c43d6e7558df460e3ff7286145cb0f36257be92e50b1587"
+    },
+    "runs/tropical_prediction_v1/cache/f4_outer_tree_era5_l2.txt": {
+      "bytes": 562118,
+      "sha256": "e88e5a3e25348665ae2ade709309aa97614ecd0ca8dad08e6f985aedf05a5012"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_fusion_s0.json": {
+      "bytes": 16387,
+      "sha256": "795606f428eb6796e40028bbc350dfd6ed203cacb15b72041282cfda2a9d0c6f"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_fusion_s0.npz": {
+      "bytes": 278307,
+      "sha256": "5b6361f9b17ae4c7657be6a7287f150c108de29d21f2c3445ff6fe6375a3e95f"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_fusion_s0.pt": {
+      "bytes": 54995,
+      "sha256": "7e96fb2a7beea9ba3198c2a60b53ca7993fafc8d2c83e1dcbcf22c1ba2a4cdba"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_host_s0.json": {
+      "bytes": 16387,
+      "sha256": "e8a98bc4df73eaebb472ee623b43b9bd36b4be291babd5c0541fc690269a8395"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_host_s0.npz": {
+      "bytes": 280082,
+      "sha256": "ab2a181f19978d0281d1e014061830cd370740a617c3f8bb8db53bd972eeaaa7"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_host_s0.pt": {
+      "bytes": 42020,
+      "sha256": "60c469539c698015dce04d2adbb1f2c6a2846f3687a2f6b966e9ab7c4c0c510d"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_tree_dual_l1.json": {
+      "bytes": 15353,
+      "sha256": "d98a29f4ca4718ec4245ad2c3344a5cdade4fcd85f07129fbfdc9781d6959b12"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_tree_dual_l1.npz": {
+      "bytes": 167415,
+      "sha256": "68a17df51f0309b6b8cd585df99776c2635ad61556b6a0a996982026f62c9f76"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_tree_dual_l1.txt": {
+      "bytes": 567938,
+      "sha256": "d82d6e6cc2eeefe6c6d15cc717379627d9e7668e8fbf758eccc2fef093f93828"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_tree_dual_l2.json": {
+      "bytes": 15354,
+      "sha256": "a3d3b572d87b8be2ef68300c2c3f1abd5ab1e19f0b21357d474ef2938469345b"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_tree_dual_l2.npz": {
+      "bytes": 104956,
+      "sha256": "3647c930070cd20c2516fc22049e118cff40466386289ff65d3d5204713407a0"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_tree_dual_l2.txt": {
+      "bytes": 570957,
+      "sha256": "d0452a942094e7e2af3eb822f15d43010fdffb4fb2d68c074e3a80b660fd8527"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_tree_era5_l2.json": {
+      "bytes": 15354,
+      "sha256": "b41d02e39d0de79002162e5a1c417bb1f32b59e2360806d66007245faf49a594"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_tree_era5_l2.npz": {
+      "bytes": 104746,
+      "sha256": "972865a1582fcfb42972b8acc2692346ab4f271b57ad4cf5fd4926ec2e78d31c"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner1_tree_era5_l2.txt": {
+      "bytes": 561993,
+      "sha256": "38d7c7aa875e9944317c98355e3a9a56cfe5901f0b6eff57f4fffb3717fb7e89"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_fusion_s0.json": {
+      "bytes": 16393,
+      "sha256": "e4f2ff53d9333024a98a6f5a99bde173c4290024504a56aba03785af504796c2"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_fusion_s0.npz": {
+      "bytes": 74671,
+      "sha256": "551c2bbf555e4d8aca0602de2bb4b7cbeb354c55a187f66013453976cc59b748"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_fusion_s0.pt": {
+      "bytes": 54995,
+      "sha256": "c8d5e970c5383d745ec7717c83ac1c4b4a2788bc4e3faa0e8aa967e89b2eb979"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_host_s0.json": {
+      "bytes": 16389,
+      "sha256": "2f068d6aaeade77efa243bcf41f0ad08dca7903968bd6938a6e6303d95f8730b"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_host_s0.npz": {
+      "bytes": 75016,
+      "sha256": "7e844dd9e3f9fefde1bae3a5f7a700c8122174b47803ffe865770d04c585786f"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_host_s0.pt": {
+      "bytes": 42020,
+      "sha256": "236ecb5eff187624687bd586a9e060f2c86ce0bdfc5c046aff1e872a7f22b061"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_tree_dual_l1.json": {
+      "bytes": 15353,
+      "sha256": "b4d2bc2f0764a9e84523c9b9c744a3fdb934e9dbc817f709dc5624741aebb241"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_tree_dual_l1.npz": {
+      "bytes": 50506,
+      "sha256": "266b1a19347dd991aefc7ce88153bf9a08c8502f62b8694719e9a5ebdecdd28c"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_tree_dual_l1.txt": {
+      "bytes": 569728,
+      "sha256": "303b0f0fd9acd0d00a87238a57acfb340a758e1bfa48aa6d84b227f5c6b565bc"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_tree_dual_l2.json": {
+      "bytes": 15354,
+      "sha256": "fdee0ac8e4217fba7070b9884aafb4a403d9ef13a05dc7babc61c489f7be9e64"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_tree_dual_l2.npz": {
+      "bytes": 45391,
+      "sha256": "438d3560e3bc5331e55df4374cd60ef9f9c4383125f971b467ae3f81180f6b20"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_tree_dual_l2.txt": {
+      "bytes": 571363,
+      "sha256": "15aa8502a1956dbe6c7555c125ae15e54058e9a9bf0ae7a30f2614a2d561091f"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_tree_era5_l2.json": {
+      "bytes": 15354,
+      "sha256": "04105f76f43602b7dc3b72b2e9be394b34b6caac9e026e85752d13da357e173b"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_tree_era5_l2.npz": {
+      "bytes": 39644,
+      "sha256": "beb179cf15624fc56ebd211c7fd4a36c56f04236d8b1d4e445a5f1160273316a"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner2_tree_era5_l2.txt": {
+      "bytes": 561817,
+      "sha256": "bb5fe04961278e65f31ea4ebfa6870253bd05c54b7f10a9c0e054bd07b1dca49"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_fusion_s0.json": {
+      "bytes": 16392,
+      "sha256": "f23b51815add986e1601ee1db89434a1aac498d488986c19852a0dc25aa5ae71"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_fusion_s0.npz": {
+      "bytes": 195386,
+      "sha256": "9120daed618a3121c9adedda908e3602945309ee15d0fd1fd7e17efdded07224"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_fusion_s0.pt": {
+      "bytes": 55059,
+      "sha256": "904261252eac20ebb84e4244813410a6a1871a251d604c5c51ab0d0fb312a780"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_host_s0.json": {
+      "bytes": 16388,
+      "sha256": "bb0746c9ebf19e2a9cec3a7e8989a526d17910bd3206605d0e74fea369d60cf7"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_host_s0.npz": {
+      "bytes": 196883,
+      "sha256": "49c59c180e9f2d50acb417c18ee598d1b56a5d509fe358892327f7de1608c252"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_host_s0.pt": {
+      "bytes": 42020,
+      "sha256": "ecc5c9333b0bdcf3cae886dda684d5ebce8aa2d9dc9676b78647c48b31dc9783"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_tree_dual_l1.json": {
+      "bytes": 15353,
+      "sha256": "7a0b4ce562296ee333821a33252172ff8f82de3171afb4eccb334fbc9608e9a7"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_tree_dual_l1.npz": {
+      "bytes": 128488,
+      "sha256": "af50471889d5ab81afbe3e5d756e45d20f2b0a5ddbd871a4a24d6bed8483ab8e"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_tree_dual_l1.txt": {
+      "bytes": 570413,
+      "sha256": "11bd61ecc15cb50174ab151b2cec92d65bf3f1b42f3b4f8c1d41d93c9f14214b"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_tree_dual_l2.json": {
+      "bytes": 15353,
+      "sha256": "f531cd0a341edd0fd72186f7e0586721dfe59cd9698eb14ffc75baacf0bba2f4"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_tree_dual_l2.npz": {
+      "bytes": 87239,
+      "sha256": "d8ee1297d817f45936710eea47d059eaaaa49504d03b7e40c96869ea63027b19"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_tree_dual_l2.txt": {
+      "bytes": 571758,
+      "sha256": "5b2f738d6f836cb28bc5a58c41c4bd89a21fb5477387d162911ab3bfdb32b379"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_tree_era5_l2.json": {
+      "bytes": 15354,
+      "sha256": "05b064dfc3a9490f9357135703951f7fdd1be9c633508dcf3b807f7df559257a"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_tree_era5_l2.npz": {
+      "bytes": 101604,
+      "sha256": "3fba2df4b9ad5037cf2c35870d134c71be0f67a4b4895b76341ab5800ebd76a4"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner3_tree_era5_l2.txt": {
+      "bytes": 562702,
+      "sha256": "cbe5fd309e15cbbfbd565a3405d418855f8d317abcf843c93d143d390af060ea"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_fusion_s0.json": {
+      "bytes": 16393,
+      "sha256": "eb3023d4a6bfdf5b5b75a6aa1bf2323fecc75a8bf279251442ed4a6b19cc9ce2"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_fusion_s0.npz": {
+      "bytes": 155924,
+      "sha256": "9308a292c8c64482a2ac1fcab907db778d8c6dd38900160b63cdf802cfda8f1f"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_fusion_s0.pt": {
+      "bytes": 55059,
+      "sha256": "5f4d16054024b69f8d037abe4f7ebfab390bb86b5b803a2c49716f94f4c88f50"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_host_s0.json": {
+      "bytes": 16388,
+      "sha256": "f0119d0f3247e513dc9957f1595901c16b0e9ba5d4cba992a6e766ead35104bb"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_host_s0.npz": {
+      "bytes": 156559,
+      "sha256": "8400c0c4fdbc4d7cf877ca86e09de1a10d74b5088658b67b61072701e1b3a7f9"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_host_s0.pt": {
+      "bytes": 42020,
+      "sha256": "0d24e0989150ccebce0a67ce06fcbfdee36d3ef869aa8335619915d4b6003b07"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_tree_dual_l1.json": {
+      "bytes": 15351,
+      "sha256": "8b3519c3d1f7a3196968913c27932fbce2bb20274421a2e88e04c5878aefe358"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_tree_dual_l1.npz": {
+      "bytes": 84958,
+      "sha256": "a091c1e7315a7ca4739aacad79cf88cae53731c0c49f5cec1d2b6db869cf0edb"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_tree_dual_l1.txt": {
+      "bytes": 569198,
+      "sha256": "c9ce6ff09ff9b46fde299fbd658a09032c15711ab407da38940794c09abb2ff9"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_tree_dual_l2.json": {
+      "bytes": 15352,
+      "sha256": "af9fd80aa32e67aafe110923b21a8d5ef0f24f3bf01c6e94e252c8223feba0b1"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_tree_dual_l2.npz": {
+      "bytes": 44480,
+      "sha256": "3cc4640fe5a67434a12fb35e75ed27232d2c2457294b501a7ab6df664f7f831d"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_tree_dual_l2.txt": {
+      "bytes": 571828,
+      "sha256": "294f8a9f9dfe02ad6ee1973ac491abb25336e46ccde5d077b5bcb890c61f1392"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_tree_era5_l2.json": {
+      "bytes": 15352,
+      "sha256": "12aa6baed4a75042a3055fbabb48a08dbbcd0d566330c7a5ae4afe487f9656b8"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_tree_era5_l2.npz": {
+      "bytes": 39892,
+      "sha256": "e78f9d9c2bed37ba2c41e6b0675c996c3730cc628eca6ad47e9a592a21e938b9"
+    },
+    "runs/tropical_prediction_v1/cache/f5_inner4_tree_era5_l2.txt": {
+      "bytes": 562224,
+      "sha256": "7563e469b2594b92b4594eeed704cf5879b8fe35bacc5877806ae772d66bab4c"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_fusion_s0.json": {
+      "bytes": 19754,
+      "sha256": "c2b58716c634cbe2f1d227a99ee7c0799930884ed068ab98bfd8ec1a82da324b"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_fusion_s0.npz": {
+      "bytes": 148066,
+      "sha256": "a04cf88111e4c2b53c52a796f61b54f8517a57ef15962d8a673975696bdce03e"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_fusion_s0.pt": {
+      "bytes": 55781,
+      "sha256": "58a3da30f676ff403e4c8fb55e6d5a174b018fcbc36cde628871a413a530fdbd"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_fusion_s1.json": {
+      "bytes": 19746,
+      "sha256": "bc29f5706c6780067a717004138d741aee1ab29c83e24201c7ac5fb8311fb168"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_fusion_s1.npz": {
+      "bytes": 147947,
+      "sha256": "77f75afd08d815dd10db87fb9e74d94f0583d90755358cda3c9011ba5c8c5047"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_fusion_s1.pt": {
+      "bytes": 55781,
+      "sha256": "5c20730e1c12d5bcd6ebadee8291fe0f145dd425e4afd0811c02bf67eebb183d"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_fusion_s2.json": {
+      "bytes": 19749,
+      "sha256": "2397b7b3a064e55aafdca2713ed92d6e52c14f2b2067c520a0a650a0a4408e24"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_fusion_s2.npz": {
+      "bytes": 148294,
+      "sha256": "6d590fd9adf4c23d4db036cde2fa2ff850e166000d72494975e36255a72ed1c1"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_fusion_s2.pt": {
+      "bytes": 55781,
+      "sha256": "b192844491845e9003b1098d1b834a628b0e214adcbc723ae27dca8cc10338e5"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_host_s0.json": {
+      "bytes": 19748,
+      "sha256": "f64bfde64b3f43a7452b244ace420a83850097514820f60b6534b4297997a142"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_host_s0.npz": {
+      "bytes": 148051,
+      "sha256": "d405b931a711ed9c60aadd79a53a640d1099582fc27d95aa2a28082faf67ab5b"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_host_s0.pt": {
+      "bytes": 42827,
+      "sha256": "e84d90d9e3c29ed5437f37c46a7ffbd9e68abc35f166687d556484593f7d7c2c"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_host_s1.json": {
+      "bytes": 19748,
+      "sha256": "b1ab5243e1c2ebfe8adf7e4ab9cbc84dce10b0b270c96a47dcc29ee1a7ff8a97"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_host_s1.npz": {
+      "bytes": 147986,
+      "sha256": "fff61000e9ca0d32dd4c832dc38eacb01d860eda24cb8f222fee4f78e694a450"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_host_s1.pt": {
+      "bytes": 42827,
+      "sha256": "630704b6680647ebf1f6863c9372d077592d39ec08ccf14e7c835ed16d62f5d8"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_host_s2.json": {
+      "bytes": 19745,
+      "sha256": "f785d5989346282af8bd8839d8c3814ba234638da4def4f77bbe8da04e0b627a"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_host_s2.npz": {
+      "bytes": 148579,
+      "sha256": "254571bb52b5dd7cab402e14d0dd2e90e12966a6dcf15337e868d7ba139999b3"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_host_s2.pt": {
+      "bytes": 42827,
+      "sha256": "ef15355c202c9e43284b39247269c8ea7e66b3e19849f2df921cdfa55979a18b"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_tree_dual_l1.json": {
+      "bytes": 18713,
+      "sha256": "d62def8d71f0ea41ecbf8acf8caee77f61974ebe6447db85f9b0c7d88b87044a"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_tree_dual_l1.npz": {
+      "bytes": 85171,
+      "sha256": "d8d0fe84e4a25cf15ab844006bed0ee426850b10b79e4f757a7ae9262570fa57"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_tree_dual_l1.txt": {
+      "bytes": 569826,
+      "sha256": "9ab498eaa084575f4dec174cc7d3e69cab69d60863566f7269a19f6c51a524ed"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_tree_dual_l2.json": {
+      "bytes": 18713,
+      "sha256": "7545b4c0ea4748c3c565aa3a5ec6f3ca6e4b5e4bc92ccad4b45a94c7ba7994e8"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_tree_dual_l2.npz": {
+      "bytes": 55726,
+      "sha256": "06f6f60ca9eb69bcf5877ea0025b0648dcdbed6d9a6e488e4f87e24e49c8ad16"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_tree_dual_l2.txt": {
+      "bytes": 570851,
+      "sha256": "5d0e342135f1d5fa21258209f099abad237f2d610f64a0e9b4249c8f9d551cb9"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_tree_era5_l2.json": {
+      "bytes": 18714,
+      "sha256": "d450f58460639d59cbada738c5f9cf76cf0ce71659a8b795dfe8759706fac8b2"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_tree_era5_l2.npz": {
+      "bytes": 72999,
+      "sha256": "9ff386af0f1b4092e5a7ad99283ede18cff0e5e2acfaa23586bfac8decef9440"
+    },
+    "runs/tropical_prediction_v1/cache/f5_outer_tree_era5_l2.txt": {
+      "bytes": 561338,
+      "sha256": "4a3442ae550d470fabaefb61bfccd93c8975f4a9918c518b0dbc93e59696b5ed"
+    },
+    "runs/tropical_prediction_v1/environment.json": {
+      "bytes": 2258,
+      "sha256": "19a91fd597ba366a83c0c99c5af2311e3508a20c3f669f450d653460d86e79a0"
+    },
+    "runs/tropical_prediction_v1/fold1/DONE.json": {
+      "bytes": 15952,
+      "sha256": "d32369d3bf725a0d37d33a6a194e26b57be6509e767d08f52e39dc1fc53b5e64"
+    },
+    "runs/tropical_prediction_v1/fold1/inner_predictions.npz": {
+      "bytes": 2094141,
+      "sha256": "0a26572798544ea4a4d1056714faf1846e7222f2bf032abe50d13a9c2305b772"
+    },
+    "runs/tropical_prediction_v1/fold1/outer_predictions.npz": {
+      "bytes": 1612633,
+      "sha256": "7804a6e84184cbcf700356d1606d308ac1b1af32c606ba6de9412b02f28fd6db"
+    },
+    "runs/tropical_prediction_v1/fold1/selection.json": {
+      "bytes": 419,
+      "sha256": "e70565a284a4b95f837e54e411a8123fd3f4b45b44bb63f9878e404e3dcf0e61"
+    },
+    "runs/tropical_prediction_v1/fold2/DONE.json": {
+      "bytes": 15935,
+      "sha256": "0e35a713b6b2e148a942e6a544b8e9272e60c9817b19a41357867ea2232924eb"
+    },
+    "runs/tropical_prediction_v1/fold2/inner_predictions.npz": {
+      "bytes": 2739824,
+      "sha256": "85d906e85e009d156ccb863de35732c37c21e8eb584b49044a116c8221f70d36"
+    },
+    "runs/tropical_prediction_v1/fold2/outer_predictions.npz": {
+      "bytes": 536698,
+      "sha256": "b38fe574c1af39307db26bf626bc8660b1a8ab7b15ad94bc9e94d287aa73f3bc"
+    },
+    "runs/tropical_prediction_v1/fold2/selection.json": {
+      "bytes": 402,
+      "sha256": "b9e8f78f6ac7982ceffa9bb09ad5ebce1beb1c46598f330db7651e1574b8bbd3"
+    },
+    "runs/tropical_prediction_v1/fold3/DONE.json": {
+      "bytes": 15933,
+      "sha256": "3542372c958c38aca89ccff072546b180245d7eaac5cd8c663893eb702090905"
+    },
+    "runs/tropical_prediction_v1/fold3/inner_predictions.npz": {
+      "bytes": 2383401,
+      "sha256": "e9fd81c0c8ae381890570fb45734f2a58af75ba4f7b47acd7996622c9e65af21"
+    },
+    "runs/tropical_prediction_v1/fold3/outer_predictions.npz": {
+      "bytes": 1213304,
+      "sha256": "3f4ba414a3cc3da6ce72a2a5ad31ba8ed2d13cc2125b823686ee66c8616a0987"
+    },
+    "runs/tropical_prediction_v1/fold3/selection.json": {
+      "bytes": 400,
+      "sha256": "67b14cb620f621587198f87a45fe4761f5eb3079a56f5e6f79d4e68be2b7eb89"
+    },
+    "runs/tropical_prediction_v1/fold4/DONE.json": {
+      "bytes": 15934,
+      "sha256": "e26e1fe3a8cd0dc5c0c1ff88fd4b7dfdc7d8111be0eb8193f1233392b631d786"
+    },
+    "runs/tropical_prediction_v1/fold4/inner_predictions.npz": {
+      "bytes": 2144993,
+      "sha256": "8a128f8ff820529d7f1f67457f45028f29d4c5a823d5aaa00ca7f88881ccf8d3"
+    },
+    "runs/tropical_prediction_v1/fold4/outer_predictions.npz": {
+      "bytes": 814402,
+      "sha256": "b6c691467f50f878be23dd7a762e5b6482b7de2dd0952349d3edbe0402aa329b"
+    },
+    "runs/tropical_prediction_v1/fold4/selection.json": {
+      "bytes": 401,
+      "sha256": "326d9cacb4e3795ddc6af183b462afe9f6176d4fb676e881f51c5f7fe4b599ec"
+    },
+    "runs/tropical_prediction_v1/fold5/DONE.json": {
+      "bytes": 15935,
+      "sha256": "20aaceb657036333cccc5ebbada34fd0cf35e1d865a1fafdc2c9b4f2320da005"
+    },
+    "runs/tropical_prediction_v1/fold5/inner_predictions.npz": {
+      "bytes": 2588105,
+      "sha256": "d6d4af7b179b0d217d2b7e5f92824e31b7204c752748631bee71b4ad414f3eca"
+    },
+    "runs/tropical_prediction_v1/fold5/outer_predictions.npz": {
+      "bytes": 898453,
+      "sha256": "2adb39c32375eb9d498cddbd6cdd4b856ecf4b249f4f04b2ecc1861277f522ad"
+    },
+    "runs/tropical_prediction_v1/fold5/selection.json": {
+      "bytes": 402,
+      "sha256": "dd7143438bef7832c929603f14211772b643f227e23292cb4b78520fed1673e4"
+    },
+    "runs/tropical_prediction_v1/logs/fold1.log": {
+      "bytes": 1694,
+      "sha256": "3f42960ece20fac72ade2198dabc8d08bc335f58049d571fc39f3ee4c2a9660e"
+    },
+    "runs/tropical_prediction_v1/logs/fold2.log": {
+      "bytes": 1793,
+      "sha256": "b2a4fcc53317077e0e4c2bb4e80d206afe6e14f55bfb4a1bcd8e9aa626accdfd"
+    },
+    "runs/tropical_prediction_v1/logs/fold3.log": {
+      "bytes": 1693,
+      "sha256": "a5127551ba62e8e6da9c3a82f1e5bbf5eed1680af88a91a9218a48f8e2dc6b88"
+    },
+    "runs/tropical_prediction_v1/logs/fold4.log": {
+      "bytes": 1734,
+      "sha256": "884e7444a773c670faeb67296fdf5b5c14b8b11e18c4273fb8e6ccd7ea3d3d87"
+    },
+    "runs/tropical_prediction_v1/logs/fold5.log": {
+      "bytes": 743,
+      "sha256": "2b2cd44e9560e87f6400d2e76f35134daa2eb5a90bf604d455b6ce10ec983c6f"
+    },
+    "runs/tropical_prediction_v1/logs/fold5_dual_prefit.log": {
+      "bytes": 272,
+      "sha256": "d49bb4ea4061cc024ef6d98d1bc849b74accdd12c035d59317cde28f11ea7fbe"
+    },
+    "runs/tropical_prediction_v1/logs/fold5_era5_prefit.log": {
+      "bytes": 262,
+      "sha256": "b63f0d2fdffe263e9c9f16c5d76ee438dae0540fbb426f1c80d1371ca3aeb7f5"
+    },
+    "runs/tropical_prediction_v1/logs/fold5_neural_prefit.log": {
+      "bytes": 412,
+      "sha256": "0e0208df3bc12a3ce85beb6322353a8baaad22a44fbe018d5b1afa0c6166680d"
+    },
+    "runs/tropical_prediction_v1/logs/fold5_outer_parallel.log": {
+      "bytes": 197,
+      "sha256": "b2a65234a095e1845d5fa92f6eec72ddd5d1e1ed18602e6cf3c8abbcfd0f9ca4"
+    },
+    "runs/tropical_prediction_v1/logs/postprocess.log": {
+      "bytes": 10252,
+      "sha256": "c0deee3771bad5966932d77c5c27b61a7087af1eb7a5b2282e85fcdf5ccc9ac6"
+    },
+    "runs/tropical_prediction_v1/logs/resume_all.log": {
+      "bytes": 1277,
+      "sha256": "b660835463ae2a06935454b693d9aa6f68266f90fec20d3e1f1ac7e1f07548b4"
+    },
+    "src/asymode/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "src/asymode/asym_host.py": {
+      "bytes": 14533,
+      "sha256": "f62829950bd87208ab9e11bb379528184508cc8748a566fccddbed065aa43560"
+    },
+    "src/asymode/burden.py": {
+      "bytes": 3967,
+      "sha256": "23308cc1fb24e616ab4b208440829a4e2cf3d09a71bb5d83bafb79ae1d6ebd44"
+    },
+    "src/asymode/dynamics.py": {
+      "bytes": 20082,
+      "sha256": "be49f1f9eaee3f25b51da9b0691c56556338cd7ab8705cdfa4b368ee6c3efc69"
+    },
+    "src/asymode/evalproto.py": {
+      "bytes": 5030,
+      "sha256": "c25f25a9d5da461518d6bc30d6bf6565573932427b5ee1865c4c98ba5b1b38c7"
+    },
+    "src/asymode/features.py": {
+      "bytes": 12899,
+      "sha256": "194616fd8c72937e0a2d14e05fb3592c72632502b395cfd5821d7cf280a7ee6f"
+    },
+    "src/asymode/fit.py": {
+      "bytes": 4927,
+      "sha256": "6d549b815f40cb763897714a0039e159abae41987167b3b79445f899221ca7ed"
+    },
+    "src/asymode/gcrk.py": {
+      "bytes": 12114,
+      "sha256": "aef65791500b7ca63537d6bd9a90bfb18b0c2b45d98c0f4605acfb83975d2fd5"
+    },
+    "src/asymode/gcrk_train.py": {
+      "bytes": 15730,
+      "sha256": "36c82bb855afa36365f327ae787f81608079b05570b3db06d9717eb551c30758"
+    },
+    "src/asymode/geo_mech.py": {
+      "bytes": 8280,
+      "sha256": "80524b0e9702c1c8861e146c6b7981c851989c37bb21c88f9dabe4626f8af407"
+    },
+    "src/asymode/information.py": {
+      "bytes": 7569,
+      "sha256": "4716350d6b8a5a17fe1948581c360426bc4a8113ee9112783050a2c0e99009b8"
+    },
+    "src/asymode/panel.py": {
+      "bytes": 6890,
+      "sha256": "ad2230e24a2a880bbe12ec1ac886efb6b8a0d8cf1b9dc5123a97db6cc56bdd9c"
+    },
+    "src/asymode/panels.py": {
+      "bytes": 5175,
+      "sha256": "67310ed15c62e875331be4b9c34be1e14361c2ab3bb47a171d813841c76e6d12"
+    },
+    "src/asymode/schema.py": {
+      "bytes": 3857,
+      "sha256": "3856ffa4f8945d9f1c5d92591cc4c4b917c32133497aa3fbb72e02526534b3f7"
+    },
+    "src/asymode/splits.py": {
+      "bytes": 4020,
+      "sha256": "3c6bf115fa3cae36adb466b71efaeefb1f129bb5797e73699b4bddbdbf01932e"
+    },
+    "src/asymode/storm_events.py": {
+      "bytes": 6134,
+      "sha256": "6accec10c4ef9eb5998127155ab98449aedfce1cc94d2a98e4cc515f85573047"
+    },
+    "src/asymode/synthetic.py": {
+      "bytes": 6140,
+      "sha256": "311d10107ebc4418b16a93072d12533ad22c606c8b976afd582c11cf9d7308fd"
+    },
+    "src/asymode/weather.py": {
+      "bytes": 5385,
+      "sha256": "4c41c0ade548d20be4ea27c744f65b010f27a6258e331b3662fe75f4d8386ae2"
+    }
+  },
+  "patch_sha256": "5ed23219d32c840b29ebd96e07cd7aec810911a9c052ce9f2ae163bf5ceaed86"
+}

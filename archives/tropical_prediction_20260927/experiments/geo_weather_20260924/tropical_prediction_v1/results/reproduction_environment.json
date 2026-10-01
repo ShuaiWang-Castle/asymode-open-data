@@ -1,0 +1,25 @@
+{
+  "source_commit": "5119ec898baa2f44fd095c07e6806aefe91cc15b",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "device": "cpu",
+  "versions": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "torch": "2.14.0+cu130",
+    "lightgbm": "4.7.0",
+    "scipy": "1.17.0"
+  },
+  "data_sha256": "2e102e98f7c4283116019aa65530d3740fdc3dce10ee2f514e962569f2832fb2",
+  "memory_limit_bytes": 8589934592,
+  "parallel_folds": 2,
+  "execution_note": "Initial five-fold concurrency exceeded the 8 GiB cgroup memory limit; fold 4 was killed before fitting. Folds 2 and 5 were paused by termination, retaining completed fit caches. Continue two folds at a time with identical training code and settings.",
+  "model_source_sha256": {
+    "src/asymode/asym_host.py": "f62829950bd87208ab9e11bb379528184508cc8748a566fccddbed065aa43560",
+    "src/asymode/gcrk.py": "aef65791500b7ca63537d6bd9a90bfb18b0c2b45d98c0f4605acfb83975d2fd5"
+  },
+  "scheduler_note": "The process-list command failed in the first queue watcher. Replaced it with DONE-file and child-return-code tracking; completed training caches and protocol were unchanged.",
+  "auxiliary_inner_neural_worker": "Prefit fold 5 inner neural models with the exact runner functions and cache identities, without allocating pooled tree feature tensors; CPU threads remain 1. No outer fits run before inner selection. Two full fold workers remain the maximum.",
+  "auxiliary_inner_tree_worker": "After fold 5 inner neural prefits, prefit its four ERA5 inner trees and first two inner dual-weather tree pairs, constructing one source feature tensor at a time; same fixed runner functions and cache identities, before the full fold 5 worker starts.",
+  "interruption_resume": "Execution session interruption at 126 completed fit records stopped unfinished workers. Resumed the same fixed campaign using run_all.py --workers 2, retaining every valid cache. Completed source and parameters unchanged.",
+  "final_outer_parallelism": "Only after fold 5 selection.json is written, prefit its outer HOST seed 2 and fusion seeds 1/2 in separate neural-only processes while the main worker fits HOST seeds 0/1 and fusion seed 0. Same fitting rows, seeds, source and cache identities; no outer outcome selection."
+}

@@ -1,0 +1,23 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,booktabs,multirow,graphicx,hyperref}
+\setlength{\tabcolsep}{4pt}
+\title{Weather-Conditioned Tropical Outage Prediction\\\large Development Experiment Report}
+\author{}
+\date{September 27, 2026}
+\begin{document}\maketitle
+\noindent\textbf{Status.} Completed development evaluation; not an independent confirmation or an operational weather-forecast test.
+\input{PAPER_RESULTS.tex}
+\clearpage
+\input{report_horizon_table.tex}
+The four horizons are point predictions from the same 144-hour path; weights do not vary by horizon. The full-path RMSE ordering need not hold at every lead time. Persistence is particularly strong at the earliest leads in this panel. All seed, per-system and weighting-sensitivity results accompany the report.
+\section{Methods}
+\input{../PAPER_METHODS.tex}
+\clearpage
+\begin{figure}[p]\centering\includegraphics[width=\textwidth]{figures/forecast_metrics.pdf}
+\caption{Full-path errors for all fixed candidates. The ensemble weights were selected only from inner event-fold predictions.}
+\end{figure}
+\begin{figure}[p]\centering\includegraphics[width=\textwidth]{figures/storm_transfer.pdf}
+\caption{Every tropical development system, including weak systems. Both horizontal axes use logarithmic scales.}
+\end{figure}
+\end{document}

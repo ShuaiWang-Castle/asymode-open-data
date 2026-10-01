@@ -1,0 +1,90 @@
+\subsection{Tropical-cyclone forecast setting}
+We study weather-conditioned county-level outage forecasting on the tropical
+development subset of the public data panel. The subset contains 15 weather
+systems and 1,633 county--event pairs, including weak systems with little or no
+reported outage. For each system, a fixed forecast origin separates 72 hours
+of historical outage observations from a 144-hour forecast window. The target
+is the public outage fraction constructed by the data pipeline. We retain the
+pipeline's observation masks, county sampling probabilities and design weights.
+The historical information boundary is enforced on all outage-derived inputs.
+
+The weather inputs comprise the available ERA5 and HRRR hazard summaries.
+Missing weather hours have explicit availability indicators and retain the
+upstream missing-value convention. Weather availability does not alter the
+outage scoring mask. Physical county descriptors include terrain, vegetation,
+soil and coastal-distance variables; six county background variables provide
+electricity-service and population context. Imputation and standardization
+are fitted separately within each training set. The 2023 interruption indices
+are excluded from model inputs. Other static fields and customer denominators
+retain the public panel's snapshot vintages.
+
+\subsection{Predictors and joint training}
+Our matched AsymODE reference uses the repository's two-rate outage-stock
+model, with damage and recovery networks of widths 32 and 16, respectively.
+The stock is advanced hourly by
+\begin{equation}
+ p_{i,t}=\operatorname{clip}_{[0,1]}
+ \left[p_{i,t-1}+u_{i,t}(1-p_{i,t-1})-r_{i,t}p_{i,t-1}\right],
+\end{equation}
+initialized at the last observed outage fraction. Both neural predictors use
+identical weather, historical-outage summary and county-context inputs.
+The joint predictor additionally introduces the repository's geography-
+conditioned response kernel and residual damage/recovery heads, each with
+16 hidden units. The residual heads have zero initial output, and the kernel
+opens gradually; the two predictors therefore have identical predictions at
+initialization. All parameters are jointly optimized from scratch.
+This comparison evaluates the combined prediction design, rather than
+isolating the contribution of geography alone.
+
+Every neural fit uses 900 Adam updates with batches of 128 county--event
+pairs. Learning rates are 0.003 for damage/kernel parameters and 0.0003 for
+recovery parameters, with gradient-norm clipping at one. Kernel calibration
+statistics are refreshed on a fixed training-only sample. The final neural
+predictions average seeds 0, 1 and 2. These models use reconstructed hazard
+inputs and minibatch training, so they are distinct from the earlier
+all-regime HOST experiment.
+
+We also fit gradient-boosted trees to the entire forecast trajectory using
+lead time as an input. Two residual models use squared-error loss and either
+ERA5 alone or both weather sources; a direct model uses absolute-error loss.
+Residuals are defined relative to exponential-decay persistence, whose
+single decay parameter is fitted on the relevant training set. Tree settings
+are fixed at 300 estimators, 15 leaves, learning rate 0.035 and a minimum of
+80 samples per leaf. Zero and persistence predictors are reported alongside
+the learned models.
+
+\subsection{Event-held-out evaluation and ensemble selection}
+We inherit the panel's five outer event folds without modification. Systems
+belonging to a linked event group remain together. Inside each outer training
+set, the four remaining event folds provide inner out-of-fold forecasts.
+A single vector of nonnegative ensemble weights, summing to one, minimizes
+the pooled design-weighted inner squared error. These weights remain fixed
+across all 144 forecast hours. No outer outcome is used to select a weight,
+checkpoint, seed or candidate configuration. Inner neural fits use seed zero;
+final refits average three seeds, an approximation whose variance difference
+is retained as a limitation.
+
+For prediction $\widehat y_{i,t}$, target $y_{i,t}$, observation indicator
+$m_{i,t}$ and county--event design weight $w_i$, we report
+\begin{align}
+ \mathrm{RMSE}&=\sqrt{\frac{\sum_{i,t}w_i m_{i,t}
+ (\widehat y_{i,t}-y_{i,t})^2}{\sum_{i,t}w_i m_{i,t}}},\\
+ \mathrm{MAE}&=\frac{\sum_{i,t}w_i m_{i,t}
+ |\widehat y_{i,t}-y_{i,t}|}{\sum_{i,t}w_i m_{i,t}}.
+\end{align}
+Errors are pooled before taking the square root; fold RMSEs are not averaged.
+We report the full-path metrics, individual point horizons, per-system and
+exposure-stratum results, and untrimmed-weight and unweighted sensitivities.
+Paired uncertainty intervals resample the 15 event families 2,000 times with
+the saved outer predictions fixed. They do not capture repeated model
+development or refitting uncertainty.
+
+\paragraph{Scope of inference.}
+This is event-held-out development evidence: the same county may occur in
+other training storms, and prior development results informed the decision
+to focus on tropical systems. The sealed confirmation tranche remains unread.
+Future ERA5 and rolling HRRR fields provide conditional hindcast information,
+not archived forecasts all issued at the outage forecast origin. Static
+snapshots can also postdate historical storms. The experiment therefore does
+not establish operational forecasting accuracy or independently confirmed
+generalization.

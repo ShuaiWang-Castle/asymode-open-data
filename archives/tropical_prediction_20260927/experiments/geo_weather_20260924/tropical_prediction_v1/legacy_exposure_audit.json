@@ -1,0 +1,31 @@
+{
+  "method": "Intersection of legacy county-time coverage and C S1-S3 county sets x [window_start, window_end + 7 days]; metadata only",
+  "sealed_outcomes_read": false,
+  "legacy_source_commit": "8dd47c5ccd829611f27b69a3d64c274a0a24c400",
+  "panels": [
+    {
+      "event": "2018-10-11",
+      "panel_sha256": "84bf6614e460de9c67c440047c6157d28ad3f06c37d71410c470206eb28eb01e",
+      "start": "2018-10-09 00:00:00",
+      "end": "2018-10-16 00:00:00",
+      "counties": 235,
+      "sealed_county_time_intersections": []
+    },
+    {
+      "event": "2020-08-04",
+      "panel_sha256": "05da275d71284dca3adc74648bfa5df6385a67d954de22f594f0fb63ea809716",
+      "start": "2020-08-02 00:00:00",
+      "end": "2020-08-09 00:00:00",
+      "counties": 213,
+      "sealed_county_time_intersections": []
+    },
+    {
+      "event": "2020-10-29",
+      "panel_sha256": "de5863bf9b09b16f86c1902b66d900be700b3eb913f5bff2b946190158a4728f",
+      "start": "2020-10-27 00:00:00",
+      "end": "2020-11-03 00:00:00",
+      "counties": 240,
+      "sealed_county_time_intersections": []
+    }
+  ]
+}

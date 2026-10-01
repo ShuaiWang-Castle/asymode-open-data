@@ -1,0 +1,39 @@
+\section{Forecasting Results and Interpretation}
+
+The complete campaign comprises 70 neural fits and 75 tree fits. Each of the 1,633 county--event pairs is evaluated exactly once in an outer event fold. All results below use the fixed public development panel; the sealed confirmation outcomes were not accessed.
+
+\begin{table}[ht]\centering\small
+
+\caption{Full 144-hour trajectory accuracy: design-weighted pooled metrics.}
+
+\begin{tabular}{lrr}\toprule Model & MAE & RMSE \\\midrule
+
+Zero forecast & 0.00978 & 0.05805 \\
+
+Persistence & 0.00973 & 0.05728 \\
+
+Damped persistence & 0.00971 & 0.05729 \\
+
+Matched AsymODE host & 0.01078 & 0.04858 \\
+
+Joint GCRK-rate model & 0.01171 & 0.05073 \\
+
+ERA5 residual tree & 0.01439 & 0.05345 \\
+
+Dual-weather residual tree & 0.01197 & 0.04813 \\
+
+Dual-weather MAE tree & 0.00954 & 0.04921 \\
+
+Inner-selected ensemble & 0.01108 & 0.04584 \\
+
+\bottomrule\end{tabular}\end{table}
+
+The inner-selected ensemble changes pooled RMSE relative to the matched host by -5.65\% (negative is better), with a paired family-bootstrap 95\% interval [-17.02\%, +4.24\%]. It improves RMSE on 10 of 15 systems. The corresponding MAE change is +2.81\%.
+
+The joint GCRK-rate predictor changes RMSE relative to the matched host by +4.41\%, with a 95\% interval [+1.18\%, +9.46\%]. Because this arm changes the kernel and rate heads together, this is not an isolated test of geographic information.
+
+The ensemble comparison does not establish a reliably positive gain at the stated interval level. Any favorable point estimate must therefore be interpreted as exploratory.
+
+Against zero prediction, the ensemble reduces pooled RMSE by 21.03\% (95\% interval [10.85\%, 31.29\%]), but improves only 6 of 15 systems. Its RMSE reduction over the dual-weather residual tree is 4.75\% (interval [-2.11\%, 12.53\%]).
+
+The lowest full-path MAE belongs to the dual-weather absolute-loss tree (0.00954); its MAE reduction relative to the host is 11.51\% (interval [3.57\%, 27.68\%]). Thus the RMSE-oriented ensemble and the absolute-loss tree represent different error tradeoffs. The present joint GCRK-rate arm does not support replacing the matched host.
