@@ -578,3 +578,8 @@ is running (`jobs_v1r48_s0.txt`, queue `run_queue_wait.sh`, at most three proces
 `info_ceiling/score_roll.py 48 RK`. Follow-up arms RKl, RKp, RKs only if RK passes its rule
 (`notes/RESTORATION_KERNEL_DESIGN_20261002_ZH.md`). The multi-origin data design (I23) is the PI's decision; nothing of
 it is adopted. Sealed C and `paper_v1/` untouched. Summary for the PI: `notes/OVERNIGHT_RESULTS_20261002_ZH.md`.
+
+Update 05:52 ET: RK passed its registered rule at seed 0 (five event folds). The control queue is running
+(`jobs_v1r48_s0_followup.txt`: RKl, RKp, hostF, BinF, RKu, Bin). Score with `info_ceiling/score_roll.py 48`, then
+regenerate the block of the overnight note with `info_ceiling/report_roll.py`. No further arm, seed or origin is to be
+started before the PI decides on the multi-origin data design (`notes/ROLLING_ORIGIN_DESIGN_PROPOSAL_20261002_ZH.md`).
