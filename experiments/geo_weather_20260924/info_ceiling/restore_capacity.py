@@ -464,14 +464,15 @@ def rolling(rad=None) -> None:
     else:
         r = region_table_multi(); rf = r[f"out_ex_{rad}"][:, 24:] / np.maximum(r[f"base_ex_{rad}"], 1.0)[:, None]
     fold = fold_of_unit(n); H = 48; origins = [24, 48, 72, 96]
-    rng = np.random.default_rng(BOOT_SEED)
+    rng = np.random.default_rng(BOOT_SEED)            # bootstrap draws only
+    prng = np.random.default_rng(BOOT_SEED + 1)       # permutations of the nulls
     cases = []                                # (units, origin, initial stock, burden, permuted burden, burden permuted within the system)
     sysv = s["system"].astype(str)
     for d in origins:
         ii = np.where(m[:, d - 1] > 0)[0]
-        b = rf[ii, d - 1]; bp = b[rng.permutation(len(ii))]; bw = b.copy()
+        b = rf[ii, d - 1]; bp = b[prng.permutation(len(ii))]; bw = b.copy()
         for q in np.unique(sysv[ii]):
-            j = np.where(sysv[ii] == q)[0]; bw[j] = b[j][rng.permutation(len(j))]
+            j = np.where(sysv[ii] == q)[0]; bw[j] = b[j][prng.permutation(len(j))]
         cases.append((ii, d, y[ii, d - 1], b, bp, bw))
 
     def sse(kind, par, only=None):
@@ -557,6 +558,73 @@ def rolling(rad=None) -> None:
     (RES / ("restore_rolling.json" if rad is None else f"restore_rolling_r{rad}.json")).write_text(json.dumps(out, indent=1) + "\n")
 
 
+def rollnull(n_draws: int = 20) -> None:
+    """R3c with a 20-draw null: the regional burden permuted within the storm (system and origin), each draw cross-fitted
+    like the real variant; the null's per-unit squared error is the mean over the draws."""
+    s, y, m, w, reg, peak, tpk, ok = base(); n = len(y)
+    z = np.load(FEAT, allow_pickle=False); cust = z["cust"].astype(float)
+    fam, sysv = s["family"].astype(str), s["system"].astype(str)
+    _, U, R, _, _ = collect("v1_host_s0", n)
+    r = region_table(); rf = r["out_ex"] / np.maximum(r["base_in"] - cust, 1.0)[:, None]
+    fold = fold_of_unit(n); H = 48; origins = [24, 48, 72, 96]
+    sets = [(np.where(m[:, d - 1] > 0)[0], d) for d in origins]
+
+    def sse(kind, par, burden):
+        a = np.zeros((2, n))
+        for (ii, d), b in zip(sets, burden):
+            p = y[ii, d - 1].copy(); e = np.zeros(len(ii))
+            for t in range(d, d + H):
+                den = (1 + par[0]) * (1 + par[1] * b) if kind == "GR" else (1 + par[0] * R[ii, t] * p) * (1 + par[1] * b)
+                p = np.clip(p + U[ii, t] * (1 - p) - R[ii, t] * p / den, 0, 1)
+                e += m[ii, t] * (p - y[ii, t]) ** 2
+            a[0, ii] += e
+            act = y[ii, d - 1] >= .01; a[1, ii[act]] += e[act]
+        return a
+
+    grids = {"GR": [(a, b) for a in (0, .5, 1, 2, 4) for b in (0, 10, 30, 100, 300)], "LR": [(a, b) for a in (0, 20, 40, 80, 160) for b in (0, 10, 30, 100, 300)]}
+
+    def crossfit(kind, burden):
+        res = {par: sse(kind, par, burden) for par in grids[kind]}
+        A = np.zeros((2, n))
+        for k in range(1, 6):
+            best = min(grids[kind], key=lambda par: (w * res[par][0])[fold != k].sum()); A[:, fold == k] = res[best][:, fold == k]
+        return A
+
+    real = [rf[ii, d - 1] for ii, d in sets]
+    keys = sorted(set(zip(reg, fam))); gid = {kk: j for j, kk in enumerate(keys)}; g = np.array([gid[kk] for kk in zip(reg, fam)])
+    rng = np.random.default_rng(BOOT_SEED); counts = np.zeros((2000, len(keys)))
+    for q in REGIMES:
+        js = np.array([gid[kk] for kk in keys if kk[0] == q]); counts[:, js] = rng.multinomial(len(js), np.full(len(js), 1 / len(js)), size=2000)
+
+    def rel(a, b, sub=None):
+        sub = np.ones(n, bool) if sub is None else sub
+        def gs(v):
+            o = np.zeros(len(keys)); np.add.at(o, g[sub], (w * v)[sub]); return o
+        qa, qb = counts @ gs(a), counts @ gs(b); okb = qb > 0
+        d = 1 - np.sqrt(qa[okb] / qb[okb])
+        return dict(point=float(1 - np.sqrt((w * a)[sub].sum() / (w * b)[sub].sum())), ci95=[float(np.quantile(d, .025)), float(np.quantile(d, .975))])
+
+    out = {"draws": n_draws}
+    f = lambda x: f"{100 * x['point']:+.2f}% [{100 * x['ci95'][0]:+.2f}, {100 * x['ci95'][1]:+.2f}]"  # noqa: E731
+    for kind in ("GR", "LR"):
+        A = crossfit(kind, real); nulls = []
+        for j in range(n_draws):
+            prng = np.random.default_rng(BOOT_SEED + 100 + j); perm = []
+            for (ii, d), b in zip(sets, real):
+                bw = b.copy()
+                for q in np.unique(sysv[ii]):
+                    jj = np.where(sysv[ii] == q)[0]; bw[jj] = b[jj][prng.permutation(len(jj))]
+                perm.append(bw)
+            nulls.append(crossfit(kind, perm))
+        single = [float(1 - np.sqrt((w * A[0]).sum() / (w * N[0]).sum())) for N in nulls]
+        Nm = np.mean(nulls, 0)
+        out[kind] = dict(all=rel(A[0], Nm[0]), active=rel(A[1], Nm[1]), S_units=rel(A[0], Nm[0], peak >= .10),
+                         single_draw_all=dict(min=min(single), median=float(np.median(single)), max=max(single), positive=int(sum(v > 0 for v in single))))
+        print(f"{kind} vs within-storm null (mean of {n_draws} draws): all {f(out[kind]['all'])} | active {f(out[kind]['active'])} | S units {f(out[kind]['S_units'])} | single draws: "
+              f"min {100 * min(single):+.2f}% median {100 * np.median(single):+.2f}% max {100 * max(single):+.2f}%, real better in {out[kind]['single_draw_all']['positive']}/{n_draws}", flush=True)
+    (RES / "restore_rolling_null.json").write_text(json.dumps(out, indent=1) + "\n")
+
+
 def radius() -> None:
     """Robustness to the radius of the regional burden: the R2 learner with at-peak-hour features only, and the rolling test."""
     import lightgbm as lgb
@@ -611,4 +679,4 @@ def export() -> None:
 
 
 if __name__ == "__main__":
-    {"size": size, "sim": sim, "geo": geo, "region": region, "simregion": simregion, "predictable": predictable, "rolling": rolling, "multi": region_table_multi, "radius": radius, "export": export}[sys.argv[1]]()
+    {"size": size, "sim": sim, "geo": geo, "region": region, "simregion": simregion, "predictable": predictable, "rolling": rolling, "multi": region_table_multi, "radius": radius, "export": export, "rollnull": rollnull}[sys.argv[1]]()
