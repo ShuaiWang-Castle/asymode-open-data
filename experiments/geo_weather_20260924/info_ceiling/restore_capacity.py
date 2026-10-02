@@ -684,6 +684,93 @@ def geo2() -> None:
     (RES / "restore_geo_conditional.json").write_text(json.dumps(out, indent=1) + "\n")
 
 
+def border() -> None:
+    """R4 (descriptive): within the 50-150 km ring, the outage fraction of the other counties of the same state and of
+    other states at the peak hour, as predictors of the restoration after the peak."""
+    import lightgbm as lgb
+    import pandas as pd
+    s, y, m, w, reg, peak, tpk, ok = base(); n = len(y); a = np.arange(n)
+    z = np.load(FEAT, allow_pickle=False)
+    fips, sysv, fam = z["fips"].astype(str), z["system"].astype(str), s["family"].astype(str)
+    f = OUT / "regional_burden_state.npz"
+    if f.exists():
+        r = dict(np.load(f))
+    else:
+        origin = pd.to_datetime(z["origin"].astype(str))
+        gz = pd.read_csv(ROOT / "data" / "raw" / "census" / "2020_Gaz_counties_national.txt", sep="\t", dtype={"GEOID": str}, encoding="latin-1")
+        gz.columns = [c.strip() for c in gz.columns]; gz["GEOID"] = gz.GEOID.str.zfill(5)
+        cust = pd.read_parquet(ROOT / "data" / "interim" / "eaglei_county_customers_2024.parquet")["customers"]
+        cust.index = cust.index.astype(str).str.zfill(5)
+        gz = gz[gz.GEOID.isin(cust.index)].reset_index(drop=True)
+        col = {g: j for j, g in enumerate(gz.GEOID)}; st = gz.GEOID.str[:2].to_numpy()
+        la, lo = np.radians(gz.INTPTLAT.to_numpy()), np.radians(gz.INTPTLONG.to_numpy()); cu = cust.reindex(gz.GEOID).to_numpy(float)
+        r = dict(out_same=np.zeros((n, 144), np.float32), out_other=np.zeros((n, 144), np.float32), base_same=np.zeros(n), base_other=np.zeros(n))
+        for q in np.unique(sysv):
+            ii = np.where(sysv == q)[0]; t0 = origin[ii[0]]; t1 = t0 + pd.Timedelta(hours=144)
+            df = pd.concat([pd.read_parquet(ROOT / "data" / "interim" / f"eaglei_outages_{yy}.parquet", columns=["fips", "ts", "customers_out"],
+                                            filters=[("ts", ">=", t0), ("ts", "<", t1)]) for yy in sorted({t0.year, (t1 - pd.Timedelta(minutes=1)).year})], ignore_index=True)
+            df = df[(df.ts >= t0) & (df.ts < t1)]
+            df["j"] = df.fips.astype(str).str.zfill(5).map(col); df = df.dropna(subset=["j", "customers_out"])
+            df["h"] = ((df.ts - t0) / pd.Timedelta(hours=1)).astype(int)
+            g = df.groupby(["j", "h"]).customers_out.sum() / 4.0
+            M = np.zeros((len(gz), 144)); M[g.index.get_level_values(0).astype(int), g.index.get_level_values(1)] = g.to_numpy(float)
+            for i in ii:
+                c = col.get(fips[i])
+                if c is None:
+                    continue
+                d = 2 * 6371.0 * np.arcsin(np.sqrt(np.sin((la - la[c]) / 2) ** 2 + np.cos(la[c]) * np.cos(la) * np.sin((lo - lo[c]) / 2) ** 2))
+                ring = (d > 50.0) & (d <= 150.0); same = ring & (st == st[c]); other = ring & (st != st[c])
+                r["out_same"][i] = M[same].sum(0); r["out_other"][i] = M[other].sum(0); r["base_same"][i] = cu[same].sum(); r["base_other"][i] = cu[other].sum()
+        np.savez_compressed(f, **r)
+    tot = r["base_same"] + r["base_other"]
+    both = (r["base_same"] >= .1 * tot) & (r["base_other"] >= .1 * tot) & (tot > 0)
+    fs = r["out_same"][a, tpk] / np.maximum(r["base_same"], 1.0); fo = r["out_other"][a, tpk] / np.maximum(r["base_other"], 1.0)
+    sel0 = ok & both & np.array([m[u, t + 1:min(t + 25, 144)].sum() >= 12 for u, t in zip(a, tpk)])
+    Wh = np.load(OUT / "Wh.npy"); wc = list(s["Whcols"].astype(str)); fold = fold_of_unit(n)
+    bcols = list(s["Bcols"].astype(str)); other_cols = [j for j, c in enumerate(bcols) if not c.startswith("reg_")]
+    out = {"units_with_both_sides": int(both.sum())}
+    for pop, sel in (("peak_ge_2pct", sel0 & (peak >= .02)), ("S", sel0 & (peak >= .10))):
+        ix = np.where(sel)[0]
+        a24 = np.clip(np.array([(m[u, t + 1:t + 25] * y[u, t + 1:t + 25]).sum() / m[u, t + 1:t + 25].sum() for u, t in zip(ix, tpk[ix])]) / peak[ix], 0, 1.5)
+        r24 = np.clip(y[ix, tpk[ix] + 24] / peak[ix], 0, 1.5)
+        post = []
+        for u, t in zip(ix, tpk[ix]):
+            seg = Wh[u, t:t + 25]
+            post.append([seg[:, wc.index("gust")].max(), seg[:, wc.index("wind_speed")].max(), seg[:, wc.index("gust_excess_energy")].max(),
+                         seg[:, wc.index("precip")].sum(), seg[:, wc.index("snowfall")].sum(), seg[:, wc.index("t2m_c")].min()])
+        P = np.column_stack([np.log(peak[ix]), tpk[ix], np.array(post, np.float32), s["B"][ix][:, other_cols]]).astype(np.float32)
+        Xs = np.column_stack([fs[ix], np.log1p(r["out_same"][ix, tpk[ix]])]); Xo = np.column_stack([fo[ix], np.log1p(r["out_other"][ix, tpk[ix]])])
+        variants = {"P": P, "P+same": np.column_stack([P, Xs]), "P+other": np.column_stack([P, Xo]), "P+both": np.column_stack([P, Xs, Xo])}
+        f_, ws = fold[ix], w[ix]
+        keys = sorted(set(zip(reg[ix], fam[ix]))); gid = {kk: q for q, kk in enumerate(keys)}
+        g = np.array([gid[kk] for kk in zip(reg[ix], fam[ix])]); members = [np.where(g == q)[0] for q in range(len(keys))]
+        draws = [np.concatenate([members[q] for q in d]) for d in cluster_draws(keys, np.random.default_rng(BOOT_SEED))]
+        res = dict(units=int(len(ix)), systems=int(len(np.unique(sysv[ix]))), corr_same_other=float(np.corrcoef(np.log1p(100 * fs[ix]), np.log1p(100 * fo[ix]))[0, 1]),
+                   median_fraction=dict(same=float(np.median(fs[ix])), other=float(np.median(fo[ix]))))
+        for tname, tgt in (("A24", a24), ("R24", r24)):
+            preds = {}
+            for name, X in variants.items():
+                Pp = np.empty(len(ix))
+                for k in range(1, 6):
+                    if (f_ == k).any():
+                        Pp[f_ == k] = lgb.train(EVENT_PARAMS, lgb.Dataset(X[f_ != k].astype(np.float32), tgt[f_ != k], weight=ws[f_ != k]), EVENT_ROUNDS).predict(X[f_ == k].astype(np.float32))
+                preds[name] = Pp
+
+            def rmse(Pp, j):
+                return float(np.sqrt(np.average((Pp[j] - tgt[j]) ** 2, weights=ws[j])))
+
+            al = np.arange(len(ix)); mu = float(np.average(tgt, weights=ws)); var = float(np.average((tgt - mu) ** 2, weights=ws))
+            d = dict(r2={k: float(1 - rmse(v, al) ** 2 / var) for k, v in preds.items()}, differences={})
+            for x, b in (("P+same", "P"), ("P+other", "P"), ("P+same", "P+other"), ("P+both", "P+same"), ("P+both", "P+other")):
+                bs = [1 - rmse(preds[x], j) / rmse(preds[b], j) for j in draws]
+                d["differences"][f"{x} vs {b}"] = dict(point=float(1 - rmse(preds[x], al) / rmse(preds[b], al)), ci95=[float(np.quantile(bs, .025)), float(np.quantile(bs, .975))])
+            res[tname] = d
+            print(pop, tname, f"n {len(ix)} systems {res['systems']} corr(same, other) {res['corr_same_other']:.2f} | R2", {k: round(v, 3) for k, v in d["r2"].items()})
+            print("   ", {k: f"{100 * v['point']:+.2f}% [{100 * v['ci95'][0]:+.2f}, {100 * v['ci95'][1]:+.2f}]" for k, v in d["differences"].items()})
+        out[pop] = res
+    (RES / "restore_border.json").write_text(json.dumps(out, indent=1) + "\n")
+
+
 def radius() -> None:
     """Robustness to the radius of the regional burden: the R2 learner with at-peak-hour features only, and the rolling test."""
     import lightgbm as lgb
@@ -738,4 +825,4 @@ def export() -> None:
 
 
 if __name__ == "__main__":
-    {"size": size, "sim": sim, "geo": geo, "region": region, "simregion": simregion, "predictable": predictable, "rolling": rolling, "multi": region_table_multi, "radius": radius, "export": export, "rollnull": rollnull, "geo2": geo2}[sys.argv[1]]()
+    {"size": size, "sim": sim, "geo": geo, "region": region, "simregion": simregion, "predictable": predictable, "rolling": rolling, "multi": region_table_multi, "radius": radius, "export": export, "rollnull": rollnull, "geo2": geo2, "border": border}[sys.argv[1]]()
