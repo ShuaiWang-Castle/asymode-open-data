@@ -1,0 +1,67 @@
+{
+ "systems": 81,
+ "better": 62,
+ "worse": 19,
+ "pooled": 0.07765650294265602,
+ "top": [
+  {
+   "system": "S02738",
+   "regime": "winter",
+   "share_of_gain": 0.3778441009663488,
+   "share_of_host_error": 0.06491470233261014
+  },
+  {
+   "system": "S00047",
+   "regime": "tropical",
+   "share_of_gain": 0.15981453281249616,
+   "share_of_host_error": 0.027166836642292195
+  },
+  {
+   "system": "S00034",
+   "regime": "tropical",
+   "share_of_gain": 0.13019783182679692,
+   "share_of_host_error": 0.048384105483318424
+  },
+  {
+   "system": "S00799",
+   "regime": "winter",
+   "share_of_gain": 0.11814029796701483,
+   "share_of_host_error": 0.04525726042252941
+  },
+  {
+   "system": "S00046",
+   "regime": "tropical",
+   "share_of_gain": 0.09906636367016539,
+   "share_of_host_error": 0.01760771501510664
+  },
+  {
+   "system": "S00037",
+   "regime": "tropical",
+   "share_of_gain": 0.03551611120421625,
+   "share_of_host_error": 0.013092498208261813
+  }
+ ],
+ "without_top": {
+  "1": 0.05096080070252729,
+  "2": 0.038760930224532864,
+  "3": 0.029271473280829574,
+  "5": 0.010827235147014114
+ },
+ "worst": [
+  {
+   "system": "S00058",
+   "regime": "winter",
+   "share_of_gain": -0.023530731308778134
+  },
+  {
+   "system": "S00387",
+   "regime": "synoptic_wind",
+   "share_of_gain": -0.004869579179762798
+  },
+  {
+   "system": "S00768",
+   "regime": "winter",
+   "share_of_gain": -0.003148377072499502
+  }
+ ]
+}
