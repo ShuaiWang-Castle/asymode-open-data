@@ -464,6 +464,10 @@ def rolling(rad=None) -> None:
     else:
         r = region_table_multi(); rf = r[f"out_ex_{rad}"][:, 24:] / np.maximum(r[f"base_ex_{rad}"], 1.0)[:, None]
     fold = fold_of_unit(n); H = 48; origins = [24, 48, 72, 96]
+    zs = np.load(ROOT / "data" / "interim" / "panel_v1" / "space_v1D.npz")       # sampled neighbours (R5)
+    nbr, okn = np.maximum(zs["nbr"], 0), zs["nbr"] >= 0
+    wdn = np.where(okn, zs["wd"], 0.0); wdn = wdn / np.maximum(wdn.sum(1, keepdims=True), 1e-9)
+    upw = zs["up"]                                                                # [N, 216, 8], window hours
     rng = np.random.default_rng(BOOT_SEED)            # bootstrap draws only
     prng = np.random.default_rng(BOOT_SEED + 1)       # permutations of the nulls
     cases = []                                # (units, origin, initial stock, burden, permuted burden, burden permuted within the system)
@@ -484,6 +488,8 @@ def rolling(rad=None) -> None:
                 continue
             p = p0.copy(); e = np.zeros(len(ii))
             bb = b if kind in ("GR", "LR") else (bp if kind in ("GRp", "LRp") else bw)
+            if kind in ("W", "N"):
+                yn = np.where(okn[ii] & (m[nbr[ii], d - 1] > 0), y[nbr[ii], d - 1], 0.0)          # neighbours' stock before the origin
             for t in range(d, d + H):
                 if kind == "persist":
                     q = p0
@@ -492,8 +498,8 @@ def rolling(rad=None) -> None:
                         den = (1 + par[0]) * (1 + par[1] * bb)
                     elif kind in ("LR", "LRp", "LRw"):
                         den = (1 + par[0] * Rq[ii, t] * p) * (1 + par[1] * bb)
-                    elif kind in ("U", "LU"):
-                        den = 1.0 if kind == "U" else 1 + par[0] * Rq[ii, t] * p
+                    elif kind in ("U", "LU", "W", "N"):
+                        den = 1 + par[0] * Rq[ii, t] * p if kind == "LU" else 1.0
                     else:
                         den = {"H": 1.0, "D": 1.0, "G": 1 + par[0], "L": 1 + par[0] * Rq[ii, t] * p}[kind]
                     uu = Uq[ii, t]
@@ -501,6 +507,9 @@ def rolling(rad=None) -> None:
                         uu = uu + par[0] * b * (1.0 if par[1] is None else np.exp(-(t - d) / par[1]))
                     elif kind == "LU":
                         uu = uu + par[1] * b * np.exp(-(t - d) / 48.0)
+                    elif kind in ("W", "N"):
+                        aw = upw[ii, t + 72].astype(np.float64) if kind == "W" else wdn[ii]
+                        uu = uu + par[0] * (aw * yn).sum(1) * np.exp(-(t - d) / par[1])
                     p = np.clip(p + uu * (1 - p) - Rq[ii, t] * p / den, 0, 1); q = p
                 e += m[ii, t] * (q - y[ii, t]) ** 2
             k = m[ii, d:d + H].sum(1)
@@ -514,6 +523,8 @@ def rolling(rad=None) -> None:
     grids["GRp"] = grids["GR"]; grids["LRp"] = grids["LR"]; grids["GRw"] = grids["GR"]; grids["LRw"] = grids["LR"]
     grids["U"] = [(k, tau) for k in (0, .001, .003, .01, .03, .1, .3, 1.0) for tau in (12.0, 48.0, None)]
     grids["LU"] = [(a, k) for a in (0, 20, 40, 80) for k in (0, .001, .003, .01, .03, .1, .3, 1.0)]
+    grids["W"] = [(k, tau) for k in (0, .003, .01, .03, .1, .3, 1.0) for tau in (12.0, 48.0)]
+    grids["N"] = grids["W"]
     if len(fd) == 5:
         grids["D"] = [(0,)]
     if rad is not None:
@@ -551,17 +562,18 @@ def rolling(rad=None) -> None:
     out = {"origins": origins, "horizon_h": H, "cases": int(sum(len(c[0]) for c in cases)), "active_cases": int(sum((c[2] >= .01).sum() for c in cases)), "chosen": chosen, "rmse": {}, "comparisons": {}}
     for kind in grids:
         out["rmse"][kind] = dict(all=float(np.sqrt((w * cf[kind][0]).sum() / (w * cnt[0]).sum())), active=float(np.sqrt((w * cf[kind][1]).sum() / (w * cnt[1]).sum())))
+    out["host_sse_share_active_cases"] = float((w * cf["H"][1]).sum() / (w * cf["H"][0]).sum())
     f = lambda x: f"{100 * x['point']:+.2f}% [{100 * x['ci95'][0]:+.2f}, {100 * x['ci95'][1]:+.2f}]"  # noqa: E731
     pairs = [("GR", "H"), ("GR", "G"), ("GR", "GRp"), ("G", "H"), ("L", "H"), ("GR", "L"), ("LR", "L"), ("LR", "LRp"), ("LR", "H"), ("LR", "GR"), ("H", "persist"), ("LR", "persist"), ("GR", "GRw"), ("LR", "LRw"), ("GRw", "G"), ("LRw", "L"),
-             ("U", "H"), ("GR", "U"), ("LU", "L"), ("LR", "LU"), ("LU", "H")]
+             ("U", "H"), ("GR", "U"), ("LU", "L"), ("LR", "LU"), ("LU", "H"), ("W", "H"), ("N", "H"), ("W", "N")]
     if "D" in grids:
         pairs += [("D", "H"), ("GR", "D"), ("LR", "D")]
     pairs = [q for q in pairs if q[0] in grids and q[1] in grids]
     for a, b in pairs:
-        d = dict(all=rel(cf[a][0], cf[b][0]), active=rel(cf[a][1], cf[b][1]),
+        d = dict(all=rel(cf[a][0], cf[b][0]), active=rel(cf[a][1], cf[b][1]), not_active=rel(cf[a][0] - cf[a][1], cf[b][0] - cf[b][1]),
                  all_by_regime={q: rel(cf[a][0], cf[b][0], reg == q)["point"] for q in REGIMES}, S_units=rel(cf[a][0], cf[b][0], peak >= .10))
         out["comparisons"][f"{a} vs {b}"] = d
-        print(f"{a} vs {b}: all {f(d['all'])} | active {f(d['active'])} | S units {f(d['S_units'])} | by regime", {q: f"{100 * v:+.1f}%" for q, v in d["all_by_regime"].items()})
+        print(f"{a} vs {b}: all {f(d['all'])} | active {f(d['active'])} | not active {f(d['not_active'])} | S units {f(d['S_units'])} | by regime", {q: f"{100 * v:+.1f}%" for q, v in d["all_by_regime"].items()})
     out["GR_vs_H_by_origin"] = {str(d): rel(by_origin[("GR", d)], by_origin[("H", d)]) for d in origins}
     print("GR vs H by origin:", {k: f(v) for k, v in out["GR_vs_H_by_origin"].items()})
     print("rmse", {k: {kk: round(vv, 5) for kk, vv in v.items()} for k, v in out["rmse"].items()}, "cases", out["cases"], "active", out["active_cases"])
