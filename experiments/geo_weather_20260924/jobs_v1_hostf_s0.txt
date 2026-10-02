@@ -1,0 +1,5 @@
+--label v1_hostf_s0 --arm W+Cin --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 1
+--label v1_hostf_s0 --arm W+Cin --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 2
+--label v1_hostf_s0 --arm W+Cin --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 3
+--label v1_hostf_s0 --arm W+Cin --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 4
+--label v1_hostf_s0 --arm W+Cin --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5

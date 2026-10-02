@@ -17,7 +17,7 @@ from scipy.stats import spearmanr
 from geo_evidence import cluster_draws, twin_pairs
 from probe import BOOT_SEED, B, OUT, REGIMES, RES, RUNS, load_static
 
-ARMS = {"DKV": "v1_dkv_s0", "DK": "v1_dk_s0", "DKVp": "v1_dkvp_s0", "DKVr": "v1_dkvr_s0"}
+ARMS = {"DKV": "v1_dkv_s0", "DK": "v1_dk_s0", "DKVp": "v1_dkvp_s0", "DKVr": "v1_dkvr_s0", "hostF": "v1_hostf_s0"}
 REFS = {"host0": "v1_host_s0", "GCRK": "v1_gcrk_s0"}
 
 
@@ -99,7 +99,7 @@ def main(names) -> None:
                                                    observed_implied_r=float(np.median(1 - np.clip(y[ii, tpk[ii] + 24] / peak[ii], 1e-4, 1.5) ** (1 / 24))))
         res["kernel_parameters"] = meta
         out[name] = res
-    for a, b in (("DKV", "DKVp"), ("DKV", "DK"), ("DKV", "DKVr"), ("DK", "GCRK")):
+    for a, b in (("DKV", "DKVp"), ("DKV", "DK"), ("DKV", "DKVr"), ("DK", "GCRK"), ("DK", "hostF"), ("DKV", "hostF")):
         if a in out and b in out:
             Pa, Pb = data[a][0], data[b][0]
             av = ~np.isnan(Pa).any(1) & ~np.isnan(Pb).any(1)
