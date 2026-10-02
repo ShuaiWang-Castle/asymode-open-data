@@ -492,9 +492,16 @@ def rolling(rad=None) -> None:
                         den = (1 + par[0]) * (1 + par[1] * bb)
                     elif kind in ("LR", "LRp", "LRw"):
                         den = (1 + par[0] * Rq[ii, t] * p) * (1 + par[1] * bb)
+                    elif kind in ("U", "LU"):
+                        den = 1.0 if kind == "U" else 1 + par[0] * Rq[ii, t] * p
                     else:
                         den = {"H": 1.0, "D": 1.0, "G": 1 + par[0], "L": 1 + par[0] * Rq[ii, t] * p}[kind]
-                    p = np.clip(p + Uq[ii, t] * (1 - p) - Rq[ii, t] * p / den, 0, 1); q = p
+                    uu = Uq[ii, t]
+                    if kind == "U":
+                        uu = uu + par[0] * b * (1.0 if par[1] is None else np.exp(-(t - d) / par[1]))
+                    elif kind == "LU":
+                        uu = uu + par[1] * b * np.exp(-(t - d) / 48.0)
+                    p = np.clip(p + uu * (1 - p) - Rq[ii, t] * p / den, 0, 1); q = p
                 e += m[ii, t] * (q - y[ii, t]) ** 2
             k = m[ii, d:d + H].sum(1)
             a[0, ii] += e; c[0, ii] += k
@@ -505,6 +512,8 @@ def rolling(rad=None) -> None:
     grids = {"H": [(0,)], "persist": [(0,)], "G": [(k,) for k in (0, .25, .5, 1, 2, 4, 8)], "L": [(k,) for k in (0, 5, 10, 20, 40, 80, 160, 320)],
              "GR": [(a, b) for a in (0, .5, 1, 2, 4) for b in (0, 10, 30, 100, 300)], "LR": [(a, b) for a in (0, 20, 40, 80, 160) for b in (0, 10, 30, 100, 300)]}
     grids["GRp"] = grids["GR"]; grids["LRp"] = grids["LR"]; grids["GRw"] = grids["GR"]; grids["LRw"] = grids["LR"]
+    grids["U"] = [(k, tau) for k in (0, .0003, .001, .003, .01, .03) for tau in (12.0, 48.0, None)]
+    grids["LU"] = [(a, k) for a in (0, 20, 40, 80) for k in (0, .001, .003, .01, .03)]
     if len(fd) == 5:
         grids["D"] = [(0,)]
     if rad is not None:
@@ -543,7 +552,8 @@ def rolling(rad=None) -> None:
     for kind in grids:
         out["rmse"][kind] = dict(all=float(np.sqrt((w * cf[kind][0]).sum() / (w * cnt[0]).sum())), active=float(np.sqrt((w * cf[kind][1]).sum() / (w * cnt[1]).sum())))
     f = lambda x: f"{100 * x['point']:+.2f}% [{100 * x['ci95'][0]:+.2f}, {100 * x['ci95'][1]:+.2f}]"  # noqa: E731
-    pairs = [("GR", "H"), ("GR", "G"), ("GR", "GRp"), ("G", "H"), ("L", "H"), ("GR", "L"), ("LR", "L"), ("LR", "LRp"), ("LR", "H"), ("LR", "GR"), ("H", "persist"), ("LR", "persist"), ("GR", "GRw"), ("LR", "LRw"), ("GRw", "G"), ("LRw", "L")]
+    pairs = [("GR", "H"), ("GR", "G"), ("GR", "GRp"), ("G", "H"), ("L", "H"), ("GR", "L"), ("LR", "L"), ("LR", "LRp"), ("LR", "H"), ("LR", "GR"), ("H", "persist"), ("LR", "persist"), ("GR", "GRw"), ("LR", "LRw"), ("GRw", "G"), ("LRw", "L"),
+             ("U", "H"), ("GR", "U"), ("LU", "L"), ("LR", "LU"), ("LU", "H")]
     if "D" in grids:
         pairs += [("D", "H"), ("GR", "D"), ("LR", "D")]
     pairs = [q for q in pairs if q[0] in grids and q[1] in grids]
