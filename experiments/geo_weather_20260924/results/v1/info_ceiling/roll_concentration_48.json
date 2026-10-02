@@ -63,5 +63,27 @@
    "regime": "winter",
    "share_of_gain": -0.003148377072499502
   }
- ]
+ ],
+ "phase": {
+  "out_past_own_peak": {
+   "n": 331,
+   "share_of_host_error": 0.2066137190575592,
+   "rk_vs_host": 0.4098897735060578
+  },
+  "out_peak_ahead": {
+   "n": 76,
+   "share_of_host_error": 0.141561008712613,
+   "rk_vs_host": 0.0419214655736303
+  },
+  "not_out_severe_ahead": {
+   "n": 308,
+   "share_of_host_error": 0.5807406354394429,
+   "rk_vs_host": -0.0049778267902245155
+  },
+  "not_out_stays_below_10pct": {
+   "n": 7695,
+   "share_of_host_error": 0.07108463679038493,
+   "rk_vs_host": 0.06389576536587549
+  }
+ }
 }

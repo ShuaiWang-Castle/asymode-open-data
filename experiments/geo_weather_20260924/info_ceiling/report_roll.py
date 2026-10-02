@@ -33,6 +33,14 @@ if os.path.exists("results/v1/info_ceiling/roll_concentration_48.json"):
     c = json.load(open("results/v1/info_ceiling/roll_concentration_48.json"))
     top5 = sum(q["share_of_gain"] for q in c["top"][:5])
     lines.append(f"- **收益的集中度**：{c['systems']} 个系统里 {c['better']} 个变好、{c['worse']} 个变差，最差的一个只抵消总收益的 {abs(100 * c['worst'][0]['share_of_gain']):.1f}%。但加权误差的下降集中在少数大型、长时间的事件上：前 5 个系统占总收益的 {100 * top5:.0f}%（最大的一个是冬季系统，占 {100 * c['top'][0]['share_of_gain']:.0f}%）。去掉最大的 1、2、3、5 个系统后，全体改善为 {pc(c['without_top']['1'])}、{pc(c['without_top']['2'])}、{pc(c['without_top']['3'])}、{pc(c['without_top']['5'])}。")
+if os.path.exists("results/v1/info_ceiling/roll_concentration_48.json") and "phase" in json.load(open("results/v1/info_ceiling/roll_concentration_48.json")):
+    ph = json.load(open("results/v1/info_ceiling/roll_concentration_48.json"))["phase"]
+    PN = {"out_past_own_peak": "已在停电，自身峰值已过", "out_peak_ahead": "已在停电，自身峰值还在后面", "not_out_severe_ahead": "尚未停电，之后会超过 10%", "not_out_stays_below_10pct": "尚未停电，之后也不到 10%"}
+    lines.append("\n**宿主的误差在哪里，核改善了哪一部分**\n")
+    lines.append("| 起报时的状态 | 县-事件数 | 占宿主误差 | RK 相对宿主 |\n|---|---:|---:|---:|")
+    for q, v in ph.items():
+        lines.append(f"| {PN[q]} | {v['n']} | {100 * v['share_of_host_error']:.0f}% | {pc(v['rk_vs_host'])} |")
+    lines.append("\n核解决的是恢复阶段。即使起报点后移，最大的一块误差仍然是“之后才被打中的县”，这一块没有改善。\n")
 ok = k["all"]["ci95"][0] > 0 and k["active"]["point"] > 0
 if nf == 5:
     lines.append("")

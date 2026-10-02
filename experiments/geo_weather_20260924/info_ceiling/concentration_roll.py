@@ -31,6 +31,14 @@ def main(shift: int) -> None:
                top=[dict(system=str(systems[j]), regime=str(reg[sysv == systems[j]][0]), share_of_gain=float(gain[j] / tot), share_of_host_error=float(base[j] / base.sum())) for j in order[:6]],
                without_top={str(k): rel(np.isin(np.arange(len(systems)), order[k:])) for k in (1, 2, 3, 5)},
                worst=[dict(system=str(systems[j]), regime=str(reg[sysv == systems[j]][0]), share_of_gain=float(gain[j] / tot)) for j in order[::-1][:3]])
+    # where the host's error sits at this origin, and the kernel's improvement in each part
+    yy, mm, y0 = s["y"].astype(float), s["m"].astype(float), F["y0"].astype(float)
+    tpk = np.where(mm > 0, yy, -1.0).argmax(1); ahead = np.where(m > 0, y, 0.0).max(1)
+    act = av & (y0 >= .01)
+    parts = {"out_past_own_peak": act & (tpk < shift), "out_peak_ahead": act & (tpk >= shift), "not_out_severe_ahead": av & ~act & (ahead >= .10),
+             "not_out_stays_below_10pct": av & ~act & (ahead < .10)}
+    out["phase"] = {k: dict(n=int(v.sum()), share_of_host_error=float(sh[v].sum() / sh[av].sum()), rk_vs_host=float(1 - np.sqrt(sk[v].sum() / sh[v].sum()))) for k, v in parts.items()}
+    print("phase:", {k: (v["n"], f"{100 * v['share_of_host_error']:.0f}% of host error", f"{100 * v['rk_vs_host']:+.1f}%") for k, v in out["phase"].items()})
     (RES / f"roll_concentration_{shift}.json").write_text(json.dumps(out, indent=1) + "\n")
     print(f"systems {out['systems']}: better {out['better']}, worse {out['worse']}; pooled {100 * out['pooled']:+.2f}%")
     print("top:", [(q["system"], q["regime"], f"{100 * q['share_of_gain']:.0f}% of the gain", f"{100 * q['share_of_host_error']:.0f}% of the host error") for q in out["top"]])
