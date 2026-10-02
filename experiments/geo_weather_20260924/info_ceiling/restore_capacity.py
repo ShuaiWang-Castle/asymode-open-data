@@ -512,8 +512,8 @@ def rolling(rad=None) -> None:
     grids = {"H": [(0,)], "persist": [(0,)], "G": [(k,) for k in (0, .25, .5, 1, 2, 4, 8)], "L": [(k,) for k in (0, 5, 10, 20, 40, 80, 160, 320)],
              "GR": [(a, b) for a in (0, .5, 1, 2, 4) for b in (0, 10, 30, 100, 300)], "LR": [(a, b) for a in (0, 20, 40, 80, 160) for b in (0, 10, 30, 100, 300)]}
     grids["GRp"] = grids["GR"]; grids["LRp"] = grids["LR"]; grids["GRw"] = grids["GR"]; grids["LRw"] = grids["LR"]
-    grids["U"] = [(k, tau) for k in (0, .0003, .001, .003, .01, .03) for tau in (12.0, 48.0, None)]
-    grids["LU"] = [(a, k) for a in (0, 20, 40, 80) for k in (0, .001, .003, .01, .03)]
+    grids["U"] = [(k, tau) for k in (0, .001, .003, .01, .03, .1, .3, 1.0) for tau in (12.0, 48.0, None)]
+    grids["LU"] = [(a, k) for a in (0, 20, 40, 80) for k in (0, .001, .003, .01, .03, .1, .3, 1.0)]
     if len(fd) == 5:
         grids["D"] = [(0,)]
     if rad is not None:
