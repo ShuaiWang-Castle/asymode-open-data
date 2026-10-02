@@ -44,7 +44,11 @@ if os.path.exists("results/v1/info_ceiling/roll_concentration_48.json") and "pha
 ok = k["all"]["ci95"][0] > 0 and k["active"]["point"] > 0
 if nf == 5:
     lines.append("")
-    lines.append(f"**按登记规则：RK {'是候选' if ok else '不是候选'}**（全体改善区间{'不含' if k['all']['ci95'][0] > 0 else '含'} 0，已在停电样本的点估计{'为正' if k['active']['point'] > 0 else '不为正'}）。" + ("对照 arm 已按登记顺序启动：只有自身状态（RKl）、打乱区域负担（RKp）、恢复网络学习率对照（hostF、BinF）、损伤侧形式（RKu）、普通输入（Bin）。" if ok else "不追加对照。"))
+    lines.append(f"**按登记规则：RK {'相对登记的宿主是候选' if ok else '不是候选'}**（全体改善区间{'不含' if k['all']['ci95'][0] > 0 else '含'} 0，已在停电样本的点估计{'为正' if k['active']['point'] > 0 else '不为正'}）。" + ("对照 arm：只有自身状态（RKl）、打乱区域负担（RKp）、恢复网络学习率对照（hostF、BinF）、损伤侧形式（RKu）、普通输入（Bin）。" if ok else "不追加对照。"))
+    if "RK vs hostF" in r and "RK vs RKp" in r:
+        v = lambda q: "通过" if r[q]["all"]["ci95"][0] > 0 else "不通过"
+        lines.append("")
+        lines.append(f"**对照的判定**：空间项有贡献（RK 相对 RKp 和 RKl，区间都不含 0）：{'通过' if v('RK vs RKp') == '通过' and v('RK vs RKl') == '通过' else '不通过'}。核的结构有贡献（RK 相对 hostF 和 BinF，区间都不含 0）：{'通过' if v('RK vs hostF') == '通过' and v('RK vs BinF') == '通过' else '不通过'}。学习率 3e-3 的宿主不加核就达到同样的收益，所以收益来自恢复网络能否学习，不来自核。")
 if os.path.exists("results/v1/info_ceiling/roll_transfer_48.json"):
     tr = json.load(open("results/v1/info_ceiling/roll_transfer_48.json"))
     lines.append(f"\n**不重新训练，直接换起报点**（宿主和 RK 都只在后移 48 小时的面板上训练；留出事件，前 48 小时；{len(tr['folds'])} 折）\n")
