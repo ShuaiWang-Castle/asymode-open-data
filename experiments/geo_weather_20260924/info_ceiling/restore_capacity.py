@@ -403,11 +403,12 @@ def predictable() -> None:
     (RES / "restore_region_predictability.json").write_text(json.dumps(out, indent=1) + "\n")
 
 def rolling() -> None:
-    """Registered test R3: rolling-origin restoration forecast from the host's held-out rates (seed 0)."""
+    """Registered tests R3 and R3b: rolling-origin restoration forecast from held-out rates (seed 0)."""
     s, y, m, w, reg, peak, tpk, ok = base(); n = len(y)
     z = np.load(FEAT, allow_pickle=False); cust = z["cust"].astype(float)
     fam = s["family"].astype(str)
     _, U, R, _, _ = collect("v1_host_s0", n)
+    _, Ud, Rd, fd, _ = collect("v1_dkv_s0", n)
     r = region_table(); rf = r["out_ex"] / np.maximum(r["base_in"] - cust, 1.0)[:, None]
     fold = fold_of_unit(n); H = 48; origins = [24, 48, 72, 96]
     rng = np.random.default_rng(BOOT_SEED)
@@ -416,17 +417,25 @@ def rolling() -> None:
         ii = np.where(m[:, d - 1] > 0)[0]
         cases.append((ii, d, y[ii, d - 1], rf[ii, d - 1], rf[ii, d - 1][rng.permutation(len(ii))]))
 
-    def sse(kind, par):
+    def sse(kind, par, only=None):
         """per-unit (sum of squared error, cells) pooled over the origins; all cases and cases with initial stock >= 1%"""
         a = np.zeros((2, n)); c = np.zeros((2, n))
+        Uq, Rq = (Ud, Rd) if kind == "D" else (U, R)
         for ii, d, p0, b, bp in cases:
+            if only is not None and d != only:
+                continue
             p = p0.copy(); e = np.zeros(len(ii))
             for t in range(d, d + H):
                 if kind == "persist":
                     q = p0
                 else:
-                    den = {"H": 1.0, "G": 1 + par[0], "L": 1 + par[0] * R[ii, t] * p, "GR": (1 + par[0]) * (1 + par[1] * b), "GRp": (1 + par[0]) * (1 + par[1] * bp)}[kind]
-                    p = np.clip(p + U[ii, t] * (1 - p) - R[ii, t] * p / den, 0, 1); q = p
+                    if kind in ("GR", "GRp"):
+                        den = (1 + par[0]) * (1 + par[1] * (b if kind == "GR" else bp))
+                    elif kind in ("LR", "LRp"):
+                        den = (1 + par[0] * Rq[ii, t] * p) * (1 + par[1] * (b if kind == "LR" else bp))
+                    else:
+                        den = {"H": 1.0, "D": 1.0, "G": 1 + par[0], "L": 1 + par[0] * Rq[ii, t] * p}[kind]
+                    p = np.clip(p + Uq[ii, t] * (1 - p) - Rq[ii, t] * p / den, 0, 1); q = p
                 e += m[ii, t] * (q - y[ii, t]) ** 2
             k = m[ii, d:d + H].sum(1)
             a[0, ii] += e; c[0, ii] += k
@@ -435,9 +444,11 @@ def rolling() -> None:
         return a, c
 
     grids = {"H": [(0,)], "persist": [(0,)], "G": [(k,) for k in (0, .25, .5, 1, 2, 4, 8)], "L": [(k,) for k in (0, 5, 10, 20, 40, 80, 160, 320)],
-             "GR": [(a, b) for a in (0, .5, 1, 2, 4) for b in (0, 10, 30, 100, 300)]}
-    grids["GRp"] = grids["GR"]
-    cnt = None; cf = {}; chosen = {}
+             "GR": [(a, b) for a in (0, .5, 1, 2, 4) for b in (0, 10, 30, 100, 300)], "LR": [(a, b) for a in (0, 20, 40, 80, 160) for b in (0, 10, 30, 100, 300)]}
+    grids["GRp"] = grids["GR"]; grids["LRp"] = grids["LR"]
+    if len(fd) == 5:
+        grids["D"] = [(0,)]
+    cnt = None; cf = {}; chosen = {}; by_origin = {}
     for kind, g in grids.items():
         res = {par: sse(kind, par) for par in g}
         cnt = res[g[0]][1]
@@ -447,6 +458,12 @@ def rolling() -> None:
             best = min(g, key=lambda par: (w * res[par][0][0])[tr].sum())
             ch[k] = best; A[:, fold == k] = res[best][0][:, fold == k]
         cf[kind] = A; chosen[kind] = {k: list(v) for k, v in ch.items()}
+        if kind in ("H", "GR"):
+            for d in origins:
+                Ad = np.zeros(n)
+                for k in range(1, 6):
+                    Ad[fold == k] = sse(kind, ch[k], only=d)[0][0][fold == k]
+                by_origin[(kind, d)] = Ad
         print(kind, "chosen", chosen[kind], flush=True)
     keys = sorted(set(zip(reg, fam))); gid = {kk: j for j, kk in enumerate(keys)}; g = np.array([gid[kk] for kk in zip(reg, fam)])
     counts = np.zeros((2000, len(keys)))
@@ -465,11 +482,16 @@ def rolling() -> None:
     for kind in grids:
         out["rmse"][kind] = dict(all=float(np.sqrt((w * cf[kind][0]).sum() / (w * cnt[0]).sum())), active=float(np.sqrt((w * cf[kind][1]).sum() / (w * cnt[1]).sum())))
     f = lambda x: f"{100 * x['point']:+.2f}% [{100 * x['ci95'][0]:+.2f}, {100 * x['ci95'][1]:+.2f}]"  # noqa: E731
-    for a, b in (("GR", "H"), ("GR", "G"), ("GR", "GRp"), ("G", "H"), ("L", "H"), ("GR", "L"), ("H", "persist")):
+    pairs = [("GR", "H"), ("GR", "G"), ("GR", "GRp"), ("G", "H"), ("L", "H"), ("GR", "L"), ("LR", "L"), ("LR", "LRp"), ("LR", "H"), ("LR", "GR"), ("H", "persist"), ("LR", "persist")]
+    if "D" in grids:
+        pairs += [("D", "H"), ("GR", "D"), ("LR", "D")]
+    for a, b in pairs:
         d = dict(all=rel(cf[a][0], cf[b][0]), active=rel(cf[a][1], cf[b][1]),
                  all_by_regime={q: rel(cf[a][0], cf[b][0], reg == q)["point"] for q in REGIMES}, S_units=rel(cf[a][0], cf[b][0], peak >= .10))
         out["comparisons"][f"{a} vs {b}"] = d
         print(f"{a} vs {b}: all {f(d['all'])} | active {f(d['active'])} | S units {f(d['S_units'])} | by regime", {q: f"{100 * v:+.1f}%" for q, v in d["all_by_regime"].items()})
+    out["GR_vs_H_by_origin"] = {str(d): rel(by_origin[("GR", d)], by_origin[("H", d)]) for d in origins}
+    print("GR vs H by origin:", {k: f(v) for k, v in out["GR_vs_H_by_origin"].items()})
     print("rmse", {k: {kk: round(vv, 5) for kk, vv in v.items()} for k, v in out["rmse"].items()}, "cases", out["cases"], "active", out["active_cases"])
     (RES / "restore_rolling.json").write_text(json.dumps(out, indent=1) + "\n")
 
