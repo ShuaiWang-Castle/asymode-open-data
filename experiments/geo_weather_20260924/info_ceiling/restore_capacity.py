@@ -635,6 +635,55 @@ def rollnull(n_draws: int = 20) -> None:
     (RES / "restore_rolling_null.json").write_text(json.dumps(out, indent=1) + "\n")
 
 
+def geo2() -> None:
+    """Registered test R1b: geography, county context, history and the vulnerability vector for the restoration of the
+    severe county-events, conditional on the regional burden at the peak hour."""
+    import lightgbm as lgb
+    s, y, m, w, reg, peak, tpk, ok = base(); n = len(y); a = np.arange(n)
+    z = np.load(FEAT, allow_pickle=False); cust = z["cust"].astype(float)
+    fam = s["family"].astype(str)
+    r = region_table(); base_ex = np.maximum(r["base_in"] - cust, 1.0)
+    zv = np.load(ROOT / "data" / "interim" / "panel_v1" / "vuln_v1D.npz")
+    Wh = np.load(OUT / "Wh.npy"); wc = list(s["Whcols"].astype(str))
+    sel = ok & (peak >= .10) & np.array([m[u, t + 1:min(t + 25, 144)].sum() >= 12 for u, t in zip(a, tpk)])
+    ix = np.where(sel)[0]
+    a24 = np.clip(np.array([(m[u, t + 1:t + 25] * y[u, t + 1:t + 25]).sum() / m[u, t + 1:t + 25].sum() for u, t in zip(ix, tpk[ix])]) / peak[ix], 0, 1.5)
+    r24 = np.clip(y[ix, tpk[ix] + 24] / peak[ix], 0, 1.5)
+    post = []
+    for u, t in zip(ix, tpk[ix]):
+        seg = Wh[u, t:t + 25]
+        post.append([seg[:, wc.index("gust")].max(), seg[:, wc.index("wind_speed")].max(), seg[:, wc.index("gust_excess_energy")].max(),
+                     seg[:, wc.index("precip")].sum(), seg[:, wc.index("snowfall")].sum(), seg[:, wc.index("t2m_c")].min()])
+    Rb = np.column_stack([np.log1p(r["out_ex"][ix, tpk[ix]]), r["out_ex"][ix, tpk[ix]] / base_ex[ix], r["n_hit"][ix, tpk[ix]], np.log(base_ex[ix])])
+    PR = np.column_stack([np.log(peak[ix]), tpk[ix], np.array(post, np.float32), s["B"][ix], Rb]).astype(np.float32)
+    blocks = {"G": s["G"][ix], "Gp": s["Gp"][ix], "C": s["C"][ix], "H": s["H"][ix], "Hp": s["Hp"][ix], "V": zv["z"][ix].astype(np.float32), "Vp": zv["z_perm"][ix].astype(np.float32)}
+    fold = fold_of_unit(n)[ix]; ws = w[ix]
+    keys = sorted(set(zip(reg[ix], fam[ix]))); gid = {kk: q for q, kk in enumerate(keys)}
+    g = np.array([gid[kk] for kk in zip(reg[ix], fam[ix])]); members = [np.where(g == q)[0] for q in range(len(keys))]
+    draws = [np.concatenate([members[q] for q in d]) for d in cluster_draws(keys, np.random.default_rng(BOOT_SEED))]
+    out = dict(units=int(len(ix)))
+    for tname, tgt in (("A24", a24), ("R24", r24)):
+        preds = {}
+        for name in ["PR"] + list(blocks):
+            X = PR if name == "PR" else np.concatenate([PR, blocks[name]], 1); P = np.empty(len(ix))
+            for k in range(1, 6):
+                P[fold == k] = lgb.train(EVENT_PARAMS, lgb.Dataset(X[fold != k], tgt[fold != k], weight=ws[fold != k]), EVENT_ROUNDS).predict(X[fold == k])
+            preds[name] = P
+
+        def rmse(P, j):
+            return float(np.sqrt(np.average((P[j] - tgt[j]) ** 2, weights=ws[j])))
+
+        al = np.arange(len(ix)); mu = float(np.average(tgt, weights=ws)); var = float(np.average((tgt - mu) ** 2, weights=ws))
+        d = dict(r2={k: float(1 - rmse(P, al) ** 2 / var) for k, P in preds.items()}, differences={})
+        for x, b in (("G", "Gp"), ("G", "PR"), ("C", "PR"), ("H", "Hp"), ("H", "PR"), ("V", "Vp"), ("V", "PR")):
+            bs = [1 - rmse(preds[x], j) / rmse(preds[b], j) for j in draws]
+            d["differences"][f"PR+{x} vs {'PR+' + b if b != 'PR' else 'PR'}"] = dict(point=float(1 - rmse(preds[x], al) / rmse(preds[b], al)), ci95=[float(np.quantile(bs, .025)), float(np.quantile(bs, .975))])
+        out[tname] = d
+        print(tname, f"n {len(ix)} | R2", {k: round(v, 3) for k, v in d["r2"].items()})
+        print("   ", {k: f"{100 * v['point']:+.2f}% [{100 * v['ci95'][0]:+.2f}, {100 * v['ci95'][1]:+.2f}]" for k, v in d["differences"].items()})
+    (RES / "restore_geo_conditional.json").write_text(json.dumps(out, indent=1) + "\n")
+
+
 def radius() -> None:
     """Robustness to the radius of the regional burden: the R2 learner with at-peak-hour features only, and the rolling test."""
     import lightgbm as lgb
@@ -689,4 +738,4 @@ def export() -> None:
 
 
 if __name__ == "__main__":
-    {"size": size, "sim": sim, "geo": geo, "region": region, "simregion": simregion, "predictable": predictable, "rolling": rolling, "multi": region_table_multi, "radius": radius, "export": export, "rollnull": rollnull}[sys.argv[1]]()
+    {"size": size, "sim": sim, "geo": geo, "region": region, "simregion": simregion, "predictable": predictable, "rolling": rolling, "multi": region_table_multi, "radius": radius, "export": export, "rollnull": rollnull, "geo2": geo2}[sys.argv[1]]()
