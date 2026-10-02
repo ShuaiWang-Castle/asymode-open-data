@@ -1,0 +1,26 @@
+{
+ "own_peak|own_weather": {
+  "r2": 0.09179689125188462,
+  "spearman": 0.4550317343116931,
+  "system_mean_spearman": 0.7419376693766937,
+  "severe_recall_top10pct": 0.39952718676122934
+ },
+ "own_peak|own+neighbour_weather": {
+  "r2": 0.06219190969887545,
+  "spearman": 0.45010379198053013,
+  "system_mean_spearman": 0.7422764227642277,
+  "severe_recall_top10pct": 0.3817966903073286
+ },
+ "regional_peak|own_weather": {
+  "r2": -0.048331411829954485,
+  "spearman": 0.4841718376858954,
+  "system_mean_spearman": 0.6345754290876242,
+  "severe_recall_top10pct": 0.46099290780141844
+ },
+ "regional_peak|own+neighbour_weather": {
+  "r2": -0.05741904079299509,
+  "spearman": 0.47886813891322116,
+  "system_mean_spearman": 0.5972222222222222,
+  "severe_recall_top10pct": 0.46808510638297873
+ }
+}
