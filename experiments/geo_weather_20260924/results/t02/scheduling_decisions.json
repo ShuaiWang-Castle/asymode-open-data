@@ -1,0 +1,32 @@
+[
+  {
+    "system": "S00023",
+    "storm": "ISAIAS",
+    "passes_all_required_screens": false
+  },
+  {
+    "system": "S00034",
+    "storm": "MICHAEL",
+    "passes_all_required_screens": false
+  },
+  {
+    "system": "S00037",
+    "storm": "MILTON",
+    "passes_all_required_screens": false
+  },
+  {
+    "system": "S00040",
+    "storm": "OPHELIA",
+    "passes_all_required_screens": false
+  },
+  {
+    "system": "S00046",
+    "storm": "DELTA",
+    "passes_all_required_screens": false
+  },
+  {
+    "system": "S00047",
+    "storm": "ZETA",
+    "passes_all_required_screens": false
+  }
+]

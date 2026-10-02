@@ -1,0 +1,7 @@
+{
+  "source_and_protocol_hashes_match": true,
+  "all_configuration_counts_match": true,
+  "pooled_reconstruction_max_absolute_error": 9.71445146547012e-17,
+  "replayed_t01_metrics": 18,
+  "t01_replay_max_absolute_error": 9.71445146547012e-17
+}

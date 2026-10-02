@@ -1,0 +1,88 @@
+{
+  "source_sha256": "46ef9a821f343c71d6acc5874f3bfc47fa72a643988437d797ba8401d97c1f46",
+  "t01_source_sha256": "50ff62b156a14062b9e1067b1c5b3652c0c32f50f3af49fd0e5720424c767f1a",
+  "t01_input_hashes_verified": {
+    "data_v1/outcomes/panel_v1D_outcomes.npz": "28b288e2087910a9688d4eabcdec16666494cdc8022aee7a88f109183b5612e1",
+    "data_v1/outcomes/development_systems.csv": "ac8c720d10a271b91bef6c84649d783f4cfed34776f96efd7a9996d1fb9daa0a",
+    "data_v1/geography/county_geography_v1.parquet": "cac5c459f15aeceb2176b9817c34d31fd365b9cc0f9d195e0a3088d6329cce27",
+    "data_v1/geography/county_geography_ext_v1.parquet": "50c08de28d9938cfee0d27453a261dee4006cc9a3fbc315881b9d1ebd1ee19bc",
+    "data_v1/weather/hazard_v2/era5/era5_S00001.npz": "f1865f6da224cec9bb33ff1b82ac542b45dfc0fdd77e730c4bcb98cb98d36798",
+    "data_v1/weather/hazard_v2/era5/era5_S00006.npz": "23a7618c629cf45b92f85e16989ef82b2395b4487fa60eed8fa805bec677d8ed",
+    "data_v1/weather/hazard_v2/era5/era5_S00008.npz": "899dc34f0a5d55309e04c272f0b3f7de8976d4ea3525212b78776e9b83f38333",
+    "data_v1/weather/hazard_v2/era5/era5_S00009.npz": "f0346051ee91a12f50839b29a28050ae4781583a447599bad11f9f92266e878c",
+    "data_v1/weather/hazard_v2/era5/era5_S00011.npz": "d901127f492f73cb06ce44652d908cb8180a7ce9ac69831fb7b908392e1fec90",
+    "data_v1/weather/hazard_v2/era5/era5_S00023.npz": "09c78a9a1f57b48aa1604194de11a57a07bb375277fdabc84d552b7eae9cd887",
+    "data_v1/weather/hazard_v2/era5/era5_S00034.npz": "3e2842c7f896c8062320f1b70bbce8f3b7dc7d4a0721573bd297172e79e09262",
+    "data_v1/weather/hazard_v2/era5/era5_S00037.npz": "9569c7f268950aecbc57e09192154b3f3170394214755394e71ec2ba468d4bfe",
+    "data_v1/weather/hazard_v2/era5/era5_S00040.npz": "c2d3da0d3c9df2bd866b767e9744a818711ef05df85fd9c0e7a196938df317b0",
+    "data_v1/weather/hazard_v2/era5/era5_S00042.npz": "9277ad44488e3b60c3bb562fbb5fda3cdab5b425371a8f18185b8f5d67623323",
+    "data_v1/weather/hazard_v2/era5/era5_S00046.npz": "c829e79d9a1221ae1e7f254e27e9d4afbb76065a6684ce84f6cbdb83cb9b9d7d",
+    "data_v1/weather/hazard_v2/era5/era5_S00047.npz": "88ce98375fc10a6f126f966165daf5df72117d2dd7153cd02c664539305726f4",
+    "data_v1/weather/hazard_v2/era5/era5_S00052.npz": "c9be31b653a70565ab7989453dacdad39407cc19ba31777efd2c021fd3f13c6d",
+    "data_v1/weather/hazard_v2/era5/era5_S00054.npz": "7d08b517bdf2e03bbb250e2f56311b06b4e6cfe42e7d99121b2f871cb6357d93"
+  },
+  "coordinates_sha256": "7ed5f4fe795e3b2acf7604b84bde1f2d94e210e0e00d4de2c7729ee43efe285b",
+  "protocol_sha256": "3c80a4e72d4c5db3f4413514714225cca30c8217f34f34f56bb4f6ed06f153d1",
+  "fits": 20250,
+  "configurations": 81,
+  "oof_coverage_count": 11178,
+  "replayed_t01_metrics": 18,
+  "replay_max_absolute_error": 9.71445146547012e-17,
+  "systems": [
+    "S00023",
+    "S00034",
+    "S00037",
+    "S00040",
+    "S00046",
+    "S00047"
+  ],
+  "configs": [
+    [
+      "random",
+      20261001
+    ],
+    [
+      "random",
+      20261002
+    ],
+    [
+      "random",
+      20261003
+    ],
+    [
+      "random",
+      20261004
+    ],
+    [
+      "random",
+      20261005
+    ],
+    [
+      "spatial",
+      0
+    ],
+    [
+      "spatial",
+      45
+    ],
+    [
+      "spatial",
+      90
+    ],
+    [
+      "spatial",
+      135
+    ]
+  ],
+  "alphas": [
+    0.1,
+    10.0,
+    1000.0
+  ],
+  "versions": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "sklearn": "1.8.0"
+  },
+  "scope": "Development-only conditional hindcast peak ridge; no neural kernel training; no prediction uploads"
+}

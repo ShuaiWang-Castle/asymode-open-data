@@ -1,0 +1,17 @@
+# T02: within-event dataset stability check
+
+Fixed before execution on 2026-10-02; continuation of T01 at branch commit 137d370. This is a development screen, not independent confirmation or an AsymODE/GCRK training run. Cross-event generalization is not a required objective.
+
+- Events fixed from T01's six substantial-impact candidates: ISAIAS S00023, MICHAEL S00034, MILTON S00037, OPHELIA S00040, DELTA S00046, ZETA S00047. Keep all, including negative cases.
+- Reuse T01 inputs, 72-hour history, 144-hour future observed-peak target, weights, preprocessing, alpha grid and clipped predictions. Future ERA5 means conditional hindcast, not operational forecasting.
+- Five random five-fold county splits: seeds 20261001 through 20261005. The first replays T01. These are split seeds, not neural initialization seeds.
+- Four spatial five-block partitions: geographic coordinates rotated by 0, 45, 90, 135 degrees, recursively split along the longest coordinate extent into balanced groups. Coordinates only; no weather/outcome in partition construction. Approximate local kilometre projection. No spatial buffer; do not claim strict independence. Inner validation uses three analogous blocks on outer-training counties; random outer splits use T01's three-fold inner selection.
+- Arms: B = weather + past outage summaries; G = B + geo40; P0/P1/P2 = same feature count with three fixed county geography permutations (seeds 20261001, 20271001, 20281001). P0 reproduces T01. Permutations remain fixed across split configurations, independently of labels. All preprocessing fitted within corresponding training fold.
+- Primary uses T01's valid observed peaks. For each event with incomplete future observations, repeat the full grid on counties with 144/144 future observations. This changes the sample/training set and is a sensitivity analysis, not a correction to missing outcomes.
+- Each split's metric is design-weighted pooled county-peak MAE/RMSE. Summarize median/min/max and wins across split configurations; these ranges are not confidence intervals, folds/repeats are not independent observations. Report all permutation results and G against median permutation RMSE (not a permutation ensemble).
+- Diagnose signed weighted SSE improvement concentration by fold and top five contributing counties, without publishing individual county predictions. Report nearest outer-training county distance as a spatial-partition check.
+- Validation: disjoint train/test counties; exact once OOF coverage; finite inputs after train-only preprocessing, predictions and positive weights; 18 first-seed B/G/P0 event-arm results reproduce T01 to 1e-10; source/input hashes; all alpha choices and fold memberships retained.
+
+Decision: a candidate is prioritized for full-trajectory matched HOST/GCRK follow-up only if G beats B and median P in at least 4/5 random and 3/4 spatial configurations, with positive median gains in both; if incomplete observation exists, the same rule must hold in complete-only sensitivity. This is an exploratory scheduling rule, not proof of kernel value. If none passes, report that result and continue dataset/input/window investigation instead of promoting a favorable split. Do not search additional splits after seeing this screen.
+
+Publish code, this protocol, aggregate scores, fold diagnostics, splits, choices, audit and a standalone results note. Existing historical research/operational logs are not part of this upload.
