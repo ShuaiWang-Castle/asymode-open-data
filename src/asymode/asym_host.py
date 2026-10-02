@@ -212,10 +212,12 @@ class RestorationKernel(nn.Module):
     """
 
     L_SCALE, B_SCALE = 40.0, 100.0
+    U_SCALE, U_DECAY_H = 0.2, 48.0      # side = "damage": the published alternative form, an added damage hazard
 
-    def __init__(self, n_rings: int, local: bool = True, spatial: bool = True):
+    def __init__(self, n_rings: int, local: bool = True, spatial: bool = True, side: str = "restoration"):
         super().__init__()
-        self.n_rings, self.local, self.spatial = n_rings, local, spatial
+        assert side in ("restoration", "damage")
+        self.n_rings, self.local, self.spatial, self.side = n_rings, local, spatial, side
         self.theta_l = nn.Parameter(torch.zeros(()))
         self.theta_b = nn.Parameter(torch.zeros(n_rings))
         self.open = False
@@ -230,8 +232,14 @@ class RestorationKernel(nn.Module):
 
     def forward(self, burden: torch.Tensor | None):
         kl = self.L_SCALE * self.theta_l
-        kb = self.B_SCALE * (burden @ self.theta_b) if (self.spatial and burden is not None) else torch.zeros(())
+        on = self.spatial and burden is not None and self.side == "restoration"
+        kb = self.B_SCALE * (burden @ self.theta_b) if on else torch.zeros(())
         return kl, kb
+
+    def damage_hazard(self, burden: torch.Tensor, hours: int) -> torch.Tensor:
+        """side = "damage": lam[B, hours] = U_SCALE (burden . theta_b) exp(-t / U_DECAY_H), added to the damage hazard."""
+        t = torch.arange(hours, dtype=burden.dtype)
+        return self.U_SCALE * (burden @ self.theta_b)[:, None] * torch.exp(-t / self.U_DECAY_H)[None, :]
 
 
 class AsymODE(nn.Module):
@@ -350,12 +358,20 @@ class AsymODE(nn.Module):
         self.dose = DoseKernel(self.damage[0].out_features, d_vuln, damage_side=damage_side)
         return self.dose
 
-    def attach_restoration(self, n_rings: int, local: bool = True, spatial: bool = True) -> RestorationKernel:
+    def attach_restoration(self, n_rings: int, local: bool = True, spatial: bool = True, side: str = "restoration") -> RestorationKernel:
         """Capacity-limited, regionally coupled restoration; all weights zero, so the arm equals its base at step 0."""
         if getattr(self, "rest", None) is not None:
             raise RuntimeError("restoration kernel already attached")
-        self.rest = RestorationKernel(n_rings, local, spatial)
+        self.rest = RestorationKernel(n_rings, local, spatial, side)
         return self.rest
+
+    def expand_recovery_inputs(self, k: int):
+        """Append k recovery inputs with zero weights in the first recovery layer (paired initialisation)."""
+        old = self.recovery[0]
+        new = nn.Linear(old.in_features + k, old.out_features)
+        with torch.no_grad():
+            new.weight.zero_(); new.weight[:, :old.in_features] = old.weight; new.bias.copy_(old.bias)
+        self.recovery[0] = new
 
     def attach_hazard(self, d_phi: int):
         """Exposure-integrated hazard features as a competing hazard (geo_weather_20260924 DESIGN v1):
@@ -436,6 +452,9 @@ class AsymODE(nn.Module):
             r = r * torch.exp(-lam_r)
         if self.rest is not None and self.rest.open:
             kl, kb = self.rest(b.get("burden"))
+            if self.rest.side == "damage" and self.rest.spatial:
+                cap = U_CAP + BKG_CAP
+                u = u - (cap - u) * torch.expm1(-self.rest.damage_hazard(b["burden"], u.shape[1]))
             p = stock_path_capacity(u, r, b["y0"], kl, kb)
         else:
             p = stock_path(u.contiguous(), r.contiguous(), b["y0"].contiguous())

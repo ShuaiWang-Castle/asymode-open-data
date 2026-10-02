@@ -83,3 +83,18 @@ def test_gradients_and_projection():
         local.rest.theta_l.fill_(0.3); local.rest.theta_b.fill_(0.3)
     local.rest.project_()
     assert float(local.rest.theta_l) > 0 and float(local.rest.theta_b.abs().sum()) == 0.0
+
+
+def test_damage_side_and_recovery_inputs():
+    b = batch()
+    base = model(False)(b)["P"]
+    net = model(True, side="damage"); net.rest.open = True
+    assert torch.allclose(base, net(b)["P"], atol=1e-7, rtol=0)
+    with torch.no_grad():
+        net.rest.theta_b.fill_(1.0)
+    up = net(b)
+    assert (up["u"] >= model(False)(b)["u"] - 1e-7).all() and (up["P"] >= base - 1e-6).all() and (up["P"] > base + 1e-6).any()
+    assert float(up["u"].max()) <= 0.515 + 1e-6
+    wide = model(False); wide.expand_recovery_inputs(3)
+    bb = dict(b); bb["xr"] = torch.cat([b["xr"], torch.randn(b["xr"].shape[0], 216, 3)], -1)
+    assert torch.equal(wide(bb)["P"], base)

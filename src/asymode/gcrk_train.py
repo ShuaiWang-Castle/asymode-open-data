@@ -35,7 +35,8 @@ DOSE_WARMUP = 100          # the dose kernel's parameters start updating after t
 DOSE_ARMS = {"W+Cin+DK": dict(vuln=False, damage_side=True), "W+Cin+DKV": dict(vuln=True, damage_side=True),
              "W+Cin+DKVr": dict(vuln=True, damage_side=False)}     # dose-fragility kernel (DOSE_FRAGILITY_KERNEL_DESIGN)
 REST_ARMS = {"W+Cin+RK": dict(local=True, spatial=True), "W+Cin+RKl": dict(local=True, spatial=False),
-             "W+Cin+RKs": dict(local=False, spatial=True)}        # restoration kernel (RESTORATION_KERNEL_DESIGN), same warm-up
+             "W+Cin+RKs": dict(local=False, spatial=True),        # restoration kernel (RESTORATION_KERNEL_DESIGN), same warm-up
+             "W+Cin+RKu": dict(local=True, spatial=True, side="damage")}   # control: the burden as an added damage hazard
 CR_MICROBATCH = 512  # I20: accumulate the same full-fit objective before one Adam update.
 
 
@@ -202,9 +203,12 @@ class Engine:
         self.val = None if self.val_idx is None else make_batch(F, self.val_idx, self.stats, self.nodes)
         torch.manual_seed(self.seed)
         k_extra = int(F.get("xu_extra", 0))          # appended damage inputs get zero weights (paired init)
-        self.model = AsymODE(F["xu"].shape[-1] - k_extra, F["xr"].shape[-1], F["xo"].shape[-1])
+        k_extra_r = int(F.get("xr_extra", 0))        # appended recovery inputs likewise
+        self.model = AsymODE(F["xu"].shape[-1] - k_extra, F["xr"].shape[-1] - k_extra_r, F["xo"].shape[-1])
         if k_extra:
             self.model.expand_damage_inputs(k_extra)
+        if k_extra_r:
+            self.model.expand_recovery_inputs(k_extra_r)
         if arm in ("W+Cin", "GCRK+Cin", "GCRK+Cin-open", "GCRK+Cin-georms", "CRK+Cin", "STGCRK+Cin") or arm in MECH_ARMS or arm in HAZARD_ARMS or arm in DOSE_ARMS or arm in REST_ARMS:
             self.model.attach_context_input(N_STATIC + (F["ctx_extra"].shape[-1] if "ctx_extra" in F else 0))
         if arm in DOSE_ARMS:

@@ -153,6 +153,7 @@ def main():
     ap.add_argument("--vuln", default=None, choices=["real", "perm"], help="county vulnerability vector for the DKV arms (perm: county-permuted null)")
     ap.add_argument("--origin-shift", type=int, default=0, help="hours by which the forecast origin is moved later (RESTORATION_KERNEL_DESIGN)")
     ap.add_argument("--burden", default=None, choices=["real", "perm"], help="regional outage burden before the origin for the spatial restoration arms (perm: null)")
+    ap.add_argument("--burden-input", default=None, choices=["real", "perm"], help="control: the burden as three plain recovery inputs (zero initial weights), no kernel")
     a = ap.parse_args()
     torch.set_num_threads(a.threads)
     F = load(a.data)
@@ -160,6 +161,10 @@ def main():
         F = shift_origin(F, a.origin_shift)
     if a.burden:
         F = attach_burden(F, a.data, a.origin_shift, a.burden)
+    if a.burden_input:               # control: the same burden as three plain recovery inputs, log1p(100 b), no kernel
+        Fb = attach_burden(F, a.data, a.origin_shift, a.burden_input)
+        extra = np.log1p(100.0 * Fb["burden"])[:, None, :].repeat(F["xr"].shape[1], 1).astype(np.float32)
+        F = dict(F); F["xr"] = np.concatenate([F["xr"], extra], -1); F["xr_extra"] = extra.shape[-1]
     if a.phi:
         F = attach_phi(F, PANEL[a.data] + a.phi, a.keep)
     if a.vuln:                       # county vulnerability vector (info_ceiling/vuln_prior.py)
