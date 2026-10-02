@@ -74,8 +74,23 @@ def main(shift: int, names) -> None:
                    host_vs_persistence=dict(all=rel(sse(Pb), sse(persist), av), active=rel(sse(Pb), sse(persist), av & act)),
                    kernel={k: {kk: vv for kk, vv in json.loads((RUNS / f"v1r{shift}_{ARMS[name]}_s0" / f"fold{k:02d}" / "DONE.json").read_text()).items() if kk.startswith("rest_") or kk in ("seconds", "fit_loss", "burden")} for k in folds},
                    host_fit_loss={k: json.loads((RUNS / f"v1r{shift}_host_s0" / f"fold{k:02d}" / "DONE.json").read_text())["fit_loss"] for k in folds})
+        if name == "RK":                # how strongly the regional term slows the restoration of the county-events already out
+            bz = np.load(screen.ROOT / "data" / "interim" / "panel_v1" / "burden_v1D.npz")
+            bur = bz["rings"][:, int(bz["col_origin"]) + shift - 1].astype(float)
+            from geo_evidence import fold_of_unit
+            fo = fold_of_unit(n); fac = np.full(n, np.nan)
+            for k in folds:
+                fac[fo == k] = 1.0 + bur[fo == k] @ np.array(res["kernel"][k]["rest_kappa_b"])
+            sub = av & act
+            res["regional_slowdown_factor_active"] = dict(
+                median=float(np.median(fac[sub])), q25=float(np.quantile(fac[sub], .25)), q75=float(np.quantile(fac[sub], .75)), q90=float(np.quantile(fac[sub], .9)),
+                by_regime={r: float(np.median(fac[sub & (reg == r)])) for r in REGIMES if (sub & (reg == r)).sum() > 5},
+                not_active_median=float(np.median(fac[av & ~act])))
         out[name] = res
         print(f"{name}: folds {folds} units {res['units']} active {res['active_units']} | all {f(res['all'])} | active {f(res['active'])} | not active {f(res['not_active'])} | S {f(res['S'])}")
+        if "regional_slowdown_factor_active" in res:
+            q = res["regional_slowdown_factor_active"]
+            print(f"   regional slow-down factor 1 + sum kappa_k b_k, counties already out: median {q['median']:.2f} (quartiles {q['q25']:.2f}-{q['q75']:.2f}, 90th {q['q90']:.2f}); by regime", {r: round(v, 2) for r, v in q["by_regime"].items()}, f"| not yet out: median {q['not_active_median']:.2f}")
         print(f"   first 48 h: all {f(res['all_48h'])} active {f(res['active_48h'])} | false peaks {res['false_peaks']} | all by regime", {r: f"{100 * v:+.1f}%" for r, v in res["all_by_regime"].items()},
               "| active by regime", {r: f"{100 * v:+.1f}%" for r, v in res["active_by_regime"].items()})
         print("   by fold:", {k: f"all {100 * v['all']:+.1f}% active {100 * v['active']:+.1f}%" for k, v in res["by_fold"].items()})
