@@ -17,7 +17,7 @@ from probe import BOOT_SEED, B, EXP, REGIMES, RES, RUNS, load_static
 from score_dose import collect
 
 sys.path.insert(0, str(EXP))
-ARMS = {"RK": "rk", "RKl": "rkl", "RKp": "rkp", "RKs": "rks"}
+ARMS = {"RK": "rk", "RKl": "rkl", "RKp": "rkp", "RKs": "rks", "RKu": "rku", "Bin": "bin"}
 
 
 def main(shift: int, names) -> None:
