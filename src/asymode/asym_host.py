@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import torch
 from torch import nn
+from torch.nn import functional as F
 
 from .gcrk import GCRKLayer
 
@@ -111,6 +112,80 @@ def mlp(d_in: int, hidden: int) -> nn.Sequential:
                          nn.ReLU(), nn.Linear(hidden, 1))
 
 
+class DoseKernel(nn.Module):
+    """Dose-fragility kernel (geo_weather_20260924/notes/DOSE_FRAGILITY_KERNEL_DESIGN_20261002_ZH.md).
+
+    Reads the damage network's first hidden sequence h [B, T, d]:
+        e_t = softplus(W_e h_t + b_e)                          K non-negative exposures
+        D_t = rho D_{t-1} + (1 - rho) e_t,  D_{-1} = 0         ordered accumulation, rho_k = exp(-1 / tau_k)
+        z_t = (D_t - c) / s                                     c, s: buffers from the fitting units only
+        a_t  = softplus(z_t - theta  - Gamma  v)                damage-side fragility activation
+        a'_t = softplus(z_t - theta' - Gamma' v)                recovery-side activation
+        lam_U = beta . a_t,  lam_R = eta . a'_t,  beta, eta >= 0 (projected), both zero at the start
+    The host applies u <- cap - (cap - u) exp(-lam_U) and r <- r exp(-lam_R): the dose can only raise the damage rate and
+    slow the restoration, and with beta = eta = 0 the model equals its host. v [B, m] is the county vulnerability
+    vector (standardised); with m = 0 the thresholds are shared by all counties.
+    """
+
+    TAU_MIN, TAU_MAX = 3.0, 168.0
+
+    def __init__(self, d_hidden: int, d_vuln: int = 0, k: int = 3, tau_init=(12.0, 48.0, 120.0), damage_side: bool = True):
+        super().__init__()
+        self.k, self.d_vuln, self.damage_side = k, d_vuln, damage_side
+        self.exposure = nn.Linear(d_hidden, k)
+        t = torch.tensor(tau_init[:k])
+        p = (t - self.TAU_MIN) / (self.TAU_MAX - self.TAU_MIN)
+        self.omega = nn.Parameter(torch.log(p / (1 - p)))
+        self.theta_u = nn.Parameter(torch.full((k,), 2.0))
+        self.theta_r = nn.Parameter(torch.full((k,), 2.0))
+        self.beta = nn.Parameter(torch.zeros(k))
+        self.eta = nn.Parameter(torch.zeros(k))
+        if d_vuln:
+            self.gamma_u = nn.Parameter(torch.zeros(k, d_vuln))
+            self.gamma_r = nn.Parameter(torch.zeros(k, d_vuln))
+        self.register_buffer("center", torch.zeros(k))
+        self.register_buffer("scale", torch.ones(k))
+        self.register_buffer("calibrated", torch.tensor(0, dtype=torch.long))
+
+    def tau(self) -> torch.Tensor:
+        return self.TAU_MIN + (self.TAU_MAX - self.TAU_MIN) * torch.sigmoid(self.omega)
+
+    def dose(self, h: torch.Tensor) -> torch.Tensor:
+        e = F.softplus(self.exposure(h))                         # [B, T, K]
+        rho = torch.exp(-1.0 / self.tau())
+        d = torch.zeros_like(e[:, 0])
+        out = []
+        for t in range(e.shape[1]):
+            d = rho * d + (1.0 - rho) * e[:, t]
+            out.append(d)
+        return torch.stack(out, 1)
+
+    @torch.no_grad()
+    def calibrate_(self, h: torch.Tensor) -> None:
+        """Centre and scale of the dose over the fitting units' forecast hours (median, 99th - 50th percentile)."""
+        d = self.dose(h)[:, ORIGIN:].reshape(-1, self.k)
+        if d.shape[0] > 400_000:
+            d = d[torch.linspace(0, d.shape[0] - 1, 400_000).long()]
+        q = torch.quantile(d, torch.tensor([0.5, 0.99], dtype=d.dtype), dim=0)
+        self.center.copy_(q[0]); self.scale.copy_((q[1] - q[0]).clamp_min(1e-6)); self.calibrated.fill_(1)
+
+    @torch.no_grad()
+    def project_(self) -> None:
+        self.beta.clamp_(min=0.0); self.eta.clamp_(min=0.0)
+        if not self.damage_side:
+            self.beta.zero_()
+
+    def forward(self, h: torch.Tensor, v: torch.Tensor | None):
+        z = (self.dose(h)[:, ORIGIN:] - self.center) / self.scale        # [B, 144, K]
+        su, sr = self.theta_u, self.theta_r
+        if self.d_vuln:
+            su = su + F.linear(v, self.gamma_u)[:, None, :]
+            sr = sr + F.linear(v, self.gamma_r)[:, None, :]
+        lam_u = (F.softplus(z - su) * self.beta).sum(-1)
+        lam_r = (F.softplus(z - sr) * self.eta).sum(-1)
+        return lam_u, lam_r, z
+
+
 class AsymODE(nn.Module):
     def __init__(self, d_u: int, d_r: int, d_occ: int, hidden_u: int = 32, hidden_r: int = 16,
                  u_bias_init: float = -2.0, occ_bias: float = 0.0, bkg_bias: float = -5.0,
@@ -126,6 +201,7 @@ class AsymODE(nn.Module):
         self.mech, self.mech_in = None, None
         self.haz_beta, self.haz_a, self.haz_b = None, None, None
         self.haz_signed = False           # True: signed coefficients, a logit shift of the damage rate
+        self.dose = None
         with torch.no_grad():
             self.damage[-1].bias.fill_(u_bias_init)
             self.smoother.weight.zero_()
@@ -218,6 +294,13 @@ class AsymODE(nn.Module):
         z = torch.cat([torch.zeros_like(z[:, :ORIGIN]), z[:, ORIGIN:]], 1)    # only the rollout hours are read
         return z.clamp(-10.0, 10.0)
 
+    def attach_dose(self, d_vuln: int = 0, damage_side: bool = True) -> DoseKernel:
+        """Dose-fragility kernel on the first hidden sequence; beta = eta = 0, so the arm equals its base at step 0."""
+        if getattr(self, "dose", None) is not None:
+            raise RuntimeError("dose kernel already attached")
+        self.dose = DoseKernel(self.damage[0].out_features, d_vuln, damage_side=damage_side)
+        return self.dose
+
     def attach_hazard(self, d_phi: int):
         """Exposure-integrated hazard features as a competing hazard (geo_weather_20260924 DESIGN v1):
         u = cap (1 - (1 - u_host / cap) exp(-beta . phi_t)), beta >= 0 (projected after every step), zero at the
@@ -289,9 +372,17 @@ class AsymODE(nn.Module):
                 u = cap * torch.sigmoid(torch.logit(q) + lam)
             else:
                 u = u - (cap - u) * torch.expm1(-lam)                          # = cap - (cap - u) exp(-lam), lam >= 0
+        dose_z = None
+        if self.dose is not None:
+            lam_u, lam_r, dose_z = self.dose(h, b.get("vuln"))
+            cap = U_CAP + BKG_CAP
+            u = u - (cap - u) * torch.expm1(-lam_u)
+            r = r * torch.exp(-lam_r)
         p = stock_path(u.contiguous(), r.contiguous(), b["y0"].contiguous())
         out = dict(P=p, u=u, r=r, gate=gate, background=bkg, conditional=cond,
                    raw_logit=raw, logit=logit, forget=forget)
+        if dose_z is not None:
+            out["dose_z"] = dose_z
         if self.haz_beta is not None:
             out["hazard"] = lam
         if self.level is not None:

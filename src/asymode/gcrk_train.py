@@ -31,6 +31,9 @@ LR_HOST, LR_RECOVERY = 3e-3, 3e-4
 N_WEATHER = 14          # leading columns of x^U and x^R that are raw weather (not clipped)
 N_STATIC = 6            # x^R columns after the weather block: county background (not clipped)
 CLIP = 5.0
+DOSE_WARMUP = 100          # the dose kernel's parameters start updating after this many host steps (no Adam state before)
+DOSE_ARMS = {"W+Cin+DK": dict(vuln=False, damage_side=True), "W+Cin+DKV": dict(vuln=True, damage_side=True),
+             "W+Cin+DKVr": dict(vuln=True, damage_side=False)}     # dose-fragility kernel (DOSE_FRAGILITY_KERNEL_DESIGN)
 CR_MICROBATCH = 512  # I20: accumulate the same full-fit objective before one Adam update.
 
 
@@ -121,6 +124,8 @@ def fit_stats(F: dict, idx: np.ndarray) -> dict:
     st["geo"] = _moments(F["geo"][idx])
     if "ctx_extra" in F:             # extra static county context (e.g. canopy), standardised on the fitting units
         st["ctx_extra"] = _moments(F["ctx_extra"][idx])
+    if "vuln" in F:                  # county vulnerability vector, standardised on the fitting units
+        st["vuln"] = _moments(F["vuln"][idx])
     if "phi" in F:                   # per-feature scale: the fitting units' 99th percentile of the active hours
         ph = F["phi"][idx].astype(np.float32).reshape(-1, F["phi"].shape[-1])
         q = np.array([np.percentile(c[c > 0], 99) if (c > 0).any() else 1.0 for c in ph.T])
@@ -156,6 +161,8 @@ def make_batch(F: dict, idx: np.ndarray, st: dict, nodes: bool = False) -> dict:
     if nodes:                                      # physical units, no standardisation (geo_mech reads them as is)
         for k in ("nw", "na", "nr"):
             b[k] = torch.from_numpy(np.ascontiguousarray(F[k][idx].astype(np.float32)))
+    if "vuln" in st:
+        b["vuln"] = torch.from_numpy(_std(F["vuln"][idx], st["vuln"], 0))
     if "space" in F:                 # neighbour table of the spatio-temporal GCRK, remapped to the batch's rows
         sp = F["space"]
         row = np.full(len(F["y"]), -1, np.int64); row[idx] = np.arange(len(idx))
@@ -175,7 +182,8 @@ class Engine:
     def __init__(self, F: dict, fit_idx, val_idx, seed: int, arm: str, private_seed: int = 1729):
         assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "GCRK-open", "GCRK+Cin-open",
                        "W+C", "W+G", "W+Cin", "GCRK+Cin", "GCRK+Cin-georms", "CRK+Cin", "STGCRK+Cin",
-                       *MECH_ARMS, *HAZARD_ARMS)
+                       *MECH_ARMS, *HAZARD_ARMS, *DOSE_ARMS)
+        assert (arm in DOSE_ARMS and DOSE_ARMS[arm]["vuln"]) == ("vuln" in F), "vulnerability goes with the DKV arms only"
         assert (arm in HAZARD_ARMS) == ("phi" in F), "hazard arms need F['phi'] and only they may have it"
         assert (arm == "STGCRK+Cin") == ("space" in F), "the spatio-temporal arm needs F['space'] and only it may have it"
         self.arm, self.seed, self.step = arm, int(seed), 0
@@ -192,8 +200,10 @@ class Engine:
         self.model = AsymODE(F["xu"].shape[-1] - k_extra, F["xr"].shape[-1], F["xo"].shape[-1])
         if k_extra:
             self.model.expand_damage_inputs(k_extra)
-        if arm in ("W+Cin", "GCRK+Cin", "GCRK+Cin-open", "GCRK+Cin-georms", "CRK+Cin", "STGCRK+Cin") or arm in MECH_ARMS or arm in HAZARD_ARMS:
+        if arm in ("W+Cin", "GCRK+Cin", "GCRK+Cin-open", "GCRK+Cin-georms", "CRK+Cin", "STGCRK+Cin") or arm in MECH_ARMS or arm in HAZARD_ARMS or arm in DOSE_ARMS:
             self.model.attach_context_input(N_STATIC + (F["ctx_extra"].shape[-1] if "ctx_extra" in F else 0))
+        if arm in DOSE_ARMS:
+            self.model.attach_dose(F["vuln"].shape[-1] if DOSE_ARMS[arm]["vuln"] else 0, DOSE_ARMS[arm]["damage_side"])
         if arm in HAZARD_ARMS:
             self.model.attach_hazard(F["phi"].shape[-1])
             self.model.haz_signed = arm == "W+Cin+Hs"
@@ -243,6 +253,8 @@ class Engine:
 
     @torch.no_grad()
     def refresh(self):
+        if self.model.dose is not None:
+            self.model.dose.calibrate_(self.model.hidden(self.fit["xu"], self.fit["ctx"]))
         k = self.model.kernel
         if k is None:
             return None
@@ -286,9 +298,14 @@ class Engine:
         for n, p in self.model.named_parameters():
             if p.grad is not None and not torch.isfinite(p.grad).all():
                 raise RuntimeError(f"nonfinite gradient {n}")
+        if self.model.dose is not None and self.step < DOSE_WARMUP:
+            for p in self.model.dose.parameters():
+                p.grad = None
         self.opt.step()
         if k is not None:
             k.project_()
+        if self.model.dose is not None:
+            self.model.dose.project_()
         if self.model.haz_beta is not None and not self.model.haz_signed:
             with torch.no_grad():
                 for p in self.model.hazard_params():

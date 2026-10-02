@@ -93,11 +93,16 @@ def main():
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--threads", type=int, default=2)
     ap.add_argument("--design-weights", action="store_true", help="DATASET_DESIGN v1 loss (design weights, regime-normalised)")
+    ap.add_argument("--vuln", default=None, choices=["real", "perm"], help="county vulnerability vector for the DKV arms (perm: county-permuted null)")
     a = ap.parse_args()
     torch.set_num_threads(a.threads)
     F = load(a.data)
     if a.phi:
         F = attach_phi(F, PANEL[a.data] + a.phi, a.keep)
+    if a.vuln:                       # county vulnerability vector (info_ceiling/vuln_prior.py)
+        zv = np.load(ROOT / "data" / "interim" / "panel_v1" / f"vuln_{a.data}.npz")
+        assert np.array_equal(zv["fips"], F["fips"]) and np.array_equal(zv["system"], F["system"])
+        F = dict(F); F["vuln"] = zv["z" if a.vuln == "real" else "z_perm"].astype(np.float32)
     if a.arm == "STGCRK+Cin":        # neighbour table of the spatio-temporal GCRK (panel_v1/space_v1.py)
         zs = np.load(ROOT / "data" / "interim" / "panel_v1" / f"space_{a.data}.npz")
         assert np.array_equal(zs["fips"], F["fips"]) and np.array_equal(zs["system"], F["system"])
@@ -138,6 +143,12 @@ def main():
         np.savez_compressed(out / "outer.npz", **res)
         torch.save(dict(model_state=e.model.state_dict(), stats=e.stats, arm=a.arm, steps=a.steps), out / "final.pt")
         extra = {}
+        if e.model.dose is not None:
+            dk = e.model.dose
+            extra = dict(dose_beta=dk.beta.detach().tolist(), dose_eta=dk.eta.detach().tolist(), dose_tau=dk.tau().detach().tolist(),
+                         dose_theta_u=dk.theta_u.detach().tolist(), dose_theta_r=dk.theta_r.detach().tolist(), vuln=a.vuln)
+            if dk.d_vuln:
+                extra.update(dose_gamma_u=dk.gamma_u.detach().tolist(), dose_gamma_r=dk.gamma_r.detach().tolist())
         if a.arm == "CRK+Cin":
             extra.update(kernel_trace=e.training_trace, microbatch=e.microbatch_size)
         if e.model.haz_beta is not None:

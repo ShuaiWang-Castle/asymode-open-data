@@ -1,0 +1,20 @@
+--label v1_dkv_s0 --arm W+Cin+DKV --vuln real --data v1D --design event --design-weights --seed 0 --steps 900 --folds 1
+--label v1_dkv_s0 --arm W+Cin+DKV --vuln real --data v1D --design event --design-weights --seed 0 --steps 900 --folds 2
+--label v1_dkv_s0 --arm W+Cin+DKV --vuln real --data v1D --design event --design-weights --seed 0 --steps 900 --folds 3
+--label v1_dkv_s0 --arm W+Cin+DKV --vuln real --data v1D --design event --design-weights --seed 0 --steps 900 --folds 4
+--label v1_dkv_s0 --arm W+Cin+DKV --vuln real --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5
+--label v1_dk_s0 --arm W+Cin+DK --data v1D --design event --design-weights --seed 0 --steps 900 --folds 1
+--label v1_dk_s0 --arm W+Cin+DK --data v1D --design event --design-weights --seed 0 --steps 900 --folds 2
+--label v1_dk_s0 --arm W+Cin+DK --data v1D --design event --design-weights --seed 0 --steps 900 --folds 3
+--label v1_dk_s0 --arm W+Cin+DK --data v1D --design event --design-weights --seed 0 --steps 900 --folds 4
+--label v1_dk_s0 --arm W+Cin+DK --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5
+--label v1_dkvp_s0 --arm W+Cin+DKV --vuln perm --data v1D --design event --design-weights --seed 0 --steps 900 --folds 1
+--label v1_dkvp_s0 --arm W+Cin+DKV --vuln perm --data v1D --design event --design-weights --seed 0 --steps 900 --folds 2
+--label v1_dkvp_s0 --arm W+Cin+DKV --vuln perm --data v1D --design event --design-weights --seed 0 --steps 900 --folds 3
+--label v1_dkvp_s0 --arm W+Cin+DKV --vuln perm --data v1D --design event --design-weights --seed 0 --steps 900 --folds 4
+--label v1_dkvp_s0 --arm W+Cin+DKV --vuln perm --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5
+--label v1_dkvr_s0 --arm W+Cin+DKVr --vuln real --data v1D --design event --design-weights --seed 0 --steps 900 --folds 1
+--label v1_dkvr_s0 --arm W+Cin+DKVr --vuln real --data v1D --design event --design-weights --seed 0 --steps 900 --folds 2
+--label v1_dkvr_s0 --arm W+Cin+DKVr --vuln real --data v1D --design event --design-weights --seed 0 --steps 900 --folds 3
+--label v1_dkvr_s0 --arm W+Cin+DKVr --vuln real --data v1D --design event --design-weights --seed 0 --steps 900 --folds 4
+--label v1_dkvr_s0 --arm W+Cin+DKVr --vuln real --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5
