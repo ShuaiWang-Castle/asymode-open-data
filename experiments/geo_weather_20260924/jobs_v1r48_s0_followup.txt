@@ -8,6 +8,16 @@
 --label v1r48_rkp_s0 --arm W+Cin+RK --origin-shift 48 --burden perm --data v1D --design event --design-weights --seed 0 --steps 900 --folds 4
 --label v1r48_rkl_s0 --arm W+Cin+RKl --origin-shift 48 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5
 --label v1r48_rkp_s0 --arm W+Cin+RK --origin-shift 48 --burden perm --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5
+--label v1r48_hostf_s0 --arm W+Cin --origin-shift 48 --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 1
+--label v1r48_binf_s0 --arm W+Cin --origin-shift 48 --burden-input real --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 1
+--label v1r48_hostf_s0 --arm W+Cin --origin-shift 48 --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 2
+--label v1r48_binf_s0 --arm W+Cin --origin-shift 48 --burden-input real --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 2
+--label v1r48_hostf_s0 --arm W+Cin --origin-shift 48 --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 3
+--label v1r48_binf_s0 --arm W+Cin --origin-shift 48 --burden-input real --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 3
+--label v1r48_hostf_s0 --arm W+Cin --origin-shift 48 --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 4
+--label v1r48_binf_s0 --arm W+Cin --origin-shift 48 --burden-input real --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 4
+--label v1r48_hostf_s0 --arm W+Cin --origin-shift 48 --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5
+--label v1r48_binf_s0 --arm W+Cin --origin-shift 48 --burden-input real --lr-recovery 3e-3 --data v1D --design event --design-weights --seed 0 --steps 900 --folds 5
 --label v1r48_rku_s0 --arm W+Cin+RKu --origin-shift 48 --burden real --data v1D --design event --design-weights --seed 0 --steps 900 --folds 1
 --label v1r48_bin_s0 --arm W+Cin --origin-shift 48 --burden-input real --data v1D --design event --design-weights --seed 0 --steps 900 --folds 1
 --label v1r48_rku_s0 --arm W+Cin+RKu --origin-shift 48 --burden real --data v1D --design event --design-weights --seed 0 --steps 900 --folds 2

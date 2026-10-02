@@ -154,8 +154,11 @@ def main():
     ap.add_argument("--origin-shift", type=int, default=0, help="hours by which the forecast origin is moved later (RESTORATION_KERNEL_DESIGN)")
     ap.add_argument("--burden", default=None, choices=["real", "perm"], help="regional outage burden before the origin for the spatial restoration arms (perm: null)")
     ap.add_argument("--burden-input", default=None, choices=["real", "perm"], help="control: the burden as three plain recovery inputs (zero initial weights), no kernel")
+    ap.add_argument("--lr-recovery", type=float, default=None, help="control: learning rate of the recovery network (default: the host's 3e-4)")
     a = ap.parse_args()
     torch.set_num_threads(a.threads)
+    if a.lr_recovery is not None:
+        G.LR_RECOVERY = a.lr_recovery
     F = load(a.data)
     if a.origin_shift:
         F = shift_origin(F, a.origin_shift)
@@ -221,6 +224,8 @@ def main():
             rk = e.model.rest
             extra = dict(rest_kappa_l=float(rk.L_SCALE * rk.theta_l.detach()), rest_kappa_b=(rk.B_SCALE * rk.theta_b.detach()).tolist(), burden=a.burden)
         extra["origin_shift"] = a.origin_shift
+        extra["lr_recovery"] = G.LR_RECOVERY
+        extra["burden_input"] = a.burden_input
         if a.arm == "CRK+Cin":
             extra.update(kernel_trace=e.training_trace, microbatch=e.microbatch_size)
         if e.model.haz_beta is not None:

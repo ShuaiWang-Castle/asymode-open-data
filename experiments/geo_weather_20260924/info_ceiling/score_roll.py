@@ -17,7 +17,7 @@ from probe import BOOT_SEED, B, EXP, REGIMES, RES, RUNS, load_static
 from score_dose import collect
 
 sys.path.insert(0, str(EXP))
-ARMS = {"RK": "rk", "RKl": "rkl", "RKp": "rkp", "RKs": "rks", "RKu": "rku", "Bin": "bin"}
+ARMS = {"RK": "rk", "RKl": "rkl", "RKp": "rkp", "RKs": "rks", "RKu": "rku", "Bin": "bin", "hostF": "hostf", "BinF": "binf"}
 
 
 def main(shift: int, names) -> None:
@@ -81,7 +81,7 @@ def main(shift: int, names) -> None:
         print("   by fold:", {k: f"all {100 * v['all']:+.1f}% active {100 * v['active']:+.1f}%" for k, v in res["by_fold"].items()})
         print(f"   retrained host vs registered host rolled: all {f(res['host_vs_registered_host_rolled']['all'])} active {f(res['host_vs_registered_host_rolled']['active'])} | vs persistence: host all {f(res['host_vs_persistence']['all'])} arm all {f(res['arm_vs_persistence']['all'])}")
         print("   kernel:", {k: (round(v["rest_kappa_l"], 1), [round(x, 1) for x in v["rest_kappa_b"]]) for k, v in res["kernel"].items()}, "| fit loss arm/host:", {k: f"{res['kernel'][k]['fit_loss']:.3e}/{res['host_fit_loss'][k]:.3e}" for k in folds})
-    for a, b in (("RK", "RKp"), ("RK", "RKl"), ("RK", "RKs"), ("RKl", "RKp")):
+    for a, b in (("RK", "RKp"), ("RK", "RKl"), ("RK", "RKs"), ("RKl", "RKp"), ("RK", "hostF"), ("RK", "BinF"), ("RK", "RKu"), ("RK", "Bin"), ("BinF", "hostF")):
         if a in out and b in out:
             Pa, Pb = collect(f"v1r{shift}_{ARMS[a]}_s0", n)[0], collect(f"v1r{shift}_{ARMS[b]}_s0", n)[0]
             av = ~np.isnan(Pa).any(1) & ~np.isnan(Pb).any(1) & (cnt > 0)
