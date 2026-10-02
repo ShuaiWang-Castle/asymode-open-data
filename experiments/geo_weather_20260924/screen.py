@@ -57,6 +57,63 @@ def attach_phi(F: dict, variant: str, keep: str | None = None) -> dict:
     return F
 
 
+HIST = ["p71", "p_max_prefix", "p_mean_66_71", "p_trend_65_71", "prefix_active_share"]
+RING_KM = (50, 150, 300)
+
+
+def hist_features(y: np.ndarray, obs: np.ndarray) -> np.ndarray:
+    """The five outage-history inputs of x^R from the 72 observed hours before the origin (as open_gcrk build_features)."""
+    import pandas as pd
+    v = np.where(obs, y, np.nan)
+    with np.errstate(all="ignore"), __import__("warnings").catch_warnings():
+        __import__("warnings").simplefilter("ignore")
+        p71 = v[:, 71]
+        pmax = np.nanmax(v, 1)
+        pm6 = np.nanmean(v[:, 66:72], 1)
+        p65 = pd.DataFrame(v).T.ffill().T.to_numpy()[:, 65]
+        trend = p71 - np.where(np.isnan(p65), p71, p65)
+        active = np.nanmean((v > 0.005).astype(float) + 0 * v, 1)
+    return np.stack([p71, pmax, pm6, trend, active], 1)
+
+
+def shift_origin(F: dict, d: int) -> dict:
+    """Later forecast origin (RESTORATION_KERNEL_DESIGN): hour 72 + d of the window becomes the origin. The hourly inputs
+    move d hours to the left (the last d hours repeat the final hour and are masked), the stock at the new origin and
+    the five outage-history inputs are recomputed from the 72 observed hours before it; a county-event whose stock is
+    not observed in the hour before the new origin is masked. d = 0 returns the panel unchanged (checked)."""
+    names = [str(c) for c in F["recovery_features"]]
+    cols = [names.index(c) for c in HIST]
+    y, obs = F["y_full"].astype(np.float64), F["obs_full"].astype(bool)
+    hist = hist_features(y[:, d:d + 72], obs[:, d:d + 72])
+    if d == 0:
+        ref = F["xr"][:, 0, cols].astype(np.float64)
+        assert np.allclose(np.nan_to_num(hist, nan=-9.0), np.nan_to_num(ref, nan=-9.0), atol=1e-6), "history inputs not reproduced"
+        return F
+    G = dict(F)
+    for k in ("xu", "xr", "xo"):
+        G[k] = np.concatenate([F[k][:, d:], np.repeat(F[k][:, -1:], d, 1)], 1)
+    G["xr"][:, :, cols] = hist[:, None, :].astype(np.float32)
+    ok = obs[:, 71 + d]
+    G["y0"] = np.where(ok, y[:, 71 + d], 0.0).astype(np.float32)
+    pad = np.zeros((len(y), d), np.float32)
+    G["y"] = np.concatenate([F["y"][:, d:], pad], 1)
+    G["m"] = (np.concatenate([F["m"][:, d:], pad], 1) * ok[:, None]).astype(F["m"].dtype)
+    assert not any(k in F for k in ("phi", "space", "m_train")), "hourly side inputs are not shifted"
+    return G
+
+
+def attach_burden(F: dict, data: str, d: int, mode: str) -> dict:
+    """Outage fraction of the other counties in three distance rings in the hour before the origin
+    (info_ceiling/restore_capacity.py export). perm: rows permuted over the county-events (null)."""
+    z = np.load(ROOT / "data" / "interim" / "panel_v1" / f"burden_{data}.npz")
+    assert np.array_equal(z["fips"], F["fips"]) and np.array_equal(z["system"], F["system"]) and tuple(z["ring_km"]) == RING_KM
+    b = z["rings"][:, int(z["col_origin"]) + d - 1].astype(np.float32)
+    if mode == "perm":
+        b = b[np.random.default_rng(20261002).permutation(len(b))]
+    F = dict(F); F["burden"] = b
+    return F
+
+
 def design_weighted(F: dict, dev: np.ndarray) -> dict:
     """DATASET_DESIGN v1 section 1 and amendment 2 S7: the training loss weighs county-event i of regime r by
     w_i / Z_r, Z_r = the design-weighted all-zero SSE of r over the training units (regimes with Z_r = 0 left out),
@@ -94,9 +151,15 @@ def main():
     ap.add_argument("--threads", type=int, default=2)
     ap.add_argument("--design-weights", action="store_true", help="DATASET_DESIGN v1 loss (design weights, regime-normalised)")
     ap.add_argument("--vuln", default=None, choices=["real", "perm"], help="county vulnerability vector for the DKV arms (perm: county-permuted null)")
+    ap.add_argument("--origin-shift", type=int, default=0, help="hours by which the forecast origin is moved later (RESTORATION_KERNEL_DESIGN)")
+    ap.add_argument("--burden", default=None, choices=["real", "perm"], help="regional outage burden before the origin for the spatial restoration arms (perm: null)")
     a = ap.parse_args()
     torch.set_num_threads(a.threads)
     F = load(a.data)
+    if a.origin_shift:
+        F = shift_origin(F, a.origin_shift)
+    if a.burden:
+        F = attach_burden(F, a.data, a.origin_shift, a.burden)
     if a.phi:
         F = attach_phi(F, PANEL[a.data] + a.phi, a.keep)
     if a.vuln:                       # county vulnerability vector (info_ceiling/vuln_prior.py)
@@ -149,6 +212,10 @@ def main():
                          dose_theta_u=dk.theta_u.detach().tolist(), dose_theta_r=dk.theta_r.detach().tolist(), vuln=a.vuln)
             if dk.d_vuln:
                 extra.update(dose_gamma_u=dk.gamma_u.detach().tolist(), dose_gamma_r=dk.gamma_r.detach().tolist())
+        if e.model.rest is not None:
+            rk = e.model.rest
+            extra = dict(rest_kappa_l=float(rk.L_SCALE * rk.theta_l.detach()), rest_kappa_b=(rk.B_SCALE * rk.theta_b.detach()).tolist(), burden=a.burden)
+        extra["origin_shift"] = a.origin_shift
         if a.arm == "CRK+Cin":
             extra.update(kernel_trace=e.training_trace, microbatch=e.microbatch_size)
         if e.model.haz_beta is not None:

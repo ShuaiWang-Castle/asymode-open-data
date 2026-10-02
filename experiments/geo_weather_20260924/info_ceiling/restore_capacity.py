@@ -224,6 +224,55 @@ def region_table():
     return r
 
 
+RADII = (50, 150, 300, 600)
+
+
+def region_table_multi():
+    """As region_table for several radii and from 24 h before the origin (168 hourly columns, column 24 = origin hour):
+    customers out of the other counties within each radius, their customer base, and the county's own customers out."""
+    import pandas as pd
+    f = OUT / "regional_burden_multi.npz"
+    if f.exists():
+        return dict(np.load(f))
+    z = np.load(FEAT, allow_pickle=False)
+    fips, sysv = z["fips"].astype(str), z["system"].astype(str)
+    origin = pd.to_datetime(z["origin"].astype(str))
+    gz = pd.read_csv(ROOT / "data" / "raw" / "census" / "2020_Gaz_counties_national.txt", sep="\t", dtype={"GEOID": str}, encoding="latin-1")
+    gz.columns = [c.strip() for c in gz.columns]
+    gz["GEOID"] = gz.GEOID.str.zfill(5)
+    cust = pd.read_parquet(ROOT / "data" / "interim" / "eaglei_county_customers_2024.parquet")["customers"]
+    cust.index = cust.index.astype(str).str.zfill(5)
+    gz = gz[gz.GEOID.isin(cust.index)].reset_index(drop=True)
+    col = {g: j for j, g in enumerate(gz.GEOID)}
+    la, lo = np.radians(gz.INTPTLAT.to_numpy()), np.radians(gz.INTPTLONG.to_numpy())
+    cu = cust.reindex(gz.GEOID).to_numpy(float)
+    n = len(fips); T = 168
+    r = {f"out_ex_{q}": np.zeros((n, T), np.float32) for q in RADII}
+    r.update({f"base_ex_{q}": np.zeros(n) for q in RADII}); r["own"] = np.zeros((n, T), np.float32)
+    for q in np.unique(sysv):
+        ii = np.where(sysv == q)[0]; t0 = origin[ii[0]] - pd.Timedelta(hours=24); t1 = t0 + pd.Timedelta(hours=T)
+        parts = [pd.read_parquet(ROOT / "data" / "interim" / f"eaglei_outages_{yy}.parquet", columns=["fips", "ts", "customers_out"],
+                                 filters=[("ts", ">=", t0), ("ts", "<", t1)]) for yy in sorted({t0.year, (t1 - pd.Timedelta(minutes=1)).year})]
+        df = pd.concat(parts, ignore_index=True)
+        df = df[(df.ts >= t0) & (df.ts < t1)]
+        df["j"] = df.fips.astype(str).str.zfill(5).map(col); df = df.dropna(subset=["j", "customers_out"])
+        df["h"] = ((df.ts - t0) / pd.Timedelta(hours=1)).astype(int)
+        g = df.groupby(["j", "h"]).customers_out.sum() / 4.0
+        M = np.zeros((len(gz), T)); M[g.index.get_level_values(0).astype(int), g.index.get_level_values(1)] = g.to_numpy(float)
+        for i in ii:
+            c = col.get(fips[i])
+            if c is None:
+                continue
+            d = 2 * 6371.0 * np.arcsin(np.sqrt(np.sin((la - la[c]) / 2) ** 2 + np.cos(la[c]) * np.cos(la) * np.sin((lo - lo[c]) / 2) ** 2))
+            r["own"][i] = M[c]
+            for rad in RADII:
+                nb = d <= rad; nb[c] = False
+                r[f"out_ex_{rad}"][i] = M[nb].sum(0); r[f"base_ex_{rad}"][i] = cu[nb].sum()
+        print(q, len(ii), flush=True)
+    np.savez_compressed(f, **r)
+    return r
+
+
 def region() -> None:
     import lightgbm as lgb
     s, y, m, w, reg, peak, tpk, ok = base(); n = len(y)
@@ -402,14 +451,18 @@ def predictable() -> None:
             print(tn, xn, {k: round(v, 3) for k, v in out[f"{tn}|{xn}"].items()}, flush=True)
     (RES / "restore_region_predictability.json").write_text(json.dumps(out, indent=1) + "\n")
 
-def rolling() -> None:
-    """Registered tests R3 and R3b: rolling-origin restoration forecast from held-out rates (seed 0)."""
+def rolling(rad=None) -> None:
+    """Registered tests R3 and R3b: rolling-origin restoration forecast from held-out rates (seed 0). With a radius
+    (km, one of RADII) the burden comes from region_table_multi and only the main variants are run (robustness)."""
     s, y, m, w, reg, peak, tpk, ok = base(); n = len(y)
     z = np.load(FEAT, allow_pickle=False); cust = z["cust"].astype(float)
     fam = s["family"].astype(str)
     _, U, R, _, _ = collect("v1_host_s0", n)
     _, Ud, Rd, fd, _ = collect("v1_dkv_s0", n)
-    r = region_table(); rf = r["out_ex"] / np.maximum(r["base_in"] - cust, 1.0)[:, None]
+    if rad is None:
+        r = region_table(); rf = r["out_ex"] / np.maximum(r["base_in"] - cust, 1.0)[:, None]
+    else:
+        r = region_table_multi(); rf = r[f"out_ex_{rad}"][:, 24:] / np.maximum(r[f"base_ex_{rad}"], 1.0)[:, None]
     fold = fold_of_unit(n); H = 48; origins = [24, 48, 72, 96]
     rng = np.random.default_rng(BOOT_SEED)
     cases = []                                                    # (units, origin, initial stock, burden, permuted burden)
@@ -448,6 +501,8 @@ def rolling() -> None:
     grids["GRp"] = grids["GR"]; grids["LRp"] = grids["LR"]
     if len(fd) == 5:
         grids["D"] = [(0,)]
+    if rad is not None:
+        grids = {k: grids[k] for k in ("H", "G", "L", "GR", "LR")}
     cnt = None; cf = {}; chosen = {}; by_origin = {}
     for kind, g in grids.items():
         res = {par: sse(kind, par) for par in g}
@@ -485,6 +540,7 @@ def rolling() -> None:
     pairs = [("GR", "H"), ("GR", "G"), ("GR", "GRp"), ("G", "H"), ("L", "H"), ("GR", "L"), ("LR", "L"), ("LR", "LRp"), ("LR", "H"), ("LR", "GR"), ("H", "persist"), ("LR", "persist")]
     if "D" in grids:
         pairs += [("D", "H"), ("GR", "D"), ("LR", "D")]
+    pairs = [q for q in pairs if q[0] in grids and q[1] in grids]
     for a, b in pairs:
         d = dict(all=rel(cf[a][0], cf[b][0]), active=rel(cf[a][1], cf[b][1]),
                  all_by_regime={q: rel(cf[a][0], cf[b][0], reg == q)["point"] for q in REGIMES}, S_units=rel(cf[a][0], cf[b][0], peak >= .10))
@@ -493,8 +549,61 @@ def rolling() -> None:
     out["GR_vs_H_by_origin"] = {str(d): rel(by_origin[("GR", d)], by_origin[("H", d)]) for d in origins}
     print("GR vs H by origin:", {k: f(v) for k, v in out["GR_vs_H_by_origin"].items()})
     print("rmse", {k: {kk: round(vv, 5) for kk, vv in v.items()} for k, v in out["rmse"].items()}, "cases", out["cases"], "active", out["active_cases"])
-    (RES / "restore_rolling.json").write_text(json.dumps(out, indent=1) + "\n")
+    (RES / ("restore_rolling.json" if rad is None else f"restore_rolling_r{rad}.json")).write_text(json.dumps(out, indent=1) + "\n")
+
+
+def radius() -> None:
+    """Robustness to the radius of the regional burden: the R2 learner with at-peak-hour features only, and the rolling test."""
+    import lightgbm as lgb
+    s, y, m, w, reg, peak, tpk, ok = base(); n = len(y); a = np.arange(n)
+    r = region_table_multi(); fold = fold_of_unit(n)
+    sel0 = ok & np.array([m[u, t + 1:min(t + 25, 144)].sum() >= 12 for u, t in zip(a, tpk)]) & (peak >= .10)
+    ix = np.where(sel0)[0]
+    r24 = np.clip(y[ix, tpk[ix] + 24] / peak[ix], 0, 1.5)
+    a24 = np.clip(np.array([(m[u, t + 1:t + 25] * y[u, t + 1:t + 25]).sum() / m[u, t + 1:t + 25].sum() for u, t in zip(ix, tpk[ix])]) / peak[ix], 0, 1.5)
+    flat = float(np.mean([np.ptp(y[u, t + 1:t + 13]) == 0 for u, t in zip(ix, tpk[ix])]))
+    Wh = np.load(OUT / "Wh.npy"); wc = list(s["Whcols"].astype(str))
+    post = []
+    for u, t in zip(ix, tpk[ix]):
+        seg = Wh[u, t:t + 25]
+        post.append([seg[:, wc.index("gust")].max(), seg[:, wc.index("wind_speed")].max(), seg[:, wc.index("gust_excess_energy")].max(),
+                     seg[:, wc.index("precip")].sum(), seg[:, wc.index("snowfall")].sum(), seg[:, wc.index("t2m_c")].min()])
+    bcols = list(s["Bcols"].astype(str)); other = [j for j, c in enumerate(bcols) if not c.startswith("reg_")]
+    Pb = np.column_stack([np.log(peak[ix]), tpk[ix], np.array(post, np.float32), s["B"][ix][:, other]]).astype(np.float32)
+    ws, f = w[ix], fold[ix]
+    out = {"S_units": int(len(ix)), "share_flat_12h_after_peak": flat, "r2": {}}
+
+    def fit(X, tgt):
+        P = np.empty(len(ix))
+        for k in range(1, 6):
+            P[f == k] = lgb.train(EVENT_PARAMS, lgb.Dataset(X[f != k], tgt[f != k], weight=ws[f != k]), EVENT_ROUNDS).predict(X[f == k])
+        mu = np.average(tgt, weights=ws)
+        return float(1 - np.average((P - tgt) ** 2, weights=ws) / np.average((tgt - mu) ** 2, weights=ws))
+
+    out["r2"]["no_region"] = dict(A24=fit(Pb, a24), R24=fit(Pb, r24))
+    for rad in RADII:
+        o, b = r[f"out_ex_{rad}"][ix, tpk[ix] + 24], np.maximum(r[f"base_ex_{rad}"][ix], 1.0)
+        X = np.column_stack([Pb, np.log1p(o), o / b, np.log(b)]).astype(np.float32)
+        out["r2"][str(rad)] = dict(A24=fit(X, a24), R24=fit(X, r24))
+    print("flat share", round(flat, 4), "| out-of-event R2 with the burden at the peak hour only:", {k: {kk: round(vv, 3) for kk, vv in v.items()} for k, v in out["r2"].items()}, flush=True)
+    (RES / "restore_radius.json").write_text(json.dumps(out, indent=1) + "\n")
+    for rad in RADII:
+        print(f"== rolling test with radius {rad} km", flush=True); rolling(rad)
+
+def export() -> None:
+    """Ring burdens for the restoration kernel: data/interim/panel_v1/burden_v1D.npz, rings [N, 168, 3] = outage fraction
+    of the other counties at 0-50, 50-150 and 150-300 km, hourly from 24 h before the origin (col_origin = 24)."""
+    z = np.load(FEAT, allow_pickle=False); r = region_table_multi()
+    edges = (50, 150, 300); rings = []
+    for j, e in enumerate(edges):
+        o = r[f"out_ex_{e}"].astype(np.float64) - (r[f"out_ex_{edges[j - 1]}"] if j else 0.0)
+        b = r[f"base_ex_{e}"] - (r[f"base_ex_{edges[j - 1]}"] if j else 0.0)
+        rings.append(np.where(b[:, None] > 0, o / np.maximum(b[:, None], 1.0), 0.0))
+    rings = np.clip(np.stack(rings, -1), 0.0, 1.0).astype(np.float32)
+    f = ROOT / "data" / "interim" / "panel_v1" / "burden_v1D.npz"
+    np.savez_compressed(f, fips=z["fips"], system=z["system"], rings=rings, ring_km=np.array(edges), col_origin=np.array(24))
+    print(f.name, rings.shape, "mean ring fractions at the origin hour - 1:", rings[:, 23].mean(0).round(5).tolist(), "at +47 h:", rings[:, 71].mean(0).round(5).tolist())
 
 
 if __name__ == "__main__":
-    {"size": size, "sim": sim, "geo": geo, "region": region, "simregion": simregion, "predictable": predictable, "rolling": rolling}[sys.argv[1]]()
+    {"size": size, "sim": sim, "geo": geo, "region": region, "simregion": simregion, "predictable": predictable, "rolling": rolling, "multi": region_table_multi, "radius": radius, "export": export}[sys.argv[1]]()

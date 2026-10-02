@@ -34,6 +34,8 @@ CLIP = 5.0
 DOSE_WARMUP = 100          # the dose kernel's parameters start updating after this many host steps (no Adam state before)
 DOSE_ARMS = {"W+Cin+DK": dict(vuln=False, damage_side=True), "W+Cin+DKV": dict(vuln=True, damage_side=True),
              "W+Cin+DKVr": dict(vuln=True, damage_side=False)}     # dose-fragility kernel (DOSE_FRAGILITY_KERNEL_DESIGN)
+REST_ARMS = {"W+Cin+RK": dict(local=True, spatial=True), "W+Cin+RKl": dict(local=True, spatial=False),
+             "W+Cin+RKs": dict(local=False, spatial=True)}        # restoration kernel (RESTORATION_KERNEL_DESIGN), same warm-up
 CR_MICROBATCH = 512  # I20: accumulate the same full-fit objective before one Adam update.
 
 
@@ -163,6 +165,8 @@ def make_batch(F: dict, idx: np.ndarray, st: dict, nodes: bool = False) -> dict:
             b[k] = torch.from_numpy(np.ascontiguousarray(F[k][idx].astype(np.float32)))
     if "vuln" in st:
         b["vuln"] = torch.from_numpy(_std(F["vuln"][idx], st["vuln"], 0))
+    if "burden" in F:                # regional outage fractions before the origin, physical units (no standardisation)
+        b["burden"] = torch.from_numpy(np.ascontiguousarray(F["burden"][idx].astype(np.float32)))
     if "space" in F:                 # neighbour table of the spatio-temporal GCRK, remapped to the batch's rows
         sp = F["space"]
         row = np.full(len(F["y"]), -1, np.int64); row[idx] = np.arange(len(idx))
@@ -182,7 +186,8 @@ class Engine:
     def __init__(self, F: dict, fit_idx, val_idx, seed: int, arm: str, private_seed: int = 1729):
         assert arm in ("W", "GCRK", "GCRK-S", "GCRK-P", "GCRK-K8", "GCRK-slow", "GCRK-open", "GCRK+Cin-open",
                        "W+C", "W+G", "W+Cin", "GCRK+Cin", "GCRK+Cin-georms", "CRK+Cin", "STGCRK+Cin",
-                       *MECH_ARMS, *HAZARD_ARMS, *DOSE_ARMS)
+                       *MECH_ARMS, *HAZARD_ARMS, *DOSE_ARMS, *REST_ARMS)
+        assert (arm in REST_ARMS and REST_ARMS[arm]["spatial"]) == ("burden" in F), "the regional burden goes with the spatial restoration arms only"
         assert (arm in DOSE_ARMS and DOSE_ARMS[arm]["vuln"]) == ("vuln" in F), "vulnerability goes with the DKV arms only"
         assert (arm in HAZARD_ARMS) == ("phi" in F), "hazard arms need F['phi'] and only they may have it"
         assert (arm == "STGCRK+Cin") == ("space" in F), "the spatio-temporal arm needs F['space'] and only it may have it"
@@ -200,10 +205,12 @@ class Engine:
         self.model = AsymODE(F["xu"].shape[-1] - k_extra, F["xr"].shape[-1], F["xo"].shape[-1])
         if k_extra:
             self.model.expand_damage_inputs(k_extra)
-        if arm in ("W+Cin", "GCRK+Cin", "GCRK+Cin-open", "GCRK+Cin-georms", "CRK+Cin", "STGCRK+Cin") or arm in MECH_ARMS or arm in HAZARD_ARMS or arm in DOSE_ARMS:
+        if arm in ("W+Cin", "GCRK+Cin", "GCRK+Cin-open", "GCRK+Cin-georms", "CRK+Cin", "STGCRK+Cin") or arm in MECH_ARMS or arm in HAZARD_ARMS or arm in DOSE_ARMS or arm in REST_ARMS:
             self.model.attach_context_input(N_STATIC + (F["ctx_extra"].shape[-1] if "ctx_extra" in F else 0))
         if arm in DOSE_ARMS:
             self.model.attach_dose(F["vuln"].shape[-1] if DOSE_ARMS[arm]["vuln"] else 0, DOSE_ARMS[arm]["damage_side"])
+        if arm in REST_ARMS:
+            self.model.attach_restoration(F["burden"].shape[-1] if "burden" in F else 0, **REST_ARMS[arm])
         if arm in HAZARD_ARMS:
             self.model.attach_hazard(F["phi"].shape[-1])
             self.model.haz_signed = arm == "W+Cin+Hs"
@@ -275,6 +282,8 @@ class Engine:
             k.training_step.fill_(self.step)
         self.model.train()
         self.opt.zero_grad(set_to_none=True)
+        if self.model.rest is not None:
+            self.model.rest.open = self.step >= DOSE_WARMUP
         if self.microbatch_size is None:
             out = self.model(self.fit)
             loss = trajectory_loss(out["P"], self.fit["y"], self.fit.get("m_train", self.fit["m"]))
@@ -306,6 +315,8 @@ class Engine:
             k.project_()
         if self.model.dose is not None:
             self.model.dose.project_()
+        if self.model.rest is not None:
+            self.model.rest.project_()
         if self.model.haz_beta is not None and not self.model.haz_signed:
             with torch.no_grad():
                 for p in self.model.hazard_params():

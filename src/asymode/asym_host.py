@@ -106,6 +106,18 @@ def stock_path_loop(u, r, y0):
     return torch.stack(out, 1)
 
 
+def stock_path_capacity(u, r, y0, kl, kb):
+    """Stock with capacity-limited, regionally slowed restoration (plain autograd):
+    p_s = clip(p_{s-1} + u_s (1 - p_{s-1}) - r_s p_{s-1} / ((1 + kl r_s p_{s-1}) (1 + kb)), 0, 1), p_{-1} = y0.
+    kl: scalar >= 0, kb: [B] >= 0; with both zero this is stock_path."""
+    p, out = y0, []
+    inv = 1.0 / (1.0 + kb)
+    for s in range(u.shape[1]):
+        p = (p + u[:, s] * (1.0 - p) - r[:, s] * p * inv / (1.0 + kl * r[:, s] * p)).clamp(0.0, 1.0)
+        out.append(p)
+    return torch.stack(out, 1)
+
+
 # ------------------------------------------------------------------------ networks
 def mlp(d_in: int, hidden: int) -> nn.Sequential:
     return nn.Sequential(nn.Linear(d_in, hidden), nn.ReLU(), nn.Linear(hidden, hidden),
@@ -186,6 +198,42 @@ class DoseKernel(nn.Module):
         return lam_u, lam_r, z
 
 
+class RestorationKernel(nn.Module):
+    """Restoration kernel (geo_weather_20260924/notes/RESTORATION_KERNEL_DESIGN_20261002_ZH.md).
+
+    The restoration flow r_t p_{t-1} of the host becomes
+        r_t p_{t-1} / ((1 + kappa_L r_t p_{t-1}) (1 + sum_k kappa_k b_k)).
+    Own state: the flow saturates at 1 / kappa_L customers (fraction) per hour, so a large stock is restored at a limited
+    capacity and a small one at the host's rate. Space: b_k is the outage fraction of the other counties in distance
+    ring k, observed in the hour before the origin and held over the rollout; kappa_k >= 0 is a radial kernel with one
+    free weight per ring. kappa_L = L_SCALE theta_L, kappa_k = B_SCALE theta_k, theta >= 0 (projected), all zero at
+    the start: the arm equals its host at step 0. `open` is switched on by the trainer after the warm-up; before that
+    the host's own stock recursion is used.
+    """
+
+    L_SCALE, B_SCALE = 40.0, 100.0
+
+    def __init__(self, n_rings: int, local: bool = True, spatial: bool = True):
+        super().__init__()
+        self.n_rings, self.local, self.spatial = n_rings, local, spatial
+        self.theta_l = nn.Parameter(torch.zeros(()))
+        self.theta_b = nn.Parameter(torch.zeros(n_rings))
+        self.open = False
+
+    @torch.no_grad()
+    def project_(self) -> None:
+        self.theta_l.clamp_(min=0.0); self.theta_b.clamp_(min=0.0)
+        if not self.local:
+            self.theta_l.zero_()
+        if not self.spatial:
+            self.theta_b.zero_()
+
+    def forward(self, burden: torch.Tensor | None):
+        kl = self.L_SCALE * self.theta_l
+        kb = self.B_SCALE * (burden @ self.theta_b) if (self.spatial and burden is not None) else torch.zeros(())
+        return kl, kb
+
+
 class AsymODE(nn.Module):
     def __init__(self, d_u: int, d_r: int, d_occ: int, hidden_u: int = 32, hidden_r: int = 16,
                  u_bias_init: float = -2.0, occ_bias: float = 0.0, bkg_bias: float = -5.0,
@@ -202,6 +250,7 @@ class AsymODE(nn.Module):
         self.haz_beta, self.haz_a, self.haz_b = None, None, None
         self.haz_signed = False           # True: signed coefficients, a logit shift of the damage rate
         self.dose = None
+        self.rest = None
         with torch.no_grad():
             self.damage[-1].bias.fill_(u_bias_init)
             self.smoother.weight.zero_()
@@ -301,6 +350,13 @@ class AsymODE(nn.Module):
         self.dose = DoseKernel(self.damage[0].out_features, d_vuln, damage_side=damage_side)
         return self.dose
 
+    def attach_restoration(self, n_rings: int, local: bool = True, spatial: bool = True) -> RestorationKernel:
+        """Capacity-limited, regionally coupled restoration; all weights zero, so the arm equals its base at step 0."""
+        if getattr(self, "rest", None) is not None:
+            raise RuntimeError("restoration kernel already attached")
+        self.rest = RestorationKernel(n_rings, local, spatial)
+        return self.rest
+
     def attach_hazard(self, d_phi: int):
         """Exposure-integrated hazard features as a competing hazard (geo_weather_20260924 DESIGN v1):
         u = cap (1 - (1 - u_host / cap) exp(-beta . phi_t)), beta >= 0 (projected after every step), zero at the
@@ -378,7 +434,11 @@ class AsymODE(nn.Module):
             cap = U_CAP + BKG_CAP
             u = u - (cap - u) * torch.expm1(-lam_u)
             r = r * torch.exp(-lam_r)
-        p = stock_path(u.contiguous(), r.contiguous(), b["y0"].contiguous())
+        if self.rest is not None and self.rest.open:
+            kl, kb = self.rest(b.get("burden"))
+            p = stock_path_capacity(u, r, b["y0"], kl, kb)
+        else:
+            p = stock_path(u.contiguous(), r.contiguous(), b["y0"].contiguous())
         out = dict(P=p, u=u, r=r, gate=gate, background=bkg, conditional=cond,
                    raw_logit=raw, logit=logit, forget=forget)
         if dose_z is not None:
