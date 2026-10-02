@@ -465,27 +465,32 @@ def rolling(rad=None) -> None:
         r = region_table_multi(); rf = r[f"out_ex_{rad}"][:, 24:] / np.maximum(r[f"base_ex_{rad}"], 1.0)[:, None]
     fold = fold_of_unit(n); H = 48; origins = [24, 48, 72, 96]
     rng = np.random.default_rng(BOOT_SEED)
-    cases = []                                                    # (units, origin, initial stock, burden, permuted burden)
+    cases = []                                # (units, origin, initial stock, burden, permuted burden, burden permuted within the system)
+    sysv = s["system"].astype(str)
     for d in origins:
         ii = np.where(m[:, d - 1] > 0)[0]
-        cases.append((ii, d, y[ii, d - 1], rf[ii, d - 1], rf[ii, d - 1][rng.permutation(len(ii))]))
+        b = rf[ii, d - 1]; bp = b[rng.permutation(len(ii))]; bw = b.copy()
+        for q in np.unique(sysv[ii]):
+            j = np.where(sysv[ii] == q)[0]; bw[j] = b[j][rng.permutation(len(j))]
+        cases.append((ii, d, y[ii, d - 1], b, bp, bw))
 
     def sse(kind, par, only=None):
         """per-unit (sum of squared error, cells) pooled over the origins; all cases and cases with initial stock >= 1%"""
         a = np.zeros((2, n)); c = np.zeros((2, n))
         Uq, Rq = (Ud, Rd) if kind == "D" else (U, R)
-        for ii, d, p0, b, bp in cases:
+        for ii, d, p0, b, bp, bw in cases:
             if only is not None and d != only:
                 continue
             p = p0.copy(); e = np.zeros(len(ii))
+            bb = b if kind in ("GR", "LR") else (bp if kind in ("GRp", "LRp") else bw)
             for t in range(d, d + H):
                 if kind == "persist":
                     q = p0
                 else:
-                    if kind in ("GR", "GRp"):
-                        den = (1 + par[0]) * (1 + par[1] * (b if kind == "GR" else bp))
-                    elif kind in ("LR", "LRp"):
-                        den = (1 + par[0] * Rq[ii, t] * p) * (1 + par[1] * (b if kind == "LR" else bp))
+                    if kind in ("GR", "GRp", "GRw"):
+                        den = (1 + par[0]) * (1 + par[1] * bb)
+                    elif kind in ("LR", "LRp", "LRw"):
+                        den = (1 + par[0] * Rq[ii, t] * p) * (1 + par[1] * bb)
                     else:
                         den = {"H": 1.0, "D": 1.0, "G": 1 + par[0], "L": 1 + par[0] * Rq[ii, t] * p}[kind]
                     p = np.clip(p + Uq[ii, t] * (1 - p) - Rq[ii, t] * p / den, 0, 1); q = p
@@ -498,7 +503,7 @@ def rolling(rad=None) -> None:
 
     grids = {"H": [(0,)], "persist": [(0,)], "G": [(k,) for k in (0, .25, .5, 1, 2, 4, 8)], "L": [(k,) for k in (0, 5, 10, 20, 40, 80, 160, 320)],
              "GR": [(a, b) for a in (0, .5, 1, 2, 4) for b in (0, 10, 30, 100, 300)], "LR": [(a, b) for a in (0, 20, 40, 80, 160) for b in (0, 10, 30, 100, 300)]}
-    grids["GRp"] = grids["GR"]; grids["LRp"] = grids["LR"]
+    grids["GRp"] = grids["GR"]; grids["LRp"] = grids["LR"]; grids["GRw"] = grids["GR"]; grids["LRw"] = grids["LR"]
     if len(fd) == 5:
         grids["D"] = [(0,)]
     if rad is not None:
@@ -537,7 +542,7 @@ def rolling(rad=None) -> None:
     for kind in grids:
         out["rmse"][kind] = dict(all=float(np.sqrt((w * cf[kind][0]).sum() / (w * cnt[0]).sum())), active=float(np.sqrt((w * cf[kind][1]).sum() / (w * cnt[1]).sum())))
     f = lambda x: f"{100 * x['point']:+.2f}% [{100 * x['ci95'][0]:+.2f}, {100 * x['ci95'][1]:+.2f}]"  # noqa: E731
-    pairs = [("GR", "H"), ("GR", "G"), ("GR", "GRp"), ("G", "H"), ("L", "H"), ("GR", "L"), ("LR", "L"), ("LR", "LRp"), ("LR", "H"), ("LR", "GR"), ("H", "persist"), ("LR", "persist")]
+    pairs = [("GR", "H"), ("GR", "G"), ("GR", "GRp"), ("G", "H"), ("L", "H"), ("GR", "L"), ("LR", "L"), ("LR", "LRp"), ("LR", "H"), ("LR", "GR"), ("H", "persist"), ("LR", "persist"), ("GR", "GRw"), ("LR", "LRw"), ("GRw", "G"), ("LRw", "L")]
     if "D" in grids:
         pairs += [("D", "H"), ("GR", "D"), ("LR", "D")]
     pairs = [q for q in pairs if q[0] in grids and q[1] in grids]
