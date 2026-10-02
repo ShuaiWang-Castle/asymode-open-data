@@ -567,3 +567,14 @@ Next kernel hypotheses must separate short shock formation from accumulated late
 continuous geography, and test ordered/compound information beyond main weather effects. No new neural
 arm, seed, NULL, data reconstruction or refit is running. Overall MSE remains no exclusion gate. I18 stays
 paused; sealed C and manuscripts remain untouched; preserve this chat and all artifacts.
+
+## Overnight state (2026-10-02 04:10 ET; Claude Code)
+
+The dose-fragility kernel screen (I21) is closed at seed 0: DKV is not a candidate and the vulnerability vector does not
+help. DKVp and DKVr were not run. The restoration-capacity probes found that restoration is set by the regional outage
+burden and that the signal is usable only after storm onset; registered rolling-origin tests R3 and R3b pass. The
+restoration kernel (I22) is implemented with tests and its single-seed screen on the panel with the origin 48 h later
+is running (`jobs_v1r48_s0.txt`, queue `run_queue_wait.sh`, at most three processes at nice 10). Score with
+`info_ceiling/score_roll.py 48 RK`. Follow-up arms RKl, RKp, RKs only if RK passes its rule
+(`notes/RESTORATION_KERNEL_DESIGN_20261002_ZH.md`). The multi-origin data design (I23) is the PI's decision; nothing of
+it is adopted. Sealed C and `paper_v1/` untouched. Summary for the PI: `notes/OVERNIGHT_RESULTS_20261002_ZH.md`.

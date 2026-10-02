@@ -335,3 +335,12 @@ GPT对D10的独立审阅强调：去除假峰不等于生成缺失的正确峰�
 真实120次小解完成，原路径胜hidden仅0.0214%，真实geo无增量，S改善约1%伴随nonS恶化58.9%和同32严重假峰。假峰集中6个风/雨事件组，y0均<10%，不能简单归初始库存；共同辅助49没有单独基线，因此整探针收益尚不能归路径。joint64投影残差FIT内部也约0.97，Gram全秩，暴露有限联合字典覆盖，而非证明地理无信息。共同S标准化/学参数项RMS0.0489/0.2845与winter训练权3.748倍变化分开记载，输入稳定性不替代学习稳定。
 
 当前乘积联合64神经候选不推进。下一明确提案先补辅助-only基线，保留共享天气基础，再加全geo40任意组合调制；可检验PSD kW[eta+(1-eta)kG]、预固定eta及同容量/同事件/同正则预算，检验非S选择性、短冲击和支持。这是未实现/未拟合/未排队候选，不自动扩lambda/地标/seed/fullD；若将来训练，须通过单damage MLP与原合法库存接口，不直接加无约束停电残差。详见D11结果报告及完整紧凑证据。
+
+## Dose-fragility kernel and restoration kernel (2026-10-02; Claude Code, overnight)
+
+| id | idea | status |
+|---|---|---|
+| I21 | Dose-fragility kernel: ordered accumulation of learned exposures from the damage hidden layer, thresholds shifted by a county vulnerability vector (geography prior + EAGLE-I 2014-2017 history), raising damage and slowing restoration | screened at seed 0: not a candidate (S +1.39% [+0.03, +3.00], 38 severe false peaks, all -0.27%); damage side never opens; vulnerability hurts vs no vulnerability; the learned restoration slow-down is real but untargeted |
+| I22 | Restoration kernel: own-state saturation of the restoration flow and a radial kernel over the outage state of the neighbouring counties, coupled with time through the stock; needs forecast origins after storm onset | registered tests on the host's rates pass (R3, R3b; R3c and R3d partly); single-seed screen with a +48 h origin running; supersedes I15/I16 as the concrete restoration-side form |
+| I23 | Multi-origin (rolling) dataset design: several forecast origins per system, evaluation pooled and by phase | proposal for the PI; a change of the registered data design |
+| I24 | Evolving regional burden: the neighbours' model stocks feed the kernel during the rollout (true spatio-temporal coupling) | after I22/I23 |
