@@ -1,0 +1,24 @@
+\begin{table*}[t]
+\centering
+\small
+\caption{County-held-out accuracy on 15 public tropical events. Metrics are design-weighted and pooled over valid observations. Four leads are exact times from a fixed origin. This is a conditional hindcast with supplied weather on examined development data.}
+\label{tab:public-tropical-t03}
+\begin{tabular}{lrrrrrrrr}
+\toprule
+\multirow{2}{*}{Model} & \multicolumn{4}{c}{MAE} & \multicolumn{4}{c}{RMSE} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+ & $+1$ h & $+6$ h & $+24$ h & $+48$ h & $+1$ h & $+6$ h & $+24$ h & $+48$ h \\
+\midrule
+Zero forecast & 0.00088 & 0.00093 & 0.00993 & 0.01524 & 0.01588 & 0.01641 & 0.05660 & 0.07640 \\
+Persistence & 0.00016 & 0.00029 & 0.00949 & 0.01498 & 0.00114 & 0.00187 & 0.05460 & 0.07539 \\
+Damped persistence & 0.00016 & 0.00032 & 0.00946 & 0.01492 & 0.00114 & 0.00211 & 0.05464 & 0.07539 \\
+AsymODE host & 0.00139 & 0.00478 & 0.01214 & 0.02005 & 0.00249 & 0.00793 & 0.03513 & 0.07139 \\
+AsymODE + weather memory & 0.00033 & 0.00075 & 0.00755 & 0.01271 & 0.00254 & 0.00646 & 0.03276 & 0.04881 \\
+AsymODE + weather memory + GCRK & 0.00032 & 0.00073 & 0.00749 & 0.01244 & 0.00253 & 0.00645 & 0.03249 & 0.04892 \\
+AsymODE + weather memory + geo MLP & 0.00037 & 0.00092 & 0.00751 & 0.01274 & 0.00298 & 0.00846 & 0.03307 & 0.04941 \\
+Weather tree & 0.00054 & 0.00059 & 0.00696 & 0.01215 & 0.00168 & 0.00215 & 0.03256 & 0.04941 \\
+Weather + geography tree & 0.00080 & 0.00087 & 0.00728 & 0.01332 & 0.00166 & 0.00239 & 0.03274 & 0.05087 \\
+Validation-selected ensemble & 0.00043 & 0.00070 & 0.00732 & 0.01233 & 0.00153 & 0.00364 & 0.03265 & 0.04842 \\
+\bottomrule
+\end{tabular}
+\end{table*}

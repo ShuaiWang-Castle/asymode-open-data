@@ -1,0 +1,272 @@
+[
+  {
+    "fold": 0,
+    "damping_rate": 0.004,
+    "choices": [
+      {
+        "arm": "TREE_W",
+        "leaves": 7,
+        "min_child_samples": 120,
+        "l2": 30,
+        "best_iteration": 500,
+        "validation_mse": 0.0018410874036209573
+      },
+      {
+        "arm": "TREE_W",
+        "leaves": 15,
+        "min_child_samples": 80,
+        "l2": 20,
+        "best_iteration": 494,
+        "validation_mse": 0.0017263568540057481
+      },
+      {
+        "arm": "TREE_W",
+        "leaves": 31,
+        "min_child_samples": 80,
+        "l2": 30,
+        "best_iteration": 500,
+        "validation_mse": 0.0016845890581052008
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 7,
+        "min_child_samples": 120,
+        "l2": 30,
+        "best_iteration": 500,
+        "validation_mse": 0.0017347934106588527
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 15,
+        "min_child_samples": 80,
+        "l2": 20,
+        "best_iteration": 498,
+        "validation_mse": 0.0017981164174514501
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 31,
+        "min_child_samples": 80,
+        "l2": 30,
+        "best_iteration": 499,
+        "validation_mse": 0.0017778306003450202
+      }
+    ]
+  },
+  {
+    "fold": 1,
+    "damping_rate": 0.006,
+    "choices": [
+      {
+        "arm": "TREE_W",
+        "leaves": 7,
+        "min_child_samples": 120,
+        "l2": 30,
+        "best_iteration": 450,
+        "validation_mse": 0.0024483123281002104
+      },
+      {
+        "arm": "TREE_W",
+        "leaves": 15,
+        "min_child_samples": 80,
+        "l2": 20,
+        "best_iteration": 271,
+        "validation_mse": 0.0024377356788640794
+      },
+      {
+        "arm": "TREE_W",
+        "leaves": 31,
+        "min_child_samples": 80,
+        "l2": 30,
+        "best_iteration": 499,
+        "validation_mse": 0.0024281796119656443
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 7,
+        "min_child_samples": 120,
+        "l2": 30,
+        "best_iteration": 139,
+        "validation_mse": 0.002524175483388752
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 15,
+        "min_child_samples": 80,
+        "l2": 20,
+        "best_iteration": 245,
+        "validation_mse": 0.002464698814249102
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 31,
+        "min_child_samples": 80,
+        "l2": 30,
+        "best_iteration": 481,
+        "validation_mse": 0.00235690075985999
+      }
+    ]
+  },
+  {
+    "fold": 2,
+    "damping_rate": 0.004,
+    "choices": [
+      {
+        "arm": "TREE_W",
+        "leaves": 7,
+        "min_child_samples": 120,
+        "l2": 30,
+        "best_iteration": 384,
+        "validation_mse": 0.00160166116879892
+      },
+      {
+        "arm": "TREE_W",
+        "leaves": 15,
+        "min_child_samples": 80,
+        "l2": 20,
+        "best_iteration": 343,
+        "validation_mse": 0.001351897884172449
+      },
+      {
+        "arm": "TREE_W",
+        "leaves": 31,
+        "min_child_samples": 80,
+        "l2": 30,
+        "best_iteration": 231,
+        "validation_mse": 0.0012974751197997762
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 7,
+        "min_child_samples": 120,
+        "l2": 30,
+        "best_iteration": 78,
+        "validation_mse": 0.002009720366229101
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 15,
+        "min_child_samples": 80,
+        "l2": 20,
+        "best_iteration": 90,
+        "validation_mse": 0.0019105986839717951
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 31,
+        "min_child_samples": 80,
+        "l2": 30,
+        "best_iteration": 64,
+        "validation_mse": 0.0018865424887644195
+      }
+    ]
+  },
+  {
+    "fold": 3,
+    "damping_rate": 0.01,
+    "choices": [
+      {
+        "arm": "TREE_W",
+        "leaves": 7,
+        "min_child_samples": 120,
+        "l2": 30,
+        "best_iteration": 87,
+        "validation_mse": 0.0008830479201250676
+      },
+      {
+        "arm": "TREE_W",
+        "leaves": 15,
+        "min_child_samples": 80,
+        "l2": 20,
+        "best_iteration": 300,
+        "validation_mse": 0.0007499559333031066
+      },
+      {
+        "arm": "TREE_W",
+        "leaves": 31,
+        "min_child_samples": 80,
+        "l2": 30,
+        "best_iteration": 254,
+        "validation_mse": 0.0008774347676312897
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 7,
+        "min_child_samples": 120,
+        "l2": 30,
+        "best_iteration": 62,
+        "validation_mse": 0.0011139852854603666
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 15,
+        "min_child_samples": 80,
+        "l2": 20,
+        "best_iteration": 65,
+        "validation_mse": 0.0010028585755043804
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 31,
+        "min_child_samples": 80,
+        "l2": 30,
+        "best_iteration": 115,
+        "validation_mse": 0.0009281051183253402
+      }
+    ]
+  },
+  {
+    "fold": 4,
+    "damping_rate": 0.008,
+    "choices": [
+      {
+        "arm": "TREE_W",
+        "leaves": 7,
+        "min_child_samples": 120,
+        "l2": 30,
+        "best_iteration": 368,
+        "validation_mse": 0.0019482548382979761
+      },
+      {
+        "arm": "TREE_W",
+        "leaves": 15,
+        "min_child_samples": 80,
+        "l2": 20,
+        "best_iteration": 500,
+        "validation_mse": 0.0018888862950938606
+      },
+      {
+        "arm": "TREE_W",
+        "leaves": 31,
+        "min_child_samples": 80,
+        "l2": 30,
+        "best_iteration": 499,
+        "validation_mse": 0.001819404741231585
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 7,
+        "min_child_samples": 120,
+        "l2": 30,
+        "best_iteration": 488,
+        "validation_mse": 0.0020065347123077414
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 15,
+        "min_child_samples": 80,
+        "l2": 20,
+        "best_iteration": 499,
+        "validation_mse": 0.001998959118427643
+      },
+      {
+        "arm": "TREE_G",
+        "leaves": 31,
+        "min_child_samples": 80,
+        "l2": 30,
+        "best_iteration": 405,
+        "validation_mse": 0.0020213343621388836
+      }
+    ]
+  }
+]

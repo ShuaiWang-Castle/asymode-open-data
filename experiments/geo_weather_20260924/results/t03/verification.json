@@ -1,0 +1,38 @@
+{
+  "county_events": 1633,
+  "counties": 774,
+  "neural_jobs": 60,
+  "tree_folds": 5,
+  "oof_exact_once": true,
+  "pooled_reconstruction_max_error": 1.3877787807814457e-17,
+  "paired_initial_max_error": 0.0,
+  "steps": 600,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "source_sha256": "403cbdbdd5c090dcfbab32bbdb0eb47850513595f14abbc27c18f0ada05525d9",
+  "score_source_sha256": "219b3d30a4ab994b851fb376184e1280f894a0195194872ad786e0e2d8c08386",
+  "bootstrap_count": 2000,
+  "bootstrap_unit": "county",
+  "core_source_sha256": {
+    "src/asymode/asym_host.py": "f5ec91c6e0fd04f29c9c88e01fa3cd2f2cb3ed2de0802a4400876c45861223e0",
+    "src/asymode/gcrk.py": "0e53353139deba00054a8999471b49a8f531d0f6f48c6e18568e8e6ceeeb45d0"
+  },
+  "versions": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "torch": "2.14.1+cpu",
+    "lightgbm": "4.7.0"
+  },
+  "scope": "Examined development panel, conditional on fitted models; not independent confirmation",
+  "checkpoint_replay_fold0_seed0_max_errors": {
+    "HOST": 0.0,
+    "DOSE": 0.0,
+    "GCRK": 0.0,
+    "GEO_MLP": 0.0,
+    "TREE_W": 0.0,
+    "TREE_G": 0.0
+  }
+}

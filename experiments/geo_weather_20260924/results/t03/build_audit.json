@@ -1,0 +1,347 @@
+{
+  "n": 1633,
+  "counties": 774,
+  "events": 15,
+  "base_names": [
+    "era5:g_mean",
+    "era5:g_exc_mean",
+    "era5:rain_mean",
+    "era5:frz_mean",
+    "era5:sleet_mean",
+    "era5:snow_mean",
+    "era5:ice_mean",
+    "era5:wetsnow_mean",
+    "era5:ice_wind_mean",
+    "era5:snow_wind_mean",
+    "era5:wet_wind_mean",
+    "era5:lai_mean",
+    "era5:g_max",
+    "era5:g_exc_max",
+    "era5:ice_max",
+    "era5:wetsnow_max",
+    "era5:ice_wind_max",
+    "era5:snow_wind_max",
+    "era5:g_gt25_share",
+    "era5:g_exc_gt0_share",
+    "era5:ice_gt6_share",
+    "era5:wetsnow_gt10_share",
+    "era5:available",
+    "hrrr:g_mean",
+    "hrrr:g_exc_mean",
+    "hrrr:rain_mean",
+    "hrrr:frz_mean",
+    "hrrr:sleet_mean",
+    "hrrr:snow_mean",
+    "hrrr:ice_mean",
+    "hrrr:wetsnow_mean",
+    "hrrr:ice_wind_mean",
+    "hrrr:snow_wind_mean",
+    "hrrr:wet_wind_mean",
+    "hrrr:shear_mean",
+    "hrrr:uh_mean",
+    "hrrr:refc_mean",
+    "hrrr:ltng_mean",
+    "hrrr:warm_nose_mean",
+    "hrrr:g_max",
+    "hrrr:g_exc_max",
+    "hrrr:ice_max",
+    "hrrr:wetsnow_max",
+    "hrrr:ice_wind_max",
+    "hrrr:snow_wind_max",
+    "hrrr:uh_max",
+    "hrrr:refc_max",
+    "hrrr:g_gt25_share",
+    "hrrr:g_exc_gt0_share",
+    "hrrr:ice_gt6_share",
+    "hrrr:wetsnow_gt10_share",
+    "hrrr:uh_gt75_share",
+    "hrrr:refc_gt50_share",
+    "hrrr:available",
+    "hist_last",
+    "hist_mean",
+    "hist_max",
+    "hist_coverage"
+  ],
+  "dose_names": [
+    "era5:g_mean:mean6",
+    "era5:g_mean:mean24",
+    "era5:g_mean:mean72",
+    "era5:g_mean:max_since_start",
+    "era5:g_mean:ewma0.9",
+    "era5:g_mean:ewma0.98",
+    "era5:g_exc_mean:mean6",
+    "era5:g_exc_mean:mean24",
+    "era5:g_exc_mean:mean72",
+    "era5:g_exc_mean:max_since_start",
+    "era5:g_exc_mean:ewma0.9",
+    "era5:g_exc_mean:ewma0.98",
+    "era5:rain_mean:mean6",
+    "era5:rain_mean:mean24",
+    "era5:rain_mean:mean72",
+    "era5:rain_mean:max_since_start",
+    "era5:rain_mean:ewma0.9",
+    "era5:rain_mean:ewma0.98",
+    "era5:wet_wind_mean:mean6",
+    "era5:wet_wind_mean:mean24",
+    "era5:wet_wind_mean:mean72",
+    "era5:wet_wind_mean:max_since_start",
+    "era5:wet_wind_mean:ewma0.9",
+    "era5:wet_wind_mean:ewma0.98",
+    "hrrr:g_mean:mean6",
+    "hrrr:g_mean:mean24",
+    "hrrr:g_mean:mean72",
+    "hrrr:g_mean:max_since_start",
+    "hrrr:g_mean:ewma0.9",
+    "hrrr:g_mean:ewma0.98",
+    "hrrr:g_exc_mean:mean6",
+    "hrrr:g_exc_mean:mean24",
+    "hrrr:g_exc_mean:mean72",
+    "hrrr:g_exc_mean:max_since_start",
+    "hrrr:g_exc_mean:ewma0.9",
+    "hrrr:g_exc_mean:ewma0.98",
+    "hrrr:rain_mean:mean6",
+    "hrrr:rain_mean:mean24",
+    "hrrr:rain_mean:mean72",
+    "hrrr:rain_mean:max_since_start",
+    "hrrr:rain_mean:ewma0.9",
+    "hrrr:rain_mean:ewma0.98",
+    "hrrr:wet_wind_mean:mean6",
+    "hrrr:wet_wind_mean:mean24",
+    "hrrr:wet_wind_mean:mean72",
+    "hrrr:wet_wind_mean:max_since_start",
+    "hrrr:wet_wind_mean:ewma0.9",
+    "hrrr:wet_wind_mean:ewma0.98"
+  ],
+  "geography_columns": [
+    "elev_mean",
+    "relief_p95_p5",
+    "slope_mean_deg",
+    "steep_frac",
+    "ruggedness_tri",
+    "aspect_N",
+    "aspect_NE",
+    "aspect_E",
+    "aspect_SE",
+    "aspect_S",
+    "aspect_SW",
+    "aspect_W",
+    "aspect_NW",
+    "canopy_mean",
+    "canopy_dense_frac",
+    "forest_frac",
+    "developed_frac",
+    "wetland_frac",
+    "forest_on_steep_frac",
+    "canopy_in_developed",
+    "poorly_drained_share",
+    "hydric_share",
+    "shallow_share",
+    "high_water_table_share",
+    "root_limiting_share",
+    "windthrow_susceptibility",
+    "log_land_area_km2",
+    "s50_relief_p95_p5",
+    "s50_canopy_mean",
+    "s50_windthrow_susceptibility",
+    "s50_poorly_drained_share",
+    "forest_near_developed",
+    "soil_wet_share",
+    "soil_windthrow_hazard",
+    "forest_wet_coloc",
+    "wet_in_forest",
+    "hazard_in_forest",
+    "elev_mean5",
+    "relief5",
+    "fia_forest_land_share"
+  ],
+  "inputs": {
+    "data_v1/outcomes/panel_v1D_outcomes.npz": "28b288e2087910a9688d4eabcdec16666494cdc8022aee7a88f109183b5612e1",
+    "data_v1/geography/county_geography_v1.parquet": "cac5c459f15aeceb2176b9817c34d31fd365b9cc0f9d195e0a3088d6329cce27",
+    "data_v1/geography/county_geography_ext_v1.parquet": "50c08de28d9938cfee0d27453a261dee4006cc9a3fbc315881b9d1ebd1ee19bc",
+    "data_v1/weather/hazard_v2/era5/era5_S00001.npz": "f1865f6da224cec9bb33ff1b82ac542b45dfc0fdd77e730c4bcb98cb98d36798",
+    "data_v1/weather/hazard_v2/era5/era5_S00006.npz": "23a7618c629cf45b92f85e16989ef82b2395b4487fa60eed8fa805bec677d8ed",
+    "data_v1/weather/hazard_v2/era5/era5_S00008.npz": "899dc34f0a5d55309e04c272f0b3f7de8976d4ea3525212b78776e9b83f38333",
+    "data_v1/weather/hazard_v2/era5/era5_S00009.npz": "f0346051ee91a12f50839b29a28050ae4781583a447599bad11f9f92266e878c",
+    "data_v1/weather/hazard_v2/era5/era5_S00011.npz": "d901127f492f73cb06ce44652d908cb8180a7ce9ac69831fb7b908392e1fec90",
+    "data_v1/weather/hazard_v2/era5/era5_S00023.npz": "09c78a9a1f57b48aa1604194de11a57a07bb375277fdabc84d552b7eae9cd887",
+    "data_v1/weather/hazard_v2/era5/era5_S00034.npz": "3e2842c7f896c8062320f1b70bbce8f3b7dc7d4a0721573bd297172e79e09262",
+    "data_v1/weather/hazard_v2/era5/era5_S00037.npz": "9569c7f268950aecbc57e09192154b3f3170394214755394e71ec2ba468d4bfe",
+    "data_v1/weather/hazard_v2/era5/era5_S00040.npz": "c2d3da0d3c9df2bd866b767e9744a818711ef05df85fd9c0e7a196938df317b0",
+    "data_v1/weather/hazard_v2/era5/era5_S00042.npz": "9277ad44488e3b60c3bb562fbb5fda3cdab5b425371a8f18185b8f5d67623323",
+    "data_v1/weather/hazard_v2/era5/era5_S00046.npz": "c829e79d9a1221ae1e7f254e27e9d4afbb76065a6684ce84f6cbdb83cb9b9d7d",
+    "data_v1/weather/hazard_v2/era5/era5_S00047.npz": "88ce98375fc10a6f126f966165daf5df72117d2dd7153cd02c664539305726f4",
+    "data_v1/weather/hazard_v2/era5/era5_S00052.npz": "c9be31b653a70565ab7989453dacdad39407cc19ba31777efd2c021fd3f13c6d",
+    "data_v1/weather/hazard_v2/era5/era5_S00053.npz": "c611d44d141475f75a1eb109041c4842bac4ab2bcc760741d10fcf151d73c3d8",
+    "data_v1/weather/hazard_v2/era5/era5_S00054.npz": "7d08b517bdf2e03bbb250e2f56311b06b4e6cfe42e7d99121b2f871cb6357d93",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00001.npz": "30d60a5bc0ab4ab438551a147756f0c43e8d6fbbc92592a25ceb5cfbd70fbb3c",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00006.npz": "59c9e6682af97bf064e2478c31c93e7e5b0b300fec2230045283ed6734559aaa",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00008.npz": "35a03db4ac24899edd7d7c5051f0a0a66c2b2ec06c16df63cef7a8ed030f90d7",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00009.npz": "aa5bdaaf437b2b3a0a9e91c9d3c59eae203a52ea97d6e0484da2fe72e662fae7",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00011.npz": "45555d205951a283ab2f8c4171e575f8a1ce47dd14cacd1aeb50926cdede8c87",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00023.npz": "18ae806baf7a140292312e92491f583477275f03c796bf14ddc75f7e8f384cb0",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00034.npz": "85f9540f573a21fff35608e4d19352b139cb5fa2eaa3bd63fab5ecb40069c689",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00037.npz": "63a7ae9fef87855065cb92b4cfd3b3b0dcbaaf9311d9bfa653c1ba0feee4c7e9",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00040.npz": "361a233002679cf9aee4647083c2ebad87cb45f19e2879b68354cf2174797826",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00042.npz": "5ded2929e52e44d33d6c17e3c6194139d0a235a6a4af2a5baa1006bb05aae2af",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00046.npz": "18fd95728a1d1d534f05a2e0a3d75df135091c3c2b6fe249c936739c7bb14afa",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00047.npz": "8725038201a4b6b377d87810197240775d5f4a9b636a19a22c90b9ede9c53350",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00052.npz": "fdc406cf2ad6eb71624b513b416538984f91db014a339081571cc8d5b8d2aed7",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00053.npz": "dd253f26bd2b327fe9e976b822b8349854f2b69140c5d41b1b3f3716533420bd",
+    "data_v1/weather/hazard_v2/hrrr/hrrr_S00054.npz": "441d2fc94ce8b7a974c372706a97f249f6ab1961e41ae539756c16f8e964fc26"
+  },
+  "weather_missing": [
+    {
+      "system": "S00001",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00006",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00008",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00009",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00011",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00023",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00034",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00037",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00040",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00042",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00046",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00047",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00052",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00053",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00054",
+      "source": "era5",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00001",
+      "source": "hrrr",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00006",
+      "source": "hrrr",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00008",
+      "source": "hrrr",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00009",
+      "source": "hrrr",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00011",
+      "source": "hrrr",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00023",
+      "source": "hrrr",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00034",
+      "source": "hrrr",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00037",
+      "source": "hrrr",
+      "missing_hours": 59
+    },
+    {
+      "system": "S00040",
+      "source": "hrrr",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00042",
+      "source": "hrrr",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00046",
+      "source": "hrrr",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00047",
+      "source": "hrrr",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00052",
+      "source": "hrrr",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00053",
+      "source": "hrrr",
+      "missing_hours": 0
+    },
+    {
+      "system": "S00054",
+      "source": "hrrr",
+      "missing_hours": 0
+    }
+  ],
+  "cache_sha256": "c9ef6fa808518048f2c81a1677e3fdc6ff129eb61ab2cd651fc81d3f906f5867",
+  "source_sha256": "3cd3c591d5eb1d9c53ff3ec6ab5fa0f22d62d53e0f174cf149d102d51d70adf1",
+  "note": "Development conditional hindcast; all 15 tropical events; global county folds; no future outage input"
+}
