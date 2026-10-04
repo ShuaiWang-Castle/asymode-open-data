@@ -1,0 +1,21 @@
+{
+  "source_cache_sha256": "c9ef6fa808518048f2c81a1677e3fdc6ff129eb61ab2cd651fc81d3f906f5867",
+  "candidate_events": [
+    "S00006",
+    "S00008",
+    "S00009",
+    "S00011",
+    "S00023",
+    "S00034",
+    "S00040",
+    "S00042",
+    "S00046",
+    "S00047",
+    "S00052",
+    "S00054"
+  ],
+  "criterion": "n>=50, outage coverage>=.99, each weather source availability>=.95, geo4 finite>=.99",
+  "model_scores_used": false,
+  "all_events_primary": true,
+  "source_sha256": "dac58f9505113bdb98bc9a775344c52d666e62b98f04bd0010451352ecccb3d8"
+}

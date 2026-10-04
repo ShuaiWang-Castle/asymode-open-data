@@ -1,0 +1,33 @@
+{
+  "paired_initial_max_error": 0.0,
+  "causal_input_check": true,
+  "bounded_parameters": true,
+  "records": [
+    {
+      "arm": "SHARED",
+      "kernel_parameter_count": 8,
+      "gradient_norm": {
+        "mix": 3.6179135349811986e-06,
+        "gain": 0.00015232704754453152
+      }
+    },
+    {
+      "arm": "GEO_GAIN",
+      "kernel_parameter_count": 24,
+      "gradient_norm": {
+        "mix": 3.6782826100534294e-06,
+        "gain": 0.00016333490202669054,
+        "geo_coef": 0.0001155540012405254
+      }
+    },
+    {
+      "arm": "GEO_MIX",
+      "kernel_parameter_count": 24,
+      "gradient_norm": {
+        "mix": 3.7562911074928707e-06,
+        "gain": 0.00015147108933888376,
+        "geo_coef": 2.6444593004271155e-06
+      }
+    }
+  ]
+}

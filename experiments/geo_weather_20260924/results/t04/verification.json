@@ -1,0 +1,46 @@
+{
+  "neural_fits": 45,
+  "oof_exact_once": true,
+  "pooled_reconstruction_max_error": 6.938893903907228e-18,
+  "checkpoint_replay_max_error": {
+    "SHARED": 0.0,
+    "GEO_GAIN": 0.0,
+    "GEO_MIX": 0.0
+  },
+  "paired_initial_max_error": 0.0,
+  "groups": {
+    "all": {
+      "county_events": 1633,
+      "counties": 774,
+      "events": 15
+    },
+    "quality_candidate": {
+      "county_events": 1444,
+      "counties": 771,
+      "events": 12
+    },
+    "complete_observation": {
+      "county_events": 1602,
+      "counties": 767,
+      "events": 15
+    },
+    "quality_complete": {
+      "county_events": 1413,
+      "counties": 762,
+      "events": 12
+    }
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "steps": 600,
+  "cache_sha256": "c9ef6fa808518048f2c81a1677e3fdc6ff129eb61ab2cd651fc81d3f906f5867",
+  "source_sha256": {
+    "t04_simple_geography.py": "dac58f9505113bdb98bc9a775344c52d666e62b98f04bd0010451352ecccb3d8",
+    "score_t04.py": "d33a7da9a3f3506301c61ec9f608caf50624d995b0579405e1764a97d9019d83",
+    "run_t04.py": "2b12620d43eec61e7a5648d57b23e20d6989d660960e2b151e1d29adffcbf2a1"
+  },
+  "note": "Development conditional hindcast; quality subset was fixed before fitting; no retraining on subset; descriptive county-cluster intervals conditional on fitted models"
+}
