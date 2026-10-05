@@ -50,13 +50,19 @@ def audit(label):
         sens=pd.read_csv(out/'unique_county_hour_sensitivity.csv')
         # Each unique cell gives equal mass, while its repeated forecast errors share that mass.
         for arm in arms:
-            se=ae=0.
+            se=ae=design_se=design_ae=design_mass=0.
             for rows in cells.values():
                 err=np.array([ensemble[arm][i,t]-d['y'][i,t] for i,t in rows]);se+=np.mean(err**2);ae+=np.mean(abs(err))
+                weights=np.array([float(d['w'][i]) for i,t in rows])/len(rows)
+                design_se+=np.dot(weights,err**2);design_ae+=np.dot(weights,abs(err));design_mass+=weights.sum()
             row=sens[sens.model==arm]
             if 'weighting' in sens:row=row[row.weighting=='unique_equal']
             row=row.iloc[0]
             assert abs(np.sqrt(se/len(cells))-row.rmse)<1e-10 and abs(ae/len(cells)-row.mae)<1e-10;checks+=2
+            if label=='t05':design=pd.read_csv(out/'design_multiplicity_sensitivity.csv').set_index('model').loc[arm]
+            else:design=sens[(sens.model==arm)&(sens.weighting=='design_divide_multiplicity')].iloc[0]
+            assert abs(np.sqrt(design_se/design_mass)-design.rmse)<1e-10
+            assert abs(design_ae/design_mass-design.mae)<1e-10;checks+=2
     receipt=dict(checks=checks,headline_arithmetic_max_error=error,all_seeds_retained=True,
                  duplicate_check='independent tuple-key grouping',source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
     (out/'independent_audit.json').write_text(json.dumps(receipt,indent=2)+'\n');print(label,receipt,flush=True)

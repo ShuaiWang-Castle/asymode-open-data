@@ -59,6 +59,7 @@ def report():
     for arm,base in pairs:seedtable[arm+'_gain_pct']=100*(1-sp[arm]/sp[base])
     seedtable=seedtable[[a+'_gain_pct' for a,b in pairs]].reset_index()
     cross=c[(c.group=='cross_cutoff') & c.model.isin([a for a,b in pairs])]
+    duplicate_design=pd.read_csv(OUT/'design_multiplicity_comparisons.csv')
     text=f'''# T05：重复天气冲击公开数据上的地理核检验
 
 2026-10-04。用户要求沿更像比赛的多次风暴方向寻找数据并训练。完成{len(t)}/105个拟合（7臂×5折×3 seeds），所有模型在新筛选范围从头训练，未复用T03/T04权重。
@@ -121,6 +122,10 @@ T04热带范围中，原核在DOSE基础上恶化1.32%，两个简单核相对SH
 
 - 所有county全局分折，同县跨窗口始终同一角色；无跨事件留出要求。FIT标准化、INNER选checkpoint，OUTER不选超参数。保留原抽样设计权重仅作这一开发范围的加权评分，不声称筛选后仍代表全国风暴总体。
 - 有效县窗口小时{v['valid_event_county_hours']}，不同县小时{v['unique_county_hours']}，额外重复{v['duplicate_extra_county_hours']}。unique_county_hour_sensitivity.csv按每个县小时的重复次数除权，并平均各起点的误差；不平均预测，不把后起点信息送入前起点模型。
+- 上述unique评分还将原设计权改为县小时等权，不能仅把其变化归因于重复除权。另补充design_multiplicity_sensitivity.csv：保留原设计权，再除同县同小时的出现次数，单独检验重复评分因素。其配对改善和同县簇区间如下。
+
+{table(duplicate_design)}
+
 - 描述性区间为2000次县簇重采样，同县所有窗口整体抽取，条件于已拟合模型/划分，未涵盖重训练、数据选择和多重比较。一个窗口或seed的最好结果不作整体结论。
 - 保存checkpoint回放7/7完全一致；pooled重构误差{v['pooled_reconstruction_max_error']:.2e}；配对初始预测最大误差{v['paired_initial_max_error']:.2e}。
 - 仍为已查看开发数据上的给定天气回溯实验，ERA5/未来HRRR不代表起点可获得的六天天气预报。多峰阈值是探索性代理，需要与官方风暴记录核对；不能将其等同于独立气象系统计数。

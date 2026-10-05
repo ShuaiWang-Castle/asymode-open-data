@@ -58,11 +58,23 @@ def main():
     target=np.bincount(group,weights=d['y'][valid])/count
     target2=np.bincount(group,weights=d['y'][valid].astype(float)**2)/count
     assert np.max(abs(target2-target**2))<1e-7
-    sensitivity=[]
+    sensitivity=[];design_sensitivity=[]
+    design_sums={}
+    weights=np.broadcast_to(d['w'].astype(np.float64)[:,None],valid.shape)[valid]/count[group]
     for arm in ARMS:
         error=pred[arm][valid]-d['y'][valid];factor=1/count[group]
         sensitivity.append(dict(model=arm,mae=float(np.sum(factor*abs(error))/len(unique)),rmse=float(np.sqrt(np.sum(factor*error**2)/len(unique))),unique_county_hours=len(unique)))
+        design_sensitivity.append(dict(model=arm,mae=float(np.sum(weights*abs(error))/weights.sum()),
+            rmse=float(np.sqrt(np.sum(weights*error**2)/weights.sum())),weight_sum=float(weights.sum())))
+        design_sums[arm]=np.bincount(np.broadcast_to(ci[:,None],valid.shape)[valid],weights=weights*error**2,minlength=len(ids))
+    draws=np.random.default_rng(20261004).multinomial(len(ids),np.ones(len(ids))/len(ids),size=2000)
+    design_comparison=[]
+    for arm,ref in pairs:
+        delta=100*(1-np.sqrt((draws@design_sums[arm])/(draws@design_sums[ref])));lo,hi=np.quantile(delta,[.025,.975])
+        design_comparison.append(dict(model=arm,reference=ref,rmse_gain_pct=100*(1-np.sqrt(design_sums[arm].sum()/design_sums[ref].sum())),ci025_pct=lo,ci975_pct=hi))
     for name,rows in [('metrics',metrics),('comparisons',comparison),('per_seed',perseed),('per_event',events),('fold_scores',folds),('unique_county_hour_sensitivity',sensitivity)]:pd.DataFrame(rows).to_csv(OUT/(name+'.csv'),index=False)
+    pd.DataFrame(design_sensitivity).to_csv(OUT/'design_multiplicity_sensitivity.csv',index=False)
+    pd.DataFrame(design_comparison).to_csv(OUT/'design_multiplicity_comparisons.csv',index=False)
     dump(OUT/'training_audit.json',training)
     np.savez_compressed(PRIVATE/'oof_ensembles.npz',**pred)
     dump(OUT/'verification.json',dict(neural_fits=len(training),oof_exact_once=True,pooled_reconstruction_max_error=max(errors),replay_max_error=replay,
