@@ -1,0 +1,37 @@
+{
+  "DOSE": {
+    "paired_error": 0.0,
+    "gradient_finite": true,
+    "fit_only_batch": 8,
+    "seconds": 0.021305561065673828,
+    "parameter_count": 5969
+  },
+  "GCRK": {
+    "paired_error": 0.0,
+    "gradient_finite": true,
+    "fit_only_batch": 8,
+    "seconds": 0.04183673858642578,
+    "parameter_count": 6579
+  },
+  "CRK": {
+    "paired_error": 0.0,
+    "gradient_finite": true,
+    "fit_only_batch": 8,
+    "seconds": 1.0551588535308838,
+    "parameter_count": 21178
+  },
+  "CRK_SHUFFLE": {
+    "paired_error": 0.0,
+    "gradient_finite": true,
+    "fit_only_batch": 8,
+    "seconds": 0.14082121849060059,
+    "parameter_count": 21178
+  },
+  "GEO_MLP": {
+    "paired_error": 0.0,
+    "gradient_finite": true,
+    "fit_only_batch": 8,
+    "seconds": 0.014812231063842773,
+    "parameter_count": 7249
+  }
+}

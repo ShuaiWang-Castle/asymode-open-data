@@ -1,0 +1,51 @@
+{
+  "neural_fits": 105,
+  "oof_exact_once": true,
+  "pooled_reconstruction_max_error": 3.469446951953614e-18,
+  "replay_max_error": {
+    "HOST": 0.0,
+    "BASE_GCRK": 0.0,
+    "DOSE": 0.0,
+    "DOSE_GCRK": 0.0,
+    "SHARED": 0.0,
+    "GEO_GAIN": 0.0,
+    "GEO_MIX": 0.0
+  },
+  "paired_initial_max_error": 0.0,
+  "valid_event_county_hours": 147425,
+  "unique_county_hours": 142508,
+  "duplicate_extra_county_hours": 4917,
+  "groups": {
+    "all": {
+      "county_events": 1024,
+      "counties": 856
+    },
+    "repeated": {
+      "county_events": 886,
+      "counties": 741
+    },
+    "cross_cutoff": {
+      "county_events": 425,
+      "counties": 400
+    },
+    "nonrepeated": {
+      "county_events": 138,
+      "counties": 138
+    }
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "steps": 600,
+  "cache_sha256": "0f1b85cdd79d23d103a7d1d98e0115333a23212af2be067ee00733f8193d0314",
+  "source_sha256": {
+    "t05_repeated_weather.py": "daf3f2bdcd9eb49b0520640ba2346470cd08d8257c1087c9c107340128ed8e96",
+    "t05_screen.py": "a944edb2db8e2470a0fdc58d201c7c50b7e7ba07dc9cee1912bb8d78cd24f6ee",
+    "score_t05.py": "fdce7756c8193cb11c210cf0a2284682af7166f52f341dab77f8f7c3109dc61c",
+    "run_t05.py": "61e465c72b112226b217976782321632ff3a6913f3d2d532d2e054fa4e48a439",
+    "t04_simple_geography.py": "dac58f9505113bdb98bc9a775344c52d666e62b98f04bd0010451352ecccb3d8"
+  },
+  "scope": "Weather-selected examined development cohort; supplied weather; repeated peaks do not establish distinct storms; unique-cell sensitivity divides each error weight by its county-hour multiplicity; no prediction blending"
+}
