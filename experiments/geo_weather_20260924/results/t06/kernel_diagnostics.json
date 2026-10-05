@@ -1,0 +1,90 @@
+{
+  "DOSE": {
+    "outer_sample": "first eight sorted source rows in fold0, seed0; descriptive only"
+  },
+  "GCRK": {
+    "outer_sample": "first eight sorted source rows in fold0, seed0; descriptive only",
+    "kernel_state": {
+      "min": -0.15472692251205444,
+      "max": 0.34191644191741943,
+      "rms": 0.023447688668966293
+    },
+    "kernel_effect": {
+      "min": -0.451626181602478,
+      "max": 0.5690664052963257,
+      "rms": 0.050583939999341965
+    },
+    "alpha": 0.3849066197872162
+  },
+  "CRK": {
+    "outer_sample": "first eight sorted source rows in fold0, seed0; descriptive only",
+    "kernel_state": {
+      "min": -0.7390658855438232,
+      "max": 0.6848526000976562,
+      "rms": 0.14072705805301666
+    },
+    "kernel_tau": {
+      "min": 2.0643043518066406,
+      "max": 95.99945068359375,
+      "rms": 61.67723083496094
+    },
+    "kernel_effect": {
+      "min": -0.49649518728256226,
+      "max": 0.5411542654037476,
+      "rms": 0.12804855406284332
+    },
+    "kernel_response": {
+      "min": -0.33133670687675476,
+      "max": 0.3039929270744324,
+      "rms": 0.07840128242969513
+    },
+    "kernel_order_masses": {
+      "min": 0.021611008793115616,
+      "max": 0.04107706993818283,
+      "rms": 0.02534753829240799
+    },
+    "kernel_geography_features": {
+      "min": -0.28720206022262573,
+      "max": 0.4812086820602417,
+      "rms": 0.12521888315677643
+    },
+    "alpha": -0.632676362991333
+  },
+  "CRK_SHUFFLE": {
+    "outer_sample": "first eight sorted source rows in fold0, seed0; descriptive only",
+    "kernel_state": {
+      "min": -0.6693524122238159,
+      "max": 0.4473736882209778,
+      "rms": 0.17442362010478973
+    },
+    "kernel_tau": {
+      "min": 2.200385093688965,
+      "max": 95.90044403076172,
+      "rms": 31.437328338623047
+    },
+    "kernel_effect": {
+      "min": -0.3839695155620575,
+      "max": 0.47475677728652954,
+      "rms": 0.14654715359210968
+    },
+    "kernel_response": {
+      "min": -0.44910624623298645,
+      "max": 0.3632241189479828,
+      "rms": 0.13862939178943634
+    },
+    "kernel_order_masses": {
+      "min": 0.022672384977340698,
+      "max": 0.026947224512696266,
+      "rms": 0.02501080185174942
+    },
+    "kernel_geography_features": {
+      "min": -0.3268623650074005,
+      "max": 0.5221421122550964,
+      "rms": 0.1131257638335228
+    },
+    "alpha": -0.35199815034866333
+  },
+  "GEO_MLP": {
+    "outer_sample": "first eight sorted source rows in fold0, seed0; descriptive only"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "neural_fits": 75,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "steps": 600,
+  "oof_exact_once": true,
+  "replay_max_error": {
+    "DOSE": 0.0,
+    "GCRK": 0.0,
+    "CRK": 0.0,
+    "CRK_SHUFFLE": 0.0,
+    "GEO_MLP": 0.0
+  },
+  "pooled_reconstruction_max_error": 6.938893903907228e-18,
+  "paired_initial_max_error": 0.0,
+  "valid_event_county_hours": 80421,
+  "unique_county_hours": 80421,
+  "duplicate_extra_county_hours": 0,
+  "groups": {
+    "all": {
+      "county_events": 560,
+      "counties": 453
+    },
+    "severe": {
+      "county_events": 188,
+      "counties": 184
+    },
+    "jump": {
+      "county_events": 363,
+      "counties": 322
+    },
+    "zero": {
+      "county_events": 6,
+      "counties": 6
+    },
+    "nonsevere": {
+      "county_events": 372,
+      "counties": 321
+    }
+  },
+  "source_sha256": {
+    "experiments/geo_weather_20260924/t06_featured_subset.py": "9b1e6044ee86a1bc4c275c3d9bbf6041c354eacf16375ccd7c4d47015f26d1b6",
+    "experiments/geo_weather_20260924/t03_poster_trajectory.py": "403cbdbdd5c090dcfbab32bbdb0eb47850513595f14abbc27c18f0ada05525d9",
+    "src/asymode/asym_host.py": "f5ec91c6e0fd04f29c9c88e01fa3cd2f2cb3ed2de0802a4400876c45861223e0",
+    "src/asymode/gcrk.py": "0e53353139deba00054a8999471b49a8f531d0f6f48c6e18568e8e6ceeeb45d0",
+    "src/asymode/controlled_relaxation.py": "d5d78026d3a36939a2b0ab4b3e5938bcf21a4ed99134cd38fce184d4f3c1d008",
+    "src/asymode/controlled_relaxation_scan.py": "cd03740f32795222b80e52f501f8241c2b6226280bf5ee210b2f66c750469f6a"
+  },
+  "score_source_sha256": "551c11c4ac8497064fccf3e2a2833f2cbe80a0b2936ef4569015ac43343518a6",
+  "cache_sha256": "6023142a1fd11c1a59e34f0d46db4f3af8a61e3121c5ee87711924cd7b3f5f26",
+  "environment": {
+    "python": "3.12.14",
+    "torch": "2.14.1+cpu",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3"
+  }
+}
