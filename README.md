@@ -37,6 +37,56 @@ difference; **excluding unobserved cells from every loss and metric, rather than
 imputing them, is the intended use**. On these windows 95.3–99.8% of cells are
 marked observed. `data/README.md` gives the rule in full.
 
+## What the public panels look like
+
+These four descriptive plots adapt the paper's target-shape analysis for browsing
+this dataset. They summarize the **26 public storm windows**, not the separate
+2026 data-challenge evaluation. The zero-share chart uses observed cells on the
+forecast scoring support; the other charts summarize each event. In every
+chart, `y` is the fraction of customers without power.
+
+### Many observed county-hours have zero outages
+
+![Share of observed, scored county-hours at or below three outage thresholds across four horizons](figures/open_data_zero_support.png)
+
+About 53–54% of the observed cells on this scoring support are exactly zero at
+the four horizons. The observation mask still matters: an unobserved cell is not
+counted as zero.
+
+### Outage intensity is concentrated
+
+![Top three counties' share of squared outage fractions by storm family](figures/open_data_county_concentration.png)
+
+For each storm, the plotted percentage is the top three counties' share of
+`sum(y²)` over the window. The median across the 26 events is 32%. A dot is one
+event; a horizontal bar is the median for its storm family. The flood family
+contains one event.
+
+### Event trajectories extend across days
+
+![Mean daily share of squared outage fraction by storm family](figures/open_data_daily_energy.png)
+
+Each line averages the within-event daily shares of `sum(y²)` for one storm
+family. Day 0 is the catalogued storm day; events can remain active afterward.
+The family counts are shown in the legend.
+
+### Repeated waves are common
+
+![Share of interrupted counties with at least two outage waves in each event](figures/open_data_repeat_waves.png)
+
+A county is counted as interrupted when its hourly outage fraction reaches 1%.
+A wave is a run at or above 1%; runs separated by less than six hours below 1%
+are joined. The median event has 36% of interrupted counties with at least two
+waves. Dots are events and horizontal bars are family medians.
+
+The figures are regenerated from
+[`results/open_data_figure_data.json`](results/open_data_figure_data.json) with
+`python scripts/plot_open_data_overview.py` (`numpy` and `matplotlib` required).
+That compact summary comes from the [archived 26-event target-shape audit](https://github.com/ShuaiWang-Castle/asymode-open-data/blob/fc03d3660a80f80bae6c75990d7d41a91bf3e673/results/d7_target_shape_g3.json),
+whose [analysis script](https://github.com/ShuaiWang-Castle/asymode-open-data/blob/fc03d3660a80f80bae6c75990d7d41a91bf3e673/experiments/d7_target_shape.py)
+uses the public panels. The summary records its panel digest and scoring and
+wave definitions. These plots describe the target; they do not compare models.
+
 ## What is in the box
 
 | | |
