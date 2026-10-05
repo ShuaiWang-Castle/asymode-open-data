@@ -1,0 +1,10 @@
+{
+  "command": "PYTHONPATH=src python -m pytest -q tests/test_controlled_relaxation.py tests/test_controlled_relaxation_scan.py tests/test_controlled_relaxation_design.py",
+  "passed": 32,
+  "failed": 0,
+  "source_sha256": {
+    "test_controlled_relaxation.py": "708b9dc827fd90ca01eca26c8c2bb9cd4cefbbf14eaa321b894820318b65cce3",
+    "test_controlled_relaxation_scan.py": "1c8ad8700627addde67969334e97750e9ed211d4dc9440c062edb62e1e701bc4",
+    "test_controlled_relaxation_design.py": "069302586972643c2d69b7c435e053acecc8e6d37794a1d249eb6914fdf28ea4"
+  }
+}

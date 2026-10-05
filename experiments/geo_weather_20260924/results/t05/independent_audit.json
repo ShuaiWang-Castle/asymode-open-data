@@ -1,0 +1,7 @@
+{
+  "checks": 561,
+  "headline_arithmetic_max_error": 9.920449878242366e-17,
+  "all_seeds_retained": true,
+  "duplicate_check": "independent tuple-key grouping",
+  "source_sha256": "83dd9f8c9d5810cb15ad6dedfe44dbc0b1182873700afc07569e1041b70fd4f3"
+}
