@@ -1,0 +1,400 @@
+{
+  "cohort": "ice_expanded",
+  "models": {
+    "DOSE": {
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "seed_rmse": [
+        0.06199055093790754,
+        0.06213883343157456,
+        0.06257669074816942
+      ],
+      "mean_rmse": 0.06223535837255051,
+      "mean_mae": 0.015335609735029421
+    },
+    "GCRK": {
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "seed_rmse": [
+        0.06092625286189659,
+        0.06175281354442929,
+        0.06307926510540485
+      ],
+      "mean_rmse": 0.06191944383724357,
+      "mean_mae": 0.014876196217125858
+    },
+    "COMPACT": {
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "seed_rmse": [
+        0.06121958124087704,
+        0.06208989010234978,
+        0.06237653896577647
+      ],
+      "mean_rmse": 0.06189533676966776,
+      "mean_mae": 0.015060474228161277
+    }
+  },
+  "comparisons": [
+    {
+      "arm": "GCRK",
+      "reference": "DOSE",
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "gain_pct": 0.5076126233833578,
+      "seed_gains_pct": [
+        1.7168714584856692,
+        0.6212216513049595,
+        -0.8031334850510996
+      ]
+    },
+    {
+      "arm": "COMPACT",
+      "reference": "DOSE",
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "gain_pct": 0.5463479471706778,
+      "seed_gains_pct": [
+        1.2436890548089163,
+        0.07876448031273187,
+        0.3198503787910978
+      ]
+    }
+  ],
+  "partial": false,
+  "pooled_counties": 140,
+  "observed_forecast_hours": 20160,
+  "metric": "Pooled out-of-fold county-hour RMSE per seed, then average seeds; no ensemble scoring",
+  "replay_checks": [
+    {
+      "arm": "DOSE",
+      "seed": 0,
+      "fold": 0,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "DOSE",
+      "seed": 0,
+      "fold": 1,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "DOSE",
+      "seed": 0,
+      "fold": 2,
+      "replay_error": 0,
+      "metric_error": 6.938893903907228e-18
+    },
+    {
+      "arm": "DOSE",
+      "seed": 0,
+      "fold": 3,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "DOSE",
+      "seed": 0,
+      "fold": 4,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "DOSE",
+      "seed": 1,
+      "fold": 0,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "DOSE",
+      "seed": 1,
+      "fold": 1,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "DOSE",
+      "seed": 1,
+      "fold": 2,
+      "replay_error": 0,
+      "metric_error": 6.938893903907228e-18
+    },
+    {
+      "arm": "DOSE",
+      "seed": 1,
+      "fold": 3,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "DOSE",
+      "seed": 1,
+      "fold": 4,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "DOSE",
+      "seed": 2,
+      "fold": 0,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "DOSE",
+      "seed": 2,
+      "fold": 1,
+      "replay_error": 0,
+      "metric_error": 3.469446951953614e-18
+    },
+    {
+      "arm": "DOSE",
+      "seed": 2,
+      "fold": 2,
+      "replay_error": 0,
+      "metric_error": 6.938893903907228e-18
+    },
+    {
+      "arm": "DOSE",
+      "seed": 2,
+      "fold": 3,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "DOSE",
+      "seed": 2,
+      "fold": 4,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "GCRK",
+      "seed": 0,
+      "fold": 0,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "GCRK",
+      "seed": 0,
+      "fold": 1,
+      "replay_error": 0,
+      "metric_error": 3.469446951953614e-18
+    },
+    {
+      "arm": "GCRK",
+      "seed": 0,
+      "fold": 2,
+      "replay_error": 0,
+      "metric_error": 6.938893903907228e-18
+    },
+    {
+      "arm": "GCRK",
+      "seed": 0,
+      "fold": 3,
+      "replay_error": 0,
+      "metric_error": 1.3877787807814457e-17
+    },
+    {
+      "arm": "GCRK",
+      "seed": 0,
+      "fold": 4,
+      "replay_error": 0,
+      "metric_error": 6.938893903907228e-18
+    },
+    {
+      "arm": "GCRK",
+      "seed": 1,
+      "fold": 0,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "GCRK",
+      "seed": 1,
+      "fold": 1,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "GCRK",
+      "seed": 1,
+      "fold": 2,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "GCRK",
+      "seed": 1,
+      "fold": 3,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "GCRK",
+      "seed": 1,
+      "fold": 4,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "GCRK",
+      "seed": 2,
+      "fold": 0,
+      "replay_error": 0,
+      "metric_error": 1.3877787807814457e-17
+    },
+    {
+      "arm": "GCRK",
+      "seed": 2,
+      "fold": 1,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "GCRK",
+      "seed": 2,
+      "fold": 2,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "GCRK",
+      "seed": 2,
+      "fold": 3,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "GCRK",
+      "seed": 2,
+      "fold": 4,
+      "replay_error": 0,
+      "metric_error": 6.938893903907228e-18
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 0,
+      "fold": 0,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 0,
+      "fold": 1,
+      "replay_error": 0,
+      "metric_error": 3.469446951953614e-18
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 0,
+      "fold": 2,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 0,
+      "fold": 3,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 0,
+      "fold": 4,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 1,
+      "fold": 0,
+      "replay_error": 0,
+      "metric_error": 1.3877787807814457e-17
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 1,
+      "fold": 1,
+      "replay_error": 0,
+      "metric_error": 1.734723475976807e-18
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 1,
+      "fold": 2,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 1,
+      "fold": 3,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 1,
+      "fold": 4,
+      "replay_error": 0,
+      "metric_error": 6.938893903907228e-18
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 2,
+      "fold": 0,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 2,
+      "fold": 1,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 2,
+      "fold": 2,
+      "replay_error": 0,
+      "metric_error": 0.0
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 2,
+      "fold": 3,
+      "replay_error": 0,
+      "metric_error": 1.3877787807814457e-17
+    },
+    {
+      "arm": "COMPACT",
+      "seed": 2,
+      "fold": 4,
+      "replay_error": 0,
+      "metric_error": 0.0
+    }
+  ]
+}

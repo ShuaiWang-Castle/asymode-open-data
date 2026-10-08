@@ -1333,3 +1333,19 @@ that a decay half-life must be shorter than the 28 h median inter-wave gap to
 separate waves at all). That hypothesis must be registered with its kill
 condition and given to the trees at the same time, before it is fitted.
 
+
+
+## Geographic kernel result archive 2026-10-08 — [C]
+
+Original four events are presented first, followed by county expansion and then
+fixed-county multi-storm expansion. See
+[the complete ordered report](experiments/geo_weather_20260924/notes/GEOGRAPHY_RESULTS_20261008_ZH.md)
+and its linked exact result JSON files. No archived metric values were edited.
+
+These remain development results: previously inspected events, design feedback
+from Michael, and mixed seed/event gains. They are not sealed confirmation.
+Joint fitting uses600 steps total versus600 per event for separate fits.
+The new kernel's4.60% gain against joint AsymODE must not be presented as a gain
+from adding storms; joint fitting is6.87% worse than separate fitting on the
+identical records. The raw training inputs and weights remain in the saved
+archives; this publication recovers result summaries, configuration, and audits.

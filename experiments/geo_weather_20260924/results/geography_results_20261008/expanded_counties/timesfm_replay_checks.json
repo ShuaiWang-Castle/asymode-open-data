@@ -1,0 +1,46 @@
+[
+  {
+    "cohort": "michael_expanded",
+    "new_fips": [
+      "13273",
+      "13297",
+      "13255",
+      "13159"
+    ],
+    "max_replay_difference": 0,
+    "prediction_sha256": "e26fc557ff92905603c316d9c8a742f20ac1dc91b573f4120c9487b8a01e5cc4"
+  },
+  {
+    "cohort": "delta_expanded",
+    "new_fips": [
+      "13227",
+      "13047",
+      "21121",
+      "37199"
+    ],
+    "max_replay_difference": 0,
+    "prediction_sha256": "51eedd6b2f3dcd161b273bb4fbd811b9a1bba78e2fcc697f0a6b49075ade05bd"
+  },
+  {
+    "cohort": "winter_expanded",
+    "new_fips": [
+      "48059",
+      "21197",
+      "26149",
+      "21191"
+    ],
+    "max_replay_difference": 0,
+    "prediction_sha256": "575ab4159cb77c1cced490727cc84ba9c50438e526fe6034134958f1843aa635"
+  },
+  {
+    "cohort": "ice_expanded",
+    "new_fips": [
+      "01133",
+      "48431",
+      "40087",
+      "48321"
+    ],
+    "max_replay_difference": 0,
+    "prediction_sha256": "92a0b3abb3134793f3d6e2dc292090f810e346e5fddc9f14fa2357ebb8cbd079"
+  }
+]

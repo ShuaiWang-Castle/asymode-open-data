@@ -1,0 +1,35 @@
+[
+  {
+    "cohort": "isaias",
+    "replay_fips": [
+      "37001",
+      "37003",
+      "37005",
+      "37007"
+    ],
+    "max_replay_difference": 0,
+    "prediction_sha256": "1ddaa437e6d71174976f48d9c5aaa695cdfaf4c35381d06c137d9e0ee257a7d7"
+  },
+  {
+    "cohort": "zeta",
+    "replay_fips": [
+      "37001",
+      "37003",
+      "37005",
+      "37007"
+    ],
+    "max_replay_difference": 0,
+    "prediction_sha256": "11ebc36f656870fd66392c58ff6063c06ebcb58778184dc2495af1723078ade2"
+  },
+  {
+    "cohort": "ophelia",
+    "replay_fips": [
+      "37001",
+      "37003",
+      "37005",
+      "37007"
+    ],
+    "max_replay_difference": 0,
+    "prediction_sha256": "32badb5542742e128063caeb62e200d54f52cda715c0c3fca250020dbb1871eb"
+  }
+]

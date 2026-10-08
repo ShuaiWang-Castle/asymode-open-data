@@ -1,0 +1,86 @@
+{
+  "separate_storm_models": {
+    "DOSE": {
+      "rmse": 0.05159751617932291,
+      "mae": 0.014928990549852401,
+      "per_seed": [
+        {
+          "rmse": 0.051833494839794214,
+          "mae": 0.014912094617327768
+        },
+        {
+          "rmse": 0.051625456469483626,
+          "mae": 0.01485882112863053
+        },
+        {
+          "rmse": 0.05133359722869087,
+          "mae": 0.015016055903598906
+        }
+      ],
+      "rmse_reduction_vs_asymode_pct": 0.0
+    },
+    "GCRK": {
+      "rmse": 0.050686196809830525,
+      "mae": 0.015119583173778489,
+      "per_seed": [
+        {
+          "rmse": 0.051402074310121344,
+          "mae": 0.015410082243496248
+        },
+        {
+          "rmse": 0.050827050042420614,
+          "mae": 0.01510533666572595
+        },
+        {
+          "rmse": 0.049829466076949616,
+          "mae": 0.014843330612113266
+        }
+      ],
+      "rmse_reduction_vs_asymode_pct": 1.7662078273790627
+    },
+    "COMPACT": {
+      "rmse": 0.04859336113044935,
+      "mae": 0.014609070432744306,
+      "per_seed": [
+        {
+          "rmse": 0.049274122739905245,
+          "mae": 0.014910835924860021
+        },
+        {
+          "rmse": 0.04826656987509953,
+          "mae": 0.014378735792006325
+        },
+        {
+          "rmse": 0.04823939077634326,
+          "mae": 0.014537639581366571
+        }
+      ],
+      "rmse_reduction_vs_asymode_pct": 5.822286170584001
+    }
+  },
+  "joint_vs_separate": {
+    "DOSE": {
+      "separate_rmse": 0.05159751617932291,
+      "joint_rmse": 0.05443409902087098,
+      "joint_vs_separate_rmse_reduction_pct": -5.497518197755413
+    },
+    "GCRK": {
+      "separate_rmse": 0.050686196809830525,
+      "joint_rmse": 0.05531985054462715,
+      "joint_vs_separate_rmse_reduction_pct": -9.14184536705649
+    },
+    "COMPACT": {
+      "separate_rmse": 0.04859336113044935,
+      "joint_rmse": 0.05193103382835874,
+      "joint_vs_separate_rmse_reduction_pct": -6.8685775592871146
+    }
+  },
+  "source_predictions_sha256": {
+    "michael": "fc2cc58cb050788bcba1d4c13b30f36d1c3fa9d87ed98cfbebb25db2a4e8e581",
+    "isaias": "df7550114fdfbacfe591f80319d762e8f394295bffb342154b15a8ac95d0ae45",
+    "zeta": "10edfefeb9e3ec45a5734f01e2a9f7474ff2917ef976d9680d19021ab9d671ab",
+    "ophelia": "df4003dbbae4ad5ecbc759135c3473bbb0a86cf3e423d7a2585e07647149e8a0"
+  },
+  "metric": "Identical588 county-event rows; pool all county-hours within each seed, average three seed metrics.",
+  "limitation": "Separate fits use600 steps per storm; joint fitting uses600 steps total per fold and seed. Fixed-budget comparison, not proof of optimal pooled training."
+}

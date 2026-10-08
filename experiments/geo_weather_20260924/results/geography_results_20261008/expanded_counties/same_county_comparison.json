@@ -1,0 +1,70 @@
+{
+  "michael": {
+    "DOSE": {
+      "previous_training_rmse": 0.09141729227480605,
+      "expanded_training_same_counties_rmse": 0.09703795423592941,
+      "rmse_increase_pct": 6.148357516679992
+    },
+    "GCRK": {
+      "previous_training_rmse": 0.08997573208921578,
+      "expanded_training_same_counties_rmse": 0.09691941817950527,
+      "rmse_increase_pct": 7.717287683088192
+    },
+    "COMPACT": {
+      "previous_training_rmse": 0.08540388699082206,
+      "expanded_training_same_counties_rmse": 0.09132634392360976,
+      "rmse_increase_pct": 6.934645648416637
+    }
+  },
+  "delta": {
+    "DOSE": {
+      "previous_training_rmse": 0.11580243386917373,
+      "expanded_training_same_counties_rmse": 0.11393255508788712,
+      "rmse_increase_pct": -1.614714577932863
+    },
+    "GCRK": {
+      "previous_training_rmse": 0.11549653855550907,
+      "expanded_training_same_counties_rmse": 0.11515913263273637,
+      "rmse_increase_pct": -0.2921350951228141
+    },
+    "COMPACT": {
+      "previous_training_rmse": 0.11336038077017363,
+      "expanded_training_same_counties_rmse": 0.11462942702758411,
+      "rmse_increase_pct": 1.1194795296103788
+    }
+  },
+  "winter": {
+    "DOSE": {
+      "previous_training_rmse": 0.04641372671391558,
+      "expanded_training_same_counties_rmse": 0.045957166522369274,
+      "rmse_increase_pct": -0.9836749252229771
+    },
+    "GCRK": {
+      "previous_training_rmse": 0.04717070758886893,
+      "expanded_training_same_counties_rmse": 0.048707401817052694,
+      "rmse_increase_pct": 3.2577298640022567
+    },
+    "COMPACT": {
+      "previous_training_rmse": 0.047217793088488696,
+      "expanded_training_same_counties_rmse": 0.0468530766642819,
+      "rmse_increase_pct": -0.7724131102936127
+    }
+  },
+  "ice": {
+    "DOSE": {
+      "previous_training_rmse": 0.06637244625804482,
+      "expanded_training_same_counties_rmse": 0.06589358884477636,
+      "rmse_increase_pct": -0.7214701887086505
+    },
+    "GCRK": {
+      "previous_training_rmse": 0.06545547996634184,
+      "expanded_training_same_counties_rmse": 0.06561559871976384,
+      "rmse_increase_pct": 0.24462238074542952
+    },
+    "COMPACT": {
+      "previous_training_rmse": 0.0654003340936516,
+      "expanded_training_same_counties_rmse": 0.06555910878362149,
+      "rmse_increase_pct": 0.24277351510548772
+    }
+  }
+}

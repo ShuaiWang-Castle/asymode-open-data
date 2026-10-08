@@ -1,0 +1,759 @@
+{
+  "cohorts": {
+    "michael": {
+      "counties": 147,
+      "county_hours": 21168,
+      "models": {
+        "DOSE": {
+          "rmse": 0.09141729227480605,
+          "mae": 0.03875477917322303,
+          "per_seed": [
+            {
+              "rmse": 0.09025531342912278,
+              "mae": 0.03779574325463803
+            },
+            {
+              "rmse": 0.09205840684161505,
+              "mae": 0.03882539267239252
+            },
+            {
+              "rmse": 0.0919381565536803,
+              "mae": 0.03964320159263854
+            }
+          ],
+          "rmse_reduction_vs_asymode_pct": 0.0,
+          "mae_reduction_vs_asymode_pct": 0.0
+        },
+        "GCRK": {
+          "rmse": 0.08997573208921578,
+          "mae": 0.039534429176703946,
+          "per_seed": [
+            {
+              "rmse": 0.09109672585384922,
+              "mae": 0.03997456615180262
+            },
+            {
+              "rmse": 0.09058240073177212,
+              "mae": 0.03984981307714853
+            },
+            {
+              "rmse": 0.08824806968202596,
+              "mae": 0.03877890830116069
+            }
+          ],
+          "rmse_reduction_vs_asymode_pct": 1.5769009885535201,
+          "mae_reduction_vs_asymode_pct": -2.011751892575875
+        },
+        "COMPACT": {
+          "rmse": 0.08540388699082206,
+          "mae": 0.0377214243972494,
+          "per_seed": [
+            {
+              "rmse": 0.08674233404481956,
+              "mae": 0.03847785991837266
+            },
+            {
+              "rmse": 0.08494358622058691,
+              "mae": 0.0375096424777966
+            },
+            {
+              "rmse": 0.08452574070705968,
+              "mae": 0.03717677079557897
+            }
+          ],
+          "rmse_reduction_vs_asymode_pct": 6.5779735259575585,
+          "mae_reduction_vs_asymode_pct": 2.6663931469066537
+        },
+        "ZERO": {
+          "rmse": 0.1368116999990287,
+          "mae": 0.050741952962368025,
+          "rmse_reduction_vs_asymode_pct": -49.656259329760346,
+          "mae_reduction_vs_asymode_pct": -30.930827229244894
+        },
+        "TIMESFM": {
+          "rmse": 0.1367927067032205,
+          "mae": 0.05073944177863584,
+          "rmse_reduction_vs_asymode_pct": -49.635482849364145,
+          "mae_reduction_vs_asymode_pct": -30.924347554258325
+        }
+      },
+      "new_vs_original_rmse_reduction_pct": 5.081197998878729,
+      "new_kernel_reduction_pct": {
+        "ZERO": {
+          "rmse": 37.57559697640743,
+          "mae": 25.66028267531424
+        },
+        "TIMESFM": {
+          "rmse": 37.566929517587056,
+          "mae": 25.65660347266129
+        },
+        "DOSE": {
+          "rmse": 6.5779735259575585,
+          "mae": 2.6663931469066537
+        },
+        "GCRK": {
+          "rmse": 5.081197998878729,
+          "mae": 4.585888343932066
+        }
+      }
+    },
+    "delta": {
+      "counties": 113,
+      "county_hours": 16265,
+      "models": {
+        "DOSE": {
+          "rmse": 0.11580243386917373,
+          "mae": 0.04285876646956668,
+          "per_seed": [
+            {
+              "rmse": 0.11543571902646761,
+              "mae": 0.04375266792872301
+            },
+            {
+              "rmse": 0.11893041542684053,
+              "mae": 0.043113271030708764
+            },
+            {
+              "rmse": 0.11304116715421304,
+              "mae": 0.04171036044926824
+            }
+          ],
+          "rmse_reduction_vs_asymode_pct": 0.0,
+          "mae_reduction_vs_asymode_pct": 0.0
+        },
+        "GCRK": {
+          "rmse": 0.11549653855550907,
+          "mae": 0.04287280792156206,
+          "per_seed": [
+            {
+              "rmse": 0.11336548857724224,
+              "mae": 0.04301740735322359
+            },
+            {
+              "rmse": 0.11416743541727481,
+              "mae": 0.04173836506589505
+            },
+            {
+              "rmse": 0.11895669167201015,
+              "mae": 0.043862651345567535
+            }
+          ],
+          "rmse_reduction_vs_asymode_pct": 0.26415275002790173,
+          "mae_reduction_vs_asymode_pct": -0.032762146818554605
+        },
+        "COMPACT": {
+          "rmse": 0.11336038077017363,
+          "mae": 0.042201068230313415,
+          "per_seed": [
+            {
+              "rmse": 0.11123572969888006,
+              "mae": 0.04227925156102553
+            },
+            {
+              "rmse": 0.11737344403227896,
+              "mae": 0.043204541582754996
+            },
+            {
+              "rmse": 0.11147196857936187,
+              "mae": 0.041119411547159736
+            }
+          ],
+          "rmse_reduction_vs_asymode_pct": 2.1088098215267026,
+          "mae_reduction_vs_asymode_pct": 1.5345710887882946
+        },
+        "ZERO": {
+          "rmse": 0.14508164196084006,
+          "mae": 0.049082880521458254,
+          "rmse_reduction_vs_asymode_pct": -25.283758823881143,
+          "mae_reduction_vs_asymode_pct": -14.522382617594044
+        },
+        "TIMESFM": {
+          "rmse": 0.1449463066135702,
+          "mae": 0.04900824970800274,
+          "rmse_reduction_vs_asymode_pct": -25.16689137753474,
+          "mae_reduction_vs_asymode_pct": -14.348250649730465
+        }
+      },
+      "new_vs_original_rmse_reduction_pct": 1.8495426893757272,
+      "new_kernel_reduction_pct": {
+        "ZERO": {
+          "rmse": 21.864421136913048,
+          "mae": 14.020799549725327
+        },
+        "TIMESFM": {
+          "rmse": 21.79146649635253,
+          "mae": 13.889868579774545
+        },
+        "DOSE": {
+          "rmse": 2.1088098215267026,
+          "mae": 1.5345710887882946
+        },
+        "GCRK": {
+          "rmse": 1.8495426893757272,
+          "mae": 1.5668199117669812
+        }
+      }
+    },
+    "winter": {
+      "counties": 113,
+      "county_hours": 16272,
+      "models": {
+        "DOSE": {
+          "rmse": 0.04641372671391558,
+          "mae": 0.012067988019510362,
+          "per_seed": [
+            {
+              "rmse": 0.044778457457535115,
+              "mae": 0.011401161412659172
+            },
+            {
+              "rmse": 0.04573894099800563,
+              "mae": 0.012101243852646364
+            },
+            {
+              "rmse": 0.04872378168620601,
+              "mae": 0.012701558793225548
+            }
+          ],
+          "rmse_reduction_vs_asymode_pct": 0.0,
+          "mae_reduction_vs_asymode_pct": 0.0
+        },
+        "GCRK": {
+          "rmse": 0.04717070758886893,
+          "mae": 0.012342054861992613,
+          "per_seed": [
+            {
+              "rmse": 0.046336773663189654,
+              "mae": 0.01253576142956711
+            },
+            {
+              "rmse": 0.04753155703428661,
+              "mae": 0.012455288084363242
+            },
+            {
+              "rmse": 0.047643792069130525,
+              "mae": 0.012035115072047487
+            }
+          ],
+          "rmse_reduction_vs_asymode_pct": -1.6309418108552576,
+          "mae_reduction_vs_asymode_pct": -2.2710234882497904
+        },
+        "COMPACT": {
+          "rmse": 0.047217793088488696,
+          "mae": 0.01240243854420772,
+          "per_seed": [
+            {
+              "rmse": 0.04498165260756406,
+              "mae": 0.012035916609317092
+            },
+            {
+              "rmse": 0.04794928483935209,
+              "mae": 0.012656303252911274
+            },
+            {
+              "rmse": 0.04872244181854995,
+              "mae": 0.012515095770394795
+            }
+          ],
+          "rmse_reduction_vs_asymode_pct": -1.732389169112003,
+          "mae_reduction_vs_asymode_pct": -2.771385952295047
+        },
+        "ZERO": {
+          "rmse": 0.06383293670086773,
+          "mae": 0.013263096976127832,
+          "rmse_reduction_vs_asymode_pct": -37.53029808254891,
+          "mae_reduction_vs_asymode_pct": -9.903133436040301
+        },
+        "TIMESFM": {
+          "rmse": 0.06381627582048298,
+          "mae": 0.013317229441540682,
+          "rmse_reduction_vs_asymode_pct": -37.49440163215731,
+          "mae_reduction_vs_asymode_pct": -10.351695908304404
+        }
+      },
+      "new_vs_original_rmse_reduction_pct": -0.09981936253777857,
+      "new_kernel_reduction_pct": {
+        "ZERO": {
+          "rmse": 26.029107340369585,
+          "mae": 6.489121156764554
+        },
+        "TIMESFM": {
+          "rmse": 26.009795336046082,
+          "mae": 6.869228328224464
+        },
+        "DOSE": {
+          "rmse": -1.732389169112003,
+          "mae": -2.771385952295047
+        },
+        "GCRK": {
+          "rmse": -0.09981936253777857,
+          "mae": -0.48925144872804527
+        }
+      }
+    },
+    "ice": {
+      "counties": 115,
+      "county_hours": 16560,
+      "models": {
+        "DOSE": {
+          "rmse": 0.06637244625804482,
+          "mae": 0.016451943966524326,
+          "per_seed": [
+            {
+              "rmse": 0.06318316841000325,
+              "mae": 0.015668495290652108
+            },
+            {
+              "rmse": 0.06595522223420608,
+              "mae": 0.016307563465684394
+            },
+            {
+              "rmse": 0.06997894812992513,
+              "mae": 0.01737977314323647
+            }
+          ],
+          "rmse_reduction_vs_asymode_pct": 0.0,
+          "mae_reduction_vs_asymode_pct": 0.0
+        },
+        "GCRK": {
+          "rmse": 0.06545547996634184,
+          "mae": 0.015970736033105826,
+          "per_seed": [
+            {
+              "rmse": 0.06292047784233443,
+              "mae": 0.015561925287296434
+            },
+            {
+              "rmse": 0.06556844052729227,
+              "mae": 0.015552843273421392
+            },
+            {
+              "rmse": 0.06787752152939881,
+              "mae": 0.01679743953859965
+            }
+          ],
+          "rmse_reduction_vs_asymode_pct": 1.381546625745833,
+          "mae_reduction_vs_asymode_pct": 2.924930539501225
+        },
+        "COMPACT": {
+          "rmse": 0.0654003340936516,
+          "mae": 0.01606387203980332,
+          "per_seed": [
+            {
+              "rmse": 0.06280725886290053,
+              "mae": 0.015638342025048976
+            },
+            {
+              "rmse": 0.0651005506555325,
+              "mae": 0.01587112246186648
+            },
+            {
+              "rmse": 0.06829319276252177,
+              "mae": 0.01668215163249451
+            }
+          ],
+          "rmse_reduction_vs_asymode_pct": 1.4646321164867304,
+          "mae_reduction_vs_asymode_pct": 2.3588211065551756
+        },
+        "ZERO": {
+          "rmse": 0.07084514502621313,
+          "mae": 0.014468546981972773,
+          "rmse_reduction_vs_asymode_pct": -6.738788488794301,
+          "mae_reduction_vs_asymode_pct": 12.055699852778979
+        },
+        "TIMESFM": {
+          "rmse": 0.07080945798401869,
+          "mae": 0.0146764261745991,
+          "rmse_reduction_vs_asymode_pct": -6.685020631488436,
+          "mae_reduction_vs_asymode_pct": 10.792145873691094
+        }
+      },
+      "new_vs_original_rmse_reduction_pct": 0.08424943598089873,
+      "new_kernel_reduction_pct": {
+        "ZERO": {
+          "rmse": 7.6855103204981905,
+          "mae": -11.026159432721606
+        },
+        "TIMESFM": {
+          "rmse": 7.63898502314182,
+          "mae": -9.45356756950484
+        },
+        "DOSE": {
+          "rmse": 1.4646321164867304,
+          "mae": 2.3588211065551756
+        },
+        "GCRK": {
+          "rmse": 0.08424943598089873,
+          "mae": -0.5831666524600543
+        }
+      }
+    }
+  },
+  "new_fits": 45,
+  "replay_checks": [
+    {
+      "cohort": "delta",
+      "fold": 0,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "fb89b442fb73ba10bd203e5d6e4b4480fa05dfec8c0bc923160b29bd1f147ac6",
+      "weights_sha256": "32a04b733dffd02bc3715dad795da1ad4d551498cc5a01eaa4b4dcc022a9152a"
+    },
+    {
+      "cohort": "delta",
+      "fold": 1,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "52ea22409f25a215801cba50ea80e9147badd3c84d06454d0cd1dffe0334f0cc",
+      "weights_sha256": "7683476a4c2f5efc248f18d49f99f60db16b9bfba427fb3055504c744ed757fa"
+    },
+    {
+      "cohort": "delta",
+      "fold": 2,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "ad506333193254d095abb35ffbb537d24679d6a1a3d821b9223ce6373436a87e",
+      "weights_sha256": "df2b4ff6fb1f9c035c84e08ccfb1cebca2186e810f6b6d3d906dd79ad340d2a4"
+    },
+    {
+      "cohort": "delta",
+      "fold": 3,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "21834d0e35a3c026148c18946bbcddfb9355d5d82591df8bf30b13e1cde270ea",
+      "weights_sha256": "7ec90c1842261219a34b5fef8f9c52a1854973554f82d9189c7c26cb5fc49d29"
+    },
+    {
+      "cohort": "delta",
+      "fold": 4,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "5ab0e6fdb250532378b7570ff709d917a938ab46d4b3e6116346899512d80813",
+      "weights_sha256": "e65a7d538ffd7209ee331b07abc916fa5e44668b304e9f3d54b375373a06e54e"
+    },
+    {
+      "cohort": "delta",
+      "fold": 0,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "7c9b993df3cfbc0862a8dba1140065181c2caebce261934ac8a46ce1ed7960fd",
+      "weights_sha256": "987fe2d4c1a1a1798806ec262cab4a2986590007a2fcd87b5fa918456e494023"
+    },
+    {
+      "cohort": "delta",
+      "fold": 1,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "70f6307483a07c267fcce38e2c3e52a116f072ee524d7fe47e916833a357b135",
+      "weights_sha256": "25ec439c17526a2162941925ee864ae89c9976440c2f58afcd9db0f51134a436"
+    },
+    {
+      "cohort": "delta",
+      "fold": 2,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "78e3ea85db96840d28cbf87eef5a089e8935f54eb602557288bad97602c3b42d",
+      "weights_sha256": "1c1d7149377210bfca4738ec8efd9417293935721f4d8848d7334ea081abdb9c"
+    },
+    {
+      "cohort": "delta",
+      "fold": 3,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "1a72ee77e174190727ee430c88eaae7f126254a04d06ffb4736cb3cba1be8d5f",
+      "weights_sha256": "558a1221c09098e7724593e8c52472050c3c271cfd6d0c7e949d6586cf957f06"
+    },
+    {
+      "cohort": "delta",
+      "fold": 4,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "c0ff202de5b3af94c0431c01c77a394b9b6ae122878c8421bd5cc855d88f3cb4",
+      "weights_sha256": "06765daee18fdfbd6ebe1cbb6c937bdc45b358ee7bd8f3d655caa61f5fad1d70"
+    },
+    {
+      "cohort": "delta",
+      "fold": 0,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "e8dbd4d94713d971b129f3caa82dbddb209de570f5de33f0fd9e3eb05d2d8d49",
+      "weights_sha256": "fe16f1622d065828b813219e7986757d54dab84aca5d3bdd5df507bfbbe5e550"
+    },
+    {
+      "cohort": "delta",
+      "fold": 1,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "4bf49f949a2c43df3eb45bed07529194384c85b9e87c2c49496d9619f8b75dc2",
+      "weights_sha256": "db31f855836cda8f74f8e80e3be2257627148768a2d678a7e059c2df2a497cf3"
+    },
+    {
+      "cohort": "delta",
+      "fold": 2,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "c5e30a6e9414975e2ea5482890bc45a36571300dcf8caa203e769f51b3cb17a6",
+      "weights_sha256": "59fc1d8b64d7570cb5c7ac4b793613f2ea2f35597371977528ea2de4c62b850a"
+    },
+    {
+      "cohort": "delta",
+      "fold": 3,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "f7eba529692e39d955e598289bf3bd8ceb1a34e20fb6a4486f97f1648a396f7c",
+      "weights_sha256": "51ca1fed8c7ff0b90dbd7a2306feb512e148e0b16c620d8d521e3a049865b243"
+    },
+    {
+      "cohort": "delta",
+      "fold": 4,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "14f83beb0e819145993303ec2c1e688ad2693759ce4a9a5537c0386246a9bb10",
+      "weights_sha256": "635bf57612129200a91e76338d08775c3d756c62cea2e4f3a18ecfa743cbf202"
+    },
+    {
+      "cohort": "winter",
+      "fold": 0,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "66aed489fd02c41a7a1680b073e74ab2fc68739fa1b2766f162ba28935217d16",
+      "weights_sha256": "9d17f9a312b735b3e8c7dab77153706c0582d4fefc68c1f225ecaa59d6a18481"
+    },
+    {
+      "cohort": "winter",
+      "fold": 1,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "f627892b1579e46d2640fae91e871699a7543cf927e151f8b966e42f122f8807",
+      "weights_sha256": "609ef45bb4903ece591cd074f1810ab4da4d1f9d19609496b67b10f23d93cbde"
+    },
+    {
+      "cohort": "winter",
+      "fold": 2,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "ec9500cfe4785412725772d9d7daa7ce5fe49cca7c2493d61f973a85d95b1170",
+      "weights_sha256": "7710000f50f31c32dca927b9e7a9234a39e3af0c135328e8aa80b59d7057878a"
+    },
+    {
+      "cohort": "winter",
+      "fold": 3,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "46302f0fbfc3fa81cf1ba07e5f4698a18e02d429090d5471be94b6654eacbce8",
+      "weights_sha256": "029cf86a87d2449c72db1682da6383887dfd87389ab358ab919cc870f0b3e34c"
+    },
+    {
+      "cohort": "winter",
+      "fold": 4,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "e728973ae52533cd095deac1bcd4877f39150e82880c7df72b8fb4f784a2e8a4",
+      "weights_sha256": "649522b6c7ee53944dba51746316b332f651e70e1742fc8d166f47f3f729465e"
+    },
+    {
+      "cohort": "winter",
+      "fold": 0,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "3d55280d587c45ee7cdf379c72f2d6a94db47ca96cf0bfb5c9d83432f852d01c",
+      "weights_sha256": "56ec961c84003d8e073a5bb1ec484d9091ff7f8ea893738e8a254ba9f1fb7927"
+    },
+    {
+      "cohort": "winter",
+      "fold": 1,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "28c2a2b0a1a59202b94162d3e0cd0729b9c7c53f7de57e29359bc4111a001c9c",
+      "weights_sha256": "0756438644eb5d9180dc034178a9f704e21e99f2d4e697966b9d1f84978969af"
+    },
+    {
+      "cohort": "winter",
+      "fold": 2,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "e41caad7a9462530edc4f0f0dd676e650027c8bdc541c05fc48b9b5fb3e7167f",
+      "weights_sha256": "a9493efa025a3b5109b962560a1138b5f277fd144b192a1bb3af878106ed8685"
+    },
+    {
+      "cohort": "winter",
+      "fold": 3,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "84d23632357d790815d3687c1418c6e667a867220592d33b9aede0303731db66",
+      "weights_sha256": "68944dd30dde6ce6519d234ee1f3eecf110a9bafa7cdb9d7d0cb9a892d572ee9"
+    },
+    {
+      "cohort": "winter",
+      "fold": 4,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "2b10cd3d483f3ee34069f61559e702f12140da2155aaf24da378b54590c0ebfa",
+      "weights_sha256": "6418125faa8eaf977e7d3d6e2a73d81dda2a3192909eda2c8e15540eccba7648"
+    },
+    {
+      "cohort": "winter",
+      "fold": 0,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "539d29244a8f9d6ae7d9a2cb3e75984079611fac88ec1a6dfdbcbe69d78f78ec",
+      "weights_sha256": "bf6291fad4b01b4922ae6ff383cab2379decce9005feac967e78dc27d115d75b"
+    },
+    {
+      "cohort": "winter",
+      "fold": 1,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "df2d62e39700b7486d7e8d9a06f00554d3cc9bd5f8491641f4e9c6ab33c0e145",
+      "weights_sha256": "1e2630fc6a8840957b1afba77e619ecec62d510424883588a13b68474a238c9b"
+    },
+    {
+      "cohort": "winter",
+      "fold": 2,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "af0c6a4b56d28a2d2d7dada40d6b6c4947326088cc47311d39021010a6189d42",
+      "weights_sha256": "b2b43444a36547d60373e270b48704fc7052e2bf44b730d8592c22465bd283e3"
+    },
+    {
+      "cohort": "winter",
+      "fold": 3,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "1970498641dbf7453c04282bdb559f2e7a37a95d9200f426b7f27ee2aa59de69",
+      "weights_sha256": "59b9871bfa8029a79152a2c3e1620dd5a6afe66e8507079c15efab7ce3aa0d04"
+    },
+    {
+      "cohort": "winter",
+      "fold": 4,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "86ff74fc1e9fb8ba0f1e8ef81f6bb6449cdc9e677462e02a4daf45baa1b19233",
+      "weights_sha256": "fb9100054dbe76e2bb42885897582b9f0cc0fdd9d1e80c2a5106ef5be8464cda"
+    },
+    {
+      "cohort": "ice",
+      "fold": 0,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "2c32052ea1a830c11f089621b308f45891b2ee224debe159c29e32599f565acd",
+      "weights_sha256": "55d76edb9d883ead8726ed15d99ede657007e2d77a761c5c124333cb4aa9e9d3"
+    },
+    {
+      "cohort": "ice",
+      "fold": 1,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "551d166b4ded7cabdc176885d938b5217a2d4269b7a6bbb8811ee3d6a85f42a0",
+      "weights_sha256": "0991a96cbca4fe40df5042182f8c209bb2dc4c74ac8a0f018e0cee4473b1c95f"
+    },
+    {
+      "cohort": "ice",
+      "fold": 2,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "97e45c22cb99caa96731bb846b6a4b60ab56b65f114a0402d25c8a9b5dc3da30",
+      "weights_sha256": "a60d21b411833d9d3d62748a313c5776fe4280a7377826497ea3ac95ccd63367"
+    },
+    {
+      "cohort": "ice",
+      "fold": 3,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "d03ae683d46100998f3ae7d39a5a123bd16772b63a95ac4f4061af218219e82e",
+      "weights_sha256": "2c2a4354b42ac5d3fffe1d6d969e57e70a4180e171d323d8c85baf21e389153a"
+    },
+    {
+      "cohort": "ice",
+      "fold": 4,
+      "seed": 0,
+      "max_replay_difference": 0,
+      "prediction_sha256": "f64f3d6248734bb18bfd8e6169809ed41fad4099c19dc0d5f8a237830056f6c8",
+      "weights_sha256": "16c05ad55c29254c2fae549735059b4366a710997635d8779385f96be0bf9444"
+    },
+    {
+      "cohort": "ice",
+      "fold": 0,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "fbfc4b306f1e72e93fb6dc3fdb625b666df57495dd39ed97afd1ba5d38ea6c38",
+      "weights_sha256": "4b8d406e18c73a734ba2c6aecf49dbbdd256f35a05862ecfc1f097fd033528cf"
+    },
+    {
+      "cohort": "ice",
+      "fold": 1,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "55091e5b87a8ee980b0fa11d2c343ea864602044bc4727bfab9b8f11e80c44f6",
+      "weights_sha256": "a5acc02862e32491229b847fc6f1035ad2aebc7079ecc2a5161f0acccd93910b"
+    },
+    {
+      "cohort": "ice",
+      "fold": 2,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "1fc92062c0108dd4ace542608e735fa0dc90bd3b69161ca6743e90bca1e3bdf0",
+      "weights_sha256": "b3a934e467be9608633d1462d1bfcd56d41a9bdd937fb1ce2c87272af0fb2d90"
+    },
+    {
+      "cohort": "ice",
+      "fold": 3,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "e30246a06336935042a50ca10861167bbbd4f57bf1ee8319a1eca4a6798104e8",
+      "weights_sha256": "64be84b8807bc555d0e7f7528c18a8f0bbd34df077cf790f934568e57231ed89"
+    },
+    {
+      "cohort": "ice",
+      "fold": 4,
+      "seed": 1,
+      "max_replay_difference": 0,
+      "prediction_sha256": "ffdbba12fd04cf642f8cb33a06ab5efb483492ffa24da8508829288ff4c9d7ae",
+      "weights_sha256": "2136131901cdeeb70009af7c993eec2898e1192fc4127d9369a2e1f1f7c0c71b"
+    },
+    {
+      "cohort": "ice",
+      "fold": 0,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "805ac0da176a1afddc8498251456886067364f4dbbfd7ca0b5911b797607cf26",
+      "weights_sha256": "9fd5bb5a5ce4a3e1ea049852593407bee4ff36817ead43561b3dc0791c14be75"
+    },
+    {
+      "cohort": "ice",
+      "fold": 1,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "7b2f408d18a72890a1db17604ccc56dd92f84392dfb8ca0adc885e6e45210485",
+      "weights_sha256": "00c01aea4ee039937b9e9e82d7cfe0f341a14bc422dfa878dff27e038df3ee11"
+    },
+    {
+      "cohort": "ice",
+      "fold": 2,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "327ef4cb78d7d6e5806cc54193bdb9884589d1795b2ad2c03b56f82e7cd7d0af",
+      "weights_sha256": "b1bfcb81b39afd30fa1af5aa25e7b1e01fd5abb7991dd0085f59c91e3c97ad6f"
+    },
+    {
+      "cohort": "ice",
+      "fold": 3,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "4a5cc023b3a4bf058132c67dd24e8b0e3cc89016d83ecc102e4c8719fd172412",
+      "weights_sha256": "09edaef0c81ff15e90092fc3dc525ef985b74d894799388fbc4c2a26ada45460"
+    },
+    {
+      "cohort": "ice",
+      "fold": 4,
+      "seed": 2,
+      "max_replay_difference": 0,
+      "prediction_sha256": "215641d41d398d4fd1e914e51141bf31d8e900eaef5f3ceee13d1e9428c18cd0",
+      "weights_sha256": "75865cc8fe8410643791b7ab07664b0083cffe2845890f1b8c257b1e91e2967b"
+    }
+  ],
+  "metric": "Pool five held-out county folds per seed, then average 3 seed metrics. TimesFM is frozen zero-shot, one prediction per county, on the same pooled evaluation mask.",
+  "percent": "100*(1-model_RMSE/AsymODE_RMSE); positive is improvement",
+  "development_limit": "Michael errors guided COMPACT changes; all cohorts are development data, not sealed confirmation.",
+  "model": "TimesFM 3.0 with all 18 shared weather/clock covariates, 72h past and known 144h future weather; no future outage labels."
+}

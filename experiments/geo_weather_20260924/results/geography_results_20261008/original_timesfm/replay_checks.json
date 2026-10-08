@@ -1,0 +1,22 @@
+[
+  {
+    "cohort": "michael",
+    "replayed_counties": 4,
+    "prediction_max_abs_difference": 0.0
+  },
+  {
+    "cohort": "delta",
+    "replayed_counties": 4,
+    "prediction_max_abs_difference": 0.0
+  },
+  {
+    "cohort": "winter",
+    "replayed_counties": 4,
+    "prediction_max_abs_difference": 0.0
+  },
+  {
+    "cohort": "ice",
+    "replayed_counties": 4,
+    "prediction_max_abs_difference": 0.0
+  }
+]
